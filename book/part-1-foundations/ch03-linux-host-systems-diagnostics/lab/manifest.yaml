@@ -1,0 +1,30 @@
+lab: ch03-linux-host-systems-diagnostics
+title: "Host discovery and fleet health triage (Progressive Lab 1)"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: >-
+  None for L1. Six synthetic hostdiag/1 snapshots modeled on the ORION HX8 node
+  (docs/REFERENCE_CLUSTER.md): 2 x 56-core sockets, 2 NUMA nodes, 2 TiB DDR5, 8 H100-class GPUs
+  on PCIe Gen5 x16, 8 x 400G rail NICs, 2 x 200G frontend NICs, 8 NVMe.
+data_generation: {script: tools/generate_snapshots.py, seed: 3, verify: "python tools/generate_snapshots.py --check", note: "instructor material; stripped from the student release"}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+collector_validation:
+  # Environments in which the reference collector itself has been executed (not the snapshots).
+  - environment: "Windows 11, Python 3.13"
+    result: "all sections 'skipped' by design; JSON + Markdown written"
+  - environment: "python:3.12-slim container (Debian), WSL2 kernel 6.18, non-root and root"
+    result: "uname/lscpu/taskset/pcie_sysfs/interrupts ok; missing tools reported 'missing'; dmesg denied without CAP_SYSLOG, journalctl fallback attempted; analyzer ran on the real snapshot without error"
+  - environment: "Physical HX8-class GPU host"
+    result: "NOT YET VALIDATED - release gate (see review/REVIEW.md)"
+extensions:
+  - tier: L2
+    requires: "One Linux GPU host you are authorized to inspect; root optional"
+    record: [distro, kernel, pciutils_version, sysstat_version, procps_version, cpu_model, bios_version,
+             gpu_driver_version, nic_driver_and_firmware, ran_as_root, load_state_idle_or_busy,
+             snapshots_per_host, parser_changes]
+  - tier: L3
+    requires: "2+ GPU nodes with RDMA NICs (RoCEv2 or InfiniBand), nccl-tests built"
+    record: [all_of_L2, node_count, fabric_type, mtu, all_reduce_perf_command, run_count,
+             collector_timestamps_relative_to_benchmark]

@@ -1,0 +1,223 @@
+{
+ "gaps": [
+  {
+   "description": "No pre-declared abort conditions.",
+   "fix_keywords": [
+    "abort",
+    "stop condition",
+    "halt",
+    "abort condition"
+   ],
+   "id": "G-ABORT"
+  },
+  {
+   "description": "No change ticket or approval.",
+   "fix_keywords": [
+    "ticket",
+    "approval",
+    "cab"
+   ],
+   "id": "G-APPROVAL"
+  },
+  {
+   "description": "No capture of before-state or audit evidence.",
+   "fix_keywords": [
+    "audit",
+    "before-state",
+    "before state",
+    "snapshot",
+    "evidence",
+    "record"
+   ],
+   "id": "G-AUDIT"
+  },
+  {
+   "description": "No bake time between stages to observe the change under load.",
+   "fix_keywords": [
+    "bake",
+    "soak",
+    "observation period",
+    "wait period"
+   ],
+   "id": "G-BAKE"
+  },
+  {
+   "description": "No blast-radius cap: too many failure domains (racks, rails, leaves) changed at once.",
+   "fix_keywords": [
+    "blast radius",
+    "blast-radius",
+    "per rack",
+    "one rail",
+    "failure domain",
+    "cap"
+   ],
+   "id": "G-BLAST-RADIUS"
+  },
+  {
+   "description": "Unrelated changes bundled together, so a regression cannot be attributed.",
+   "fix_keywords": [
+    "separate",
+    "unbundle",
+    "one change",
+    "split",
+    "independent change"
+   ],
+   "id": "G-BUNDLED"
+  },
+  {
+   "description": "No canary: the change is applied to the whole population at once.",
+   "fix_keywords": [
+    "canary",
+    "wave",
+    "first node",
+    "two nodes",
+    "small subset"
+   ],
+   "id": "G-CANARY"
+  },
+  {
+   "description": "Affected teams are not notified.",
+   "fix_keywords": [
+    "notify",
+    "communication",
+    "status page"
+   ],
+   "id": "G-COMMS"
+  },
+  {
+   "description": "Running workloads are not drained or coordinated before disruptive steps.",
+   "fix_keywords": [
+    "drain",
+    "cordon",
+    "maintenance reservation",
+    "no running jobs",
+    "reservation"
+   ],
+   "id": "G-DRAIN"
+  },
+  {
+   "description": "No dry-run or diff preview of the exact changes before they are applied.",
+   "fix_keywords": [
+    "dry-run",
+    "dry run",
+    "diff",
+    "preview",
+    "plan output"
+   ],
+   "id": "G-DRYRUN"
+  },
+  {
+   "description": "No way to stop the automation once it has started.",
+   "fix_keywords": [
+    "kill switch",
+    "kill-switch",
+    "stop",
+    "pause",
+    "circuit breaker"
+   ],
+   "id": "G-KILL-SWITCH"
+  },
+  {
+   "description": "No verification of out-of-band/console access before a change that can cut in-band access.",
+   "fix_keywords": [
+    "out-of-band",
+    "oob",
+    "console",
+    "bmc",
+    "serial"
+   ],
+   "id": "G-OOB-ACCESS"
+  },
+  {
+   "description": "Unsafe ordering / inconsistent intermediate state between dependent components.",
+   "fix_keywords": [
+    "order",
+    "sequence",
+    "consistent",
+    "intermediate state",
+    "host before",
+    "switch before"
+   ],
+   "id": "G-ORDERING"
+  },
+  {
+   "description": "No named owner for the change.",
+   "fix_keywords": [
+    "owner",
+    "accountable"
+   ],
+   "id": "G-OWNER"
+  },
+  {
+   "description": "No prechecks of current health, baseline, or compatibility before changing.",
+   "fix_keywords": [
+    "precheck",
+    "pre-check",
+    "baseline",
+    "health check",
+    "compatibility matrix",
+    "validated bundle"
+   ],
+   "id": "G-PRECHECK"
+  },
+  {
+   "description": "Unbounded parallelism: no concurrency or rate limit on the automation.",
+   "fix_keywords": [
+    "rate limit",
+    "rate-limit",
+    "concurrency",
+    "parallelism",
+    "batch size",
+    "serial"
+   ],
+   "id": "G-RATE-LIMIT"
+  },
+  {
+   "description": "Configuration is applied by hand from an unreviewed, unversioned source.",
+   "fix_keywords": [
+    "version control",
+    "git",
+    "pull request",
+    "peer review",
+    "gitops",
+    "schema",
+    "validated config"
+   ],
+   "id": "G-REVIEW-VCS"
+  },
+  {
+   "description": "Rollback is undefined, untested, or not actually a rollback.",
+   "fix_keywords": [
+    "rollback",
+    "roll back",
+    "downgrade",
+    "revert tested",
+    "backout"
+   ],
+   "id": "G-ROLLBACK"
+  },
+  {
+   "description": "Success criteria are vague or not measurable.",
+   "fix_keywords": [
+    "success criteria",
+    "measurable",
+    "threshold",
+    "busbw",
+    "all_reduce_perf",
+    "acceptance"
+   ],
+   "id": "G-SUCCESS-CRITERIA"
+  },
+  {
+   "description": "Change window is inappropriate or too short for the work.",
+   "fix_keywords": [
+    "window",
+    "friday",
+    "weekday",
+    "staffed",
+    "duration"
+   ],
+   "id": "G-WINDOW"
+  }
+ ]
+}

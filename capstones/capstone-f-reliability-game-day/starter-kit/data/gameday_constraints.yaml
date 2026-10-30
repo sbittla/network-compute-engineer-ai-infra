@@ -1,0 +1,19 @@
+environment: SIMULATED ORION-256 (starter-kit/sim/cluster_sim.py) - never a shared
+  or production cluster
+horizon_s: 21600
+warmup_s: 1900
+max_concurrent_faults: 2
+protected_nodes:
+- orion-n29
+- orion-n30
+- orion-n31
+- orion-n32
+protected_reason: rack-08 serves the W-INFER customer-facing inference partition;
+  out of scope for this game day
+detection_targets_s:
+  node_loss: 120
+  link_down: 120
+  scheduler_outage: 120
+  storage_slow: 300
+max_false_alerts_per_6h: 0
+game_day_t0_utc: '2026-11-05T14:00:00Z'

@@ -1,0 +1,6 @@
+metric,option,scenario,rank_layout,value,unit,evidence_label,source,formula_or_procedure,run_count,spread,notes
+dp_bytes_per_gpu,<fill: A|B>,<fill: baseline_3d|fsdp_dp32>,<fill: sorted|hostfile + scheme>,<fill>,GB,MODELED,starter-kit comm_step_model,2(n-1)/n x S,n/a,n/a,<fill>
+dp_contention,<fill>,<fill>,<fill>,<fill>,x,MODELED,starter-kit contention,max(1; max cross-leaf flows / uplinks),n/a,n/a,<fill>
+step_time,<fill>,<fill>,<fill>,<fill>,s,MODELED,starter-kit comm_step_model,compute + exposed comm,n/a,n/a,<fill>
+usd_per_million_tokens,<fill>,<fill>,<fill>,<fill>,USD,MODELED,starter-kit cost_per_million_tokens,usd_per_hour / tokens_per_hour x 1e6,n/a,n/a,<fill>
+<fill: L3 busbw if measured>,<fill>,<fill>,<fill>,<fill>,GB/s,MEASURED,<fill: manifest file>,all_reduce_perf ...,<fill: >= 5>,<fill: min-max or IQR>,<fill>

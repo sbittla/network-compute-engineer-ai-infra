@@ -1,0 +1,42 @@
+# ILLUSTRATIVE fleet thresholds for the Chapter 10 lab. Not a vendor specification.
+# rx_power_low_warn/crit are OPERATIONAL POLICY: warn with ~2 dB left above the receiver minimum,
+# critical at the receiver minimum (400GBASE-DR4: -5.9 dBm average per lane, IEEE 802.3bs; verify).
+# module_rx_low_warn/alarm are what a typical module programs in its CMIS memory map; they sit BELOW
+# the receiver minimum, so they are informational only and must not drive alerting.
+interval_expected_s: 600
+optics:
+  400G-DR4:
+    lanes: 4
+    media: "SMF, parallel, MPO-12, 1310 nm, 500 m"
+    rx_power_low_warn_dbm: -4.0
+    rx_power_low_crit_dbm: -5.9
+    module_rx_low_warn_dbm: -6.0
+    module_rx_low_alarm_dbm: -9.0
+    rx_power_high_warn_dbm: 4.0
+    temp_high_warn_c: 70.0
+  400G-FR4:
+    lanes: 4
+    media: "SMF, duplex LC, CWDM4 1271-1331 nm, 2 km"
+    rx_power_low_warn_dbm: -5.0
+    rx_power_low_crit_dbm: -7.0
+    rx_power_high_warn_dbm: 3.5
+    temp_high_warn_c: 70.0
+  400G-SR8:
+    lanes: 8
+    media: "MMF OM4, MPO-16, 850 nm, 100 m"
+    rx_power_low_warn_dbm: -6.5
+    rx_power_low_crit_dbm: -8.5
+    rx_power_high_warn_dbm: 4.0
+    temp_high_warn_c: 70.0
+fec:
+  code: "RS(544,514) KP4"
+  pre_fec_ber_threshold: 2.4e-4
+  pre_fec_ber_warn: 1.0e-5
+  pre_fec_ber_crit: 1.0e-4
+  pre_fec_ber_rising_factor: 10.0
+  pre_fec_ber_rising_floor: 1.0e-6
+link:
+  flap_events_warn: 2
+  lane_imbalance_db: 3.0
+higher_layer:
+  pfc_pause_rate_warn_per_s: 100.0

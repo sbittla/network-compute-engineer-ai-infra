@@ -1,0 +1,33 @@
+lab: ch07-fabric-design
+title: "Fabric design and validation tool for the ORION-256 backend (Progressive Lab 2)"
+tier: L1
+python: ">=3.10"
+dependencies: []          # standard library only (csv, ipaddress, itertools, math)
+hardware_assumptions: >-
+  None. Uses a synthetic fabric-intent dataset modeled on the ORION-256 rail-optimized backend
+  (docs/REFERENCE_CLUSTER.md): 8 rail leaves x 64 x 400G, 4 spines x 64 x 400G, 8 links per
+  leaf-spine pair, 32 HX8 nodes (orion-n01..orion-n32). Leaf-spine /31s in 10.101.<spine>.0/24 are
+  defined in Chapter 7 and adopted by the reference addressing plan. Device names follow the
+  reference "Canonical names" table (orion-be-leaf-rR, orion-be-spine-S).
+data_generation:
+  script: tools/generate_intent.py
+  seed: 7
+  outputs: [data/devices.csv, data/links.csv, data/advertisements.csv]
+  byte_identical_on_regeneration: true
+  distribution: instructor copy only (stripped from the student release; check T0 then reports SKIP)
+evidence_class: MODELED   # sizing and capacity are formula-based; validation is static analysis of intent
+runtime_budget_seconds: 60
+measured_runtime_seconds: 0.3   # solution, laptop-class CPU
+checks: 19
+extensions:
+  - tier: L2
+    requires: "One Linux host with containerlab + FRR images (or any NOS container you are licensed for)"
+    purpose: "Build a 2-spine/4-leaf eBGP fabric from the generated plan; observe ECMP, BFD and convergence"
+    record: [containerlab_version, nos_image_and_version, frr_version, topology_file_hash, bfd_timers,
+             bgp_timers, mtu_per_interface, failure_injected, convergence_ms_runs, run_count]
+  - tier: L3
+    requires: "Dedicated (non-production) leaf-spine lab with 2+ RoCEv2 hosts and switch CLI access"
+    purpose: "Validate MTU end-to-end, ECMP spread and failover on real ASICs"
+    record: [switch_model, switch_os_version, asic_family, nic_model, nic_firmware, driver_version,
+             topology, mtu_switch, mtu_host, rdma_path_mtu, ecmp_hash_fields, hash_seed,
+             bfd_timers, failure_injected, convergence_ms_runs, run_count]

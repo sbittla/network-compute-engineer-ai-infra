@@ -1,0 +1,20 @@
+lab: capstone-h-disaggregated-llm-serving
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. W-INFER (70B, BF16, TP=8 per HX8) from docs/REFERENCE_CLUSTER.md; roofline efficiencies
+  and prices ILLUSTRATIVE; two hypothetical accelerator classes. Serving simulator in sim/.
+data_generation: {script: tools/generate_data.py, seed: 15}
+evidence_class: SIMULATED   # MEASURED | MODELED | SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One GPU host with a supported serving stack and open model"
+    record: [gpu_model, driver_version, cuda_version, serving_stack_version, model, precision,
+             prompt_lengths, batch_sizes, repetitions, warmup_policy, fitted_mfu, fitted_hbm_eff]
+  - tier: L3
+    requires: "Two dedicated lab GPU nodes with RDMA NICs (GPUDirect RDMA capable) and a lab switch"
+    record: [nic_firmware, rdma_stack_version, perftest_version, iperf3_version, path_mtu, host_mtu,
+             gdr_mechanism, acs_iommu_settings, switch_qos_config, achieved_Gbps_per_rail, tcp_Gbps,
+             tcp_cpu_util, repetitions]

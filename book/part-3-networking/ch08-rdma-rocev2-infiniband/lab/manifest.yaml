@@ -1,0 +1,42 @@
+lab: ch08-rdma-readiness-validator
+chapter: 8
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Parses synthetic command captures and perftest outputs modelled on eight ORION-256 HX8
+  nodes (orion-n01..n08, rack-01 and rack-02) with 8 x 400 Gb/s RoCEv2 backend NICs each
+  (docs/REFERENCE_CLUSTER.md). Output formats imitate ibv_devinfo, rdma, show_gids, ethtool, ip,
+  dcb, lsmod and perftest but are abridged and version-dependent.
+data_generation:
+  script: tools/generate_data.py
+  seed: 8
+  outputs: [data/baseline.yaml, data/inventory/*.txt, data/perftest/*.txt, data/perftest/pcie_link.csv]
+  byte_identical_on_regeneration: true
+evidence_class: SIMULATED      # synthetic captures; no value here is a measurement
+runtime_budget_seconds: 60
+extensions:
+  - tier: L3
+    requires: >-
+      2+ Linux hosts with RDMA NICs (RoCEv2 or InfiniBand) on a dedicated lab fabric, rdma-core and
+      perftest installed, root or CAP_NET_ADMIN for dcb/ethtool queries, and permission from the
+      fabric owner to run bandwidth tests.
+    record:
+      - hostnames_and_roles
+      - nic_model_and_psid
+      - nic_firmware
+      - driver_name_and_version          # ethtool -i
+      - rdma_core_version
+      - perftest_version
+      - kernel_version
+      - link_layer_and_speed
+      - netdev_mtu_and_rdma_active_mtu
+      - gid_index_used_and_roce_version
+      - switch_model_and_os_version
+      - switch_qos_config_summary       # trust mode, PFC priorities, ECN thresholds
+      - topology                        # same leaf / via spine, cable type and length
+      - numa_node_of_nic_and_cpu_binding
+      - perftest_command_lines
+      - warmup_policy
+      - run_count                       # >= 5 per size for latency; report median, p99, spread
+      - ambient_load_on_fabric

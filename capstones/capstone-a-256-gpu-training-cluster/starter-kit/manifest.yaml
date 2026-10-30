@@ -1,0 +1,27 @@
+lab: capstone-a-256-gpu-training-cluster
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. All inputs are ILLUSTRATIVE teaching values modeled on ORION-256 (docs/REFERENCE_CLUSTER.md):
+  32 x HX8 nodes, 8 x 400G RoCEv2 rails, a component catalog, a facility envelope and a hall floor plan.
+data_generation: {script: tools/generate_data.py, seed: 2026}
+evidence_class: MODELED   # every number the starter kit produces is computed from stated formulas
+runtime_budget_seconds: 60
+outputs:
+  - fabric counts and design-rule warnings for three backend options
+  - per-link cable plan (length, medium, transceivers)
+  - per-rack power with 2N feed check; per-row N+1 cooling check
+  - W-TRAIN communication and step-time model under rank-layout and oversubscription scenarios
+  - bill of materials, acceptance-campaign sizing, cost per million training tokens
+extensions:
+  - tier: L2
+    requires: "One HX8-class host (8 GPUs, 8 RDMA NICs) with root access in a dedicated lab"
+    record: [server_model, bios_version, gpu_model, gpu_driver, cuda_version, nccl_version, nic_model,
+             nic_firmware, rdma_stack_version, nvidia_smi_topo_m_output, lstopo_output, measured_node_power_w,
+             psu_count_and_rating, run_count, warmup_policy]
+  - tier: L3
+    requires: "2+ HX8-class nodes on a rail-optimized RoCEv2 or InfiniBand fabric with switch counter access"
+    record: [switch_model, switch_os_version, nic_firmware, topology, mtu, pfc_ecn_config, ecmp_hash_fields,
+             optic_part_numbers, cable_lengths, nccl_version, nccl_tests_version, rank_to_node_map,
+             run_count, warmup_policy, busbw_median_and_spread]

@@ -1,0 +1,15 @@
+rack_id,role,node_count,power_basis,planned_it_kw,circuits_per_side,breaker_a,est_weight_kg
+rack-01,gpu,4,max,41.0,2,60,803
+rack-02,gpu,4,max,41.0,2,60,805
+rack-03,gpu,4,sustained,34.2,2,60,805
+rack-04,gpu,4,max,41.0,2,60,823
+rack-05,gpu,4,max,41.0,2,60,810
+rack-05,gpu,4,max,41.0,2,60,810
+rack-06,gpu,4,max,41.0,2,60,819
+rack-07,gpu,4,max,41.0,1,60,816
+rack-08,gpu,4,max,41.0,2,60,1000
+NET-1,network,0,max,16.0,1,60,513
+NET-2,network,0,max,16.0,1,60,538
+STO-1,storage,0,max,9.0,1,32,592
+STO-2,storage,0,max,9.0,1,32,627
+MGMT-1,management,0,max,4.0,1,32,370

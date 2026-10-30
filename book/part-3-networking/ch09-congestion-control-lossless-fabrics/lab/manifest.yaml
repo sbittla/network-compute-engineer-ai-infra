@@ -1,0 +1,36 @@
+lab: ch09-congestion-telemetry   # Progressive Lab 3 -- network telemetry
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Telemetry is SYNTHETIC, modeled on a slice of the ORION-256 RoCEv2 backend fabric
+  (rail-3 and rail-4 leaves, two spines; docs/REFERENCE_CLUSTER.md). The incast model is a
+  single-queue fluid simulation.
+data_generation: {script: tools/generate_telemetry.py, spec: ../solutions/lab/planted_faults.yaml, seed: 909}   # instructor-only; stripped from student release
+data_files:
+  - data/switch_ports.csv     # 2 s samples; gauges + cumulative counters per switch port
+  - data/nic_counters.csv     # 2 s samples; gauges + cumulative counters per NIC
+  - data/flow_probes.csv      # pingmesh-style RDMA latency p50/p99 per probe
+  - data/topology.yaml        # links, roles, fabric intent, per-switch QoS snapshot
+  - data/sim_configs.yaml     # documented configurations for the SIMULATED incast model
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L3
+    requires: >-
+      Dedicated lab fabric (never production): >= 4 hosts with RoCEv2 NICs on one leaf (or IB HCAs),
+      switch CLI/telemetry access, perftest installed, authority to change ECN thresholds on the lab
+      switch only.
+    record:
+      - nic_model_and_firmware
+      - driver_and_rdma_stack_version
+      - switch_model_and_os_version
+      - topology_and_cable_lengths
+      - mtu_port_and_rdma_path_mtu
+      - qos_config_snapshot_before_and_after   # trust mode, DSCP->TC, PFC priorities, ECN Kmin/Kmax/Pmax, watchdog
+      - dcqcn_parameters_if_changed
+      - incast_generator_command_lines
+      - warmup_policy
+      - repetitions_per_config            # >= 5
+      - counters_collected_and_interval   # pause tx/rx, ECN-marked, CNPs, queue watermarks
+      - results_median_p95_p99_with_spread

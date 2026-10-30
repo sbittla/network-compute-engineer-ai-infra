@@ -1,0 +1,23 @@
+fabric: ORION backend (shared by training on rack-01..07 and inference on rack-08)
+classes:
+- name: training-roce
+  dscp: 26
+  tc: 3
+  pfc: true
+  ecn: true
+- name: cnp
+  dscp: 48
+  tc: 6
+  strict_priority: true
+- name: kv-transfer
+  dscp: 26
+  tc: 3
+  pfc: true
+  ecn: true
+- name: best-effort
+  dscp: 0
+  tc: 0
+  pfc: false
+  ecn: true
+kv_path_crosses_tenant_boundary: true
+kv_encryption: none

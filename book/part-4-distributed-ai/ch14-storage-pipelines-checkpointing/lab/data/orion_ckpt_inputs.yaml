@@ -1,0 +1,33 @@
+# Chapter 14 lab, Part A: checkpoint planner inputs for W-TRAIN on ORION-256.
+# Every value is [ILLUSTRATIVE] unless stated; see docs/REFERENCE_CLUSTER.md.
+# Units are in the key names: GBps = 10^9 bytes/s (SI), _s = seconds, _h = hours.
+workload:
+  name: W-TRAIN 70B
+  params: 70.0e9
+  ckpt_bytes_per_param: 14        # 2 B BF16 weights + 12 B fp32 master/m/v  [MODELED]
+  gpus: 256
+  nodes: 32
+  step_time_s: 17.4               # 40 % MFU  [MODELED, REFERENCE_CLUSTER.md]
+storage:
+  pfs_write_GBps: 80.0            # aggregate parallel-file-system write  [ILLUSTRATIVE]
+  pfs_read_GBps: 160.0            # aggregate parallel-file-system read   [ILLUSTRATIVE]
+  pfs_efficiency: 0.75            # achieved fraction for a 256-writer checkpoint burst
+  commit_overhead_s: 1.5          # barrier + metadata write + fsync + commit-marker rename
+host:
+  d2h_GBps_per_gpu: 25.0          # pinned device-to-host copy, 8 GPUs concurrently
+  snapshot_fixed_s: 0.5           # save-plan coordination + allocator work per snapshot
+  nvme_write_GBps_per_node: 28.0  # 8 x U.2 NVMe, striped, sustained sequential write
+  nvme_read_GBps_per_node: 48.0   # 8 x U.2 NVMe, striped, sequential read
+async:
+  interference_frac: 0.03         # step slowdown while a background persist/drain is running
+  pfs_every_k: 5                  # two-level strategy: drain every k-th local checkpoint to PFS
+reliability:
+  job_mtbf_h: 48.0                # whole-job MTBF: 1,536 node-h per node / 32 nodes (REFERENCE_CLUSTER.md)
+  hard_failure_frac: 0.4          # fraction of interruptions that take a node (and its NVMe) away
+restart:
+  detect_s: 300                   # failure -> scheduler/operator knows the job is dead
+  replace_s: 240                  # hard failures only: node from a spare pool OUTSIDE ORION-256
+                                  # (deliberate variation: the reference cluster has no spares)
+  relaunch_s: 330                 # reschedule, start containers, rendezvous, NCCL init
+  validate_s: 20                  # manifest + checksum verification before load
+  warmup_s: 150                   # first steps after resume (compile, loader warm-up)

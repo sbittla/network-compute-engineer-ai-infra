@@ -1,0 +1,5 @@
+bundle_id,status,os_image,kernel,gpu_driver,cuda_max,gpu_vbios,nic_fw,rdma_stack,bios,bmc_fw,validated_on,expires,notes
+B-2026.04,deprecated,hx8-ubuntu22.04-2026.04,5.15.0-105-generic,535.161.08,12.2,96.00.89.00.01,28.39.1002,doca-host-2.5,1.8.2,2.14,2026-04-02,2026-12-31,Previous golden. Allowed in service until expiry; no new admissions.
+B-2026.07,golden,hx8-ubuntu22.04-2026.07,5.15.0-117-generic,550.90.07,12.4,96.00.99.00.01,28.41.1000,doca-host-2.7,1.9.0,2.16,2026-07-14,2027-06-30,Current golden bundle for training and inference partitions.
+B-2026.10,canary,hx8-ubuntu24.04-2026.10,6.8.0-45-generic,570.86.15,12.8,96.00.99.00.01,28.43.1014,doca-host-2.9,1.9.0,2.18,2026-10-12,2027-12-31,Candidate bundle; canary only until the soak gate is met.
+BLK-0001,blocked,hx8-ubuntu22.04-2026.07,5.15.0-117-generic,570.86.15,12.8,96.00.99.00.01,28.41.1000,doca-host-2.7,1.9.0,2.16,2026-10-05,,Driver upgraded in place without matching RDMA stack: GPUDirect RDMA peer-memory registration fails; NCCL falls back to host staging. Never admit.

@@ -1,0 +1,37 @@
+configs:
+  c1_bf16_tp8_chunked:
+    tp: 8
+    dtype: bf16
+    max_num_seqs: 256
+    max_num_batched_tokens: 2048
+    chunked_prefill: true
+    max_model_len: 32768
+    gpu_memory_utilization: 0.9
+    replicas_per_node: 1
+  c2_bf16_tp8_bigbatch:
+    tp: 8
+    dtype: bf16
+    max_num_seqs: 512
+    max_num_batched_tokens: 32768
+    chunked_prefill: false
+    max_model_len: 32768
+    gpu_memory_utilization: 0.9
+    replicas_per_node: 1
+  c3_fp8_tp4_chunked:
+    tp: 4
+    dtype: fp8
+    max_num_seqs: 256
+    max_num_batched_tokens: 2048
+    chunked_prefill: true
+    max_model_len: 32768
+    gpu_memory_utilization: 0.9
+    replicas_per_node: 2
+  c4_bf16_tp8_len8k:
+    tp: 8
+    dtype: bf16
+    max_num_seqs: 256
+    max_num_batched_tokens: 2048
+    chunked_prefill: true
+    max_model_len: 8192
+    gpu_memory_utilization: 0.9
+    replicas_per_node: 1

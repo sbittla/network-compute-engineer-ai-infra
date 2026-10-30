@@ -1,0 +1,5 @@
+experiment,rule_or_config,parameter,value,tp,fp,fn,precision,recall,detection_latency_s,evidence_label,environment_manifest,notes
+baseline,all rules,default,n/a,<fill>,<fill>,<fill>,<fill>,<fill>,<fill: per fault>,SIMULATED,starter-kit/manifest.yaml,<fill>
+persistence sweep,all rules,persistence,1,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,SIMULATED,starter-kit/manifest.yaml,<fill>
+<fill: persistence 2..5 and each threshold sweep>,,,,,,,,,,,,
+<fill: L3 incast if run>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,MEASURED,<fill: manifest path>,<fill: repetitions and spread>

@@ -1,0 +1,41 @@
+lab: ch06-gpu-performance-engineering
+title: "Reproducible benchmark harness, statistical decisions and roofline classification"
+progressive_lab: "Progressive Lab 4 (GPU baseline), part 2"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None for the analysis (SIMULATED datasets modeled on an ORION HX8 H100-class GPU; ceilings in
+  data/device.yaml are VENDOR-SPEC, 2026-10 dense peaks). The harness runs CPU microbenchmarks on the
+  learner's machine; its numbers are MEASURED for that machine only.
+data_generation: {script: tools/generate_data.py, seed: 6, deterministic: true}
+data_files:
+  - data/bench_baseline.csv
+  - data/bench_candidate_b.csv
+  - data/bench_candidate_c.csv
+  - data/bench_aa.csv
+  - data/kernels.csv
+  - data/device.yaml
+decision_protocol:
+  warmup_iters: 5
+  replication_unit: run
+  runs: "each run is a separate process (harness records pid)"
+  statistic: "median of run medians; relative change candidate/baseline - 1"
+  significance: "exact two-sided permutation test on run medians (mean difference), alpha 0.05"
+  magnitude_band: "95 % percentile bootstrap over runs, 4000 replicates, seed 11 (not the significance call at n = 5-6)"
+  practical_threshold: 0.01
+  noise_floor: "A/A comparison, max |point, band bounds|"
+  exclusions: ["software version != reference",
+               "thermal/hardware clock events (anything except none, sw_power_cap) on > 5 % of iterations",
+               "median SM clock < 95 % of the session-wide peer median over all runs of all arms (judge against sustained clock, not max boost)"]
+  applied_to: "every arm identically, decided before data collection"
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+checker: {command: "python check.py --impl starter|solution", checks: 13}
+extensions:
+  - tier: L2
+    requires: "One NVIDIA GPU you control (not shared), CUDA 12.x driver, PyTorch 2.x; root only if locking clocks"
+    record: [gpu_model, gpu_uuid, vbios_version, driver_version, cuda_version, framework_versions, container_digest,
+             power_limit_w, clocks_locked, persistence_mode, clocks_event_reasons_per_iteration,
+             temperature_range_c, other_gpu_processes, cpu_governor, warmup_iters, iters_per_run, runs_per_arm,
+             run_order, timer_method, input_sizes]

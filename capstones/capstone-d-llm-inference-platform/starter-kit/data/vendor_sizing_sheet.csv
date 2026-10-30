@@ -1,0 +1,4 @@
+item,value,unit,source
+weights_bf16,140,GB,sizing sheet v3
+kv_cache_per_token,320,KB,sizing sheet v3
+hbm_per_gpu,80,GB,sizing sheet v3

@@ -1,0 +1,20 @@
+# Capacity and cost assumptions for ORION (all [ILLUSTRATIVE] unless noted)
+initial_installed_gpus: 256
+gpus_per_node: 8
+provisioned_it_kw_per_node: 10.2        # HX8 max node power (Reference Cluster)
+sustained_it_kw_per_node: 8.5           # training average (8-9 kW)
+network_storage_overhead: 0.12          # extra IT power for fabric, storage, management, as a fraction of node power
+reserves:
+  maintenance: 0.03                     # nodes drained for planned maintenance / upgrades
+  failure_repair: 0.078                 # nodes in repair: 5-day MTTR x 24/1,536 per node-day = 7.8 % (canon; Ch 16)
+  fragmentation: 0.05                   # GPUs free but unusable for gang-scheduled jobs (Chapter 17)
+target_allocation: 0.85                 # plan so that demand <= 85 % of usable GPUs (queueing headroom)
+goodput: 0.88                           # useful fraction of allocated GPU time (Chapters 18-19)
+lead_time_quarters: {gpus: 2, network: 1, facility_power: 4}
+prices:
+  amortization_years: 4
+  electricity_usd_per_kwh: 0.09
+  pue: 1.25                             # canonical ORION hall (liquid-assisted)
+  colo_usd_per_kw_month: 130            # on provisioned IT kW
+  support_fraction_of_hw_capex: 0.08    # per year
+  staff_usd_per_year: 960000            # 4 FTE x $240k for ORION-256

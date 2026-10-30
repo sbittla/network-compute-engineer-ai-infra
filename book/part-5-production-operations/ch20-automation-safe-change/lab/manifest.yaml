@@ -1,0 +1,31 @@
+lab: ch20-automation-safe-change
+title: "Safe-change automation: idempotent reconciler, canary rollout controller, change-plan review"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: >-
+  None. Uses synthetic desired/actual configuration and rollout telemetry modeled on ORION-256
+  (docs/REFERENCE_CLUSTER.md): 32 HX8 nodes (orion-n01..orion-n32, 4 per rack, rack-01..rack-08) and
+  8 rail leaves (orion-be-leaf-r0..orion-be-leaf-r7). The fleet API is an in-memory simulation (SimFleet).
+data_generation: {script: tools/generate_data.py, seed: 20}   # instructor copy only; stripped from the learner release
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+datasets:
+  - data/desired_state.json      # desired RoCE/MTU/QoS state with per-target overrides
+  - data/actual_state.json       # observed state with drift and one unreachable node
+  - data/rollout.json            # per-wave baseline and post-change samples for a NIC firmware rollout
+  - data/abort_conditions.json   # pre-declared abort conditions, precheck and bake policy
+  - data/unsafe_change_plan.md   # change plan to review
+  - data/gap_catalog.json        # gap categories and fix keywords for the review
+  - data/review_rubric.json      # hashed expected gap IDs and thresholds used by check.py
+extensions:
+  - tier: L2
+    requires: "One Linux host with an RDMA-capable NIC (or a soft-RoCE rxe device) and root in a lab VM"
+    record: [os_release, kernel, nic_model, nic_firmware, driver_version, rdma_core_version,
+             ip_mtu_before, ip_mtu_after, active_mtu_before, active_mtu_after, audit_log_path,
+             second_run_plan_size]
+  - tier: L3
+    requires: "Dedicated lab: >= 2 multi-GPU nodes with RoCEv2 NICs, a lab leaf switch with API access, nccl-tests built"
+    record: [nic_firmware, driver_version, switch_os_version, nccl_version, topology, mtu,
+             wave_plan, bake_minutes, samples_per_wave, warmup_iterations, repetitions,
+             busbw_median_and_p95_per_node, abort_decisions, rollback_time_seconds]

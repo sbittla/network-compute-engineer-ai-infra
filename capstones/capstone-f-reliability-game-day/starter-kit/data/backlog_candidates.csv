@@ -1,0 +1,7 @@
+id,title,annual_events,gpu_h_per_event,expected_reduction,effort_weeks,safety_critical
+RB-01,Alert on scheduler heartbeat absence,4,150,0.5,0.2,true
+RB-02,"Automated return-to-service for nodes whose fault cleared (re-accept, then undrain)",50,120,0.6,3.0,false
+RB-03,Fast-fail jobs on health-controller detection instead of waiting for the collective timeout,137,28.8,1.0,2.0,false
+RB-04,Checkpoint-staleness alert at 2x interval plus storage write-throughput alert,6,300,0.5,0.2,false
+RB-05,Grow spare pool from 2 to 4 nodes,10,1500,0.8,1.0,false
+RB-06,"De-flap JobStalled (threshold above checkpoint stall, add for-duration)",2000,0.0,1.0,0.1,false

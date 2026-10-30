@@ -1,0 +1,15 @@
+section,item,description,qty,unit_usd,ext_usd,unit_watts,ext_watts,qty_formula,evidence_label,notes
+compute,node_hx8,"HX8 node: 8x H100-class SXM, 8x 400G NIC",<fill>,<fill>,<fill>,<fill>,<fill>,n_nodes,ILLUSTRATIVE,<fill>
+backend,switch_64x400g,"64x400G leaf/spine switch",<fill>,<fill>,<fill>,<fill>,<fill>,n_leaves + n_spines,ILLUSTRATIVE,<fill>
+backend,xcvr_400g_mm,"400G MM optic",<fill>,<fill>,<fill>,<fill>,<fill>,2 x MM links,ILLUSTRATIVE,<fill>
+backend,xcvr_400g_sm,"400G SM optic",<fill>,<fill>,<fill>,<fill>,<fill>,2 x SM links,ILLUSTRATIVE,<fill>
+backend,dac_400g,"400G passive DAC",<fill>,<fill>,<fill>,0,0,DAC links,ILLUSTRATIVE,<fill>
+backend,fiber_mm,"MM fiber per link (base + per metre)",<fill>,<fill>,<fill>,0,0,MM links,ILLUSTRATIVE,<fill>
+backend,fiber_sm,"SM fiber per link (base + per metre)",<fill>,<fill>,<fill>,0,0,SM links,ILLUSTRATIVE,<fill>
+storage,storage_server,"Parallel FS server",<fill>,<fill>,<fill>,<fill>,<fill>,fixed,ILLUSTRATIVE,<fill>
+frontend,frontend_switch_64x200g,"Frontend leaf/spine",<fill>,<fill>,<fill>,<fill>,<fill>,fixed,ILLUSTRATIVE,<fill>
+management,oob_switch_48x1g,"OOB/BMC switch",<fill>,<fill>,<fill>,<fill>,<fill>,fixed,ILLUSTRATIVE,<fill>
+management,mgmt_server,"Slurm controller / provisioning / monitoring",<fill>,<fill>,<fill>,<fill>,<fill>,fixed,ILLUSTRATIVE,<fill>
+facility,rack_pdu_kit,"Rack, 2 PDUs, containment",<fill>,<fill>,<fill>,0,0,rack positions,ILLUSTRATIVE,<fill>
+spares,<fill: e.g. optics spares>,<fill: spares policy e.g. 5 % of optics>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,ILLUSTRATIVE,<fill>
+total,,,,,<fill: sum>,,<fill: sum>,,MODELED,

@@ -1,0 +1,4 @@
+name,gpus_per_instance,peak_TFLOPs,hbm_TBps,hbm_GB,usd_per_gpu_hour,note
+h100-class,8,989,3.35,80,4.0,"ORION HX8 GPU; VENDOR-SPEC class values, ILLUSTRATIVE price"
+compute-dense-class,8,1400,2.0,48,3.2,HYPOTHETICAL prefill-oriented accelerator
+hbm-rich-class,8,800,4.8,141,4.5,HYPOTHETICAL decode-oriented accelerator

@@ -1,0 +1,16 @@
+# Part 3 - Review of data/unsafe_change_plan.md
+#
+# Record one finding per gap you identify. For each finding:
+#   gap_id      one ID from data/gap_catalog.json (only cite gaps that are really missing from the plan;
+#               citing something the plan already covers counts as a false positive)
+#   plan_lines  line number(s) in data/unsafe_change_plan.md that show the gap (1-based; `cat -n` shows them)
+#   issue       what is wrong and what could go wrong on ORION if the plan ran as written
+#   fix         the concrete control you would add (be specific: numbers, wave sizes, thresholds, commands)
+#
+# Replace the TODO entry below and add as many findings as you need.
+reviewer: "TODO your name"
+findings:
+  - gap_id: TODO
+    plan_lines: [0]
+    issue: "TODO"
+    fix: "TODO"

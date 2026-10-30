@@ -1,0 +1,35 @@
+# Alert rules deployed on ORION during INC-2291 (2026-10-12).
+# `promql` is what ran in Prometheus; `eval` is a simplified spec the lab evaluates offline
+# against the bundle (minute resolution). Metric names in `promql` follow DCGM-exporter / custom
+# recording-rule conventions [VENDOR-SPEC, 2026-10 - verify against your exporter version].
+rules:
+  - name: GPUUtilLow
+    severity: page
+    promql: 'avg by (Hostname) (DCGM_FI_DEV_GPU_UTIL) < 80'
+    for: 2m
+    eval: {type: threshold, source: node_metrics, entity: node, metric: gpu_util_pct, op: "<", threshold: 80, for_min: 2}
+  - name: GPUTempHigh
+    severity: ticket
+    promql: 'max by (Hostname) (DCGM_FI_DEV_GPU_TEMP) > 85'
+    for: 5m
+    eval: {type: threshold, source: node_metrics, entity: node, metric: gpu_temp_c_max, op: ">", threshold: 85, for_min: 5}
+  - name: GPUXidCritical
+    severity: page
+    promql: 'max by (Hostname) (DCGM_FI_DEV_XID_ERRORS) > 0'
+    for: 0m
+    eval: {type: threshold, source: node_metrics, entity: node, metric: xid_count, op: ">", threshold: 0, for_min: 1}
+  - name: FabricOutDiscards
+    severity: page
+    promql: 'sum by (switch) (rate(switch_interface_out_discards_total[5m])) > 0'
+    for: 5m
+    eval: {type: threshold, source: switch_metrics, entity: switch, metric: out_discards_pps, op: ">", threshold: 0, for_min: 5}
+  - name: InferenceAvailabilityBurn
+    severity: page
+    promql: '(slo:errors:ratio_rate1h > 14.4*0.001 and slo:errors:ratio_rate5m > 14.4*0.001) or (slo:errors:ratio_rate6h > 6*0.001 and slo:errors:ratio_rate30m > 6*0.001)'
+    for: 2m
+    eval: {type: burn_rate, source: inference_slo, bad: errors_5xx, slo: 0.999}
+  - name: InferenceTTFTBurn
+    severity: page
+    promql: '(slo:ttft_bad:ratio_rate1h > 14.4*0.05 and slo:ttft_bad:ratio_rate5m > 14.4*0.05) or (slo:ttft_bad:ratio_rate6h > 6*0.05 and slo:ttft_bad:ratio_rate30m > 6*0.05)'
+    for: 2m
+    eval: {type: burn_rate, source: inference_slo, bad: ttft_over_800ms, slo: 0.95}

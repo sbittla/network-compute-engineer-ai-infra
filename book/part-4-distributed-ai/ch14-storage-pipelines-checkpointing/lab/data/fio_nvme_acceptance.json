@@ -1,0 +1,603 @@
+{
+  "fio version": "fio-3.x (synthetic)",
+  "timestamp": 0,
+  "global options": {
+    "ioengine": "libaio",
+    "direct": "1",
+    "time_based": "1"
+  },
+  "jobs": [
+    {
+      "jobname": "randread-4k-qd32-nvme0",
+      "job options": {
+        "name": "randread-4k-qd32-nvme0",
+        "filename": "/dev/nvme0n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 103794963652,
+        "bw_bytes": 1729916060,
+        "iops": 422342.788,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 75767.838,
+          "percentile": {
+            "50.000000": 70464,
+            "99.000000": 159112,
+            "99.900000": 247824,
+            "99.990000": 418075
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme0",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme0",
+        "filename": "/dev/nvme0n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 205372711020,
+        "bw_bytes": 3422878517,
+        "iops": 3264.311,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2450746.633,
+          "percentile": {
+            "50.000000": 2401731,
+            "99.000000": 3921194,
+            "99.900000": 5881791,
+            "99.990000": 8577613
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme1",
+      "job options": {
+        "name": "randread-4k-qd32-nvme1",
+        "filename": "/dev/nvme1n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 99775740464,
+        "bw_bytes": 1662929007,
+        "iops": 405988.527,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 78819.961,
+          "percentile": {
+            "50.000000": 73302,
+            "99.000000": 165521,
+            "99.900000": 270495,
+            "99.990000": 380407
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme1",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme1",
+        "filename": "/dev/nvme1n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 210157983064,
+        "bw_bytes": 3502633051,
+        "iops": 3340.371,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2394943.426,
+          "percentile": {
+            "50.000000": 2347044,
+            "99.000000": 3831909,
+            "99.900000": 5747864,
+            "99.990000": 8382301
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme2",
+      "job options": {
+        "name": "randread-4k-qd32-nvme2",
+        "filename": "/dev/nvme2n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 102040217738,
+        "bw_bytes": 1700670295,
+        "iops": 415202.709,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 77070.788,
+          "percentile": {
+            "50.000000": 71675,
+            "99.000000": 161848,
+            "99.900000": 287223,
+            "99.990000": 424938
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme2",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme2",
+        "filename": "/dev/nvme2n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 97200000000,
+        "bw_bytes": 1620000000,
+        "iops": 1544.952,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 5178153.086,
+          "percentile": {
+            "50.000000": 5074590,
+            "99.000000": 8285044,
+            "99.900000": 12427567,
+            "99.990000": 18123535
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme3",
+      "job options": {
+        "name": "randread-4k-qd32-nvme3",
+        "filename": "/dev/nvme3n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 100419947518,
+        "bw_bytes": 1673665791,
+        "iops": 408609.812,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 78314.321,
+          "percentile": {
+            "50.000000": 72832,
+            "99.000000": 164460,
+            "99.900000": 262794,
+            "99.990000": 416755
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme3",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme3",
+        "filename": "/dev/nvme3n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 211326073831,
+        "bw_bytes": 3522101230,
+        "iops": 3358.937,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2381705.536,
+          "percentile": {
+            "50.000000": 2334071,
+            "99.000000": 3810728,
+            "99.900000": 5716093,
+            "99.990000": 8335969
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme4",
+      "job options": {
+        "name": "randread-4k-qd32-nvme4",
+        "filename": "/dev/nvme4n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 99761469344,
+        "bw_bytes": 1662691155,
+        "iops": 405930.458,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 78831.237,
+          "percentile": {
+            "50.000000": 73313,
+            "99.000000": 165545,
+            "99.900000": 281588,
+            "99.990000": 423001
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme4",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme4",
+        "filename": "/dev/nvme4n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 206448113935,
+        "bw_bytes": 3440801898,
+        "iops": 3281.404,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2437980.519,
+          "percentile": {
+            "50.000000": 2389220,
+            "99.000000": 3900768,
+            "99.900000": 5851153,
+            "99.990000": 8532931
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme5",
+      "job options": {
+        "name": "randread-4k-qd32-nvme5",
+        "filename": "/dev/nvme5n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 92852891623,
+        "bw_bytes": 1547548193,
+        "iops": 377819.383,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 84696.555,
+          "percentile": {
+            "50.000000": 78767,
+            "99.000000": 177862,
+            "99.900000": 9100000,
+            "99.990000": 31000000
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme5",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme5",
+        "filename": "/dev/nvme5n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 209145488502,
+        "bw_bytes": 3485758141,
+        "iops": 3324.278,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2406537.591,
+          "percentile": {
+            "50.000000": 2358406,
+            "99.000000": 3850460,
+            "99.900000": 5775690,
+            "99.990000": 8422881
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme6",
+      "job options": {
+        "name": "randread-4k-qd32-nvme6",
+        "filename": "/dev/nvme6n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 97995856045,
+        "bw_bytes": 1633264267,
+        "iops": 398746.159,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 80251.557,
+          "percentile": {
+            "50.000000": 74633,
+            "99.000000": 168528,
+            "99.900000": 252027,
+            "99.990000": 411594
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme6",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme6",
+        "filename": "/dev/nvme6n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 204475702223,
+        "bw_bytes": 3407928370,
+        "iops": 3250.054,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2461497.745,
+          "percentile": {
+            "50.000000": 2412267,
+            "99.000000": 3938396,
+            "99.900000": 5907594,
+            "99.990000": 8615242
+          }
+        }
+      }
+    },
+    {
+      "jobname": "randread-4k-qd32-nvme7",
+      "job options": {
+        "name": "randread-4k-qd32-nvme7",
+        "filename": "/dev/nvme7n1",
+        "rw": "randread",
+        "bs": "4k",
+        "iodepth": "32",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 101683502102,
+        "bw_bytes": 1694725035,
+        "iops": 413751.229,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 77341.16,
+          "percentile": {
+            "50.000000": 71927,
+            "99.000000": 162416,
+            "99.900000": 230367,
+            "99.990000": 425146
+          }
+        }
+      },
+      "write": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      }
+    },
+    {
+      "jobname": "seqwrite-1m-qd8-nvme7",
+      "job options": {
+        "name": "seqwrite-1m-qd8-nvme7",
+        "filename": "/dev/nvme7n1",
+        "rw": "write",
+        "bs": "1M",
+        "iodepth": "8",
+        "direct": "1",
+        "runtime": "60"
+      },
+      "read": {
+        "io_bytes": 0,
+        "bw_bytes": 0,
+        "iops": 0.0,
+        "runtime": 0,
+        "clat_ns": {
+          "mean": 0.0,
+          "percentile": {}
+        }
+      },
+      "write": {
+        "io_bytes": 204756310469,
+        "bw_bytes": 3412605174,
+        "iops": 3254.514,
+        "runtime": 60000,
+        "clat_ns": {
+          "mean": 2458124.386,
+          "percentile": {
+            "50.000000": 2408961,
+            "99.000000": 3932999,
+            "99.900000": 5899498,
+            "99.990000": 8603435
+          }
+        }
+      }
+    }
+  ]
+}

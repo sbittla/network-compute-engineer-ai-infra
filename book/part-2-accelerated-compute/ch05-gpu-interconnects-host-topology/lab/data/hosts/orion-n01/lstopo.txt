@@ -1,0 +1,109 @@
+Machine (2015GB total)
+  Package L#0
+    NUMANode L#0 (P#0 1007GB)
+    HostBridge
+      PCIBridge
+        PCIBridge
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI 18:00.0 (3D)
+                  GPU(NVML) "nvml0"
+              PCIBridge
+                PCI 19:00.0 (Ethernet)
+                  Net "enp25s0np0"
+                  OpenFabrics "mlx5_0"
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI 22:00.0 (3D)
+                  GPU(NVML) "nvml1"
+              PCIBridge
+                PCI 23:00.0 (Ethernet)
+                  Net "enp35s0np0"
+                  OpenFabrics "mlx5_1"
+      PCIBridge
+        PCI 0d:00.0 (Ethernet)
+          Net "enp13s0np0"
+          OpenFabrics "mlx5_8"
+      PCIBridge
+        PCI 0e:00.0 (NVMExp)
+          Block(Disk) "nvme0n1"
+    HostBridge
+      PCIBridge
+        PCIBridge
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI 38:00.0 (3D)
+                  GPU(NVML) "nvml2"
+              PCIBridge
+                PCI 39:00.0 (Ethernet)
+                  Net "enp57s0np0"
+                  OpenFabrics "mlx5_2"
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI 42:00.0 (3D)
+                  GPU(NVML) "nvml3"
+              PCIBridge
+                PCI 43:00.0 (Ethernet)
+                  Net "enp67s0np0"
+                  OpenFabrics "mlx5_3"
+      PCIBridge
+        PCI 4e:00.0 (NVMExp)
+          Block(Disk) "nvme1n1"
+  Package L#1
+    NUMANode L#1 (P#1 1007GB)
+    HostBridge
+      PCIBridge
+        PCIBridge
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI 98:00.0 (3D)
+                  GPU(NVML) "nvml4"
+              PCIBridge
+                PCI 99:00.0 (Ethernet)
+                  Net "enp153s0np0"
+                  OpenFabrics "mlx5_4"
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI a2:00.0 (3D)
+                  GPU(NVML) "nvml5"
+              PCIBridge
+                PCI a3:00.0 (Ethernet)
+                  Net "enp163s0np0"
+                  OpenFabrics "mlx5_5"
+      PCIBridge
+        PCI 8d:00.0 (Ethernet)
+          Net "enp141s0np0"
+          OpenFabrics "mlx5_9"
+      PCIBridge
+        PCI 8e:00.0 (NVMExp)
+          Block(Disk) "nvme2n1"
+    HostBridge
+      PCIBridge
+        PCIBridge
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI b8:00.0 (3D)
+                  GPU(NVML) "nvml6"
+              PCIBridge
+                PCI b9:00.0 (Ethernet)
+                  Net "enp185s0np0"
+                  OpenFabrics "mlx5_6"
+          PCIBridge
+            PCIBridge
+              PCIBridge
+                PCI c2:00.0 (3D)
+                  GPU(NVML) "nvml7"
+              PCIBridge
+                PCI c3:00.0 (Ethernet)
+                  Net "enp195s0np0"
+                  OpenFabrics "mlx5_7"
+      PCIBridge
+        PCI ce:00.0 (NVMExp)
+          Block(Disk) "nvme3n1"

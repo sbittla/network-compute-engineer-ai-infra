@@ -1,0 +1,24 @@
+lab: ch10-link-health-commissioning
+tier: L1
+python: ">=3.10"
+dependencies: [pandas, pyyaml]
+hardware_assumptions: >-
+  None. Uses a synthetic two-snapshot counter + DOM dataset for one ORION rail leaf
+  (orion-be-leaf-r3, 64 x 400G-DR4 ports: 32 host links, 32 uplinks to 4 spines) and fabric specs
+  for a 16-node fabric and ORION-256 (docs/REFERENCE_CLUSTER.md). Thresholds are ILLUSTRATIVE policy.
+data_generation: {script: tools/generate_data.py, seed: 10}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+outputs:
+  - commissioning report (Markdown) via `python check.py --impl <impl> --report report.md`
+extensions:
+  - tier: L2
+    requires: "One Linux host with a 100G+ NIC and a pluggable optic or DAC; ethtool >= 5.13"
+    record: [host_os, kernel_version, nic_model, nic_firmware, driver_version, ethtool_version,
+             module_vendor_pn, module_serial, module_firmware, sample_interval_s, sample_count]
+  - tier: L3
+    requires: "A dedicated lab leaf switch (no production traffic) with >= 2 hosts cabled to it, switch CLI or gNMI access, a fibre inspection probe"
+    record: [switch_model, switch_os_version, asic_family, port_speed_and_breakout, fec_mode,
+             module_part_numbers_both_ends, cable_ids, cable_lengths_m, inspection_results,
+             nic_firmware, driver_version, mtu, soak_duration_s, traffic_generator_and_load,
+             sample_interval_s, sample_count]

@@ -1,0 +1,19 @@
+# [ILLUSTRATIVE] Excerpts from NCCL_DEBUG=INFO output and node checks, abridged ("...").
+# Formats follow NCCL 2.18-2.28 INFO output [VENDOR-SPEC, 2026-10]; verify against the version you run.
+# GDR evidence = the "/GDRDMA" suffix on NET channel lines (absent => host-staged), plus the peer-memory
+# module check. DMA-BUF can also provide GPUDirect RDMA without nvidia_peermem; on these nodes the DMA-BUF
+# path is not available (kernel/driver/RDMA-stack combination), so the module check is decisive here.
+#
+# --- job 41110 init, block 1 (orion-n09..n16, driver R550) ---
+orion-n09:2211:2290 [0] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE ... [7]mlx5_7:1/RoCE
+orion-n09:2211:2290 [0] NCCL INFO Channel 00/0 : 0[0] -> 8[0] [send] via NET/IB/0/GDRDMA
+orion-n09:2211:2290 [0] NCCL INFO Channel 01/0 : 0[0] -> 8[0] [send] via NET/IB/0/GDRDMA
+# --- job 41119 init, block 2 (orion-n17..n24, driver R570) ---
+orion-n17:3107:3188 [0] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE ... [7]mlx5_7:1/RoCE
+orion-n17:3107:3188 [0] NCCL INFO Channel 00/0 : 0[0] -> 8[0] [send] via NET/IB/0
+orion-n17:3107:3188 [0] NCCL INFO Channel 01/0 : 0[0] -> 8[0] [send] via NET/IB/0
+# --- node checks, 2026-10-13 ---
+$ ssh orion-n09 'lsmod | grep nvidia_peermem'
+nvidia_peermem         16384  0
+$ ssh orion-n17 'lsmod | grep nvidia_peermem'
+$                                   # no output: module not loaded after the R570 install

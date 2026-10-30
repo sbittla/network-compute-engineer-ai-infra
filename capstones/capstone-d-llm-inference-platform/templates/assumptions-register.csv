@@ -1,0 +1,8 @@
+id,category,assumption,value,unit,evidence_label,source_or_reasoning,sensitivity,how_to_validate,status
+A-01,hardware,HBM bandwidth efficiency in decode,0.70,fraction,ILLUSTRATIVE,<fill>,high (sets TPOT),L2 decode microbenchmark,<fill>
+A-02,hardware,Prefill MFU,0.50,fraction,ILLUSTRATIVE,<fill>,high (sets TTFT),L2 prefill sweep,<fill>
+A-03,hardware,Per-iteration overhead TP8,3.0,ms,ILLUSTRATIVE,<fill>,medium,L2 profile,<fill>
+A-04,traffic,Arrival process,Poisson ~5 req/s per node,req/s,ILLUSTRATIVE,trace.csv,high,production request logs,<fill>
+A-05,traffic,Long-context share,2,% of requests,ILLUSTRATIVE,trace.csv,high,tenant forecast,<fill>
+A-06,quality,FP8 weights preserve task quality,n/a,n/a,ILLUSTRATIVE,<fill>,high (gates c3),offline eval suite,<fill>
+<fill: A-07…>,,,,,,,,,

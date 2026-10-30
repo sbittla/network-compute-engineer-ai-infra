@@ -1,0 +1,495 @@
+version: 2026-10
+note: Teaching matrices derived from the course outline role table. Weights 1-3; targets on the 0-4 proficiency
+  scale per seniority level (junior, mid, senior, staff/principal).
+capstones:
+  A: capstone-a-256-gpu-training-cluster
+  B: capstone-b-network-telemetry-troubleshooting
+  C: capstone-c-distributed-training-performance
+  D: capstone-d-llm-inference-platform
+  E: capstone-e-fleet-lifecycle-automation
+  F: capstone-f-reliability-game-day
+  G: capstone-g-fault-tolerant-512-node-training
+  H: capstone-h-disaggregated-llm-serving
+catalog:
+  dc_architecture:
+    name: AI data-center architecture and capacity
+    chapters:
+    - 1
+    - 2
+    - 21
+    capstones:
+    - A
+  linux_host:
+    name: Linux host, NUMA and PCIe diagnostics
+    chapters:
+    - 3
+    - 5
+    capstones:
+    - A
+    - C
+  gpu_compute:
+    name: GPU architecture, CUDA execution and profiling
+    chapters:
+    - 4
+    - 6
+    capstones:
+    - C
+  host_topology:
+    name: GPU/NIC topology, NVLink and GPUDirect RDMA
+    chapters:
+    - 5
+    - 13
+    capstones:
+    - A
+    - C
+  l3_fabric:
+    name: Ethernet, BGP/ECMP and leaf-spine design
+    chapters:
+    - 7
+    capstones:
+    - A
+    - B
+  rdma_fabrics:
+    name: RDMA, RoCEv2, InfiniBand and multi-rail
+    chapters:
+    - 8
+    - 13
+    capstones:
+    - A
+    - B
+  congestion:
+    name: Congestion control, ECN/PFC and fabric telemetry
+    chapters:
+    - 9
+    capstones:
+    - B
+  physical_layer:
+    name: Switch ASICs, optics, cabling and commissioning
+    chapters:
+    - 10
+    capstones:
+    - B
+  collectives:
+    name: Distributed training and NCCL collectives
+    chapters:
+    - 11
+    - 12
+    capstones:
+    - C
+    - G
+  storage_ckpt:
+    name: Storage, data pipelines and checkpointing
+    chapters:
+    - 14
+    capstones:
+    - C
+    - G
+  inference:
+    name: LLM inference and serving infrastructure
+    chapters:
+    - 15
+    capstones:
+    - D
+    - H
+  fleet_lifecycle:
+    name: Bare-metal GPU fleet lifecycle
+    chapters:
+    - 16
+    capstones:
+    - E
+  scheduling:
+    name: Kubernetes, Slurm and topology-aware scheduling
+    chapters:
+    - 17
+    capstones:
+    - E
+    - G
+  observability:
+    name: Observability, SLOs and incident response
+    chapters:
+    - 18
+    capstones:
+    - B
+    - F
+  reliability_security:
+    name: Reliability, security and multi-tenancy
+    chapters:
+    - 19
+    capstones:
+    - F
+    - G
+  automation:
+    name: Infrastructure automation and safe change
+    chapters:
+    - 20
+    capstones:
+    - E
+  performance_method:
+    name: Cross-layer performance method and benchmark discipline
+    chapters:
+    - 6
+    - 22
+    capstones:
+    - C
+  hw_validation:
+    name: Hardware validation and interoperability testing
+    chapters:
+    - 10
+    - 16
+    capstones:
+    - B
+  communication:
+    name: Design docs, design reviews and case studies
+    chapters:
+    - 23
+    - 24
+    capstones:
+    - A
+    - F
+roles:
+  ai_network:
+    title: AI Network Engineer
+    emphasis: BGP, Ethernet, RoCEv2, InfiniBand, RDMA, congestion, optics and switch telemetry
+    competencies:
+    - id: l3_fabric
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: rdma_fabrics
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: congestion
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: physical_layer
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: host_topology
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: observability
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: automation
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 2
+        staff: 3
+    - id: communication
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+  gpu_hpc:
+    title: GPU Compute / HPC Engineer
+    emphasis: CUDA, GPU architecture, PCIe, NVLink/NVSwitch, NUMA and NCCL
+    competencies:
+    - id: gpu_compute
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: host_topology
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: collectives
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: linux_host
+      weight: 2
+      targets:
+        junior: 2
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: performance_method
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: rdma_fabrics
+      weight: 1
+      targets:
+        junior: 1
+        mid: 1
+        senior: 2
+        staff: 3
+    - id: communication
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+  cluster_platform:
+    title: AI Cluster / Platform Engineer
+    emphasis: Bare metal, fleet lifecycle, Kubernetes, Slurm, scheduling and tenant operations
+    competencies:
+    - id: fleet_lifecycle
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: scheduling
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: automation
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: linux_host
+      weight: 2
+      targets:
+        junior: 2
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: reliability_security
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: observability
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 2
+        staff: 3
+    - id: communication
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+  performance:
+    title: AI Performance Engineer
+    emphasis: Workload characterization, profiling, benchmarking and optimization
+    competencies:
+    - id: performance_method
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: gpu_compute
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: collectives
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: inference
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: storage_ckpt
+      weight: 1
+      targets:
+        junior: 1
+        mid: 1
+        senior: 2
+        staff: 3
+    - id: host_topology
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: communication
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+  sre_ops:
+    title: AI Infrastructure SRE / Operations
+    emphasis: Observability, SLOs, incidents, reliability, remediation and safe change
+    competencies:
+    - id: observability
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: reliability_security
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: automation
+      weight: 2
+      targets:
+        junior: 2
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: scheduling
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: storage_ckpt
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 2
+        staff: 3
+    - id: linux_host
+      weight: 2
+      targets:
+        junior: 2
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: communication
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+  hw_vendor:
+    title: Network Hardware / Vendor Engineer
+    emphasis: Switch ASICs, buffers, queues, optics, NICs, validation and interoperability
+    competencies:
+    - id: physical_layer
+      weight: 3
+      targets:
+        junior: 2
+        mid: 3
+        senior: 3
+        staff: 4
+    - id: hw_validation
+      weight: 3
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: congestion
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+    - id: rdma_fabrics
+      weight: 2
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 3
+    - id: linux_host
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 2
+        staff: 3
+    - id: communication
+      weight: 1
+      targets:
+        junior: 1
+        mid: 2
+        senior: 3
+        staff: 4
+evidence_rules:
+  proficiency_scale:
+    0: No evidence
+    1: 'Aware: can explain the concept and vocabulary'
+    2: 'Working: completes defined tasks with guidance; reproduces a lab result'
+    3: 'Independent: designs, diagnoses and defends decisions without guidance'
+    4: 'Expert: owns it in production, sets direction, teaches others'
+  seniority_levels:
+  - junior
+  - mid
+  - senior
+  - staff
+  type_caps:
+    self_assessment: 1
+    course: 1
+    lab_l1: 2
+    lab_hw: 3
+    capstone: 3
+    case_study: 3
+    production: 4
+  no_artifact_cap: 1
+  simulation_claimed_as_measured_cap: 1
+  production_unverified_cap: 3
+  stale_after_days: 1095
+  stale_penalty: 1
+  ready_min_score: 85.0
+  near_min_score: 70.0
+  ready_max_gap: 1

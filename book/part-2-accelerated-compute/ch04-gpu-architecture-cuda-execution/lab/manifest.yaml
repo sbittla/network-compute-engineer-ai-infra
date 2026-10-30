@@ -1,0 +1,36 @@
+lab: ch04-gpu-architecture-cuda-execution
+title: "Annotated execution trace: diagnose a training step from a profiler capture"
+progressive_lab: "Progressive Lab 4 (GPU baseline), part 1"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas]
+hardware_assumptions: >-
+  None. The capture is a SIMULATED Nsight-Systems-style export of two training steps on ORION HX8
+  GPU0 (H100-SXM-class, docs/REFERENCE_CLUSTER.md), produced by a discrete-event model of one CPU
+  launch thread and two CUDA streams. Device limits in data/device.json are compute capability 9.0
+  class values [VENDOR-SPEC, 2026-10].
+data_generation: {script: tools/generate_data.py, seed: 4, deterministic: true}
+data_files:
+  - data/gpu_trace.csv        # GPU activities: kernels + memcpys, ns timestamps, launch config, counters
+  - data/cuda_api_trace.csv   # CUDA API calls with correlation_id
+  - data/nvtx_ranges.csv      # CPU-side NVTX ranges
+  - data/device.json          # occupancy limits and peak rates
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+checker: {command: "python check.py --impl starter|solution", checks: 11}
+extensions:
+  - tier: L2
+    requires: "One NVIDIA GPU host (local or cloud) with CUDA 12.x driver, Nsight Systems and Nsight Compute CLIs, PyTorch 2.x"
+    record:
+      - gpu_model_and_vbios          # nvidia-smi --query-gpu=name,vbios_version --format=csv
+      - driver_version
+      - cuda_toolkit_version         # nvcc --version
+      - nsys_version                 # nsys --version
+      - ncu_version                  # ncu --version
+      - pytorch_version
+      - sm_and_memory_clocks         # nvidia-smi --query-gpu=clocks.sm,clocks.mem --format=csv
+      - clock_event_reasons_during_capture
+      - pcie_link_state              # lspci -vvv -s <BDF> | grep -E 'LnkCap|LnkSta'
+      - capture_window               # steps captured, warm-up steps skipped
+      - workload_definition          # model, batch, sequence length, precision
+      - run_count                    # number of captures analysed (>= 3)

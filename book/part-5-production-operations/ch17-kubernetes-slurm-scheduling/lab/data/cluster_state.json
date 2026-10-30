@@ -1,0 +1,1383 @@
+{
+ "cluster": "ORION-256",
+ "evidence_class": "SIMULATED",
+ "gpus_per_node": 8,
+ "nodes": [
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-01",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n01",
+   "rack": "rack-01",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-01",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n02",
+   "rack": "rack-01",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-01",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n03",
+   "rack": "rack-01",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-01",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n04",
+   "rack": "rack-01",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-02",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n05",
+   "rack": "rack-02",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-02",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n06",
+   "rack": "rack-02",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-02",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n07",
+   "rack": "rack-02",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-02",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n08",
+   "rack": "rack-02",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-03",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n09",
+   "rack": "rack-03",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-03",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n10",
+   "rack": "rack-03",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-03",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n11",
+   "rack": "rack-03",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-03",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n12",
+   "rack": "rack-03",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-04",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n13",
+   "rack": "rack-04",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "degraded",
+   "health_detail": "backend rail 3 link down (NIC3 no carrier); intra-node NVLink healthy",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-04",
+    "halcyon.ai/rails-complete": "false",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n14",
+   "rack": "rack-04",
+   "rails_up": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-04",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n15",
+   "rack": "rack-04",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-04",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n16",
+   "rack": "rack-04",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-05",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n17",
+   "rack": "rack-05",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-05",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n18",
+   "rack": "rack-05",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "failed",
+   "health_detail": "GPU5 uncorrectable ECC; RMA ticket open",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-05",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "repair",
+   "mig_enabled": false,
+   "name": "orion-n19",
+   "rack": "rack-05",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-05",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n20",
+   "rack": "rack-05",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    4,
+    5
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-06",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n21",
+   "rack": "rack-06",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-06",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n22",
+   "rack": "rack-06",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "wave-2 firmware upgrade (Chapter 16 staged upgrade)",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-06",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "drained",
+   "mig_enabled": false,
+   "name": "orion-n23",
+   "rack": "rack-06",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "train",
+    "halcyon.ai/rack": "rack-06",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n24",
+   "rack": "rack-06",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-07",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n25",
+   "rack": "rack-07",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-07",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n26",
+   "rack": "rack-07",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    4
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-07",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n27",
+   "rack": "rack-07",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "MIG all-1g.10gb: 56 x 1g.10gb instances for small-model serving",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-07",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true",
+    "nvidia.com/mig.config": "all-1g.10gb"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": true,
+   "name": "orion-n28",
+   "rack": "rack-07",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-08",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n29",
+   "rack": "rack-08",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-08",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n30",
+   "rack": "rack-08",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": [
+    {
+     "effect": "PreferNoSchedule",
+     "key": "halcyon.ai/canary-driver",
+     "value": "570"
+    }
+   ]
+  },
+  {
+   "gpus_allocated": [],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/dedicated": "search",
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-08",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n31",
+   "rack": "rack-08",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": [
+    {
+     "effect": "NoSchedule",
+     "key": "halcyon.ai/dedicated",
+     "value": "search"
+    }
+   ]
+  },
+  {
+   "gpus_allocated": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "health": "ok",
+   "health_detail": "",
+   "labels": {
+    "halcyon.ai/pool": "infer",
+    "halcyon.ai/rack": "rack-08",
+    "halcyon.ai/rails-complete": "true",
+    "nvidia.com/gpu.count": "8",
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+    "nvidia.com/mig.capable": "true"
+   },
+   "lifecycle_state": "schedulable",
+   "mig_enabled": false,
+   "name": "orion-n32",
+   "rack": "rack-08",
+   "rails_up": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "taints": []
+  }
+ ],
+ "running": [
+  {
+   "job_id": "R-pt-001",
+   "nodes": {
+    "orion-n01": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n02": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n03": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n04": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n05": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n06": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n07": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n08": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "pretrain"
+  },
+  {
+   "job_id": "R-pt-002",
+   "nodes": {
+    "orion-n09": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n10": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n11": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n12": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "pretrain"
+  },
+  {
+   "job_id": "R-rs-001",
+   "nodes": {
+    "orion-n15": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "orion-n16": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "research"
+  },
+  {
+   "job_id": "R-ft-001",
+   "nodes": {
+    "orion-n17": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "finetune"
+  },
+  {
+   "job_id": "R-rs-002",
+   "nodes": {
+    "orion-n20": [
+     0,
+     1
+    ]
+   },
+   "tenant": "research"
+  },
+  {
+   "job_id": "R-ft-002",
+   "nodes": {
+    "orion-n21": [
+     4,
+     5
+    ]
+   },
+   "tenant": "finetune"
+  },
+  {
+   "job_id": "R-inf-001",
+   "nodes": {
+    "orion-n25": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "inference"
+  },
+  {
+   "job_id": "R-inf-002",
+   "nodes": {
+    "orion-n26": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   "tenant": "inference"
+  },
+  {
+   "job_id": "R-inf-003",
+   "nodes": {
+    "orion-n27": [
+     0,
+     1
+    ]
+   },
+   "tenant": "inference"
+  },
+  {
+   "job_id": "R-inf-004",
+   "nodes": {
+    "orion-n27": [
+     4
+    ]
+   },
+   "tenant": "inference"
+  },
+  {
+   "job_id": "R-inf-005",
+   "nodes": {
+    "orion-n29": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "inference"
+  },
+  {
+   "job_id": "R-inf-006",
+   "nodes": {
+    "orion-n32": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "tenant": "inference"
+  }
+ ],
+ "snapshot": "2026-10-12T09:00:00Z",
+ "tenants": {
+  "finetune": {
+   "description": "fine-tuning and evaluation",
+   "gpu_quota": 32
+  },
+  "inference": {
+   "description": "production chat serving",
+   "gpu_quota": 48
+  },
+  "pretrain": {
+   "description": "foundation-model pretraining",
+   "gpu_quota": 160
+  },
+  "research": {
+   "description": "research experiments",
+   "gpu_quota": 48
+  },
+  "search": {
+   "description": "embedding/search serving on a dedicated node",
+   "gpu_quota": 8
+  }
+ }
+}

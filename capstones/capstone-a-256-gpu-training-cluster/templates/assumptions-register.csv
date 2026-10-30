@@ -1,0 +1,12 @@
+id,category,assumption,value,unit,evidence_label,source_or_formula,sensitivity,owner,how_to_validate,status
+A-01,workload,W-TRAIN parameter count,70e9,parameters,ILLUSTRATIVE,docs/REFERENCE_CLUSTER.md §3,high,Training Infra,model config review,<fill: open|validated|retired>
+A-02,compute,Dense BF16 peak per GPU,989e12,FLOP/s,"VENDOR-SPEC, 2026-10",<fill: datasheet title and date>,high,Fleet,re-verify datasheet at procurement,<fill>
+A-03,compute,Model FLOPs utilization (MFU),0.40,fraction,ILLUSTRATIVE,<fill: why this value>,high,Training Infra,L2/L3 measurement on a pilot run,<fill>
+A-04,network,Achievable per-rail bus-bandwidth efficiency vs 50 GB/s line rate,0.80,fraction,ILLUSTRATIVE,"conservative planning value; docs/VERIFIED_FACTS.md expects ~350+ GB/s multi-node busbw (~44 GB/s per rail = busbw/8, ~0.88)",medium,Fabric,all_reduce_perf on L3 lab,<fill>
+A-05,network,DP overlap window with PP (last micro-batch backward); exposed = max(0; T_DP - window),0.07,s,MODELED,"docs/VERIFIED_FACTS.md; FSDP variation (PP=1) uses exposed_comm_fraction_fsdp = 0.30 [ILLUSTRATIVE]",medium,Training Infra,profile (nsys) of a pilot step,<fill>
+A-06,network,ECMP spreads cross-leaf flows perfectly,1.0,effective contention multiplier,ILLUSTRATIVE,<fill>,high,Fabric,switch uplink counters under all_reduce_perf,<fill>
+A-07,power,Node power at maximum,10.2,kW,ILLUSTRATIVE,<fill>,high,Facilities,L2 chassis power log,<fill>
+A-08,power,Node power sustained under W-TRAIN,8.5,kW,ILLUSTRATIVE,<fill>,high,Facilities,L2 chassis power log (median of 30 min),<fill>
+A-09,facility,Continuous-load derate,0.80,fraction,ILLUSTRATIVE,site electrical standard,medium,Facilities,facility engineer sign-off,<fill>
+A-10,cost,GPU node unit price,300000,USD,ILLUSTRATIVE,catalog in data/design_inputs.yaml,high,Procurement,quote,<fill>
+<fill: A-11>,<fill>,<fill>,<fill>,<fill>,<fill: MEASURED|MODELED|SIMULATED|ILLUSTRATIVE|VENDOR-SPEC YYYY-MM>,<fill>,<fill: low|medium|high>,<fill: team>,<fill>,<fill>

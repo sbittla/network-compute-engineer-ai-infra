@@ -1,0 +1,18 @@
+bundle: kestrel-capstone-a
+backend:
+  transport: RoCEv2
+  rails: 8
+  rail_leaf:
+    count: 8
+    radix: 64
+    downlinks: 34
+    uplinks: 32
+    uplinks_per_spine: 8
+  spine:
+    count: 4
+    radix: 64
+  claimed_oversubscription: '1:1'
+frontend:
+  ports_per_node: 2
+  speed_gbps: 200
+  claimed_oversubscription: '3:1'

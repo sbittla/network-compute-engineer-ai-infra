@@ -1,0 +1,127 @@
+provenance: ILLUSTRATIVE teaching values for ORION-256 (Halcyon AI). Not quotes.
+cluster:
+  n_nodes: 32
+  gpus_per_node: 8
+  nics_per_node: 8
+  nic_gbps: 400
+  nodes_per_gpu_rack: 4
+catalog:
+  node_hx8:
+    usd: 300000
+    watts_max: 10200
+    watts_sustained: 8500
+    note: 8x H100-class SXM, 8x 400G NIC, 2x 200G FE NIC; host-side optics counted in node power
+  switch_64x400g:
+    usd: 90000
+    watts: 1000
+    note: 64 x 400G OSFP ports = 25.6 Tb/s in use; base power excludes switch-side transceivers
+  xcvr_400g_mm:
+    usd: 700
+    watts: 9
+    reach_m: 50
+    note: 400G multimode optic; 50 m is an ILLUSTRATIVE site policy for the installed MM plant (module
+      reach on OM4 is typically ~70-100 m; verify per datasheet)
+  xcvr_400g_sm:
+    usd: 1100
+    watts: 11
+    reach_m: 500
+    note: 400G single-mode optic
+  dac_400g:
+    usd: 250
+    watts: 0
+    reach_m: 3
+    note: 400G passive copper DAC; price includes both ends
+  fiber_mm:
+    usd_base: 60
+    usd_per_m: 2.0
+    note: MM fiber jumper/trunk per link
+  fiber_sm:
+    usd_base: 50
+    usd_per_m: 1.5
+    note: SM fiber jumper/trunk per link
+fixed_items:
+- item: storage_server
+  qty: 8
+  usd: 120000
+  watts: 2000
+  note: parallel FS servers (~160 GB/s read aggregate per REFERENCE_CLUSTER)
+- item: frontend_switch_64x200g
+  qty: 4
+  usd: 40000
+  watts: 800
+  note: 2 frontend leaves + 2 frontend spines; 3:1 by ports, 1.5:1 by bandwidth (200G hosts, 400G uplinks)
+- item: oob_switch_48x1g
+  qty: 3
+  usd: 5000
+  watts: 150
+  note: BMC network
+- item: mgmt_server
+  qty: 3
+  usd: 15000
+  watts: 600
+  note: Slurm controller, provisioning, monitoring
+- item: rack_pdu_kit
+  qty: 13
+  usd: 10000
+  watts: 0
+  note: rack, 2 x PDUs, containment per rack position
+fabric_options:
+  A_rail_1to1:
+    description: Rail-optimized leaf-spine, one leaf per rail, non-blocking (ORION baseline)
+    style: rail
+    leaf_radix: 64
+    downlinks_per_leaf: 32
+    uplinks_per_leaf: 32
+    spine_radix: 64
+    leaf_location: network_racks
+    spine_location: network_racks
+  B_tor_2to1:
+    description: Top-of-rack leaf per GPU rack (all 8 rails of 4 nodes), 2:1 oversubscribed
+    style: tor
+    leaf_radix: 64
+    downlinks_per_leaf: 32
+    uplinks_per_leaf: 16
+    spine_radix: 64
+    leaf_location: gpu_racks
+    spine_location: network_racks
+  C_vendor_quote_3to1:
+    description: 'Vendor quote: 48 down / 16 up per leaf to save one leaf'
+    style: rail
+    leaf_radix: 64
+    downlinks_per_leaf: 48
+    uplinks_per_leaf: 16
+    spine_radix: 64
+    leaf_location: network_racks
+    spine_location: network_racks
+workload:
+  name: W-TRAIN
+  params: 70000000000.0
+  hidden: 8192
+  layers: 80
+  seq_len: 4096
+  global_batch_seqs: 1024
+  bytes_per_grad: 2
+  bytes_per_param_bf16: 2
+  bytes_per_activation: 2
+  gpu_peak_flops: 989000000000000.0
+  mfu: 0.4
+  busbw_efficiency: 0.8
+  dp_overlap_window_s: 0.07
+  exposed_comm_fraction_fsdp: 0.3
+  scenarios:
+    baseline_3d:
+      tp: 8
+      pp: 4
+      dp: 8
+      sharding: dp_allreduce
+      note: 'REFERENCE_CLUSTER baseline: TP inside NVLink, PP=4, DP=8'
+    fsdp_dp32:
+      tp: 8
+      pp: 1
+      dp: 32
+      sharding: zero3
+      note: TP=8 + fully sharded data parallel across 32 nodes
+economics:
+  amortization_years: 4
+  usd_per_kwh: 0.1
+  hours_per_year: 8760

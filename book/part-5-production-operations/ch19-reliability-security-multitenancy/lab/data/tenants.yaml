@@ -1,0 +1,45 @@
+# Tenant isolation configuration for ORION-XL (shared training + inference platform)
+# network.vrf / network.vni: Ethernet isolation (frontend and RoCE backend; VXLAN/EVPN VNI per tenant).
+# network.ib_pkey: InfiniBand partition key, used only for tenants placed on the IB-fabric variant;
+#   the subnet manager assigns it and IB switches enforce it on ingress when partition enforcement is on.
+tenants:
+  - name: acme-research
+    idp_group: grp-acme
+    k8s_namespaces: [acme-train, acme-dev]
+    slurm_account: acme
+    rbac_bindings:
+      - {subject: "group:grp-acme", role: tenant-admin, scope: "namespace:acme-train"}
+      - {subject: "sa:acme-train:trainer", role: cluster-admin, scope: cluster}
+    network: {vrf: VRF-ACME, vni: 10010, ib_pkey: "0x8001", frontend_vlan: 210}
+    storage:
+      exports: [{path: /lustre/projects/acme, mode: rw}]
+      encryption_key_id: kms/acme-01
+    gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: true}
+    secrets: {backend: vault, path_prefix: kv/tenants/acme-research/}
+    audit: {sink: siem-central, retention_days: 400}
+  - name: borealis
+    idp_group: grp-borealis
+    k8s_namespaces: [borealis]
+    slurm_account: borealis
+    rbac_bindings:
+      - {subject: "group:grp-borealis", role: tenant-admin, scope: "namespace:borealis"}
+    network: {vrf: VRF-BOREALIS, vni: 10020, ib_pkey: "0x8002", frontend_vlan: 220}
+    storage:
+      exports: [{path: /lustre/projects, mode: ro}]
+      encryption_key_id: kms/borealis-01
+    gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: false}
+    secrets: {backend: vault, path_prefix: kv/tenants/}
+    audit: {sink: siem-central, retention_days: 400}
+  - name: cobalt-inference
+    idp_group: grp-cobalt
+    k8s_namespaces: [cobalt-serve]
+    slurm_account: cobalt
+    rbac_bindings:
+      - {subject: "group:grp-cobalt", role: tenant-admin, scope: "namespace:cobalt-serve"}
+    network: {vrf: VRF-COBALT, vni: 10020, ib_pkey: "0x8001", frontend_vlan: 230}
+    storage:
+      exports: [{path: /lustre/projects/cobalt, mode: rw}]
+      encryption_key_id: kms/cobalt-01
+    gpu: {allocation_mode: timeslice, shared_with: [borealis], scrub_on_release: true}
+    secrets: {backend: vault, path_prefix: kv/tenants/cobalt-inference/}
+    audit: {sink: siem-central, retention_days: 30}

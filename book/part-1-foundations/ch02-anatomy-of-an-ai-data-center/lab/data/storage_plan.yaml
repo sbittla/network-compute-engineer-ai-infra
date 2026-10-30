@@ -1,0 +1,11 @@
+evidence_class: ILLUSTRATIVE
+source: storage vendor sizing sheet
+servers: 8
+per_server_read_gbytes_s: 20.0
+per_server_write_gbytes_s: 10.0
+aggregate_read:
+  value: 160
+  unit: Gb/s
+aggregate_write:
+  value: 80
+  unit: GB/s

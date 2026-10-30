@@ -1,0 +1,8 @@
+# <sha256 of '<device>:<interface>|<fault_class>'> <fault onset UTC> <detection tolerance s>
+# Device-level faults use interface '*'. An alert matches a fault only if it FIRES within
+# [onset, onset + tolerance]; earlier or non-matching alerts are false positives.
+1cdff2c4e198fcfce334481603b3d70abf614091422021f3f05662dce6c51e4c 2026-10-12T10:11:00Z 600
+2419e3fa76a919472a66f6effe1c2a1469e086bdb255cea1c79330a29a8fafcf 2026-10-12T10:15:00Z 600
+51c4f893b6b27ac858582d3c7387478ff78d85ca570cd405240400fc9898ee4b 2026-10-12T10:04:00Z 1200
+92e826b299fee3fe41e3aaabd52e9211d918926010d43f3b281662ffefeaa97c 2026-10-12T10:00:00Z 600
+e337620a6d17c5a6458dd64d0a7d2c004e1f4e815a149250e898e90e2e33c148 2026-10-12T10:00:00Z 600

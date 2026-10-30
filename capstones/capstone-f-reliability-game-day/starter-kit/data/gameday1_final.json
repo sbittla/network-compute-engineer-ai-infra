@@ -1,0 +1,76 @@
+{
+ "config": {
+  "fast_fail": false,
+  "health_for_s": 60,
+  "horizon_s": 21600,
+  "jobs": {
+   "ft": {
+    "ckpt_GB": 28.0,
+    "ckpt_interval_s": 600,
+    "ckpt_stall_s": 5.0,
+    "nodes": 2,
+    "step_s": 2.0
+   },
+   "train": {
+    "ckpt_GB": 980.0,
+    "ckpt_interval_s": 1800,
+    "ckpt_stall_s": 20.0,
+    "nodes": 24,
+    "step_s": 17.4
+   }
+  },
+  "launch_s": 280,
+  "nccl_timeout_s": 600,
+  "scrape_s": 15,
+  "seed": 7,
+  "storage_read_GBps": 160.0,
+  "storage_write_GBps": 80.0
+ },
+ "final": {
+  "drained": [
+   "orion-n07",
+   "orion-n13",
+   "orion-n18"
+  ],
+  "ft": {
+   "durable_step": 10433,
+   "nodes": [
+    "orion-n25",
+    "orion-n26"
+   ],
+   "state": "running",
+   "step": 10713
+  },
+  "train": {
+   "durable_step": 621,
+   "nodes": [
+    "orion-n01",
+    "orion-n02",
+    "orion-n03",
+    "orion-n04",
+    "orion-n05",
+    "orion-n06",
+    "orion-n08",
+    "orion-n09",
+    "orion-n10",
+    "orion-n11",
+    "orion-n12",
+    "orion-n13",
+    "orion-n14",
+    "orion-n15",
+    "orion-n16",
+    "orion-n17",
+    "orion-n19",
+    "orion-n20",
+    "orion-n21",
+    "orion-n22",
+    "orion-n23",
+    "orion-n24",
+    "orion-n27",
+    "orion-n28"
+   ],
+   "state": "failed",
+   "step": 659
+  }
+ }
+}

@@ -1,0 +1,22 @@
+lab: ch19-reliability-security-multitenancy
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Synthetic ORION-XL incident (512 x HX8 = 4,096 GPUs; TP=8, PP=8, DP=64; rail-optimized
+  backend with 16 leaves per rail). One flaky HCA link, one GPU row-remap fault, one NCCL timeout,
+  plus red herrings. FMEA register and tenant configuration are synthetic.
+data_generation: {script: tools/generate_data.py, seed: 19}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+outputs:
+  - failure timeline, rank-to-hardware mapping, health decisions, restart plan, recovery metrics
+  - risk register (FMEA with RPN), isolation-violation report
+extensions:
+  - tier: L2
+    requires: "One GPU host (read-only health queries; GPU reset only on a dedicated lab host)"
+    record: [gpu_model, driver_version, dcgm_version, vbios, ecc_mode, row_remapper_state, run_count]
+  - tier: L3
+    requires: "2+ RDMA nodes in a dedicated lab partition; a link you are authorised to disable"
+    record: [nic_firmware, rdma_stack_version, nccl_version, pytorch_version, NCCL_IB_TIMEOUT,
+             NCCL_IB_RETRY_CNT, watchdog_timeout, link_down_duration_s, outcome_per_trial, trials]

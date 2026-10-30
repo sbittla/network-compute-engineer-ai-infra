@@ -1,0 +1,79 @@
+bundle: kestrel-capstone-a
+assumptions:
+- id: A-01
+  statement: Dense BF16 tensor peak per GPU
+  value: 989
+  unit: TFLOP/s
+  label: VENDOR-SPEC, 2026-10
+  owner: Training Infra
+  validation: Re-verify against the current datasheet before procurement sign-off
+- id: A-02
+  statement: HBM capacity per GPU
+  value: 80
+  unit: GB
+  label: VENDOR-SPEC, 2026-10
+  owner: Training Infra
+  validation: Confirm with nvidia-smi --query-gpu=memory.total on acceptance
+- id: A-03
+  statement: Node maximum power
+  value: 10.2
+  unit: kW
+  label: VENDOR-SPEC, 2026-10
+  owner: Facilities
+  validation: Measure PDU draw during burn-in (Chapter 16 acceptance)
+- id: A-04
+  statement: Model FLOPs utilisation (MFU) for W-TRAIN
+  value: 0.4
+  unit: ratio
+  label: ILLUSTRATIVE
+  owner: Training Infra
+  validation: Measure on a 64-GPU slice before full-scale launch
+- id: A-05
+  statement: Parallel file system aggregate write bandwidth
+  value: 80
+  unit: GB/s
+  label: ILLUSTRATIVE
+  owner: Platform
+  validation: IOR-style write test from 32 clients at acceptance
+- id: A-06
+  statement: Achievable all-reduce busbw per 400G rail at 32 nodes (node busbw / 8, i.e. ~320 GB/s per
+    node)
+  value: 40
+  unit: GB/s
+  label: MODELED
+  owner: Fabric
+  validation: all_reduce_perf on 2 and 32 nodes, 5 runs each, L3
+- id: A-07
+  statement: Mean time between job-interrupting failures for a 256-GPU job
+  value: 48
+  unit: h
+  label: ILLUSTRATIVE
+  owner: SRE
+- id: A-08
+  statement: Blocking checkpoint time (synchronous save to the PFS, conservative)
+  value: 60
+  unit: s
+  label: MODELED
+  owner: Training Infra
+  validation: Time the sync save on 32 nodes, then validate async save to NVMe, L2/L3
+- id: A-09
+  statement: Usable rack power budget (after PDU derating)
+  value: 45
+  unit: kW
+  label: ILLUSTRATIVE
+  owner: Facilities
+  validation: Facilities sign-off against the as-built PDU one-line
+- id: A-10
+  statement: RoCE path MTU
+  value: 4096
+  unit: B
+  label: ILLUSTRATIVE
+  owner: Fabric
+  validation: Check active_mtu with ibv_devinfo on every NIC at acceptance
+workload:
+  name: W-TRAIN
+  total_gpus: 256
+  parallelism:
+    tp: 8
+    pp: 4
+    dp: 16

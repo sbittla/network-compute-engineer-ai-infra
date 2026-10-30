@@ -1,0 +1,31 @@
+lab: ch22-cross-layer-performance-engineering
+title: "Attribute a W-TRAIN step-time regression across GPU, network, storage, and scheduler evidence"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Uses a synthetic multi-source bundle modeled on ORION-256 (docs/REFERENCE_CLUSTER.md):
+  48 jobs of a 64-GPU W-TRAIN ablation configuration (TP=8, PP=4, DP=2, 256 x 4,096-token sequences
+  per step) before and after change window CW-2026-10-12.
+data_generation: {script: tools/generate_data.py, seed: 2214}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+data_files:
+  jobs.csv: "job_id, period, start, status, steps logged, dataset tier, node list"
+  step_log.csv: "per-step step_time_s and data_wait_s from the training loop logger"
+  placement.csv: "rank -> node/local GPU, tp_group, pp_stage, dp_replica"
+  node_inventory.csv: "current node state: rack, block, driver branch, peer-memory module"
+  node_metrics.csv: "per job-node DCGM/host summaries (SM active, backend tx, iowait, host bounce copy, ECC SBE)"
+  alerts.csv: "alerts active around the window"
+  change_log.yaml: "the four changes made in the window"
+  hypotheses.yaml: "candidate discriminating tests with info value, cost, risk, environment"
+  nccl_init_sample.log: "illustrative NCCL INFO init excerpts"
+extensions:
+  - tier: L2
+    requires: "one HX8-class host you are authorised to drain; driver + NCCL + nccl-tests installed"
+    record: [gpu_model, driver_version, cuda_version, nccl_version, peermem_module_state,
+             nvidia_smi_topo_m_output, all_reduce_perf_command, message_sizes, warmup_iters, iters, run_count]
+  - tier: L3
+    requires: ">= 2 reserved multi-GPU nodes with RoCEv2 or InfiniBand, nccl-tests, and job placement control"
+    record: [nic_firmware, rdma_stack_version, switch_os_version, topology, mtu, placement_map,
+             tp_packed_vs_split_step_times, run_count, warmup_policy, concurrent_fabric_load]

@@ -1,0 +1,52 @@
+# ORION firmware/driver compatibility matrix [ILLUSTRATIVE version strings]
+matrix_version: '2026-10-01'
+components:
+- bios
+- bmc_fw
+- kernel
+- gpu_driver
+- gpu_vbios
+- nic_fw
+- rdma_stack
+bundles:
+- id: B-2025.11
+  status: deprecated
+  notes: Previous baseline. Still bootable; no longer accepted for new nodes.
+  versions:
+    bios: 2.2.4
+    bmc_fw: 1.10.3
+    kernel: 5.15.0-119-generic
+    gpu_driver: 535.183.06
+    gpu_vbios: 96.00.89.00.01
+    nic_fw: 28.39.1002
+    rdma_stack: '24.01'
+- id: B-2026.04
+  status: production
+  notes: Current fleet baseline (build-out acceptance ran on this bundle).
+  versions:
+    bios: 2.4.1
+    bmc_fw: 1.12.0
+    kernel: 6.8.0-45-generic
+    gpu_driver: 550.127.08
+    gpu_vbios: 96.00.99.00.01
+    nic_fw: 28.41.1000
+    rdma_stack: '24.07'
+- id: B-2026.10
+  status: production
+  notes: Upgrade target. Qualified on 2 pilot nodes for 14 days.
+  versions:
+    bios: 2.6.0
+    bmc_fw: 1.14.2
+    kernel: 6.8.0-60-generic
+    gpu_driver: 570.86.15
+    gpu_vbios: 96.00.A5.00.01
+    nic_fw: 28.43.1014
+    rdma_stack: '24.10'
+blocked:
+- component: nic_fw
+  version: 28.42.1000
+  reason: Intermittent 400G link renegotiation under load (internal defect FAB-1187).
+    Do not deploy.
+- component: gpu_driver
+  version: 570.40.02
+  reason: Pre-release driver; not qualified.

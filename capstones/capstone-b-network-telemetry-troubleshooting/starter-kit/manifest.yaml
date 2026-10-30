@@ -1,0 +1,26 @@
+lab: capstone-b-network-telemetry-troubleshooting
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. A 30-minute SIMULATED telemetry capture of the ORION-256 rail-optimized RoCEv2 backend
+  (8 rail leaves, 4 spines, 32 hosts x 8 NICs) in three native formats, with a topology map, device
+  profiles, a change calendar and hashed ground truth for injected faults.
+data_generation: {script: tools/generate_data.py, seed: 4242}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+outputs:
+  - normalized long-format telemetry table (canonical counter names, UTC timestamps)
+  - wrap/reset-aware per-interval rates
+  - root-cause alerts with evidence; precision/recall against hashed ground truth
+  - per-leaf health table for the report/dashboard
+extensions:
+  - tier: L2
+    requires: "One host with an RDMA NIC (mlx5-class) in a dedicated lab; root for ethtool/sysfs reads"
+    record: [nic_model, nic_firmware, driver_version, rdma_stack_version, kernel, netdev_names,
+             counter_names_present, poll_interval_s, collector_version]
+  - tier: L3
+    requires: "2+ RDMA hosts and a lab switch with PFC/ECN configured and streaming telemetry or CLI access"
+    record: [switch_model, switch_os_version, telemetry_transport, sample_interval_s, pfc_ecn_config,
+             dscp_tc_map, nic_firmware, incast_fan_in, message_size, run_count, warmup_policy,
+             detection_latency_s, precision, recall]

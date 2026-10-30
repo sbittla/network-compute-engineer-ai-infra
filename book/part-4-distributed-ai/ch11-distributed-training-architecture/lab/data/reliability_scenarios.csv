@@ -1,0 +1,5 @@
+name,gpus,job_mtbf_hours,checkpoint_blocking_s,restart_s
+orion256_sync_pfs,256,48.0,45.0,900.0
+orion256_async_staged,256,48.0,5.0,900.0
+orionxl4096_sync_pfs,4096,3.0,45.0,900.0
+orionxl4096_async_staged,4096,3.0,5.0,900.0

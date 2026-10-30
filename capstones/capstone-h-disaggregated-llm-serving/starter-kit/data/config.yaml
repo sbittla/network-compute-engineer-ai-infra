@@ -1,0 +1,22 @@
+model: W-INFER 70B, BF16, TP=8 per HX8 instance
+kv_bytes_per_token: 327680
+rho_max: 0.7
+candidates:
+  colocated:
+    kind: colocated
+    instances: 7
+    chunk_tokens: null
+  colocated_chunked:
+    kind: colocated
+    instances: 7
+    chunk_tokens: 512
+  disagg_rdma:
+    kind: disaggregated
+    prefill: 5
+    decode: 2
+    link: rdma-400g-x8
+  disagg_tcp:
+    kind: disaggregated
+    prefill: 5
+    decode: 2
+    link: tcp-200g-x2

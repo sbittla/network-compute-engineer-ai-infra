@@ -1,0 +1,6 @@
+id,category,assumption,value,unit,evidence_label,source_or_reasoning,sensitivity,how_to_validate,status
+A-01,method,Warm-up length,5,steps,ILLUSTRATIVE,<fill: why 5 — show the first 10 steps of several runs>,medium,plot step time vs step index,<fill>
+A-02,method,Outlier rule,max(3 x 1.4826 x MAD; 2 % of group median),relative,ILLUSTRATIVE,<fill>,high (one exclusion changes n_runs),report with and without,<fill>
+A-03,statistics,Runs are exchangeable within a configuration,n/a,n/a,ILLUSTRATIVE,<fill: same nodes? same day?>,high,check dates and node lists in manifests,<fill>
+A-04,workload,One replica = TP8 x PP4 = 32 GPUs with 128 sequences,n/a,n/a,ILLUSTRATIVE,starter-kit README §4,low,config review,<fill>
+<fill: A-05…>,,,,,,,,,

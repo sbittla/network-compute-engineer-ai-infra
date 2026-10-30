@@ -1,0 +1,28 @@
+name: ORION game day 1 (run with the default alert rules)
+t0_utc: '2026-11-05T14:00:00Z'
+faults:
+- id: F1
+  kind: link_down
+  target: orion-n07
+  rail: 4
+  start_s: 2700
+  duration_s: 900
+- id: F2
+  kind: storage_slow
+  factor: 0.02
+  start_s: 10200
+  duration_s: 3600
+- id: F3
+  kind: node_loss
+  target: orion-n18
+  start_s: 11000
+- id: F4
+  kind: scheduler_outage
+  start_s: 16200
+  duration_s: 1200
+- id: F5
+  kind: link_down
+  target: orion-n13
+  rail: 0
+  start_s: 16500
+  duration_s: 600

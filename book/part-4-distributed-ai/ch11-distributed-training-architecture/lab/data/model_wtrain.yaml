@@ -1,0 +1,11 @@
+name: W-TRAIN
+params: 70000000000.0
+layers: 80
+hidden: 8192
+query_heads: 64
+kv_heads: 8
+head_dim: 128
+seq_len: 4096
+global_batch_seqs: 1024
+bytes_per_param_state: 16
+act_bytes: 2

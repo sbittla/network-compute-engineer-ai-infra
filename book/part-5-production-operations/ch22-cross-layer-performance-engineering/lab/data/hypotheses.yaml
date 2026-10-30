@@ -1,0 +1,68 @@
+# Candidate discriminating tests for the CW-2026-10-12 regression. [ILLUSTRATIVE] estimates.
+# info_value: expected fraction of remaining uncertainty the test resolves (0-1).
+# cost_hours: engineer + machine hours. risk: low | medium | high.
+# environment: offline (existing data), lab (reserved/drained nodes), production (live jobs).
+tests:
+  - id: T1
+    hypothesis: H-placement
+    action: "Derive TP-group node span per job from placement records (scontrol show job -d / placement.csv)"
+    info_value: 0.9
+    cost_hours: 0.5
+    risk: low
+    environment: offline
+  - id: T2
+    hypothesis: H-driver
+    action: "Check NCCL INFO channel lines for the /GDRDMA suffix by node, and lsmod | grep nvidia_peermem on upgraded nodes"
+    info_value: 0.7
+    cost_hours: 0.5
+    risk: low
+    environment: offline
+  - id: T3
+    hypothesis: H-storage
+    action: "Compare dataloader wait (data_wait_s) distribution by dataset tier from existing step logs"
+    info_value: 0.8
+    cost_hours: 0.25
+    risk: low
+    environment: offline
+  - id: T4
+    hypothesis: H-ecc
+    action: "Compare step time of jobs that included orion-n13 with jobs that did not, controlling for other factors"
+    info_value: 0.3
+    cost_hours: 0.25
+    risk: low
+    environment: offline
+  - id: T5
+    hypothesis: H-driver
+    action: "Roll back R570 on all 16 upgraded nodes during business hours"
+    info_value: 0.6
+    cost_hours: 8
+    risk: high
+    environment: production
+  - id: T6
+    hypothesis: H-driver
+    action: "all_reduce_perf between two drained nodes: one R550, one R570, GDR on/off"
+    info_value: 0.7
+    cost_hours: 3
+    risk: medium
+    environment: lab
+  - id: T7
+    hypothesis: H-placement
+    action: "A/B: same job config, TP-packed vs TP-split, on 16 reserved nodes, 5 repetitions"
+    info_value: 0.9
+    cost_hours: 6
+    risk: medium
+    environment: lab
+  - id: T8
+    hypothesis: H-storage
+    action: "fio random-read 1 MiB on capacity tier from one drained node"
+    info_value: 0.5
+    cost_hours: 2
+    risk: low
+    environment: lab
+  - id: T9
+    hypothesis: H-network
+    action: "Restart all running jobs with NCCL_DEBUG=INFO to capture topology"
+    info_value: 0.4
+    cost_hours: 4
+    risk: high
+    environment: production

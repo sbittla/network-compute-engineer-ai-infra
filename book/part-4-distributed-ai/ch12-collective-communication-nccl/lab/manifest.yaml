@@ -1,0 +1,26 @@
+lab: ch12-collective-communication-nccl
+title: "nccl-tests all_reduce_perf analysis: busbw, regions, alpha-beta fit, anomaly detection"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml, matplotlib]
+hardware_assumptions: >-
+  None. Six synthetic all_reduce_perf logs modeled on ORION HX8 nodes (8 x H100-class GPUs on NVLink,
+  8 x 400 Gb/s rail NICs per node): 1, 2, 4, 8 nodes; one alternative NIC map; one degraded rail.
+data_generation: {script: tools/generate_data.py, seed: 12}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+optional:
+  - script: optional/gloo_allreduce.py
+    requires: "PyTorch (CPU build is enough); not run by check.py"
+    evidence_class: MEASURED   # laptop, gloo over loopback -- never compare with GPU/NCCL results
+extensions:
+  - tier: L2
+    requires: "1 x 8-GPU host with CUDA, NCCL, and nccl-tests built"
+    record: [gpu_model, driver_version, cuda_version, nccl_version, nccl_tests_commit, nvlink_topology,
+             nccl_env_vars, warmup_iters, iters, launches, plateau_busbw_median, plateau_busbw_min,
+             latency_8B_p50_us]
+  - tier: L3
+    requires: "2+ HX8-class nodes with RDMA NICs (RoCEv2 or InfiniBand), MPI or Slurm+PMIx, reserved fabric window"
+    record: [nodes, ranks_per_node, nic_model, nic_firmware, switch_os_version, topology, mtu,
+             nccl_ib_hca, nccl_socket_ifname, nccl_ib_gid_index, gdrdma_in_use, launches,
+             plateau_busbw_median, plateau_busbw_spread, alpha_us, jitter_cv, fabric_idle]

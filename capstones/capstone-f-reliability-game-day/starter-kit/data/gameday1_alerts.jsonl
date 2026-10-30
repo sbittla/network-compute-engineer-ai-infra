@@ -1,0 +1,11 @@
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 1845.0, "t_resolve": 1860.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 2730.0, "t_resolve": 3615.0}
+{"detects": ["link_down"], "labels": {"node": "orion-n07", "rail": "4"}, "rule": "NicLinkDown", "severity": "warning", "t_fire": 3000.0, "t_resolve": 3600.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 5430.0, "t_resolve": 5445.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 10860.0, "t_resolve": 10875.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 11025.0, "t_resolve": 12210.0}
+{"detects": ["node_loss"], "labels": {"node": "orion-n18"}, "rule": "NodeDown", "severity": "critical", "t_fire": 11070.0, "t_resolve": null}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 14025.0, "t_resolve": 14040.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 15840.0, "t_resolve": 15855.0}
+{"detects": ["link_down", "node_loss"], "labels": {"job": "train"}, "rule": "JobStalled", "severity": "critical", "t_fire": 16530.0, "t_resolve": null}
+{"detects": ["link_down"], "labels": {"node": "orion-n13", "rail": "0"}, "rule": "NicLinkDown", "severity": "warning", "t_fire": 16800.0, "t_resolve": 17100.0}

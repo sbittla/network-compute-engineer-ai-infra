@@ -1,0 +1,3 @@
+rack,position,row,kind,contents,max_kw,sustained_kw,feed_voltage_v,feed_breaker_a,feed_usable_kw,redundancy,ok_at_max,ok_at_sustained,cooling_row_usable_kw_n_plus_1,mitigation,mitigation_owner,evidence_label
+rack-01,A01,A,gpu,<fill: 4x HX8 (+ ToR leaf if option B)>,<fill>,<fill>,415,80,<fill>,2N,<fill>,<fill>,<fill>,<fill>,<fill>,MODELED
+<fill: one row per rack>,,,,,,,,,,,,,,,,

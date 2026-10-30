@@ -1,0 +1,5 @@
+variant,n_gpus,n_runs_valid,n_runs_excluded,exclusion_reasons,median_step_s,min_run_median_s,max_run_median_s,tokens_per_s,weak_scaling_eff,speedup_vs_previous,p_value,ci95_low,ci95_high,evidence_label,manifest
+baseline,32,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,1.000,n/a,n/a,n/a,n/a,SIMULATED (supplied logs),manifests.csv
+<fill: one row per variant x scale>,,,,,,,,,,,,,,,
+<fill: L2/L3 rows if run>,,,,,,,,,,,,,,MEASURED,<fill: manifest path>
+harness-cpu-proxy,<fill: n_ranks>,<fill: reps>,0,n/a,<fill>,<fill>,<fill>,n/a,n/a,n/a,n/a,n/a,n/a,MEASURED (L1 CPU proxy; not GPU evidence),<fill: harness JSON>

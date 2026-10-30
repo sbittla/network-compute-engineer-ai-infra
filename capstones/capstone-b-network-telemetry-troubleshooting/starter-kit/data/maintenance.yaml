@@ -1,0 +1,12 @@
+windows:
+- id: CHG-20817
+  device: orion-n30
+  start: '2026-10-12T10:15:00Z'
+  end: '2026-10-12T10:19:00Z'
+  description: Planned reboot for kernel patch. orion-n30 is an inference node (default split n25-n32);
+    the router drained its replica first. W-TRAIN runs on n01-n24, unaffected.
+- id: CHG-20822
+  device: orion-be-leaf-r7
+  start: '2026-10-12T10:19:00Z'
+  end: '2026-10-12T10:25:00Z'
+  description: Replace optics on Ethernet1/41-42 (uplinks to orion-be-spine-2); counters cleared.

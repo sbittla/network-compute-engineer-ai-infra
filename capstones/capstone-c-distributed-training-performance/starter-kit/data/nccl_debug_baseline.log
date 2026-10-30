@@ -1,0 +1,7 @@
+orion-n01:20417:20417 [0] NCCL INFO Bootstrap : Using eth0:10.10.1.11<0>
+orion-n01:20417:20417 [0] NCCL INFO NET/IB : No device found.
+orion-n01:20417:20417 [0] NCCL INFO NET/Socket : Using [0]eth0:10.10.1.11<0> [1]eth1:10.10.129.11<0>
+orion-n01:20417:20417 [0] NCCL INFO Using network Socket
+orion-n01:20417:20530 [0] NCCL INFO Channel 00/0 : 0[0] -> 8[0] [send] via NET/Socket/0
+orion-n01:20417:20530 [0] NCCL INFO Channel 01/0 : 0[0] -> 8[0] [send] via NET/Socket/1
+orion-n01:20417:20530 [0] NCCL INFO Connected all rings

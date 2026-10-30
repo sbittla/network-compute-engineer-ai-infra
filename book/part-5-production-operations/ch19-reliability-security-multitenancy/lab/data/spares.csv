@@ -1,0 +1,9 @@
+node,state,last_acceptance,notes
+orionxl-s00,acceptance_failed,2026-10-19,GPU2 uncorrectable ECC during burn-in; RMA open
+orionxl-s01,ready,2026-10-18,
+orionxl-s02,in_repair,2026-10-15,PSU replacement
+orionxl-s03,ready,2026-10-18,
+orionxl-s04,ready,2026-10-17,
+orionxl-s05,reserved,2026-10-17,held for inference failover
+orionxl-s06,ready,2026-10-16,
+orionxl-s07,ready,2026-10-16,

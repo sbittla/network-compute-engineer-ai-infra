@@ -1,0 +1,19 @@
+# [ILLUSTRATIVE] parameters for the Chapter 5 [MODELED] all-reduce estimate.
+# Effective per-direction GPU<->NIC<->fabric bandwidth (GB/s) and coefficient of variation per
+# GPU-to-NIC path class. Calibrate against nccl-tests on real hardware before trusting any output.
+line_rate_GBps: 50.0          # 400 Gb/s NIC
+classes:
+  PIX:  {mean_GBps: 48.0, cv: 0.02}
+  PXB:  {mean_GBps: 45.0, cv: 0.03}
+  PHB:  {mean_GBps: 40.0, cv: 0.06}
+  NODE: {mean_GBps: 36.0, cv: 0.08}
+  SYS:  {mean_GBps: 24.0, cv: 0.18}   # only reachable if NCCL_NET_GDR_LEVEL=SYS; ~ UPI share, see manuscript 5.9
+modifiers:
+  acs_redirect: {bw_factor: 0.70, cv_add: 0.06}   # P2P TLPs redirected up to the root complex
+  host_staged:  {bw_cap_GBps: 18.0, cv_add: 0.10} # no GPUDirect RDMA: bounce through host memory
+  shared_nic:   {divide_by_sharers: true}          # two GPUs driving one NIC share its bandwidth
+alpha_ms: 0.2                 # fixed per-collective latency term
+gdr_max_relation: PXB         # NCCL_NET_GDR_LEVEL default in recent releases (~PXB; verify per release):
+                              # GPU-NIC pairs farther than this are host-staged even when peer memory works
+nodes_per_job: 16             # worked-example job: 16 HX8 nodes = 128 GPUs
+min_bw_fraction: 0.2          # samples are clipped at 20 % of the class mean

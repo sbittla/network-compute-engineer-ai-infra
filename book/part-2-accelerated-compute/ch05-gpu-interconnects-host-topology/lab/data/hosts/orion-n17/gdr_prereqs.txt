@@ -1,0 +1,26 @@
+### uname -r
+6.8.0-45-generic
+### cat /proc/cmdline
+BOOT_IMAGE=/vmlinuz-6.8.0-45-generic root=UUID=3f1c9a52-6c1e-4f0e-9a51-0d6b8e2f7a10 ro intel_iommu=on iommu=pt console=ttyS0,115200n8
+### lsmod | grep -E 'nvidia_peermem|nv_peer_mem'
+nvidia_peermem         16384  0
+### nvidia-smi --query-gpu=driver_version --format=csv,noheader -i 0
+570.124.06
+### ofed_info -s
+MLNX_OFED_LINUX-24.10-1.1.4.0:
+### lspci -vvv | grep ACSCtl  (downstream switch port directly above each GPU and NIC)
+0000:17:00.0 (above GPU0) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:17:01.0 (above mlx5_0) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:21:00.0 (above GPU1) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:21:01.0 (above mlx5_1) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:37:00.0 (above GPU2) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:37:01.0 (above mlx5_2) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:41:00.0 (above GPU3) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:97:00.0 (above GPU4) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:97:01.0 (above mlx5_4) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:a1:00.0 (above GPU5) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:a1:01.0 (above mlx5_5) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:b7:00.0 (above GPU6) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:b7:01.0 (above mlx5_6) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:c1:00.0 (above GPU7) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+0000:c1:01.0 (above mlx5_7) ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-

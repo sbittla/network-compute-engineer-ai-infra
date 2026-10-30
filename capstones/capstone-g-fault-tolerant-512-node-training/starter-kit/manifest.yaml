@@ -1,0 +1,21 @@
+lab: capstone-g-fault-tolerant-512-node-training
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Synthetic incident on ORION-XL (512 HX8 nodes, docs/REFERENCE_CLUSTER.md section 4); job on
+  480 nodes (3,840 GPUs, TP 8 x PP 8 x DP 60), 32-node spare pool. Log formats imitate real tools;
+  values are ILLUSTRATIVE / SIMULATED.
+data_generation: {script: tools/generate_data.py, seed: 22}
+evidence_class: SIMULATED   # MEASURED | MODELED | SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One GPU host with DCGM, lldpd and chrony; read-only commands"
+    record: [gpu_model, driver_version, dcgm_version, nic_model, nic_driver, ethtool_counter_names,
+             log_format_differences]
+  - tier: L3
+    requires: ">= 2 dedicated lab GPU nodes with RDMA NICs, lab scheduler, shared storage; written authorisation"
+    record: [driver_version, cuda_version, nccl_version, pytorch_version, process_group_timeout_s,
+             nccl_ib_timeout, checkpoint_mechanism, checkpoint_size_GB, upload_rate_GBps,
+             injection_commands, rollback_verification, repetitions, detect_s, isolate_s, rto_s, rpo_steps]

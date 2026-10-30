@@ -1,0 +1,3 @@
+job,attempt,start_ts,end_ts,end_reason,implicated_nodes,auto_restarted
+900198,1,2026-10-19T23:10:05Z,2026-10-20T01:23:40Z,nccl_timeout,,true
+900211,2,2026-10-20T01:40:02Z,2026-10-20T03:52:15Z,nccl_timeout,,false

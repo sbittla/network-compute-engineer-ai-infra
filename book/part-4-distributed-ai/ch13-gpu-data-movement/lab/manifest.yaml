@@ -1,0 +1,21 @@
+lab: ch13-gpu-data-movement
+title: "Cross-layer straggler diagnosis from per-rank, per-step telemetry"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Synthetic telemetry of a 64-rank synchronous data-parallel job on ORION nodes orion-n17..n24
+  (8 x H100-class GPUs, 8 x 400 Gb/s rail NICs per node; rank r -> GPU/NIC/rail r % 8).
+data_generation: {script: tools/generate_telemetry.py, seed: 13}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "1 x 8-GPU host; PyTorch + NCCL; DCGM or nvidia-smi"
+    record: [gpu_model, driver_version, nccl_version, dcgm_version, phase_timing_method,
+             sampling_interval_s, steps_recorded, sm_active_metric, clocks_event_reasons_field]
+  - tier: L3
+    requires: "2+ HX8-class nodes with RDMA NICs; perftest; nccl-tests; access to NIC counters"
+    record: [nodes, nic_model, nic_firmware, peer_memory_mechanism, acs_state, iommu_mode,
+             pcie_link_status, gdrdma_in_nccl_log, ib_write_bw_host_gbps, ib_write_bw_cuda_aligned_gbps,
+             ib_write_bw_cuda_misaligned_gbps, nccl_busbw_gdr_on, nccl_busbw_gdr_off, repetitions]

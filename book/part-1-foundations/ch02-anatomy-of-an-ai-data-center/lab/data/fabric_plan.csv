@@ -1,0 +1,13 @@
+switch_id,tier,rail,port_count,port_gbps,downlinks,uplinks
+orion-be-leaf-r0,leaf,0,64,400,32,32
+orion-be-leaf-r1,leaf,1,64,400,32,32
+orion-be-leaf-r2,leaf,2,64,400,32,32
+orion-be-leaf-r3,leaf,3,64,400,32,32
+orion-be-leaf-r4,leaf,4,64,400,32,32
+orion-be-leaf-r5,leaf,5,64,400,32,24
+orion-be-leaf-r6,leaf,6,64,400,32,32
+orion-be-leaf-r7,leaf,7,64,400,32,32
+orion-be-spine-1,spine,,64,400,64,0
+orion-be-spine-2,spine,,64,400,72,0
+orion-be-spine-3,spine,,64,400,64,0
+orion-be-spine-4,spine,,64,400,64,0

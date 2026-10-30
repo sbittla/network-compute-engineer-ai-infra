@@ -1,0 +1,15 @@
+lab: ch01-workload-characterization
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: "None. Synthetic per-GPU workload profiles modeled on ORION-256 HX8 nodes and the W-TRAIN / W-INFER workloads (docs/REFERENCE_CLUSTER.md). Ceilings are vendor-class peak values."
+data_generation: {script: tools/generate_profiles.py, seed: 1101}
+evidence_class: MODELED   # MEASURED | MODELED | SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One multi-GPU node with NVIDIA driver, DCGM, Nsight Systems and nccl-tests"
+    record: [gpu_model, gpu_count, driver_version, cuda_version, nccl_version, dcgm_version, topology_nvidia_smi_topo_m, workload_definition, warmup_policy, run_count, median_step_s, p95_step_s, min_max_step_s]
+  - tier: L3
+    requires: "2+ multi-GPU nodes with RoCEv2 or InfiniBand NICs and access to NIC counters"
+    record: [nic_model, nic_firmware, link_speed, mtu, rdma_stack_version, topology, rank_mapping, nccl_transport_lines, run_count, median_step_s, p95_step_s, measured_vs_modeled_per_field]
