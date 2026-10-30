@@ -1,0 +1,25 @@
+lab: capstone-d-llm-inference-platform
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. W-INFER (70B, GQA) on ORION HX8 nodes, modeled from docs/REFERENCE_CLUSTER.md: 80 GB HBM and
+  3.35 TB/s per GPU, 989 / 1,979 TFLOP/s dense BF16 / FP8 [VENDOR-SPEC, 2026-10]; efficiencies ILLUSTRATIVE.
+  A synthetic 2,000-request trace (Poisson arrivals, 2 % long-context RAG tenant).
+data_generation: {script: tools/generate_data.py, seed: 77}
+evidence_class: SIMULATED   # capacity figures are MODELED; latency/throughput are SIMULATED
+runtime_budget_seconds: 60
+outputs:
+  - KV bytes per token, per-replica KV token capacity
+  - roofline iteration cost; discrete-event continuous-batching simulation per configuration
+  - TTFT / TPOT / E2E percentiles, throughput, error rate, goodput
+  - error budget, burn rate, canary rollback decision, cost per million tokens
+extensions:
+  - tier: L2
+    requires: "One HX8-class node (or a smaller GPU with a smaller open model) and a supported serving stack"
+    record: [gpu_model, driver, cuda, serving_stack_and_version, model_and_revision, dtype, tp,
+             max_num_seqs, max_num_batched_tokens, chunked_prefill, gpu_memory_utilization, max_model_len,
+             load_generator_and_version, request_trace, arrival_process, warmup_requests, run_count]
+  - tier: L3
+    requires: "2+ nodes behind a load balancer for multi-replica routing and canary tests"
+    record: [replica_count, router_policy, canary_weight, rollback_gates, network_path, run_count]

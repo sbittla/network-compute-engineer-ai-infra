@@ -1,0 +1,406 @@
+### host: orion-n01
+### collected: 2026-10-12T09:15:03Z
+### cmd: ibv_devinfo
+hca_id:	mlx5_0
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0120
+	sys_image_guid:			b83f:d203:0047:0120
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_1
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0121
+	sys_image_guid:			b83f:d203:0047:0121
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_2
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0122
+	sys_image_guid:			b83f:d203:0047:0122
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_3
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0123
+	sys_image_guid:			b83f:d203:0047:0123
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_4
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0124
+	sys_image_guid:			b83f:d203:0047:0124
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_5
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0125
+	sys_image_guid:			b83f:d203:0047:0125
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_6
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0126
+	sys_image_guid:			b83f:d203:0047:0126
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+
+hca_id:	mlx5_7
+	transport:			InfiniBand (0)
+	fw_ver:				28.39.1002
+	node_guid:			b83f:d203:0047:0127
+	sys_image_guid:			b83f:d203:0047:0127
+	vendor_id:			0x02c9
+	vendor_part_id:			4129
+	hw_ver:				0x0
+	board_id:			MT_0000000838
+	phys_port_cnt:			1
+		port:	1
+			state:			PORT_ACTIVE (4)
+			max_mtu:		4096 (5)
+			active_mtu:		4096 (5)
+			sm_lid:			0
+			port_lid:		0
+			port_lmc:		0x00
+			link_layer:		Ethernet
+### cmd: rdma link show
+link mlx5_0/1 state ACTIVE physical_state LINK_UP netdev ens1np0
+link mlx5_1/1 state ACTIVE physical_state LINK_UP netdev ens2np0
+link mlx5_2/1 state ACTIVE physical_state LINK_UP netdev ens3np0
+link mlx5_3/1 state ACTIVE physical_state LINK_UP netdev ens4np0
+link mlx5_4/1 state ACTIVE physical_state LINK_UP netdev ens5np0
+link mlx5_5/1 state ACTIVE physical_state LINK_UP netdev ens6np0
+link mlx5_6/1 state ACTIVE physical_state LINK_UP netdev ens7np0
+link mlx5_7/1 state ACTIVE physical_state LINK_UP netdev ens8np0
+### cmd: show_gids
+DEV	PORT	INDEX	GID					IPv4  		VER	DEV
+---	----	-----	---					------------  	---	---
+mlx5_0	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0120			v1	ens1np0
+mlx5_0	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0120			v2	ens1np0
+mlx5_0	1	2	0000:0000:0000:0000:0000:ffff:0a64:0003	10.100.0.3  	v1	ens1np0
+mlx5_0	1	3	0000:0000:0000:0000:0000:ffff:0a64:0003	10.100.0.3  	v2	ens1np0
+mlx5_1	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0121			v1	ens2np0
+mlx5_1	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0121			v2	ens2np0
+mlx5_1	1	2	0000:0000:0000:0000:0000:ffff:0a64:0103	10.100.1.3  	v1	ens2np0
+mlx5_1	1	3	0000:0000:0000:0000:0000:ffff:0a64:0103	10.100.1.3  	v2	ens2np0
+mlx5_2	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0122			v1	ens3np0
+mlx5_2	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0122			v2	ens3np0
+mlx5_2	1	2	0000:0000:0000:0000:0000:ffff:0a64:0203	10.100.2.3  	v1	ens3np0
+mlx5_2	1	3	0000:0000:0000:0000:0000:ffff:0a64:0203	10.100.2.3  	v2	ens3np0
+mlx5_3	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0123			v1	ens4np0
+mlx5_3	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0123			v2	ens4np0
+mlx5_3	1	2	0000:0000:0000:0000:0000:ffff:0a64:0303	10.100.3.3  	v1	ens4np0
+mlx5_3	1	3	0000:0000:0000:0000:0000:ffff:0a64:0303	10.100.3.3  	v2	ens4np0
+mlx5_4	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0124			v1	ens5np0
+mlx5_4	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0124			v2	ens5np0
+mlx5_4	1	2	0000:0000:0000:0000:0000:ffff:0a64:0403	10.100.4.3  	v1	ens5np0
+mlx5_4	1	3	0000:0000:0000:0000:0000:ffff:0a64:0403	10.100.4.3  	v2	ens5np0
+mlx5_5	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0125			v1	ens6np0
+mlx5_5	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0125			v2	ens6np0
+mlx5_5	1	2	0000:0000:0000:0000:0000:ffff:0a64:0503	10.100.5.3  	v1	ens6np0
+mlx5_5	1	3	0000:0000:0000:0000:0000:ffff:0a64:0503	10.100.5.3  	v2	ens6np0
+mlx5_6	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0126			v1	ens7np0
+mlx5_6	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0126			v2	ens7np0
+mlx5_6	1	2	0000:0000:0000:0000:0000:ffff:0a64:0603	10.100.6.3  	v1	ens7np0
+mlx5_6	1	3	0000:0000:0000:0000:0000:ffff:0a64:0603	10.100.6.3  	v2	ens7np0
+mlx5_7	1	0	fe80:0000:0000:0000:ba3f:d2ff:fe47:0127			v1	ens8np0
+mlx5_7	1	1	fe80:0000:0000:0000:ba3f:d2ff:fe47:0127			v2	ens8np0
+mlx5_7	1	2	0000:0000:0000:0000:0000:ffff:0a64:0703	10.100.7.3  	v1	ens8np0
+mlx5_7	1	3	0000:0000:0000:0000:0000:ffff:0a64:0703	10.100.7.3  	v2	ens8np0
+n_gids_found=32
+### cmd: ethtool -i ens1np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:1a:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens1np0
+Settings for ens1np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens2np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:1b:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens2np0
+Settings for ens2np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens3np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:3a:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens3np0
+Settings for ens3np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens4np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:3b:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens4np0
+Settings for ens4np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens5np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:9a:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens5np0
+Settings for ens5np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens6np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:9b:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens6np0
+Settings for ens6np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens7np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:ba:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens7np0
+Settings for ens7np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ethtool -i ens8np0
+driver: mlx5_core
+version: 24.04-0.6.6
+firmware-version: 28.39.1002 (MT_0000000838)
+expansion-rom-version: 
+bus-info: 0000:bb:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+### cmd: ethtool ens8np0
+Settings for ens8np0:
+	Speed: 400000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	Port: Direct Attach Copper
+	Link detected: yes
+### cmd: ip -o link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000\    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+4: ens1np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:20 brd ff:ff:ff:ff:ff:ff
+5: ens2np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:21 brd ff:ff:ff:ff:ff:ff
+6: ens3np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:22 brd ff:ff:ff:ff:ff:ff
+7: ens4np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:23 brd ff:ff:ff:ff:ff:ff
+8: ens5np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:24 brd ff:ff:ff:ff:ff:ff
+9: ens6np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:25 brd ff:ff:ff:ff:ff:ff
+10: ens7np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:26 brd ff:ff:ff:ff:ff:ff
+11: ens8np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether b8:3f:d2:47:01:27 brd ff:ff:ff:ff:ff:ff
+### cmd: ip -o -4 addr show
+1: lo    inet 127.0.0.1/8 scope host lo\       valid_lft forever preferred_lft forever
+4: ens1np0    inet 10.100.0.3/31 scope global ens1np0\       valid_lft forever preferred_lft forever
+5: ens2np0    inet 10.100.1.3/31 scope global ens2np0\       valid_lft forever preferred_lft forever
+6: ens3np0    inet 10.100.2.3/31 scope global ens3np0\       valid_lft forever preferred_lft forever
+7: ens4np0    inet 10.100.3.3/31 scope global ens4np0\       valid_lft forever preferred_lft forever
+8: ens5np0    inet 10.100.4.3/31 scope global ens5np0\       valid_lft forever preferred_lft forever
+9: ens6np0    inet 10.100.5.3/31 scope global ens6np0\       valid_lft forever preferred_lft forever
+10: ens7np0    inet 10.100.6.3/31 scope global ens7np0\       valid_lft forever preferred_lft forever
+11: ens8np0    inet 10.100.7.3/31 scope global ens8np0\       valid_lft forever preferred_lft forever
+### cmd: dcb pfc show dev ens1np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens1np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens2np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens2np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens3np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens3np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens4np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens4np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens5np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens5np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens6np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens6np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens7np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens7np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: dcb pfc show dev ens8np0 prio-pfc
+prio-pfc 0:off 1:off 2:off 3:on 4:off 5:off 6:off 7:off
+### cmd: dcb app show dev ens8np0 dscp-prio
+dscp-prio 26:3 48:6
+### cmd: lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'
+nvidia_peermem         16384  0
+mlx5_ib               479232  0
+ib_uverbs             184320  2 nvidia_peermem,mlx5_ib
+ib_core               434176  6 rdma_cm,ib_ipoib,iw_cm,ib_umad,ib_uverbs,mlx5_ib
+mlx5_core            2367488  1 mlx5_ib
+### cmd: cat /etc/halcyon/rdma.env
+# Managed by fleet config. RDMA settings for training jobs on backend rails.
+NCCL_IB_HCA=mlx5_0,mlx5_1,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7
+NCCL_IB_GID_INDEX=3
+NCCL_IB_TC=106

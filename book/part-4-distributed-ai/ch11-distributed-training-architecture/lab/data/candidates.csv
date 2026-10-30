@@ -1,0 +1,13 @@
+name,tp,pp,dp,micro_batch,zero_stage,recompute
+C_tp8_pp8_dp4,8,8,4,1,1,selective
+F_fsdp_tp1_pp1_dp256,1,1,256,1,3,full
+A_baseline_tp8_pp4_dp8,8,4,8,1,1,selective
+G_tp1_pp4_dp64,1,4,64,1,1,selective
+K_tp8_pp4_dp8_fullrecomp,8,4,8,1,1,full
+E_tp16_pp2_dp8,16,2,8,1,1,selective
+B_tp8_pp2_dp16,8,2,16,1,1,selective
+D_tp4_pp8_dp8,4,8,8,1,1,selective
+J_tp2_pp8_dp16,2,8,16,1,1,selective
+L_tp8_pp4_dp8_mb2,8,4,8,2,1,selective
+I_tp8_pp4_dp8_mb4_zero0,8,4,8,4,0,selective
+H_tp8_pp1_dp32,8,1,32,1,1,selective

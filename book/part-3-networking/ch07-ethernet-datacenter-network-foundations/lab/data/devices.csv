@@ -1,0 +1,13 @@
+device,role,rail,asn,loopback,ecmp_max_paths
+orion-be-leaf-r3,leaf,3,65104,10.255.0.14/32,64
+orion-be-leaf-r7,leaf,7,65107,10.255.0.18/32,64
+orion-be-spine-4,spine,,65100,10.255.0.4/32,64
+orion-be-leaf-r6,leaf,6,65107,10.255.0.17/32,64
+orion-be-leaf-r4,leaf,4,65105,10.255.0.15/32,64
+orion-be-leaf-r0,leaf,0,65101,10.255.0.11/32,64
+orion-be-leaf-r5,leaf,5,65106,10.255.0.16/32,64
+orion-be-spine-2,spine,,65100,10.255.0.2/32,64
+orion-be-spine-1,spine,,65100,10.255.0.1/32,64
+orion-be-leaf-r2,leaf,2,65103,10.255.0.13/32,4
+orion-be-spine-3,spine,,65100,10.255.0.3/32,64
+orion-be-leaf-r1,leaf,1,65102,10.255.0.12/32,64

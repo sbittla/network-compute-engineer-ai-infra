@@ -1,0 +1,19 @@
+workload_id,name,phase,declared_class,gpus,tflop_per_gpu,hbm_gb_per_gpu,nvlink_gb_per_gpu,net_value_per_gpu,net_unit,io_read_gb_per_node,io_write_gb_per_node,observed_step_s,notes
+W01,llm70b-pretrain-step,train,compute,256,6875,2100,1202.6,9.8,GB,0.0005,0,17.301327,W-TRAIN TP8 PP4 DP8; one optimizer step
+W02,llm70b-decode-b32,infer,memory,8,0.56,20.18,0.147,0,GB,0,0,0.00969,"W-INFER TP8 BF16; one decode step, batch 32, mean context 2048"
+W03,llm70b-prefill-2k,infer,compute,8,35.9,40,9.4,0,GB,0,0,0.07459,W-INFER TP8 BF16; one 2048-token prompt
+W04,llm7b-dp-finetune,train,compute,64,2752,900,6,24.5,GB,0.002,0,3.553291,pure data parallel; 64k tokens/GPU/step
+W05,moe-a2a-train-step,train,compute,128,480,600,30,60,GB,0.001,0,1.731206,"mixture-of-experts, expert parallel across nodes"
+W06,llm70b-checkpoint-save,train,io,256,0,0,0,0,GB,0,30.6,13.067318,full W-TRAIN checkpoint (980 GB) written synchronously
+W07,video-dataloader-train,train,io,64,1600,500,0,3,GB,40,0,2.366347,decoded-frame pipeline reading from shared PFS
+W08,llm8b-decode-b1-single,infer,memory,1,0.016,16.1,0,0,GB,0,0,0.006311,"8B model, single GPU, batch 1"
+W09,tp16-cross-node-train,train,compute,16,260,120,0,38,GB,0,0,1.059391,tensor parallel group spans two nodes
+W10,rag-embedding-batch,infer,compute,8,120,60,0,0,GB,1,0,0.162246,embedding encoder over document batch
+W11,dp-allreduce-bench-16node,other,communication,128,0.01,30,10,80,Gb,0,0,0.247197,all-reduce microbenchmark; NIC volume exported from switch dashboard
+W12,kv-transfer-disagg,infer,communication,16,0.5,10,0,40,GB,0,0,0.492345,prefill->decode KV transfer; NIC volume from host counters
+W13,vision-train-vit,train,compute,32,900,,4,2,GB,0.5,0,1.317991,profile exported from notebook
+W05,moe-a2a-train-step-rerun,train,communication,128,480,600,30,60,GB,0.001,0,1.703953,rerun of W05 pasted into sheet
+W15,eval-harness,infer,compute,8,40,20,1,0,GB,-2,0,0.090443,offline evaluation sweep
+W16,llm70b-decode-b1-eager,infer,memory,8,0.0175,17.58,0.0046,0,GB,0,0,0.02502,"W-INFER TP8, batch 1, eager mode (no CUDA graphs)"
+W17,recsys-embedding-a2a-infer,infer,communication,16,2,20,1,0.6,GB,0,0,0.018219,"sharded embedding tables, all-to-all lookups"
+W18,bert-serving,infer,compute,8,30,15,0.5,25,Gbps,0,0,0.04939,network figure copied from NIC dashboard

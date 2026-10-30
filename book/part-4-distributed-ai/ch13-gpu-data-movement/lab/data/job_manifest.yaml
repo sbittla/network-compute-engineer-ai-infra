@@ -1,0 +1,42 @@
+job: w-dp64-telemetry
+ranks: 64
+gpus_per_node: 8
+steps: 60
+hosts:
+- orion-n17
+- orion-n18
+- orion-n19
+- orion-n20
+- orion-n21
+- orion-n22
+- orion-n23
+- orion-n24
+rank_mapping: rank r -> host index r // 8, local_rank = GPU index = NIC index = rail
+  = r % 8
+collective: gradient all-reduce once per step, after backward (no overlap in this
+  job)
+evidence_class: SIMULATED
+columns:
+  step: optimizer step index (0-59)
+  rank: global rank (0-63)
+  host: node hostname (orion-n17 .. orion-n24)
+  local_rank: GPU index = NIC index = rail (0-7)
+  tokens: tokens processed by this rank in this step
+  dataloader_wait_ms: ms the training loop blocked waiting for the next batch
+  compute_ms: ms of forward + backward kernels
+  wait_ms: ms inside the gradient all-reduce before the last rank arrived (synchronization
+    skew)
+  comm_ms: ms of all-reduce data movement after the last rank arrived
+  step_ms: wall-clock step time, identical for all ranks; step_ms - (dataloader_wait_ms
+    + compute_ms + wait_ms + comm_ms) is about 25 ms of optimizer step (plus noise)
+  gpu_util_pct: '% of time any kernel ran (nvidia-smi utilization.gpu style; NCCL
+    kernels count while spinning)'
+  sm_active_pct: '% of SM cycles active (DCGM profiling SM-active style)'
+  sm_clock_mhz: SM clock, MHz
+  gpu_temp_c: GPU temperature, degrees C
+  power_w: GPU board power, W
+  clocks_event_reason: active clocks-event reason ('none' or e.g. 'sw_thermal_slowdown')
+  nic_tx_gbps: NIC transmit rate averaged over the step, Gb/s
+  nic_rx_gbps: NIC receive rate averaged over the step, Gb/s
+  nic_retx: per-step delta of packet_seq_err + local_ack_timeout_err (sender) + out_of_sequence
+    (receiver) on this rank's NIC

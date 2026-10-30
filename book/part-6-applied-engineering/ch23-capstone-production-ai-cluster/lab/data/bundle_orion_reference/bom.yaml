@@ -1,0 +1,33 @@
+bundle: orion-256-reference
+gpu_nodes:
+  model: HX8
+  count: 32
+  gpus_per_node: 8
+  spares: 0
+total_gpus: 256
+node_power_kw:
+  max: 10.2
+  sustained: 8.5
+  assumption: A-03
+racks:
+  budget_kw: 45
+  budget_assumption: A-09
+  gpu_racks:
+    rack-01: 4
+    rack-02: 4
+    rack-03: 4
+    rack-04: 4
+    rack-05: 4
+    rack-06: 4
+    rack-07: 4
+    rack-08: 4
+switches:
+  rail_leaf:
+    count: 8
+    radix: 64
+  spine:
+    count: 4
+    radix: 64
+cables:
+  backend_400g: 512
+  note: 256 host-leaf + 256 leaf-spine links

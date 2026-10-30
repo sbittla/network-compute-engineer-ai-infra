@@ -1,0 +1,35 @@
+collective: all_reduce
+dtype: float
+configs:
+  c1_1node_8gpu:
+    file: c1_1node_8gpu.log
+    nodes: 1
+    gpus_per_node: 8
+    description: 1 x HX8, 8 GPUs, NVLink/NVSwitch only (NVLS in-switch reduction enabled)
+  c2_2node_aligned:
+    file: c2_2node_aligned.log
+    nodes: 2
+    gpus_per_node: 8
+    description: 2 x HX8, 16 GPUs, default rank map (8 ranks per node, GPU i -> NIC
+      i)
+  c3_2node_alt_map:
+    file: c3_2node_alt_map.log
+    nodes: 2
+    gpus_per_node: 8
+    description: 2 x HX8, 16 GPUs, alternative container image and rank/NIC map
+  c4_4node_aligned:
+    file: c4_4node_aligned.log
+    nodes: 4
+    gpus_per_node: 8
+    description: 4 x HX8, 32 GPUs, default rank map
+  c5_8node_aligned:
+    file: c5_8node_aligned.log
+    nodes: 8
+    gpus_per_node: 8
+    description: 8 x HX8, 64 GPUs, default rank map (nodes orion-n01 to orion-n08)
+  c6_8node_run2:
+    file: c6_8node_run2.log
+    nodes: 8
+    gpus_per_node: 8
+    description: 8 x HX8, 64 GPUs, same job as c5 one day later (nodes orion-n01 to
+      orion-n07, orion-n12)

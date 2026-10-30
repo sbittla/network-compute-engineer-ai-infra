@@ -1,0 +1,25 @@
+lab: capstone-c-distributed-training-performance
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas]
+hardware_assumptions: >-
+  None for the analysis (SIMULATED run logs of W-TRAIN weak scaling on ORION, 32-256 GPUs). The CPU-proxy
+  harness runs on any laptop; its timings are MEASURED for that laptop only and are not GPU evidence.
+data_generation: {script: tools/generate_data.py, seed: 1729}
+evidence_class: SIMULATED   # analysis of supplied logs; harness timings are MEASURED (CPU proxy)
+runtime_budget_seconds: 60
+outputs:
+  - CPU-proxy harness results with manifest, warm-up policy, percentiles
+  - admissibility decisions for 60 supplied runs
+  - weak-scaling table, variant comparisons with permutation p-values and bootstrap CIs
+  - exposed-communication fractions from the profile summary; NCCL transport from debug logs
+extensions:
+  - tier: L2
+    requires: "One 8-GPU node (or a single GPU for the harness port) with PyTorch + NCCL"
+    record: [gpu_model, driver, cuda, pytorch, nccl_version, container_image, nvidia_smi_topo_m,
+             clocks_and_power_limits, warmup_steps, reps, seed, nsys_version]
+  - tier: L3
+    requires: "2+ GPU nodes with RDMA (RoCEv2 or InfiniBand) and supported GPUDirect RDMA"
+    record: [node_list, nic_model, nic_firmware, rdma_stack_version, switch_os_version, mtu,
+             nccl_env_vars, nccl_net_and_gdr_from_debug_log, rank_to_node_map, warmup_steps, reps,
+             run_to_run_spread, nccl_tests_version]

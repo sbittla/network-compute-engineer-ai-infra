@@ -1,0 +1,8 @@
+# ORION-XL tenant isolation policy (what check_isolation() enforces)
+min_audit_retention_days: 365
+forbidden_roles_for_tenant_subjects: [cluster-admin]
+unique_per_tenant: [vrf, vni, ib_pkey, frontend_vlan]
+gpu_cross_tenant_sharing_requires: mig
+scrub_on_release_required: true
+secrets_prefix_must_end_with_tenant_name: true
+storage_exports_must_not_overlap_other_tenants: true

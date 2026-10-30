@@ -1,0 +1,11 @@
+name: W-INFER 70B dense, GQA
+params: 70000000000.0
+layers: 80
+hidden: 8192
+q_heads: 64
+kv_heads: 8
+head_dim: 128
+kv_dtype_bytes: 2
+weight_bytes_per_param:
+  bf16: 2
+  fp8: 1

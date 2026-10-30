@@ -1,0 +1,24 @@
+# Fabric specs for the port / cable / spares estimation task. [ILLUSTRATIVE]
+# One NIC port per GPU, one rail per NIC index, rail-optimized leaves, 2-tier leaf-spine.
+fabrics:
+  small:
+    nodes: 16
+    rails: 8
+    switch_radix: 64
+    oversubscription: 1.0
+    host_optic: 400G-DR4
+    fabric_optic: 400G-DR4
+    prefix: lab
+  orion:
+    nodes: 32
+    rails: 8
+    switch_radix: 64
+    oversubscription: 1.0
+    host_optic: 400G-DR4
+    fabric_optic: 400G-DR4
+    prefix: orion-be
+spares_policy:
+  optic_rate: 0.03
+  cable_rate: 0.02
+  min_per_type: 2
+  spare_switches_per_model: 1

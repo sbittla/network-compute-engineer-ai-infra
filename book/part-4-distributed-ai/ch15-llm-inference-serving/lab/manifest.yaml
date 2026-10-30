@@ -1,0 +1,50 @@
+lab: ch15-llm-inference-serving
+title: "Inference capacity model, serving-trace analyzer, and disaggregation model"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Part A and Part C are analytic models parameterised by data/configs.yaml (W-INFER on
+  ORION HX8 nodes, docs/REFERENCE_CLUSTER.md). Part B analyses a synthetic trace produced by a
+  discrete-event simulator of four TP=2 FP8 continuous-batching replicas.
+data_generation:
+  script: tools/generate_trace.py
+  seed: 15
+  outputs: [data/requests.csv, data/token_gaps.csv, data/replica_telemetry.csv]
+  note: "data/configs.yaml is hand-written input, not generated."
+evidence_class:
+  part_a_capacity_model: MODELED
+  part_b_trace: SIMULATED
+  part_c_disaggregation_model: MODELED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One GPU host with enough HBM for a supported open model (e.g. a 7B-8B model on one 80 GB GPU, or W-INFER-class on a full HX8); a serving engine such as vLLM, SGLang or TensorRT-LLM"
+    record:
+      - gpu_model_and_count
+      - driver_version
+      - cuda_version
+      - serving_engine_and_version
+      - model_name_and_revision
+      - weight_dtype_and_kv_dtype
+      - tensor_parallel_size
+      - max_concurrent_sequences_setting
+      - memory_fraction_setting
+      - prefix_caching_on_off
+      - chunked_prefill_on_off
+      - workload_definition  # prompt/output length distribution, arrival process, request rate
+      - warmup_policy
+      - run_count            # >= 5 per configuration
+      - client_host_and_network_path
+  - tier: L3
+    requires: "Two or more HX8-class nodes with RDMA NICs (RoCEv2 or InfiniBand) and a serving stack that supports disaggregated prefill/decode with a KV-transfer connector"
+    record:
+      - nic_model_firmware_and_driver
+      - rdma_transport_and_mtu
+      - traffic_class_and_dscp_used_for_kv
+      - gpudirect_rdma_enabled
+      - prefill_and_decode_pool_sizes
+      - kv_transfer_connector_and_version
+      - kv_bytes_per_request_measured
+      - switch_port_counters_before_after   # ECN marks, PFC pause frames, drops
+      - run_count

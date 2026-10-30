@@ -1,0 +1,53 @@
+cluster: ORION-256
+evidence_class: ILLUSTRATIVE
+compute:
+  gpu_nodes: 32
+  gpus_per_node: 8
+  node_model: HX8
+  node_rack_units: 8
+  nodes_per_gpu_rack: 4
+  gpu_hbm_gb: 80
+  node_max_kw: 10.2
+  node_dc_peak_kw: 9.59
+  node_sustained_kw: 8.5
+  psu_count: 6
+  psu_rating_kw: 3.0
+  psu_feeds: 2
+backend_fabric:
+  rails: 8
+  link_gbps: 400
+  leaf_ports: 64
+  leaf_downlinks: 32
+  leaf_uplinks: 32
+  spines: 4
+  spine_ports: 64
+  target_oversubscription: 1.0
+frontend_fabric:
+  ports_per_node: 2
+  port_gbps: 200
+  leaves: 2
+  oversubscription_by_ports: 3.0
+  oversubscription_by_bandwidth: 1.5
+management:
+  pdus_per_gpu_rack: 4
+  storage_servers: 8
+racks:
+  gpu_racks: 8
+  network_racks: 2
+  storage_racks: 2
+  management_racks: 1
+  gpu_rack_aux_kw: 0.2
+  network_rack_kw: 16.0
+  storage_rack_kw: 9.0
+  management_rack_kw: 4.0
+workload:
+  params: 70000000000
+  training_bytes_per_param: 16
+  checkpoint_bytes_per_param: 14
+  tp: 8
+  pp: 4
+  dp: 8
+economics:
+  pue: 1.25
+  energy_price_usd_per_kwh: 0.08
+  allocation_target: 0.85

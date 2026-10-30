@@ -1,0 +1,37 @@
+# Environment manifest — one per benchmark campaign (copy per configuration if anything differs).
+# Every field is required. "unknown" is allowed only with a reason in notes.
+campaign_id: <fill>
+date_utc: <fill: YYYY-MM-DD>
+tier: <fill: L1 | L2 | L3>
+evidence_class: <fill: MEASURED | SIMULATED>
+hardware:
+  nodes: <fill: list or count, e.g. orion-n01..orion-n08>
+  gpu_model: <fill>
+  gpus_per_node: <fill>
+  nic_model_and_firmware: <fill>
+  topology_capture: <fill: path to nvidia-smi topo -m output per node>
+  switch_os_version: <fill: L3 only>
+  mtu: {switch: <fill>, host_ip: <fill>, rdma_path: <fill>}
+software:
+  os_kernel: <fill>
+  driver: <fill>
+  cuda: <fill>
+  pytorch: <fill>
+  nccl: <fill>
+  container_image: <fill: image@digest>
+  rdma_stack: <fill>
+runtime:
+  nccl_env: {}            # <fill: every NCCL_* variable set, verbatim>
+  nccl_network_from_log: <fill: IB | Socket, plus whether channel lines show /GDRDMA>
+  rank_to_node_map: <fill: path>
+workload:
+  name: <fill: W-TRAIN weak-scaling replica (TP8 x PP4) or proxy>
+  config: <fill: sequence length, micro/global batch, precision>
+method:
+  warmup_policy: <fill: e.g. first 5 steps of each run and after any restart>
+  repetitions: <fill: >= 5 runs per configuration>
+  steps_per_run: <fill>
+  statistic: <fill: median of steady-state steps per run; median of run medians across runs>
+  spread: <fill: min/max of run medians and IQR>
+  changed_variable: <fill: the ONE thing that differs from the previous configuration>
+notes: <fill>

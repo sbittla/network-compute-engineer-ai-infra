@@ -1,0 +1,4 @@
+alert,target,start_utc,end_utc,severity,detail
+NodeGPUCorrectableECCHigh,orion-n13/GPU3,2026-10-12T07:14:00Z,,warning,SBE rate 140-160/h; no DBE; no row-remap pending
+StorageReadLatencyP99High,dataset-capacity-tier,2026-10-12T09:02:00Z,,warning,"read p99 > 250 ms for 5m, intermittent"
+BackendLinkFlap,orion-be-leaf-r3:Ethernet12,2026-10-09T03:40:00Z,2026-10-09T03:41:00Z,info,"single flap, before change window; port clean since"

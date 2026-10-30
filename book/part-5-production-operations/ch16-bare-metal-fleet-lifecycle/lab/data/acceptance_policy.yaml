@@ -1,0 +1,41 @@
+# HX8 node acceptance policy [ILLUSTRATIVE thresholds; tune per platform]
+policy_version: acc-2026.10
+node_type: HX8
+expected:
+  gpu_count: 8
+  gpu_product: H100-SXM-80GB
+  gpu_hbm_total_mib_min: 81000
+  gpu_pcie:
+    gen: 5
+    width: 16
+  nvlink_links_per_gpu: 18
+  compute_nic:
+    count: 8
+    speed_mbps: 400000
+    pcie_gen: 5
+    pcie_width: 16
+    mtu: 9000
+    active_mtu: 4096
+  frontend_nic:
+    count: 2
+    speed_mbps: 200000
+    mtu: 9000
+  nvme_count: 8
+thresholds:
+  dcgm_diag_min_level: 3
+  ecc_dbe_volatile_max: 0
+  ecc_sbe_volatile_warn: 10
+  max_gpu_temp_c: 87
+  throttle_reasons_fail:
+  - HW_THERMAL_SLOWDOWN
+  - SW_THERMAL_SLOWDOWN
+  - HW_POWER_BRAKE_SLOWDOWN
+  throttle_reasons_ignore:
+  - SW_POWER_CAP
+  - GPU_IDLE
+  rdma_pair_bw_min_gbps: 360.0
+  nccl_allreduce_busbw_min_gbs:
+    NVLS: 400.0
+    Ring: 330.0
+  fio_seq_read_min_gbs: 40.0
+  nvme_media_errors_max: 0

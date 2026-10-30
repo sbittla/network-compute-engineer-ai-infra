@@ -1,0 +1,33 @@
+# Expected configuration for an ORION HX8 node (docs/REFERENCE_CLUSTER.md) and the
+# severity thresholds used by the Chapter 3 analyzer. All values [ILLUSTRATIVE].
+platform: HX8
+inventory:
+  sockets: 2
+  cores_per_socket: 56
+  threads_per_core: 2
+  numa_nodes: 2
+  mem_total_mib_min: 2000000      # 2 TiB installed = 2,097,152 MiB; firmware/kernel reserve some
+  numa_node_mem_mb_min: 1000000   # each socket carries 1 TiB
+  gpu_count: 8
+pcie:
+  gpu:  {speed_gts: 32, width: 16}
+  nic:  {speed_gts: 32, width: 16}
+interfaces:
+  rail: {prefix: rail, count: 8, mtu: 9000, speed_mbps: 400000}
+  frontend: {prefix: fe, count: 2, mtu: 9000, speed_mbps: 200000}
+cpufreq:
+  expected_governor: performance
+thresholds:
+  aer_corrected_warn_per_bdf: 10
+  edac_ce_warn: 5
+  critical_xids: [48, 74, 79, 94, 95, 119, 120, 140, 154]   # [VENDOR-SPEC, 2026-10] verify against NVIDIA's Xid catalogue
+  numa_remote_fraction_warn: 0.25
+  numa_remote_fraction_crit: 0.50
+  irq_single_cpu_fraction_warn: 0.90
+  irq_min_queues: 4
+  cpu_hotspot_busy_pct: 90
+  cpu_hotspot_all_busy_max_pct: 30
+  io_await_ms_warn: 10
+  io_util_pct_warn: 90
+  vmstat_blocked_warn: 4
+  gpu_idle_util_pct: 5

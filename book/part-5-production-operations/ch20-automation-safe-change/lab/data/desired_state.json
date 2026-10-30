@@ -1,0 +1,112 @@
+{
+ "change_id": "CHG-2026-1103-RDMA-MTU",
+ "defaults": {
+  "leaf": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "node": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  }
+ },
+ "description": "Raise RDMA path MTU 1024 -> 4096 on ORION backend NICs; enforce RoCE QoS baseline.",
+ "overrides": {
+  "orion-be-leaf-r5": {
+   "pfc_priorities": [
+    4
+   ]
+  },
+  "orion-n10": {
+   "host_mtu": 9216
+  },
+  "orion-n22": {
+   "nic_firmware": "28.44.0500"
+  },
+  "orion-n25": {
+   "ecn_enabled": "yes"
+  }
+ },
+ "policy": {
+  "allowed_rdma_path_mtu": [
+   256,
+   512,
+   1024,
+   2048,
+   4096
+  ],
+  "approved_nic_firmware": [
+   "28.42.1000",
+   "28.43.1014"
+  ],
+  "l2_overhead_bytes": 22,
+  "roce_header_budget_bytes": 64
+ },
+ "targets": {
+  "leaf": [
+   "orion-be-leaf-r0",
+   "orion-be-leaf-r1",
+   "orion-be-leaf-r2",
+   "orion-be-leaf-r3",
+   "orion-be-leaf-r4",
+   "orion-be-leaf-r5",
+   "orion-be-leaf-r6",
+   "orion-be-leaf-r7"
+  ],
+  "node": [
+   "orion-n01",
+   "orion-n02",
+   "orion-n03",
+   "orion-n04",
+   "orion-n05",
+   "orion-n06",
+   "orion-n07",
+   "orion-n08",
+   "orion-n09",
+   "orion-n10",
+   "orion-n11",
+   "orion-n12",
+   "orion-n13",
+   "orion-n14",
+   "orion-n15",
+   "orion-n16",
+   "orion-n17",
+   "orion-n18",
+   "orion-n19",
+   "orion-n20",
+   "orion-n21",
+   "orion-n22",
+   "orion-n23",
+   "orion-n24",
+   "orion-n25",
+   "orion-n26",
+   "orion-n27",
+   "orion-n28",
+   "orion-n29",
+   "orion-n30",
+   "orion-n31",
+   "orion-n32"
+  ]
+ }
+}

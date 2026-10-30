@@ -1,0 +1,9 @@
+# ORION HX8 GPU ceilings (H100-SXM-class). [VENDOR-SPEC, 2026-10] dense peaks; re-verify per SKU.
+name: H100-SXM-class
+peak_flops:
+  bf16_tensor: 989.0e12   # dense, no sparsity
+  fp8_tensor: 1979.0e12   # dense, no sparsity
+  fp32_simt: 67.0e12      # non-tensor FP32
+hbm_bytes_per_s: 3.35e12
+max_boost_sm_clock_mhz: 1980
+typical_sustained_sm_clock_mhz: 1830   # under dense load [ILLUSTRATIVE]; judge throttling against peers

@@ -1,0 +1,4 @@
+config,node_load_factor,traffic_mix,n_seeds,stable_all_seeds,ttft_p95_s_median,ttft_p95_s_min,ttft_p95_s_max,tpot_p95_ms_median,itl_p99_ms_median,itl_p99_ms_max,e2e_p95_s,output_tokens_per_s_per_node,error_rate,goodput_frac,slo_met_all_seeds,usd_per_m_total,evidence_label,source
+c1_bf16_tp8_chunked,1.0,mixed,5,<fill>,<fill: or UNSTABLE>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,SIMULATED,starter-kit replicate()
+<fill: every config x load x mix you ran>,,,,,,,,,,,,,,,,,,
+<fill: L2 measured rows>,,,,,,,,,,,,,,,,,MEASURED,<fill: manifest path>

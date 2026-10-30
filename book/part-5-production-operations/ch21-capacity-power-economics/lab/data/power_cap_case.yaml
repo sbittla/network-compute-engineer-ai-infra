@@ -1,0 +1,9 @@
+# Power-capping case (declared variation): 64 HX8 nodes must fit into 16 racks of a LEGACY hall whose racks
+# have ONE canonical 415 V / 60 A circuit per side (32.78 kW, PF 0.95, 80 % continuous), 2N A/B. [ILLUSTRATIVE]
+nodes: 64
+racks: 16
+rack_slots: 4                    # physical node slots per rack
+rack_limit_kw: 32.78             # one side must carry the whole rack (2N): one circuit's continuous limit
+transient_margin: 0.10           # keep planned peak <= limit x (1 - margin) for synchronized power swings
+node_base_peak_kw: 4.6           # canonical: 10.2 kW max = 4.6 kW base + 8 x 700 W
+gpus_per_node: 8

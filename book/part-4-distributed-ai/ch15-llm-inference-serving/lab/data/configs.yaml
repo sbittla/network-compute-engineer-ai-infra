@@ -1,0 +1,81 @@
+# Chapter 15 lab inputs. All values are [ILLUSTRATIVE] ORION / W-INFER assumptions
+# (docs/REFERENCE_CLUSTER.md); GPU figures approximate H100-SXM-class [VENDOR-SPEC, 2026-10].
+# Everything computed from this file is [MODELED].
+
+model:                      # W-INFER 70B dense, GQA
+  n_params: 70.0e+9
+  n_layers: 80
+  n_kv_heads: 8
+  head_dim: 128
+  kv_bytes_per_elem: 2      # BF16 KV cache (set 1 for FP8 KV)
+
+gpu:
+  hbm_bytes: 80.0e+9         # 80 GB HBM3 per GPU
+  hbm_bw: 3.35e+12           # B/s per GPU
+  bf16_peak_flops: 989.0e+12 # dense
+  fp8_peak_flops: 1979.0e+12 # dense
+
+workload:
+  prompt_tokens: 2048
+  output_tokens: 256
+  capacity_seq_tokens: 4096 # sequence length used to size max concurrent sequences
+  tpot_slo_s: 0.050
+  ttft_slo_s: 0.800
+
+serving_configs:
+  - name: L-tp8-bf16        # latency-oriented: one replica per HX8, small batch
+    tp: 8
+    weight_dtype: bf16
+    weight_bytes: 140.0e+9
+    replicas_per_node: 1
+    max_batch: 32
+    mem_fraction: 0.90
+    reserve_bytes_per_gpu: 2.0e+9
+    block_tokens: 16
+    hbm_efficiency: 0.70
+    step_overhead_s: 0.003
+    prefill_mfu: 0.40
+  - name: T-tp4-fp8         # throughput-oriented: two replicas per HX8, large batch
+    tp: 4
+    weight_dtype: fp8
+    weight_bytes: 70.0e+9
+    replicas_per_node: 2
+    max_batch: 128
+    mem_fraction: 0.90
+    reserve_bytes_per_gpu: 2.0e+9
+    block_tokens: 16
+    hbm_efficiency: 0.70
+    step_overhead_s: 0.003
+    prefill_mfu: 0.40
+
+disaggregation:
+  replica_config: T-tp4-fp8
+  request_rate: 40.0        # req/s offered to the whole pool
+  prompt_tokens: 2048
+  output_tokens: 256
+  shared_replicas: 8        # 4 HX8 nodes
+  prefill_replicas: 6
+  decode_replicas: 2        # derived from the P:D sweep in manuscript Section 15.12
+  transports:
+    rdma:                   # backend RoCEv2 rails, 4 x 400G NICs local to the TP=4 GPUs
+      link_gbps: 400
+      links_per_replica: 4
+      efficiency: 0.85
+      fixed_latency_s: 30.0e-6
+    tcp:                    # frontend 200 GbE, one NIC per replica, host-staged copies
+      link_gbps: 200
+      links_per_replica: 1
+      efficiency: 0.50
+      fixed_latency_s: 1.0e-3
+
+speculative:
+  alpha: 0.8
+  k: 4
+  draft_cost_ratio: 0.05
+
+trace:
+  duration_s: 600.0
+  window_s: 15.0
+  slos:
+    chat: {ttft_s: 0.8, tpot_s: 0.050}
+    longctx: {ttft_s: 3.0, tpot_s: 0.080}

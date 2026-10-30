@@ -1,0 +1,24 @@
+lab: ch11-distributed-training-architecture
+title: "W-TRAIN step-time, memory, and checkpoint-interval model"
+tier: L1
+python: ">=3.10"
+dependencies: [pandas, pyyaml]
+hardware_assumptions: >-
+  None. Models W-TRAIN (70B dense, BF16 + Adam) on ORION-256 (32 x HX8, 8 x 80 GB GPUs per node,
+  NVLink inside the node, 8 x 400 Gb/s rail NICs per node) from docs/REFERENCE_CLUSTER.md.
+  Efficiency and overlap parameters in data/cluster_orion.yaml are ILLUSTRATIVE assumptions.
+data_generation: {script: tools/generate_data.py, seed: 11}
+evidence_class: MODELED
+runtime_budget_seconds: 60
+outputs: [candidate table (memory, compute, comm, bubble, step time, MFU), recommendation, checkpoint plan]
+extensions:
+  - tier: L2
+    requires: "1 x 8-GPU host (or a single GPU for a scaled-down model) with PyTorch and NCCL"
+    record: [gpu_model, driver_version, cuda_version, nccl_version, pytorch_version, model_config,
+             micro_batch, recompute_policy, peak_memory_allocated_gb, step_time_p50_s, step_time_p95_s,
+             warmup_steps, measured_steps]
+  - tier: L3
+    requires: "2+ HX8-class nodes with rail-aligned RDMA NICs and a Megatron-style training stack"
+    record: [nodes, tp, pp, dp, micro_batch, zero_stage, nccl_version, nic_firmware, topology,
+             step_time_p50_s, step_time_p95_s, mfu, exposed_comm_s_from_profiler, run_count,
+             checkpoint_blocking_s, restart_s]

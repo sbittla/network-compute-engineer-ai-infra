@@ -1,0 +1,2 @@
+bundle_id,status,os_image,kernel,gpu_driver,cuda_max,gpu_vbios,nic_fw,rdma_stack,bios,bmc_fw,validated_on,expires,evidence_link,approved_by,rollback_bundle,notes
+<fill: e.g. B-YYYY.MM>,<fill: golden|canary|deprecated|blocked>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill: YYYY-MM-DD>,<fill: YYYY-MM-DD or empty>,<fill: path to validation report>,<fill: name/role>,<fill: bundle_id to roll back to>,<fill: known issues; why blocked>

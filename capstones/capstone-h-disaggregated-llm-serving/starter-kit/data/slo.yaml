@@ -1,0 +1,8 @@
+ttft_p95_s: 0.8
+ttft_applies_to_prompt_tokens_max: 4096
+ttft_long_p95_s: 3.0
+tpot_p95_s: 0.05
+itl_p99_s: 0.1
+availability: 0.999
+target_rps: 30.0
+max_reject_rate: 0.1

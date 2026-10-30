@@ -1,0 +1,37 @@
+bundle: orion-256-reference
+slos:
+- id: SLO-01
+  name: Training goodput
+  sli: productive step-seconds / allocated GPU-seconds
+  target: '>= 0.90'
+  unit: ratio
+  window: 30d
+  source: Slurm accounting + step logs
+- id: SLO-02
+  name: Training job start latency
+  sli: p95 time from submit to first step for <= 256-GPU jobs
+  target: <= 15
+  unit: min
+  window: 7d
+  source: Slurm accounting
+- id: SLO-03
+  name: Checkpoint completion
+  sli: fraction of checkpoints durable within 10 min of trigger
+  target: '>= 0.99'
+  unit: ratio
+  window: 7d
+  source: Checkpoint manager events
+- id: SLO-04
+  name: Inference TTFT
+  sli: p95 time to first token, 2k-token prompts
+  target: <= 800
+  unit: ms
+  window: 28d
+  source: Gateway histograms
+- id: SLO-05
+  name: Backend fabric health
+  sli: fraction of 5-min intervals with zero rail-leaf link-down events
+  target: '>= 0.999'
+  unit: ratio
+  window: 30d
+  source: Switch streaming telemetry

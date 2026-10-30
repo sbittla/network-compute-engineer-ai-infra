@@ -1,0 +1,4 @@
+component,state,since_utc,reason
+gpu:orionxl-n300:1,closed,2026-10-28T11:02:00Z,"Xid 79; reseated, re-accepted"
+gpu:orionxl-n482:1,open,2026-11-06T19:40:00Z,row remap failure; RMA pending
+hca:orionxl-n157:mlx5_6,closed,2026-11-01T08:15:00Z,optic replaced

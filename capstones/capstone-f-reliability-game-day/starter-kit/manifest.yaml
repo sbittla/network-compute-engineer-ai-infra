@@ -1,0 +1,21 @@
+lab: capstone-f-reliability-game-day
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pyyaml]
+hardware_assumptions: >-
+  None. Seeded discrete-event simulation of ORION-256 (docs/REFERENCE_CLUSTER.md): 24-node training
+  job, 2-node fine-tune job, 2 spares, protected 4-node inference partition. Parameters are
+  ILLUSTRATIVE; see sim/cluster_sim.py for what the model does not capture.
+data_generation: {script: tools/generate_data.py, seed: 7}
+evidence_class: SIMULATED   # MEASURED | MODELED | SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One dedicated lab GPU host with a lab scheduler and monitoring stack"
+    record: [gpu_model, driver_version, cuda_version, pytorch_version, scheduler_version,
+             monitoring_stack, alert_rules, injection_commands, rollback_verification, repetitions]
+  - tier: L3
+    requires: ">= 2 dedicated lab GPU nodes with RDMA NICs, lab storage, lab Slurm or Kubernetes; written authorisation"
+    record: [node_models, nic_firmware, rdma_stack_version, nccl_version, collective_timeout_s,
+             checkpoint_mechanism, checkpoint_size_GB, storage_system, injection_tool,
+             injection_commands, rollback_verification, repetitions, warmup_policy]

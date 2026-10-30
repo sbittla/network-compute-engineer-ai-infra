@@ -1,0 +1,23 @@
+lab: capstone-e-fleet-lifecycle-automation
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Synthetic evidence for ORION-256 plus a stated 8-node expansion (40 HX8 nodes,
+  docs/REFERENCE_CLUSTER.md). Version strings and measurements are ILLUSTRATIVE.
+data_generation: {script: tools/generate_data.py, seed: 16}
+evidence_class: SIMULATED   # MEASURED | MODELED | SIMULATED
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One multi-GPU host you may stress-test; DCGM, nvbandwidth, nccl-tests, fio installed"
+    record: [gpu_model, gpu_count, driver_version, vbios_per_gpu, cuda_version, kernel, os_image,
+             dcgm_version, nvbandwidth_version, nccl_tests_commit, fio_version, run_count,
+             warmup_policy, calibration_results]
+  - tier: L3
+    requires: >-
+      Dedicated lab: lab provisioning system (OpenStack Ironic, MAAS or Metal3), >= 2 multi-GPU
+      nodes with RDMA NICs on a lab fabric, BMC (Redfish) access, lab Slurm or Kubernetes
+    record: [provisioning_system, provisioning_version, node_models, bios_version, bmc_firmware,
+             nic_model, nic_firmware, rdma_stack_version, switch_os_version, link_speed, mtu,
+             perftest_version, run_count, warmup_policy, threshold_calibration_nodes]

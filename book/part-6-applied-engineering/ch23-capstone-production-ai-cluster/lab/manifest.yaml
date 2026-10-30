@@ -1,0 +1,27 @@
+lab: ch23-capstone-production-ai-cluster
+title: "Capstone design-review linter"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: >-
+  None. Lints two synthetic capstone design bundles modeled on ORION-256
+  (docs/REFERENCE_CLUSTER.md). No GPU, network, or root access is used.
+data_generation:
+  script: tools/generate_bundles.py
+  seed: 23
+  outputs:
+    - data/bundle_orion_reference/   # consistent design; false-positive control
+    - data/bundle_kestrel_capA/      # learner-team submission with planted flaws
+evidence_class: MODELED   # the bundles contain modeled and illustrative values; nothing is measured
+runtime_budget_seconds: 60
+checker: check.py
+extensions:
+  - tier: L2
+    requires: "One HX8-class GPU host on which to validate node-level assumptions in your own bundle"
+    record: [host_model, gpu_model, gpu_count, driver_version, cuda_version, nic_model,
+             nic_firmware, numa_layout, measured_node_power_kw, command_outputs_path, run_count]
+  - tier: L3
+    requires: "2+ multi-GPU nodes with RDMA NICs (RoCEv2 or InfiniBand) and switch counter access"
+    record: [node_count, gpus_per_node, nic_firmware, driver_version, nccl_version,
+             switch_os_version, topology, mtu, warmup_policy, run_count,
+             busbw_median_GBps, busbw_min_max_GBps, manifest_id_used_in_benchmarks_md]

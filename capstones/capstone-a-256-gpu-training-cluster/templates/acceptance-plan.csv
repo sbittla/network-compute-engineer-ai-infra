@@ -1,0 +1,11 @@
+stage,test_id,scope,procedure_or_command,count,pass_criterion,evidence_to_archive,tier,owner,blocking_for
+physical,P-01,every optical link,"ethtool -m <ifname> on both ends; record Tx/Rx power, temperature",<fill: optical links x 2 ends>,"<fill: Rx power above warn threshold with margin; for 400GBASE-DR4-class SM optics warn ~ -4 dBm, critical ~ -5.9 dBm (receiver sensitivity) [VENDOR-SPEC, 2026-10]; MM per module datasheet>",DDM dump per port,L3,Fabric,fabric acceptance
+physical,P-02,every link,cable label + port map audit against generated cable plan,<fill: links_total>,100 % match to cable_plan.csv,signed port-map audit,L3,Fleet,fabric acceptance
+physical,P-03,every link,link up at 400G; FEC/CRC counters clear after 24 h soak,<fill>,<fill: zero CRC; FEC corrected below site threshold; zero uncorrectable>,switch counter export,L3,Fabric,fabric acceptance
+node,N-01,every node,"nvidia-smi topo -m and lstopo match golden topology (GPU i PIX NIC i)",<fill: nodes>,identical to golden file,topology dump + diff,L2,Fleet,node admission
+node,N-02,every node,GPU burn-in + DCGM diagnostics at the site's chosen level,<fill>,<fill: no Xid / ECC uncorrectable / thermal events>,diag report,L2,Fleet,node admission
+node,N-03,every node,sustained power log (30 min training proxy),<fill>,<fill: max within 2N feed limit for its rack>,power CSV,L2,Facilities,rack energisation
+rail,R-01,ring-neighbour pairs per rail,ib_write_bw per rail pair,<fill: rail_neighbor_pairs>,<fill: >= x % of line rate; spread across pairs <= y %>,perftest output,L3,Fabric,cluster acceptance
+cluster,C-01,full cluster,"all_reduce_perf -b 8 -e 8G -f 2 -g 1 across all GPUs; >= 5 runs after warm-up",<fill>,<fill: median busbw ~350+ GB/s for large messages across all 8 rails (per rail = busbw/8 vs 50 GB/s line rate) [VENDOR-SPEC 2026-10]>,raw logs + manifest,L3,Training Infra,cluster acceptance
+cluster,C-02,full cluster,W-TRAIN pilot step time with profiler capture,<fill>,<fill: step time within z % of model>,step-time CSV + profile,L3,Training Infra,production handover
+"<fill: add facility, storage, scheduler and security acceptance rows>",,,,,,,,,

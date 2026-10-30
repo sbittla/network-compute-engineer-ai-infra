@@ -1,0 +1,23 @@
+target_bundle: B-2026.10
+canary_size: 2
+canary_distinct_racks: true
+max_nodes_per_rack_per_wave: 1
+max_wave_fraction: 0.25
+partition_floors:
+  training: 16
+  inference: 6
+prefer_first:
+- deprecated
+eligible_states:
+- schedulable
+eligible_compat:
+- golden
+- deprecated
+canary_thresholds:
+  min_soak_hours: 24
+  max_xid_events: 0
+  dcgm_diag_required: pass
+  max_busbw_regression_pct: 5.0
+  max_ib_bw_regression_pct: 3.0
+  max_step_time_regression_pct: 2.0
+  max_tpot_regression_pct: 5.0

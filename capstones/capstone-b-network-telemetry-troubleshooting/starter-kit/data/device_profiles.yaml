@@ -1,0 +1,34 @@
+provenance: SIMULATED capture; vendor-neutral switch formats; mlx5-style NIC counter names
+platforms:
+  leaf_cli:
+    devices: orion-be-leaf-r*
+    format: cli_text
+    files: leaf_cli/*.txt.gz
+    timestamp: ISO-8601 UTC in a 'Timestamp:' line
+    poll_interval_s: 60
+    counter_width_bits:
+      default: 64
+      RxPause3: 32
+      TxPause3: 32
+    max_plausible_rate_per_s:
+      RxPause3: 2000000.0
+      TxPause3: 2000000.0
+    notes: Pause counters are 32-bit on this platform (older ASIC SDK).
+  spine_stream:
+    devices: orion-be-spine-*
+    format: jsonl
+    files: spine_stream.jsonl.gz
+    timestamp: 'timestamp_ns: integer nanoseconds since Unix epoch, UTC'
+    poll_interval_s: 60
+    counter_width_bits:
+      default: 64
+    notes: Interface counters use OpenConfig-style leaf names; PFC/ECN under a vendor extension path.
+  nic_ethtool:
+    devices: orion-n*
+    format: ethtool_text
+    files: nic/*.txt.gz
+    timestamp: 'collected_at: integer seconds since Unix epoch, UTC'
+    poll_interval_s: 120
+    counter_width_bits:
+      default: 64
+    notes: Host agent concatenates `ethtool -S <netdev>` and the RDMA hw_counters directory for each NIC.

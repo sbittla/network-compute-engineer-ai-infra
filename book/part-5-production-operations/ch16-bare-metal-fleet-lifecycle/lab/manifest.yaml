@@ -1,0 +1,27 @@
+lab: ch16-bare-metal-fleet-lifecycle
+title: "Fleet lifecycle automation: acceptance evaluator, compatibility checker, lifecycle state machine, upgrade-wave planner"
+progressive_lab: "Lab 7 (part 1) - Scheduler and fleet lifecycle"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: "None. Synthetic acceptance results, inventory, and events modelled on ORION-256 HX8 nodes (docs/REFERENCE_CLUSTER.md)."
+data_generation: {script: tools/generate_data.py, seed: 16}   # instructor copy only; stripped from the student release
+data_files:
+  - data/acceptance_policy.yaml
+  - data/compat_matrix.yaml
+  - data/acceptance_results.json
+  - data/inventory.json
+  - data/lifecycle_events.json
+evidence_class: SIMULATED   # all thresholds and version strings are ILLUSTRATIVE
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One multi-GPU host (ideally NVSwitch-based 8-GPU) with root, NVIDIA driver, DCGM, nccl-tests, nvme-cli, fio"
+    record: [host_model, bios_version, bmc_version, gpu_model, gpu_count, vbios_version, driver_version,
+             fabric_manager_version, cuda_version, dcgm_version, nccl_version, nccl_tests_commit,
+             kernel_version, nvme_models_and_fw, burn_in_duration_h, ambient_inlet_temp_c,
+             dcgm_diag_level, nccl_runs, warmup_policy]
+  - tier: L3
+    requires: "2+ GPU nodes with RDMA NICs on the same rail(s), a known-good reference node per rail, switch counter access"
+    record: [nic_model, nic_firmware_per_device, rdma_stack_version, switch_os_version, leaf_ports, optic_part_numbers,
+             mtu_ip, mtu_rdma, roce_gid_index, perftest_version, ib_write_bw_params, runs_per_rail]

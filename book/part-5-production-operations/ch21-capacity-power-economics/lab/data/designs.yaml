@@ -1,0 +1,28 @@
+# Two candidate designs for the next 1.0 MW (IT) facility hall. Per-node values. [ILLUSTRATIVE]
+facility_it_kw: 1000
+liquid_cooling_kw_available: 1000       # CDU capacity in the hall (kW of heat to liquid)
+designs:
+  - name: A-air-H100class
+    gpus_per_node: 8
+    rel_throughput_per_gpu: 1.0         # W-TRAIN step throughput relative to an HX8 GPU
+    comm_efficiency: 1.00               # 1:1 rail-optimized fabric
+    provisioned_it_kw_per_node: 10.2
+    sustained_it_kw_per_node: 8.5
+    node_capex_usd: 320000
+    network_capex_per_node_usd: 85000
+    cooling_capex_per_node_usd: 0
+    liquid_fraction: 0.0                # fraction of node heat removed by liquid
+    nodes_per_rack: 4
+    pue: 1.35                           # variation: air-cooled hall (higher fan/chiller overhead)
+  - name: B-liquid-nextgen
+    gpus_per_node: 8
+    rel_throughput_per_gpu: 2.2
+    comm_efficiency: 0.93               # 2:1 oversubscribed spine to save cost: comm-bound phases slower
+    provisioned_it_kw_per_node: 14.3
+    sustained_it_kw_per_node: 12.0
+    node_capex_usd: 700000
+    network_capex_per_node_usd: 70000
+    cooling_capex_per_node_usd: 30000   # CDU + manifold share
+    liquid_fraction: 0.80
+    nodes_per_rack: 8
+    pue: 1.20                           # variation: mostly-liquid hall (warm-water, less chiller work)

@@ -1,0 +1,20 @@
+{
+  "compute_capability": "9.0",
+  "evidence": "VENDOR-SPEC, 2026-10 (compute capability 9.0 limits; verify against the CUDA C++ Programming Guide)",
+  "hbm_bytes_per_s": 3350000000000.0,
+  "max_blocks_per_sm": 32,
+  "max_regs_per_thread": 255,
+  "max_smem_per_block_bytes": 232448,
+  "max_threads_per_sm": 2048,
+  "max_warps_per_sm": 64,
+  "name": "H100-SXM-class (ORION HX8 GPU0)",
+  "pcie_gen5_x16_bytes_per_s_per_dir_theoretical": 63000000000.0,
+  "peak_bf16_dense_flops": 989000000000000.0,
+  "reg_alloc_unit_per_warp": 256,
+  "regs_per_sm": 65536,
+  "sm_count": 132,
+  "smem_per_sm_bytes": 233472,
+  "smem_reserved_per_block_bytes": 1024,
+  "warp_alloc_granularity": 4,
+  "warp_size": 32
+}

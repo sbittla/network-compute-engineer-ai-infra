@@ -1,0 +1,7 @@
+orion-n01:41022:41022 [0] NCCL INFO NCCL_SOCKET_IFNAME set by environment to fe0
+orion-n01:41022:41022 [0] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE [2]mlx5_2:1/RoCE [3]mlx5_3:1/RoCE [4]mlx5_4:1/RoCE [5]mlx5_5:1/RoCE [6]mlx5_6:1/RoCE [7]mlx5_7:1/RoCE ; OOB fe0:10.10.1.1<0>
+orion-n01:41022:41090 [0] NCCL INFO comm 0x55d1c0 rank 0 nRanks 16 nNodes 2 localRanks 8 localRank 0
+orion-n01:41022:41090 [0] NCCL INFO Channel 00/0 : 15[7] -> 0[0] [receive] via NET/IB/0/GDRDMA
+orion-n01:41029:41097 [7] NCCL INFO Channel 00/0 : 7[7] -> 8[0] [send] via NET/IB/0(0)/GDRDMA
+orion-n01:41026:41093 [4] NCCL INFO Channel 04/0 : 4[4] -> 12[4] [send] via NET/IB/4/GDRDMA
+orion-n01:41026:41093 [4] NCCL INFO Channel 04/0 : 12[4] -> 4[4] [receive] via NET/IB/4/GDRDMA

@@ -1,0 +1,41 @@
+common:
+  n_senders: 12
+  burst_bytes: 4000000
+  line_gbps: 400
+  dt_us: 0.2
+  feedback_delay_us: 4.0
+  pause_delay_us: 1.0
+  buffer_kb: 4000
+  headroom_kb: 1128
+  headroom_basis: 12 ingress ports x 93,496 B (Section 9.4 formula, 50 m) = 1,121,952
+    B ~ 1,122 KB, rounded up to 12 x 94 KB = 1,128 KB
+  xoff_kb: 1000
+  xon_kb: 800
+  mtu_bytes: 4096
+  cnp_interval_us: 50.0
+  alpha_timer_us: 55.0
+  increase_timer_us: 55.0
+  g: 0.00390625
+  retx_delay_us: 20.0
+  max_time_us: 20000.0
+configs:
+  A_as_found:
+    description: 'leaf-r3 as found: PFC on, ECN Kmin 1500 KB / Kmax 6000 KB / Pmax
+      0.2'
+    pfc_enabled: true
+    ecn_kmin_kb: 1500
+    ecn_kmax_kb: 6000
+    ecn_pmax: 0.2
+  B_template:
+    description: 'fabric template: PFC on, ECN Kmin 150 KB / Kmax 1500 KB / Pmax 0.2'
+    pfc_enabled: true
+    ecn_kmin_kb: 150
+    ecn_kmax_kb: 1500
+    ecn_pmax: 0.2
+  C_lossy:
+    description: 'lossy RoCE: PFC off, template ECN, dropped bytes re-offered after
+      20 us (best case: selective repeat, no go-back-N window, no tail-loss timeout)'
+    pfc_enabled: false
+    ecn_kmin_kb: 150
+    ecn_kmax_kb: 1500
+    ecn_pmax: 0.2

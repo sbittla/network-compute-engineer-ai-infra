@@ -1,0 +1,79 @@
+Slot:	0000:0d:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	9
+Driver:	mlx5_core
+NUMANode:	0
+
+Slot:	0000:19:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	1
+Driver:	mlx5_core
+NUMANode:	0
+
+Slot:	0000:23:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	2
+Driver:	mlx5_core
+NUMANode:	0
+
+Slot:	0000:39:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	3
+Driver:	mlx5_core
+NUMANode:	0
+
+Slot:	0000:43:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	4
+Driver:	mlx5_core
+NUMANode:	0
+
+Slot:	0000:8d:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	10
+Driver:	mlx5_core
+NUMANode:	1
+
+Slot:	0000:99:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	5
+Driver:	mlx5_core
+NUMANode:	1
+
+Slot:	0000:a3:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	6
+Driver:	mlx5_core
+NUMANode:	1
+
+Slot:	0000:b9:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	7
+Driver:	mlx5_core
+NUMANode:	1
+
+Slot:	0000:c3:00.0
+Class:	Ethernet controller
+Vendor:	Mellanox Technologies
+Device:	MT2910 Family [ConnectX-7]
+PhySlot:	8
+Driver:	mlx5_core
+NUMANode:	1

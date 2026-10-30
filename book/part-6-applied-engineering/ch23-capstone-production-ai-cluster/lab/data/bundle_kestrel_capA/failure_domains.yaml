@@ -1,0 +1,46 @@
+bundle: kestrel-capstone-a
+domains:
+- id: FD-01
+  class: gpu
+  scope: 1 GPU (1/256 of capacity); the whole job stalls until restart
+  redundancy: none (no spares declared)
+  mitigation: Drain node (stops new placement only); checkpoint, then wait for repair or restart at DP=7
+    (224 GPUs, batch adjusted)
+  detection: DCGM Xid/ECC alerts; NCCL watchdog timeout
+- id: FD-02
+  class: node
+  scope: 8 GPUs (3.1 % of capacity)
+  redundancy: none (no spares declared)
+  mitigation: Slurm drains node (job not moved); restart from checkpoint after repair or at DP=7 (224
+    GPUs, batch adjusted)
+  detection: Node health check; BMC Redfish events
+- id: FD-03
+  class: nic
+  scope: 1 rail on 1 node; job stalls or runs degraded
+  redundancy: none
+  mitigation: Drain node; NIC replaced under Chapter 16 RMA flow
+  detection: RDMA link-down and port error counters
+- id: FD-04
+  class: rail_leaf
+  scope: Rail r on all 32 nodes; every multi-node job is affected
+  redundancy: none
+  mitigation: Fail jobs fast, checkpoint restart; spare leaf pre-staged; 4 h RMA target
+  detection: Switch link-down on 32 host ports; spine BGP sessions to the leaf drop
+- id: FD-05
+  class: spine
+  scope: 1/4 of leaf-spine bandwidth; ECMP reconverges
+  redundancy: 'N-1: 3 of 4 spines -> 1.33:1 (75 % of leaf-spine bandwidth)'
+  mitigation: ECMP removes failed spine
+  detection: BGP session loss; spine port counters
+- id: FD-06
+  class: storage
+  scope: Metadata service for all jobs
+  redundancy: none
+  mitigation: ''
+  detection: PFS health probes
+- id: FD-07
+  class: rack_power
+  scope: 4-5 nodes (up to 40 GPUs)
+  redundancy: none
+  mitigation: Place DP replicas across racks; restart from checkpoint
+  detection: PDU and BMC power alarms

@@ -1,0 +1,13 @@
+id,component,failure_mode,effect,severity,occurrence,detection,detection_control
+F01,GPU,Uncorrectable ECC / row-remap failure,Rank crash; job restarts from checkpoint,7,6,3,DCGM health + Xid alert
+F02,GPU,Fell off bus (Xid 79),Node unusable; job restarts,7,4,2,Xid alert + node health check
+F03,HCA/link,Intermittent link flap (optic/HCA),NCCL hang until watchdog; whole job stalls 10 min then restarts,8,7,6,link-down log only; no flap-rate alert
+F04,Node,PSU failure with power capping,Straggler slows whole job,6,4,5,BMC SEL; no power-limit alert
+F05,Rack,PDU breaker trip,4 nodes lost; job restarts; possible second trip on restart inrush,8,3,4,PDU telemetry alert
+F06,Leaf switch,Switch reboot / ASIC fault,32 nodes lose one rail; all jobs on that rail stall,9,3,3,gNMI oper-status ON_CHANGE alert
+F07,CDU,Pump failure in coolant distribution unit,Rack-row thermal shutdown within minutes,10,2,2,none
+F08,Storage,Metadata server failover,Checkpoint save/restore stalls; RPO grows,7,4,5,checkpoint duration SLO alert
+F09,Scheduler,slurmctld failover,No new job starts for minutes; running jobs unaffected,4,3,3,HA heartbeat alert
+F10,Control plane,etcd quorum loss (Kubernetes),Inference rollouts and scaling blocked; running pods continue,8,2,4,etcd health alert
+F11,Optics,Transceiver aging (RX power drift),Rising FEC errors then flaps,6,0,5,DOM threshold ticket
+F12,Firmware,NIC firmware / driver mismatch after upgrade,Degraded RDMA throughput or failures fleet-wide,9,3,7,compat matrix check at provisioning only

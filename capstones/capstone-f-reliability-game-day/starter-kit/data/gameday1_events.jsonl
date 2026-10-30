@@ -1,0 +1,130 @@
+{"job": "ft", "kind": "ckpt_started", "step": 301, "t": 601.118}
+{"job": "ft", "kind": "ckpt_durable", "step": 301, "t": 606.468}
+{"job": "ft", "kind": "ckpt_started", "step": 599, "t": 1201.289}
+{"job": "ft", "kind": "ckpt_durable", "step": 599, "t": 1206.639}
+{"job": "ft", "kind": "ckpt_started", "step": 897, "t": 1802.174}
+{"job": "ft", "kind": "ckpt_durable", "step": 897, "t": 1807.524}
+{"job": "train", "kind": "ckpt_started", "step": 104, "t": 1812.831}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 1845.0}
+{"job": "train", "kind": "ckpt_durable", "step": 104, "t": 1845.081}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 1860.0}
+{"job": "ft", "kind": "ckpt_started", "step": 1195, "t": 2403.256}
+{"job": "ft", "kind": "ckpt_durable", "step": 1195, "t": 2408.606}
+{"fault": "link_down", "fault_id": "F1", "kind": "fault_start", "rail": 4, "t": 2700, "target": "orion-n07"}
+{"cause": "link_down orion-n07", "job": "train", "kind": "job_hung", "last_progress_t": 2685.461, "step": 153, "t": 2700}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 2730.0}
+{"kind": "node_drained", "node": "orion-n07", "t": 2760.0}
+{"kind": "alert_firing", "labels": {"node": "orion-n07", "rail": "4"}, "rule": "NicLinkDown", "t": 3000.0}
+{"job": "ft", "kind": "ckpt_started", "step": 1493, "t": 3004.031}
+{"job": "ft", "kind": "ckpt_durable", "step": 1493, "t": 3009.381}
+{"job": "train", "kind": "job_failed", "reason": "collective timeout", "step": 153, "t": 3300}
+{"job": "train", "kind": "job_requeued", "nodes_added": ["orion-n27"], "replaced": 1, "t": 3300}
+{"from_step": 104, "job": "train", "kind": "job_restarted", "steps_lost": 49, "t": 3586.125}
+{"fault": "link_down", "fault_id": "F1", "kind": "fault_end", "rail": 4, "t": 3600, "target": "orion-n07"}
+{"kind": "alert_resolved", "labels": {"node": "orion-n07", "rail": "4"}, "rule": "NicLinkDown", "t": 3600.0}
+{"job": "train", "kind": "job_resumed", "step": 105, "t": 3603.464}
+{"job": "ft", "kind": "ckpt_started", "step": 1791, "t": 3605.068}
+{"job": "ft", "kind": "ckpt_durable", "step": 1791, "t": 3610.418}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 3615.0}
+{"job": "ft", "kind": "ckpt_started", "step": 2089, "t": 4205.887}
+{"job": "ft", "kind": "ckpt_durable", "step": 2089, "t": 4211.237}
+{"job": "ft", "kind": "ckpt_started", "step": 2387, "t": 4806.936}
+{"job": "ft", "kind": "ckpt_durable", "step": 2387, "t": 4812.286}
+{"job": "train", "kind": "ckpt_started", "step": 208, "t": 5396.302}
+{"job": "ft", "kind": "ckpt_started", "step": 2685, "t": 5407.953}
+{"job": "ft", "kind": "ckpt_durable", "step": 2685, "t": 5413.303}
+{"job": "train", "kind": "ckpt_durable", "step": 208, "t": 5428.552}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 5430.0}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 5445.0}
+{"job": "ft", "kind": "ckpt_started", "step": 2983, "t": 6009.388}
+{"job": "ft", "kind": "ckpt_durable", "step": 2983, "t": 6014.738}
+{"job": "ft", "kind": "ckpt_started", "step": 3281, "t": 6610.307}
+{"job": "ft", "kind": "ckpt_durable", "step": 3281, "t": 6615.657}
+{"job": "train", "kind": "ckpt_started", "step": 311, "t": 7206.564}
+{"job": "ft", "kind": "ckpt_started", "step": 3579, "t": 7211.223}
+{"job": "ft", "kind": "ckpt_durable", "step": 3579, "t": 7216.573}
+{"job": "train", "kind": "ckpt_durable", "step": 311, "t": 7238.814}
+{"job": "ft", "kind": "ckpt_started", "step": 3877, "t": 7812.23}
+{"job": "ft", "kind": "ckpt_durable", "step": 3877, "t": 7817.58}
+{"job": "ft", "kind": "ckpt_started", "step": 4175, "t": 8412.927}
+{"job": "ft", "kind": "ckpt_durable", "step": 4175, "t": 8418.277}
+{"job": "ft", "kind": "ckpt_started", "step": 4473, "t": 9014.043}
+{"job": "train", "kind": "ckpt_started", "step": 414, "t": 9017.446}
+{"job": "ft", "kind": "ckpt_durable", "step": 4473, "t": 9019.393}
+{"job": "train", "kind": "ckpt_durable", "step": 414, "t": 9049.696}
+{"job": "ft", "kind": "ckpt_started", "step": 4771, "t": 9615.152}
+{"job": "ft", "kind": "ckpt_durable", "step": 4771, "t": 9620.502}
+{"fault": "storage_slow", "fault_id": "F2", "kind": "fault_start", "rail": null, "t": 10200, "target": null}
+{"job": "ft", "kind": "ckpt_started", "step": 5069, "t": 10216.139}
+{"job": "ft", "kind": "ckpt_durable", "step": 5069, "t": 10238.639}
+{"job": "ft", "kind": "ckpt_started", "step": 5367, "t": 10817.218}
+{"job": "train", "kind": "ckpt_started", "step": 517, "t": 10829.791}
+{"job": "ft", "kind": "ckpt_durable", "step": 5367, "t": 10839.718}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 10860.0}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 10875.0}
+{"fault": "node_loss", "fault_id": "F3", "kind": "fault_start", "rail": null, "t": 11000, "target": "orion-n18"}
+{"job": "train", "kind": "ckpt_aborted", "reason": "writer on orion-n18 lost", "step": 517, "t": 11000}
+{"cause": "node_loss orion-n18", "job": "train", "kind": "job_hung", "last_progress_t": 10989.174, "step": 525, "t": 11000}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 11025.0}
+{"kind": "node_drained", "node": "orion-n18", "t": 11070.0}
+{"kind": "alert_firing", "labels": {"node": "orion-n18"}, "rule": "NodeDown", "t": 11070.0}
+{"job": "ft", "kind": "ckpt_started", "step": 5665, "t": 11418.051}
+{"job": "ft", "kind": "ckpt_durable", "step": 5665, "t": 11440.551}
+{"job": "train", "kind": "job_failed", "reason": "collective timeout", "step": 525, "t": 11600}
+{"job": "train", "kind": "job_requeued", "nodes_added": ["orion-n28"], "replaced": 1, "t": 11600}
+{"job": "ft", "kind": "ckpt_started", "step": 5963, "t": 12018.751}
+{"job": "ft", "kind": "ckpt_durable", "step": 5963, "t": 12041.251}
+{"from_step": 414, "job": "train", "kind": "job_restarted", "steps_lost": 111, "t": 12186.25}
+{"job": "train", "kind": "job_resumed", "step": 415, "t": 12203.752}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 12210.0}
+{"job": "ft", "kind": "ckpt_started", "step": 6261, "t": 12619.505}
+{"job": "ft", "kind": "ckpt_durable", "step": 6261, "t": 12642.005}
+{"job": "ft", "kind": "ckpt_started", "step": 6559, "t": 13220.261}
+{"job": "ft", "kind": "ckpt_durable", "step": 6559, "t": 13242.761}
+{"fault": "storage_slow", "fault_id": "F2", "kind": "fault_end", "rail": null, "t": 13800, "target": null}
+{"job": "ft", "kind": "ckpt_started", "step": 6857, "t": 13820.607}
+{"job": "ft", "kind": "ckpt_durable", "step": 6857, "t": 13825.957}
+{"job": "train", "kind": "ckpt_started", "step": 518, "t": 13994.068}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 14025.0}
+{"job": "train", "kind": "ckpt_durable", "step": 518, "t": 14026.318}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 14040.0}
+{"job": "ft", "kind": "ckpt_started", "step": 7155, "t": 14421.562}
+{"job": "ft", "kind": "ckpt_durable", "step": 7155, "t": 14426.912}
+{"job": "ft", "kind": "ckpt_started", "step": 7453, "t": 15023.428}
+{"job": "ft", "kind": "ckpt_durable", "step": 7453, "t": 15028.778}
+{"job": "ft", "kind": "ckpt_started", "step": 7751, "t": 15624.294}
+{"job": "ft", "kind": "ckpt_durable", "step": 7751, "t": 15629.644}
+{"job": "train", "kind": "ckpt_started", "step": 621, "t": 15807.663}
+{"job": "train", "kind": "ckpt_durable", "step": 621, "t": 15839.913}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 15840.0}
+{"kind": "alert_resolved", "labels": {"job": "train"}, "rule": "JobStalled", "t": 15855.0}
+{"fault": "scheduler_outage", "fault_id": "F4", "kind": "fault_start", "rail": null, "t": 16200, "target": null}
+{"job": "ft", "kind": "ckpt_started", "step": 8049, "t": 16224.98}
+{"job": "ft", "kind": "ckpt_durable", "step": 8049, "t": 16230.33}
+{"fault": "link_down", "fault_id": "F5", "kind": "fault_start", "rail": 0, "t": 16500, "target": "orion-n13"}
+{"cause": "link_down orion-n13", "job": "train", "kind": "job_hung", "last_progress_t": 16487.342, "step": 659, "t": 16500}
+{"kind": "alert_firing", "labels": {"job": "train"}, "rule": "JobStalled", "t": 16530.0}
+{"kind": "drain_pending", "node": "orion-n13", "reason": "scheduler unavailable", "t": 16560.0}
+{"kind": "alert_firing", "labels": {"node": "orion-n13", "rail": "0"}, "rule": "NicLinkDown", "t": 16800.0}
+{"job": "ft", "kind": "ckpt_started", "step": 8347, "t": 16825.419}
+{"job": "ft", "kind": "ckpt_durable", "step": 8347, "t": 16830.769}
+{"fault": "link_down", "fault_id": "F5", "kind": "fault_end", "rail": 0, "t": 17100, "target": "orion-n13"}
+{"kind": "alert_resolved", "labels": {"node": "orion-n13", "rail": "0"}, "rule": "NicLinkDown", "t": 17100.0}
+{"job": "train", "kind": "job_failed", "reason": "collective timeout", "step": 659, "t": 17100}
+{"fault": "scheduler_outage", "fault_id": "F4", "kind": "fault_end", "rail": null, "t": 17400, "target": null}
+{"kind": "node_drained", "node": "orion-n13", "t": 17400}
+{"available": 0, "job": "train", "kind": "requeue_blocked", "need": 1, "t": 17400}
+{"job": "ft", "kind": "ckpt_started", "step": 8645, "t": 17426.909}
+{"job": "ft", "kind": "ckpt_durable", "step": 8645, "t": 17432.259}
+{"job": "ft", "kind": "ckpt_started", "step": 8943, "t": 18028.643}
+{"job": "ft", "kind": "ckpt_durable", "step": 8943, "t": 18033.993}
+{"job": "ft", "kind": "ckpt_started", "step": 9241, "t": 18629.821}
+{"job": "ft", "kind": "ckpt_durable", "step": 9241, "t": 18635.171}
+{"job": "ft", "kind": "ckpt_started", "step": 9539, "t": 19230.701}
+{"job": "ft", "kind": "ckpt_durable", "step": 9539, "t": 19236.051}
+{"job": "ft", "kind": "ckpt_started", "step": 9837, "t": 19832.021}
+{"job": "ft", "kind": "ckpt_durable", "step": 9837, "t": 19837.371}
+{"job": "ft", "kind": "ckpt_started", "step": 10135, "t": 20433.082}
+{"job": "ft", "kind": "ckpt_durable", "step": 10135, "t": 20438.432}
+{"job": "ft", "kind": "ckpt_started", "step": 10433, "t": 21034.045}
+{"job": "ft", "kind": "ckpt_durable", "step": 10433, "t": 21039.395}

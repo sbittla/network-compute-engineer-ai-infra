@@ -1,0 +1,2 @@
+id,title,motivating_evidence,annual_events,gpu_h_per_event,expected_reduction,effort_weeks,safety_critical,score,cost_or_risk_not_in_score,validated_by_resimulation,owner
+<fill: RB-xx>,<fill>,<fill: fault id + timeline row>,<fill>,<fill>,<fill: 0-1>,<fill>,<fill: true|false>,<fill: computed>,<fill: e.g. spare capacity GPU-h per year; toil>,<fill: yes/no + result>,<fill: team>

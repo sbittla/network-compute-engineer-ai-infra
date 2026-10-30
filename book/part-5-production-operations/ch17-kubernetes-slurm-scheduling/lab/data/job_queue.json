@@ -1,0 +1,178 @@
+[
+ {
+  "gpus": 32,
+  "job_id": "J01",
+  "node_selector": {
+   "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+  },
+  "note": "4-node ablation run",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 108,
+  "tenant": "pretrain",
+  "tolerations": []
+ },
+ {
+  "gpus": 8,
+  "job_id": "J02",
+  "node_selector": {},
+  "note": "single-node SFT",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 126,
+  "tenant": "finetune",
+  "tolerations": []
+ },
+ {
+  "gpus": 32,
+  "job_id": "J03",
+  "node_selector": {},
+  "note": "4-node sweep",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 144,
+  "tenant": "research",
+  "tolerations": []
+ },
+ {
+  "gpus": 12,
+  "job_id": "J04",
+  "node_selector": {},
+  "note": "user asked for 12 GPUs",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 155,
+  "tenant": "research",
+  "tolerations": []
+ },
+ {
+  "gpus": 16,
+  "job_id": "J05",
+  "node_selector": {},
+  "note": "urgent 2-node eval of release candidate",
+  "pool": "train",
+  "priority": 100,
+  "submit_time": 304,
+  "tenant": "pretrain",
+  "tolerations": []
+ },
+ {
+  "gpus": 8,
+  "job_id": "J06",
+  "node_selector": {},
+  "note": "best-effort single-node job",
+  "pool": "train",
+  "priority": 10,
+  "submit_time": 42,
+  "tenant": "research",
+  "tolerations": []
+ },
+ {
+  "gpus": 4,
+  "job_id": "J07",
+  "node_selector": {},
+  "note": "LoRA run",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 208,
+  "tenant": "finetune",
+  "tolerations": []
+ },
+ {
+  "gpus": 16,
+  "job_id": "J08",
+  "node_selector": {},
+  "note": "2-node experiment",
+  "pool": "train",
+  "priority": 50,
+  "submit_time": 214,
+  "tenant": "research",
+  "tolerations": []
+ },
+ {
+  "gpus": 2,
+  "job_id": "J09",
+  "node_selector": {},
+  "note": "scavenger debug job",
+  "pool": "train",
+  "priority": 5,
+  "submit_time": 221,
+  "tenant": "finetune",
+  "tolerations": []
+ },
+ {
+  "gpus": 4,
+  "job_id": "J10",
+  "node_selector": {},
+  "note": "TP=4 FP8 replica scale-up",
+  "pool": "infer",
+  "priority": 100,
+  "submit_time": 400,
+  "tenant": "inference",
+  "tolerations": []
+ },
+ {
+  "gpus": 2,
+  "job_id": "J11",
+  "node_selector": {},
+  "note": "small model replica",
+  "pool": "infer",
+  "priority": 50,
+  "submit_time": 413,
+  "tenant": "inference",
+  "tolerations": []
+ },
+ {
+  "gpus": 8,
+  "job_id": "J12",
+  "node_selector": {
+   "halcyon.ai/dedicated": "search"
+  },
+  "note": "dedicated search replica",
+  "pool": "infer",
+  "priority": 50,
+  "submit_time": 426,
+  "tenant": "search",
+  "tolerations": [
+   {
+    "effect": "NoSchedule",
+    "key": "halcyon.ai/dedicated",
+    "operator": "Equal",
+    "value": "search"
+   }
+  ]
+ },
+ {
+  "gpus": 8,
+  "job_id": "J13",
+  "node_selector": {},
+  "note": "TP=8 BF16 replica",
+  "pool": "infer",
+  "priority": 50,
+  "submit_time": 436,
+  "tenant": "inference",
+  "tolerations": []
+ },
+ {
+  "gpus": 8,
+  "job_id": "J14",
+  "node_selector": {},
+  "note": "best-effort batch eval replica",
+  "pool": "infer",
+  "priority": 10,
+  "submit_time": 444,
+  "tenant": "inference",
+  "tolerations": []
+ },
+ {
+  "gpus": 1,
+  "job_id": "J15",
+  "node_selector": {},
+  "note": "1-GPU canary replica",
+  "pool": "infer",
+  "priority": 50,
+  "submit_time": 458,
+  "tenant": "inference",
+  "tolerations": []
+ }
+]

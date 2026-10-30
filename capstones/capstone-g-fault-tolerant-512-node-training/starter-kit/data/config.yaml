@@ -1,0 +1,20 @@
+cluster: ORION-XL (512 x HX8) - SIMULATED incident dataset
+job:
+  name: w-train-xl
+  nodes: 480
+  gpus: 3840
+  tp: 8
+  pp: 8
+  dp: 60
+  step_s: 4.35
+  ckpt_interval_steps: 138
+  ckpt_GB: 980.0
+  collective_timeout_s: 600
+targets:
+  detect_s: 120
+  isolate_s: 600
+  rto_s: 1800
+  rpo_steps: 276
+scoring:
+  quarantine_at: 60
+  watch_at: 10

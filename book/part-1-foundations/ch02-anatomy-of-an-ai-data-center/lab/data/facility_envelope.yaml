@@ -1,0 +1,23 @@
+evidence_class: ILLUSTRATIVE
+electrical:
+  circuit_voltage_v: 415
+  phases: 3
+  continuous_load_derate: 0.8
+  power_factor: 0.95
+  transient_margin: 0.1
+cooling:
+  method: direct_to_chip_plus_air
+  liquid_capture_fraction: 0.75
+  coolant: PG25
+  coolant_cp_kj_per_kg_k: 3.9
+  coolant_density_kg_per_l: 1.02
+  tcs_supply_c: 30
+  design_delta_t_k: 10
+  air_cp_kj_per_kg_k: 1.006
+  air_density_kg_per_m3: 1.2
+  air_delta_t_k: 15
+  cdu_count: 1
+  cdu_capacity_kw: 300
+structural:
+  rack_footprint_m2: 0.72
+  floor_rating_kg_per_m2: 1200

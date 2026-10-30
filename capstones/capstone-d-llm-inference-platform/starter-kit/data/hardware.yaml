@@ -1,0 +1,14 @@
+node: HX8
+gpus_per_node: 8
+hbm_bytes_per_gpu: 80000000000.0
+hbm_bw_bytes_per_s: 3350000000000.0
+peak_flops:
+  bf16: 989000000000000.0
+  fp8: 1979000000000000.0
+hbm_bw_efficiency: 0.7
+prefill_mfu: 0.5
+runtime_reserve_bytes_per_gpu: 4000000000.0
+iteration_overhead_s:
+  '8': 0.003
+  '4': 0.0022
+provenance: VENDOR-SPEC 2026-10 class values for H100-SXM; efficiencies ILLUSTRATIVE

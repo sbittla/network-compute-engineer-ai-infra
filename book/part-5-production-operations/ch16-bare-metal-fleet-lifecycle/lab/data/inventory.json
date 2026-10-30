@@ -1,0 +1,657 @@
+[
+ {
+  "node": "orion-n01",
+  "rack": "rack-01",
+  "serial": "SN-HX8-2409001",
+  "asset_tag": "HAL-0001",
+  "bmc_mac": "02:00:5e:10:01:87",
+  "bmc_ip": "172.16.1.11",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n02",
+  "rack": "rack-01",
+  "serial": "SN-HX8-2409002",
+  "asset_tag": "HAL-0002",
+  "bmc_mac": "02:00:5e:10:02:a8",
+  "bmc_ip": "172.16.1.12",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.6.0",
+   "bmc_fw": "1.14.2",
+   "kernel": "6.8.0-60-generic",
+   "gpu_driver": "570.86.15",
+   "gpu_vbios": "96.00.A5.00.01",
+   "nic_fw": "28.43.1014",
+   "rdma_stack": "24.10"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n03",
+  "rack": "rack-01",
+  "serial": "SN-HX8-2409003",
+  "asset_tag": "HAL-0003",
+  "bmc_mac": "02:00:5e:10:03:67",
+  "bmc_ip": "172.16.1.13",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n04",
+  "rack": "rack-01",
+  "serial": "SN-HX8-2409004",
+  "asset_tag": "HAL-0004",
+  "bmc_mac": "02:00:5e:10:04:68",
+  "bmc_ip": "172.16.1.14",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n05",
+  "rack": "rack-02",
+  "serial": "SN-HX8-2409005",
+  "asset_tag": "HAL-0005",
+  "bmc_mac": "02:00:5e:10:05:b2",
+  "bmc_ip": "172.16.1.15",
+  "state": "draining",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": {
+   "reason": "Xid 79 on GPU4 (fell off bus)",
+   "category": "fault"
+  },
+  "ticket": null
+ },
+ {
+  "node": "orion-n06",
+  "rack": "rack-02",
+  "serial": "SN-HX8-2409006",
+  "asset_tag": "HAL-0006",
+  "bmc_mac": "02:00:5e:10:06:42",
+  "bmc_ip": "172.16.1.16",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n07",
+  "rack": "rack-02",
+  "serial": "SN-HX8-2409007",
+  "asset_tag": "HAL-0007",
+  "bmc_mac": "02:00:5e:10:07:f0",
+  "bmc_ip": "172.16.1.17",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n08",
+  "rack": "rack-02",
+  "serial": "SN-HX8-2409008",
+  "asset_tag": "HAL-0008",
+  "bmc_mac": "02:00:5e:10:08:a7",
+  "bmc_ip": "172.16.1.18",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n09",
+  "rack": "rack-03",
+  "serial": "SN-HX8-2409009",
+  "asset_tag": "HAL-0009",
+  "bmc_mac": "02:00:5e:10:09:03",
+  "bmc_ip": "172.16.1.19",
+  "state": "drained",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": {
+   "reason": "planned fw wave pilot",
+   "category": "maintenance"
+  },
+  "ticket": null
+ },
+ {
+  "node": "orion-n10",
+  "rack": "rack-03",
+  "serial": "SN-HX8-2409010",
+  "asset_tag": "HAL-0010",
+  "bmc_mac": "02:00:5e:10:0a:1e",
+  "bmc_ip": "172.16.1.20",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n11",
+  "rack": "rack-03",
+  "serial": "SN-HX8-2409011",
+  "asset_tag": "HAL-0011",
+  "bmc_mac": "02:00:5e:10:0b:39",
+  "bmc_ip": "172.16.1.21",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n12",
+  "rack": "rack-03",
+  "serial": "SN-HX8-2409012",
+  "asset_tag": "HAL-0012",
+  "bmc_mac": "02:00:5e:10:0c:5e",
+  "bmc_ip": "172.16.1.22",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n13",
+  "rack": "rack-04",
+  "serial": "SN-HX8-2409013",
+  "asset_tag": "HAL-0013",
+  "bmc_mac": "02:00:5e:10:0d:d4",
+  "bmc_ip": "172.16.1.23",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n14",
+  "rack": "rack-04",
+  "serial": "SN-HX8-2409014",
+  "asset_tag": "HAL-0014",
+  "bmc_mac": "02:00:5e:10:0e:60",
+  "bmc_ip": "172.16.1.24",
+  "state": "repair",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": {
+   "id": "FLT-4411",
+   "status": "open"
+  }
+ },
+ {
+  "node": "orion-n15",
+  "rack": "rack-04",
+  "serial": "SN-HX8-2409015",
+  "asset_tag": "HAL-0015",
+  "bmc_mac": "02:00:5e:10:0f:d4",
+  "bmc_ip": "172.16.1.25",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n16",
+  "rack": "rack-04",
+  "serial": "SN-HX8-2409016",
+  "asset_tag": "HAL-0016",
+  "bmc_mac": "02:00:5e:10:10:7e",
+  "bmc_ip": "172.16.1.26",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n17",
+  "rack": "rack-05",
+  "serial": "SN-HX8-2409017",
+  "asset_tag": "HAL-0017",
+  "bmc_mac": "02:00:5e:10:11:5a",
+  "bmc_ip": "172.16.1.27",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n18",
+  "rack": "rack-05",
+  "serial": "SN-HX8-2409018",
+  "asset_tag": "HAL-0018",
+  "bmc_mac": "02:00:5e:10:12:e3",
+  "bmc_ip": "172.16.1.28",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.6.0",
+   "bmc_fw": "1.14.2",
+   "kernel": "6.8.0-60-generic",
+   "gpu_driver": "570.86.15",
+   "gpu_vbios": "96.00.A5.00.01",
+   "nic_fw": "28.43.1014",
+   "rdma_stack": "24.10"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n19",
+  "rack": "rack-05",
+  "serial": "SN-HX8-2409019",
+  "asset_tag": "HAL-0019",
+  "bmc_mac": "02:00:5e:10:13:79",
+  "bmc_ip": "172.16.1.29",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n20",
+  "rack": "rack-05",
+  "serial": "SN-HX8-2409020",
+  "asset_tag": "HAL-0020",
+  "bmc_mac": "02:00:5e:10:14:47",
+  "bmc_ip": "172.16.1.30",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n21",
+  "rack": "rack-06",
+  "serial": "SN-HX8-2409021",
+  "asset_tag": "HAL-0021",
+  "bmc_mac": "02:00:5e:10:15:ef",
+  "bmc_ip": "172.16.1.31",
+  "state": "repair",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": {
+   "id": "FLT-4420",
+   "status": "closed"
+  }
+ },
+ {
+  "node": "orion-n22",
+  "rack": "rack-06",
+  "serial": "SN-HX8-2409022",
+  "asset_tag": "HAL-0022",
+  "bmc_mac": "02:00:5e:10:16:3f",
+  "bmc_ip": "172.16.1.32",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n23",
+  "rack": "rack-06",
+  "serial": "SN-HX8-2409023",
+  "asset_tag": "HAL-0023",
+  "bmc_mac": "02:00:5e:10:17:ff",
+  "bmc_ip": "172.16.1.33",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n24",
+  "rack": "rack-06",
+  "serial": "SN-HX8-2409024",
+  "asset_tag": "HAL-0024",
+  "bmc_mac": "02:00:5e:10:18:68",
+  "bmc_ip": "172.16.1.34",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n25",
+  "rack": "rack-07",
+  "serial": "SN-HX8-2409025",
+  "asset_tag": "HAL-0025",
+  "bmc_mac": "02:00:5e:10:19:d5",
+  "bmc_ip": "172.16.1.35",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n26",
+  "rack": "rack-07",
+  "serial": "SN-HX8-2410126",
+  "asset_tag": null,
+  "bmc_mac": "02:00:5e:10:1a:9f",
+  "bmc_ip": "172.16.1.36",
+  "state": "discovered",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n27",
+  "rack": "rack-07",
+  "serial": "SN-HX8-2409027",
+  "asset_tag": "HAL-0027",
+  "bmc_mac": "02:00:5e:10:1b:74",
+  "bmc_ip": "172.16.1.37",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n28",
+  "rack": "rack-07",
+  "serial": "SN-HX8-2409028",
+  "asset_tag": "HAL-0028",
+  "bmc_mac": "02:00:5e:10:1c:50",
+  "bmc_ip": "172.16.1.38",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n29",
+  "rack": "rack-08",
+  "serial": "SN-HX8-2409029",
+  "asset_tag": "HAL-0029",
+  "bmc_mac": "02:00:5e:10:1d:29",
+  "bmc_ip": "172.16.1.39",
+  "state": "validated",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.42.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n30",
+  "rack": "rack-08",
+  "serial": "SN-HX8-2409030",
+  "asset_tag": "HAL-0030",
+  "bmc_mac": "02:00:5e:10:1e:b2",
+  "bmc_ip": "172.16.1.40",
+  "state": "schedulable",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n31",
+  "rack": "rack-08",
+  "serial": "SN-HX8-2409031",
+  "asset_tag": "HAL-0031",
+  "bmc_mac": "02:00:5e:10:1f:2c",
+  "bmc_ip": "172.16.1.41",
+  "state": "imaged",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": null,
+  "ticket": null
+ },
+ {
+  "node": "orion-n32",
+  "rack": "rack-08",
+  "serial": "SN-HX8-2409032",
+  "asset_tag": "HAL-0032",
+  "bmc_mac": "02:00:5e:10:20:c1",
+  "bmc_ip": "172.16.1.42",
+  "state": "draining",
+  "firmware": {
+   "bios": "2.4.1",
+   "bmc_fw": "1.12.0",
+   "kernel": "6.8.0-45-generic",
+   "gpu_driver": "550.127.08",
+   "gpu_vbios": "96.00.99.00.01",
+   "nic_fw": "28.41.1000",
+   "rdma_stack": "24.07"
+  },
+  "drain": {
+   "reason": "PDU-B maintenance window",
+   "category": "maintenance"
+  },
+  "ticket": null
+ }
+]

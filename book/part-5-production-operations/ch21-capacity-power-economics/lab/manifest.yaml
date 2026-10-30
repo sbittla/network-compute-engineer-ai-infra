@@ -1,0 +1,20 @@
+lab: ch21-capacity-power-economics
+tier: L1
+python: ">=3.10"
+dependencies: [pandas, pyyaml]
+hardware_assumptions: >-
+  None. ORION capacity plan 2027Q1-2029Q4, two candidate hall designs, and a power-capping case.
+  All inputs are [ILLUSTRATIVE]; all outputs are [MODELED].
+data_generation: {script: tools/generate_data.py, seed: none (static tables, no RNG)}
+evidence_class: MODELED
+runtime_budget_seconds: 60
+outputs:
+  - quarterly capacity forecast with order-by dates, ORION TCO, design comparison, power-cap table, flags
+extensions:
+  - tier: L2
+    requires: "One GPU host on a dedicated lab system (power limits are a system setting)"
+    record: [gpu_model, driver_version, default_power_limit_w, caps_tested_w, workload, warmup_policy,
+             runs_per_cap, median_and_p95_step_time, mean_power_w, clocks_event_reasons]
+  - tier: L3
+    requires: "Read-only access to rack PDU and facility telemetry for a lab rack"
+    record: [pdu_model, sampling_interval, rack_limit_kw, peak_kw, p99_kw, transient_swing_kw, job_size]

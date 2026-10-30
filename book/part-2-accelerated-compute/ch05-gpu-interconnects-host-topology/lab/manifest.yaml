@@ -1,0 +1,31 @@
+lab: ch05-gpu-interconnects-host-topology
+title: "GPU-to-NIC/HCA topology mapping and aligned vs misaligned all-reduce model"
+progressive_lab: "Extends Progressive Lab 1 (host discovery) to GPUs, NICs and rails"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Raw captures (nvidia-smi topo -m, lstopo, nvidia-smi GPU inventory, lspci -vmm, ibdev2netdev,
+  LLDP, GPUDirect prerequisites) for four ORION HX8 hosts (orion-n01, -n02, -n17, -n23) are
+  ILLUSTRATIVE reconstructions shaped like docs/REFERENCE_CLUSTER.md Figure R.1; field layouts are
+  abridged and version-sensitive. Some hosts carry planted faults (documented in solutions/ only).
+data_generation: {script: tools/generate_data.py, seed: 5, deterministic: true}
+model:
+  file: data/path_model.yaml
+  evidence_class: MODELED
+  parameters_evidence: ILLUSTRATIVE
+  description: "Ring all-reduce, one ring per rail, slowest-member bandwidth per ring, sampled path variance"
+evidence_class: MODELED
+runtime_budget_seconds: 60
+checker: {command: "python check.py --impl starter|solution", checks: 11}
+extensions:
+  - tier: L2
+    requires: "One multi-GPU host with RDMA NICs (root for lspci -vvv)"
+    record: [platform_model, bios_version, gpu_driver_version, cuda_version, nic_driver_ofed_or_doca_version,
+             nic_firmware_versions, kernel_version, kernel_cmdline, peer_memory_mechanism, nvidia_fabricmanager_version,
+             raw_topology_outputs, lldp_neighbours]
+  - tier: L3
+    requires: ">= 2 multi-GPU nodes with RoCEv2 or InfiniBand rails; nccl-tests built against the installed NCCL; MPI or Slurm launcher"
+    record: [nccl_version, nccl_tests_commit, mpi_or_slurm_version, rank_map_files, nccl_env_vars, message_sizes,
+             warmup_iterations, measured_iterations, run_count, busbw_median_and_spread, gdr_evidence_lines,
+             switch_os_version, topology_of_switch_paths]

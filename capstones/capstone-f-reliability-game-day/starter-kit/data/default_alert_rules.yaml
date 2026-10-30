@@ -1,0 +1,33 @@
+- name: NodeDown
+  metric: sim_node_up
+  op: ==
+  threshold: 0
+  for_s: 60
+  severity: critical
+  detects:
+  - node_loss
+- name: JobStalled
+  metric: sim_job_progress_age_seconds
+  op: '>'
+  threshold: 30
+  for_s: 0
+  severity: critical
+  detects:
+  - link_down
+  - node_loss
+- name: NicLinkDown
+  metric: sim_nic_link_up
+  op: ==
+  threshold: 0
+  for_s: 300
+  severity: warning
+  detects:
+  - link_down
+- name: CheckpointStale
+  metric: sim_checkpoint_age_seconds
+  op: '>'
+  threshold: 7200
+  for_s: 300
+  severity: warning
+  detects:
+  - storage_slow

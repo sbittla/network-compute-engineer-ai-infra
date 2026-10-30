@@ -1,0 +1,627 @@
+evidence_class: ILLUSTRATIVE
+groups:
+  backend-rails:
+    members:
+    - orion-be-leaf-r0
+    - orion-be-leaf-r1
+    - orion-be-leaf-r2
+    - orion-be-leaf-r3
+    - orion-be-leaf-r4
+    - orion-be-leaf-r5
+    - orion-be-leaf-r6
+    - orion-be-leaf-r7
+    min_required: 8
+  backend-spines:
+    members:
+    - orion-be-spine-1
+    - orion-be-spine-2
+    - orion-be-spine-3
+    - orion-be-spine-4
+    min_required: 3
+  border-routers:
+    members:
+    - border-1
+    - border-2
+    min_required: 1
+  busway-a:
+    members:
+    - busway-A
+    min_required: 1
+  busway-b:
+    members:
+    - busway-B
+    min_required: 1
+  chillers:
+    members:
+    - chiller-1
+    - chiller-2
+    - chiller-3
+    min_required: 2
+  fe-leaf-power:
+    members:
+    - pdu-net-A
+    min_required: 1
+  frontend-leaves:
+    members:
+    - fe-leaf-1
+    - fe-leaf-2
+    min_required: 1
+  gpu-nodes:
+    members:
+    - orion-n01
+    - orion-n02
+    - orion-n03
+    - orion-n04
+    - orion-n05
+    - orion-n06
+    - orion-n07
+    - orion-n08
+    - orion-n09
+    - orion-n10
+    - orion-n11
+    - orion-n12
+    - orion-n13
+    - orion-n14
+    - orion-n15
+    - orion-n16
+    - orion-n17
+    - orion-n18
+    - orion-n19
+    - orion-n20
+    - orion-n21
+    - orion-n22
+    - orion-n23
+    - orion-n24
+    - orion-n25
+    - orion-n26
+    - orion-n27
+    - orion-n28
+    - orion-n29
+    - orion-n30
+    - orion-n31
+    - orion-n32
+    min_required: 28
+  gpu-row-cooling:
+    members:
+    - cdu-1
+    min_required: 1
+  k8s-control-plane:
+    members:
+    - k8s-cp-1
+    - k8s-cp-2
+    - k8s-cp-3
+    min_required: 2
+  mgmt-power:
+    members:
+    - pdu-mgmt-A
+    - pdu-mgmt-B
+    min_required: 1
+  net-power:
+    members:
+    - pdu-net-A
+    - pdu-net-B
+    min_required: 1
+  oob-mgmt:
+    members:
+    - oob-sw-1
+    min_required: 1
+  rack-01-power:
+    members:
+    - pdu-rack-01-A
+    - pdu-rack-01-B
+    min_required: 1
+  rack-02-power:
+    members:
+    - pdu-rack-02-A
+    - pdu-rack-02-B
+    min_required: 1
+  rack-03-power:
+    members:
+    - pdu-rack-03-A
+    - pdu-rack-03-B
+    min_required: 1
+  rack-04-power:
+    members:
+    - pdu-rack-04-A
+    - pdu-rack-04-B
+    min_required: 1
+  rack-05-power:
+    members:
+    - pdu-rack-05-A
+    - pdu-rack-05-B
+    min_required: 1
+  rack-06-power:
+    members:
+    - pdu-rack-06-A
+    - pdu-rack-06-B
+    min_required: 1
+  rack-07-power:
+    members:
+    - pdu-rack-07-A
+    - pdu-rack-07-B
+    min_required: 1
+  rack-08-power:
+    members:
+    - pdu-rack-08-A
+    - pdu-rack-08-B
+    min_required: 1
+  slurm-controller:
+    members:
+    - slurmctld-1
+    min_required: 1
+  storage-data:
+    members:
+    - stor-01
+    - stor-02
+    - stor-03
+    - stor-04
+    - stor-05
+    - stor-06
+    - stor-07
+    - stor-08
+    min_required: 7
+  storage-metadata:
+    members:
+    - mds-1
+    min_required: 1
+  storage-power:
+    members:
+    - pdu-sto-A
+    - pdu-sto-B
+    min_required: 1
+  ups-a:
+    members:
+    - ups-A
+    min_required: 1
+  ups-b:
+    members:
+    - ups-B
+    min_required: 1
+  utility-or-generator:
+    members:
+    - utility-1
+    - generator-1
+    min_required: 1
+components:
+- id: utility-1
+  type: utility
+  depends_on: []
+- id: generator-1
+  type: generator
+  depends_on: []
+- id: ups-A
+  type: ups
+  depends_on:
+  - utility-or-generator
+- id: ups-B
+  type: ups
+  depends_on:
+  - utility-or-generator
+- id: busway-A
+  type: busway
+  depends_on:
+  - ups-a
+- id: busway-B
+  type: busway
+  depends_on:
+  - ups-b
+- id: chiller-1
+  type: chiller
+  depends_on:
+  - utility-or-generator
+- id: chiller-2
+  type: chiller
+  depends_on:
+  - utility-or-generator
+- id: chiller-3
+  type: chiller
+  depends_on:
+  - utility-or-generator
+- id: cdu-1
+  type: cdu
+  depends_on:
+  - chillers
+  - utility-or-generator
+- id: pdu-rack-01-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-01-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-02-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-02-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-03-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-03-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-04-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-04-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-05-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-05-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-06-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-06-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-07-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-07-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-rack-08-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-rack-08-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-net-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-sto-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-mgmt-A
+  type: rack-pdu
+  depends_on:
+  - busway-a
+- id: pdu-net-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-sto-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: pdu-mgmt-B
+  type: rack-pdu
+  depends_on:
+  - busway-b
+- id: orion-n01
+  type: gpu-node
+  depends_on:
+  - rack-01-power
+  - gpu-row-cooling
+- id: orion-n02
+  type: gpu-node
+  depends_on:
+  - rack-01-power
+  - gpu-row-cooling
+- id: orion-n03
+  type: gpu-node
+  depends_on:
+  - rack-01-power
+  - gpu-row-cooling
+- id: orion-n04
+  type: gpu-node
+  depends_on:
+  - rack-01-power
+  - gpu-row-cooling
+- id: orion-n05
+  type: gpu-node
+  depends_on:
+  - rack-02-power
+  - gpu-row-cooling
+- id: orion-n06
+  type: gpu-node
+  depends_on:
+  - rack-02-power
+  - gpu-row-cooling
+- id: orion-n07
+  type: gpu-node
+  depends_on:
+  - rack-02-power
+  - gpu-row-cooling
+- id: orion-n08
+  type: gpu-node
+  depends_on:
+  - rack-02-power
+  - gpu-row-cooling
+- id: orion-n09
+  type: gpu-node
+  depends_on:
+  - rack-03-power
+  - gpu-row-cooling
+- id: orion-n10
+  type: gpu-node
+  depends_on:
+  - rack-03-power
+  - gpu-row-cooling
+- id: orion-n11
+  type: gpu-node
+  depends_on:
+  - rack-03-power
+  - gpu-row-cooling
+- id: orion-n12
+  type: gpu-node
+  depends_on:
+  - rack-03-power
+  - gpu-row-cooling
+- id: orion-n13
+  type: gpu-node
+  depends_on:
+  - rack-04-power
+  - gpu-row-cooling
+- id: orion-n14
+  type: gpu-node
+  depends_on:
+  - rack-04-power
+  - gpu-row-cooling
+- id: orion-n15
+  type: gpu-node
+  depends_on:
+  - rack-04-power
+  - gpu-row-cooling
+- id: orion-n16
+  type: gpu-node
+  depends_on:
+  - rack-04-power
+  - gpu-row-cooling
+- id: orion-n17
+  type: gpu-node
+  depends_on:
+  - rack-05-power
+  - gpu-row-cooling
+- id: orion-n18
+  type: gpu-node
+  depends_on:
+  - rack-05-power
+  - gpu-row-cooling
+- id: orion-n19
+  type: gpu-node
+  depends_on:
+  - rack-05-power
+  - gpu-row-cooling
+- id: orion-n20
+  type: gpu-node
+  depends_on:
+  - rack-05-power
+  - gpu-row-cooling
+- id: orion-n21
+  type: gpu-node
+  depends_on:
+  - rack-06-power
+  - gpu-row-cooling
+- id: orion-n22
+  type: gpu-node
+  depends_on:
+  - rack-06-power
+  - gpu-row-cooling
+- id: orion-n23
+  type: gpu-node
+  depends_on:
+  - rack-06-power
+  - gpu-row-cooling
+- id: orion-n24
+  type: gpu-node
+  depends_on:
+  - rack-06-power
+  - gpu-row-cooling
+- id: orion-n25
+  type: gpu-node
+  depends_on:
+  - rack-07-power
+  - gpu-row-cooling
+- id: orion-n26
+  type: gpu-node
+  depends_on:
+  - rack-07-power
+  - gpu-row-cooling
+- id: orion-n27
+  type: gpu-node
+  depends_on:
+  - rack-07-power
+  - gpu-row-cooling
+- id: orion-n28
+  type: gpu-node
+  depends_on:
+  - rack-07-power
+  - gpu-row-cooling
+- id: orion-n29
+  type: gpu-node
+  depends_on:
+  - rack-08-power
+  - gpu-row-cooling
+- id: orion-n30
+  type: gpu-node
+  depends_on:
+  - rack-08-power
+  - gpu-row-cooling
+- id: orion-n31
+  type: gpu-node
+  depends_on:
+  - rack-08-power
+  - gpu-row-cooling
+- id: orion-n32
+  type: gpu-node
+  depends_on:
+  - rack-08-power
+  - gpu-row-cooling
+- id: orion-be-leaf-r0
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r1
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r2
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r3
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r4
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r5
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r6
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-leaf-r7
+  type: rail-leaf
+  depends_on:
+  - net-power
+- id: orion-be-spine-1
+  type: spine
+  depends_on:
+  - net-power
+- id: orion-be-spine-2
+  type: spine
+  depends_on:
+  - net-power
+- id: orion-be-spine-3
+  type: spine
+  depends_on:
+  - net-power
+- id: orion-be-spine-4
+  type: spine
+  depends_on:
+  - net-power
+- id: fe-leaf-1
+  type: frontend-leaf
+  depends_on:
+  - fe-leaf-power
+- id: fe-leaf-2
+  type: frontend-leaf
+  depends_on:
+  - fe-leaf-power
+- id: border-1
+  type: border-router
+  depends_on:
+  - net-power
+- id: border-2
+  type: border-router
+  depends_on:
+  - net-power
+- id: oob-sw-1
+  type: oob-switch
+  depends_on:
+  - mgmt-power
+- id: stor-01
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-02
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-03
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-04
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-05
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-06
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-07
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: stor-08
+  type: storage-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: mds-1
+  type: metadata-server
+  depends_on:
+  - storage-power
+  - frontend-leaves
+- id: slurmctld-1
+  type: scheduler
+  depends_on:
+  - mgmt-power
+  - frontend-leaves
+- id: k8s-cp-1
+  type: k8s-control-plane
+  depends_on:
+  - mgmt-power
+  - frontend-leaves
+- id: k8s-cp-2
+  type: k8s-control-plane
+  depends_on:
+  - mgmt-power
+  - frontend-leaves
+- id: k8s-cp-3
+  type: k8s-control-plane
+  depends_on:
+  - mgmt-power
+  - frontend-leaves
+services:
+- id: svc-training
+  type: service
+  depends_on:
+  - gpu-nodes
+  - backend-spines
+  - backend-rails
+  - storage-data
+  - storage-metadata
+  - slurm-controller
+  - frontend-leaves
+- id: svc-inference
+  type: service
+  depends_on:
+  - gpu-nodes
+  - frontend-leaves
+  - border-routers
+  - k8s-control-plane
+- id: svc-management
+  type: service
+  depends_on:
+  - oob-mgmt

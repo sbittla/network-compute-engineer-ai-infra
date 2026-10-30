@@ -1,0 +1,7 @@
+id,category,assumption,value,unit,evidence_label,source_or_reasoning,sensitivity,how_to_validate,status
+A-01,collection,Switch poll interval,60,s,SIMULATED,device_profiles.yaml,high (sets detection latency),compare with collector config in production,<fill>
+A-02,collection,NIC poll interval,120,s,SIMULATED,device_profiles.yaml,high,host-agent config,<fill>
+A-03,counters,Leaf pause counters are 32-bit,32,bits,SIMULATED,device_profiles.yaml,medium,vendor documentation for the platform,<fill>
+A-04,rules,PFC storm threshold (pause frames received per second on a host port),10000,frames/s,ILLUSTRATIVE,<fill: why>,<fill>,L3 incast baseline,<fill>
+A-05,rules,Persistence for PFC storm,3,intervals,ILLUSTRATIVE,<fill>,<fill>,<fill>,<fill>
+<fill: A-06…>,<fill>,<fill>,<fill>,<fill>,<fill: MEASURED|MODELED|SIMULATED|ILLUSTRATIVE|VENDOR-SPEC YYYY-MM>,<fill>,<fill>,<fill>,<fill>

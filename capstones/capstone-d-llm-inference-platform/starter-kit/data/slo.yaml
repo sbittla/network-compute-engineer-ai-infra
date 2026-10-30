@@ -1,0 +1,10 @@
+ttft_p95_s: 0.8
+ttft_reference_prompt_tokens: 2048
+tpot_p95_s: 0.05
+itl_p99_s: 0.1
+frontend_budget_s: 0.03
+warmup_exclude_s: 60
+cooldown_exclude_s: 60
+availability: 0.999
+window_days: 30
+note: TTFT target applies to prompts up to 2,048 tokens; longer prompts are reported separately

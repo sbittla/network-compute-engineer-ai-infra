@@ -1,0 +1,187 @@
+learner:
+  name: R. Okafor (fictional learner)
+  background: Six years of data-center network engineering; moving into AI networking.
+  target_role: ai_network
+  target_seniority: senior
+  as_of: '2026-10-15'
+evidence:
+- id: E01
+  competency: l3_fabric
+  type: production
+  claimed_level: 4
+  artifact: portfolio/case-studies/bgp-underlay-migration.md
+  date: '2025-06-01'
+  verifier: Former manager (reference available)
+  measured_on_hardware: false
+  summary: Led eBGP underlay migration for a 40-leaf DC fabric; zero customer-impacting incidents.
+- id: E02
+  competency: l3_fabric
+  type: course
+  claimed_level: 2
+  artifact: certs/dc-routing-course.pdf
+  date: '2024-03-15'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Completed a vendor data-center routing course.
+- id: E03
+  competency: rdma_fabrics
+  type: lab_l1
+  claimed_level: 3
+  artifact: book/ch08 lab report
+  date: '2026-08-20'
+  verifier: ''
+  measured_on_hardware: false
+  summary: RoCEv2 vs InfiniBand comparison and readiness checklist.
+- id: E04
+  competency: rdma_fabrics
+  type: capstone
+  claimed_level: 3
+  artifact: portfolio/capstone-b/report.md
+  date: '2026-09-30'
+  verifier: ''
+  measured_on_hardware: false
+  summary: 'Capstone B: RoCE telemetry pipeline with injected-fault scenarios.'
+- id: E05
+  competency: congestion
+  type: lab_l1
+  claimed_level: 3
+  artifact: book/ch09 lab report
+  date: '2026-08-28'
+  verifier: ''
+  measured_on_hardware: true
+  summary: ECN/PFC time-series diagnosis on synthetic counters; report states results were 'measured'.
+- id: E06
+  competency: congestion
+  type: case_study
+  claimed_level: 3
+  artifact: portfolio/case-studies/storage-incast.md
+  date: '2022-08-01'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Diagnosed storage incast on a TCP fabric (pre-RDMA role).
+- id: E07
+  competency: physical_layer
+  type: production
+  claimed_level: 4
+  artifact: portfolio/runbooks/optics-commissioning.md
+  date: '2021-03-01'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Wrote optics commissioning runbook at a previous employer.
+- id: E08
+  competency: host_topology
+  type: lab_l1
+  claimed_level: 2
+  artifact: book/ch05 lab mapping CSV
+  date: '2026-07-30'
+  verifier: ''
+  measured_on_hardware: false
+  summary: GPU-to-NIC mapping CSV and aligned/misaligned model.
+- id: E09
+  competency: observability
+  type: self_assessment
+  claimed_level: 3
+  artifact: ''
+  date: '2026-10-01'
+  verifier: ''
+  measured_on_hardware: false
+  summary: 'Self-rated: comfortable with Prometheus and Grafana.'
+- id: E10
+  competency: observability
+  type: case_study
+  claimed_level: 3
+  artifact: ''
+  date: '2026-06-12'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Postmortem for a fabric-wide throughput regression (document not yet published).
+- id: E11
+  competency: automation
+  type: production
+  claimed_level: 3
+  artifact: portfolio/code/config-validator/
+  date: '2024-01-10'
+  verifier: 'Peer reviewer: tech lead (reference available)'
+  measured_on_hardware: false
+  summary: Python config validator in CI for switch configs.
+- id: E12
+  competency: communication
+  type: case_study
+  claimed_level: 3
+  artifact: portfolio/case-studies/ecmp-polarization.md
+  date: '2026-09-10'
+  verifier: ''
+  measured_on_hardware: false
+  summary: 'Performance case study: ECMP hash polarization on rail uplinks.'
+- id: E04
+  competency: rdma_fabrics
+  type: capstone
+  claimed_level: 3
+  artifact: portfolio/capstone-b/report.md
+  date: '2026-09-30'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Capstone B (pasted twice in the portfolio index).
+- id: E14
+  competency: bgp_evpn
+  type: production
+  claimed_level: 4
+  artifact: portfolio/case-studies/evpn.md
+  date: '2025-02-01'
+  verifier: Former manager
+  measured_on_hardware: false
+  summary: EVPN-VXLAN tenant overlay design.
+- id: E15
+  competency: collectives
+  type: lab_l1
+  claimed_level: 2
+  artifact: book/ch12 lab report
+  date: '2026-09-05'
+  verifier: ''
+  measured_on_hardware: false
+  summary: 'NCCL test result analysis: latency vs bandwidth regions.'
+- id: E16
+  competency: storage_ckpt
+  type: lab_l1
+  claimed_level: 1
+  artifact: book/ch14 lab report
+  date: '2026-09-15'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Checkpoint write-time model.
+- id: E17
+  competency: linux_host
+  type: production
+  claimed_level: 3
+  artifact: portfolio/scripts/host-snapshot.sh
+  date: '2023-02-01'
+  verifier: Team lead
+  measured_on_hardware: false
+  summary: Host diagnostic snapshot script used by the NOC.
+- id: E18
+  competency: scheduling
+  type: course
+  claimed_level: 2
+  artifact: certs/k8s-admin-course.pdf
+  date: '2025-11-20'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Kubernetes administration course.
+- id: E19
+  competency: gpu_compute
+  type: self_assessment
+  claimed_level: 2
+  artifact: ''
+  date: ''
+  verifier: ''
+  measured_on_hardware: false
+  summary: 'Self-rated: read about CUDA warps and SMs.'
+- id: E20
+  competency: reliability_security
+  type: lab_l1
+  claimed_level: 2
+  artifact: book/ch19 lab report
+  date: '2026-09-25'
+  verifier: ''
+  measured_on_hardware: false
+  summary: Failure-mode analysis and quarantine decision exercise.

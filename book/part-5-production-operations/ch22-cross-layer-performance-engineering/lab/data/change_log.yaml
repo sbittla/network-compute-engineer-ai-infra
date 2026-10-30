@@ -1,0 +1,24 @@
+# Change window CW-2026-10-12 (02:00-06:00 UTC). [SIMULATED] bundle for Chapter 22.
+window: {start: "2026-10-12T02:00:00Z", end: "2026-10-12T06:00:00Z"}
+changes:
+  - id: CHG-7781
+    team: Fleet
+    summary: "GPU driver branch R550 -> R570 on orion-n17..orion-n32 (canary half of ORION-256)"
+    scope: [orion-n17, orion-n18, orion-n19, orion-n20, orion-n21, orion-n22, orion-n23, orion-n24,
+            orion-n25, orion-n26, orion-n27, orion-n28, orion-n29, orion-n30, orion-n31, orion-n32]
+    validation_recorded: "nvidia-smi shows 8 GPUs; dcgmi diag -r 1 pass"
+  - id: CHG-7790
+    team: Platform
+    summary: "Placement policy: allow jobs to start on partially free nodes (fragmentation relief)"
+    scope: training partition
+    validation_recorded: "pending-job count down 30 %"
+  - id: CHG-7795
+    team: Storage
+    summary: "Move sweep datasets ds-web-2026q3 and ds-code-v4 from hot PFS tier to capacity tier"
+    scope: datasets ds-web-2026q3, ds-code-v4
+    validation_recorded: "bulk read test 40 GB/s from one client"
+  - id: CHG-7802
+    team: Training Infra
+    summary: "Base container rebuilt with security patches; framework versions unchanged"
+    scope: all training jobs
+    validation_recorded: "smoke test passed"

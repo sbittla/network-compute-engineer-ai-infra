@@ -1,0 +1,12 @@
+# ORION-256 / HX8 resource ceilings used by the Chapter 1 workload model.
+# All values ILLUSTRATIVE, H100-class (see docs/REFERENCE_CLUSTER.md). Peak values, not achievable ones.
+platform: ORION-256 (HX8 nodes)
+gpus_per_node: 8
+gpu_dense_bf16_tflops: 989            # TFLOP/s per GPU, dense BF16 [VENDOR-SPEC class]
+hbm_gb_per_s: 3350                    # GB/s per GPU
+nvlink_gb_per_s_per_direction: 450    # GB/s per GPU per direction (900 GB/s total bidirectional)
+nic_line_rate_gbit_per_s: 400         # Gb/s per backend NIC, one NIC per GPU (= 50 GB/s)
+frontend_gbit_per_s_per_node: 400     # 2 x 200 Gb/s frontend/storage NICs per node
+storage_read_gb_per_s_aggregate: 160  # parallel file system, whole cluster
+storage_write_gb_per_s_aggregate: 80
+latency_fraction_threshold: 0.25      # lower_bound / observed below this => latency/overhead flag

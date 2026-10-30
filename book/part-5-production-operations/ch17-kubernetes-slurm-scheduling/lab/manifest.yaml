@@ -1,0 +1,28 @@
+lab: ch17-kubernetes-slurm-scheduling
+title: "ORION topology-aware gang scheduler simulator and pending-job diagnoser (Progressive Lab 7, part 2)"
+tier: L1
+python: ">=3.10"
+dependencies: []            # standard library only (json, hashlib, argparse, importlib)
+hardware_assumptions: >-
+  None. Uses a synthetic snapshot of ORION-256 (docs/REFERENCE_CLUSTER.md): 32 HX8 nodes
+  (orion-n01..orion-n32, racks rack-01..rack-08), 24 nodes in the training pool and 8 in the
+  inference pool, five tenants with GPU quotas, 12 running jobs, 15 queued jobs, and 12
+  pending-job evidence bundles.
+data_generation: {script: tools/generate_data.py, seed: 17}   # instructor copy only; data/ is committed
+data_files: [data/cluster_state.json, data/job_queue.json, data/pending_cases.json]
+evidence_class: SIMULATED
+simulator_does_not_capture:
+  - scheduler latency, scheduling cycles, queue churn over time, job runtimes and completions
+  - backfill with reservations, preemption, Kueue cohort borrowing, Slurm multifactor priority decay
+  - real device-plugin, kubelet, NVML, or slurmctld behaviour
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One GPU host with kind/k3s + NVIDIA GPU Operator (or device plugin), or a single-node Slurm with gres/gpu"
+    record: [kubernetes_version, gpu_operator_version, device_plugin_version, driver_version,
+             mig_strategy, slurm_version, gres_conf, node_allocatable_snapshot, scheduler_events, run_count]
+  - tier: L3
+    requires: ">= 2 multi-GPU nodes with RDMA NICs, a Slurm or Kubernetes cluster with gang scheduling (Kueue/Volcano-class or Slurm), switch topology known"
+    record: [scheduler_and_version, gang_plugin_version, topology_conf_or_labels, partition_or_queue_config,
+             quota_objects, placement_per_job, time_to_start_p50_p95, nccl_all_reduce_busbw_per_placement,
+             run_count, warmup_policy]

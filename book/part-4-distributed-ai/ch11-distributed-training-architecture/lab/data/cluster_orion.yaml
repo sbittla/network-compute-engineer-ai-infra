@@ -1,0 +1,16 @@
+name: ORION-256
+gpus: 256
+gpus_per_node: 8
+hbm_gb: 80.0
+hbm_headroom_fraction: 0.85
+fixed_overhead_gb: 4.0
+peak_bf16_tflops: 989.0
+kernel_efficiency: 0.5
+nvlink_busbw_gbs: 300.0
+rail_busbw_gbs: 45.0
+nvlink_latency_us: 10.0
+internode_latency_us: 30.0
+overlap_tp: 0.25
+backward_fraction: 0.667
+overlap_pp: 0.5
+full_recompute_factor: 1.333

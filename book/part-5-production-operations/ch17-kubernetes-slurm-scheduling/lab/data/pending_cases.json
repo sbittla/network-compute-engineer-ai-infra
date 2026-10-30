@@ -1,0 +1,1040 @@
+[
+ {
+  "case_id": "P09",
+  "dashboard_free_gpus": 12,
+  "events": [
+   "pod created 3s ago; no FailedScheduling events yet"
+  ],
+  "job": {
+   "gpus_per_node": 4,
+   "name": "chat-70b-replica-9",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 4
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n29",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": [
+     {
+      "effect": "PreferNoSchedule",
+      "key": "halcyon.ai/canary-driver",
+      "value": "570"
+     }
+    ]
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 28
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P08",
+  "dashboard_free_gpus": 13,
+  "events": [
+   "Workload eval-harness-8g QuotaReserved=False: couldn't assign flavors to pod set main: insufficient unused quota for nvidia.com/gpu in flavor h100-sxm, 2 more needed"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "eval-harness-8g",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/dedicated": "search",
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n31",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": [
+     {
+      "effect": "NoSchedule",
+      "key": "halcyon.ai/dedicated",
+      "value": "search"
+     }
+    ]
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 3
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n27",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ClusterQueue",
+   "name": "inference-cq",
+   "used": 42
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P04",
+  "dashboard_free_gpus": 8,
+  "events": [
+   "0/2 nodes are available: 2 Insufficient nvidia.com/gpu.",
+   "gpu-operator/nvidia-device-plugin-daemonset-x7k2p on orion-n30: CrashLoopBackOff"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "chat-70b-replica-8",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 0
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 0
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 8
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n32",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 8
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P05",
+  "dashboard_free_gpus": 14,
+  "events": [
+   "squeue: 48230 train sft-8gpu PD 0:00 1 (Resources)"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "jobid=48230 sft-8gpu",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "gres/gpu",
+   "tenant": "finetune",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 0
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n18",
+    "physical_gpus": 8,
+    "reason": "NHC: GPU Xid 79 (fallen off bus)",
+    "slurm_state": "DRAIN",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 4
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n20",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 6
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n21",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 32,
+   "kind": "QOS GrpTRES",
+   "name": "finetune",
+   "used": 10
+  },
+  "scheduler": "slurm"
+ },
+ {
+  "case_id": "P12",
+  "dashboard_free_gpus": 12,
+  "events": [
+   "0/2 nodes are available: 1 Insufficient nvidia.com/gpu, 1 node(s) were unschedulable."
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "chat-70b-replica-10",
+   "node_selector": {
+    "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+   },
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": false,
+    "taints": [
+     {
+      "effect": "NoSchedule",
+      "key": "node.kubernetes.io/unschedulable",
+      "value": ""
+     }
+    ]
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 4
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n29",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 32
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P10",
+  "dashboard_free_gpus": 26,
+  "events": [
+   "squeue: 48302 train rs-2node PD 0:00 2 (Resources)"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "jobid=48302 rs-2node",
+   "node_selector": {},
+   "nodes": 2,
+   "resource": "gres/gpu",
+   "tenant": "research",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 0
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n23",
+    "physical_gpus": 8,
+    "reason": "fw-upgrade wave 2",
+    "slurm_state": "DRAIN",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 0
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n22",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "IDLE",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 4
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n20",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 2
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n21",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 8
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n24",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "ALLOCATED",
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "QOS GrpTRES",
+   "name": "research",
+   "used": 20
+  },
+  "scheduler": "slurm"
+ },
+ {
+  "case_id": "P02",
+  "dashboard_free_gpus": 15,
+  "events": [
+   "0/3 nodes are available: 1 node(s) had untolerated taint {halcyon.ai/dedicated: search}, 2 Insufficient nvidia.com/gpu. preemption: 0/3 nodes are available: 1 Preemption is not helpful for scheduling, 2 No preemption victims found for incoming pod."
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "rerank-eval",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/dedicated": "search",
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n31",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": [
+     {
+      "effect": "NoSchedule",
+      "key": "halcyon.ai/dedicated",
+      "value": "search"
+     }
+    ]
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 6
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n26",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 3
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n27",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 24
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P01",
+  "dashboard_free_gpus": 12,
+  "events": [
+   "Workload chat-70b-replica-7 QuotaReserved=False: couldn't assign flavors to pod set main: insufficient unused quota for nvidia.com/gpu in flavor h100-sxm, 4 more needed"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "chat-70b-replica-7",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 4
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n29",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ClusterQueue",
+   "name": "inference-cq",
+   "used": 44
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P03",
+  "dashboard_free_gpus": 34,
+  "events": [
+   "squeue: 48211 train pt-ablation PD 0:00 4 (Resources)"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "jobid=48211 pt-ablation",
+   "node_selector": {},
+   "nodes": 4,
+   "resource": "gres/gpu",
+   "tenant": "pretrain",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 4
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n13",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 5
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n14",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 2
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n15",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 6
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n16",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 0
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n17",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "IDLE",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 7
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n18",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 3
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n19",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "gres/gpu": 8
+    },
+    "allocated": {
+     "gres/gpu": 3
+    },
+    "labels": {
+     "feature": "h100,hx8"
+    },
+    "name": "orion-n20",
+    "physical_gpus": 8,
+    "reason": "",
+    "slurm_state": "MIXED",
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 160,
+   "kind": "QOS GrpTRES",
+   "name": "pretrain",
+   "used": 96
+  },
+  "scheduler": "slurm"
+ },
+ {
+  "case_id": "P07",
+  "dashboard_free_gpus": 8,
+  "events": [
+   "0/2 nodes are available: 2 Insufficient nvidia.com/gpu."
+  ],
+  "job": {
+   "gpus_per_node": 1,
+   "name": "embed-batch",
+   "node_selector": {},
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 0,
+     "nvidia.com/mig-1g.10gb": 56
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 0,
+     "nvidia.com/mig-1g.10gb": 56
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3",
+     "nvidia.com/mig.config": "all-1g.10gb"
+    },
+    "name": "orion-n28",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 8
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n25",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 47
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P11",
+  "dashboard_free_gpus": 20,
+  "events": [
+   "pod distill-2node-worker-1: 0/3 nodes are available: 1 node(s) had untolerated taint {halcyon.ai/dedicated: search}, 2 Insufficient nvidia.com/gpu.",
+   "pod distill-2node-worker-0: Scheduled to orion-n30 (gang not complete; waiting)"
+  ],
+  "job": {
+   "gpus_per_node": 8,
+   "name": "distill-2node",
+   "node_selector": {},
+   "nodes": 2,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/dedicated": "search",
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n31",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": [
+     {
+      "effect": "NoSchedule",
+      "key": "halcyon.ai/dedicated",
+      "value": "search"
+     }
+    ]
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 4
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n26",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ClusterQueue",
+   "name": "inference-cq",
+   "used": 24
+  },
+  "scheduler": "kubernetes"
+ },
+ {
+  "case_id": "P06",
+  "dashboard_free_gpus": 12,
+  "events": [
+   "0/2 nodes are available: 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling."
+  ],
+  "job": {
+   "gpus_per_node": 4,
+   "name": "chat-70b-canary",
+   "node_selector": {
+    "nvidia.com/gpu.product": "NVIDIA-H100-SXM5-80GB"
+   },
+   "nodes": 1,
+   "resource": "nvidia.com/gpu",
+   "tenant": "inference",
+   "tolerations": []
+  },
+  "nodes": [
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 4
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n29",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   },
+   {
+    "allocatable": {
+     "nvidia.com/gpu": 8
+    },
+    "allocated": {
+     "nvidia.com/gpu": 0
+    },
+    "capacity": {
+     "nvidia.com/gpu": 8
+    },
+    "conditions": {
+     "Ready": true
+    },
+    "labels": {
+     "halcyon.ai/pool": "infer",
+     "nvidia.com/gpu.product": "NVIDIA-H100-80GB-HBM3"
+    },
+    "name": "orion-n30",
+    "physical_gpus": 8,
+    "schedulable": true,
+    "taints": []
+   }
+  ],
+  "quota": {
+   "hard": 48,
+   "kind": "ResourceQuota",
+   "name": "gpu-quota",
+   "used": 20
+  },
+  "scheduler": "kubernetes"
+ }
+]

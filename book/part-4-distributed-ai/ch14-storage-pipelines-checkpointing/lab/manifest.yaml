@@ -1,0 +1,31 @@
+lab: ch14-storage-pipelines-checkpointing
+title: "Progressive Lab 6 - Storage and checkpoint: planner, I/O trace analyzer, checkpoint validator"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Part A models W-TRAIN (70B, 980 GB checkpoint) on ORION-256 using
+  data/orion_ckpt_inputs.yaml (docs/REFERENCE_CLUSTER.md). Parts B and C use synthetic data
+  modeled on one HX8 client node, its 8 local NVMe drives, and the ORION parallel file system.
+data_generation: {script: tools/generate_data.py, seed: 14}
+datasets:
+  - data/orion_ckpt_inputs.yaml        # planner inputs (ILLUSTRATIVE values)
+  - data/io_trace.csv                  # 26,756 operations, 19 s, 8 loader workers (SIMULATED)
+  - data/fio_nvme_acceptance.json      # fio JSON-format subset, 16 jobs on 8 drives (SIMULATED)
+  - data/checkpoints/                  # 7 checkpoints x 8 shards, manifests, COMMIT markers
+evidence_class: MODELED              # Part A MODELED; Parts B and C analyse SIMULATED data
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One Linux host with local NVMe you are allowed to wipe (or a scratch file on one), fio, root for raw-device tests"
+    record: [kernel_version, fio_version, nvme_model, nvme_firmware, pcie_link_speed_width, filesystem,
+             mount_options, ioengine, direct, bs, iodepth, numjobs, runtime_s, ramp_time_s, repetitions,
+             drive_temperature_before_after]
+  - tier: L2
+    requires: "One GPU host with PyTorch 2.x; a model small enough to fit on one GPU"
+    record: [torch_version, cuda_version, checkpoint_api, state_dict_bytes, blocking_s, completion_s,
+             staging_buffer_bytes, target_filesystem, repetitions, step_time_before_during_after]
+  - tier: L3
+    requires: "2+ GPU nodes, a shared parallel file system or object store, permission to run during a maintenance window"
+    record: [pfs_client_version, stripe_settings, writer_count, aggregate_write_GBps_per_run,
+             commit_latency_s, restore_read_GBps, time_to_resume_s, other_tenants_active]

@@ -1,0 +1,361 @@
+[
+ {
+  "seq": 1,
+  "ts": "2026-10-12T08:07:00Z",
+  "node": "orion-n05",
+  "event": "drain_complete",
+  "actor": "fleet-bot",
+  "evidence": {
+   "running_jobs": 1
+  }
+ },
+ {
+  "seq": 2,
+  "ts": "2026-10-12T08:14:00Z",
+  "node": "orion-n05",
+  "event": "drain_complete",
+  "actor": "fleet-bot",
+  "evidence": {
+   "running_jobs": 0
+  }
+ },
+ {
+  "seq": 3,
+  "ts": "2026-10-12T08:21:00Z",
+  "node": "orion-n05",
+  "event": "send_to_repair",
+  "actor": "oncall-amara",
+  "evidence": {
+   "ticket": "FLT-4431"
+  }
+ },
+ {
+  "seq": 4,
+  "ts": "2026-10-12T08:28:00Z",
+  "node": "orion-n32",
+  "event": "cancel_drain",
+  "actor": "oncall-amara",
+  "evidence": {}
+ },
+ {
+  "seq": 5,
+  "ts": "2026-10-12T08:35:00Z",
+  "node": "orion-n09",
+  "event": "reimage",
+  "actor": "fleet-bot",
+  "evidence": {
+   "firmware": {
+    "bios": "2.6.0",
+    "bmc_fw": "1.14.2",
+    "kernel": "6.8.0-60-generic",
+    "gpu_driver": "570.86.15",
+    "gpu_vbios": "96.00.A5.00.01",
+    "nic_fw": "28.43.1014",
+    "rdma_stack": "24.10"
+   },
+   "change": "CHG-7720"
+  }
+ },
+ {
+  "seq": 6,
+  "ts": "2026-10-12T09:42:00Z",
+  "node": "orion-n09",
+  "event": "pass_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "PASS"
+  }
+ },
+ {
+  "seq": 7,
+  "ts": "2026-10-12T09:49:00Z",
+  "node": "orion-n09",
+  "event": "enable",
+  "actor": "fleet-bot",
+  "evidence": {}
+ },
+ {
+  "seq": 8,
+  "ts": "2026-10-12T09:56:00Z",
+  "node": "orion-n14",
+  "event": "reimage",
+  "actor": "fleet-bot",
+  "evidence": {
+   "ticket_status": "open"
+  }
+ },
+ {
+  "seq": 9,
+  "ts": "2026-10-12T09:03:00Z",
+  "node": "orion-n21",
+  "event": "reimage",
+  "actor": "fleet-bot",
+  "evidence": {
+   "ticket_status": "closed"
+  }
+ },
+ {
+  "seq": 10,
+  "ts": "2026-10-12T09:10:00Z",
+  "node": "orion-n21",
+  "event": "enable",
+  "actor": "oncall-jun",
+  "evidence": {}
+ },
+ {
+  "seq": 11,
+  "ts": "2026-10-12T09:17:00Z",
+  "node": "orion-n21",
+  "event": "pass_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "WARN"
+  }
+ },
+ {
+  "seq": 12,
+  "ts": "2026-10-12T10:24:00Z",
+  "node": "orion-n21",
+  "event": "pass_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "WARN",
+   "waiver": "WVR-0192"
+  }
+ },
+ {
+  "seq": 13,
+  "ts": "2026-10-12T10:31:00Z",
+  "node": "orion-n21",
+  "event": "enable",
+  "actor": "fleet-bot",
+  "evidence": {}
+ },
+ {
+  "seq": 14,
+  "ts": "2026-10-12T10:38:00Z",
+  "node": "orion-n26",
+  "event": "image",
+  "actor": "fleet-bot",
+  "evidence": {}
+ },
+ {
+  "seq": 15,
+  "ts": "2026-10-12T10:45:00Z",
+  "node": "orion-n26",
+  "event": "inventory_update",
+  "actor": "dc-tech-olu",
+  "evidence": {
+   "asset_tag": "HAL-0026B"
+  }
+ },
+ {
+  "seq": 16,
+  "ts": "2026-10-12T10:52:00Z",
+  "node": "orion-n26",
+  "event": "image",
+  "actor": "fleet-bot",
+  "evidence": {}
+ },
+ {
+  "seq": 17,
+  "ts": "2026-10-12T10:59:00Z",
+  "node": "orion-n26",
+  "event": "fail_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "FAIL",
+   "ticket": "FLT-4437"
+  }
+ },
+ {
+  "seq": 18,
+  "ts": "2026-10-12T11:06:00Z",
+  "node": "orion-n29",
+  "event": "enable",
+  "actor": "oncall-jun",
+  "evidence": {}
+ },
+ {
+  "seq": 19,
+  "ts": "2026-10-12T11:13:00Z",
+  "node": "orion-n29",
+  "event": "reimage",
+  "actor": "fleet-bot",
+  "evidence": {
+   "firmware": {
+    "bios": "2.4.1",
+    "bmc_fw": "1.12.0",
+    "kernel": "6.8.0-45-generic",
+    "gpu_driver": "550.127.08",
+    "gpu_vbios": "96.00.99.00.01",
+    "nic_fw": "28.41.1000",
+    "rdma_stack": "24.07"
+   },
+   "change": "CHG-7725"
+  }
+ },
+ {
+  "seq": 20,
+  "ts": "2026-10-12T11:20:00Z",
+  "node": "orion-n29",
+  "event": "pass_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "PASS"
+  }
+ },
+ {
+  "seq": 21,
+  "ts": "2026-10-12T11:27:00Z",
+  "node": "orion-n29",
+  "event": "enable",
+  "actor": "fleet-bot",
+  "evidence": {}
+ },
+ {
+  "seq": 22,
+  "ts": "2026-10-12T11:34:00Z",
+  "node": "orion-n31",
+  "event": "pass_acceptance",
+  "actor": "acceptance-bot",
+  "evidence": {
+   "acceptance_verdict": "PASS"
+  }
+ },
+ {
+  "seq": 23,
+  "ts": "2026-10-12T11:41:00Z",
+  "node": "orion-n12",
+  "event": "send_to_repair",
+  "actor": "oncall-jun",
+  "evidence": {
+   "ticket": "FLT-4440"
+  }
+ },
+ {
+  "seq": 24,
+  "ts": "2026-10-12T12:48:00Z",
+  "node": "orion-n12",
+  "event": "drain",
+  "actor": "health-bot",
+  "evidence": {
+   "reason": "Xid 48 (DBE) on GPU3",
+   "category": "fault"
+  }
+ },
+ {
+  "seq": 25,
+  "ts": "2026-10-12T12:55:00Z",
+  "node": "orion-n12",
+  "event": "cancel_drain",
+  "actor": "oncall-jun",
+  "evidence": {}
+ },
+ {
+  "seq": 26,
+  "ts": "2026-10-12T12:02:00Z",
+  "node": "orion-n12",
+  "event": "drain_complete",
+  "actor": "fleet-bot",
+  "evidence": {
+   "running_jobs": 0
+  }
+ },
+ {
+  "seq": 27,
+  "ts": "2026-10-12T12:09:00Z",
+  "node": "orion-n12",
+  "event": "send_to_repair",
+  "actor": "oncall-jun",
+  "evidence": {}
+ },
+ {
+  "seq": 28,
+  "ts": "2026-10-12T12:16:00Z",
+  "node": "orion-n12",
+  "event": "send_to_repair",
+  "actor": "oncall-jun",
+  "evidence": {
+   "ticket": "FLT-4440"
+  }
+ },
+ {
+  "seq": 29,
+  "ts": "2026-10-12T12:23:00Z",
+  "node": "orion-n14",
+  "event": "retire",
+  "actor": "fleet-mgr-li",
+  "evidence": {}
+ },
+ {
+  "seq": 30,
+  "ts": "2026-10-12T13:30:00Z",
+  "node": "orion-n14",
+  "event": "retire",
+  "actor": "fleet-mgr-li",
+  "evidence": {
+   "sanitization_cert": "SAN-2026-0091"
+  }
+ },
+ {
+  "seq": 31,
+  "ts": "2026-10-12T13:37:00Z",
+  "node": "orion-n14",
+  "event": "reimage",
+  "actor": "fleet-bot",
+  "evidence": {
+   "ticket_status": "closed"
+  }
+ },
+ {
+  "seq": 32,
+  "ts": "2026-10-12T13:44:00Z",
+  "node": "orion-n32",
+  "event": "drain",
+  "actor": "oncall-amara",
+  "evidence": {
+   "category": "maintenance"
+  }
+ },
+ {
+  "seq": 33,
+  "ts": "2026-10-12T13:51:00Z",
+  "node": "orion-n40",
+  "event": "drain",
+  "actor": "oncall-amara",
+  "evidence": {
+   "reason": "typo in hostname",
+   "category": "maintenance"
+  }
+ },
+ {
+  "seq": 34,
+  "ts": "2026-10-12T13:58:00Z",
+  "node": "orion-n03",
+  "event": "drain",
+  "actor": "upgrade-ctl",
+  "evidence": {
+   "reason": "fw wave canary B-2026.10",
+   "category": "maintenance"
+  }
+ },
+ {
+  "seq": 35,
+  "ts": "2026-10-12T13:05:00Z",
+  "node": "orion-n03",
+  "event": "drain_complete",
+  "actor": "upgrade-ctl",
+  "evidence": {
+   "running_jobs": 0
+  }
+ },
+ {
+  "seq": 36,
+  "ts": "2026-10-12T14:12:00Z",
+  "node": "orion-n31",
+  "event": "enable",
+  "actor": "fleet-bot",
+  "evidence": {}
+ }
+]

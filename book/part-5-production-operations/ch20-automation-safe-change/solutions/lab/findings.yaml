@@ -1,0 +1,117 @@
+# Part 3 - Reference review of data/unsafe_change_plan.md (INSTRUCTOR ONLY)
+# 17 real gaps. G-OWNER, G-APPROVAL and G-COMMS are NOT gaps: lines 3, 4 and 6 cover them.
+reviewer: "Reference solution"
+findings:
+  - gap_id: G-BUNDLED
+    plan_lines: [1, 10, 11, 12]
+    issue: >-
+      Three independent changes (RDMA MTU 1024->4096, leaf QoS profile, NIC firmware) ship together.
+      If busbw drops or CNPs spike afterwards, nobody can say which change caused it, and rolling back
+      one of them is not possible without rolling back all three.
+    fix: >-
+      Split into three separate changes with their own tickets: firmware first (validated bundle from
+      Chapter 16), then the leaf QoS profile, then the RDMA MTU. One change per rollout; each one has its
+      own baseline and success criteria.
+  - gap_id: G-CANARY
+    plan_lines: [10, 18]
+    issue: All 32 nodes and all 8 leaves are changed in one step; the first signal of a bad change is a fleet-wide outage.
+    fix: >-
+      Canary on two nodes in different racks (orion-n01, orion-n05), then waves of at most one node per
+      rack (8 nodes per wave), as in the Chapter 16 firmware wave plan.
+  - gap_id: G-BLAST-RADIUS
+    plan_lines: [11, 16]
+    issue: >-
+      All 8 rail leaves are reconfigured at once. Every rail of every node is affected at the same moment,
+      so there is no unaffected failure domain to fall back on.
+    fix: >-
+      Cap the blast radius: change one rail leaf per stage (orion-be-leaf-r0 first), and never more than one leaf or
+      one node per rack at once. The automation enforces the cap and refuses larger batches.
+  - gap_id: G-RATE-LIMIT
+    plan_lines: [18]
+    issue: >-
+      The trailing '&' starts 32 SSH sessions in parallel with no concurrency limit. 32 simultaneous reboots
+      also hit PXE/DHCP, the BMC network and the image servers at once.
+    fix: Run the automation serially within a wave with a concurrency limit (for example 4) and a rate limit on reboots.
+  - gap_id: G-KILL-SWITCH
+    plan_lines: [18]
+    issue: Once the backgrounded loop starts there is no way to stop it; firmware writes and reboots keep going even after the first failure.
+    fix: >-
+      The rollout controller checks a kill switch (a flag in the change system) before every node and every
+      wave; operators can pause or stop the rollout and in-flight steps finish cleanly.
+  - gap_id: G-DRAIN
+    plan_lines: [18, 20]
+    issue: >-
+      Nodes are rebooted with no drain, so any running training job dies and loses all work since its last
+      checkpoint. 32 nodes = all 256 GPUs.
+    fix: >-
+      Drain nodes first (Slurm DRAIN state / Kubernetes cordon and drain) or take a maintenance reservation,
+      and confirm no running jobs before touching a node (Chapter 17).
+  - gap_id: G-PRECHECK
+    plan_lines: [16, 18]
+    issue: >-
+      No prechecks: current health, link state, existing errors, and the firmware/driver compatibility of
+      28.43.1014 with the installed driver are never checked.
+    fix: >-
+      Precheck each target: node healthy and drained, links up at 400G with no errors, firmware 28.43.1014
+      is in the validated bundle / compatibility matrix with the installed driver, and a baseline of
+      all_reduce_perf busbw, CNP and PFC rates is recorded.
+  - gap_id: G-DRYRUN
+    plan_lines: [16]
+    issue: The QoS profile is pasted and takes effect immediately; nobody sees the actual diff against the running config first.
+    fix: Generate the config from source, produce a dry-run diff (plan output) per leaf, and have it reviewed before apply.
+  - gap_id: G-REVIEW-VCS
+    plan_lines: [16]
+    issue: The configuration comes from a wiki page, so it is unversioned, unreviewed and not schema-validated; what is applied cannot be reproduced.
+    fix: >-
+      Keep the QoS profile in git, change it by pull request with peer review, validate it in CI with the
+      schema and policy checks (PFC only on priority 3, CNP DSCP 48 to strict TC 6), and apply only what
+      is merged (GitOps).
+  - gap_id: G-ORDERING
+    plan_lines: [16, 18]
+    issue: >-
+      Leaves get the new lossless profile while hosts still run the old settings, and hosts reboot one at a
+      time in random order. During the transition, the DSCP/PFC settings on hosts and switches disagree,
+      which can cause drops or pause storms.
+    fix: >-
+      Define a safe order with compatible intermediate states: confirm host trust mode and DSCP marking are
+      already consistent, change one leaf at a time, and verify each step before the next.
+  - gap_id: G-SUCCESS-CRITERIA
+    plan_lines: [20]
+    issue: '"Dashboards look good" is not a measurable success criterion.'
+    fix: >-
+      Measurable criteria per node: 2-node all_reduce_perf busbw within 5% of baseline median, CNP rate
+      below 3x baseline, zero Xid, zero link flaps, RDMA MTU reported as 4096 by ibv_devinfo (active_mtu).
+  - gap_id: G-ABORT
+    plan_lines: [19, 20, 24]
+    issue: No abort conditions; the plan has no point at which the operator must stop.
+    fix: >-
+      Pre-declare abort conditions (busbw drop > 5%, CNP > 3x baseline and > 500/s, any Xid, any link flap,
+      node fails to return within 15 min) and halt the rollout automatically when any one is hit.
+  - gap_id: G-BAKE
+    plan_lines: [5, 19, 20]
+    issue: No bake time; a 30-minute window cannot include reboots plus observation under load.
+    fix: Bake each wave for 60 min of real or synthetic load (12 samples at 5-min intervals) before the next wave.
+  - gap_id: G-ROLLBACK
+    plan_lines: [24]
+    issue: >-
+      "Revert by hand and re-image" is not a rollback: there is no saved previous switch config, the
+      firmware downgrade path is not mentioned or tested, and re-imaging does not downgrade NIC firmware.
+    fix: >-
+      Define and test the rollback in the lab before the change: saved previous leaf config with a one-step
+      revert, a tested firmware downgrade to 28.42.1000, and a time limit for completing the rollback.
+  - gap_id: G-AUDIT
+    plan_lines: [16, 18, 24]
+    issue: No before-state is captured and no record of what was changed where, so neither the rollback nor the postmortem has evidence.
+    fix: >-
+      Snapshot the running config and firmware versions before the change; the automation writes an audit
+      record per target (change ID, actor, before, after, result, time) and attaches the evidence to the ticket.
+  - gap_id: G-WINDOW
+    plan_lines: [5]
+    issue: Friday 16:30-17:00 is a 30-minute window at the end of the week, too short for 32 reboots and firmware writes, with reduced staffing afterwards.
+    fix: Use a staffed weekday window (Tuesday-Thursday morning) with a duration sized from the wave plan plus rollback time.
+  - gap_id: G-OOB-ACCESS
+    plan_lines: [16, 18]
+    issue: >-
+      A bad switch config or a node that fails to boot after a firmware update can cut in-band access; the
+      plan never checks that console and BMC access work.
+    fix: Verify out-of-band console access to every leaf and BMC/Redfish access to every node before the change.

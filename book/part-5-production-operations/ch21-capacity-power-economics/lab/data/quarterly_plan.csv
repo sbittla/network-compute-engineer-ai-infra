@@ -1,0 +1,14 @@
+quarter,gpus_delivered,gpus_decommissioned,facility_it_kw,demand_train_gpus,demand_infer_gpus,notes
+2027Q1,0,0,420,125,35,ORION-256 installed base
+2027Q2,0,0,420,135,40,
+2027Q3,256,0,800,155,45,expansion 1 (32 nodes); facility upgrade energized
+2027Q3,256,0,800,155,45,expansion 1 (32 nodes); facility upgrade energized
+2027Q4,0,0,800,180,50,
+2028Q1,0,0,800,208,57,
+2028Q2,512,0,800,240,65,expansion 2 (64 nodes) delivered; facility phase 2 not yet energized
+2028Q3,0,0,800,345,75,new 405B-class pretraining program starts
+2028Q4,0,0,1500,395,85,facility phase 2 energized
+2029Q1,0,0,1500,455,95,
+2029Q2,256,0,1500,525,105,expansion 3 (32 nodes)
+2029Q3,0,256,1500,605,115,retire original 256 GPUs (end of 5-year life)
+2029Q4,0,0,1500,690,130,

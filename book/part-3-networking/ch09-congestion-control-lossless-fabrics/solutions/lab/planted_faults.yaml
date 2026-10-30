@@ -1,0 +1,45 @@
+# INSTRUCTOR ONLY -- planted-fault specification for the Chapter 9 lab dataset.
+# lab/tools/generate_telemetry.py loads this file; it is the single source of truth for what is planted.
+# Windows are [start_s inclusive, end_s exclusive]; samples every 2 s from 0 to 598 s.
+# Node indices are 0-based: index i is host orion-n{i+1:02d}, attached to leaf port eth1/{i+1}.
+seed: 909
+interval_s: 2
+duration_s: 600
+
+episodes:
+  incast:                      # 12:1 same-rail incast; root orion-be-leaf-r3:eth1/5 (to orion-n05)
+    window: [100, 160]
+    leaf: orion-be-leaf-r3
+    dst_index: 4
+    sender_indices: [0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13]
+  pause_propagation:           # cross-rail incast rail-4 NICs -> orion-n10 rail-3 NIC; root orion-be-leaf-r3:eth1/10
+    window: [250, 320]
+    root_leaf: orion-be-leaf-r3
+    dst_index: 9
+    sender_leaf: orion-be-leaf-r4
+    sender_indices: [0, 1, 2, 3, 4, 5, 6, 7]
+  pfc_storm:                   # orion-n12 mlx5_3 transmits continuous pause; no watchdog on leaf-r3
+    window: [400, 470]
+    leaf: orion-be-leaf-r3
+    storm_index: 11
+    peer_indices: [2, 5]       # orion-n03 and orion-n06 send to orion-n12; their ingress ports get paused
+  benign_busy:                 # near line rate, shallow queue, light ECN, no pause: NOT an episode
+    window: [520, 560]
+    leaf: orion-be-leaf-r4
+    dst_index: 6
+
+probes:                        # P1 and P4 are HOL victims; P3 is a decoy (its destination is the incast root); P2 control
+  - {id: P1, src: [orion-be-leaf-r3, 2], dst: [orion-be-leaf-r3, 6]}
+  - {id: P2, src: [orion-be-leaf-r3, 8], dst: [orion-be-leaf-r3, 15]}
+  - {id: P3, src: [orion-be-leaf-r3, 1], dst: [orion-be-leaf-r3, 4]}
+  - {id: P4, src: [orion-be-leaf-r4, 3], dst: [orion-be-leaf-r3, 12]}
+
+data_anomalies:
+  counter_reset: {switch: orion-be-leaf-r4, port: eth1/2, ts_s: 200}   # "clear counters": cumulative values restart
+  telemetry_gap: {switch: orion-be-spine-2, from_s: 300, to_s: 310}    # inclusive; previous sample is t = 298
+
+qos_faults:                    # expected audit findings (no false positives on orion-be-spine-1)
+  - [orion-be-leaf-r3, ECN_KMIN_HIGH]           # Kmin 1500 KB / Kmax 6000 KB: template x 10 (copy/units error)
+  - [orion-be-leaf-r3, PFC_WATCHDOG_DISABLED]   # why the storm lasted 70 s
+  - [orion-be-leaf-r4, CNP_CLASS_MISMATCH]      # CNPs in TC 3 instead of TC 6
+  - [orion-be-spine-2, PFC_PRIORITY_MISMATCH]   # priority 4 also lossless

@@ -1,0 +1,33 @@
+lab: ch24-career-paths-engineering-practice
+title: "Role-readiness self-assessment and job-posting register validator"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: >
+  None. Pure data processing over supplied YAML/CSV. The competency matrices are teaching matrices derived
+  from the course outline's role table; the job-posting register is SYNTHETIC (fictional employers,
+  example.com URLs) and is not a census of real postings.
+data_generation: {script: tools/generate_data.py, seed: 24, as_of: "2026-10-15"}
+data_files:
+  - data/competency_matrices.yaml
+  - data/learner_evidence.yaml
+  - data/job_register.csv
+  - data/register_meta.yaml
+evidence_class: MODELED   # scores are computed from stated rules; nothing is measured
+runtime_budget_seconds: 60
+extensions:
+  - tier: L1+
+    name: "Real job-posting register (your own, dated)"
+    requires: "Public job postings you collect yourself; no scraping that violates a site's terms of use"
+    record: [collection_window_start, collection_window_end, sources_consulted, dedupe_rules_version,
+             rows_collected, unique_postings, active_fresh_postings, date_each_row_checked]
+  - tier: L2
+    name: "Hardware-backed evidence for one competency"
+    requires: "One GPU host (local or cloud) to turn a lab_l1 evidence item into lab_hw evidence"
+    record: [gpu_model, driver_version, cuda_version, nccl_version, os_kernel, commands_run, run_count,
+             warmup_policy, raw_output_paths]
+  - tier: L3
+    name: "Multi-node fabric evidence"
+    requires: "2+ multi-GPU nodes with RDMA (RoCEv2 or InfiniBand) in a dedicated, non-production lab"
+    record: [nic_model, nic_firmware, rdma_stack_version, switch_os_version, topology, mtu, pfc_ecn_config,
+             run_count, raw_output_paths]

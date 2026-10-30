@@ -1,0 +1,30 @@
+lab: ch02-anatomy-of-an-ai-data-center
+title: "ORION capacity, BOM, power/cooling and failure-domain model"
+tier: L1
+python: ">=3.10"
+dependencies: [pyyaml]
+hardware_assumptions: >-
+  None. Input sheets are synthetic and modeled on ORION-256 (docs/REFERENCE_CLUSTER.md).
+  Electrical, cooling and structural parameters are illustrative assumptions, not a site design.
+data_generation: {script: tools/generate_inputs.py, seed: 2}
+data_files:
+  - data/design_intent.yaml
+  - data/facility_envelope.yaml
+  - data/rack_plan.csv
+  - data/fabric_plan.csv
+  - data/storage_plan.yaml
+  - data/cluster_design.yaml
+evidence_class: MODELED   # every output is computed from stated formulas and stated assumptions
+runtime_budget_seconds: 60
+extensions:
+  - tier: L2
+    requires: "One GPU server you are authorised to inspect, with BMC (Redfish/IPMI) read access"
+    record: [server_model, bios_version, bmc_firmware, gpu_model, gpu_driver_version, psu_count,
+             psu_rating_w, psu_redundancy_policy, gpu_power_limit_w, idle_power_w, peak_power_w,
+             sustained_power_w, sample_interval_s, sample_count, inlet_temp_c, workload_definition,
+             warmup_policy, run_count]
+  - tier: L3
+    requires: "A rack (or row) in a lab hall with metered rack PDUs, CDU telemetry, and facility team sign-off"
+    record: [rack_id, pdu_model, pdu_firmware, circuit_rating_a, circuit_voltage_v, feed_a_peak_kw,
+             feed_b_peak_kw, cdu_model, tcs_supply_c, tcs_return_c, tcs_flow_lpm, fws_supply_c,
+             workload_definition, node_count_under_load, run_count, sample_interval_s]

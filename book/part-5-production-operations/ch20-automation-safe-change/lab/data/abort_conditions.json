@@ -1,0 +1,58 @@
+{
+ "bake": {
+  "min_post_samples": 12
+ },
+ "conditions": [
+  {
+   "action": "abort",
+   "aggregation": "median",
+   "id": "AC1",
+   "metric": "busbw_GBps",
+   "rationale": "Median post-change busbw more than 5% below the node's own baseline median.",
+   "threshold": 0.05,
+   "type": "relative_drop"
+  },
+  {
+   "action": "abort",
+   "aggregation": "median",
+   "floor": 500.0,
+   "id": "AC2",
+   "metric": "cnp_rx_per_s",
+   "rationale": "Median CNP rate above 3x baseline median AND above an absolute floor of 500/s.",
+   "threshold": 3.0,
+   "type": "relative_rise"
+  },
+  {
+   "action": "abort",
+   "aggregation": "median",
+   "floor": 150.0,
+   "id": "AC3",
+   "metric": "pfc_pause_rx_per_s",
+   "rationale": "Median PFC pause rate above 3x baseline median AND above 150/s.",
+   "threshold": 3.0,
+   "type": "relative_rise"
+  },
+  {
+   "action": "abort",
+   "aggregation": "sum",
+   "id": "AC4",
+   "metric": "xid_events",
+   "rationale": "Any GPU Xid during bake.",
+   "threshold": 0,
+   "type": "sum_gt"
+  },
+  {
+   "action": "abort",
+   "aggregation": "sum",
+   "id": "AC5",
+   "metric": "link_flaps",
+   "rationale": "Any backend link flap during bake.",
+   "threshold": 0,
+   "type": "sum_gt"
+  }
+ ],
+ "precheck": {
+  "require_drained": true,
+  "require_health": "ok"
+ }
+}

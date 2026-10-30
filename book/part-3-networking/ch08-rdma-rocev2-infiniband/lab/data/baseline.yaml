@@ -1,0 +1,28 @@
+# RDMA deployment-readiness baseline for ORION-256 backend (RoCEv2) NICs.  [ILLUSTRATIVE]
+# Owned by the Fabric team; versions must be re-verified against the vendor compatibility matrix.
+cluster: ORION-256
+subset: [orion-n01, orion-n02, orion-n03, orion-n04, orion-n05, orion-n06, orion-n07, orion-n08]
+expected:
+  link_layer: Ethernet
+  port_state: PORT_ACTIVE
+  speed_mbps: 400000
+  firmware: "28.39.1002"
+  driver: mlx5_core
+  driver_version: "24.04-0.6.6"
+  netdev_mtu: 9000
+  rdma_active_mtu: 4096
+  roce_version: v2
+  gid_index_variable: NCCL_IB_GID_INDEX
+  pfc_enabled_priorities: [3]
+  dscp_to_priority: {26: 3, 48: 6}
+  peer_memory_module: nvidia_peermem
+  address_plan: "10.100.{rail}.{host}/31"   # host = 2*node + 1 (node = NN in orion-nNN)
+rails:            # RDMA device -> (rail, netdev)
+  mlx5_0: {rail: 0, netdev: ens1np0}
+  mlx5_1: {rail: 1, netdev: ens2np0}
+  mlx5_2: {rail: 2, netdev: ens3np0}
+  mlx5_3: {rail: 3, netdev: ens4np0}
+  mlx5_4: {rail: 4, netdev: ens5np0}
+  mlx5_5: {rail: 5, netdev: ens6np0}
+  mlx5_6: {rail: 6, netdev: ens7np0}
+  mlx5_7: {rail: 7, netdev: ens8np0}

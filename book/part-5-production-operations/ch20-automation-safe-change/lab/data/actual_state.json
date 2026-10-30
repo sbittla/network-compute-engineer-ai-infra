@@ -1,0 +1,534 @@
+{
+ "collected_at": "2026-11-03T09:00:00Z",
+ "state": {
+  "orion-be-leaf-r0": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r1": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r2": {
+   "dscp_to_tc": {
+    "26": 3
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r3": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r4": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r5": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r6": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-be-leaf-r7": {
+   "dscp_to_tc": {
+    "26": 3,
+    "48": 6
+   },
+   "ecn_queues": [
+    3
+   ],
+   "pfc_priorities": [
+    3
+   ],
+   "port_mtu": 9216,
+   "strict_priority_tc": [
+    6
+   ]
+  },
+  "orion-n01": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n02": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n03": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n04": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n05": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n06": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 1500,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n07": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n08": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 4096,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n09": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n10": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n11": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n12": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n13": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n14": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n15": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n16": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n17": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n18": null,
+  "orion-n19": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n20": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n21": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n22": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n23": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n24": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n25": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n26": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n27": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n28": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n29": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n30": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n31": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  },
+  "orion-n32": {
+   "cnp_dscp": 48,
+   "ecn_enabled": true,
+   "host_mtu": 9000,
+   "nic_firmware": "28.42.1000",
+   "pfc_priorities": [
+    3
+   ],
+   "rdma_path_mtu": 1024,
+   "roce_dscp": 26,
+   "roce_priority": 3,
+   "trust_mode": "dscp"
+  }
+ }
+}

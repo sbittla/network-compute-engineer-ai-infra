@@ -1,0 +1,10 @@
+name,precision,flop,dram_bytes,time_us
+gemm_bf16_8192x8192x8192,bf16_tensor,1.09951e+12,402653184,1588.0
+gemm_bf16_decode_m16,bf16_tensor,2.14748e+09,134742016,47.3
+layernorm_fwd_bf16,bf16_tensor,5.36871e+08,402653184,150.2
+flash_attn_fwd_bf16,bf16_tensor,2.19902e+12,1073741824,4043.0
+fp32_simt_stencil,fp32_simt,5e+11,1000000000,8780.0
+bias_add_l2_resident,bf16_tensor,3.3e+07,100663296,20.0
+gemm_fp8_8192x8192x8192,fp8_tensor,1.09951e+12,201326592,926.0
+embedding_gather_bf16,bf16_tensor,0,268435456,160.0
+gemm_bf16_4096x4096x512,bf16_tensor,1.71799e+10,46137344,61.0

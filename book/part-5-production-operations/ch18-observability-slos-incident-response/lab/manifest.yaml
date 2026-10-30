@@ -1,0 +1,24 @@
+lab: ch18-observability-slos-incident-response
+progressive_lab: "Lab 8 - Observability and incident"
+tier: L1
+python: ">=3.10"
+dependencies: [numpy, pandas, pyyaml]
+hardware_assumptions: >-
+  None. Synthetic 6-hour telemetry bundle modeled on ORION-256 (docs/REFERENCE_CLUSTER.md):
+  trn-70b on orion-n01..n16 (128 GPUs), ft-13b on orion-n17..n24 (64 GPUs), Kubernetes inference
+  pool on orion-n25..n32. 1-minute resolution; per-node GPU fields are node-level summaries.
+data_generation: {script: tools/generate_data.py, seed: 18}
+evidence_class: SIMULATED
+runtime_budget_seconds: 60
+outputs:
+  - SLI/burn-rate table, alert evaluation table, root-cause correlation, incident timeline
+  - rendered postmortem (postmortem.md) and dashboard specification (dashboard_spec.json)
+extensions:
+  - tier: L2
+    requires: "One GPU host with DCGM, dcgm-exporter, node_exporter, and Prometheus (containers are fine)"
+    record: [gpu_model, driver_version, dcgm_version, dcgm_exporter_version, prometheus_version,
+             scrape_interval, collectors_enabled, workload, run_count, warmup_policy]
+  - tier: L3
+    requires: "2+ GPU nodes with RDMA NICs, switch gNMI access (read-only), Slurm or Kubernetes"
+    record: [nic_firmware, rdma_stack_version, switch_os_version, gnmi_paths, sample_interval,
+             nccl_version, topology, job_size, run_count, alert_rule_versions]

@@ -1,0 +1,8 @@
+# Hypotheses raised in #inc-3107 between 03:52 and 04:05. Each names one component.
+hypotheses:
+  - {id: H1, kind: link, node: orionxl-n212, hca: mlx5_5, text: "orionxl-n212 rail-5 HCA link is flapping and caused the hang"}
+  - {id: H2, kind: gpu, node: orionxl-n389, gpu: 3, text: "orionxl-n389 GPU3 ECC fault (Xid 63) caused the hang"}
+  - {id: H3, kind: first_reporter, node: orionxl-n103, rank: 817, text: "rank 817 timed out first, so orionxl-n103 is the culprit"}
+  - {id: H4, kind: aer, node: orionxl-n451, hca: mlx5_4, text: "PCIe AER errors on orionxl-n451's NIC caused the hang"}
+  - {id: H5, kind: fabric_pfc, switch: orionxl-be-spine-p06-03, text: "a PFC storm on orionxl-be-spine-p06-03 caused the hang"}
+  - {id: H6, kind: switch, switch: orionxl-be-leaf-p06-r5, text: "orionxl-be-leaf-p06-r5 is failing"}

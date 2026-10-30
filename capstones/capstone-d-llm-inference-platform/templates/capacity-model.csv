@@ -1,0 +1,5 @@
+config,tp,dtype,replicas_per_node,weights_GB,kv_budget_GB,kv_tokens,max_seqs_at_4k,prefill_ms_2k_tokens,decode_ms_64seq_2k_ctx,max_node_load_meeting_slo_mixed,max_node_load_meeting_slo_chat_only,evidence_label,notes
+c1_bf16_tp8_chunked,8,bf16,1,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,MODELED / SIMULATED,<fill>
+c2_bf16_tp8_bigbatch,8,bf16,1,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,MODELED / SIMULATED,<fill>
+c3_fp8_tp4_chunked,4,fp8,2,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,MODELED / SIMULATED,<fill: FP8 accuracy must be validated separately>
+c4_bf16_tp8_len8k,8,bf16,1,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,<fill>,MODELED / SIMULATED,<fill>

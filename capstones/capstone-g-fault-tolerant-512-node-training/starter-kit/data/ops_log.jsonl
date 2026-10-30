@@ -1,0 +1,10 @@
+{"utc": "2026-11-12T03:14:45.000Z", "action": "alert", "detail": "GpuUncorrectableEcc orionxl-n377 gpu5 (Xid 94)"}
+{"utc": "2026-11-12T03:15:42.000Z", "action": "quarantine", "detail": "gpu:orionxl-n377:5"}
+{"utc": "2026-11-12T03:15:44.000Z", "action": "drain", "detail": "orionxl-n377"}
+{"utc": "2026-11-12T03:15:57.000Z", "action": "job_cancel", "detail": "fast-fail after confirmed GPU fault"}
+{"utc": "2026-11-12T03:18:07.000Z", "action": "quarantine", "detail": "hca:orionxl-n213:mlx5_3"}
+{"utc": "2026-11-12T03:18:09.000Z", "action": "drain", "detail": "orionxl-n213"}
+{"utc": "2026-11-12T03:19:07.000Z", "action": "restart_submitted", "detail": "replacements orionxl-n377->orionxl-n483, orionxl-n213->orionxl-n484"}
+{"utc": "2026-11-12T03:25:02.000Z", "action": "job_running", "detail": "3,840 ranks initialised"}
+{"utc": "2026-11-12T03:28:35.000Z", "action": "checkpoint_loaded", "detail": "step 51474"}
+{"utc": "2026-11-12T03:29:19.000Z", "action": "first_step", "detail": "step 51475 completed"}

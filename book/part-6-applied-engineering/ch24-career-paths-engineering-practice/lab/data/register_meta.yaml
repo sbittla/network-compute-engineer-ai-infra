@@ -1,0 +1,24 @@
+as_of: '2026-10-15'
+synthetic: true
+note: SYNTHETIC register for teaching. All employers, job IDs and URLs are fictional; URLs use the reserved example.com
+  domain. It is not a census of real job postings.
+required_fields:
+- employer
+- title
+- job_id
+- location
+- seniority
+- url
+- date_checked
+- required_skills
+- status
+allowed_seniority:
+- junior
+- mid
+- senior
+- staff
+- principal
+allowed_status:
+- active
+- archived
+stale_active_after_days: 30
