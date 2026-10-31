@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as cf
+import os
 import shutil
 import subprocess
 import sys
@@ -75,6 +76,7 @@ def test_one(pid: str, path: Path) -> tuple[str, int, str, float]:
     out_dir = RESULTS / pid
     shutil.rmtree(out_dir, ignore_errors=True)
     out_dir.mkdir(parents=True)
+    out_dir.chmod(0o777)  # Linux hosts: the container's uid 1000 must be able to write junit.xml
     rc, out = sh(["docker", "run", "--rm", *RUN_LIMITS, "-v", f"{out_dir}:/results",
                   f"ai-infra-lab:{pid}"])
     (out_dir / "pytest.log").write_text(out, encoding="utf-8")
@@ -83,7 +85,9 @@ def test_one(pid: str, path: Path) -> tuple[str, int, str, float]:
 
 def outputs_one(pid: str, path: Path) -> tuple[str, int, str, float]:
     t0 = time.perf_counter()
-    rc, out = sh(["docker", "run", "--rm", *RUN_LIMITS, "-v", f"{path}:/work/pkg",
+    # On Linux/macOS run as the host user so the regenerated files in the bind-mounted package stay theirs.
+    user = ["--user", f"{os.getuid()}:{os.getgid()}"] if hasattr(os, "getuid") else []
+    rc, out = sh(["docker", "run", "--rm", *RUN_LIMITS, *user, "-v", f"{path}:/work/pkg",
                   f"ai-infra-lab:{pid}", "python", "/opt/harness/generate_outputs.py", "/work/pkg"])
     return pid, rc, out, time.perf_counter() - t0
 
