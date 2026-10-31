@@ -1,0 +1,6 @@
+# Keep LF everywhere: lab data is byte-compared against seeded generators and golden outputs,
+# and the lab containers are Linux.
+* text=auto eol=lf
+*.docx binary
+*.png binary
+*.pdf binary

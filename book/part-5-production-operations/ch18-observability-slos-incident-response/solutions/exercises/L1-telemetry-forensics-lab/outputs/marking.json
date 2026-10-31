@@ -1,0 +1,51 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Checker output with 14/14 PASS; `postmortem.md`; `dashboard_spec.json`; `slo_spec.md`.",
+  "id": "L1",
+  "kind": "lab",
+  "lab_checks": [
+    "T1 baseline step times:",
+    "T1 checkpoint steps excluded:",
+    "T1 regression onset/recovery:",
+    "T2 training SLI + lost GPU-hours:",
+    "T2 burn rates:",
+    "T2 multiwindow page logic:",
+    "T3 rule evaluation:",
+    "T3 noisy + missing alert:",
+    "T3 goodput alert design:",
+    "T4 root-cause correlation:",
+    "T5 incident timeline:",
+    "T5 postmortem rendering:",
+    "T6 dashboard hierarchy:"
+  ],
+  "marking": [
+    {
+      "criterion": "Tasks 1–2 checker PASS plus explanation of checkpoint exclusion (stall and median/threshold effect)",
+      "points": 20
+    },
+    {
+      "criterion": "Task 3 checker PASS plus noisy-rule redesign and PromQL goodput alert with for: justified",
+      "points": 20
+    },
+    {
+      "criterion": "Task 4 checker PASS plus proven-vs-correlated table for every events.jsonl hypothesis",
+      "points": 15
+    },
+    {
+      "criterion": "Task 5 postmortem: timeline, labelled impact, blameless language, rejected hypotheses, ≥ 5 typed owned action items",
+      "points": 25
+    },
+    {
+      "criterion": "Task 6 dashboard spec: one question per level, panels justified, drill-down keys",
+      "points": 15
+    },
+    {
+      "criterion": "Reproducibility: manifest filled, regeneration commands recorded",
+      "points": 5
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Lab 18: telemetry-bundle forensics",
+  "type": "hands-on-lab"
+}

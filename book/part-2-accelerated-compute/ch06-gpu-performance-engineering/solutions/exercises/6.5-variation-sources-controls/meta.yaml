@@ -1,0 +1,23 @@
+id: '6.5'
+title: Sources of run-to-run variation
+folder: 6.5-variation-sources-controls
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: five source–control pairs.
+marking:
+- criterion: Warm-up/caching effects paired with discarding a fixed number of iterations
+  points: 1
+- criterion: Clocks, power and thermal state paired with locked clocks or recorded clocks_event_reasons
+    and exclusion rules
+  points: 1
+- criterion: Contention from other processes paired with a dedicated GPU and a check of compute apps
+  points: 1
+- criterion: Software version drift paired with a manifest and a pinned container digest
+  points: 1
+- criterion: A fifth valid pair (time drift/interleaving, input size, CPU frequency/affinity, timing method
+    with CUDA events)
+  points: 1
+lab_checks: []

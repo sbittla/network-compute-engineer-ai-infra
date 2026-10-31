@@ -1,0 +1,19 @@
+id: K7
+title: Transients
+folder: K7-transients
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 5
+evidence_required: arithmetic; two mitigations with owners.
+marking:
+- criterion: 1,024 × 0.25 kW = 256 kW swing, repeated every step
+  points: 2
+- criterion: Mitigation 1 with owner
+  points: 1
+- criterion: Mitigation 2 with owner
+  points: 1
+- criterion: Notes the swing happens all at once at job start/stop/hang
+  points: 1
+lab_checks: []

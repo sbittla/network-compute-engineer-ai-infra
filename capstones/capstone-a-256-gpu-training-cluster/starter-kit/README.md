@@ -42,7 +42,7 @@ python check.py                                          # progress meter: TODO 
 
 | File | Contents |
 |---|---|
-| `design_inputs.yaml` | Cluster shape, component catalog (USD, W, reach), fixed items, three fabric options, W-TRAIN parameters and two parallelism scenarios, economics |
+| `design_inputs.yaml` | Cluster shape, component catalogue (USD, W, reach), fixed items, three fabric options, W-TRAIN parameters and two parallelism scenarios, economics |
 | `facility.yaml` | Rack positions with feed voltage/breaker/phases, power factor, continuous-load derate, 2N policy, cooling units per row (N+1), PUE, cabling rules |
 | `floorplan.csv` | 13 racks: position, row, x/y in metres, kind (gpu, network, storage, mgmt) |
 | `hostfile_job4471.txt` | The node order the inventory API handed to the launcher for job 4471 |

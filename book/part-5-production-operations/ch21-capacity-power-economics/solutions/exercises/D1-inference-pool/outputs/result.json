@@ -1,0 +1,41 @@
+{
+  "answer": {
+    "borrowed_value_musd_per_year": 1.12,
+    "idle_gpu_h": 560640,
+    "lent_gpu_h": 336384,
+    "option1_dedicated_useful_gpu_h": 280320,
+    "option2_shared_useful_gpu_h": 515789,
+    "provisioned_gpu_h": 840960,
+    "useful_borrowed_gpu_h": 235469
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "D1",
+  "inputs": {
+    "avg_load_of_peak": 0.4,
+    "headroom_replicas": 2,
+    "lendable_fraction_of_idle": 0.6,
+    "peak_rps": 25.0,
+    "preemptible_goodput": 0.7,
+    "rps_per_replica": 2.5,
+    "usd_per_useful_gpu_h": 4.75
+  },
+  "steps": {
+    "busy_gpu_h": 280320,
+    "busy_replicas_avg": 4.0,
+    "dedicated_allocated_fraction": 0.333,
+    "gpus": 96,
+    "headroom_gpu_h": 140160,
+    "idle_beyond_headroom_gpu_h": 420480,
+    "replicas": 12.0,
+    "shared_allocated_fraction": 0.733,
+    "wrong_idle_if_40pct_of_pool": 504576
+  },
+  "tolerance": {
+    "gpu_h": 1.0,
+    "value_musd": 0.005
+  },
+  "units": {
+    "gpu_h": "GPU-hours per year",
+    "value": "USD millions per year at $4.75 per useful GPU-hour"
+  }
+}

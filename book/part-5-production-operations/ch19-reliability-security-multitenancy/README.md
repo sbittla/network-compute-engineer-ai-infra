@@ -56,7 +56,9 @@ from the 512-node incident (M4 / Lab 19).
 | `lab/data/` | Incident dataset (`lab/tools/` generator: instructor copy only) |
 | `lab/starter/incident_toolkit.py` | Learner module |
 | `lab/check.py`, `lab/manifest.yaml` | Checker and environment manifest |
+| [exercises/](exercises/README.md) | One learner folder per exercise (21): prompt, what to submit, empty `outputs/` |
 | `solutions/` | Answer key and reference implementation |
+| `solutions/exercises/` | Per-exercise `meta.yaml` (marking), worked `answer.md`, `solve.py` for computed exercises, generated `outputs/` (instructor only) |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

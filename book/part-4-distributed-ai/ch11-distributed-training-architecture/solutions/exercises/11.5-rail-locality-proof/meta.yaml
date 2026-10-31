@@ -1,0 +1,17 @@
+id: '11.5'
+title: Rail locality of DP peers
+folder: 11.5-rail-locality-proof
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 3
+evidence_required: the rank arithmetic.
+marking:
+- criterion: Rank decomposition r = tp + 8·dp + 64·pp and rank 19 → (tp 3, dp 2, pp 0)
+  points: 1
+- criterion: DP group {3, 11, …, 59} all have local rank 3 → GPU 3 → NIC 3 → rail leaf 3
+  points: 1
+- criterion: States the two assumptions (CUDA_VISIBLE_DEVICES not reordered; GPU i uses NIC i)
+  points: 1
+lab_checks: []

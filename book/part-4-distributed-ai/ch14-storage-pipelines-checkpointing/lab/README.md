@@ -23,7 +23,7 @@ checkpoint/recovery design** (manuscript Section 14.12 and Exercise 14.18).
 ## 2. Tier and realism boundary
 
 **Tier L1** (laptop, Python only, < 10 s). Part A is `[MODELED]`: it is exactly as good as its
-inputs and its assumptions (listed in Section 5). Parts B and C analyse `[SIMULATED]` data produced by
+inputs and its assumptions (listed in Section 5). Parts B and C analyze `[SIMULATED]` data produced by
 a seeded generator (instructor copy only, `tools/generate_data.py`); the trace is shaped like a real per-operation loader trace but no storage
 system produced it. Nothing here measures a disk, a file system, or a network. Section 8 gives the
 L2/L3 commands that turn the model into evidence.
@@ -177,7 +177,7 @@ with min/max spread. Feed the JSON files to your `parse_fio` and `fio_outliers` 
 future) on a model that fits one GPU, recording blocking time (until the call returns), completion
 time (until the future resolves), and step time before/during/after. These APIs are
 `[VENDOR-SPEC, 2026-10]`: confirm their names and arguments in the documentation for your PyTorch
-version; `async_save` requires an initialised process group in some versions.
+version; `async_save` requires an initialized process group in some versions.
 
 **L3 — shared storage (2+ GPU nodes, maintenance window).** On a Lustre-class PFS, record the
 striping of your checkpoint directory (`lfs getstripe <dir>`; set a stripe count and size for a new

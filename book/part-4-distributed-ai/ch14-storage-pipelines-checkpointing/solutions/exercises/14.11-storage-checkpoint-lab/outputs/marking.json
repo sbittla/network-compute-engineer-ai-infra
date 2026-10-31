@@ -1,0 +1,45 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output and the memo",
+  "id": "14.11",
+  "kind": "lab",
+  "lab_checks": [
+    "A1 size + transfer time",
+    "A2 Young/Daly interval",
+    "A3 interval selection",
+    "A4 strategy timings",
+    "A5 fixed-interval plan",
+    "A6 strategy comparison",
+    "B1 latency percentiles",
+    "B2 window classification",
+    "B3 phase segmentation",
+    "B4 interference windows",
+    "B5 slow storage target",
+    "B6 fio acceptance parse",
+    "C1 audit checkpoint store",
+    "C2 select latest valid",
+    "C3 validator on unseen defects"
+  ],
+  "marking": [
+    {
+      "criterion": "Checker reports 15/15 PASS",
+      "points": 6
+    },
+    {
+      "criterion": "Memo Part A: Table 14.8 reproduced with assumptions; two-level sensitivity explained (hard-failure fraction, k·τ RPO)",
+      "points": 5
+    },
+    {
+      "criterion": "Memo Part B: metadata-bound epoch, bandwidth-bound shards, read-p99 inflation 13-17 s, slow target 5, nvme2 and nvme5 with next evidence",
+      "points": 6
+    },
+    {
+      "criterion": "Memo Part C: each planted defect explained and step_001800 selected",
+      "points": 3
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Progressive Lab 6 — Storage and checkpoint",
+  "type": "hands-on-lab"
+}

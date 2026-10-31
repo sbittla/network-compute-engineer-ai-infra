@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "A_hot_spares": {
+      "capacity_factor": 0.903,
+      "goodput": 0.811,
+      "useful_per_fleet_node": 0.733
+    },
+    "B_not_repacked_expected": {
+      "capacity_factor": 0.519,
+      "goodput": 0.867,
+      "useful_per_fleet_node": 0.45
+    },
+    "B_not_repacked_worst": {
+      "capacity_factor": 0.375,
+      "goodput": 0.867,
+      "useful_per_fleet_node": 0.325
+    },
+    "B_repacked": {
+      "capacity_factor": 0.922,
+      "goodput": 0.867,
+      "useful_per_fleet_node": 0.799
+    }
+  },
+  "evidence_label": "[MODELED] from [ILLUSTRATIVE] reliability inputs",
+  "exercise": "D1",
+  "inputs": {
+    "delta_min": 1.0,
+    "dp": 64,
+    "mttr_days": 5,
+    "node_mtbf_h": 1536.0,
+    "nodes": 512,
+    "r_a_min": 15.0,
+    "r_b_min": 5.0,
+    "replica_nodes": 8,
+    "tau_min": 19.0
+  },
+  "steps": {
+    "dp_59_is_prime": true,
+    "fallback_dp_options": [
+      56,
+      48,
+      32
+    ],
+    "job_mtbf_min": 180.0,
+    "mean_nodes_in_repair": 40.0,
+    "p99_pool": 55,
+    "replicas_lost_expected_not_repacked": 30.77,
+    "replicas_repacked": 59
+  },
+  "tolerance": 0.0015,
+  "units": "useful (goodput-weighted) training throughput per fleet node, fraction of one node"
+}

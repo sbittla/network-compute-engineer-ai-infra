@@ -1,0 +1,48 @@
+{
+  "difficulty": 2,
+  "evidence_required": "check.py output; the written deliverable from lab/README.md Section 7 (BOM table, capacity spreadsheet, findings list with one consequence sentence per finding, failure-domain diagram with mitigations and accept/fix decisions). For an L2/L3 extension, a filled-in copy of lab/manifest.yaml and raw measurement files.",
+  "id": "2.4",
+  "kind": "lab",
+  "lab_checks": [
+    "data_regenerates_identically:",
+    "validate_rack_plan:",
+    "validate_fabric_plan:",
+    "validate_storage_and_node:",
+    "validate_no_false_positives:",
+    "bom_counts:",
+    "bom_optics_frontend_oob:",
+    "rack_power_budget:",
+    "rack_cooling_budget:",
+    "cluster_power_energy:",
+    "capacity_compute_fabric:",
+    "capacity_storage_utilization:",
+    "spof_set:",
+    "spof_service_impact:"
+  ],
+  "marking": [
+    {
+      "criterion": "Task 1, all nine input-sheet flaws found with no false positives and a consequence sentence each",
+      "points": 30
+    },
+    {
+      "criterion": "Task 2, BOM correct and presented as a table with optics and twin-port assumptions",
+      "points": 15
+    },
+    {
+      "criterion": "Task 3, power and cooling budget correct with an assumptions register",
+      "points": 20
+    },
+    {
+      "criterion": "Task 4, capacity summary correct with a paragraph on storage per GPU and checkpoint time",
+      "points": 15
+    },
+    {
+      "criterion": "Task 5, the 15-SPOF set, a failure-domain diagram and fix/accept decisions",
+      "points": 20
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "ORION capacity, BOM, power, and SPOF lab",
+  "type": "hands-on-lab"
+}

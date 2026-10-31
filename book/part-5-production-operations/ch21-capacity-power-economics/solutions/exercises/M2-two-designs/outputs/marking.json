@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "comparison table; sensitivity table; break-even arithmetic.",
+  "id": "M2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Comparison table: A 26.53 / B 31.36 useful units per $M; 396 / 645 per facility MW",
+      "points": 3
+    },
+    {
+      "criterion": "Sensitivity on per-GPU throughput (e.g. 1.8×, 2.0×, 2.2×, 2.4×)",
+      "points": 2
+    },
+    {
+      "criterion": "Sensitivity on electricity price, with the observation that it barely moves the ranking",
+      "points": 2
+    },
+    {
+      "criterion": "Break-even ≈ 1.86× per-GPU throughput with arithmetic",
+      "points": 3
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Two designs",
+  "type": "outline-mandated"
+}

@@ -1,0 +1,40 @@
+{
+  "answer": {
+    "fits_80": true,
+    "total_gb": 70.4153,
+    "within_planning_limit": false
+  },
+  "evidence_label": "[MODELED]",
+  "fix_micro_batch_1": {
+    "activations_gb": 22.817,
+    "total_gb": 47.5983
+  },
+  "inputs": {
+    "cfg": {
+      "dp": 16,
+      "micro_batch": 2,
+      "pp": 4,
+      "recompute": "selective",
+      "tp": 4,
+      "zero_stage": 1
+    },
+    "hbm_gb": 80.0,
+    "planning_limit_gb": 68.0
+  },
+  "micro_batches": 32,
+  "steps": {
+    "act_per_layer_mb": 570.4253,
+    "activations_gb": 45.634,
+    "grads_gb": 8.75,
+    "in_flight": 4,
+    "optimizer_gb": 3.2812,
+    "overhead_gb": 4.0,
+    "params_per_gpu": 4375000000.0,
+    "states_gb": 20.7812,
+    "total_gb": 70.4153,
+    "weights_gb": 8.75
+  },
+  "units": {
+    "memory": "GB (1e9 B)"
+  }
+}

@@ -1,0 +1,19 @@
+id: 17-K1
+title: Capacity 8, allocatable 7
+folder: 17-K1-allocatable-seven-gpus
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: The component that sets the number, the mechanism, and the scheduler outcome.
+marking:
+- criterion: 'Component: NVIDIA device plugin reports healthy devices to the kubelet, which sets allocatable'
+  points: 2
+- criterion: 'Mechanism: per-device health from NVML critical events (e.g. Xid 79, uncorrectable ECC)
+    via ListAndWatch'
+  points: 2
+- criterion: 'Outcome: 8-GPU pod never placed there (Insufficient nvidia.com/gpu); follow-up is Chapter
+    16 repair, not a plugin restart'
+  points: 1
+lab_checks: []

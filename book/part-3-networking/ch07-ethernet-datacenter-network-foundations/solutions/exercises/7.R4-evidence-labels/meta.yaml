@@ -1,0 +1,15 @@
+id: 7.R4
+title: Modeled, simulated and illustrative numbers
+folder: 7.R4-evidence-labels
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 2
+evidence_required: concise written answers; R4 must cite specific numbers from the chapter.
+marking:
+- criterion: One correct chapter number for each of `[MODELED]`, `[SIMULATED]` and `[ILLUSTRATIVE]`
+  points: 1
+- criterion: A concrete measurement that would upgrade each to `[MEASURED]`
+  points: 1
+lab_checks: []

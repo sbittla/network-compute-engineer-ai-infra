@@ -1,0 +1,53 @@
+{
+  "difficulty": 2,
+  "evidence_required": "`python check.py` output showing all checks PASS; the report; a diagnosis for each flagged perftest pair with mechanism, evidence, and next discriminating test, stating that the data are `[SIMULATED]`.",
+  "id": "8.13",
+  "kind": "lab",
+  "lab_checks": [
+    "parse_ibv_devinfo: fields parsed",
+    "parse_rdma_link: state/physical_state/netdev parsed",
+    "parse_show_gids: v1/v2 and IPv4 columns parsed",
+    "parse_ethtool: driver/firmware/speed parsed",
+    "parse_ip: MTU/state/addresses parsed",
+    "parse_qos_env_lsmod: dcb, env file and lsmod parsed",
+    "no_false_positive_clean_node: orion-n01 passes every check (no false positives)",
+    "readiness_findings: all 16 planted-fault findings detected, no extras",
+    "node_verdicts: per-node READY/NOT_READY verdicts correct",
+    "render_report: report rendered (33 lines)",
+    "parse_perftest: bw/lat tables parsed; plateau and n1/2 computed",
+    "perftest_summary: 32 rows, fleet median plateau 388.6 Gb/s",
+    "perftest_flags: underperforming pair and tail-latency pair flagged",
+    "pcie_correlation: PCIe downgrade correlated",
+    "data_regenerates_identically: generator reproduces data/ byte-for-byte"
+  ],
+  "marking": [
+    {
+      "criterion": "Task 1 parsers: all parser checks pass",
+      "points": 20
+    },
+    {
+      "criterion": "Tasks 2–3 readiness logic: all planted faults, no false positives, correct verdicts",
+      "points": 25
+    },
+    {
+      "criterion": "Task 4 report: readable, evidence per finding, sorted, actionable",
+      "points": 10
+    },
+    {
+      "criterion": "Tasks 5–7 perftest analysis and PCIe correlation",
+      "points": 20
+    },
+    {
+      "criterion": "Task 8 diagnosis: mechanism per flagged pair, evidence cited, next discriminating test, [SIMULATED] stated",
+      "points": 20
+    },
+    {
+      "criterion": "Code quality: type hints, docstrings with units, no hard-coded answers",
+      "points": 5
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "RDMA readiness validator and perftest analyzer",
+  "type": "hands-on-lab"
+}

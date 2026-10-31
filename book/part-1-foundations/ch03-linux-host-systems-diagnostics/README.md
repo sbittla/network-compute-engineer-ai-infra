@@ -63,6 +63,7 @@ ch03-linux-host-systems-diagnostics/
 ├── README.md                     this chapter card
 ├── manuscript.md                 chapter text (§3.1–3.13, trade-offs, runbook, further reading)
 ├── exercises.md                  Exercises 3.1–3.17 + chapter deliverable
+├── exercises/                    one learner folder per exercise (17): prompt, what to submit, outputs/
 ├── lab/
 │   ├── README.md                 lab guide, severity policy, rubric, L2/L3 extensions
 │   ├── manifest.yaml             environment manifest
@@ -76,7 +77,8 @@ ch03-linux-host-systems-diagnostics/
 │       └── host_analyzer.py      parsers + fleet analyzer (TODOs)
 ├── solutions/                    INSTRUCTOR ONLY
 │   ├── exercises-key.md          answers, marking guidance, planted-anomaly table
-│   └── lab/host_collector.py, host_analyzer.py   reference implementations
+│   ├── lab/host_collector.py, host_analyzer.py   reference implementations
+│   └── exercises/<ID>-<slug>/    meta.yaml, solution/answer.md (+ solve.py), generated outputs/
 └── review/REVIEW.md              editorial review log
 ```
 

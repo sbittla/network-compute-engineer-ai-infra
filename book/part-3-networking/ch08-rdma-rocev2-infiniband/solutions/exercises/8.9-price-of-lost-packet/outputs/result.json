@@ -1,0 +1,38 @@
+{
+  "answer": {
+    "a_packets": 256,
+    "a_time_us": 21.4,
+    "b_bdp_packets": 60,
+    "b_extra_us": 5.02,
+    "c_extra_s": 1.0737,
+    "d_expected_tail_cost_us": 10.74,
+    "d_goodput": 0.666,
+    "e_time_to_retry_exc_err_s": 8.59
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "8.9",
+  "inputs": {
+    "ceiling_gbps": 392,
+    "lost_packet": 50,
+    "message_b": 1048576,
+    "p_loss": 1e-05,
+    "path_mtu_b": 4096,
+    "retry_cnt": 7,
+    "rtt_us": 5.0,
+    "timeout": 18
+  },
+  "steps": {
+    "b_extra_pct_of_a": 23.4,
+    "bdp_b": 245000,
+    "bytes_per_us": 49000.0,
+    "d_goodput_back_to_back_by_burst_len": {
+      "1": 0.666,
+      "4": 0.888,
+      "16": 0.969,
+      "64": 0.992
+    },
+    "d_mid_cost_us": 0.0128
+  },
+  "tolerance": "key rounding (\u00b10.05 us, \u00b10.005)",
+  "units": "us, s, packets"
+}

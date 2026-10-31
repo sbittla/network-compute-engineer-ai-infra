@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Four properties, each with one example.",
+  "id": "3.7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Property 1 with a concrete refused or handled example (for example default-deny allowlist refusing ethtool -s rail0 speed 200000)",
+      "points": 1
+    },
+    {
+      "criterion": "Property 2 with a concrete example (for example argv without a shell, so an interface name cannot inject a command)",
+      "points": 1
+    },
+    {
+      "criterion": "Property 3 with a concrete example (for example per-command timeouts for a hung lspci)",
+      "points": 1
+    },
+    {
+      "criterion": "Property 4 with a concrete example (for example no sudo, record denied and fall back to journalctl -k; record every outcome; LC_ALL=C)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Safe collection",
+  "type": "knowledge-check"
+}

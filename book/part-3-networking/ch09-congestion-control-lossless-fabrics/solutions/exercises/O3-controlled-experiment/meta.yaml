@@ -1,0 +1,24 @@
+id: O3
+title: Design a controlled congestion experiment
+folder: O3-controlled-experiment
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: hypothesis; both configurations in full; workload; one controlled variable; repetitions
+  (≥ 5) and warm-up; metrics; analysis method; environment manifest fields; safety boundary; a "cannot
+  conclude" list of at least four items specific to the model.
+marking:
+- criterion: Falsifiable hypothesis and both configurations in full, differing in one controlled variable
+  points: 4
+- criterion: Workload, warm-up, ≥ 5 interleaved repetitions
+  points: 4
+- criterion: Metrics and counters, and an analysis method (median, spread, decision rule)
+  points: 4
+- criterion: Environment manifest fields and the safety boundary
+  points: 4
+- criterion: '''Cannot conclude'' list of ≥ 4 model-specific items, plus what the experiment would and
+    would not establish'
+  points: 4
+lab_checks: []

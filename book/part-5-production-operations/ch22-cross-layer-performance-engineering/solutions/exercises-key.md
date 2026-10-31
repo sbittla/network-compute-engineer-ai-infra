@@ -43,7 +43,7 @@ dropping `after` raises the driver effect from 0.90 s to 1.07 s, the storage eff
 with X in tokens/s (per-GPU work fixed). 64 → 256 GPUs for W-TRAIN is weak scaling: DP grows 2 → 8 and the
 global batch grows 256 → 1,024 sequences, so per-GPU work is constant.
 
-**K7.** Survivorship bias: analysing only jobs that completed (or only "healthy" runs) excludes jobs that
+**K7.** Survivorship bias: analyzing only jobs that completed (or only "healthy" runs) excludes jobs that
 failed, which are often the ones most affected. Placement regressions push TP traffic onto the fabric,
 making split jobs both the slowest and the most likely to hit collective timeouts; dropping failed jobs
 removes the strongest evidence and shrinks the measured effect (lab: TP share falls from 64.7 % to 61.4 %,
@@ -194,8 +194,8 @@ b. **Ranking** (score = info / (cost × risk)):
 | On a drained orion-n15 and a peer: `ib_write_bw -d mlx5_3 --report_gbits` on rail 3 plus error counters during the run | 0.7 | 3 | medium | 0.117 |
 
 c. **Root cause and chain.** The NIC3 optic on orion-n15 (reseated three days ago; likely contaminated or
-damaged connector) has a marginal optical budget → high pre-FEC bit-error rate (FEC corrected codewords
-~500× other ports) → some codewords uncorrectable (312 per 10 min) → frames fail CRC and are dropped
+damaged connector) has a marginal optical budget → high pre-FEC bit error ratio (FEC corrected codewords
+≈ 500× other ports) → some codewords uncorrectable (312 per 10 min) → frames fail CRC and are dropped
 (297 in-errors; host `rx_crc_errors_phy`, `rx_symbol_err_phy` rising) → RoCE packets lost on reliable-
 connected QPs. Losses followed by more packets are detected as out-of-sequence and recovered by NAK and
 go-back-N retransmission (small delays every step → median +0.6 s); losses of the *last* packets of a
@@ -271,7 +271,7 @@ and an R570 node with and without the module loaded, ≥ 5 runs, busbw median an
 | Driver / GDR | Host bounce copy 0.4 → 9.5 GB/s on orion-n17..n32 after the window only; `nccl_init_sample.log`: channel lines `via NET/IB/0` (no `/GDRDMA`) on orion-n17 vs `via NET/IB/0/GDRDMA` on orion-n09, and empty `lsmod \| grep nvidia_peermem` on orion-n17; inventory `peermem_module_loaded = no`. Caveat: valid only because DMA-BUF is unavailable on these nodes `[VENDOR-SPEC, 2026-10]` |
 | ECC alert (ruled out) | SBE 0.7 → 152 per job-node on orion-n13, temperatures unchanged (67.4 → 68.1 °C), effect −0.05 ± 0.09 s |
 
-(c) With both interactions: tp_x_storage −1.30 ± 0.15 s (≈ 8.7 SE, predicted by the slack model: keep);
+(c) With both interactions: tp_x_storage −1.30 ± 0.15 s (≈ 8.6 SE, predicted by the slack model: keep);
 tp_x_driver +0.03 ± 0.13 s (negligible: drop). The model with the single tp_x_storage term is defensible;
 an additive-only model is not (it distorts storage, after, and alert estimates).
 

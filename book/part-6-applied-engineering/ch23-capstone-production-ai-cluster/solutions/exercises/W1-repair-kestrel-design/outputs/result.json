@@ -1,0 +1,47 @@
+{
+  "answer": {
+    "backend_cables": 496,
+    "dp": 8,
+    "gpu_cap_W": 550.0,
+    "host_leaf_cables": 272,
+    "leaf_spine_cables": 224,
+    "node_cap_kW_for_5_per_rack": 9.0,
+    "nodes_per_rack": 4,
+    "oversub_all_active": 1.214,
+    "oversub_spares_idle": 1.143,
+    "racks_needed": 9,
+    "spares": 2,
+    "spine_ports_used": 56,
+    "uplinks": 28,
+    "uplinks_per_spine": 7
+  },
+  "evidence_label": "MODELED",
+  "id": "W1",
+  "inputs": {
+    "cables_claimed": 512,
+    "dp_claimed": 16,
+    "gpus_per_node": 8,
+    "leaf_radix": 64,
+    "leaves": 8,
+    "node_max_kW": 10.2,
+    "nodes": 34,
+    "pp": 4,
+    "rack_kW": 45.0,
+    "spines": 4,
+    "tp": 8,
+    "uplinks_claimed": 32
+  },
+  "steps": {
+    "cables_as_drawn": 528,
+    "gpus_as_listed": 272,
+    "leaf_ports_as_drawn": 66,
+    "max_uplinks": 30,
+    "nodes_per_rack_exact": 4.412,
+    "parallelism_product_claimed": 512
+  },
+  "units": {
+    "cables": "links",
+    "cap": "kW / W",
+    "oversub": "ratio:1"
+  }
+}

@@ -36,7 +36,7 @@ failure, scale and accountability.
 
 **K3 — Senior vs staff.** Senior: leads the third incident, proves the cause with a discriminating test,
 writes the postmortem identifying the detection gap; outcomes — incident resolved within SLO, alert on
-FEC-uncorrectable rate shipped for that fabric. Staff: recognises the pattern across incidents, writes
+FEC-uncorrectable rate shipped for that fabric. Staff: recognizes the pattern across incidents, writes
 the proposal for pre-failure optics telemetry and a drain-on-threshold policy, gets Fabric and Fleet to
 adopt it across both fabrics; outcomes — policy adopted by two teams, optics-related degradations
 detected before job impact (measured as a reduction in job-impacting optics incidents next quarter).
@@ -70,13 +70,13 @@ DP groups spanning blocks cross the spine layer.
 the competing hypotheses, so that its result eliminates at least one. In Section 24.12, per-port
 counters/optic Rx power on the rail-3 links separate the two: FEC/CRC errors and low Rx power isolated
 to one port point to physical degradation; PFC pauses and ECN/CNP increases across many rail-3 ports
-with clean FEC/CRC would have pointed to congestion. (The `ib_write_bw` per-rail test localises the rail
+with clean FEC/CRC would have pointed to congestion. (The `ib_write_bw` per-rail test localizes the rail
 but does not, by itself, distinguish the two.)
 *Marking (4 pts):* 1 definition, 1 test, 2 for both outcomes.
-*Common mistakes:* choosing a test that both hypotheses predict the same way (e.g., "re-run
+*Common mistakes:* choosing a test that both hypotheses predict the same way (e.g., "rerun
 all_reduce_perf").
 
-**K8 — Representative, not current.** Hiring is time-sensitive; naming organisations without the
+**K8 — Representative, not current.** Hiring is time-sensitive; naming organizations without the
 qualification turns a curriculum synthesis into an implied factual claim about current openings that
 the book has not verified. A reader could target an employer believing a role exists, or cite the table
 as market evidence.
@@ -152,7 +152,7 @@ summary "rows: 61; unique postings: 51; complete: 40; active and fresh: 31".
 | E09 | Self-assessment at 3 | type cap (self = 1) | 1 |
 | E10 | Case study with no artifact ("not yet published") | NO_ARTIFACT | capped at 1; observability = 1 |
 | E04 (second copy, position 12) | Same evidence listed twice | DUPLICATE_EVIDENCE | counted once |
-| E14 | Competency `bgp_evpn` is not in the catalog | UNKNOWN_COMPETENCY | ignored (learner should map it to `l3_fabric`) |
+| E14 | Competency `bgp_evpn` is not in the catalogue | UNKNOWN_COMPETENCY | ignored (learner should map it to `l3_fabric`) |
 | E17 | Production evidence from Feb 2023 | STALE (1,352 days) | 3 → 2; Linux host = 2 |
 | E19 | Self-assessment with no date | NO_DATE (treated stale) | 1 → 0; GPU compute = 0 |
 
@@ -188,7 +188,7 @@ kubernetes 12, inference serving 7, nccl 7, traffic generators 7.
 Discussion points for the rows 15/42 case: the tie-break keeps the re-post's ID. A production tool
 should keep all IDs in the cluster as aliases, prefer the earliest-seen ID as canonical, and keep the
 latest `date_checked`. Row 27's upper-case employer shows that the representative's *display* fields
-should also be normalised. Learners who notice either earn the full "explanation" marks.
+should also be normalized. Learners who notice either earn the full "explanation" marks.
 
 ---
 
@@ -291,8 +291,11 @@ automation higher because bring-up speed dominates).
 **R3** The line is whether the number came from *your* environment with a manifest and repetitions
 (skill in measurement) or from a model or supplied data (skill in reasoning). Both are valuable; only the
 first supports a measurement claim.
-**R4** A dated, deduplicated register over a defined window; segmentation by role and level; the ratio of
-postings to qualified applicants (not observable from postings); interview-loop data. Frequency in
-postings is not scarcity.
+**R4** A dated, deduplicated register over a defined window, and a longer window than one day (the
+October 2026 register is a one-day purposive sample with no hyperscaler); segmentation by role and level;
+the ratio of postings to qualified applicants (not observable from postings); interview-loop data. Frequency
+in postings is not scarcity. Python appears in 23 of 42 real required lists mainly as part of "Python or Go"
+style tags, which signals a scripting floor, not a scarce skill. Full credit names at least one of these
+limits of the real register.
 
 *Marking:* 4 pts each; deduct for generic statements without named evidence.

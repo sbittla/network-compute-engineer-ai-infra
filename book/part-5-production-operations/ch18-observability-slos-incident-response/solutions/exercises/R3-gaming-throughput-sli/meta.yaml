@@ -1,0 +1,17 @@
+id: R3
+title: How the training throughput SLI can mislead
+folder: R3-gaming-throughput-sli
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: Concise written answers, each referencing a specific data file, metric, or section.
+marking:
+- criterion: First way the SLI can be gamed or mislead, with a guard
+  points: 2
+- criterion: Second distinct way, with a guard
+  points: 2
+- criterion: Third distinct way, with a guard
+  points: 1
+lab_checks: []

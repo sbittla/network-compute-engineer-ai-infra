@@ -1,0 +1,20 @@
+id: O1
+title: Memory demand vs batch, sequence length and concurrency
+folder: O1-memory-demand-table
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 6
+evidence_required: the 3 × 3 table, the max-sequence row, and the explanation.
+marking:
+- criterion: 3 x 3 table of weights + KV for B = 16/64/128 and 1k/4k/16k
+  points: 3
+- criterion: Cells above 288 GB marked (16k at B = 64 and 128)
+  points: 1
+- criterion: Max concurrent sequences 625 / 156 / 39
+  points: 1
+- criterion: 'Two-sentence explanation: KV grows as B x context and dominates; concurrency falls inversely
+    with length'
+  points: 1
+lab_checks: []

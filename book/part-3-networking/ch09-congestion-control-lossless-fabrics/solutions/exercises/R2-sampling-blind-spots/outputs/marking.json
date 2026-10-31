@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "a short paragraph each that names specific counters, assumptions, or limitations from the chapter.",
+  "id": "R2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Phenomenon 1 (e.g. microbursts) with the revealing feature (queue/PG watermarks)",
+      "points": 1
+    },
+    {
+      "criterion": "Phenomenon 2 (e.g. brief pause trains/storms) with the revealing feature (pause-duration counters, streaming telemetry)",
+      "points": 1
+    },
+    {
+      "criterion": "Names specific counters and the sampling limitation",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What 2 s sampling hides",
+  "type": "reflection"
+}

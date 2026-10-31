@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer (2–5 sentences) that names the mechanism, not just the term.",
+  "id": "20.1.8",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Control 1 with the specific failure it prevents",
+      "points": 1
+    },
+    {
+      "criterion": "Control 2 with its failure",
+      "points": 1
+    },
+    {
+      "criterion": "Control 3 with its failure",
+      "points": 1
+    },
+    {
+      "criterion": "Control 4 with its failure",
+      "points": 1
+    },
+    {
+      "criterion": "Control 5 with its failure",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Fleet-automation safety controls",
+  "type": "knowledge-check"
+}

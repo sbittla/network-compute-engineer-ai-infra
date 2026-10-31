@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "one failure mode for each field",
+  "id": "K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Owner: failure mode named (nobody validates it, nobody is paged, it silently becomes fact)",
+      "points": 2
+    },
+    {
+      "criterion": "Validation: failure mode named (assumption is unfalsifiable; belief indistinguishable from measurement)",
+      "points": 1
+    },
+    {
+      "criterion": "Recognizes 'Validation: TBD' as the classic symptom; answer is about accountability and falsifiability, not documentation",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Why every assumption needs an owner and a validation",
+  "type": "knowledge-check"
+}

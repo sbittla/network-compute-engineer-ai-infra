@@ -1,0 +1,19 @@
+id: '5.17'
+title: Four-NIC node variant
+folder: 5.17-four-nic-node-variant
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: topology diagram, mapping, model arithmetic, workload recommendation with a rejected
+  alternative.
+marking:
+- criterion: 'Topology diagram and mapping: 4 rails, GPU pair (2k, 2k+1) shares NIC k, both PIX'
+  points: 3
+- criterion: 'Model arithmetic: 24 GB/s per ring (48 / 2), t = 11.34 ms, busbw about 188.6 GB/s vs 370.7
+    GB/s for HX8, assumptions stated, labelled [MODELED]'
+  points: 3
+- criterion: Workload recommendation with a rejected alternative (e.g. 8 rails over dual-port NICs)
+  points: 4
+lab_checks: []

@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "a comparison table and a one-sentence answer with the reason.",
+  "id": "10.K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Medium and connector correct for both (SMF; MPO-12 vs duplex LC)",
+      "points": 1
+    },
+    {
+      "criterion": "Fibers used correct (8 vs 2)",
+      "points": 1
+    },
+    {
+      "criterion": "Wavelengths correct (4 parallel × 1310 nm vs 4 CWDM on one fiber pair)",
+      "points": 1
+    },
+    {
+      "criterion": "Reach correct (500 m vs 2 km)",
+      "points": 1
+    },
+    {
+      "criterion": "Answer: they cannot interoperate, with the reason (different connector, lane structure and optics)",
+      "points": 2
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "400GBASE-DR4 vs FR4",
+  "type": "knowledge-check"
+}

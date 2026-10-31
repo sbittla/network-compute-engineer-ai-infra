@@ -1,0 +1,13 @@
+id: 10.R3
+title: What the L1 lab cannot tell you
+folder: 10.R3-l1-vs-l3-limits
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: four or more items, each tied to a physical mechanism.
+marking:
+- criterion: Four or more distinct items, one point each, each tied to a physical mechanism
+  points: 4
+lab_checks: []

@@ -1,0 +1,21 @@
+{
+  "difficulty": 2,
+  "evidence_required": "explanation of CPU-side ranges and the join.",
+  "id": "4.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "NVTX ranges are recorded on the CPU thread: the CPU enqueues the forward kernels asynchronously in 2.3 ms while the GPU executes them over 19.6 ms",
+      "points": 2
+    },
+    {
+      "criterion": "Correlation IDs join each GPU activity to the API call that launched it; the GPU-side extent of the range (projected NVTX range) follows from that join",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "NVTX ranges versus GPU kernel extent",
+  "type": "knowledge-check"
+}

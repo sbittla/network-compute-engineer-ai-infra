@@ -1,0 +1,21 @@
+id: '12.3'
+title: busbw factors for n = 16
+folder: 12.3-busbw-factors-n16
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: five numbers.
+marking:
+- criterion: All-reduce 1.875
+  points: 1
+- criterion: All-gather 0.9375
+  points: 1
+- criterion: Reduce-scatter 0.9375
+  points: 1
+- criterion: Broadcast 1
+  points: 1
+- criterion: All-to-all 0.9375
+  points: 1
+lab_checks: []

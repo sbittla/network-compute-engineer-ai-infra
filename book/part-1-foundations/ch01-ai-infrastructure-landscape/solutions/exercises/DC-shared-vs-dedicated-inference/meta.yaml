@@ -1,0 +1,21 @@
+id: DC
+title: Shared versus dedicated inference capacity
+folder: DC-shared-vs-dedicated-inference
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 15
+evidence_required: >-
+  A one-page recommendation with a criteria x option table, at least one quantified argument, explicit
+  assumptions, and a "would change my mind if..." section.
+marking:
+  - criterion: A clear recommendation with a criteria x option table covering SLO risk, utilization and cost, scheduler and failure domain
+    points: 5
+  - criterion: Quantified argument (pool cost 1,401,600 USD/year; at most 560,640 USD/year reclaimable at 60 % inference load) with assumptions stated
+    points: 4
+  - criterion: Backend fabric need analysed correctly (TP 8 stays in one node; RDMA needed only for multi-node or disaggregated serving)
+    points: 3
+  - criterion: Explicit assumptions and a would-change-my-mind section with checkable conditions
+    points: 3
+lab_checks: []

@@ -1,0 +1,19 @@
+id: K5
+title: Why validated bundles beat pairwise tables
+folder: K5-validated-bundles
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: The combinatorial argument; one named three-component interaction.
+marking:
+- criterion: 'Combinatorial argument: C(c,2)·v² pairwise entries that still say nothing about 3-way combinations'
+  points: 2
+- criterion: Bundles qualify a few complete combinations as units, plus a blocked list; compliance is
+    an exact match
+  points: 1
+- criterion: One correct three-way interaction from Table 16.5 (driver + fabric manager + NVSwitch firmware,
+    or NIC fw + RDMA stack + GPU driver for GPUDirect RDMA)
+  points: 2
+lab_checks: []

@@ -79,7 +79,7 @@ overwriting, and never list-then-assume.
 | Time-to-resume | Measured failure → first completed step after restart | Measurement |
 | Lost accelerator-hours | GPUs × (overhead + recomputed work + time-to-resume) | Model output (or measured per incident) |
 
-*Marking:* ~1 per two rows; category must distinguish objective from evidence.
+*Marking:* ≈ 1 per two rows; category must distinguish objective from evidence.
 
 ## 14.7 Tail at scale (5 points)
 
@@ -147,7 +147,7 @@ Hand check (async PFS): Young = √(2 × 1.188 × 712,800) = √1,693,786 = 1,30
 E[lost] = 652.5 + 18.5 = 671.0 s; E[resume] 904.2 s; 0.1212 × 1,575.2 s × 256 / 3,600 = 13.58 GPU-h.
 Total 19.2.
 
-Ranking unchanged; losses fall ~2.9× (55.6 → 19.2 for async). Intervals stretch by √(198/48) ≈ 2.0×
+Ranking unchanged; losses fall ≈ 2.9× (55.6 → 19.2 for async). Intervals stretch by √(198/48) ≈ 2.0×
 (Young ∝ √M): 643.8 → 1,305 s. RPO max grows to 22 min (async) and 84 min (sync); if Halcyon's RPO
 policy is, say, 15 min, the policy — not Young — sets the interval (link to 14.16).
 
@@ -165,11 +165,11 @@ check firmware); Part C — each defect explained and `step_001800` selected.
 
 ## 14.12 The resume that trained worse (15 points)
 
-(a) Symptom: loss jumped from 1.82 to ~2.27 at resume and is not recovering.
+(a) Symptom: loss jumped from 1.82 to ≈ 2.27 at resume and is not recovering.
 
 | # | Hypothesis | Evidence for/against | Discriminating test |
 |---|---|---|---|
-| H1 | Restored an incomplete checkpoint: `latest` → step_088327, whose persist was in flight | Snapshot 03:12:55, failure 03:13:02 — 7 s into a ~19 s persist; **no COMMIT**; 31 load warnings; "missing=0" checked only file existence | Run the validator: NO_COMMIT and SIZE/CHECKSUM defects; compare shard sizes with manifest |
+| H1 | Restored an incomplete checkpoint: `latest` → step_088327, whose persist was in flight | Snapshot 03:12:55, failure 03:13:02 — 7 s into a ≈ 19 s persist; **no COMMIT**; 31 load warnings; "missing=0" checked only file existence | Run the validator: NO_COMMIT and SIZE/CHECKSUM defects; compare shard sizes with manifest |
 | H2 | LR scheduler / step state reset | Would show LR back in warm-up | Check logged LR at step 88328 vs 88327 |
 | H3 | Data-loader state lost (replay/skip) | Usually a small, transient effect, not +0.45 persistent | Compare sample IDs after resume with the planned order |
 | H4 | Faulty replacement hardware computing wrongly | Possible after a node swap | Per-rank grad norms; rerun one step with the new node excluded |
@@ -177,12 +177,12 @@ check firmware); Part C — each defect explained and `step_001800` selected.
 (b) Root cause: the trainer advanced `latest` at snapshot time, not after commit; the restart
 controller trusted `latest`. The persist of step 88327 was interrupted (orion-n21's eight shards and
 possibly others truncated). The 31 warnings are most likely size/shape mismatches or missing keys
-when loading truncated optimizer-state shards, which the loader then default-initialised (e.g.
+when loading truncated optimizer-state shards, which the loader then default-initialized (e.g.
 zeroed Adam moments for some parameters) — a "valid-looking" but corrupt state.
 (c) Stop the job now; run the validator; restore from **step_088290** (committed at 03:02:30 with
 completion 18.9 s); verify its first-step loss ≈ 1.82. Cost: the 2 h of training since 03:28 are
 discarded: 2 × 256 = **512 GPU-h**; plus 37 steps between 88290 and 88327 = 37 × 17.4 = 643.8 s →
-643.8 × 256 / 3,600 = **45.8 GPU-h**; plus another restart, ~808 s soft (Section 14.12, Step 7) →
+643.8 × 256 / 3,600 = **45.8 GPU-h**; plus another restart, ≈ 808 s soft (Section 14.12, Step 7) →
 **57.5 GPU-h**. Total ≈ **615 GPU-h**, versus continuing to train a damaged model.
 (d) (1) Advance `latest` only after commit *and* validation, and make the restart controller run the
 validation ladder and ignore `latest` (Section 14.10, commit step 5 and Table 14.5). (2) Add the
@@ -218,7 +218,7 @@ Capacity: 25 TB / 5.67 TB = 4.4 → at most **4** checkpoints: 3 validated + 1 i
 validated checkpoints only. RPO target ≤ 5 min (achieved max 202 s); RTO target 15 min (expected
 905 s — at the limit; justify or improve). PFS burst: 5.67 TB in 18.9 s at the full 300 GB/s
 effective, plus commit, every 180 s ≈ 12 % duty cycle and 7.9 % of write capacity on average —
-other tenants see ~22 s of saturated writes every 3 min; propose bandwidth limiting, a dedicated
+other tenants see ≈ 22 s of saturated writes every 3 min; propose bandwidth limiting, a dedicated
 checkpoint tier, or local/peer staging.
 Highest-leverage improvement: **time-to-resume**. Failure cost is 9,265 of 9,927 GPU-h/day;
 8 × 905 s × 4,096 / 3,600 = 8,241 GPU-h/day is restart time. Cutting detection 300 → 60 s saves
@@ -243,7 +243,7 @@ caching and readahead (better for sequential); network congestion on the fronten
 correlated slowdowns across targets (worse).
 **14.16** (1) RPO policy: if Young's τ exceeds the RPO target, the policy sets τ — detect via "age of
 newest validated checkpoint" vs target. (2) PFS fairness/capacity: burst duty cycle or quota may cap
-frequency — detect via PFS write utilisation and other tenants' read p99 during bursts, or quota
+frequency — detect via PFS write utilization and other tenants' read p99 during bursts, or quota
 usage vs retention needs. (Also accept: one-in-flight limit when L approaches τ — skipped/back-pressured
 checkpoint counter.)
 **14.17** Modeled (fine for design): sizes, intervals, sensitivities. Must measure: PFS efficiency

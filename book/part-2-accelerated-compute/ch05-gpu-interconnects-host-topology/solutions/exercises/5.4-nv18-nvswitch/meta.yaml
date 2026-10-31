@@ -1,0 +1,18 @@
+id: '5.4'
+title: Why every GPU pair shows NV18
+folder: 5.4-nv18-nvswitch
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: NVLink/NVSwitch arithmetic and the "nothing" answer.
+marking:
+- criterion: 18 NVLink4 links × 25 GB/s = 450 GB/s per direction per GPU
+  points: 1
+- criterion: Links spread across the NVSwitch chips, so every GPU pair is one switch hop at full bandwidth,
+    hence NV18 in every cell
+  points: 1
+- criterion: States that NV18 says nothing about GPU-NIC locality, which is purely a PCIe question
+  points: 1
+lab_checks: []

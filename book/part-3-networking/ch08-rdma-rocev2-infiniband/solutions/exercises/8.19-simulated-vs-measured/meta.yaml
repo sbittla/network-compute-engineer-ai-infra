@@ -1,0 +1,19 @@
+id: '8.19'
+title: Simulated versus measured conclusions
+folder: 8.19-simulated-vs-measured
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: explicit classification of each conclusion.
+marking:
+- criterion: 'BW pair: observation becomes fact with MEASURED data; causal x8 claim strongly supported
+    but proven only by fix-and-retest'
+  points: 1
+- criterion: 'Tail pair: cause remains a hypothesis until a discriminating test separates host jitter
+    from fabric pauses'
+  points: 1
+- criterion: States that in [SIMULATED] data none of these are facts about hardware
+  points: 1
+lab_checks: []

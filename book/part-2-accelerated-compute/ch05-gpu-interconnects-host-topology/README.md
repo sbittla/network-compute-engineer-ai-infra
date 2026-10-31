@@ -55,6 +55,7 @@ lab's `topology_report.md` (Exercises 5.10, 5.14).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text (Sections 5.1–5.12, trade-offs, runbook, summary) |
 | [exercises.md](exercises.md) | Exercises 5.1–5.21 including outline-mandated 5.11–5.15 |
+| [exercises/](exercises/) | One learner folder per exercise (5.1–5.21): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 5 guide |
 | `lab/manifest.yaml` | Environment manifest (L1) and L2/L3 record fields |
 | `lab/data/hosts/` | Raw captures for `orion-n01`, `-n02`, `-n17`, `-n23` |
@@ -63,6 +64,7 @@ lab's `topology_report.md` (Exercises 5.10, 5.14).
 | `lab/starter/topo_mapper.py` | Learner module (TODOs) |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/` | Answer key and reference implementation (instructor only) |
+| `solutions/exercises/` | Per-exercise instructor folders: `meta.yaml` (marking scheme), `solution/answer.md`, `solution/solve.py` for computed exercises, generated `outputs/` (instructor only) |
 | `review/REVIEW.md` | Editorial review log |
 
 ## Course placement

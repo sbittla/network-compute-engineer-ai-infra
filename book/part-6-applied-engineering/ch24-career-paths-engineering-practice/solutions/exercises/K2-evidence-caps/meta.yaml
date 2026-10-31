@@ -1,0 +1,18 @@
+id: K2
+title: Evidence caps
+folder: K2-evidence-caps
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: one paragraph per level boundary, each naming the observable behaviour that changes.
+marking:
+- criterion: 'Boundary 1→2: a course shows vocabulary only; an L1 lab shows guided reproduction of reasoning'
+  points: 2
+- criterion: 'Boundary 2→3: independent framing, design or diagnosis (capstone, hardware lab with manifest, published
+    case study)'
+  points: 2
+- criterion: 'Boundary 3→4: production ownership verified by someone else'
+  points: 2
+lab_checks: []

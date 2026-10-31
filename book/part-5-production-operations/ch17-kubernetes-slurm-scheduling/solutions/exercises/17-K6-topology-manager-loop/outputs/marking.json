@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Where the decision is made (scheduler vs kubelet) and the resulting loop.",
+  "id": "17-K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Decision is made by the kubelet at admission after binding; scheduler sees only counts",
+      "points": 2
+    },
+    {
+      "criterion": "Pod Failed with TopologyAffinityError; controller recreates it and the scheduler binds the same node again (loop)",
+      "points": 2
+    },
+    {
+      "criterion": "A valid mitigation (socket-sized replicas, scheduler-visible topology via DRA/labels, best-effort during migration)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Topology Manager rejection loop",
+  "type": "knowledge-check"
+}

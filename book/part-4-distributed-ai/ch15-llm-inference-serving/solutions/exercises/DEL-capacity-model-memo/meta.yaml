@@ -1,0 +1,44 @@
+id: DEL
+title: Inference capacity model and tuning recommendation
+folder: DEL-capacity-model-memo
+type: deliverable
+difficulty: 3
+tier: L1
+kind: lab
+points: 20
+evidence_required: the checker at 18/18, every number labelled, and the validation plan with the commands
+  from lab Section 9.
+marking:
+- criterion: Completed lab module, checker at 18/18
+  points: 4
+- criterion: Replica layout and pool size for 40 req/s (8 x TP = 4 FP8 with chunked prefill, 5 nodes incl.
+    N+1, or a numerically argued alternative)
+  points: 4
+- criterion: Latency tier L and throughput tier T with numbers
+  points: 2
+- criterion: 'Disaggregation decision with the KV network budget (about 215 Gb/s, RDMA) '
+  points: 3
+- criterion: Phase-specific SLOs and alert thresholds (TTFT, TPOT, ITL p99, preemption, per-replica TPOT)
+  points: 3
+- criterion: Validation plan with L2/L3 measurements, lab Section 9 commands and manifest fields; every
+    number labelled
+  points: 4
+lab_checks:
+- A1 kv_bytes_per_token (W-INFER BF16 and FP8 KV)
+- A2 kv_budget_bytes (TP=8 BF16, TP=4 FP8, TP=2 FP8)
+- A3 max_concurrent_sequences (paged, 16-token blocks)
+- A4 prefill_time_s (2k prompt, TP=8 BF16, 40% MFU)
+- A5 decode step lower bound and tokens/s (TP=8 BF16, B=32, ctx=2176)
+- A6 compare_serving_configs + recommendation per objective
+- B1 request_metrics (queue, prefill, TTFT, TPOT, e2e)
+- B2 latency_percentiles (chat TTFT p50/p95/p99)
+- B3 itl_values_s + ITL tail (sampled token gaps)
+- B4 slo_report (attainment, goodput, throughput)
+- B5 detect queueing collapse under the arrival burst
+- B6 detect preemption storm (and do not call it a burst)
+- B7 detect the slow replica
+- B8 telemetry_evidence corroborates the diagnoses
+- C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)
+- C2 md1_wait_s
+- C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED]
+- C4 speculative decoding expected tokens and speedup

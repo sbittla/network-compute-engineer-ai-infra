@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Not stated in exercises.md; marked against the criteria below.",
+  "id": "11.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First real effect with its mechanism (e.g. the fixed ≈ 72 ms overlap window, so extra DP time is fully exposed)",
+      "points": 1
+    },
+    {
+      "criterion": "Second real effect with its mechanism (stragglers/jitter, FP32 reduction, congestion from other jobs, rail misalignment)",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "When DP matters more than the model says",
+  "type": "reflection"
+}

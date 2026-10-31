@@ -18,7 +18,7 @@ risk, and write the before/after report that separates **measured facts**, **inf
 
 ## 2. Tier and realism boundary
 
-**Tier L1.** Pure Python on a laptop, < 10 s. The bundle is **[SIMULATED]**, produced by
+**Tier L1.** Pure Python on a laptop, < 10 s. The bundle is **`[SIMULATED]`**, produced by
 a seeded generator (seed 2214; instructor copy only, not shipped to learners). It mimics what a training-loop logger, Slurm placement records,
 a node inventory, DCGM/host exporters, and an alert manager would give you. It cannot show real NCCL,
 RDMA, PCIe, or storage behaviour; effect sizes are teaching values, not product claims. The L2/L3
@@ -115,7 +115,7 @@ drawn) with your test ranking annotated.
 
 ## 8. Extensions (L2/L3, hardware-backed)
 
-Only on nodes you are authorised to drain or reserve. **Safety:** never roll back drivers, change
+Only on nodes you are authorized to drain or reserve. **Safety:** never roll back drivers, change
 placement policy, or restart jobs on shared production capacity to "test a hypothesis"; tests T5 and
 T9 in `hypotheses.yaml` are rejected for exactly that reason.
 

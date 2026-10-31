@@ -1,0 +1,17 @@
+id: K6
+title: 2N feeds
+folder: K6-2n-feeds
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 6
+evidence_required: two numbers and the failure scenario that sets them.
+marking:
+- criterion: (a) 65.55 × 0.9 = 59.0 kW
+  points: 2
+- criterion: (b) 32.78 × 0.9 = 29.5 kW
+  points: 2
+- criterion: 'Failure scenario: loss of one side; the surviving side must carry the whole rack (2N)'
+  points: 2
+lab_checks: []

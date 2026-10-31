@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "definition and two commands/fields.",
+  "id": "5.1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "BDF defined as domain:bus:device.function, the enumeration address of a PCIe function",
+      "points": 1
+    },
+    {
+      "criterion": "Explains why it is not the slot: bus numbers are assigned at enumeration by firmware/OS and can change (BIOS change, platform differences)",
+      "points": 1
+    },
+    {
+      "criterion": "Two slot sources given (lspci -vmm PhySlot / lspci -v Physical Slot, dmidecode -t slot, /sys/bus/pci/slots/*/address)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "PCIe BDF versus physical slot",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "all values with formulas.",
+  "id": "12.9",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) 69.8 µs, 189.3 µs, 1,503.6 µs with t = α + factor × S/B",
+      "points": 2
+    },
+    {
+      "criterion": "(b) n½ = α·B/factor = 8.26 MB",
+      "points": 1
+    },
+    {
+      "criterion": "(c) 175 buckets × 189.3 µs = 33.1 ms vs 24.9 ms for one message",
+      "points": 2
+    },
+    {
+      "criterion": "Explains the difference as ≈ 174 extra α payments and why buckets still win (overlap)",
+      "points": 1
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "Buckets and the alpha-beta model",
+  "type": "worked-problem"
+}

@@ -1,0 +1,18 @@
+id: '5.18'
+title: Raw, derived and modeled results
+folder: 5.18-raw-derived-modeled
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
+marking:
+- criterion: 'Raw: the capture files'
+  points: 1
+- criterion: 'Derived: lstopo relations, mapping rows, findings; Modeled: the scenario table (Table 5.5)'
+  points: 1
+- criterion: 'Path to measured: L3 nccl-tests with manifests, ≥ 5 runs per configuration, recalibrate
+    parameters'
+  points: 1
+lab_checks: []

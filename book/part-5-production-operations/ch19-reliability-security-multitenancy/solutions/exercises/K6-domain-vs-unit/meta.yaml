@@ -1,0 +1,17 @@
+id: K6
+title: Domain vs unit
+folder: K6-domain-vs-unit
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: both definitions applied; one coinciding case
+marking:
+- criterion: 'Fault domain applied: the mlx5_3 link (HCA port, optic, cable)'
+  points: 2
+- criterion: 'Scheduling unit applied: the whole node, because a TP = 8 rail-optimized job needs all 8 rails'
+  points: 2
+- criterion: One valid coinciding case (job using only part of a node, or a fault domain that is itself the node)
+  points: 1
+lab_checks: []

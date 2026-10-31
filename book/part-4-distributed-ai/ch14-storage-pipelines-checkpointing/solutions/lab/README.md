@@ -35,13 +35,13 @@ Teaching points students should reach in the memo:
 
 | Dataset | Anomaly | Why it is there | Expected detection |
 |---|---|---|---|
-| `io_trace.csv` 0–6 s | Small-file epoch: one `open` (median 5 ms, lognormal σ 0.5) per 64–256 KiB sample | Metadata-bound pipeline: ~0.2 GB/s and ~1,200 samples/s per node, 89 % of op time in metadata | B2/B3 `metadata` phase |
+| `io_trace.csv` 0–6 s | Small-file epoch: one `open` (median 5 ms, lognormal σ 0.5) per 64–256 KiB sample | Metadata-bound pipeline: ≈ 0.2 GB/s and ≈ 1,200 samples/s per node, 89 % of op time in metadata | B2/B3 `metadata` phase |
 | `io_trace.csv` 6–7 s | Idle gap (epoch boundary) | Classifier must not call an empty window "metadata" | B2 `idle` |
-| `io_trace.csv` 7–19 s | 256 MiB shards read as 16 × 16 MiB | Bandwidth-bound pipeline: ~7.6 GB/s per node | B2/B3 `bandwidth` |
-| `io_trace.csv` 13–17 s | Large-read latency × 2.5 with extra jitter | Checkpoint write burst on the shared PFS (interference). Throughput drops to ~3 GB/s; read p99 rises from ~60 ms to ~200–240 ms | B4 windows 13–16 |
+| `io_trace.csv` 7–19 s | 256 MiB shards read as 16 × 16 MiB | Bandwidth-bound pipeline: ≈ 7.6 GB/s per node | B2/B3 `bandwidth` |
+| `io_trace.csv` 13–17 s | Large-read latency × 2.5 with extra jitter | Checkpoint write burst on the shared PFS (interference). Throughput drops to ≈ 3 GB/s; read p99 rises from ≈ 60 ms to ≈ 200–240 ms | B4 windows 13–16 |
 | `io_trace.csv` target 5 | All reads × 4 latency | A degraded storage target (failing disk in a RAID set, rebuild, or overloaded server). Throughout the trace; inflates every window's p99 | B5 → [5] |
-| `fio_nvme_acceptance.json` nvme2 | Sequential write 1.62 GB/s vs ~3.4 GB/s median | Typical causes: link trained at reduced width/speed (check `LnkSta`), thermal throttling, or a drive near end of life. Random read is normal, which points away from a host-wide problem | B6 LOW_BANDWIDTH |
-| `fio_nvme_acceptance.json` nvme5 | Random-read p99.9 9.1 ms, p99.99 31 ms vs ~0.26/0.41 ms; mean only +12 % | Tail-only fault (firmware garbage collection stalls, media retries). Mean and p99 look healthy: only percentiles beyond p99 expose it | B6 TAIL_LATENCY |
+| `fio_nvme_acceptance.json` nvme2 | Sequential write 1.62 GB/s vs ≈ 3.4 GB/s median | Typical causes: link trained at reduced width/speed (check `LnkSta`), thermal throttling, or a drive near end of life. Random read is normal, which points away from a host-wide problem | B6 LOW_BANDWIDTH |
+| `fio_nvme_acceptance.json` nvme5 | Random-read p99.9 9.1 ms, p99.99 31 ms vs ≈ 0.26/0.41 ms; mean only +12 % | Tail-only fault (firmware garbage collection stalls, media retries). Mean and p99 look healthy: only percentiles beyond p99 expose it | B6 TAIL_LATENCY |
 | `checkpoints/step_001200` | `shard_05.bin` truncated to half | Writer died mid-file or ENOSPC; size check catches it before hashing | SIZE_MISMATCH |
 | `checkpoints/step_001500` | One bit flipped in `shard_03.bin` | Silent corruption: only the checksum catches it | CHECKSUM_MISMATCH |
 | `checkpoints/step_002100` | `shard_06.bin` missing but `COMMIT` present | A buggy writer that commits without a barrier on all ranks | MISSING_SHARD |
@@ -55,7 +55,7 @@ none restorable — and deleted the only two valid checkpoints (900 and 1800). R
 ## Common mistakes
 
 * Using RPO_max (k·τ + L_hard) where the expected lost work is asked for; the two differ by a factor
-  of ~4 for the two-level strategy (2,631 s vs 689 s).
+  of ≈ 4 for the two-level strategy (2,631 s vs 689 s).
 * Applying k to the soft-failure term of E_lost: soft failures restore from the local copy taken
   every τ, so only the hard-failure term uses k·τ/2.
 * Forgetting the `- d` term in Daly or computing `sqrt(d/2M)` as `sqrt(d)/2M`.

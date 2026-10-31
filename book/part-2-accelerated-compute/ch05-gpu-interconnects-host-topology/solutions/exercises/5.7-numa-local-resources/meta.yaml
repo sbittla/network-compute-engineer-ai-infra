@@ -1,0 +1,17 @@
+id: '5.7'
+title: What must be NUMA-local
+folder: 5.7-numa-local-resources
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: three items with commands.
+marking:
+- criterion: Host memory for staging/pinned buffers, with numactl --hardware or numastat -p <pid>
+  points: 1
+- criterion: CPU threads of the rank, NCCL proxy and loaders, with taskset -cp <pid> or topo -m CPU Affinity
+  points: 1
+- criterion: NIC interrupts, with /proc/interrupts and /proc/irq/<n>/smp_affinity_list
+  points: 1
+lab_checks: []

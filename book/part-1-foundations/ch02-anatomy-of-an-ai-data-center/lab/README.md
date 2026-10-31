@@ -3,7 +3,7 @@
 ## 1. Goal and the real-world task it mirrors
 
 Before a GPU cluster is ordered, somebody has to turn a design intent ("32 eight-GPU nodes on a
-rail-optimized 400G fabric") into numbers that procurement, the network team, and the facilities
+rail-optimized 400G fabric") into numbers that procurement, the Fabric team, and the Facilities
 (MEP: mechanical, electrical, plumbing) engineer can all sign: how many servers, rack units, switches,
 ports, links, and optics; how many kilowatts per rack feed; how many litres per minute of coolant; how
 much storage bandwidth per GPU; and what single failure takes the whole cluster down.
@@ -61,10 +61,10 @@ Your code goes in `starter/capacity_model.py`. `load_inputs()` and three small h
 
 | File | Source it imitates | Notes |
 |---|---|---|
-| `design_intent.yaml` | Architecture team's design intent | Treat as the baseline for the BOM, power and capacity tasks. Not beyond question (Task 1). |
+| `design_intent.yaml` | Architecture review's design intent | Treat as the baseline for the BOM, power and capacity tasks. Not beyond question (Task 1). |
 | `facility_envelope.yaml` | MEP engineer of record | Circuit voltage, derating, power factor, transient margin, coolant and air properties, CDU, floor rating |
 | `rack_plan.csv` | Deployment planner | One row per rack, with planned IT load, circuits per side, breaker size, estimated weight |
-| `fabric_plan.csv` | Network team | One row per backend switch: ports, downlinks, uplinks |
+| `fabric_plan.csv` | Fabric team | One row per backend switch: ports, downlinks, uplinks |
 | `storage_plan.yaml` | Storage vendor sizing sheet | Per-server and quoted aggregate throughput |
 | `cluster_design.yaml` | Reliability review | Components, redundancy groups (`members`, `min_required`), and services |
 
@@ -158,7 +158,7 @@ the written interpretation, which instructors grade from `solutions/exercises-ke
 
 ## 8. Extensions (L2/L3, hardware-backed)
 
-> **Safety:** These extensions are **read-only** unless you have written authorisation for the
+> **Safety:** These extensions are **read-only** unless you have written authorization for the
 > specific machine. Never change power limits, PDU settings, or CDU setpoints on shared or production
 > equipment. Power-capping experiments belong on a dedicated lab server with the owner's approval.
 
@@ -202,13 +202,13 @@ power or thermal clock-event reason.
 
 ### L3 — Rack and CDU budget validation (lab hall, with facilities sign-off)
 
-With the facilities team present, run the same workload on every node in one rack and record per-feed
+With the Facilities team present, run the same workload on every node in one rack and record per-feed
 power from the metered rack PDUs (through the PDU's web/SNMP/Redfish interface as supported by its
 vendor), plus CDU secondary-loop (TCS) supply and return temperature and flow. Compute the measured
 heat to liquid as `ṁ · cp · (T_return − T_supply)` and compare with your modeled `rack_liquid_kw`; the
 difference is the real air-side heat. Record every field listed under `extensions` in
 `manifest.yaml`. Never trip a breaker on purpose: single-feed tests are tabletop exercises unless the
-facilities team runs them as part of formal commissioning.
+Facilities team runs them as part of formal commissioning.
 
 ## 9. Instructor notes
 

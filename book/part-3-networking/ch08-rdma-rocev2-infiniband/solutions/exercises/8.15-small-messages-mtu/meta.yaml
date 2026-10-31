@@ -1,0 +1,23 @@
+id: '8.15'
+title: Small messages work, large ones do not
+folder: 8.15-small-messages-mtu
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: computed
+points: 20
+evidence_required: hypotheses ranked with reasons; real commands; packet-size arithmetic showing which
+  sizes fit; fix routed through the Fabric team with change control; validation criteria.
+marking:
+- criterion: '(a) Three hypotheses ranked with reasons: switch-port MTU 1500 first; QoS/PFC and optics
+    ruled down; host MTU excluded by evidence'
+  points: 5
+- criterion: (b) Two safe discriminating tests with real commands (DF ping 8,972 vs 1,472; ib_write_bw
+    -m 1024)
+  points: 5
+- criterion: '(c) Packet-size arithmetic: 1,024-byte message → 1,084 B ≤ 1,500 passes; 2,048 → 2,108 B
+    dropped; pingpong default MTU 1,024 explained'
+  points: 6
+- criterion: (d) Fix through the Fabric team with change control and measurable validation
+  points: 4
+lab_checks: []

@@ -1,0 +1,12 @@
+TODO bubble_fraction: implement bubble_fraction
+TODO validate_config: implement validate_config
+TODO memory_baseline: implement memory_per_gpu
+TODO memory_traps: implement memory_per_gpu
+TODO allreduce_time: implement allreduce_time_s
+TODO comm_volumes_baseline: implement comm_model
+TODO step_time_baseline: implement step_time
+TODO evaluate_and_recommend: implement validate_config
+TODO young_daly: implement young_daly_interval_s
+TODO reliability_table: implement young_daly_interval_s
+
+0/10 checks passed (starter)

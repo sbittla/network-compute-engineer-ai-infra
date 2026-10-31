@@ -1,0 +1,25 @@
+id: '4.12'
+title: Identify the bottleneck class from a trace
+folder: 4.12-bottleneck-classes-from-trace
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: four findings, each with quoted evidence (row IDs, durations, bytes, metric values).
+marking:
+- criterion: 'Launch overhead: optimizer_step comb of 600 grid-4 kernels, about 2.6 µs median duration
+    vs about 9.3 µs launch interval'
+  points: 2
+- criterion: 'Memory-transfer cost: 100,663,296 B pageable H2D copy (row 1) taking about 8.26 ms, about
+    12.2 GB/s vs about 48 GB/s pinned'
+  points: 2
+- criterion: 'Occupancy constraint: layernorm_bwd_fused_kernel 256 threads, 168 registers, registers limit
+    12 warps = 1 block = 12.5 %'
+  points: 2
+- criterion: 'Memory-bandwidth bottleneck: the same kernel at about 723-725 GB/s = about 21.6 % of 3.35
+    TB/s'
+  points: 2
+- criterion: Every finding quotes row IDs, durations, bytes or metric values and carries an evidence label
+  points: 2
+lab_checks: []

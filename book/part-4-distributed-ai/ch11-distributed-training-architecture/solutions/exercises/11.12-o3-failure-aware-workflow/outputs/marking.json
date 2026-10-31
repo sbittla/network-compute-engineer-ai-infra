@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "a table of the eight numbers per scenario, a state diagram or numbered procedure, and an investment recommendation justified by the numbers.",
+  "id": "11.12",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "τ_opt, waste at τ_opt and at 4 h, failures/day, lost s, GPU-h per failure and per day for all four scenarios (XL 4 h invalid)",
+      "points": 8
+    },
+    {
+      "criterion": "Restart procedure: detection, isolation, replacement, restore, validation",
+      "points": 6
+    },
+    {
+      "criterion": "Retry/quarantine policy with concrete limits",
+      "points": 3
+    },
+    {
+      "criterion": "Investment argument from the waste decomposition (R dominates at XL; async C at 256)",
+      "points": 3
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Failure-aware training workflow",
+  "type": "outline-mandated"
+}

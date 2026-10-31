@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four one-sentence definitions and the two answers.",
+  "id": "4.1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "SM defined as the replicated compute unit with its own warp schedulers, register file, shared memory/L1 and Tensor Cores",
+      "points": 1
+    },
+    {
+      "criterion": "Warp defined as 32 threads issued one instruction at a time (SIMT)",
+      "points": 1
+    },
+    {
+      "criterion": "Thread block (CTA, up to 1,024 threads, resident on one SM, shares shared memory and barriers) and grid (all blocks of one launch) defined",
+      "points": 1
+    },
+    {
+      "criterion": "(a) Unit of placement on hardware is the thread block",
+      "points": 1
+    },
+    {
+      "criterion": "(b) Unit of instruction issue is the warp (not the thread)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "SM, warp, thread block and grid",
+  "type": "knowledge-check"
+}

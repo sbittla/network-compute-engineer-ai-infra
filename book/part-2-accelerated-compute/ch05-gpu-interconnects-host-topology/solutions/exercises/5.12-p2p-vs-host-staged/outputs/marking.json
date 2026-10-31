@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "annotated lists, four times, NUMA argument.",
+  "id": "5.12",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) NVLink P2P: one DMA GPU2 HBM → GPU6 HBM, event completion; host-staged pinned: D2H, event/sync, H2D with memory locations",
+      "points": 3
+    },
+    {
+      "criterion": "(b) pageable: extra CPU copies through the driver's bounce buffer and host-blocking calls",
+      "points": 2
+    },
+    {
+      "criterion": "(c) NVLink 11.6 ms; host-staged unpipelined 165.2 ms; pipelined in 64 MiB chunks about 83.9 ms; labelled [MODELED]",
+      "points": 3
+    },
+    {
+      "criterion": "(d) GPU2 is on socket 0 and GPU6 on socket 1, so either buffer placement puts one leg across the inter-socket link",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "P2P versus host-staged transfer",
+  "type": "outline-mandated"
+}

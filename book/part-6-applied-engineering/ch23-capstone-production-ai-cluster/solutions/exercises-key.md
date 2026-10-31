@@ -30,7 +30,7 @@ a failed PDU feed concentrating load on the other feed.
 **K5.** (a) Rack power failure: 4 nodes × 8 = 32 GPUs (12.5 % of 256); only jobs with ranks in that
 rack are affected. (b) Rail-leaf failure: 0 GPUs lost, but NIC *r* of every one of the 32 nodes
 loses connectivity, so every multi-node job using rail *r* hangs or fails (plan for job-fatal). The
-difference: rail-optimised wiring makes a single switch a cross-cutting logical dependency of every
+difference: rail-optimized wiring makes a single switch a cross-cutting logical dependency of every
 node, while a rack is a physically local group.
 
 **K6.** D is scored high when the failure is *hard* to detect. Multiplying by D pushes quiet failures
@@ -55,8 +55,8 @@ simulator does not capture. *Common mistake:* labelling (d) MEASURED because "we
 2. Leaf ports: 34 down + 32 up = 66 > 64 ✗. Keeping both spares cabled needs 34 downlinks, so
    uplinks ≤ 64 − 34 = 30; equal per spine across 4 spines needs a multiple of 4 → 28 uplinks
    (7 per spine). Ports used 34 + 28 = 62 (2 free).
-   - Oversubscription, all 34 active: 34 : 28 = 1.214 : 1. With the spares idle: 32 : 28 =
-     1.143 : 1. (For rail-aligned W-TRAIN traffic, which stays inside the leaf, this has
+   - Oversubscription, all 34 active: 34:28 = 1.214:1. With the spares idle: 32:28 =
+     1.143:1. (For rail-aligned W-TRAIN traffic, which stays inside the leaf, this has
      negligible effect; it matters for cross-rail traffic.)
    - Spine ports: 8 leaves × 7 = 56 of 64.
    - Backend cables: 8 × (34 + 28) = 496 (272 host–leaf + 224 leaf–spine). The bundle's 512 is
@@ -110,7 +110,7 @@ simulator does not capture. *Common mistake:* labelling (d) MEASURED because "we
 | 16 | COMP-002 | assumptions.yaml:A-07.validation | No validation plan for MTBF | Decision-critical assumption untestable |
 | 17 | COMP-002 | slos.yaml:SLO-03.window | No window | SLO not evaluable |
 | 18 | FD-001 | failure_domains.yaml:FD-06 | Storage metadata, redundancy none, no mitigation | Unmitigated SPOF |
-| 19 | FD-002 | failure_domains.yaml:scheduler | Class not analysed | Control-plane blind spot |
+| 19 | FD-002 | failure_domains.yaml:scheduler | Class not analyzed | Control-plane blind spot |
 | 20 | SLO-001 | slos.yaml:SLO-04.target | target "low" | Unmeasurable SLO |
 
 Counts: 6 blocker (COMP-001, GPU-001, GPU-002, PORT-001, POWER-001 × 2), 14 major. Gate FAIL.
@@ -123,7 +123,7 @@ Counts: 6 blocker (COMP-001, GPU-001, GPU-002, PORT-001, POWER-001 × 2), 14 maj
   Not FD-001.
 - `design.md` L28 contains "356 GB/s busbw (B-02) … 328 GB/s (B-04)": numbers attributed by ID; not NUM-001
   (the B-04 problem is caught by EVID-004 instead).
-- `design.md` L19 "10.2 kW [VENDOR-SPEC, 2026-10]" is labelled; L20 relies on A-09.
+- `design.md` L19 "10.2 kW `[VENDOR-SPEC, 2026-10]`" is labelled; L20 relies on A-09.
 - `B-06` (linter runtime, MEASURED, L1, unit s) is a legitimate laptop measurement.
 - The reference bundle must produce zero findings; any finding there is a false positive.
 
@@ -198,8 +198,9 @@ tied to the inference roadmap. *Marking:* arithmetic 10, ADR quality 6, recommen
 
 **M1.** Grade with [`capstones/RUBRIC.md`](../../../../capstones/RUBRIC.md) and the chosen brief. Pass
 ≥ 70/100 with no score below 50 % on technical correctness or measurement; distinction ≥ 90 with
-reproducible evidence. Automatic deductions: any `[MEASURED]` physical claim from L1 (measurement
-dimension capped at 50 %); linter gate FAIL without waivers.
+reproducible evidence. Automatic deductions: any `[MEASURED]` physical claim from L1 (R4 measurement
+dimension capped at 40 %, i.e. 8/20, which alone fails the capstone; `capstones/RUBRIC.md` Section 1);
+linter gate FAIL without waivers.
 
 **M2.** Full marks need: reviewers who are not authors; findings written *before* the meeting with
 severities; contested findings discussed; explicit outcome; conditions with owners/dates; evidence

@@ -7,7 +7,7 @@ paged twice for TTFT (time to first token) SLO breaches on a canary pool. You ha
 each one matches work an inference infrastructure engineer does in a normal week:
 
 1. **Capacity model (Part A).** Build the spreadsheet-killer: a small, tested Python model that
-   turns model shape, precision, tensor parallelism (TP), and HBM size into KV-cache budget,
+   turns model shape, precision, tensor parallelism (TP), and HBM size into KV cache budget,
    maximum concurrent sequences, prefill time, and the HBM-bandwidth bound on decode throughput.
    Then use it to compare two serving configurations and recommend one for a latency-sensitive
    objective and another for a throughput-oriented one.
@@ -24,7 +24,7 @@ each one matches work an inference infrastructure engineer does in a normal week
 ## 2. Tier and realism boundary
 
 **Tier L1** (laptop, no GPU). Parts A and C produce `[MODELED]` numbers from stated formulas and
-the assumptions in `data/configs.yaml`. Part B analyses a `[SIMULATED]` trace produced by
+the assumptions in `data/configs.yaml`. Part B analyzes a `[SIMULATED]` trace produced by
 a seeded generator (instructor copy only, `tools/generate_trace.py`). That script is a discrete-event simulator of four continuous-batching
 replicas with a paged KV cache and recompute preemption.
 
@@ -50,7 +50,7 @@ Python 3.10 or newer. The checker finishes in a few seconds.
 |---|---|
 | Request lifecycle, TTFT/TPOT/ITL/goodput definitions | Section 15.1, Section 15.7 |
 | Prefill vs decode arithmetic intensity | Section 15.2 |
-| KV-cache sizing and memory budget | Section 15.3 |
+| KV cache sizing and memory budget | Section 15.3 |
 | Continuous batching, paged KV cache, preemption | Section 15.4, Section 15.5 |
 | Quantization effects on bytes moved | Section 15.6 |
 | Little's law, M/D/1 waiting, phase SLOs | Section 15.7 |
@@ -66,7 +66,7 @@ Python 3.10 or newer. The checker finishes in a few seconds.
 | `data/token_gaps.csv` | For a 5 % sample of requests (`request_id % 20 == 0`): `itl_ms`, the `;`-separated gaps between consecutive output tokens, in ms |
 | `data/replica_telemetry.csv` | Every 5 s per replica: `num_running, num_waiting, kv_usage_pct, gpu_busy_pct, preemptions_total` (cumulative counter) |
 
-The canary pool is four replicas (`r0`–`r3`), each serving W-INFER at **TP=2 with FP8 weights** on
+The canary pool is four replicas (`r0`–`r3`), each serving W-INFER at **TP = 2 with FP8 weights** on
 two GPUs of one HX8 node (`orion-n29`, one of the 8 nodes in the Kubernetes inference partition;
 W-TRAIN is not running at full size while it serves). The scheduler admits at most 48 concurrent sequences per
 replica, and chunked prefill is disabled.
@@ -85,9 +85,9 @@ The loaders are already written for you.
 
 1. `kv_bytes_per_token`. *Accept:* 327,680 B for W-INFER BF16 KV and 163,840 B for FP8 KV.
 2. `kv_budget_bytes`, `max_concurrent_sequences`. *Accept:* 420 GB → 312 sequences of 4,096
-   tokens (TP=8 BF16); 210 GB → 156 (TP=4 FP8); 70 GB → 52 (TP=2 FP8).
+   tokens (TP = 8 BF16); 210 GB → 156 (TP = 4 FP8); 70 GB → 52 (TP = 2 FP8).
 3. `prefill_time_s`, `decode_step_time_s`, `decode_tokens_per_s`. *Accept:* a 2,048-token prefill
-   on TP=8 BF16 at 40 % MFU takes about 90.6 ms. The decode-step lower bound at batch 32 and
+   on TP = 8 BF16 at 40 % MFU takes about 90.6 ms. The decode-step lower bound at batch 32 and
    context 2,176 is about 6.08 ms.
 4. `compare_serving_configs`, `recommend_config`. *Accept:* the latency objective selects
    `L-tp8-bf16` and the throughput objective selects `T-tp4-fp8`. In your report, explain *why*

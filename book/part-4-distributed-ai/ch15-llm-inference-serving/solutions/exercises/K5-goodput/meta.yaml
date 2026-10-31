@@ -1,0 +1,18 @@
+id: K5
+title: Goodput
+folder: K5-goodput
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: both definitions and a concrete scenario
+marking:
+- criterion: 'DistServe definition: maximum request rate at which a target fraction meets both TTFT and
+    TPOT SLOs'
+  points: 1
+- criterion: 'Operational definition: SLO-meeting requests per second on a trace'
+  points: 1
+- criterion: Concrete scenario where throughput rises while goodput falls, with numbers
+  points: 2
+lab_checks: []

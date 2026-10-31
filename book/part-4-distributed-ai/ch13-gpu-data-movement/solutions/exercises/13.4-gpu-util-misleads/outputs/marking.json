@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "mechanism + two metrics",
+  "id": "13.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Defines utilization.gpu as the fraction of sample time in which any kernel ran",
+      "points": 1
+    },
+    {
+      "criterion": "Explains that NCCL kernels spin on flags while waiting, so the GPU counts as busy",
+      "points": 2
+    },
+    {
+      "criterion": "Names DCGM SM active or tensor-pipe active as a better metric",
+      "points": 1
+    },
+    {
+      "criterion": "Names per-rank phase timings (wait vs transfer vs compute) as a better metric",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Why utilization.gpu stays near 100 %",
+  "type": "knowledge-check"
+}

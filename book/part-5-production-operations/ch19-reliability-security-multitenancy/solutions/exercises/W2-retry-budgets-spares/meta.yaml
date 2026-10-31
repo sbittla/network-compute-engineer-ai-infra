@@ -1,0 +1,21 @@
+id: W2
+title: Retry budgets and spares
+folder: W2-retry-budgets-spares
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 12
+evidence_required: arithmetic for each part; a recommendation with its trade-off
+marking:
+- criterion: (a) 4.096 µs × 2^20 = 4.295 s per attempt; budget 8 × 4.295 ≈ 34.4 s; all four flaps survived
+  points: 3
+- criterion: (b) dead-peer detection 25.8 s later, ≈ 29.3 GPU-h per event vs 683 GPU-h watchdog; flaky link stays
+    in service
+  points: 3
+- criterion: (c) 8 failures/day; Poisson means 24 and 40; p99 k = 36 (7.0 %) and k = 55 (10.7 %)
+  points: 4
+- criterion: Recommendation with trade-off (ride-through plus flap-rate quarantine; pool is extra capex outside
+    the partition)
+  points: 2
+lab_checks: []

@@ -1,0 +1,21 @@
+id: R4
+title: What L1 cannot show about GPUDirect RDMA
+folder: R4-gdr-evidence-gap
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: concise written answers, each naming the evidence (or missing evidence) it relies on.
+marking:
+- criterion: States what the L1 bundle shows (correlation, bounce-copy metric, channel lines, lsmod) and that it
+    cannot quantify lost bandwidth
+  points: 1
+- criterion: 'L2 evidence: peer-memory module absent AND DMA-BUF unavailable on that stack'
+  points: 1
+- criterion: 'L3 evidence: all_reduce_perf R550 vs R570 with and without the module, >= 5 runs, busbw median and
+    spread'
+  points: 1
+- criterion: Channel lines with /GDRDMA recorded with a manifest
+  points: 1
+lab_checks: []

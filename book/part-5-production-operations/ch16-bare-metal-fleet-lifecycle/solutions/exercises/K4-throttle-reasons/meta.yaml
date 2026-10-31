@@ -1,0 +1,18 @@
+id: K4
+title: SW Power Cap versus SW Thermal Slowdown
+folder: K4-throttle-reasons
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: The failing reason; why the other is normal; two plausible physical causes.
+marking:
+- criterion: Identifies SW Thermal Slowdown on GPU 6 as the failing reason
+  points: 2
+- criterion: Explains SW Power Cap is normal under full load (GPU at its 700 W limit)
+  points: 1
+- criterion: Two plausible physical causes for GPU 6 (fan/airflow obstruction, blanking panel/recirculation,
+    heatsink contact, high inlet)
+  points: 2
+lab_checks: []

@@ -1,0 +1,19 @@
+id: K6
+title: Incident commander and communications lead
+folder: K6-incident-roles
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: Two reasons; cadence from Table 18.8; one example status update.
+marking:
+- criterion: Two reasons the IC does not debug (global view/tunnel vision; decisions need someone not
+    invested in a hypothesis)
+  points: 2
+- criterion: 'SEV2 cadence 60 minutes, content: impact, scope, status, next update time, no speculative
+    cause'
+  points: 1
+- criterion: A correct example status update
+  points: 1
+lab_checks: []

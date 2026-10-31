@@ -1,0 +1,19 @@
+id: 17-R2
+title: Decayed usage versus instantaneous share
+folder: 17-R2-decayed-fair-share
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: The mechanism and a reasoned answer.
+marking:
+- criterion: 'Mechanism: usage decays with a 7-day half-life, so recent history (not the instant) drives
+    the factor'
+  points: 2
+- criterion: 'Consequence: idle-all-week tenants score high; heavy recent users score low even with nothing
+    running'
+  points: 1
+- criterion: Reasoned choice of the Monday beneficiary (research/finetune) and pretrain ranking lower
+  points: 2
+lab_checks: []

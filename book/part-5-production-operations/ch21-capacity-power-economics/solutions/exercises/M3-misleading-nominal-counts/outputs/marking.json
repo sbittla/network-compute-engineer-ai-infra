@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "table: bottleneck, mechanism, example number, telemetry that reveals it.",
+  "id": "M3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least six bottlenecks including power, cooling, reserves, fragmentation, network, storage, onboarding",
+      "points": 3
+    },
+    {
+      "criterion": "Correct mechanism for each",
+      "points": 2
+    },
+    {
+      "criterion": "A quantified ORION/ORION-XL example for each",
+      "points": 3
+    },
+    {
+      "criterion": "Telemetry that reveals each",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Misleading nominal counts",
+  "type": "outline-mandated"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer (2–5 sentences) that names the mechanism, not just the term.",
+  "id": "20.1.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "All five layers named in order: syntax, schema, cross-object policy, pre-deployment analysis, post-deployment verification",
+      "points": 2
+    },
+    {
+      "criterion": "A layer-3-only ORION defect (PFC priority vs RoCE priority, host_mtu + 22 > port_mtu, CNP class)",
+      "points": 1
+    },
+    {
+      "criterion": "Explains that each value is valid alone and only the relationship is wrong",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Five validation layers",
+  "type": "knowledge-check"
+}

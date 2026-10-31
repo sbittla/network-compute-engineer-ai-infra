@@ -115,7 +115,7 @@ lifecycle decision with justification.
 
 **DC1 ★★★ (L1) — Tiered return-to-service.** Full acceptance takes ≈ 25 h. Repair data show that 60 %
 of repairs are optic/cable swaps, 25 % NIC swaps, 10 % GPU or baseboard swaps, and 5 % DIMM/NVMe
-swaps [ILLUSTRATIVE]. Design a *tiered* re-acceptance policy that picks the acceptance depth from
+swaps `[ILLUSTRATIVE]`. Design a *tiered* re-acceptance policy that picks the acceptance depth from
 what was replaced, without weakening the "only through `validated`" rule. Estimate the average
 re-acceptance time under your policy versus full acceptance, and identify the failure mode your
 policy could miss and how you would detect it in production.

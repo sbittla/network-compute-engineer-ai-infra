@@ -1,0 +1,19 @@
+id: '13.6'
+title: Eight NICs retransmitting at the same step
+folder: 13.6-correlated-retransmissions
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: probability argument (one sentence) and the component
+marking:
+- criterion: 'Probability argument: independent simultaneous failures have joint probability about p^8,
+    negligible'
+  points: 2
+- criterion: 'Identifies the shared component: the rail leaf (orion-be-leaf-r2), its configuration or
+    optics batch'
+  points: 2
+- criterion: Proposes a confirming check (leaf port counters, recent change, other rails clean)
+  points: 1
+lab_checks: []

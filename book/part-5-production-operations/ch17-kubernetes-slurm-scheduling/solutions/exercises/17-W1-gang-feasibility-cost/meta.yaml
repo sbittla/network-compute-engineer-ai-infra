@@ -1,0 +1,23 @@
+id: 17-W1
+title: Gang feasibility and cost
+folder: 17-W1-gang-feasibility-cost
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: Every step as formula → substitution → result with units.
+marking:
+- criterion: 1. Naive 60 GPUs; eligible 52 after excluding draining p07
+  points: 1
+- criterion: 2. Largest gang 3 whole eligible nodes = 24 GPUs
+  points: 1
+- criterion: 3. Fragmentation (52 ≥ 32 eligible free but 3 < 4 whole nodes)
+  points: 1
+- criterion: 4. Best fit p05 (0 left)
+  points: 1
+- criterion: 5. 32 GPUs stranded; 160 GPU-hours; $400 [ILLUSTRATIVE price]
+  points: 2
+- criterion: 6. 128 × (22.5 + 15) min = 80 GPU-hours per preemption
+  points: 2
+lab_checks: []

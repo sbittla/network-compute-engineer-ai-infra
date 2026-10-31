@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the arithmetic per option; an ADR (context, options, decision, evidence, consequences, revisit trigger)",
+  "id": "D1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Option arithmetic: leaves, spines, port usage and oversubscription for A, B and C",
+      "points": 6
+    },
+    {
+      "criterion": "Backend cable counts, spine-crossing traffic per option, racks (12) and GPU-node power (489.6 kW)",
+      "points": 4
+    },
+    {
+      "criterion": "ADR complete: context, options, decision, evidence, consequences, observable revisit trigger",
+      "points": 6
+    },
+    {
+      "criterion": "Recommendation logic tied to the inference roadmap (cross-rail KV transfer) and SKU qualification",
+      "points": 4
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Growing ORION to 48 nodes",
+  "type": "design-challenge"
+}

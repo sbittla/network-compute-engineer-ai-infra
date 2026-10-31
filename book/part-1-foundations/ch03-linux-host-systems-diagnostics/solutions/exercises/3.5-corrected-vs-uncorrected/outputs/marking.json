@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "A table with five rows, event, consequence, rule type, suggested first action.",
+  "id": "3.5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "AER corrected, link-level retry, rate-based rule per BDF, correlate with LnkSta",
+      "points": 1
+    },
+    {
+      "criterion": "AER uncorrected non-fatal, transaction failed, presence rule, drain at next checkpoint",
+      "points": 1
+    },
+    {
+      "criterion": "AER uncorrected fatal, link unreliable, presence rule, drain immediately and RMA path",
+      "points": 1
+    },
+    {
+      "criterion": "EDAC CE, corrected DRAM error predicting a UE, rate per DIMM, trend and plan replacement",
+      "points": 1
+    },
+    {
+      "criterion": "EDAC UE, data loss or crash, presence rule, drain and replace the DIMM",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Corrected versus uncorrected",
+  "type": "knowledge-check"
+}

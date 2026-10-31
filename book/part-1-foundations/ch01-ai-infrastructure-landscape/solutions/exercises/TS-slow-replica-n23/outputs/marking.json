@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "Ranked hypotheses with for/against evidence; mechanism paragraph; two tests with expected outcomes; remediation with a measurable validation criterion; explicit statement of what is proven versus correlated.",
+  "id": "TS",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least three hypotheses across compute, network and orchestration, ranked with evidence for and against; GPU 5 NVLink loss ranked first and the replay counter treated as a watch item",
+      "points": 4
+    },
+    {
+      "criterion": "Mechanism explains that 160 sequential TP all-reduces per step wait for the slowest GPU and that small, latency-bound messages make decode sensitive (about 44 us extra per all-reduce)",
+      "points": 4
+    },
+    {
+      "criterion": "Two safe, read-only discriminating tests with expected results under the top hypothesis",
+      "points": 4
+    },
+    {
+      "criterion": "Remediation (drain, hand off, return after acceptance), a measurable validation criterion, and an explicit proven-versus-correlated statement",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Slow inference replica orion-n23",
+  "type": "troubleshooting"
+}

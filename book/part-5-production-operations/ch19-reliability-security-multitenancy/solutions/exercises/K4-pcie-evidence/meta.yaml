@@ -1,0 +1,21 @@
+id: K4
+title: PCIe evidence
+folder: K4-pcie-evidence
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 6
+evidence_required: three definitions; bandwidth before/after in GB/s per direction
+marking:
+- criterion: 'Correctable AER: handled by the link layer (replay), counted only'
+  points: 1
+- criterion: 'Uncorrectable non-fatal: a transaction lost, link still usable, driver must recover'
+  points: 1
+- criterion: 'Uncorrectable fatal: link unreliable, device reset or retrain needed'
+  points: 1
+- criterion: Gen5 x16 ≈ 63 GB/s per direction theoretical (≈ 50–55 achievable) with the 128b/130b arithmetic
+  points: 1
+- criterion: x8 ≈ 31.5 GB/s theoretical (≈ 25–27 achievable), below a 400 Gb/s (50 GB/s) NIC's line rate
+  points: 2
+lab_checks: []

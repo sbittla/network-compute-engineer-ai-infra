@@ -1,0 +1,20 @@
+id: '4.4'
+title: Pageable versus pinned cudaMemcpyAsync
+folder: 4.4-pageable-vs-pinned-copies
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: bandwidth, host-blocking and overlap arguments.
+marking:
+- criterion: 'Bandwidth: driver stages through a pinned bounce buffer with a CPU memcpy (about 10-25 GB/s
+    vs about 50 GB/s pinned on Gen5 x16)'
+  points: 1
+- criterion: 'Host blocking: the call returns only after staging (or after completion for D2H), so the
+    CPU cannot run ahead'
+  points: 1
+- criterion: 'No overlap: the copy serializes with the stream and cannot run concurrently with kernels
+    on a side stream'
+  points: 1
+lab_checks: []

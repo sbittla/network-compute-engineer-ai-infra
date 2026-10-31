@@ -51,7 +51,7 @@ output tokens/s and the rejection rate. Pass a `hw_prefill` / `hw_decode` (or `h
 | `data/hardware.csv` | Accelerator profiles: H100-class (ORION) and two hypothetical classes, with `[ILLUSTRATIVE]` prices |
 | `data/links.csv` | KV transport profiles (line rate, unit, NIC count, efficiency, per-transfer overhead) |
 | `data/qos_proposal.yaml` | The Fabric team's proposed QoS mapping for KV traffic |
-| `data/slo.yaml`, `data/config.yaml` | SLOs, target rate, utilisation cap, candidate deployments |
+| `data/slo.yaml`, `data/config.yaml` | SLOs, target rate, utilization cap, candidate deployments |
 
 ## 6. Tasks
 
@@ -60,7 +60,7 @@ output tokens/s and the rejection rate. Pass a `hw_prefill` / `hw_decode` (or `h
 | **T1** KV size | `kv_cache_bytes` | 327,680 B/token from model dimensions | 6 |
 | **T2** Links | `link_capacity` | Achievable GB/s per instance; implausible profiles rejected with a reason | 10 |
 | **T3** Roofline and transfer | `prefill_time_s`, `decode_step_time_s`, `kv_capacity_tokens`, `kv_transfer_exposed_s` | Match the documented formulas | 16 |
-| **T4** Capacity and bottleneck | `size_pools`, `utilizations` | Pool sizes, decode batch and KV bandwidth; utilisation of prefill, decode, KV egress *and decode-side fan-in*; bottleneck at 30 req/s (and when it moves to the network); model within 5 % of simulation over the same window | 20 |
+| **T4** Capacity and bottleneck | `size_pools`, `utilizations` | Pool sizes, decode batch and KV bandwidth; utilization of prefill, decode, KV egress *and decode-side fan-in*; bottleneck at 30 req/s (and when it moves to the network); model within 5 % of simulation over the same window | 20 |
 | **T5** Admission control | `admission_policy` | With 5P2D over RDMA: TTFT p95 ≤ 0.8 s, long TTFT p95 ≤ 3 s, TPOT p95 ≤ 50 ms, ITL p99 ≤ 100 ms, second-token gap p95 ≤ 100 ms, ≤ 10 % rejected | 18 |
 | **T6** Speculative decoding | `speculative_gain`, `best_draft_length`, `speculative_gain_at_batch` | Leviathan et al. expectation and best draft length; batch-aware speedup at the operating point (verification turns compute-bound) | 10 |
 | **T7** QoS audit | `audit_qos` | All findings on the proposal; a corrected design passes | 12 |
@@ -107,7 +107,7 @@ iperf3 -s                                             # node A
 iperf3 -c <nodeA_frontend_ip> -P 8 -t 30              # node B
 ```
 
-Record per rail: message size, achieved Gb/s (median of ≥ 5 runs), CPU utilisation for TCP, and
+Record per rail: message size, achieved Gb/s (median of ≥ 5 runs), CPU utilization for TCP, and
 whether GDR was actually used (a `/GDRDMA` channel suffix in NCCL logs if you also run NCCL tests).
 If your serving stack supports disaggregated prefill, measure TTFT, second-token latency and TPOT
 for 2k and 32k prompts with KV over RDMA and over TCP.

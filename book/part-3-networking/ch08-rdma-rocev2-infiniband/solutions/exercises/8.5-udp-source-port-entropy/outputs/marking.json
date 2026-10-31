@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "ECMP hashing mechanism; collision explanation; two mitigations with their trade-off.",
+  "id": "8.5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: source port is the per-QP entropy field hashed by ECMP; one QP stays on one path",
+      "points": 2
+    },
+    {
+      "criterion": "Collision explanation: two QPs per pair → few flows; QPNs and ports change run to run, so collisions and bandwidth vary",
+      "points": 1
+    },
+    {
+      "criterion": "Two mitigations, each with its trade-off (more QPs, rail-local placement, adaptive routing/spraying)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Entropy from the UDP source port",
+  "type": "knowledge-check"
+}

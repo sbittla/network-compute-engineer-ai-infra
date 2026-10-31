@@ -1,0 +1,25 @@
+{
+  "difficulty": 3,
+  "evidence_required": "slides with evidence labels visible per claim; failure-exercise report with TTD/TTM/TTR and lost GPU-hours (labelled by tier); backlog with scoring and rationale",
+  "id": "M3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Slides follow the Table 23.9 20-minute structure, one claim per slide, evidence label visible on each claim",
+      "points": 6
+    },
+    {
+      "criterion": "Failure-exercise report: hypothesis, signals, TTD/TTM/TTR and lost GPU-hours with the correct tier label",
+      "points": 7
+    },
+    {
+      "criterion": "Backlog scored (impact × confidence ÷ effort), safety/blocker items first, with a disputable rationale per item",
+      "points": 7
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Present evidence, failure exercise and backlog",
+  "type": "outline-mandated"
+}

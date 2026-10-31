@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "pre-read bundle, linter report, written findings with severities, the meeting outcome, conditions with owners and dates, and the updated bundle",
+  "id": "M2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least two reviewers who did not write the design; pre-read bundle and linter report circulated",
+      "points": 4
+    },
+    {
+      "criterion": "Findings written before the meeting, with severities, covering assumptions, ADRs, failure domains and operations (Table 23.7)",
+      "points": 6
+    },
+    {
+      "criterion": "Explicit outcome (approved / approved with conditions / rework); contested findings discussed",
+      "points": 4
+    },
+    {
+      "criterion": "Conditions with owners and dates, and evidence (diff or changelog) that the bundle was updated",
+      "points": 6
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Conduct a design review",
+  "type": "outline-mandated"
+}

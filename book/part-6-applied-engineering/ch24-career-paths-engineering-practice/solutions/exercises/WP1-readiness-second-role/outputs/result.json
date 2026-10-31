@@ -1,0 +1,112 @@
+{
+  "answer": {
+    "a_score_pct": 76.7,
+    "b_max_gap": 2,
+    "b_status": "near",
+    "c_gap_plan": [
+      {
+        "competency": "observability",
+        "gap": 2,
+        "priority": 6
+      },
+      {
+        "competency": "scheduling",
+        "gap": 1,
+        "priority": 2
+      },
+      {
+        "competency": "storage_ckpt",
+        "gap": 1,
+        "priority": 1
+      }
+    ],
+    "d_max_gap": 1,
+    "d_score_pct": 90.0,
+    "d_status": "ready"
+  },
+  "evidence_label": "MODELED",
+  "id": "WP1",
+  "inputs": {
+    "levels": {
+      "automation": 3,
+      "communication": 3,
+      "linux_host": 2,
+      "observability": 1,
+      "reliability_security": 2,
+      "scheduling": 1,
+      "storage_ckpt": 1
+    },
+    "role": "sre_ops",
+    "seniority": "mid",
+    "thresholds": {
+      "near_min_score": 70.0,
+      "ready_max_gap": 1,
+      "ready_min_score": 85.0
+    }
+  },
+  "steps": {
+    "sum_w": 15,
+    "sum_w_x_fraction": 11.5,
+    "table": [
+      {
+        "competency": "observability",
+        "d": 1,
+        "fraction": 0.333,
+        "t": 3,
+        "w": 3,
+        "w_x_fraction": 1.0
+      },
+      {
+        "competency": "reliability_security",
+        "d": 2,
+        "fraction": 1.0,
+        "t": 2,
+        "w": 3,
+        "w_x_fraction": 3.0
+      },
+      {
+        "competency": "automation",
+        "d": 3,
+        "fraction": 1.0,
+        "t": 2,
+        "w": 2,
+        "w_x_fraction": 2.0
+      },
+      {
+        "competency": "scheduling",
+        "d": 1,
+        "fraction": 0.5,
+        "t": 2,
+        "w": 2,
+        "w_x_fraction": 1.0
+      },
+      {
+        "competency": "storage_ckpt",
+        "d": 1,
+        "fraction": 0.5,
+        "t": 2,
+        "w": 1,
+        "w_x_fraction": 0.5
+      },
+      {
+        "competency": "linux_host",
+        "d": 2,
+        "fraction": 1.0,
+        "t": 2,
+        "w": 2,
+        "w_x_fraction": 2.0
+      },
+      {
+        "competency": "communication",
+        "d": 3,
+        "fraction": 1.0,
+        "t": 2,
+        "w": 2,
+        "w_x_fraction": 2.0
+      }
+    ]
+  },
+  "units": {
+    "score": "% of weighted target"
+  }
+}

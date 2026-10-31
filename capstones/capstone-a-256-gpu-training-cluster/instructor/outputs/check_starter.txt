@@ -1,0 +1,18 @@
+PASS 01 load_inputs                     dataset loaded (13 racks, 32-node hostfile)
+TODO 02 fabric_counts option A          fabric_counts: count leaves/spines/links and raise design-rule warnings
+TODO 03 fabric_counts option B          fabric_counts: count leaves/spines/links and raise design-rule warnings
+TODO 04 vendor quote C is flagged       fabric_counts: count leaves/spines/links and raise design-rule warnings
+TODO 05 cable plan option A             cable_plan: enumerate host and fabric links with length and medium
+TODO 06 cable plan option B             cable_plan: enumerate host and fabric links with length and medium
+TODO 07 feed usable kW (units trap)     feed_usable_kw: sqrt(3)*V*I*PF*derate for 3-phase feeds
+TODO 08 rack power + 2N, option A       cable_plan: enumerate host and fabric links with length and medium
+TODO 09 rack power + 2N, option B       cable_plan: enumerate host and fabric links with length and medium
+TODO 10 cooling N+1 per row             cable_plan: enumerate host and fabric links with length and medium
+TODO 11 communication bytes             comm_step_model: bytes, contention, comm time and step time
+TODO 12 oversubscription vs rank layout comm_step_model: bytes, contention, comm time and step time
+TODO 13 step-time model                 comm_step_model: bytes, contention, comm time and step time
+TODO 14 bill of materials               cable_plan: enumerate host and fabric links with length and medium
+TODO 15 acceptance campaign size        cable_plan: enumerate host and fabric links with length and medium
+TODO 16 cost per million tokens         comm_step_model: bytes, contention, comm time and step time
+
+1/16 checks pass (15 TODO, 0 FAIL) [impl=starter]

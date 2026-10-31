@@ -1,0 +1,22 @@
+id: '4.3'
+title: Implicit host-device synchronization in PyTorch
+folder: 4.3-implicit-sync-patterns
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: four patterns, each with a one-line mechanism.
+marking:
+- criterion: 'Pattern 1 named with a correct mechanism (for example .item()/.cpu()/print: value copied
+    D2H, CPU waits)'
+  points: 1
+- criterion: Pattern 2 named with a correct mechanism (for example Python control flow on a tensor value)
+  points: 1
+- criterion: 'Pattern 3 named with a correct mechanism (for example data-dependent output shape: nonzero,
+    x[mask], unique)'
+  points: 1
+- criterion: Pattern 4 named with a correct mechanism (for example pageable copy, torch.cuda.synchronize,
+    empty_cache via cudaFree)
+  points: 1
+lab_checks: []

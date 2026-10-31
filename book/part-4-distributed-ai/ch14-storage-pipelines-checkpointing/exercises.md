@@ -60,12 +60,12 @@ barrier + metadata + commit. The team checkpoints synchronously every 15 minutes
 (a) Checkpoint size and per-GPU shard size. (b) Write time and blocking time. (c) Overhead %.
 (d) Worst-case RPO and expected lost work per failure. (e) They switch to asynchronous saves with a
 0.6 s snapshot and keep the 15-minute interval: what happens to overhead and RPO? (f) What interval
-would bring worst-case RPO to ~5 minutes, and what overhead would that cost (assume 3 %
+would bring worst-case RPO to ≈ 5 minutes, and what overhead would that cost (assume 3 %
 interference while persisting)? *Evidence required:* formula → substitution → result for each part.
 
 **14.9 Metadata-bound versus bandwidth-bound pipeline** ★★ · L1 **(outline)**
 A vision job on 16 HX8 nodes needs 2,000 images/s per GPU. The dataset is 40 million images averaging
-120 KB. The PFS metadata service sustains ~50,000 `open`/s for this job `[ILLUSTRATIVE]` and the PFS
+120 KB. The PFS metadata service sustains ≈ 50,000 `open`/s for this job `[ILLUSTRATIVE]` and the PFS
 reads 160 GB/s aggregate. Per sample: `open` 4.0 ms, `read` 0.6 ms, `close` 0.2 ms. Shard option:
 512 MiB shards read in 16 MiB requests of 12 ms each.
 (a) Required images/s and GB/s per node and cluster-wide. (b) For one file per image: requests in

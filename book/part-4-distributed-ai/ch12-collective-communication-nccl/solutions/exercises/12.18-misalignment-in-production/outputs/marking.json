@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Not stated in exercises.md; marked against the criteria below.",
+  "id": "12.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Idle fabric: cross-rail traffic finds free spine capacity; production spines carry other jobs",
+      "points": 1
+    },
+    {
+      "criterion": "ECMP collisions/congestion appear under load (Chapters 7 and 9)",
+      "points": 1
+    },
+    {
+      "criterion": "Host side: misaligned GPU↔NIC paths lose GPUDirect RDMA and consume inter-socket bandwidth others need",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Why misalignment costs more in production",
+  "type": "reflection"
+}

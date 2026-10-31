@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the modular-arithmetic argument and the resulting link set.",
+  "id": "7.K5",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Definition: correlated hash decisions at successive tiers so the lower tier sees only part of the hash space",
+      "points": 1
+    },
+    {
+      "criterion": "Modular argument: spine s receives only h mod 4 = s − 1, hence h mod 8 ∈ {s − 1, s + 3}",
+      "points": 2
+    },
+    {
+      "criterion": "Correct link set: orion-be-spine-1 uses k ∈ {0, 4}, i.e. 2 of 8 links (25 %)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Hash polarization",
+  "type": "knowledge-check"
+}

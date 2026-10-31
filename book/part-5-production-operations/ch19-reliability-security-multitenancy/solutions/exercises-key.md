@@ -31,7 +31,7 @@ needed. Gen5 x16 ≈ 63 GB/s per direction theoretical (≈ 50–55 GB/s achieva
 GB/s theoretical (≈ 25–27 achievable) — below a 400 Gb/s (50 GB/s) NIC's line rate.
 
 **K5.** Each rank's watchdog measures time since *its own* oldest incomplete collective; ranks block at
-different points so their timers expire in arbitrary order 10 min after the fault. Localise with the
+different points so their timers expire in arbitrary order 10 min after the fault. Localize with the
 flight recorder (ranks behind — minimum completed sequence) and the transport errors at stall onset
 (NET/IB status 12 endpoints).
 
@@ -68,11 +68,11 @@ on R.)
 **W2.**
 (a) Per attempt 4.096 µs × 2²⁰ = 4.295 s; budget ≈ 8 × 4.295 = 34.4 s. All four flaps (≤ 14 s) survive.
 (b) Real failures (dead peer, partition) are reported 34.4 − 8.6 = 25.8 s later: 25.8 s × 4,096 GPUs =
-29.4 GPU-h per event — small next to the 10-min watchdog (683 GPU-h) — but every flap now stalls the
+29.3 GPU-h per event — small next to the 10-min watchdog (683 GPU-h) — but every flap now stalls the
 whole job for up to 14 s *and the flaky link stays in service*. Recommendation: a longer IB timeout is a
 reasonable ride-through, **combined with** flap-rate quarantine (FMEA F03), since survival hides a
 component that will eventually fail hard. Accept other well-argued positions.
-(c) Failures/day = 512 × 24 / 1,536 = 8. Nodes in repair ~ Poisson(8 × MTTR). 3 days: mean 24, P99
+(c) Failures/day = 512 × 24 / 1,536 = 8. Nodes in repair ~ Poisson(8 × MTTR). 3 days: mean 24, p99
 quantile k = 36 (P(≤ 36) = 0.992) → 7.0 % of 512. 5 days (canonical): mean 40, k = 55 (P(≤ 55) = 0.990) →
 10.7 %. The pool sits outside the partition, so it is extra capex; a mean-sized pool (24 or 40) would run
 short roughly half the time. Common mistake: adding a flat margin instead of using the quantile.
@@ -99,13 +99,13 @@ short roughly half the time. Common mistake: adding a flat margin instead of usi
 2. *Real fault, not cause*: orionxl-n389 GPU3 Xid 63 / row remap pending at 02:58:41; its ranks completed
    88213. Must be reset before reuse, not blamed.
 3. *Healthy distractor*: orionxl-n046 GPU6 has one correctable remapped row, nothing pending — monitor only.
-4. *Background AER*: corrected Physical-Layer RxErr on orionxl-n451's NIC every ~40 min all night.
+4. *Background AER*: corrected Physical-Layer RxErr on orionxl-n451's NIC every ≈ 40 min all night.
 5. *Consequence*: orionxl-be-spine-p06-03 PFC spike at 03:41:20, after the link drop.
 6. *Survived flaps*: the 6 s and 5 s flaps did not hang the job (below the 8.6 s retry budget) — teaches
    the mechanism; the 14 s flaps did.
 7. *Repeat offender*: attempt 1 failed on the same link and was auto-restarted on the same nodes.
 8. *Unsafe checkpoint*: ckpt-0085 logged as "complete" with 4,096/4,096 shards but metadata uncommitted.
-9. *Spare pool (declared variation)*: the pool is 55 nodes (Poisson P99 at 5-day MTTR); 47 are already
+9. *Spare pool (declared variation)*: the pool is 55 nodes (Poisson p99 at 5-day MTTR); 47 are already
    standing in for nodes in repair, so `spares.csv` lists the 8 still assigned. *Unhealthy spares*: orionxl-s00 failed acceptance (DBE, remap failure in gpu_health), orionxl-s02 in repair,
    orionxl-s05 reserved.
 10. *FMEA data quality*: F07 detection 2 with control "none"; F11 occurrence 0 (out of range).
@@ -152,7 +152,7 @@ repair (Poisson); one DP replica = 8 nodes.
 
 | Option | Goodput (Young) | Capacity factor | Useful per fleet node |
 |---|---|---|---|
-| A: P99 pool of 55 outside the partition, R = 15 min | 1/19 + (9.5 + 15)/180 = 0.189 → 0.811 | 512 / 567 = 0.903 | 0.811 × 0.903 = 0.732 |
+| A: p99 pool of 55 outside the partition, R = 15 min | 1/19 + (9.5 + 15)/180 = 0.189 → 0.811 | 512 / 567 = 0.903 | 0.8113 × 0.9030 = 0.733 |
 | B, re-packed: ⌊472 / 8⌋ = 59 replicas, R = 5 min | 1/19 + (9.5 + 5)/180 = 0.133 → 0.867 | 59 / 64 = 0.922 | 0.799 |
 | B, not re-packed, expected: 64 × (1 − C(504,40)/C(512,40)) ≈ 30.8 replicas lost | 0.867 | 33.2 / 64 = 0.519 | 0.450 |
 | B, not re-packed, worst: 40 distinct replicas lost | 0.867 | 24 / 64 = 0.375 | 0.325 |
@@ -161,7 +161,7 @@ Divisibility: DP = 59 is prime, so a global batch sized for 64 replicas cannot b
 must change micro-batches or accumulation steps (changing the effective batch, hence the LR schedule) or
 run at the largest DP that divides the batch (e.g. 56 or 48), losing more replicas. Recommendation: B is
 only better *with* topology-aligned re-packing and a validated batch/LR policy for changing DP; otherwise
-A, or a hybrid (a smaller P90 pool of ≈ 48 for fast fixed-size restarts plus elastic fallback when it runs
+A, or a hybrid (a smaller p90 pool of ≈ 48 for fast fixed-size restarts plus elastic fallback when it runs
 dry). *Marking:* model 4, numbers 3, divisibility and recommendation 3.
 
 ## Reflection — guidance

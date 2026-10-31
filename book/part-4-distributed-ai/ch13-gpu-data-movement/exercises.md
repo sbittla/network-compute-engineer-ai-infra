@@ -19,7 +19,7 @@ prove it is active. *Evidence required:* four items and one sentence on proof.
 
 **13.3 ★ L1.** What do the topology labels PIX, PXB, PHB, and SYS mean for a GPU↔NIC pair, and which
 of them does NCCL use GPUDirect RDMA for by default? *Evidence required:* four definitions; answer
-labelled `[VENDOR-SPEC]`.
+labelled `[VENDOR-SPEC, YYYY-MM]`.
 
 **13.4 ★★ L1.** Explain why `utilization.gpu` stays near 100 % on a rank that is waiting for a
 straggler, and name two better metrics. *Evidence required:* mechanism + two metrics.

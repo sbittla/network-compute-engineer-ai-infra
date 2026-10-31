@@ -5,7 +5,7 @@
 A GPU cluster is a building-scale machine. This chapter takes the ORION reference cluster apart from
 the GPU to the utility feed: the HX8 server and where its 10.2 kW goes; racks, rows, and floor layout;
 the backend, frontend, and out-of-band networks and their bill of materials; the power chain (UPS,
-busway, PDUs, power shelves, PSUs) and redundancy modes; TDP, synchronised transients, and power
+busway, PDUs, power shelves, PSUs) and redundancy modes; TDP, synchronized transients, and power
 capping; air versus direct-to-chip liquid cooling with CDUs and `Q = ṁ · cp · ΔT` arithmetic; MEP
 interfaces, floor loading, commissioning, and ownership; and capacity, utilization, failure domains,
 and a first look at cost. Every figure is tied to stated assumptions, and the lab turns the chapter
@@ -60,6 +60,7 @@ interface diagram / MEP handoff checklist. See [exercises.md](exercises.md#chapt
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercises 2.1–2.11 with difficulty, tier, and evidence required |
+| [exercises/](exercises/README.md) | One learner folder per exercise (22; 2.1 and 2.11 split per question): verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: ORION capacity, BOM, power/cooling, and SPOF model |
 | `lab/manifest.yaml` | Environment manifest (tier, deps, seed, L2/L3 record fields) |
 | `lab/data/` | Six input sheets (generated, committed) |
@@ -68,6 +69,7 @@ interface diagram / MEP handoff checklist. See [exercises.md](exercises.md#chapt
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/exercises-key.md` | Instructor answer key, planted-flaw list, marking guidance |
 | `solutions/lab/capacity_model.py` | Reference implementation |
+| `solutions/exercises/` | Instructor folder per exercise: `meta.yaml` marking scheme, worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Course week

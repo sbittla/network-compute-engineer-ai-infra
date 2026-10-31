@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "kva_per_circuit": 43.128,
+    "kw_per_circuit": 32.777,
+    "kw_per_side": 65.555,
+    "rack_usable_kw_2n": 65.555,
+    "wrong_sum_of_sides_kw": 131.109
+  },
+  "evidence": "[MODELED]",
+  "inputs": {
+    "amps": 60,
+    "circuit_voltage_v": 415,
+    "circuits_per_side": 2,
+    "continuous_load_derate": 0.8,
+    "phases": 3,
+    "power_factor": 0.95,
+    "transient_margin": 0.1
+  },
+  "units": {
+    "apparent_power": "kVA",
+    "power": "kW"
+  }
+}

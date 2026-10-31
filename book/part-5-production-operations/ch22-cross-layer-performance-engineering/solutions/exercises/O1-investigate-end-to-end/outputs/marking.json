@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output; a corroboration table (cause × direct evidence × values); interaction coefficients with a one-sentence judgment.",
+  "id": "O1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) lab tasks 1–7 passing in the checker",
+      "points": 3
+    },
+    {
+      "criterion": "(b) corroboration table: one direct measurement per cause with numbers (backend tx, data wait/iowait, bounce copy/channel lines, ECC SBE)",
+      "points": 5
+    },
+    {
+      "criterion": "(c) tp_x_storage -1.30 ± 0.15 s and tp_x_driver +0.03 ± 0.13 s reported",
+      "points": 4
+    },
+    {
+      "criterion": "(c) judgment: keep tp_x_storage, drop tp_x_driver; additive-only model not defensible",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Investigate an end-to-end workload regression",
+  "type": "outline-mandated"
+}

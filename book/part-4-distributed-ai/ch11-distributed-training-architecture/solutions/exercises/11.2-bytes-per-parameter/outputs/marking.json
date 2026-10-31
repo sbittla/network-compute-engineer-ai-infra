@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "a breakdown and three numbers.",
+  "id": "11.2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Breakdown: 2 B BF16 weights, 2 B BF16 gradients, 12 B FP32 optimizer state (4 master + 4 m + 4 v)",
+      "points": 2
+    },
+    {
+      "criterion": "ZeRO-1 with DP = 8: 5.5 B",
+      "points": 1
+    },
+    {
+      "criterion": "ZeRO-2 with DP = 8: 3.75 B",
+      "points": 1
+    },
+    {
+      "criterion": "ZeRO-3 with DP = 8: 2.0 B (plus transient gather buffers)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Bytes per parameter",
+  "type": "knowledge-check"
+}

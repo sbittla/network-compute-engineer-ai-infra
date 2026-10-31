@@ -1,0 +1,31 @@
+id: '13.12'
+title: Cross-layer straggler diagnosis (lab)
+folder: 13.12-straggler-diagnosis-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 12
+evidence_required: checker output (10/10 PASS), findings table (cause, ranks, onset, evidence, owner,
+  fix, validation), amplification numbers, and the annotated diagram from 13.9
+marking:
+- criterion: Checker output shows 10/10 PASS
+  points: 4
+- criterion: Findings table covers data imbalance (rank 12, onset 0), thermal (rank 37, onset 20), rail
+    2 (onset 30) with evidence, owner, fix, validation
+  points: 4
+- criterion: 'Amplification numbers: 334 GPU-s (17.3 %), ideal 827 ms vs actual 1,004 ms'
+  points: 2
+- criterion: Decoy rank 51 rejected and annotated diagram from 13.9 included
+  points: 2
+lab_checks:
+- 'load_telemetry:'
+- 'per_step_stats:'
+- 'robust_z:'
+- 'find_stragglers:'
+- 'rank_onset:'
+- 'attribute_cause:'
+- 'rail_health:'
+- 'hot_not_throttled:'
+- 'amplification:'
+- 'symptom_windows:'

@@ -42,7 +42,7 @@ Show formula → values → result for each bandwidth threshold. Example form:
 
 ## 4. Failure handling
 
-| Failing test | First suspect | Next diagnostic | Typical fix | Re-test scope |
+| Failing test | First suspect | Next diagnostic | Typical fix | Retest scope |
 |---|---|---|---|---|
 | gpu_count | `<fill>` | `<fill>` | `<fill>` | full |
 | nic_link_speed | `<fill: optic / cable / port config>` | `<fill>` | `<fill>` | `<fill>` |

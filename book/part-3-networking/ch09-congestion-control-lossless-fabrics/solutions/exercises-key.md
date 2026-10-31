@@ -93,7 +93,7 @@ Reference output: `python solutions/lab/congestion_lab.py --out report.md` from 
 
 | Episode (s) | Label | Root / source | Discriminating evidence (medians over the episode) |
 |---|---|---|---|
-| 100–158 | incast | root `orion-be-leaf-r3:eth1/5` (to orion-n05) | eth1/5: tx ≈ 394 Gb/s, queue ≈ 3,100 KB (above that leaf's 1,500 KB Kmin), ECN ≈ 0.75 M pkts/s, pause rx 0; pause *tx* 2,500–6,000/s on the 12 sender ports only; no fabric-port pauses; orion-n05 `cnp_sent` ≈ 400 k/s |
+| 100–158 | incast | root `orion-be-leaf-r3:eth1/5` (to orion-n05) | eth1/5: tx ≈ 394 Gb/s, queue ≈ 3,100 KB (above that leaf's 1,500 KB Kmin), ECN ≈ 0.67 M marks/s, pause rx 0; pause *tx* 2,500–6,000/s on the 12 sender ports only; no fabric-port pauses; orion-n05 `cnp_sent` ≈ 400 k/s |
 | 250–318 | pause_propagation | root `orion-be-leaf-r3:eth1/10` (to orion-n10) | eth1/10 at line rate with deep queue and no pause rx; leaf-r3 uplinks send 6–10 k pause/s to spines; spine ports toward leaf-r3 have deep queues (above Kmax, so ≈ 6 M marks/s) *and* receive pause (branches); spines pause leaf-r4 uplinks; leaf-r4 pauses its 8 rail-4 NICs |
 | 400–468 | pfc_storm | source `orion-n12:mlx5_3` | leaf-r3 eth1/12: pause rx ≈ 23,750/s, tx ≈ 0 Gb/s, queue ≈ 4,000 KB flat, ECN 0; NIC `pfc_tx_p3` ≈ 23,750/s, rx 0 Gb/s; leaf pauses eth1/3 and eth1/6 (orion-n03, orion-n06: peers of orion-n12) |
 | 520–558 | *not an episode* | — | orion-be-leaf-r4 eth1/7 (to orion-n07): 375–392 Gb/s, queue 155–250 KB (just above that leaf's 150 KB Kmin), ECN ≈ 50 k/s, **no pause** — busy and healthy; DCQCN working |
@@ -120,7 +120,7 @@ switch's Kmin/Kmax: ports whose watermark stays below Kmin show zero marks.
 2. **Telemetry gap**: `orion-be-spine-2` has no samples for t = 300–310 s (inside the propagation episode). Rates
    at t = 312 must divide by 14 s (from t = 298), not 2 s. Dividing by 2 s inflates spine-2 pause rates 7×
    (does not change labels, but is a marked error in the narrative if quoted).
-3. **Benign high utilisation** at orion-be-leaf-r4 eth1/7 (t = 520–558): designed to catch detectors that flag
+3. **Benign high utilization** at orion-be-leaf-r4 eth1/7 (t = 520–558): designed to catch detectors that flag
    "high throughput" or "ECN marks > 0" as congestion.
 4. **Victim decoys**: P3's latency inflates during the incast, but it is not a victim.
 5. **Configuration faults** (four, above), each linked to an episode's severity: the late ECN profile
@@ -198,7 +198,7 @@ decision rule).
 - Safety: isolated lab fabric, rollback snapshot, no shared switches.
 - Cannot conclude from the simulation: absolute magnitudes; ASIC shared-buffer and per-PG behaviour;
   multi-hop propagation and ECMP; real DCQCN timers, byte counter, additive/hyper increase; NIC loss
-  recovery (go-back-N vs selective); HOL victims, storms, deadlock, watchdog; generalisation beyond
+  recovery (go-back-N vs selective); HOL victims, storms, deadlock, watchdog; generalization beyond
   synchronous equal senders. The experiment establishes behaviour only for that hardware, firmware,
   scale, and workload.
 *Marking:* 2 points per element (10 elements), capped at 20.
@@ -218,7 +218,7 @@ to exclude.
 Needed (100 m): **118,496 B**. Deficit = 118,496 − 70,996 = **47,500 B per pause event** (≈ 40 % short).
 (c) eth1/33 (20 m) needs 18,432 + 2 × 50 × 100 + 50,000 + 64 = 78,496 B: a 7,500 B (≈ 10 %) shortfall
 against the 70,996 B provided. It has not dropped because the formula is a worst case (two maximum-size
-frames in flight, worst-case response time) that is rarely realised, and cell-rounding margins may cover
+frames in flight, worst-case response time) that is rarely realized, and cell-rounding margins may cover
 part of it. **The learner must state that the evidence cannot prove eth1/33 is safe**: zero discards in a
 5-minute window is absence of evidence, not a guarantee; under worst-case alignment the port is short
 and can drop. Full marks for (c) require this statement; deduct 2 if the answer calls eth1/33 "fine". The 30 m downlinks (need 83,496 B, ≈ 12,500 B

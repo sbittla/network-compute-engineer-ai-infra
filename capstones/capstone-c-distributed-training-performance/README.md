@@ -4,7 +4,7 @@ W-TRAIN, the 70B dense model, "doesn't scale" on ORION: per-GPU throughput at 25
 below the 32-GPU run. Two changes have been tried, and the team cannot agree whether either helped.
 You will build a reproducible benchmark harness and an environment manifest. You will then analyze
 baseline and optimized multi-run results, quantify scaling efficiency with honest uncertainty,
-connect the numbers to profiler and NCCL evidence, and write the root-cause narrative. This is the
+connect the numbers to profiler and NVIDIA Collective Communications Library (NCCL) evidence, and write the root-cause narrative. This is the
 daily work of an AI performance engineer. The hard part is rarely the fix. It is proving which runs
 count, which differences are real, and why.
 
@@ -17,13 +17,13 @@ count, which differences are real, and why.
 [12](../../book/part-4-distributed-ai/ch12-collective-communication-nccl/),
 [13](../../book/part-4-distributed-ai/ch13-gpu-data-movement/) and
 [22](../../book/part-5-production-operations/ch22-cross-layer-performance-engineering/); plus
-[5](../../book/part-2-accelerated-compute/ch05-gpu-interconnects-host-topology/) (GPU↔NIC locality) and
-[17](../../book/part-5-production-operations/ch17-kubernetes-slurm-scheduling/) (how RDMA devices reach containers).
+[5](../../book/part-2-accelerated-compute/ch05-gpu-interconnects-host-topology/) (locality between GPUs and network interface cards (NICs)) and
+[17](../../book/part-5-production-operations/ch17-kubernetes-slurm-scheduling/) (how remote direct memory access (RDMA) devices reach containers).
 
 ## Scenario
 
 Training Infra runs W-TRAIN on ORION ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3) as a
-weak-scaling family. One replica is TP = 8 inside a node × PP = 4 across nodes, which is 32 GPUs.
+weak-scaling family. One replica is TP = 8 inside a node × PP = 4 across nodes (tensor and pipeline parallelism), which is 32 GPUs.
 Data parallelism adds replicas up to 256 GPUs. Platform moved training into containers last month. Since
 then, multi-node efficiency has drifted down, and nobody has looked at an NCCL log. Two candidate
 fixes were run: Platform corrected the pod spec so RDMA devices are visible in the container

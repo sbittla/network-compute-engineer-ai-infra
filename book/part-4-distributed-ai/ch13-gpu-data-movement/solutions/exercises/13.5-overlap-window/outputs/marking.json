@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the window and its W-TRAIN value with arithmetic",
+  "id": "13.5",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Identifies the window: only compute that does not depend on the reduced gradients, the last micro-batch's backward on the stage",
+      "points": 2
+    },
+    {
+      "criterion": "Arithmetic 13.9 s / 128 x 2/3 = 72 ms",
+      "points": 2
+    },
+    {
+      "criterion": "Compares with about 170 ms DP time: about 98 ms exposed, labelled [MODELED]",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Overlap window for the DP reduction",
+  "type": "knowledge-check"
+}

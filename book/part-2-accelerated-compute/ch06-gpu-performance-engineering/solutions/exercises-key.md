@@ -117,8 +117,8 @@ table with justified exclusions (6), roofline actions (4), conclusion and limita
 *(10 pts: 1.5 per row, 4 for the ranking with levers.)*
 
 Ranking by opportunity: K4 (59.7 % of a roof that is itself 15× below tensor peak — can it use TF32/BF16
-tensor cores?), K2 (60 %: tile config/library, FP8 if accuracy allows), K1 (near roof — fuse with neighbours
-to avoid the pass), K3 (near roof — only fewer bytes help: KV-cache precision, batching). Accept other
+Tensor Cores?), K2 (60 %: tile config/library, FP8 if accuracy allows), K1 (near roof — fuse with neighbours
+to avoid the pass), K3 (near roof — only fewer bytes help: KV cache precision, batching). Accept other
 orderings with a defensible "time saved × feasibility" argument; require the right lever per bound.
 
 **6.12** Must include: identical nodes and topology (mapping CSV golden, Chapter 5), dedicated nodes,
@@ -146,7 +146,7 @@ threshold, collecting ≥ 10 runs per arm. *(10 pts: medians 2, changes 2, tests
 
 Mechanisms: (1) **Amdahl** — 12 % of 4 % = 0.48 % of step time, below the ≈ 1 % noise floor; (2)
 **shape mismatch** — batch 1 microbenchmark is launch-/L2-dominated (input 8 KB fits in L2) while production
-GELU streams ~hundreds of MB from HBM; the speed-up may vanish at production shapes; (3) **fusion in
+GELU streams ~hundreds of MB from HBM; the speedup may vanish at production shapes; (3) **fusion in
 production** — `torch.compile` may already fuse GELU into the preceding GEMM epilogue, so the standalone
 kernel is never called; (4) **one-process measurement** — 1,000 iterations in one run say nothing about
 run-to-run variation; (5) clocks/thermal differences between the microbenchmark host and production.

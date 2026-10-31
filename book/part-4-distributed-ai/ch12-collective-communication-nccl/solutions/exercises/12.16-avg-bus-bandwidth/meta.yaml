@@ -1,0 +1,17 @@
+id: '12.16'
+title: Why "Avg bus bandwidth" misleads
+folder: 12.16-avg-bus-bandwidth
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: Explains that it averages busbw over all sizes, dominated by near-zero small-message rows
+  points: 1
+- criterion: Reports plateau busbw (median of the largest sizes) instead
+  points: 1
+- criterion: Reports small-message latency (p50 time at 8 B) and optionally n½
+  points: 1
+lab_checks: []

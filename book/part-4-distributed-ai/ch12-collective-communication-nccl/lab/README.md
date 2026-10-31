@@ -44,7 +44,7 @@ Manuscript Sections 12.2–12.3 (collectives, alpha-beta), 12.5 (reading nccl-te
    printed algbw/busbw in c5 within rounding.
 3. **Regions and plateau (15 pts).** Implement `plateau_busbw` and `classify_regions`.
    *Acceptance:* c2 has a monotonic latency → transition → bandwidth labelling; plateaus ≈ 450 GB/s
-   (c1) and ≈ 346 GB/s (c5).
+   (c1, NVLS active) and ≈ 346 GB/s (c5).
 4. **Alpha-beta (15 pts).** Implement `fit_alpha_beta` (least squares weighted by 1/t) and
    `predict_time_us`. *Acceptance:* c2 → α ≈ 28 µs, B ≈ 355 GB/s, n½ ≈ 5.3 MB.
 5. **Anomalies (15 pts).** Implement `jitter_cv` and `detect_anomalies`. Run

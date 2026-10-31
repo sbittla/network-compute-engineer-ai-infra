@@ -1,0 +1,17 @@
+id: "2.1.2"
+title: The three networks and their failure effects
+folder: 2.1.2-three-networks
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Written answer naming the three networks and the effect of losing each.
+marking:
+  - criterion: Backend loss makes distributed jobs hang or fail because collectives cannot complete
+    points: 1
+  - criterion: Frontend/storage loss stalls dataset reads and checkpoints and makes inference unreachable
+    points: 1
+  - criterion: OOB loss leaves running work untouched but removes power control, console and BMC telemetry
+    points: 1
+lab_checks: []

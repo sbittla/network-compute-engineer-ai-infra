@@ -1,0 +1,149 @@
+{
+  "answer": {
+    "b_per_musd_at_1_8x": 25.66,
+    "b_per_musd_slow_network": 29.6,
+    "break_even_b_rel_throughput": 1.861,
+    "comparison": {
+      "A": {
+        "facility_mw": 1.118,
+        "gpus": 696,
+        "nodes": 87,
+        "nodes_cooling_fit": null,
+        "nodes_power_fit": 87,
+        "per_facility_mw": 395.6,
+        "per_musd": 26.53,
+        "power_share": 0.053,
+        "tco_musd": 16.67,
+        "usd_per_gpu_year": 23950,
+        "usd_per_useful_unit_year": 37687,
+        "useful_units": 442.3
+      },
+      "B": {
+        "facility_mw": 1.0,
+        "gpus": 496,
+        "nodes": 62,
+        "nodes_cooling_fit": 87,
+        "nodes_power_fit": 62,
+        "per_facility_mw": 645.0,
+        "per_musd": 31.36,
+        "power_share": 0.038,
+        "tco_musd": 20.565,
+        "usd_per_gpu_year": 41463,
+        "usd_per_useful_unit_year": 31888,
+        "useful_units": 644.9
+      }
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "M2",
+  "inputs": {
+    "base_usd_per_kwh": 0.09,
+    "facility_it_kw": 1000,
+    "liquid_cooling_kw": 1000,
+    "price_sweep": [
+      0.06,
+      0.09,
+      0.12,
+      0.15,
+      0.2
+    ],
+    "throughput_sweep": [
+      1.6,
+      1.8,
+      1.86,
+      2.0,
+      2.2,
+      2.4
+    ]
+  },
+  "steps": {
+    "price_sensitivity": [
+      {
+        "a_per_musd": 27.01,
+        "a_power_share": 0.036,
+        "b_over_a": 1.176,
+        "b_per_musd": 31.77,
+        "b_power_share": 0.026,
+        "usd_per_kwh": 0.06
+      },
+      {
+        "a_per_musd": 26.53,
+        "a_power_share": 0.053,
+        "b_over_a": 1.182,
+        "b_per_musd": 31.36,
+        "b_power_share": 0.038,
+        "usd_per_kwh": 0.09
+      },
+      {
+        "a_per_musd": 26.08,
+        "a_power_share": 0.069,
+        "b_over_a": 1.187,
+        "b_per_musd": 30.96,
+        "b_power_share": 0.05,
+        "usd_per_kwh": 0.12
+      },
+      {
+        "a_per_musd": 25.63,
+        "a_power_share": 0.085,
+        "b_over_a": 1.193,
+        "b_per_musd": 30.58,
+        "b_power_share": 0.062,
+        "usd_per_kwh": 0.15
+      },
+      {
+        "a_per_musd": 24.92,
+        "a_power_share": 0.11,
+        "b_over_a": 1.202,
+        "b_per_musd": 29.96,
+        "b_power_share": 0.081,
+        "usd_per_kwh": 0.2
+      }
+    ],
+    "slow_network_comm_efficiency": 0.877,
+    "slow_network_exposed_fraction": 0.28,
+    "throughput_sensitivity": [
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 22.81,
+        "b_rel_throughput": 1.6,
+        "winner": "A"
+      },
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 25.66,
+        "b_rel_throughput": 1.8,
+        "winner": "A"
+      },
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 26.51,
+        "b_rel_throughput": 1.86,
+        "winner": "A"
+      },
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 28.51,
+        "b_rel_throughput": 2.0,
+        "winner": "B"
+      },
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 31.36,
+        "b_rel_throughput": 2.2,
+        "winner": "B"
+      },
+      {
+        "a_per_musd": 26.53,
+        "b_per_musd": 34.21,
+        "b_rel_throughput": 2.4,
+        "winner": "B"
+      }
+    ]
+  },
+  "tolerance": 0.06,
+  "units": {
+    "per_facility_mw": "useful units per facility MW",
+    "per_musd": "useful units per $M/yr",
+    "useful_units": "HX8-GPU equivalents of useful work"
+  }
+}

@@ -1,0 +1,21 @@
+id: '5.9'
+title: Modeled cost of one bad path
+folder: 5.9-one-bad-path-cost
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: three results with arithmetic; one-paragraph explanation; label `[MODELED]`.
+marking:
+- criterion: '(a) all PIX: t = 5.771 ms, busbw 370.7 GB/s with the ring factor 1.99219 and 134,217,728
+    B per ring'
+  points: 2
+- criterion: '(b) one Gen5 x8 NIC: slowest ring 10.10 ms, busbw 211.7 GB/s'
+  points: 3
+- criterion: '(c) one node without GDR: 15.055 ms, busbw 142.1 GB/s'
+  points: 2
+- criterion: '(d) every ring visits every node and runs at its slowest member: 1/32 of the nodes costs
+    about 62 % of busbw; labelled [MODELED]'
+  points: 3
+lab_checks: []

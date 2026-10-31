@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the 3 × 3 table, the max-sequence row, and the explanation.",
+  "id": "O1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "3 x 3 table of weights + KV for B = 16/64/128 and 1k/4k/16k",
+      "points": 3
+    },
+    {
+      "criterion": "Cells above 288 GB marked (16k at B = 64 and 128)",
+      "points": 1
+    },
+    {
+      "criterion": "Max concurrent sequences 625 / 156 / 39",
+      "points": 1
+    },
+    {
+      "criterion": "Two-sentence explanation: KV grows as B x context and dominates; concurrency falls inversely with length",
+      "points": 1
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "Memory demand vs batch, sequence length and concurrency",
+  "type": "outline-mandated"
+}

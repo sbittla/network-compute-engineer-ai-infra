@@ -1,0 +1,17 @@
+id: "2.11.5"
+title: The ownership cell that is nobody's job
+folder: 2.11.5-ownership-gap
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: One paragraph naming a Table 2.7 cell, why it falls between teams, and the fix.
+marking:
+  - criterion: Names a specific ownership boundary from Table 2.7
+    points: 1
+  - criterion: Explains why it falls between teams in the learner's organization
+    points: 1
+  - criterion: Concrete fix with a named owner, a runbook link and a rehearsal date
+    points: 1
+lab_checks: []

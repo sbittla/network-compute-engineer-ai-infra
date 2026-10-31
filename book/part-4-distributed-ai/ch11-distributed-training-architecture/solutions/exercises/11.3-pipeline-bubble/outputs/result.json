@@ -1,0 +1,56 @@
+{
+  "answer": [
+    {
+      "fraction": "3/11",
+      "m": 8,
+      "of_ideal": 0.375,
+      "of_total": 0.2727,
+      "p": 4
+    },
+    {
+      "fraction": "3/35",
+      "m": 32,
+      "of_ideal": 0.0938,
+      "of_total": 0.0857,
+      "p": 4
+    },
+    {
+      "fraction": "3/131",
+      "m": 128,
+      "of_ideal": 0.0234,
+      "of_total": 0.0229,
+      "p": 4
+    },
+    {
+      "fraction": "7/39",
+      "m": 32,
+      "of_ideal": 0.2188,
+      "of_total": 0.1795,
+      "p": 8
+    }
+  ],
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "cases": [
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        32
+      ],
+      [
+        4,
+        128
+      ],
+      [
+        8,
+        32
+      ]
+    ]
+  },
+  "units": {
+    "bubble": "fraction of total pipeline time"
+  }
+}

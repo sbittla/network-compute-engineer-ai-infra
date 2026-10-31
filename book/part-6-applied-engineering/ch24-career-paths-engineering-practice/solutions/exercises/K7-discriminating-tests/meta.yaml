@@ -1,0 +1,18 @@
+id: K7
+title: Discriminating tests
+folder: K7-discriminating-tests
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: definition; the test; both possible outcomes and what each implies.
+marking:
+- criterion: 'Definition: competing hypotheses predict different outcomes, so the result eliminates at least one'
+  points: 1
+- criterion: 'Names the test: per-port FEC/CRC counters and optic Rx power on the rail-3 links'
+  points: 1
+- criterion: 'Both outcomes: isolated errors + low Rx power → physical; pauses/ECN on many ports with clean FEC/CRC
+    → congestion'
+  points: 2
+lab_checks: []

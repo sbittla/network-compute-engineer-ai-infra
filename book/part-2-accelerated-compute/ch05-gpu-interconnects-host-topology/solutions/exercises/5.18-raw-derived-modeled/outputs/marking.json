@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) citing specific mechanisms or data.",
+  "id": "5.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Raw: the capture files",
+      "points": 1
+    },
+    {
+      "criterion": "Derived: lstopo relations, mapping rows, findings; Modeled: the scenario table (Table 5.5)",
+      "points": 1
+    },
+    {
+      "criterion": "Path to measured: L3 nccl-tests with manifests, ≥ 5 runs per configuration, recalibrate parameters",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Raw, derived and modeled results",
+  "type": "reflection"
+}

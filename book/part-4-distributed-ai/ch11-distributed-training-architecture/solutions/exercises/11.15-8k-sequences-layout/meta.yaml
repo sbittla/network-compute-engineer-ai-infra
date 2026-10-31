@@ -1,0 +1,21 @@
+id: '11.15'
+title: 8k sequences next quarter
+folder: 11.15-8k-sequences-layout
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: the config, memory and step-time output from the tool, and a trade-off table.
+marking:
+- criterion: Config edited correctly (seq_len 8,192, global batch 512 sequences) and a layout proposed
+  points: 2
+- criterion: Memory shown under 68 GB from the tool for the chosen layout
+  points: 2
+- criterion: Step time and MFU from the tool for at least the chosen layout and one alternative
+  points: 2
+- criterion: Trade-off table on memory, communication and risk, defending the choice
+  points: 3
+- criterion: Notes that attention FLOPs grow with s and are not in 6ND (bonus-level insight)
+  points: 1
+lab_checks: []

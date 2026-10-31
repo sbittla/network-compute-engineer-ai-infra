@@ -1,0 +1,24 @@
+id: '8.16'
+title: ORION-XL fabric policy
+folder: 8.16-orion-xl-fabric-policy
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 20
+evidence_required: decision with criteria; every parameter with its number and label; one quantified trade-off;
+  one risk you are accepting and how you would detect it in production.
+marking:
+- criterion: Decision (RoCEv2 or InfiniBand) with explicit criteria and loss model
+  points: 5
+- criterion: 'Parameters with numbers and labels: 3-tier RTT and BDP, timeout/retry with time-to-failure,
+    MTU, GID policy'
+  points: 6
+- criterion: One quantified trade-off (e.g. tail-loss cost at the design loss rate vs spurious-failure
+    cost)
+  points: 4
+- criterion: An accepted risk and how it is detected in production
+  points: 3
+- criterion: Scale considerations for the readiness checklist at 512 nodes and single-NIC failure handling
+  points: 2
+lab_checks: []

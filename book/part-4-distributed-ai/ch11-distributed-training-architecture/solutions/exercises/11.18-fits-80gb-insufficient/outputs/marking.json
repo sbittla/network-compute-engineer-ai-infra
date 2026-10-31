@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Not stated in exercises.md; marked against the criteria below.",
+  "id": "11.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Explains peak vs steady allocation and fragmentation",
+      "points": 1
+    },
+    {
+      "criterion": "Names other code paths/changes that raise memory (eval, checkpoint, longer sequences, batch changes)",
+      "points": 1
+    },
+    {
+      "criterion": "Requires concrete evidence: allocator peak stats over ≥ 200 steps incl. eval and checkpoint, with ≥ 15 % headroom",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Why \"fits in 80 GB\" is not enough",
+  "type": "reflection"
+}

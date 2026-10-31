@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Three limitations of the Section 1.6 ceiling model, each with the measurement that would expose it.",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First limitation with a matching measurement (for example achievable vs peak rate, with GEMM or all_reduce_perf microbenchmarks)",
+      "points": 1
+    },
+    {
+      "criterion": "Second limitation with a matching measurement (for example overlap, with an Nsight Systems timeline)",
+      "points": 1
+    },
+    {
+      "criterion": "Third limitation with a matching measurement (for example latency, launch overhead, stragglers or contention, with per-rank timing or shared counters)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What the ceiling model cannot capture",
+  "type": "reflection"
+}

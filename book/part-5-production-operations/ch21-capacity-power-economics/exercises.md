@@ -99,7 +99,7 @@ your memo that explains the break-even and the experiment that resolves it.
 
 **R3 ★ L1** — Which costs are missing from the TCO model, and which could change a decision?
 
-**R4 ★★ L1** — Where in your organisation would the facility → scheduler signals of Section 21.8 come from,
+**R4 ★★ L1** — Where in your organization would the facility → scheduler signals of Section 21.8 come from,
 and who would own the integration?
 
 *Evidence required (R1–R4):* concise answers citing sections or data files.
@@ -107,7 +107,7 @@ and who would own the integration?
 ## Outline-mandated exercises
 
 **M1 ★★ L1 — Capacity forecast.** Build a capacity forecast from **accelerator supply, workload demand,
-utilization, maintenance reserve, and expected growth** (lab Tasks 1–2) and extend it with a P90 demand
+utilization, maintenance reserve, and expected growth** (lab Tasks 1–2) and extend it with a p90 demand
 scenario (+25 % demand from 2028Q3). Report the first shortfall quarter and order-by dates for each
 scenario.
 *Evidence required:* forecast table for both scenarios; order-by dates; the binding resource per shortfall.

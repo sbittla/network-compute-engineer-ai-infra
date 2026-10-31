@@ -1,0 +1,19 @@
+id: K3
+title: Mean versus median of per-job means
+folder: K3-mean-vs-median
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: an interpretation of mean vs median; one concrete partition and the hypothesis it tests.
+marking:
+- criterion: Interprets mean >> median as a minority of jobs badly hurt (placement-, node- or dataset-specific)
+  points: 1
+- criterion: Interprets unchanged per-job p99 as a steady per-job slowdown, not intermittent stalls
+  points: 1
+- criterion: Names one concrete partition available from records (e.g. TP group spans nodes; ran on upgraded nodes)
+  points: 1
+- criterion: States the hypothesis the partition tests and its predicted outcome
+  points: 1
+lab_checks: []

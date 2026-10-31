@@ -1,0 +1,81 @@
+{
+  "answer": {
+    "P_s": 7.2,
+    "PxS_s": 1.6,
+    "S_s": 1.8,
+    "after_mean_s": 21.18,
+    "delta_pct": 21.724,
+    "delta_s": 3.78,
+    "naive_P_s": 7.45,
+    "naive_S_s": 1.648,
+    "period_s": 0.2
+  },
+  "evidence_label": "ILLUSTRATIVE",
+  "id": "W1",
+  "inputs": {
+    "before_mean_s": 17.4,
+    "cells": [
+      {
+        "P": 0,
+        "S": 0,
+        "jobs": 4,
+        "mean_s": 17.6
+      },
+      {
+        "P": 1,
+        "S": 0,
+        "jobs": 3,
+        "mean_s": 24.8
+      },
+      {
+        "P": 0,
+        "S": 1,
+        "jobs": 2,
+        "mean_s": 19.4
+      },
+      {
+        "P": 1,
+        "S": 1,
+        "jobs": 1,
+        "mean_s": 28.2
+      }
+    ]
+  },
+  "steps": {
+    "attribution": [
+      {
+        "contribution_s": 0.2,
+        "effect_s": 0.2,
+        "exposure_change": 1.0,
+        "share_pct": 5.29,
+        "term": "period"
+      },
+      {
+        "contribution_s": 2.88,
+        "effect_s": 7.2,
+        "exposure_change": 0.4,
+        "share_pct": 76.19,
+        "term": "P"
+      },
+      {
+        "contribution_s": 0.54,
+        "effect_s": 1.8,
+        "exposure_change": 0.3,
+        "share_pct": 14.29,
+        "term": "S"
+      },
+      {
+        "contribution_s": 0.16,
+        "effect_s": 1.6,
+        "exposure_change": 0.1,
+        "share_pct": 4.23,
+        "term": "PxS"
+      }
+    ],
+    "mean_P0_s": 18.2,
+    "mean_P1_s": 25.65,
+    "mean_S0_s": 20.686,
+    "mean_S1_s": 22.333
+  },
+  "units": "s per step; %"
+}

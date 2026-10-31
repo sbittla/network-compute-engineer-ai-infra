@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "At least three assumptions and a measurement plan (tools, repetitions, statistic).",
+  "id": "3.16",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Assumption 1, no overlap of the DP all-reduce with backward compute",
+      "points": 1
+    },
+    {
+      "criterion": "Assumption 2, NCCL does not route around the slow link (for example PXN)",
+      "points": 1
+    },
+    {
+      "criterion": "Assumption 3, illustrative 45 GB/s healthy rail and 82 % PCIe efficiency, or only DP traffic considered",
+      "points": 1
+    },
+    {
+      "criterion": "L3 measurement plan with tools (all_reduce_perf across the local-rank-3 GPUs; training steps with and without the node), at least 5 runs after warm-up, median and p95",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Why the PCIe cost estimate is an upper bound",
+  "type": "reflection"
+}

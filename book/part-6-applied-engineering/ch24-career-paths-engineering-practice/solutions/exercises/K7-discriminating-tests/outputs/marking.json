@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "definition; the test; both possible outcomes and what each implies.",
+  "id": "K7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Definition: competing hypotheses predict different outcomes, so the result eliminates at least one",
+      "points": 1
+    },
+    {
+      "criterion": "Names the test: per-port FEC/CRC counters and optic Rx power on the rail-3 links",
+      "points": 1
+    },
+    {
+      "criterion": "Both outcomes: isolated errors + low Rx power → physical; pauses/ECN on many ports with clean FEC/CRC → congestion",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Discriminating tests",
+  "type": "knowledge-check"
+}

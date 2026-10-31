@@ -1,0 +1,17 @@
+id: R2
+title: Correlated failures and canary design
+folder: R2-correlated-failures
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: Two mechanisms; one design change each.
+marking:
+- criterion: First real correlation mechanism named and explained
+  points: 2
+- criterion: Second distinct mechanism named and explained
+  points: 1
+- criterion: A concrete canary/wave design change for each mechanism
+  points: 2
+lab_checks: []

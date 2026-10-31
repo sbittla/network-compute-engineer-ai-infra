@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "two mechanisms, each with \"model underestimates/overestimates uncorrectables because…\".",
+  "id": "10.R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First mechanism with the direction of bias and the reason",
+      "points": 2
+    },
+    {
+      "criterion": "Second mechanism with the direction of bias and the reason",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Mechanisms that violate the binomial FEC model",
+  "type": "reflection"
+}

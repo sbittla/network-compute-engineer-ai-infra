@@ -1,0 +1,24 @@
+id: '4.15'
+title: Input and step-overhead strategy for HX8
+folder: 4.15-input-step-overhead-design
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: a one-page design with PCIe budget arithmetic, pinned-memory budget, NUMA placement,
+  the overhead strategy with a rejected alternative, and a validation plan.
+marking:
+- criterion: 'PCIe budget arithmetic: 104,857,600 B / 60 ms = 1.75 GB/s per GPU (about 3.5 % of 50 GB/s),
+    3.5 GB/s per shared switch uplink'
+  points: 3
+- criterion: Pinned-memory budget (for example 3 × 100 MiB per rank = 2,400 MiB per node) and NUMA placement
+    of ranks, loaders and buffers per socket
+  points: 3
+- criterion: Optimizer overhead strategy (fused or foreach AdamW) defended against one rejected alternative
+    (for example whole-step CUDA Graph)
+  points: 2
+- criterion: 'Validation plan: nsys shows overlapped copies and few optimizer kernels; median step time
+    over repeated runs vs the 60 ms target'
+  points: 2
+lab_checks: []

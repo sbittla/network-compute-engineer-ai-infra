@@ -1,0 +1,20 @@
+id: '5.5'
+title: ACS Request Redirect and GPUDirect RDMA
+folder: 5.5-acs-redirect
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: mechanism, isolation purpose, P2P cost.
+marking:
+- criterion: 'Mechanism: ACS Request/Completion Redirect forces peer TLPs from a switch downstream port
+    up to the root complex for IOMMU validation'
+  points: 1
+- criterion: 'Isolation purpose: stops a passed-through device in one VM from DMAing into another guest''s
+    device'
+  points: 1
+- criterion: 'Bare-metal cost: one-hop in-switch GPU-NIC P2P becomes a root-complex round trip (lower
+    bandwidth, more variance, or broken P2P)'
+  points: 1
+lab_checks: []

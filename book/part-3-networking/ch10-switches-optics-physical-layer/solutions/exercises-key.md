@@ -23,8 +23,8 @@ Common mistake: placing FCS at the PCS.
 
 **10.K2** PAM4 places four levels in the amplitude of two, so each of the three eyes is one third
 the height of an NRZ eye: 20·log10(3) ≈ 9.5 dB SNR penalty. At 53.125 GBd over real channels, the
-raw BER is therefore ~10⁻⁸–10⁻⁵, and the standard *requires* RS(544,514) FEC, which corrects those
-errors and counts every corrected codeword. 10G NRZ links have enough SNR to run at ~10⁻¹² or better
+raw BER is therefore ≈ 10⁻⁸–10⁻⁵, and the standard *requires* RS(544,514) FEC, which corrects those
+errors and counts every corrected codeword. 10G NRZ links have enough SNR to run at ≈ 10⁻¹² or better
 without mandatory FEC, so error counters stay at zero. Marking: SNR penalty with a number (2), FEC
 role (2). Common mistake: "PAM4 links are lower quality" — they are engineered to this BER.
 
@@ -130,7 +130,7 @@ Reference: `python lab/check.py --impl solution` → 13/13. Digest of per-port c
 | Ethernet21 | Pre-FEC BER rising 4.0e-6 → 1.6e-4 (0.18 decades margin), no uncorrectables yet, Rx ≈ −3.4 dBm (above the −4.0 dBm policy warning) | physical / PRE_FEC_BER_HIGH (+RISING), critical (≥ 1e-4 policy) | Trend matters; Table 10.1 says ≈ 1 uncorrectable per 80 days *now*, but the trend crosses the cliff soon. Compare NIC-side Tx/bias (far-end laser) then drain now (host link: coordinate a node drain through the scheduler), then clean/replace. |
 | Ethernet27 | Port MTU left at 1500; 45,210 oversize frames from 9000-byte host frames | higher_layer / OVERSIZE_FRAMES, refer | Configuration (Chapter 7), not optics. |
 | Ethernet35, 36 | Jumpers swapped at the patch panel: LLDP shows spine-1 Ethernet28/27 instead of 27/28 | physical / MISCABLED, critical | Link up and error-free; eBGP would fail on /31 mismatch; only LLDP vs schedule detects it. |
-| Ethernet40 | Damaged cable to spine-1: 1,180 uncorrectable CW and 1,104 FCS errors in 600 s at an average BER of only 3.4e-5; DOM normal | physical / CRC_ERRORS (+FEC_UNCORRECTABLE, PRE_FEC_BER_HIGH), critical | Bursty errors: uncorrectables at ~0.85 decades of margin are impossible under random errors. Drain (uplink: −3.1 % raw, −12.5 % ECMP-aware ingress, since spine-1 still delivers a quarter of remote rail-3 traffic over 7 links; Chapter 7 Section 7.9), inspect, swap cable then optic. |
+| Ethernet40 | Damaged cable to spine-1: 1,180 uncorrectable CW and 1,104 FCS errors in 600 s at an average BER of only 3.4e-5; DOM normal | physical / CRC_ERRORS (+FEC_UNCORRECTABLE, PRE_FEC_BER_HIGH), critical | Bursty errors: uncorrectables at ≈ 0.85 decades of margin are impossible under random errors. Drain (uplink: −3.1 % raw, −12.5 % ECMP-aware ingress, since spine-1 still delivers a quarter of remote rail-3 traffic over 7 links; Chapter 7 Section 7.9), inspect, swap cable then optic. |
 | Ethernet45 | Wrong optic: 400G-SR8 installed where schedule says 400G-DR4; link down, Rx −40 dBm (LOS) | physical / OPTIC_MISMATCH (+LINK_DOWN), critical | Do not "clean the fiber": the part is wrong (850 nm MMF optic on SMF facing DR4). |
 | Ethernet50 | Flapping: 6 link-down events in 600 s, plus 40 uncorrectable CW / 31 FCS around transitions | physical / LINK_FLAP (+CRC_ERRORS, FEC_UNCORRECTABLE), critical | Errors around flaps are a consequence; primary is the flap. Reseat/inspect, check firmware and far end. |
 

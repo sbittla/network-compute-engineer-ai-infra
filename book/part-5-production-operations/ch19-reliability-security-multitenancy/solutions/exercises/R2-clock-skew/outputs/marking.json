@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "concise answers that cite data files or sections",
+  "id": "R2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Identifies the precedence conclusion (link-down 9 s before NET/IB errors) as the one that breaks",
+      "points": 1
+    },
+    {
+      "criterion": "Explains a 15 s skew could put the host link-down after the peers' errors, or shift the RPO/RTO start",
+      "points": 1
+    },
+    {
+      "criterion": "Re-establishes order with an independent clock (switch syslog/counters) and the 8.6 s mechanism",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Clock skew on orionxl-n212",
+  "type": "reflection"
+}

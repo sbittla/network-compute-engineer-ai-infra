@@ -101,7 +101,7 @@ Marking: 6 results (1 each), trace (3), byte count (1).
 
 | Config | Latency region | Bandwidth region | α (µs) | B (GB/s) | n½ (MB) | Plateau (GB/s) |
 |---|---|---|---|---|---|---|
-| c1 | 8 B – 1 MiB | ≥ 16 MiB | 14.1 | 448 | 3.6 | 449 |
+| c1 (NVLS) | 8 B – 1 MiB | ≥ 16 MiB | 14.1 | 448 | 3.6 | 449 |
 | c2 | 8 B – 1 MiB | ≥ 32 MiB | 28.1 | 354 | 5.3 | 352 |
 | c3 | 8 B – 1 MiB | ≥ 16 MiB | 39.2 | 185 | 3.9 | 184 |
 | c4 | 8 B – 2 MiB | ≥ 32 MiB | 36.2 | 349 | 6.5 | 349 |
@@ -122,7 +122,7 @@ thresholds are stated. Plots must be log-log with labelled units.
 50 = 400 GB/s; at ≈ 88 % efficiency ≈ 350 GB/s. c3 (`NCCL_IB_HCA` limited to mlx5_0–3): 4 NICs per node
 → ceiling 200 GB/s; ≈ 92 % → ≈ 185 GB/s; GPUs 4–7 reach NICs 2–3 across the inter-socket link (`SYS`),
 GPUDirect RDMA disabled at that distance by default → staging through host memory → higher α
-(+5–15 µs). (b) Data: c2 352 GB/s, α 28 µs; c3 184 GB/s, α 39 µs — consistent. (c) Evidence:
+(+5–15 µs). (b) Data: c2,352 GB/s, α 28 µs; c3,184 GB/s, α 39 µs — consistent. (c) Evidence:
 
 | Artifact | Command / source | If hypothesis true | Falsified if |
 |---|---|---|---|
@@ -152,7 +152,7 @@ changes (e.g., processes bound to the wrong NUMA node) — would raise latency, 
 (3) different NCCL version with a tuning regression; (4) network latency increase (ECN/PFC changes) —
 would usually affect bandwidth too. Tests: run with `NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=ENV,TUNING` and
 look for lines like `NCCL_ALGO set by environment to Ring` (format varies) and the NCCL version banner;
-diff `env | grep NCCL_` between images; re-run with the variable unset on a reserved node; check
+diff `env | grep NCCL_` between images; rerun with the variable unset on a reserved node; check
 `numactl --show` / process affinity. Root cause (model answer): the image's entrypoint exports
 `NCCL_ALGO=Ring` left over from a debugging session. Fix: remove from the image under change control;
 add an image lint that rejects `NCCL_ALGO`/`NCCL_PROTO` in production images. Validation: five launches

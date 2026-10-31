@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "specific, ORION-grounded answers of 80–150 words; at least four items",
+  "id": "R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least four distinct evidence items listed",
+      "points": 2
+    },
+    {
+      "criterion": "Items are specific and ORION-grounded (e.g. 32-node L3 sweep, acceptance on every node, executed failure exercise)",
+      "points": 1
+    },
+    {
+      "criterion": "80–150 words",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Evidence still needed before production-ready",
+  "type": "reflection"
+}

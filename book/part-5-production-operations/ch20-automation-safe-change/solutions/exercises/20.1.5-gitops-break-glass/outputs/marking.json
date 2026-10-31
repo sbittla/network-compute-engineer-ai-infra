@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer (2–5 sentences) that names the mechanism, not just the term.",
+  "id": "20.1.5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Four principles: declarative; versioned and immutable; pulled automatically; continuously reconciled",
+      "points": 2
+    },
+    {
+      "criterion": "Hand-applied fix is reverted on the next reconcile",
+      "points": 1
+    },
+    {
+      "criterion": "Break-glass via expedited reviewed commit or scoped, time-limited, recorded exemption with expiry and follow-up commit",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "OpenGitOps and break-glass",
+  "type": "knowledge-check"
+}

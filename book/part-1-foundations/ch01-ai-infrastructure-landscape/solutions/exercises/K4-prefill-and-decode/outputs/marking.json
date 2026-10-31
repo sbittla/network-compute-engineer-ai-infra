@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Definitions of prefill and decode and the bounding resource of each.",
+  "id": "K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Prefill defined (all prompt tokens processed in parallel, produces the KV cache and the first token) and called compute-bound",
+      "points": 2
+    },
+    {
+      "criterion": "Decode defined (one token per sequence per step, re-reads all weights and the KV cache) and called HBM-bandwidth-bound",
+      "points": 1
+    },
+    {
+      "criterion": "Supports the claim with intensity or an ORION number (decode about 32 FLOP/B at batch 32 against machine balance about 295 FLOP/B)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Prefill and decode",
+  "type": "knowledge-check"
+}

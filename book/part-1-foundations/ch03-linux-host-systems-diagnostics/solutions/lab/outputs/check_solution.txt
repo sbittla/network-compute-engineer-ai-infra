@@ -1,0 +1,23 @@
+PASS collector.classify_outcome                    missing/denied/timeout/error/ok classified
+PASS collector.build_command_plan + is_read_only   15 commands, all read-only; 15 listed + 12 held-out unsafe forms refused; 5 read-only forms allowed
+PASS collector.collect (linux, degraded)           5 sections; fallback, refusal and missing-tool paths correct
+PASS collector.collect (non-Linux)                 4 sections skipped, 0 commands run
+PASS collector.render_markdown                     516 lines of Markdown
+PASS parse_lscpu                                   2 sockets x 56 cores x 2 threads, 2 NUMA nodes
+PASS parse_numactl_hardware                        node sizes, CPU lists, distance matrix
+PASS parse_lspci_links                             27 endpoints; link cap/status parsed; non-root access-denied detected
+PASS parse_vmstat                                  b=15.25, wa=6.75 over 4 samples
+PASS parse_iostat                                  last report; 10 devices
+PASS parse_mpstat                                  224 CPUs + all
+PASS parse_interrupts                              16 IRQs x 224 CPUs
+PASS parse_ip_link + parse_ethtool                 ip link + ethtool (incl. link-down form)
+PASS parse_numastat_process                        per-node MB from Total row
+PASS scan_kernel_log                               AER/EDAC/Xid extraction
+PASS analyze_host on the reference node            0 warning/critical (1 info)
+PASS analyze_fleet recall (planted faults)         14/14 planted problems detected at the right severity
+PASS analyze_fleet precision (no false alarms)     no false positives at warning/critical
+PASS analyze_host graceful degradation             3 evidence gaps reported; sysfs fallback used; all-skipped snapshot handled
+PASS AER from sysfs when the kernel log is denied  sysfs AER counters parsed and used as a kernel-log fallback
+PASS write_report                                  19 lines
+
+21/21 checks passed (0 TODO) [impl=solution]

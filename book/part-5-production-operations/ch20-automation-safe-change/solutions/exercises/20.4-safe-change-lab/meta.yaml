@@ -1,0 +1,42 @@
+id: '20.4'
+title: 'Lab 20: safe-change automation'
+folder: 20.4-safe-change-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: check.py output with all 13 checks PASS; the run_rollout decision log; written answers a-c (<=
+  1 page); L2/L3 manifest fields.
+marking:
+- criterion: 'Part 1: validation finds every planted defect, with a one-line RoCE-failure explanation of each (answer
+    a)'
+  points: 15
+- criterion: 'Part 1: plan, dry-run, capped apply, audit trail and idempotency demonstrated (checker lines, second
+    plan of size 0)'
+  points: 20
+- criterion: 'Part 2: correct decision log and explanation of the two traps a naive controller falls into (answer
+    b)'
+  points: 20
+- criterion: 'Part 2: rollback set and justification of all_changed vs failing wave only (answer c)'
+  points: 5
+- criterion: 'Part 3: findings coverage and precision (checker)'
+  points: 15
+- criterion: 'Part 3: quality of fixes, specific numbers and ORION context (instructor-graded)'
+  points: 10
+- criterion: Safe-change runbook built from the lab outputs (shared with Exercise 20.10)
+  points: 15
+lab_checks:
+- p1.validate_planted_violations
+- p1.validate_clean_and_cnp_rule
+- p1.plan_diff_blocked_unreachable
+- p1.apply_default_is_dry_run
+- p1.apply_cap_and_audit
+- p1.idempotent_converge_and_noop
+- p2.condition_semantics
+- p2.wave_decisions
+- p2.bake_insufficient_hold
+- p2.rollout_abort_and_rollback
+- p3.review_coverage
+- p3.review_false_positives
+- p3.review_evidence_quality

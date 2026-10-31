@@ -1,0 +1,17 @@
+id: K2
+title: Usable capacity
+folder: K2-usable-capacity
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: formula, substitution, result.
+marking:
+- criterion: Multiplicative formula (not additive subtraction of percentages)
+  points: 2
+- criterion: Correct substitution
+  points: 1
+- criterion: Result ≈ 859 usable GPUs, labelled [MODELED]
+  points: 1
+lab_checks: []

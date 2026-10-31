@@ -1,0 +1,25 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the five questions answered from the given evidence; a list of ≥ 3 missing items with the command or data source for each; a two-sentence ticket update.",
+  "id": "10.T1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) All five Section 10.8.1 questions answered from the given evidence, concluding not physical",
+      "points": 2
+    },
+    {
+      "criterion": "(b) At least three missing items, each with a safe read-only command or data source",
+      "points": 2
+    },
+    {
+      "criterion": "(c) Correct owner and a two-sentence ticket update closing the cleaning request",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Leaf r6 uplinks are dirty (incomplete evidence)",
+  "type": "troubleshooting"
+}

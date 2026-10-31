@@ -1,0 +1,21 @@
+PASS  T0  dataset regenerates byte-identically (seed 7)
+PASS  T1a size ORION-256 backend (64-port, 1:1)
+PASS  T1b size frontend pair (3:1 ports, 1.5:1 bandwidth)
+PASS  T1c ORION-XL radix limit (64- vs 128-port)
+PASS  T2a addressing plan: 512 unique /31s
+PASS  T2b addressing plan: spot values
+PASS  T3  BGP neighbor table (256 sessions, ASNs)
+PASS  T4  detect planted ASN_COLLISION
+PASS  T4  detect planted ASYM_ADVERT
+PASS  T4  detect planted BAD_ORIGIN
+PASS  T4  detect planted DUP_P2P
+PASS  T4  detect planted ECMP_MAXPATHS
+PASS  T4  detect planted MTU_MISMATCH
+PASS  T4  no false positives (shared spine ASN, host MTU 9000 are legal)
+PASS  T5  capacity: baseline
+PASS  T5  capacity: one orion-be-leaf-r0/orion-be-spine-1 link down
+PASS  T5  capacity: orion-be-spine-2 down
+PASS  T5  capacity: orion-be-leaf-r5 prefix not sent to orion-be-spine-4
+PASS  T5  capacity: orion-be-leaf-r3 down (rail 3 isolated)
+
+19/19 checks passed (solution)

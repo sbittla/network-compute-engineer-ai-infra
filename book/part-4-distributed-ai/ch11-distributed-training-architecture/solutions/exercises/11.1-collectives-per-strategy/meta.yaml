@@ -1,0 +1,21 @@
+id: '11.1'
+title: Collectives per strategy
+folder: 11.1-collectives-per-strategy
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: a six-row table with collective names and frequencies.
+marking:
+- criterion: DDP and ZeRO-1 rows correct (all-reduce; reduce-scatter + all-gather, once per step)
+  points: 2
+- criterion: ZeRO-3/FSDP row correct (all-gather fwd and bwd, reduce-scatter, per layer/unit per micro-batch)
+  points: 1
+- criterion: TP + SP row correct (all-gather + reduce-scatter, per layer per micro-batch)
+  points: 1
+- criterion: PP row correct (point-to-point send/recv per micro-batch per stage boundary)
+  points: 1
+- criterion: EP row correct (all-to-all dispatch + combine per MoE layer per micro-batch)
+  points: 1
+lab_checks: []

@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "intensity argument for both.",
+  "id": "6.2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Elementwise: intensity about 0.3-2 FLOP/B, far below the 295 FLOP/B ridge, so time is set by bytes and GB/s vs 3.35 TB/s is the figure of merit",
+      "points": 1
+    },
+    {
+      "criterion": "Large GEMM: intensity in the thousands, far above the ridge, so time is set by FLOPs and TFLOP/s vs 989 TFLOP/s is the figure of merit",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "GB/s for elementwise, TFLOP/s for GEMM",
+  "type": "knowledge-check"
+}

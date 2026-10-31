@@ -1,0 +1,35 @@
+{
+  "answer": {
+    "canonical": {
+      "circuits_per_side": 2,
+      "planned_peak_kw": 59.0,
+      "side_continuous_kw": 65.55,
+      "uncapped_hx8_nodes_that_fit": 4,
+      "uncapped_load_kw": 40.8
+    },
+    "legacy": {
+      "circuits_per_side": 1,
+      "planned_peak_kw": 29.5,
+      "side_continuous_kw": 32.78,
+      "uncapped_hx8_nodes_that_fit": 2,
+      "uncapped_load_kw": 20.4
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K6",
+  "inputs": {
+    "amps": 60,
+    "continuous_fraction": 0.8,
+    "node_max_kw": 10.2,
+    "power_factor": 0.95,
+    "transient_margin": 0.1,
+    "volts": 415
+  },
+  "steps": {
+    "circuit_continuous_kw": 32.78,
+    "legacy_3_nodes_at_650w_kw": 29.4,
+    "legacy_max_gpu_cap_for_3_nodes_w": 654
+  },
+  "tolerance_kw": 0.05,
+  "units": "kW"
+}

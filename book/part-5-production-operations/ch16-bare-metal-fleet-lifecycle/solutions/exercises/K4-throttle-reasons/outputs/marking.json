@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The failing reason; why the other is normal; two plausible physical causes.",
+  "id": "K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Identifies SW Thermal Slowdown on GPU 6 as the failing reason",
+      "points": 2
+    },
+    {
+      "criterion": "Explains SW Power Cap is normal under full load (GPU at its 700 W limit)",
+      "points": 1
+    },
+    {
+      "criterion": "Two plausible physical causes for GPU 6 (fan/airflow obstruction, blanking panel/recirculation, heatsink contact, high inlet)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "SW Power Cap versus SW Thermal Slowdown",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Direction of the pause for each host and the likely location of the bottleneck.",
+  "id": "K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Host A (rx_prio3_pause rising): receives pauses from the switch; victim; bottleneck downstream in the fabric or a slow receiver elsewhere",
+      "points": 2
+    },
+    {
+      "criterion": "Host B (tx_prio3_pause rising): sends pauses because its own receive path cannot drain",
+      "points": 1
+    },
+    {
+      "criterion": "Host B identified as likely culprit with a host-side bottleneck location (PCIe, memory, slow consumer, receive buffers)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Who is pausing whom?",
+  "type": "knowledge-check"
+}

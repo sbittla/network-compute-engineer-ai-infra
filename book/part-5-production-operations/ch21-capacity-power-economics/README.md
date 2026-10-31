@@ -48,11 +48,13 @@ and operational guardrails (M4, Section 20.3 / table 8).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercises including outline-mandated M1–M4 |
+| [exercises/](exercises/README.md) | One folder per exercise (20): verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide |
 | `lab/data/` | Capacity plan, assumptions, designs, power-cap curve and case (`lab/tools/` generator: instructor copy only) |
 | `lab/starter/capacity_model.py` | Learner module |
 | `lab/check.py`, `lab/manifest.yaml` | Checker and environment manifest |
 | `solutions/` | Answer key and reference implementation |
+| `solutions/exercises/` | Instructor folder per exercise: `meta.yaml` marking scheme, `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

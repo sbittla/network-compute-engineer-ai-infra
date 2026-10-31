@@ -1,0 +1,20 @@
+id: 17-R4
+title: Proving small-job confinement helped
+folder: 17-R4-measuring-gang-wait
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: The measurement plan (metric, window, comparison, confounders).
+marking:
+- criterion: 'Metric: multi-node queue wait (submit → start) p50/p95 and largest-placeable-gang fraction'
+  points: 2
+- criterion: Window ≥ 2 weeks before and after (weekly cycles)
+  points: 1
+- criterion: Comparison on same job-size mix with job counts reported
+  points: 1
+- criterion: Confounders named (queue mix, drains/firmware waves, quota changes, capacity additions) and
+    policy version recorded
+  points: 1
+lab_checks: []

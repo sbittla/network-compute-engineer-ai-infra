@@ -55,8 +55,8 @@ would move a node with running jobs to `repair` — the one transition that kill
 
 | Test | Threshold | Derivation |
 |---|---|---|
-| RDMA write per rail (`ib_write_bw --report_gbits`) | ≥ 370 Gb/s | 400 Gb/s line rate × 0.925. Wire efficiency at a 4096 B RDMA path MTU is ≈ 98 % [MODELED: 4096 / (4096 + 58 B Ethernet/IPv4/UDP/BTH/ICRC headers + 4 B FCS + 20 B preamble and inter-frame gap) = 4096 / 4178 ≈ 0.980 → ≈ 392 Gb/s payload ceiling], so 370 Gb/s leaves ≈ 22 Gb/s (≈ 5.5 points) for host and NIC effects — calibrate on golden nodes |
-| H2D copy per GPU | ≥ 45 GB/s | PCIe Gen5 x16 ≈ 63 GB/s per direction theoretical; achievable ≈ 50–55 GB/s [ILLUSTRATIVE, REFERENCE_CLUSTER]; 45 GB/s flags an x8 or Gen4 link (≈ 31 GB/s theoretical) with margin |
+| RDMA write per rail (`ib_write_bw --report_gbits`) | ≥ 370 Gb/s | 400 Gb/s line rate × 0.925. Wire efficiency at a 4096 B RDMA path MTU is ≈ 98 % `[MODELED: 4096 / (4096 + 58 B Ethernet/IPv4/UDP/BTH/ICRC headers + 4 B FCS + 20 B preamble and inter-frame gap) = 4096 / 4178 ≈ 0.980 → ≈ 392 Gb/s payload ceiling]`, so 370 Gb/s leaves ≈ 22 Gb/s (≈ 5.5 points) for host and NIC effects — calibrate on golden nodes |
+| H2D copy per GPU | ≥ 45 GB/s | PCIe Gen5 x16 ≈ 63 GB/s per direction theoretical; achievable ≈ 50–55 GB/s `[ILLUSTRATIVE, REFERENCE_CLUSTER]`; 45 GB/s flags an x8 or Gen4 link (≈ 31 GB/s theoretical) with margin |
 | NVLink device-to-device | ≥ 340 GB/s | 450 GB/s per direction × ≈ 0.76 |
 | Burn-in | ≥ 12 h, 0 Xid, ≤ 85 °C | Cost 96 GPU-h per node; justified by the 256-GPU blast radius of one infant-mortality failure: a W-TRAIN restart loses on average half a checkpoint interval × 256 GPUs (30 min interval → 0.25 h × 256 = 64 GPU-h) plus restart time, *per failure*, and early-life failures cluster in the first hours of load |
 | Correctable ECC | not gating | Trend rule proposed: alert if a GPU's correctable count rises by > 1,000 in 24 h or any row remap is pending; orion-n38 (1,423 on GPU 3) admitted with a watch ticket |
@@ -71,7 +71,7 @@ would move a node with running jobs to `repair` — the one transition that kill
 | 4 | Replay | 3 admitted; 5 rejected; 2 noop; 1 duplicate; orion-n13 back to schedulable | SIMULATED |
 | 5 | Rollout | 28 eligible; headroom 5 training / 1 inference per wave (orion-n30 counted as drained); 7 waves, the minimum; rack-07 expiring bundle first | MODELED |
 | 6 | Rollout cost | 28 × 4 h × 8 = 896 GPU-h | MODELED |
-| 7 | Canary | Canary = orion-n01 (training, judged on step time) + orion-n25 (inference, judged on serving TPOT p95), each against same-partition baselines. S1 promote; S2 abort (orion-n01 busbw −8.4 % vs 452.85 GB/s; a gate on the mean of all canaries would have promoted at −4.5 %); S3 extend (10 h < 24 h); S4 abort (Xid on orion-n25) | SIMULATED |
+| 7 | Canary | Canary = orion-n01 (training, judged on step time) + orion-n25 (inference, judged on serving TPOT p95), each against same-partition baselines. S1 promote; S2 abort (orion-n01 busbw −8.4 % vs 452.85 GB/s, NVLS assumed; a gate on the mean of all canaries would have promoted at −4.5 %); S3 extend (10 h < 24 h); S4 abort (Xid on orion-n25) | SIMULATED |
 | 8 | Audit | first broken record seq 23 (`actor` edited to `jdoe`; recomputed hash ≠ stored) | SIMULATED |
 
 ## 6. Failure analysis (excerpt)

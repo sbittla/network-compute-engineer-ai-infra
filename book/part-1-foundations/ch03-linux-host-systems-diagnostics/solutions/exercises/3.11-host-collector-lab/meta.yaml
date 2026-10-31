@@ -1,0 +1,46 @@
+id: "3.11"
+title: Host collector and fleet analyzer (Lab 3, Progressive Lab 1)
+folder: 3.11-host-collector-lab
+type: hands-on-lab
+difficulty: 3
+tier: L1
+kind: lab
+points: 100
+evidence_required: >-
+  python check.py output showing 21/21 PASS; the generated fleet_report.md; the written report for
+  Exercise 3.8; and the fleet triage memo (lab Part D.3).
+marking:
+  - criterion: A1-A2 collector classification, command plan and default-deny read-only guard
+    points: 15
+  - criterion: A3-A4 collection with graceful degradation and the Markdown report
+    points: 20
+  - criterion: B1-B8 parsers (2.5 points per parser check, 10 checks)
+    points: 25
+  - criterion: C analyzer (recall 10, precision 7, graceful degradation 3, sysfs AER fallback 2, report 3)
+    points: 25
+  - criterion: D troubleshooting report for orion-n12 (hypotheses ranked, discriminating tests, fix order, validation)
+    points: 10
+  - criterion: D fleet triage memo (correct verdicts, evidence cited, owners named)
+    points: 5
+lab_checks:
+  - collector.classify_outcome
+  - collector.build_command_plan + is_read_only
+  - collector.collect (linux, degraded)
+  - collector.collect (non-Linux)
+  - collector.render_markdown
+  - parse_lscpu
+  - parse_numactl_hardware
+  - parse_lspci_links
+  - parse_vmstat
+  - parse_iostat
+  - parse_mpstat
+  - parse_interrupts
+  - parse_ip_link + parse_ethtool
+  - parse_numastat_process
+  - scan_kernel_log
+  - analyze_host on the reference node
+  - analyze_fleet recall (planted faults)
+  - analyze_fleet precision (no false alarms)
+  - analyze_host graceful degradation
+  - AER from sysfs when the kernel log is denied
+  - write_report

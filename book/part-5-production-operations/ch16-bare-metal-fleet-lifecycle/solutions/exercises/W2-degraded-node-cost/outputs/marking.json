@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Arithmetic for each part; the critical-path argument in (c).",
+  "id": "W2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Only the 70 % compute share stretches: 19.55 s, 11.0 % loss, ≈ 28.1 GPU-equivalents",
+      "points": 6
+    },
+    {
+      "criterion": "(b) Gen5 x8 ceiling ≈ 31.5 GB/s per direction, 26.8 GB/s at 85 %, +0.116 s = 0.67 % of the step",
+      "points": 6
+    },
+    {
+      "criterion": "(c) GPU defect worse (critical path every step); both rejected because acceptance cannot know the future job",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "What a degraded node costs W-TRAIN",
+  "type": "worked-problem"
+}

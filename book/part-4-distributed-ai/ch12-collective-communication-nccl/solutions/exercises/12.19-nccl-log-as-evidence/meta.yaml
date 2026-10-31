@@ -1,0 +1,17 @@
+id: '12.19'
+title: Making a nccl-tests log admissible evidence
+folder: 12.19-nccl-log-as-evidence
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: 'Environment manifest: versions, firmware, topology, NCCL_* variables, node list'
+  points: 1
+- criterion: Repeated launches with spread, warm-up/iteration counts
+  points: 1
+- criterion: A baseline for comparison and the fabric state (idle or what else ran)
+  points: 1
+lab_checks: []

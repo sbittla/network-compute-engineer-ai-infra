@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "≥ 3 ranked hypotheses, tests, root cause, fix, validation",
+  "id": "13.13",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least three ranked hypotheses, with NVLink/fabric-manager degradation ranked first and clocks/network rejected with stated evidence",
+      "points": 3
+    },
+    {
+      "criterion": "Discriminating tests with real commands and expected output (nvlink --status, topo -m, fabric-manager status, single-node all_reduce_perf, NCCL INFO transports)",
+      "points": 3
+    },
+    {
+      "criterion": "Root cause: fabric-management service failed after the driver update (version mismatch)",
+      "points": 2
+    },
+    {
+      "criterion": "Safe fix: checkpoint, drain, restart at reduced DP or wait for repair; align versions under change control",
+      "points": 2
+    },
+    {
+      "criterion": "Validation with numbers: links active, single-node busbw within 5 % of fleet median, job TP time within 5 %",
+      "points": 2
+    }
+  ],
+  "points": 12,
+  "tier": "L1",
+  "title": "One slow node in a TP job",
+  "type": "troubleshooting"
+}

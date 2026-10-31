@@ -1,0 +1,22 @@
+id: '12.14'
+title: Latency doubled, bandwidth fine
+folder: 12.14-latency-doubled-bandwidth-fine
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 15
+evidence_required: ≥ 3 ranked hypotheses, tests with expected outcomes, root cause, fix, and validation
+  criteria.
+marking:
+- criterion: At least three ranked hypotheses, with algorithm/protocol restriction first and why it fits
+    (latency up, plateau unchanged)
+  points: 4
+- criterion: Discriminating tests with commands and expected log lines (INFO ENV/TUNING, env diff, unset
+    rerun, affinity)
+  points: 4
+- criterion: Root cause and safe fix under change control, with a guard against recurrence
+  points: 4
+- criterion: Validation criteria (repeat launches, 8 B ≈ 47 ± 3 µs, plateau unchanged)
+  points: 3
+lab_checks: []

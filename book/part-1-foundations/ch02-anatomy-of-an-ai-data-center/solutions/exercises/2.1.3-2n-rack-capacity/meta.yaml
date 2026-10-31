@@ -1,0 +1,17 @@
+id: "2.1.3"
+title: Usable capacity of a 2N rack
+folder: 2.1.3-2n-rack-capacity
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 3
+evidence_required: Formula, values and result with units, and the reason the sides are not summed.
+marking:
+  - criterion: Per-circuit apparent power sqrt(3) x 415 V x 60 A = 43.13 kVA
+    points: 1
+  - criterion: Derated and power-factor-corrected 32.78 kW per circuit, 65.55 kW per side
+    points: 1
+  - criterion: Explains that under 2N either side must carry the whole rack alone, so usable capacity is 65.55 kW, not 131 kW
+    points: 1
+lab_checks: []

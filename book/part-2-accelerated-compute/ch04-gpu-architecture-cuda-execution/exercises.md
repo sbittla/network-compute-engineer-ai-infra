@@ -37,7 +37,7 @@ one from pinned memory.
 on the GPU row span 19.6 ms. Explain the discrepancy and how correlation IDs resolve it.
 *Evidence required:* explanation of CPU-side ranges and the join.
 
-**4.7** ★★ L1 — Why can a tensor-core GEMM at 18.75 % theoretical occupancy run at 60 %+ of peak, while
+**4.7** ★★ L1 — Why can a Tensor Core GEMM at 18.75 % theoretical occupancy run at 60 %+ of peak, while
 a layernorm backward at 12.5 % occupancy runs at 22 % of HBM bandwidth?
 *Evidence required:* latency-hiding argument referencing warp groups/TMA and Little's law.
 

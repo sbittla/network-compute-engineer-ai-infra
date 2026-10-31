@@ -1,0 +1,18 @@
+id: R2
+title: Why a high R² is not evidence of causation
+folder: R2-high-r2-not-causal
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: concise written answers, each naming the evidence (or missing evidence) it relies on (shared
+  R1–R4 line).
+marking:
+- criterion: R² measures in-sample fit, not direction of causation or omitted variables
+  points: 2
+- criterion: Names omitted-variable/confounding or mechanism-absence as the gap
+  points: 1
+- criterion: 'Uses the lab''s evidence: the additive-only model also has R² ≈ 0.995 yet a spurious ECC effect'
+  points: 1
+lab_checks: []

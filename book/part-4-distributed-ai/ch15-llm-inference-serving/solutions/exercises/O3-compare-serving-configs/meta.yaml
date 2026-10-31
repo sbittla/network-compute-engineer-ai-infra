@@ -1,0 +1,18 @@
+id: O3
+title: Compare two serving configurations
+folder: O3-compare-serving-configs
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 6
+evidence_required: the comparison table, both recommendations with numbers, and the flip conditions.
+marking:
+- criterion: Comparison table from compare_serving_configs (max_seqs, batch, TPOT, tokens/s/node, prefill)
+  points: 2
+- criterion: 'Latency: L-tp8-bf16 (TPOT 11.7 ms); throughput: T-tp4-fp8 (12,678 vs 2,740 tokens/s/node)'
+  points: 2
+- criterion: 'Flip conditions: TPOT SLO below about 20 ms; contexts beyond about 5k cap T''s batch below
+    128; FP8 quality unacceptable'
+  points: 2
+lab_checks: []

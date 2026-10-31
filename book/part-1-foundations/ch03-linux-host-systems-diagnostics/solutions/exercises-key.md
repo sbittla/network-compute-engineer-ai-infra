@@ -73,7 +73,7 @@ Any four, each with an example:
 3. **Timeouts**: a hung `lspci` on a wedged device cannot hang the collector.
 4. **Never escalates**: no `sudo`; `dmesg` denied → record it and fall back to `journalctl -k`.
 5. **Records every outcome**: a missing `iostat` becomes `status: missing`, not a traceback.
-6. **`LC_ALL=C`**: parsers do not break on localised decimal separators or dates.
+6. **`LC_ALL=C`**: parsers do not break on localized decimal separators or dates.
 *Marking (4):* 1 per property with a valid example.
 
 ---
@@ -100,7 +100,7 @@ Raw lines to quote, for example:
 
 **2–3. Ranked hypotheses with discriminating tests.**
 
-| Rank | Hypothesis | How well it explains ~40 % | Discriminating test (L2, on the live host) | Confirming result |
+| Rank | Hypothesis | How well it explains ≈ 40 % | Discriminating test (L2, on the live host) | Confirming result |
 |---|---|---|---|---|
 | 1 | **Slow RAID 0 member `nvme3n1` gates `md0`**, so loader workers block and the GPUs starve | **Fully.** md0 delivers 830 × 512 KiB = 435 MB/s. A loader that needed ≈ 725 MB/s (peers' rate) gets 435 / 725 = 60 %, which is the observed 40 % shortfall. GPU utilization ≈ 58 % agrees. | `nvme smart-log /dev/nvme3` (temperature, `critical_warning`, media errors); kernel log for nvme timeouts or resets; per-member latency with a read-only `fio --readonly` job on the drained node; PSI `io` | nvme3 thermal throttling or media errors; per-member latency ≫ siblings |
 | 2 | **IRQ/softirq concentration on CPU0** (rail0 and fe0 queues) | **Partially.** It caps kernel-path traffic (frontend PFS reads, checkpoint uploads, IP on rail0) and slows any thread scheduled on CPU0. W-MM reads come from local NVMe, so it is not the main limiter. | `/proc/softirqs` NET_RX delta per CPU; `cat /proc/irq/<n>/smp_affinity_list`; `systemctl is-active irqbalance`; `sar -n DEV 1` on fe0 during a PFS read | NET_RX grows only on CPU0; fe0 throughput plateaus with CPU0 at 100 % |
@@ -155,7 +155,7 @@ Lost fraction = 0.126 ÷ (17.4 + 0.126) = 0.0072, so 256 × 24 × 0.0072 ≈ **4
 (c) The loss is 44 ÷ 24 ≈ 1.8 GPU-h per hour. Shrinking to DP = 7 costs 32 GPU-h per hour plus
 restarts, and a planned stop costs at least 64 GPU-h plus 256 × T_repair. Waiting for the next
 unplanned restart costs ≈ 48 h × 1.8 ≈ 88 GPU-h. **Keep running** and repair at the next restart,
-watching for escalation (an AER storm or uncorrected errors force a stop). The Gen3 x8 case of §3.11
+watching for escalation (an AER storm or uncorrected errors force a stop). The Gen3 x8 case of Section 3.11
 costs ≈ 339 GPU-h/day (14.1 per hour), about 8× worse. There too shrinking loses (14.1 < 32), but
 waiting ≈ 677 GPU-h justifies a planned stop for repairs shorter than ≈ 2.4 h.
 *Common mistake:* assuming a spare node exists, or that draining moves the job.
@@ -191,10 +191,10 @@ output" below.
 | Host | Planted condition | Expected findings (critical/warning) | Teaching point |
 |---|---|---|---|
 | `orion-n01` | Reference node. **Trap:** 2 historical corrected AER events on NIC 4 (`9b:00.0`), weeks apart. | none (one info `PCIE_AER_CORRECTED`) | Corrected errors matter by rate; do not page on noise |
-| `orion-n07` | GPU 3 (`5d:00.0`) trained at **Gen3 x8** under load (97 % utilization); 37 corrected AER RxErr events on that BDF; `DevSta CorrErr+` | `PCIE_WIDTH_DEGRADED` crit; `PCIE_SPEED_DEGRADED` warn; `PCIE_AER_CORRECTED` warn | Width faults and AER storms together; §3.11 cost |
-| `orion-n12` | W-MM loader: `nvme3n1` 48.6 ms in RAID 0 `md0`; `vmstat b` ≈ 15; loader PID 98.9 % NUMA-remote; all `rail0` and `fe0` IRQs on CPU0, so CPU0 is 99.5 % busy in softirq; GPUs at ~58 % | `NUMA_REMOTE_MEMORY` crit; `IO_SATURATION` warn (nvme3n1 and md0); `PROC_BLOCKED` warn; `IRQ_CONCENTRATION` warn (×2); `CPU_HOTSPOT` warn (cpu0) | "CPU low, throughput poor"; diluted `%iowait`; the md0 finding is real but the actionable subject is the member drive |
+| `orion-n07` | GPU 3 (`5d:00.0`) trained at **Gen3 x8** under load (97 % utilization); 37 corrected AER RxErr events on that BDF; `DevSta CorrErr+` | `PCIE_WIDTH_DEGRADED` crit; `PCIE_SPEED_DEGRADED` warn; `PCIE_AER_CORRECTED` warn | Width faults and AER storms together; Section 3.11 cost |
+| `orion-n12` | W-MM loader: `nvme3n1` 48.6 ms in RAID 0 `md0`; `vmstat b` ≈ 15; loader PID 98.9 % NUMA-remote; all `rail0` and `fe0` IRQs on CPU0, so CPU0 is 99.5 % busy in softirq; GPUs at ≈ 58 % | `NUMA_REMOTE_MEMORY` crit; `IO_SATURATION` warn (nvme3n1 and md0); `PROC_BLOCKED` warn; `IRQ_CONCENTRATION` warn (×2); `CPU_HOTSPOT` warn (cpu0) | "CPU low, throughput poor"; diluted `%iowait`; the md0 finding is real but the actionable subject is the member drive |
 | `orion-n19` | Post-RMA: NUMA node 1 has 774,107 MB instead of ≈ 1,032,000 (≈ 252 GiB missing, consistent with DIMMs mapped out at POST); `rail3` MTU **1500**; `acpi-cpufreq` + `powersave` at 800 MHz | `INVENTORY_MISMATCH` crit (memory, numa1); `MTU_MISMATCH` crit (rail3); `CPUFREQ_POWERSAVE` warn | Baselines catch silent hardware loss; RMA returns need full re-provisioning. On a RoCE rail the 1500 B netdev MTU also caps the RDMA active MTU at 1024 B (docs/VERIFIED_FACTS.md) |
-| `orion-n23` | `rail5` negotiated **200 000 Mb/s**; 12 EDAC CE on MC2 (one DIMM); Xid 63 (row remap pending) on GPU 5 (`ab:00.0`) | `LINK_SPEED_DEGRADED` crit; `MEM_ECC_CORRECTED` warn; `GPU_XID` warn | A link that is up can still be wrong; CE trends; Xid classes |
+| `orion-n23` | `rail5` negotiated **200,000 Mb/s**; 12 EDAC CE on MC2 (one DIMM); Xid 63 (row remap pending) on GPU 5 (`ab:00.0`) | `LINK_SPEED_DEGRADED` crit; `MEM_ECC_CORRECTED` warn; `GPU_XID` warn | A link that is up can still be wrong; CE trends; Xid classes |
 | `orion-n28` | Collected **non-root**, GPUs **idle**, sysstat **not installed**: `lspci` capabilities `<access denied>`, `dmesg`/`journalctl` denied, `iostat`/`mpstat` missing, GPUs at 2.5 GT/s x16 (idle), `intel_pstate` + `powersave` | none at critical/warning; info: 3 × `EVIDENCE_GAP`, 8 × `PCIE_SPEED_LOW_IDLE`, `CPUFREQ_POWERSAVE` | Graceful degradation; sysfs fallback; idle downshift and `intel_pstate` powersave are not faults; "no findings" with gaps ≠ healthy |
 
 There are 14 distinct (host, check, severity) keys at critical/warning. These are the hashes in
@@ -243,7 +243,7 @@ From `orion-n01.json`: Intel Xeon Platinum 8480+, 2 sockets × 56 cores × 2 thr
 1,032,151 MB (`numactl_hardware`); `free -m` total 2,064,019 MiB. 8 GPUs (`18,2a,3a,5d` on node 0;
 `9a,ab,ba,db` on node 1), each 32 GT/s x16 (`lspci`). 8 ConnectX-7-class rail NICs at 32 GT/s x16 and 2
 ConnectX-6 Dx-class frontend NICs at 16 GT/s x16. 8 NVMe drives at 16 GT/s x4. `rail0–7` and `fe0–1`
-at MTU 9000, 400 000 / 200 000 Mb/s (`ip_link`, `ethtool:*`). Kernel 5.15.0-122-generic (`uname`); GPU
+at MTU 9000, 400 000 / 200,000 Mb/s (`ip_link`, `ethtool:*`). Kernel 5.15.0-122-generic (`uname`); GPU
 driver 550.127.05 and mlx5 firmware 28.39.1002 (`kernel_log`). Governor `performance` with
 `intel_pstate` (`cpufreq`).
 *Marking (10):* 1 per category correct with provenance (CPU, NUMA, memory, GPUs, NICs, NVMe,
@@ -267,7 +267,7 @@ only on drained nodes or through an audited privileged agent, with every run log
 `INVENTORY_MISMATCH`. Page a human for rate-based or contextual findings (CE trends,
 `IRQ_CONCENTRATION`, NUMA placement). The rationale should be stated in GPU-hours: a false drain costs
 one node, about 8 GPUs × time to return, whereas a missed straggler costs a share of the whole job.
-(d) Snapshot volume: the supplied snapshots are ≈ 74–154 KB of JSON each, ≈ 140 KB typical, so one sweep
+(d) Snapshot volume: the supplied snapshots are ≈ 76–156 KB of JSON each (74–152 KiB), ≈ 141 KB typical, so one sweep
 is 512 × 140 KB ≈ **72 MB**. Daily sweeps come to ≈ 26 GB/year before compression, and text compresses
 roughly 5–10×. Retention is tied to incident review (for example 90 days hot, 1 year compressed).
 (e) The baseline lives in Git, changes by pull request with review from Fleet and SRE, and is rolled

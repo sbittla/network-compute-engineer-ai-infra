@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "encapsulation difference (EtherType vs UDP/IP); routed /31 consequence; at least two counter-level signatures.",
+  "id": "8.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Encapsulation: RoCEv1 is EtherType 0x8915 with GRH+BTH and no IP header; RoCEv2 is UDP/IP port 4791",
+      "points": 2
+    },
+    {
+      "criterion": "Routed /31 consequence: the leaf cannot route a non-IP frame and drops it",
+      "points": 1
+    },
+    {
+      "criterion": "Leaf-side signature (non-IP/unknown-EtherType drops rising, zero DSCP 26/UDP 4791 packets from the port)",
+      "points": 1
+    },
+    {
+      "criterion": "Host-side signature (local_ack_timeout_err on both peers, IBV_WC_RETRY_EXC_ERR, no out_of_sequence)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "RoCEv1 versus RoCEv2",
+  "type": "knowledge-check"
+}

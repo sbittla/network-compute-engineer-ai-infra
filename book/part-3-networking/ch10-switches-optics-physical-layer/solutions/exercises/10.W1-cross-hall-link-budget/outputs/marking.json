@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "every formula, substitution, and result in dB/dBm/mW; a one-sentence decision for (b) and (d).",
+  "id": "10.W1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Channel loss 2.37 dB, worst-case Rx −5.27 dBm, margin 0.63 dB with formulas",
+      "points": 3
+    },
+    {
+      "criterion": "(b) 3.37 dB > 3.0 dB fails the channel budget; Rx −6.27 dBm below −5.9 dBm; decision not to accept",
+      "points": 2
+    },
+    {
+      "criterion": "(c) 0.297 mW from 10^(dBm/10)",
+      "points": 1
+    },
+    {
+      "criterion": "(d) Measured 4.7 dB, excess 2.33 dB, common element on all lanes; first place to look stated (−1 per missing unit across the answer)",
+      "points": 3
+    }
+  ],
+  "points": 9,
+  "tier": "L1",
+  "title": "Link budget for a cross-hall DR4 link",
+  "type": "worked-problem"
+}

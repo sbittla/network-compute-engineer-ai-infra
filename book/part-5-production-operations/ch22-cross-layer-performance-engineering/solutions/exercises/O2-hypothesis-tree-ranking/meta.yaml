@@ -1,0 +1,23 @@
+id: O2
+title: Hypothesis tree and test ranking
+folder: O2-hypothesis-tree-ranking
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: lab
+points: 15
+evidence_required: tree; ranked table including your two tests with scores; the list of rejected tests and the rule
+  applied.
+marking:
+- criterion: (a) tree rooted in the step-time equation with every change, alert and anomaly attached to a term with
+    a predicted fingerprint (incl. BackendLinkFlap and container leaves)
+  points: 5
+- criterion: '(b) lab task 8 ranking correct: T3, T1, T2, T4, T8, T6, T7'
+  points: 3
+- criterion: (b) two learner tests with justified info, cost, risk, environment, placed correctly in the ranking
+  points: 4
+- criterion: Rejected tests T5 and T9 with the rule (high-risk in production is rejected, not ranked), and re-scoring
+    after results
+  points: 3
+lab_checks:
+- 'rank_tests: value/cost/risk ordering + safety'

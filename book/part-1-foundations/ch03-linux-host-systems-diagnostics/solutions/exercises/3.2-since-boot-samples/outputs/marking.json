@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "A definition of what the first sample measures, plus a numeric example.",
+  "id": "3.2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "The first vmstat line and the first iostat report are averages over the whole time since boot",
+      "points": 1
+    },
+    {
+      "criterion": "A numeric example in which the since-boot sample hides or dilutes a live problem",
+      "points": 1
+    },
+    {
+      "criterion": "The example shows the arithmetic (for example b = 0 since boot vs 15 live; averaging gives 12)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Since-boot samples",
+  "type": "knowledge-check"
+}

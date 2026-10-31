@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "two definitions and a 2-rank example.",
+  "id": "12.1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Reduce-scatter contract: rank r ends with the reduced chunk r",
+      "points": 1
+    },
+    {
+      "criterion": "All-gather contract: every rank ends with all chunks in rank order",
+      "points": 1
+    },
+    {
+      "criterion": "2-rank example worked through both steps",
+      "points": 1
+    },
+    {
+      "criterion": "Shows the composition equals the all-reduce result",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Reduce-scatter and all-gather compose to all-reduce",
+  "type": "knowledge-check"
+}

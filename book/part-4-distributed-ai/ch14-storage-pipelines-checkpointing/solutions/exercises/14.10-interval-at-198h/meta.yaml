@@ -1,0 +1,20 @@
+id: '14.10'
+title: Interval and lost accelerator-hours at a measured failure rate
+folder: 14.10-interval-at-198h
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: planner output table plus one hand calculation
+marking:
+- criterion: 'Planner table at M = 198 h: async PFS 1,305 s (75 steps) 19.2 GPU-h/day; sync PFS 5,046
+    s (290) 51.4 GPU-h/day; other rows'
+  points: 4
+- criterion: 'Hand check of one strategy: Young sqrt(2 x 1.188 x 712,800) = 1,301.5 s, rounded to 75 steps,
+    5.59 + 13.58 GPU-h'
+  points: 3
+- criterion: 'Interpretation: ranking unchanged, losses fall ≈ 2.9x, intervals stretch ≈ 2x (sqrt of M
+    ratio), RPO policy may bind'
+  points: 1
+lab_checks: []

@@ -32,8 +32,8 @@ host bandwidth?
 *Evidence required:* three definitions; bandwidth before/after in GB/s per direction.
 
 **K5 ★ L1 — The first reporter.** Why is the first rank to log a watchdog timeout usually not the
-culprit? Name the two artefacts that localise a hang.
-*Evidence required:* mechanism of the watchdog; two artefacts.
+culprit? Name the two artifacts that localize a hang.
+*Evidence required:* mechanism of the watchdog; two artifacts.
 
 **K6 ★★ L1 — Domain vs unit.** Explain the difference between the *fault domain* and the *scheduling
 unit removed* for a failed `mlx5_3` link on a node running a TP = 8, rail-optimized job. When could the
@@ -95,7 +95,7 @@ validation criteria.
 ## Design challenge
 
 **D1 ★★★ L1 — Hot spares vs elastic training.** A 512-node ORION-XL job runs TP = 8, PP = 8, DP = 64, so one
-DP replica is 8 nodes. Halcyon can either (A) keep a declared, Poisson-sized (P99) spare pool outside the
+DP replica is 8 nodes. Halcyon can either (A) keep a declared, Poisson-sized (p99) spare pool outside the
 partition and restart at fixed world size (R = 15 min), or (B) use elastic training with no spares that
 drops whole DP replicas and re-shards in 5 minutes. Using the canonical MTBF and 5-day MTTR, compare
 expected useful throughput per *fleet* node for A, for B with rank re-packing, and for B without it
@@ -107,7 +107,7 @@ expected useful throughput per *fleet* node for A, for B with rank re-packing, a
 **R1 ★ L1** — Which statements in your lab packet rely on *intervention* evidence that does not yet
 exist? How will you obtain it?
 
-**R2 ★★ L1** — The lab assumes synchronised clocks. Which conclusions would change with a 15 s skew on
+**R2 ★★ L1** — The lab assumes synchronized clocks. Which conclusions would change with a 15 s skew on
 orionxl-n212?
 
 **R3 ★★ L1** — Give two ways an over-aggressive auto-quarantine policy reduces reliability.
@@ -143,4 +143,4 @@ one flaky HCA, one GPU ECC fault, and an NCCL timeout (Lab 19), correlate logs a
 the smallest failure domain, quarantine the suspect component, and produce a safe restart plan.
 Distinguish proven cause from correlation. Submit the failure timeline, rank-to-hardware mapping, health
 decision, checkpoint/restore validation, recovery metrics, and a postmortem (Chapter 18 template).
-*Evidence required:* checker PASS; the six artefacts.
+*Evidence required:* checker PASS; the six artifacts.

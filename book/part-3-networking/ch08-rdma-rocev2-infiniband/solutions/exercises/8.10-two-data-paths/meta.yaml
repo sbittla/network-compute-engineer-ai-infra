@@ -1,0 +1,18 @@
+id: '8.10'
+title: Draw the TCP and RDMA data paths
+folder: 8.10-two-data-paths
+type: outline-mandated
+difficulty: 1
+tier: L1
+kind: written
+points: 10
+evidence_required: two labelled diagrams (Mermaid or hand-drawn); a count table per side; offload discussion.
+marking:
+- criterion: Two labelled diagrams showing kernel and remote-CPU involvement
+  points: 4
+- criterion: 'Count table per side: CPU copies, DMA transfers, system calls, interrupts, context switches'
+  points: 4
+- criterion: 'Offload discussion: what TSO/GRO/interrupt moderation/MSG_ZEROCOPY change and what they
+    cannot remove'
+  points: 2
+lab_checks: []

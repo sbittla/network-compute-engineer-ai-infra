@@ -47,14 +47,14 @@ python check.py                     # progress meter: everything is TODO at the 
 
 | Topic | Manuscript section |
 |---|---|
-| HX8 NUMA and PCIe topology as Linux sees it | §3.2 |
-| Scheduling, run queue, `r`/`b`, per-CPU hot spots, cpufreq | §3.3 |
-| NUMA placement, first touch, `numastat -p` | §3.4 |
-| `iostat -x` columns, `%iowait` dilution, NVMe `%util` caveat | §3.5 |
-| PCIe `LnkCap` vs `LnkSta`, idle downshift, AER | §3.6 |
-| MSI-X queues, `/proc/interrupts`, softirq | §3.7 |
-| Kernel log: AER, EDAC, Xid, `dmesg_restrict` | §3.8 |
-| Collector design rules | §3.10 |
+| HX8 NUMA and PCIe topology as Linux sees it | Section 3.2 |
+| Scheduling, run queue, `r`/`b`, per-CPU hot spots, cpufreq | Section 3.3 |
+| NUMA placement, first touch, `numastat -p` | Section 3.4 |
+| `iostat -x` columns, `%iowait` dilution, NVMe `%util` caveat | Section 3.5 |
+| PCIe `LnkCap` vs `LnkSta`, idle downshift, AER | Section 3.6 |
+| MSI-X queues, `/proc/interrupts`, softirq | Section 3.7 |
+| Kernel log: AER, EDAC, Xid, `dmesg_restrict` | Section 3.8 |
+| Collector design rules | Section 3.10 |
 
 ## 5. Snapshot format (`hostdiag/1`)
 
@@ -89,7 +89,7 @@ reference node), `-07`, `-12`, `-19`, `-23`, and `-28`; read each snapshot's `co
 | # | Function | Trap to avoid |
 |---|---|---|
 | B1 | `parse_lscpu`, `parse_numactl_hardware` | Split on the first `:` only; CPU lists use range syntax. |
-| B2 | `parse_lspci_links` | Compare numbers, not the `(ok)`/`(downgraded)` annotation (older pciutils print neither). Non-root output hides capabilities. |
+| B2 | `parse_lspci_links` | Compare numbers, not the `(ok)`/`(downgraded)` annotation (pciutils 3.6–3.7 print both, 3.8+ print only `(downgraded)`/`(overdriven)`, older versions neither). Non-root output hides capabilities. |
 | B3 | `parse_vmstat` | The first row is the **since-boot average** — exclude it. |
 | B4 | `parse_iostat` | The first report is **since boot** — keep the last one. |
 | B5 | `parse_mpstat` | Prefer the `Average:` block; align columns from the right. |
@@ -116,7 +116,7 @@ exactly (thresholds come from `data/orion_hx8_baseline.yaml`):
 | `GPU_XID` | critical / warning | Xid in `critical_xids` (48, 74, 79, 94, 95, 119, 120, 140, 154 `[VENDOR-SPEC, 2026-10]`) → critical; any other Xid → warning. |
 | `MCE_LOGGED`, `NIC_LINK_FLAP` | warning | Machine-check log line; NIC `Link down` line. |
 | `INTERFACE_MISSING`, `MTU_MISMATCH`, `LINK_DOWN`, `LINK_SPEED_DEGRADED` | critical | Per baseline interface group (`rail0–7`, `fe0–1`): absent; MTU ≠ expected; state ≠ UP or `Link detected: no`; ethtool speed below expected. Also flag any interface whose MTU differs from the fleet majority (≥ 3 hosts). |
-| `CPUFREQ_POWERSAVE` | warning / info | Governor `powersave` with driver `acpi-cpufreq` → warning (pins low frequency); with `intel_pstate`/`amd-pstate` → info (dynamic). Other non-baseline governor → `CPUFREQ_GOVERNOR` info. |
+| `CPUFREQ_POWERSAVE` | warning / info | Governor `powersave` with driver `acpi-cpufreq` (or a passive-mode driver: `intel_cpufreq`, `amd-pstate`) → warning (pins low frequency); with active-mode `intel_pstate`/`amd-pstate-epp` → info (dynamic). Other non-baseline governor → `CPUFREQ_GOVERNOR` info. |
 | `NUMA_REMOTE_MEMORY` | critical / warning | Fraction of the PID's memory on NUMA nodes outside its CPU affinity ≥ `numa_remote_fraction_crit` → critical; ≥ `..._warn` → warning. |
 | `IRQ_CONCENTRATION` | warning | A device with ≥ `irq_min_queues` IRQs has ≥ `irq_single_cpu_fraction_warn` of its interrupts on one CPU. |
 | `IRQ_REMOTE_NUMA` | warning | < 50 % of a device's interrupts serviced on its own NUMA node. |
@@ -131,7 +131,7 @@ info. `write_report()` lists every host (even with zero findings) with a verdict
 
 1. Run your analyzer: `python starter/host_analyzer.py data/snapshots/*.json --baseline data/orion_hx8_baseline.yaml --out out/fleet_report.md`.
 2. Write a one-page **troubleshooting report for `orion-n12`** ("samples/s poor although CPU
-   utilisation is low"): rank at least three hypotheses, name the discriminating evidence for each,
+   utilization is low"): rank at least three hypotheses, name the discriminating evidence for each,
    state the most likely primary cause and the order in which you would fix things, and the
    measurement that would validate the fix (Exercise 3.8).
 3. Write a **triage memo** (≤ 1 page) for the fleet: per host, drain / investigate / healthy, with the

@@ -1,0 +1,18 @@
+id: R3
+title: What acceptance cannot prove about NCCL hangs
+folder: R3-missing-evidence-nccl-hang
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: At least two missing evidence types; chapter cross-references.
+marking:
+- criterion: First missing evidence type (multi-node fabric behaviour or multi-node NCCL at scale)
+  points: 2
+- criterion: Second missing evidence type (long-tail intermittent faults, tenant interaction, switch-side
+    counters)
+  points: 2
+- criterion: Correct chapter cross-references (9, 10, 12, 13 and 18)
+  points: 1
+lab_checks: []

@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a header-by-header sum; the selected MTU with justification.",
+  "id": "7.K4",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Header-by-header sum to 4,174 B (14 + 20 + 8 + 12 + 16 + 4,096 + 4 + 4); 4,158 B accepted only if RETH is explicitly excluded",
+      "points": 2
+    },
+    {
+      "criterion": "Active MTU 1,024 at netdev MTU 1500, with the ≈ 1,456 B payload-space argument",
+      "points": 1
+    },
+    {
+      "criterion": "Reason for host MTU 9000: lets the device select 4,096 path MTU (needs IP MTU above ≈ 4,200 B) and gives TCP jumbo frames",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "RoCEv2 frame size and the RDMA path MTU",
+  "type": "knowledge-check"
+}

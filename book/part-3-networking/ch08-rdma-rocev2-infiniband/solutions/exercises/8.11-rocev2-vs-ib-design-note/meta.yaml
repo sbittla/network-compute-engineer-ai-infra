@@ -1,0 +1,25 @@
+id: '8.11'
+title: RoCEv2 versus InfiniBand design note
+folder: 8.11-rocev2-vs-ib-design-note
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: written
+points: 20
+evidence_required: comparison table with all four dimensions; recommendation tied to stated criteria;
+  every number labelled; at least one cross-reference to Chapter 9 (congestion) and Chapter 10 (physical
+  layer).
+marking:
+- criterion: Comparison table across transport, fabric management, operational model and troubleshooting
+    evidence
+  points: 6
+- criterion: Recommendation tied to stated criteria
+  points: 4
+- criterion: 'Numbers with labels: GID/addressing, DSCP/TC with NCCL_IB_TC = 106 arithmetic, MTU at three
+    layers, timeout/retry time-to-failure, multi-rail loss'
+  points: 5
+- criterion: Three most likely failure signatures for the chosen technology
+  points: 3
+- criterion: Cross-references to Chapter 9 (congestion) and Chapter 10 (physical layer)
+  points: 2
+lab_checks: []

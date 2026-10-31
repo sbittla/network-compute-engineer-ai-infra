@@ -2,7 +2,7 @@
 
 **Part III — Networking for AI Clusters · Course week 6 · Progressive Lab 3 (network telemetry)**
 
-RoCEv2 AI fabrics depend on two cooperating mechanisms: Priority-based Flow Control (PFC), which
+RoCEv2 AI fabrics depend on two cooperating mechanisms: priority flow control (PFC), which
 prevents loss by pausing senders, and ECN with DCQCN, which slows senders before PFC has to act. This
 chapter teaches how both work at the level of queues, thresholds, and bytes; the arithmetic of
 headroom, incast, and bandwidth-delay product on the ORION reference cluster; the failure modes PFC
@@ -62,6 +62,7 @@ ch09-congestion-control-lossless-fabrics/
 ├── README.md                    this chapter card
 ├── manuscript.md                chapter text (Sections 9.1–9.12 + operations, summary, reading)
 ├── exercises.md                 K1–K8, W1–W2, H1, O1–O3 (outline), T1, D1, R1–R4
+├── exercises/                   learner folders, one per exercise (20), with README.md index
 ├── lab/
 │   ├── README.md                lab guide (Progressive Lab 3)
 │   ├── manifest.yaml            environment manifest (L1; L3 fields to record)
@@ -71,13 +72,14 @@ ch09-congestion-control-lossless-fabrics/
 │   └── starter/congestion_lab.py     learner module with TODOs
 ├── solutions/                   INSTRUCTOR ONLY
 │   ├── exercises-key.md         answers, marking guidance, planted anomalies
-│   └── lab/                     congestion_lab.py (reference) + planted_faults.yaml (generator spec)
+│   ├── lab/                     congestion_lab.py (reference) + planted_faults.yaml (generator spec)
+│   └── exercises/               per-exercise meta.yaml, answer.md, solve.py (computed), generated outputs/
 └── review/REVIEW.md             editorial review log
 ```
 
 ## Connections
 
 Builds on Chapters 3, 7, 8. Applied in Chapter 10 (separating physical-layer faults from congestion),
-Chapter 12 (collective slowdowns), Chapter 13 (rank-to-rail mapping), Chapter 15 (KV-cache transfer
+Chapter 12 (collective slowdowns), Chapter 13 (rank-to-rail mapping), Chapter 15 (KV cache transfer
 incast), Chapter 18 (dashboards and alerts), and **Capstone B** (AI network troubleshooting and
 telemetry system).

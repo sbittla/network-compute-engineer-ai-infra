@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Concise written answers, each referencing a specific data file, metric, or section.",
+  "id": "R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First way the SLI can be gamed or mislead, with a guard",
+      "points": 2
+    },
+    {
+      "criterion": "Second distinct way, with a guard",
+      "points": 2
+    },
+    {
+      "criterion": "Third distinct way, with a guard",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "How the training throughput SLI can mislead",
+  "type": "reflection"
+}

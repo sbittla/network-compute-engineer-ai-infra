@@ -1,0 +1,18 @@
+id: K7
+title: TTD, TTM, TTR and the onset bias
+folder: K7-timeline-arithmetic
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: Three definitions; one sentence on the bias introduced by human-reported onset.
+marking:
+- criterion: TTD = detection − onset
+  points: 1
+- criterion: TTM = mitigation (user impact stopped) − onset; TTR = resolution (all-clear) − onset
+  points: 2
+- criterion: 'Bias: human-reported onset lags (48 min in INC-2291), understating TTD and impact and hiding
+    the alerting gap'
+  points: 1
+lab_checks: []

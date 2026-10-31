@@ -1,0 +1,17 @@
+id: '14.14'
+title: Most uncertain planner inputs
+folder: 14.14-uncertain-planner-inputs
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: three input → measurement pairs
+marking:
+- criterion: First input with a specific measurement (tool, procedure, repetitions)
+  points: 2
+- criterion: Second input with a specific measurement
+  points: 2
+- criterion: Third input with a specific measurement
+  points: 1
+lab_checks: []

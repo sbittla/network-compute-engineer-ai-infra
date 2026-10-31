@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The eight states; the two source states; one sentence of justification.",
+  "id": "K1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "All eight states listed in Figure 16.1 order",
+      "points": 2
+    },
+    {
+      "criterion": "Names validated (enable) and draining (cancel_drain, maintenance only) as the only sources",
+      "points": 2
+    },
+    {
+      "criterion": "Justifies the missing repair → schedulable edge: repaired hardware is unproven and must re-enter at imaged",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Lifecycle states and the only roads to schedulable",
+  "type": "knowledge-check"
+}

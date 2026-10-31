@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "nvlink_ms": 11.6,
+    "staged_pipelined_ms": 83.9,
+    "staged_unpipelined_ms": 165.2
+  },
+  "evidence_label": "MODELED",
+  "exercise": "5.12",
+  "inputs": {
+    "bytes": 4294967296,
+    "chunk_bytes": 67108864,
+    "nvlink_Bps": 370000000000.0,
+    "pcie_Bps": 52000000000.0
+  },
+  "steps": {
+    "chunk_ms": 1.291,
+    "chunks": 64,
+    "pcie_leg_ms": 82.6
+  },
+  "units": {
+    "time": "ms"
+  }
+}

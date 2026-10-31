@@ -1,0 +1,32 @@
+{
+  "answer": {
+    "mfu_change_points": -8.4862,
+    "mfu_went_up": false
+  },
+  "baseline": {
+    "compute_s": 13.9156,
+    "mfu": 0.3987,
+    "step_s": 17.4504
+  },
+  "evidence_label": "[MODELED]",
+  "full_recompute": {
+    "compute_s": 18.5495,
+    "mfu": 0.3139,
+    "step_s": 22.1688
+  },
+  "inputs": {
+    "full_recompute_factor": 1.333,
+    "layout": {
+      "dp": 8,
+      "micro_batch": 1,
+      "pp": 4,
+      "recompute": "selective",
+      "tp": 8,
+      "zero_stage": 1
+    }
+  },
+  "units": {
+    "mfu": "fraction",
+    "step": "s"
+  }
+}

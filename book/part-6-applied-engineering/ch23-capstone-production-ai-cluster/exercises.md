@@ -20,7 +20,7 @@ decision to keep TP = 8 inside the NVLink domain.
 *Evidence required:* a trigger that is observable (a metric or event), not an opinion.
 
 **K4 ★ L1.** Why must a rack power budget use maximum rather than sustained node power? Name two
-operational events that drive a rack towards its maximum.
+operational events that drive a rack toward its maximum.
 *Evidence required:* the reason plus two events.
 
 **K5 ★★ L1.** On ORION, compare the blast radius of (a) a rack power failure and (b) a rail-leaf
@@ -81,7 +81,7 @@ your own capstone bundle.
 
 ## D. Troubleshooting case
 
-**T1 ★★★ L1 (analysis) / L3 (re-run).** Kestrel's L3 extension ran `all_reduce_perf` (8 GiB, 4 nodes ×
+**T1 ★★★ L1 (analysis) / L3 (rerun).** Kestrel's L3 extension ran `all_reduce_perf` (8 GiB, 4 nodes ×
 8 GPUs) five times on a lab fabric that it shares with another team. Results `[ILLUSTRATIVE]` (node busbw over 8 rails): 329.6,
 194.4, 318.4, 208.8, 324.0 GB/s. Their draft benchmark table reports "275.0 GB/s `[MEASURED]`" and
 their design text concludes "the fabric loses 23 % at 4 nodes versus B-02's 356 GB/s; we lower A-06 to
@@ -99,7 +99,7 @@ labels.
 ## E. Design challenge
 
 **D1 ★★★ L1.** Halcyon wants to grow ORION to 48 HX8 nodes (384 GPUs) for W-TRAIN, while the
-inference team plans to run disaggregated serving with cross-rail KV-cache transfer on the same
+inference team plans to run disaggregated serving with cross-rail KV cache transfer on the same
 backend next year. Rail-leaf ASICs are 51.2 Tb/s class, deployed either as 64 × 800G cages each run at 400G
 (radix 64 at 400G) or broken out to 128 × 400G (radix 128). Compare at least three backend options:
 (A) keep one radix-64 leaf per rail (64 × 800G cages at 400G) with 48 down / 16 up; (B) two such radix-64
@@ -141,7 +141,7 @@ and operational constraints. Use the Section 23.6 checklist (Table 23.7).
 outcome, conditions with owners and dates, and the updated bundle.
 
 **M3 ★★★ L1 (L2/L3 optional) — Present evidence, failure exercise and backlog.** Present your
-benchmark evidence, failure-exercise results and a prioritised next-step backlog in a 20-minute
+benchmark evidence, failure-exercise results and a prioritized next-step backlog in a 20-minute
 review talk (Table 23.9 structure).
 *Evidence required:* slides with evidence labels visible per claim; failure-exercise report with
 TTD/TTM/TTR and lost GPU-hours (labelled by tier); backlog with scoring and rationale.

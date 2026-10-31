@@ -1,0 +1,19 @@
+id: '11.9'
+title: Communication budget
+folder: 11.9-communication-budget
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 6
+evidence_required: three volumes, three times, the TP = 2 result, and a one-sentence priority.
+marking:
+- criterion: TP 1.203 TB, DP 7.66 GB, PP 2.15 GB per GPU per step with formulas
+  points: 2
+- criterion: 'Times: TP 4.11 s (exposed 3.08), DP 0.170 s (exposed 0.098), PP 0.055 s (exposed 0.028)'
+  points: 2
+- criterion: TP = 2 volume 171.8 GB and the (t − 1) identity explained
+  points: 1
+- criterion: 'Priority: attack TP first, justified by its share of exposed time'
+  points: 1
+lab_checks: []

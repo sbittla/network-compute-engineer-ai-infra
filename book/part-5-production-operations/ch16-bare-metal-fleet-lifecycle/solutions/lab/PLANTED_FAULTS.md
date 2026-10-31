@@ -13,7 +13,7 @@ Expected verdicts: **25 PASS, 1 WARN, 6 FAIL**.
 | orion-n11 | FAIL | `PCIE_DEGRADED` | GPU3 under-load width x8 (gen 5) | Width, not idle speed, is the defect; half the host bandwidth | Reseat board/riser; inspect connector; re-accept |
 | orion-n19 | FAIL | `NIC_SPEED`, `RDMA_PAIR_BW_LOW` | rail-5 NIC `speed_mbps` 200000; pair BW ≈ 192 Gb/s | Two codes, one fault: fix the link and RDMA recovers | Optic DOM, leaf port config, swap-to-isolate (Chapter 10) |
 | orion-n23 | FAIL | `FW_OFF_MATRIX` | NIC7 firmware `28.42.1000` (blocked); other 7 NICs on 28.41.1000 — typical RMA replacement NIC | Per-device firmware check; BLOCKED takes precedence; closest bundle B-2026.04, mismatch `nic_fw` | Reflash NIC7 to 28.41.1000; re-accept |
-| orion-n27 | FAIL | `THERMAL_THROTTLE` | GPU6 max 89 °C with `SW_THERMAL_SLOWDOWN` (plus normal `SW_POWER_CAP`) | Distinguish thermal slowdown from normal power capping | Airflow/fan/heatsink check; BMC inlet; re-run burn-in |
+| orion-n27 | FAIL | `THERMAL_THROTTLE` | GPU6 max 89 °C with `SW_THERMAL_SLOWDOWN` (plus normal `SW_POWER_CAP`) | Distinguish thermal slowdown from normal power capping | Airflow/fan/heatsink check; BMC inlet; rerun burn-in |
 | orion-n30 | FAIL | `HBM_ROW_REMAP_PENDING` | GPU2 `row_remap.pending = true`, `dbe_aggregate = 1`, `dbe_volatile = 0` | Volatile counters can be 0 after a driver reload while a remap is pending | GPU reset per vendor procedure; confirm not pending; `-r 3`; RMA if it recurs |
 
 **Distractors that must not fail:** orion-n15's NCCL run used `algorithm: Ring` at ≈ 367 GB/s — healthy

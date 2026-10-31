@@ -1,0 +1,88 @@
+{
+  "answer": {
+    "gpu_node_power_kW": 489.6,
+    "options": {
+      "A": {
+        "backend_cables": 512,
+        "host_leaf_cables": 384,
+        "leaf_ports_used": 64,
+        "leaf_radix": 64,
+        "leaf_spine_cables": 128,
+        "leaves": 8,
+        "links_per_leaf_spine": 4,
+        "oversub": 3.0,
+        "same_rail_crosses_spine": false,
+        "spine_ports_used": 32,
+        "spines": 4
+      },
+      "B": {
+        "backend_cables": 768,
+        "host_leaf_cables": 384,
+        "leaf_ports_used": 48,
+        "leaf_radix": 64,
+        "leaf_spine_cables": 384,
+        "leaves": 16,
+        "links_per_leaf_spine": 4,
+        "oversub": 1.0,
+        "same_rail_crosses_spine": true,
+        "spine_ports_used": 64,
+        "spines": 6
+      },
+      "C": {
+        "backend_cables": 768,
+        "host_leaf_cables": 384,
+        "leaf_ports_used": 96,
+        "leaf_radix": 128,
+        "leaf_spine_cables": 384,
+        "leaves": 8,
+        "links_per_leaf_spine": 8,
+        "oversub": 1.0,
+        "same_rail_crosses_spine": false,
+        "spine_ports_used": 64,
+        "spines": 6
+      }
+    },
+    "racks": 12,
+    "recommendation": "C if a qualified 128-port leaf exists, else A with a revisit trigger"
+  },
+  "evidence_label": "MODELED",
+  "id": "D1",
+  "inputs": {
+    "node_max_kW": 10.2,
+    "nodes": 48,
+    "options": {
+      "A": [
+        1,
+        64,
+        48,
+        16,
+        4
+      ],
+      "B": [
+        2,
+        64,
+        24,
+        24,
+        6
+      ],
+      "C": [
+        1,
+        128,
+        48,
+        48,
+        6
+      ]
+    },
+    "rack_kW": 45.0,
+    "rails": 8,
+    "spine_radix": 64
+  },
+  "steps": {
+    "asic_ports_at_400G": 128
+  },
+  "units": {
+    "cables": "links",
+    "oversub": "ratio:1",
+    "power": "kW"
+  }
+}

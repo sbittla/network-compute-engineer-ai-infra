@@ -1,0 +1,21 @@
+id: '8.14'
+title: 'L3 extension: measure a rail'
+folder: 8.14-l3-measure-a-rail
+type: hands-on-lab
+difficulty: 3
+tier: L3
+kind: written
+points: 10
+evidence_required: 'raw captures; filled-in `manifest.yaml` with `evidence_class: MEASURED`; median and
+  min/max for plateau and p99/p99.9; model-versus-measured table with an explanation of any gap.'
+marking:
+- criterion: Complete manifest with evidence_class MEASURED; raw captures and inventories included
+  points: 2
+- criterion: 'Method: ≥ 5 repetitions per rail, warm-up discarded, NUMA pinning stated, ≥ 2 rails'
+  points: 3
+- criterion: 'Statistics: median and min/max for plateau, n½ and p99/p99.9'
+  points: 2
+- criterion: Model comparison uses the actual link speed and MTU; any gap > 5 % explained with a discriminating
+    check
+  points: 3
+lab_checks: []

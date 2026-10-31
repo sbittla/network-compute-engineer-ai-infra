@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Three definitions; one sentence on the bias introduced by human-reported onset.",
+  "id": "K7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "TTD = detection − onset",
+      "points": 1
+    },
+    {
+      "criterion": "TTM = mitigation (user impact stopped) − onset; TTR = resolution (all-clear) − onset",
+      "points": 2
+    },
+    {
+      "criterion": "Bias: human-reported onset lags (48 min in INC-2291), understating TTD and impact and hiding the alerting gap",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "TTD, TTM, TTR and the onset bias",
+  "type": "knowledge-check"
+}

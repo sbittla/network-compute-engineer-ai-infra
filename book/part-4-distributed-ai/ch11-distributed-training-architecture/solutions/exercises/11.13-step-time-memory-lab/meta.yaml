@@ -1,0 +1,34 @@
+id: '11.13'
+title: Step-time and memory model (lab)
+folder: 11.13-step-time-memory-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: checker output (10/10 PASS), candidate table, recommendation with justification, checkpoint
+  table, and a paragraph on the planted traps.
+marking:
+- criterion: bubble_fraction, validate_config and memory checks pass (memory_baseline, memory_traps)
+  points: 30
+- criterion: allreduce_time, comm_volumes_baseline and step_time_baseline pass
+  points: 30
+- criterion: evaluate_and_recommend passes and the recommendation (D_tp4_pp8_dp8) is justified on step,
+    MFU and headroom
+  points: 15
+- criterion: young_daly and reliability_table pass; checkpoint table in the report
+  points: 15
+- criterion: Planted traps explained (G and I overflow, J violates headroom, E spans nodes and breaks
+    KV-head divisibility, K full recompute is slower)
+  points: 10
+lab_checks:
+- 'bubble_fraction:'
+- 'validate_config:'
+- 'memory_baseline:'
+- 'memory_traps:'
+- 'allreduce_time:'
+- 'comm_volumes_baseline:'
+- 'step_time_baseline:'
+- 'evaluate_and_recommend:'
+- 'young_daly:'
+- 'reliability_table:'

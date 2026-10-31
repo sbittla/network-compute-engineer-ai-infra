@@ -1,0 +1,22 @@
+id: 10.D1
+title: Media plan for ORION's expansion pod
+folder: 10.D1-expansion-pod-media-plan
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: written
+points: 10
+evidence_required: a decision table (link class × medium × reason), an optics-power estimate with stated
+  per-module power, and the spare-part list implied by your choices.
+marking:
+- criterion: Decision table covering host links, leaf–spine, cross-hall and module form factor, each defended
+    on reach, power, failure modes and cleaning
+  points: 4
+- criterion: Quantitative optics-power estimate with stated per-module power
+  points: 2
+- criterion: Spare-part list consistent with the choices
+  points: 2
+- criterion: Vendor verification list (supported optics per NOS release, AEC power, FEC mode, twin-port
+    availability)
+  points: 2
+lab_checks: []

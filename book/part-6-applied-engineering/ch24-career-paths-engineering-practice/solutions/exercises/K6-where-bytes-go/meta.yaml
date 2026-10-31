@@ -1,0 +1,18 @@
+id: K6
+title: Where the bytes go
+folder: K6-where-bytes-go
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: the placement/rail argument for each case; the number of leaves per rail in each.
+marking:
+- criterion: 'ORION-256: one leaf per rail with all 32 nodes'' NIC r; DP/PP peers share local rank, so traffic is
+    leaf-local'
+  points: 2
+- criterion: '1,024 GPUs: four leaves per rail (32-node blocks); DP groups spanning blocks cross spines'
+  points: 1
+- criterion: States the dependence on rail-aligned rank mapping
+  points: 1
+lab_checks: []

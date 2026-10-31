@@ -1,0 +1,16 @@
+PASS data_regenerates_identically: 6 files byte-identical
+PASS validate_rack_plan: 4 rack-plan flaws detected
+PASS validate_fabric_plan: 3 fabric-plan flaws detected
+PASS validate_storage_and_node: storage unit and PSU feed-loss flaws detected
+PASS validate_no_false_positives: no false positives
+PASS bom_counts: servers, RUs, switches, ports and links correct
+PASS bom_optics_frontend_oob: optics, frontend and OOB counts correct
+PASS rack_power_budget: rack max 41.0 kW, design 45.1 kW, 65.6 kW usable per side
+PASS rack_cooling_budget: coolant 46.4 L/min, residual air ~1,200 CFM, CDU 82 % loaded
+PASS cluster_power_energy: cluster 382 kW IT max, ~3,587 MWh/yr
+PASS capacity_compute_fabric: HBM, per-GPU training state and bisection correct
+PASS capacity_storage_utilization: storage per GPU, checkpoint lower bound and GPU-hours correct
+PASS spof_set: 15 SPOFs found (incl. hidden power-path SPOFs)
+PASS spof_service_impact: service impact per SPOF correct
+
+14/14 checks passed, 0 skipped (solution)

@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "both definitions applied; one coinciding case",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Fault domain applied: the mlx5_3 link (HCA port, optic, cable)",
+      "points": 2
+    },
+    {
+      "criterion": "Scheduling unit applied: the whole node, because a TP = 8 rail-optimized job needs all 8 rails",
+      "points": 2
+    },
+    {
+      "criterion": "One valid coinciding case (job using only part of a node, or a fault domain that is itself the node)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Domain vs unit",
+  "type": "knowledge-check"
+}

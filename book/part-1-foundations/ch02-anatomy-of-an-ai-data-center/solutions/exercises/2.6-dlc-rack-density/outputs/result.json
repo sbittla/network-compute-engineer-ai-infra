@@ -1,0 +1,36 @@
+{
+  "answer": {
+    "air5_kw": 9.1783,
+    "binding": "floor (then CDU)",
+    "cdu4_kw": 235.2204,
+    "cdu_fraction": 0.979,
+    "cdu_kw": 293.7055,
+    "cfm": 1073.9845,
+    "checks_5_nodes": {
+      "cdu": false,
+      "electrical": true,
+      "feed_loss": true,
+      "floor": false
+    },
+    "dc_peak_w": 8590,
+    "feed_margin": 0.0477,
+    "floor": 1326.3889,
+    "liquid5_kw": 36.7132,
+    "lpm": 55.3743,
+    "node_kw": 9.1383,
+    "nodes_per_rack_verdict": 4,
+    "rack4_kw": 36.7532,
+    "rack5_kw": 45.8915,
+    "saving_kw": 4.2468,
+    "saving_pct": 0.1036,
+    "side5_kw": 50.4806,
+    "usable_side_kw": 65.5547
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] inputs",
+  "units": {
+    "air": "CFM",
+    "floor": "kg/m2",
+    "flow": "L/min",
+    "power": "kW"
+  }
+}

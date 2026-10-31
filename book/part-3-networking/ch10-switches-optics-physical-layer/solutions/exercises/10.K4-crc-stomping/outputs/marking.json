@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "≤ 150 words plus the name of the localizing counter.",
+  "id": "10.K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: a cut-through switch forwards before it has the FCS, so it replaces the FCS with a known-bad value",
+      "points": 2
+    },
+    {
+      "criterion": "Why the healthy downstream link reports FCS errors without uncorrectables or symbol errors",
+      "points": 1
+    },
+    {
+      "criterion": "Localizing counter: FEC-uncorrectable (and symbol errors) on the ingress port of the upstream switch; stomped-CRC counter if exposed",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "CRC stomping",
+  "type": "knowledge-check"
+}

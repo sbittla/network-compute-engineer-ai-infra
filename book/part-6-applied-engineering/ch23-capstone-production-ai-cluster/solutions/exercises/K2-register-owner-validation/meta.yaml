@@ -1,0 +1,18 @@
+id: K2
+title: Why every assumption needs an owner and a validation
+folder: K2-register-owner-validation
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: one failure mode for each field
+marking:
+- criterion: 'Owner: failure mode named (nobody validates it, nobody is paged, it silently becomes fact)'
+  points: 2
+- criterion: 'Validation: failure mode named (assumption is unfalsifiable; belief indistinguishable from measurement)'
+  points: 1
+- criterion: 'Recognizes ''Validation: TBD'' as the classic symptom; answer is about accountability and falsifiability,
+    not documentation'
+  points: 1
+lab_checks: []

@@ -1,0 +1,18 @@
+id: K6
+title: GQA and KV bytes per token
+folder: K6-gqa-kv-bytes
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 3
+evidence_required: both byte counts with the formula
+marking:
+- criterion: 'With GQA: 2 x 80 x 8 x 128 x 2 = 327,680 B/token'
+  points: 1
+- criterion: 'Without GQA (64 KV heads): 2,621,440 B/token, 8x more'
+  points: 1
+- criterion: 'Concurrency effect: 8x lower for a fixed budget (e.g. 156 → 19 sequences of 4k on TP = 4
+    FP8)'
+  points: 1
+lab_checks: []

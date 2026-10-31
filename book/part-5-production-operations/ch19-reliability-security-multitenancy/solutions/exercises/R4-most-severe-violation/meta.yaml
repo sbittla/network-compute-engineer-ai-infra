@@ -1,0 +1,17 @@
+id: R4
+title: Most severe isolation violation
+folder: R4-most-severe-violation
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: concise answers that cite data files or sections
+marking:
+- criterion: Picks the cluster-admin binding or the parent-path export
+  points: 1
+- criterion: 'Reasons from blast radius: cross-tenant data access; cluster-admin covers all Secrets and all nodes'
+  points: 1
+- criterion: Cites data/tenants.yaml and Section 19.8 or Table 19.7
+  points: 1
+lab_checks: []

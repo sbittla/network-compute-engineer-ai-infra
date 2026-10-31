@@ -1,0 +1,75 @@
+{
+  "answer": {
+    "a_all_flaps_survived": true,
+    "a_budget_s": 34.4,
+    "b_extra_gpu_h": 29.3,
+    "c_pools": {
+      "mttr_3d": {
+        "fraction_of_partition": 0.0703,
+        "k_p99": 36,
+        "mean_in_repair": 24.0,
+        "p_le_k": 0.9918,
+        "p_le_mean": 0.554
+      },
+      "mttr_5d": {
+        "fraction_of_partition": 0.1074,
+        "k_p99": 55,
+        "mean_in_repair": 40.0,
+        "p_le_k": 0.9903,
+        "p_le_mean": 0.542
+      }
+    }
+  },
+  "evidence_label": "[MODELED] from [VENDOR-SPEC] defaults and [ILLUSTRATIVE] reliability inputs",
+  "exercise": "W2",
+  "inputs": {
+    "ack_unit_s": 4.096e-06,
+    "flaps_s": [
+      14,
+      6,
+      5,
+      14
+    ],
+    "job_gpus": 4096,
+    "mttr_days": [
+      3,
+      5
+    ],
+    "nccl_ib_timeout": [
+      18,
+      20
+    ],
+    "node_mtbf_h": 1536.0,
+    "partition_nodes": 512,
+    "retry_cnt": 7,
+    "target_quantile": 0.99,
+    "watchdog_s": 600
+  },
+  "steps": {
+    "a_budget_s": 34.36,
+    "a_per_attempt_s": 4.295,
+    "a_survived_timeout20": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "b_extra_detection_delay_s": 25.77,
+    "b_extra_gpu_h_per_dead_peer": 29.3,
+    "b_watchdog_gpu_h_for_comparison": 682.7,
+    "c_failures_per_day": 8.0,
+    "old_budget_s": 8.59,
+    "survived_timeout18": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  "tolerance": "relative 0.005–0.01; Poisson quantiles exact",
+  "units": {
+    "cost": "GPU-h",
+    "pool": "nodes",
+    "time": "s"
+  }
+}

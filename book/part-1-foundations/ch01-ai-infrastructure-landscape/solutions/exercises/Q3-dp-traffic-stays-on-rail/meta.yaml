@@ -1,0 +1,17 @@
+id: Q3
+title: Why DP all-reduces never cross a spine
+folder: Q3-dp-traffic-stays-on-rail
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: The placement argument linking DP groups to rails.
+marking:
+  - criterion: DP groups consist of GPUs with the same TP rank and pipeline stage, which have the same local GPU index
+    points: 1
+  - criterion: Same local index means the same rail, since NIC i serves GPU i on rail i
+    points: 1
+  - criterion: Rail leaf r connects NIC r of all 32 nodes, so the traffic stays on one leaf and never reaches a spine
+    points: 1
+lab_checks: []

@@ -1,0 +1,19 @@
+id: R1
+title: Readiness score bias
+folder: R1-readiness-score-bias
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: 100–200 words naming specific evidence rather than general intent (shared R1–R4 line).
+marking:
+- criterion: First systematic error with its direction (e.g. self-report over-claiming)
+  points: 1
+- criterion: External evidence that corrects the first error
+  points: 1
+- criterion: Second, distinct systematic error (matrix/ladder mismatch or stale evidence)
+  points: 1
+- criterion: External evidence that corrects the second error
+  points: 1
+lab_checks: []

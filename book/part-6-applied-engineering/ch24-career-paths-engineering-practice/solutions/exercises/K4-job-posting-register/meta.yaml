@@ -1,0 +1,19 @@
+id: K4
+title: The register
+folder: K4-job-posting-register
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: complete field list; three field → failure-mode pairs.
+marking:
+- criterion: Complete field list (all ten outline fields)
+  points: 2
+- criterion: First correct field → failure-mode pair
+  points: 1
+- criterion: Second correct field → failure-mode pair
+  points: 1
+- criterion: Third correct field → failure-mode pair
+  points: 1
+lab_checks: []

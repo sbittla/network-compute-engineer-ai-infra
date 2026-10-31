@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Both arguments and a data requirement.",
+  "id": "3.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "An argument for a tighter value of a named threshold",
+      "points": 1
+    },
+    {
+      "criterion": "An argument for a looser value of the same threshold",
+      "points": 1
+    },
+    {
+      "criterion": "The fleet data needed to set it from evidence (distribution over weeks, correlated with later failures or RMA outcomes, acceptable false-positive rate)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Arguing a baseline threshold",
+  "type": "reflection"
+}

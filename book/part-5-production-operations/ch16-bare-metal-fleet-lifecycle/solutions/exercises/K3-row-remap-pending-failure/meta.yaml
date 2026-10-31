@@ -1,0 +1,19 @@
+id: K3
+title: Pending row remap versus remapping failure
+folder: K3-row-remap-pending-failure
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Definitions; one action each; which one is an RMA candidate.
+marking:
+- criterion: 'Defines pending remap: failing HBM row recorded, remap takes effect only after GPU reset'
+  points: 2
+- criterion: Defines remapping failure (spares exhausted / remap failed) and identifies it as the RMA
+    candidate
+  points: 2
+- criterion: One correct operational action for each (drain + reset + verify + DCGM -r 3; drain + RMA
+    with evidence)
+  points: 1
+lab_checks: []

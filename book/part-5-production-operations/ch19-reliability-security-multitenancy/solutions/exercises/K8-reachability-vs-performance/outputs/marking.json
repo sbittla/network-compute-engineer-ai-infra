@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "mechanism through shared links/PFC; two mitigations",
+  "id": "K8",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "States VRF/VNI isolate reachability, not shared spine links and switch buffers",
+      "points": 1
+    },
+    {
+      "criterion": "Mechanism: B's congestion fills shared queues; ECN marks and PFC pauses (HOL blocking, pause spreading) slow A",
+      "points": 2
+    },
+    {
+      "criterion": "Two valid mitigations (separate leaf groups/spine planes, QoS classes with buffer allocation, rate limits, CC tuning)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Reachability vs performance",
+  "type": "knowledge-check"
+}

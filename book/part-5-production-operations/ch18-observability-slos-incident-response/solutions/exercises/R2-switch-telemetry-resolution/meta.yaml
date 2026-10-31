@@ -1,0 +1,19 @@
+id: R2
+title: What one-minute switch aggregates cannot show
+folder: R2-switch-telemetry-resolution
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: Concise written answers, each referencing a specific data file, metric, or section.
+marking:
+- criterion: Names what one-minute per-switch aggregates hide (which ports/queues paused, microbursts,
+    pause storms/ordering)
+  points: 2
+- criterion: Explains why (averaging dilutes ms-scale events; per-switch sums hide port locality)
+  points: 1
+- criterion: 'Telemetry to add: per-port per-priority pause duration, queue watermarks, ECN marks at 1–10
+    s via gNMI'
+  points: 2
+lab_checks: []

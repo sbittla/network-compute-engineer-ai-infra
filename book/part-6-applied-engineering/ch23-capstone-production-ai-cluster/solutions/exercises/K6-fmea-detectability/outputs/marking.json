@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "correct definition of D; one ORION example",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "D defined correctly: a high D score means the failure is hard to detect",
+      "points": 1
+    },
+    {
+      "criterion": "Explains why multiplying by D raises the priority of quiet failures",
+      "points": 1
+    },
+    {
+      "criterion": "Explains why 'only slower' failures waste goodput silently over many jobs and a long time",
+      "points": 1
+    },
+    {
+      "criterion": "ORION example with S, O, D and RPN computed correctly",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "FMEA detectability and quiet failures",
+  "type": "knowledge-check"
+}

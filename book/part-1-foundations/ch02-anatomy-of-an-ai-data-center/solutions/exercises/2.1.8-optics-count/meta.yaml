@@ -1,0 +1,17 @@
+id: "2.1.8"
+title: Why the optics count matters operationally
+folder: 2.1.8-optics-count
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Two operational reasons, each explained.
+marking:
+  - criterion: First reason explained (for example optics are frequently failing parts, so the count drives spares stock and repair workload)
+    points: 1
+  - criterion: Second reason explained (for example optic power and cooling, or reach constraining rack placement)
+    points: 1
+  - criterion: Reasons are operational rather than purchase cost, with an ORION number (1,024 single-port transceivers)
+    points: 1
+lab_checks: []

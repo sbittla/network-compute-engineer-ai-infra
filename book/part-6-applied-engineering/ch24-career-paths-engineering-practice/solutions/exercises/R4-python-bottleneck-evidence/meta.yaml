@@ -1,0 +1,19 @@
+id: R4
+title: Is Python a hiring bottleneck?
+folder: R4-python-bottleneck-evidence
+type: reflection
+difficulty: 2
+tier: L1
+kind: computed
+points: 4
+evidence_required: 100–200 words naming specific evidence rather than general intent (shared R1–R4 line).
+marking:
+- criterion: 'Reproduces what the register supports: 23 of 42 required lists, 9 as an exact tag, dated 2026-10-30'
+  points: 1
+- criterion: Names at least one limit of the real register (one day, purposive, no hyperscaler)
+  points: 1
+- criterion: 'Names evidence beyond postings: supply ratio, segmentation by role/level, interview-loop data'
+  points: 1
+- criterion: Concludes that frequency is not scarcity; the combined tags signal a scripting floor
+  points: 1
+lab_checks: []

@@ -1,0 +1,21 @@
+{
+  "answer": {
+    "total_unsharded_b": 16,
+    "zero1_b": 5.5,
+    "zero2_b": 3.75,
+    "zero3_b": 2.0
+  },
+  "crosscheck": {
+    "baseline_states_gb_zero1": 12.0312
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "dp": 8,
+    "grads_b": 2,
+    "optimizer_b": 12,
+    "weights_b": 2
+  },
+  "units": {
+    "answer": "bytes per local parameter"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "difficulty": 2,
+  "evidence_required": "findings.yaml passing the three Part 3 checks; a rewritten plan (<= 2 pages) addressing every finding with wave plan, abort conditions and rollback.",
+  "id": "20.7",
+  "kind": "lab",
+  "lab_checks": [
+    "p3.review_coverage",
+    "p3.review_false_positives",
+    "p3.review_evidence_quality"
+  ],
+  "marking": [
+    {
+      "criterion": "Checker: p3.review_coverage PASS (>= 13 of 17 real gaps)",
+      "points": 4
+    },
+    {
+      "criterion": "Checker: p3.review_false_positives PASS (<= 1; owner, approval, comms are not gaps)",
+      "points": 3
+    },
+    {
+      "criterion": "Checker: p3.review_evidence_quality PASS (valid line citations, concrete fixes)",
+      "points": 3
+    },
+    {
+      "criterion": "Rewrite splits the work into three ordered changes (firmware, leaf QoS, RDMA MTU)",
+      "points": 4
+    },
+    {
+      "criterion": "Each change has prechecks, drain, waves, abort conditions, rehearsed rollback, OOB access, kill switch, staffed window",
+      "points": 6
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Review a deliberately unsafe change plan",
+  "type": "outline-mandated"
+}

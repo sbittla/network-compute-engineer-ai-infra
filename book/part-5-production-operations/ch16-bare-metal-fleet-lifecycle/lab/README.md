@@ -108,7 +108,7 @@ lifecycle runbook).
 
 ## 8. Extensions (L2 / L3): produce the acceptance JSON from real hardware
 
-> **Safety:** Run only on a dedicated lab node you own or are authorised to test, never on a node
+> **Safety:** Run only on a dedicated lab node you own or are authorized to test, never on a node
 > carrying production work. Burn-in draws full power; tell the facility owner. `fio` below is
 > read-only; never run write tests against drives holding data.
 

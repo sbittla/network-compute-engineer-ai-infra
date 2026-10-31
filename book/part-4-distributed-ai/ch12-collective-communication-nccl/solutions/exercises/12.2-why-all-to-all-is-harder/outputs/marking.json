@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "two mechanisms (fan-out/incast, cross-rail paths, data dependence).",
+  "id": "12.2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First mechanism explained (fan-out/incast stressing buffers, ECN/PFC)",
+      "points": 2
+    },
+    {
+      "criterion": "Second mechanism explained (cross-rail spine paths or data-dependent imbalance)",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Why all-to-all is harder on the network",
+  "type": "knowledge-check"
+}

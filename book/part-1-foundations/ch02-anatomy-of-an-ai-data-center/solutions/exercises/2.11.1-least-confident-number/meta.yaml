@@ -1,0 +1,17 @@
+id: "2.11.1"
+title: The least confident number in the fit assessment
+folder: 2.11.1-least-confident-number
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: One paragraph naming the number, why it is uncertain, and the measurement (tier and command) that would replace it.
+marking:
+  - criterion: Names a specific number from Section 2.10 (for example the 10 % transient margin, the 75 % capture fraction or the 10.2 kW node maximum)
+    points: 1
+  - criterion: Explains why it is the least certain and what depends on it
+    points: 1
+  - criterion: Proposes a measurement with its tier and command (L2 BMC/DCMI and nvidia-smi sampling under burn-in, or L3 rack/CDU metering)
+    points: 1
+lab_checks: []

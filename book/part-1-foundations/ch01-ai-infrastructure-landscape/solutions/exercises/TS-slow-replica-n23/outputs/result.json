@@ -1,0 +1,19 @@
+{
+  "answer": {
+    "allreduce_msg_KB": 524.288,
+    "allreduces_per_s": 13333.333,
+    "dram_active_expected_if_waiting": 0.398,
+    "extra_us_per_allreduce": 43.75,
+    "load_increase_per_remaining_replica": 0.091,
+    "partial_loss_extra_ms_per_step": 0.163,
+    "partial_loss_extra_us_per_allreduce": 1.019,
+    "replay_cost_us_per_step": 0.095,
+    "tensor_active_expected_if_waiting": 0.051,
+    "tpot_gap_ms": 7.0
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] evidence",
+  "units": {
+    "load": "fraction",
+    "time": "us or ms as named"
+  }
+}

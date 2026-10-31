@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the three definitions as formulas over request timestamps, plus the failure and the reason it averages away",
+  "id": "K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "TTFT = first_token − arrival",
+      "points": 1
+    },
+    {
+      "criterion": "TPOT = (finish − first_token) / (n_out − 1); ITL = t_{i+1} − t_i",
+      "points": 1
+    },
+    {
+      "criterion": "A failure visible in ITL p99 but not mean TPOT (e.g. a prefill stall of about 90 ms)",
+      "points": 1
+    },
+    {
+      "criterion": "Arithmetic showing why it averages away (90 ms over 255 gaps ≈ 0.35 ms)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Latency metrics",
+  "type": "knowledge-check"
+}

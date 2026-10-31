@@ -1,0 +1,18 @@
+id: K2
+title: Why 98 % GPU utilization is not busy compute
+folder: K2-gpu-utilization-misleads
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: definition of the utilization metric; two named alternatives and what each measures.
+marking:
+- criterion: 'Correct definition: fraction of the sample period with at least one kernel resident (not SM occupancy)'
+  points: 2
+- criterion: Explains that NCCL kernels spinning while waiting for peers count as utilized
+  points: 1
+- criterion: Two named better signals (e.g. DCGM_FI_PROF_SM_ACTIVE, DCGM_FI_PROF_PIPE_TENSOR_ACTIVE, clocks + event
+    reasons, timeline breakdown) with what each measures
+  points: 1
+lab_checks: []

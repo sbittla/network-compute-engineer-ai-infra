@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the locality mistakes and why they appear only under production load",
+  "id": "13.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Names cross-socket NIC use, cross-rail placement and NUMA misbinding (or similar)",
+      "points": 1
+    },
+    {
+      "criterion": "Explains that idle benchmarks find spare inter-socket/spine/DRAM capacity",
+      "points": 1
+    },
+    {
+      "criterion": "Explains that production contention and variance are amplified by synchronous training",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Locality mistakes hidden by idle benchmarks",
+  "type": "reflection"
+}

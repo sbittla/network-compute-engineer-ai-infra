@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the lab report run on your evidence file; a matrix with role, two adjacent roles, four seniority columns; top three gaps with dated actions.",
+  "id": "M1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Lab report run on the learner's own evidence file",
+      "points": 5
+    },
+    {
+      "criterion": "Every demonstrated level cites a named artifact; no unsupported level-3/4 claims",
+      "points": 5
+    },
+    {
+      "criterion": "Matrix: target plus two adjacent roles × four seniority columns",
+      "points": 5
+    },
+    {
+      "criterion": "Top three gaps ordered by priority with dated actions",
+      "points": 10
+    }
+  ],
+  "points": 25,
+  "tier": "L1",
+  "title": "Target role and skills map",
+  "type": "outline-mandated"
+}

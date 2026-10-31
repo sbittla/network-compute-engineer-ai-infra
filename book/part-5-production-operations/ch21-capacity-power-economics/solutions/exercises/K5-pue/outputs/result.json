@@ -1,0 +1,28 @@
+{
+  "answer": {
+    "facility_kw_pue_1_25": 380.8,
+    "facility_kw_pue_1_45": 441.7,
+    "increase_pct": 16.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K5",
+  "inputs": {
+    "nodes": 32,
+    "overhead": 0.12,
+    "pue_canonical": 1.25,
+    "pue_hot_season_variation": 1.45,
+    "sustained_kw_per_node": 8.5
+  },
+  "steps": {
+    "it_kw": 304.64,
+    "non_it_kw": {
+      "pue_1_25": 76.2,
+      "pue_1_45": 137.1
+    }
+  },
+  "tolerance": 0.1,
+  "units": {
+    "facility_kw": "kW",
+    "increase_pct": "%"
+  }
+}

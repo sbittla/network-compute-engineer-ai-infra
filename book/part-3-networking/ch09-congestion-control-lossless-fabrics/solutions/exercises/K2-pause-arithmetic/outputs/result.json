@@ -1,0 +1,26 @@
+{
+  "answer": {
+    "100G": {
+      "half_life_refresh_per_s": 5961,
+      "max_pause_us": 335.54,
+      "quantum_ns": 5.12
+    },
+    "400G": {
+      "half_life_refresh_per_s": 23842,
+      "max_pause_us": 83.88,
+      "quantum_ns": 1.28
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K2",
+  "inputs": {
+    "max_quanta": 65535,
+    "quantum_bits": 512,
+    "rates_gbps": [
+      100,
+      400
+    ]
+  },
+  "tolerance": "\u00b10.05 \u00b5s; refresh \u00b11 %",
+  "units": "ns, \u00b5s, frames/s"
+}

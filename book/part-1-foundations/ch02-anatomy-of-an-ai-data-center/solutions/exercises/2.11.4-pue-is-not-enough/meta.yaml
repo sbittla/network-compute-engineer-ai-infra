@@ -1,0 +1,17 @@
+id: "2.11.4"
+title: Why PUE is not the whole story
+folder: 2.11.4-pue-is-not-enough
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: One paragraph on what PUE omits for an AI cluster.
+marking:
+  - criterion: PUE says nothing about IT efficiency (useful work per IT watt, MFU, goodput)
+    points: 1
+  - criterion: PUE says nothing about transients or power quality
+    points: 1
+  - criterion: PUE says nothing about stranded capacity (redundancy and margin that cannot be used)
+    points: 1
+lab_checks: []

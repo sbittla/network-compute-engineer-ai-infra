@@ -1,0 +1,32 @@
+{
+  "answer": {
+    "a_gpu_equivalents": 28.1,
+    "a_loss": 0.1099,
+    "a_step_s": 19.55,
+    "b_achieved_gb_per_s": 26.8,
+    "b_allreduce_gb": 7.66,
+    "b_degraded_s": 0.286,
+    "b_extra_pct_of_step": 0.67,
+    "b_extra_s": 0.116,
+    "b_healthy_s": 0.17,
+    "b_x16_gb_per_s": 63.0,
+    "b_x8_gb_per_s": 31.5,
+    "c_gpu_vs_nic_ratio": 16.5
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W2",
+  "inputs": {
+    "achieved_fraction": 0.85,
+    "compute_share": 0.7,
+    "gpu_speed": 0.85,
+    "gpus": 256,
+    "healthy_gb_per_s": 45.0,
+    "lanes": 8,
+    "pcie_gt_per_lane": 32.0,
+    "step_s": 17.4
+  },
+  "units": {
+    "bandwidth": "GB/s per direction",
+    "time": "s"
+  }
+}

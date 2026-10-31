@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the traffic change, the leading metric, and the threshold you would set.",
+  "id": "R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Traffic change: growth in prompt tokens per request or the prompt:output ratio (e.g. RAG adoption)",
+      "points": 1
+    },
+    {
+      "criterion": "Leading metric: ρ_prefill (prefill share of iterations) and ITL p99 rising before TTFT breaches",
+      "points": 1
+    },
+    {
+      "criterion": "A concrete threshold (e.g. ρ_prefill > 0.55 or ITL p99 > 2x baseline sustained)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "When to re-evaluate disaggregation",
+  "type": "reflection"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "definition, mechanism, two detection times.",
+  "id": "7.K7",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Definition: component looks up (link up, control plane alive) but does not forward correctly",
+      "points": 1
+    },
+    {
+      "criterion": "BFD named as the mechanism that catches it",
+      "points": 1
+    },
+    {
+      "criterion": "Both detection times: 300 ms × 3 = 0.9 s (BFD) and up to 9 s (BGP 3 s / 9 s hold)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Gray failures and detection time",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,12 @@
+PASS load_telemetry: rows=3840 ranks=64 steps=60
+TODO per_step_stats: implement per_step_stats
+TODO robust_z: implement robust_z
+TODO find_stragglers: implement find_stragglers
+TODO rank_onset: implement rank_onset
+TODO attribute_cause: implement attribute_cause
+TODO rail_health: implement rail_health
+TODO hot_not_throttled: implement hot_not_throttled
+TODO amplification: implement amplification
+TODO symptom_windows: implement symptom_windows
+
+1/10 checks passed (starter)

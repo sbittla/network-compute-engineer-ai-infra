@@ -1,0 +1,21 @@
+id: K5
+title: PUE
+folder: K5-pue
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: two results; two limitations.
+marking:
+- criterion: Facility power at PUE 1.25 = 380.8 kW
+  points: 1
+- criterion: Facility power at PUE 1.45 = 441.7 kW (+16 %)
+  points: 1
+- criterion: Limitation 1 (e.g. says nothing about useful work per IT watt)
+  points: 1
+- criterion: Limitation 2 (e.g. varies with weather/load, hides where overhead goes)
+  points: 1
+- criterion: Labels 1.45 as a declared variation, not the canon
+  points: 1
+lab_checks: []

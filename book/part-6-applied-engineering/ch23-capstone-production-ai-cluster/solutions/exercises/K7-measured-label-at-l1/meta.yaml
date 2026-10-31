@@ -1,0 +1,19 @@
+id: K7
+title: What may be labelled MEASURED at L1
+folder: K7-measured-label-at-l1
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: four classifications with labels
+marking:
+- criterion: '(a) linter runtime on a laptop: MEASURED allowed, with a manifest'
+  points: 1
+- criterion: '(b) NCCL bus bandwidth from a model: MODELED'
+  points: 1
+- criterion: '(c) parse time of a 1 GB telemetry file: MEASURED allowed for the laptop''s parse time'
+  points: 1
+- criterion: '(d) TTFT from a serving simulator: SIMULATED, stating what the simulator omits'
+  points: 1
+lab_checks: []

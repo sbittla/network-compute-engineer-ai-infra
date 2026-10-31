@@ -1,0 +1,20 @@
+id: R1
+title: The assumption with the highest decision value
+folder: R1-highest-decision-value
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: specific, ORION-grounded answer of 80–150 words
+marking:
+- criterion: Names a decision-critical assumption (e.g. MFU A-04 or checkpoint δ A-08) with its register ID and
+    label
+  points: 1
+- criterion: States the decision that changes and by how much (e.g. MFU 0.40 → 0.35 adds ≈ 14 days)
+  points: 1
+- criterion: Names the cheapest test that moves it to MEASURED, with tier and acceptance criterion
+  points: 1
+- criterion: 80–150 words, ORION-grounded
+  points: 1
+lab_checks: []

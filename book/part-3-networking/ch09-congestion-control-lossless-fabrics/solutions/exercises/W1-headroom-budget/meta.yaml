@@ -1,0 +1,18 @@
+id: W1
+title: Headroom budget for a spine
+folder: W1-headroom-budget
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: every term of the formula substituted with units; three results; one-sentence comment.
+marking:
+- criterion: '(a) Every term substituted: 18,432 + 75,000 + 50,000 + 64 = 143,496 B per port per priority'
+  points: 4
+- criterion: (b) 64 × 2 × 143,496 = 18,367,488 B ≈ 18.4 MB
+  points: 3
+- criterion: (c) 268,496 B at 800 Gb/s (≈ 1.87×) with the comment that wire and response terms scale with
+    rate
+  points: 3
+lab_checks: []

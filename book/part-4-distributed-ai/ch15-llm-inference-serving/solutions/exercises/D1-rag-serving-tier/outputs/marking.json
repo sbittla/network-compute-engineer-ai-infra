@@ -1,0 +1,37 @@
+{
+  "difficulty": 3,
+  "evidence_required": "a sizing table with ρ, TTFT, TPOT and batch per pool, the network budget in Gb/s with the arithmetic, a transport decision with numbers, a failure table, and an explicit MODELED/MEASURED labelling of every number.",
+  "id": "D1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Sizing: prefill t_p 390 ms with quadratic term, P table (11/12/13), D table (3/4/5), choice 13P + 4D with node count",
+      "points": 8
+    },
+    {
+      "criterion": "Network budget: 2.684 GB per request, 429.5 Gb/s aggregate, 107.4 Gb/s per decode replica",
+      "points": 5
+    },
+    {
+      "criterion": "Transport decision with numbers: RDMA 7.9 % and 15.8 ms (hidden per layer) vs TCP 107 % infeasible",
+      "points": 4
+    },
+    {
+      "criterion": "Failure table: decode replica loss, prefill replica loss, KV transfer timeout",
+      "points": 4
+    },
+    {
+      "criterion": "Three L2/L3 measurements before committing",
+      "points": 2
+    },
+    {
+      "criterion": "Every number labelled MODELED/MEASURED",
+      "points": 2
+    }
+  ],
+  "points": 25,
+  "tier": "L1",
+  "title": "RAG serving tier",
+  "type": "design-challenge"
+}

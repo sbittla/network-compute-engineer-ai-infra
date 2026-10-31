@@ -1,0 +1,38 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the document, the planner output it cites, and the validator run on the lab store",
+  "id": "14.18",
+  "kind": "lab",
+  "lab_checks": [
+    "A6 strategy comparison",
+    "C1 audit checkpoint store",
+    "C2 select latest valid",
+    "C3 validator on unseen defects"
+  ],
+  "marking": [
+    {
+      "criterion": "Benchmark plan: NVMe, PFS bandwidth, PFS metadata (mdtest), read-under-write; exact parameters, warm-up, ≥ 5 reps, percentiles, manifest fields",
+      "points": 8
+    },
+    {
+      "criterion": "Checkpoint design: strategy, interval with derivation, staging memory, commit protocol, validation ladder, retention, archive",
+      "points": 8
+    },
+    {
+      "criterion": "RPO/RTO analysis: time-to-resume components, lost GPU-h/day, sensitivity to M and detection time",
+      "points": 6
+    },
+    {
+      "criterion": "Restore test procedure including a planted corrupt checkpoint and a semantic loss check",
+      "points": 4
+    },
+    {
+      "criterion": "Measured vs modeled statement; evidence labels throughout",
+      "points": 4
+    }
+  ],
+  "points": 30,
+  "tier": "L1",
+  "title": "Deliverable: I/O benchmark plan and checkpoint/recovery design",
+  "type": "deliverable"
+}

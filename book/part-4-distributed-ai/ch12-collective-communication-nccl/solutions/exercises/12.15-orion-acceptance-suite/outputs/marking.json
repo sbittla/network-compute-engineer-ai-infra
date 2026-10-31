@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the suite as a table, thresholds tied to Table 12.7 baselines, and a one-paragraph defence.",
+  "id": "12.15",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Suite covers single-node, two-node pairs, rail-pinned one-GPU-per-node, full 8-node and all-to-all shapes with size ranges",
+      "points": 4
+    },
+    {
+      "criterion": "Pass/fail thresholds tied to Table 12.7 baselines with the statistic used (median, min, CV, #wrong)",
+      "points": 4
+    },
+    {
+      "criterion": "Repetitions, run-time budget and recorded artifacts",
+      "points": 3
+    },
+    {
+      "criterion": "Safety constraints (drained/reserved nodes only, fabric impact)",
+      "points": 2
+    },
+    {
+      "criterion": "One-paragraph defence of a coverage vs time vs fabric-impact trade-off",
+      "points": 2
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "ORION collective acceptance suite",
+  "type": "design-challenge"
+}

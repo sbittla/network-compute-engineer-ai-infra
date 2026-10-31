@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "one correlation-only signal and the missing causal link.",
+  "id": "8.20",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "A correlation-only signal (e.g. timing of the config push, 'only n05 changed')",
+      "points": 1
+    },
+    {
+      "criterion": "The missing causal link: mechanism GID index 2 = RoCEv1 → not routable → no ACKs",
+      "points": 1
+    },
+    {
+      "criterion": "A test that changes only the suspect variable (-x 3 passes, -x 2 fails) plus consistent leaf counters",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Correlation versus a discriminating test",
+  "type": "reflection"
+}

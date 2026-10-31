@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "both intensities (approximate is fine) compared with the ridge in FLOP/B",
+  "id": "K1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Decode intensity at B = 32 about 32 FLOP/B (attention about 8 FLOP/B with GQA)",
+      "points": 2
+    },
+    {
+      "criterion": "Prefill intensity for 2,048 tokens about 2,048 FLOP/B",
+      "points": 2
+    },
+    {
+      "criterion": "BF16 ridge 989 / 3.35 = 295 FLOP/B and the comparison",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Why decode is memory-bound",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,26 @@
+{
+  "a_times_us": {
+    "256MB": 1503.6474,
+    "25MB": 189.2507,
+    "4MB": 69.7601
+  },
+  "b_n_half_MB": 8.2601,
+  "c": {
+    "bucketed_ms": 33.1189,
+    "buckets": 175,
+    "difference_ms": 8.178,
+    "extra_alpha_ms": 8.178,
+    "single_ms": 24.9409
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "alpha_us": 47.0,
+    "busbw_GBps": 346.0,
+    "factor": 1.9688,
+    "n": 64
+  },
+  "units": {
+    "n_half": "MB (1e6 B)",
+    "time": "us / ms"
+  }
+}

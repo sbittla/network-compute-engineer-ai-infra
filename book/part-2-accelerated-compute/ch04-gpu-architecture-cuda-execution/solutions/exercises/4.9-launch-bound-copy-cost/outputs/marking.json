@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "three results with formulas and units; label `[MODELED]`.",
+  "id": "4.9",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) eager iteration 4.0 ms (CPU-limited, 400 × 10 µs) and kernel-busy 60 %",
+      "points": 3
+    },
+    {
+      "criterion": "(b) CUDA Graph iteration 2,814 µs = about 2.81 ms, speedup about 1.42×, kernel-busy about 85 %",
+      "points": 3
+    },
+    {
+      "criterion": "(c) pageable 22.4 ms vs pinned 5.37 ms for 268,435,456 B, and the steady state recognized as copy-bound at max(2.81, 5.37) = 5.37 ms",
+      "points": 4
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Launch-bound loop and copy cost",
+  "type": "worked-problem"
+}

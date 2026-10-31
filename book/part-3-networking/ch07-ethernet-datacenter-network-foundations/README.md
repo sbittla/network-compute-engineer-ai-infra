@@ -67,7 +67,9 @@ design note (lab Task 6) and exercise 7.O2.
 | `lab/tools/` | Dataset generator — instructor copy only (not in the student release) |
 | `lab/starter/fabric_lab.py` | Learner module with TODOs |
 | `lab/check.py` | Automated checker (19 checks) |
+| [exercises/](exercises/) | One learner folder per exercise (18): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | `solutions/` | Instructor-only: exercise key and reference implementation |
+| `solutions/exercises/` | Instructor-only: per-exercise `meta.yaml` (marking), worked `answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | `review/REVIEW.md` | Editorial review log |
 
 ## Course placement

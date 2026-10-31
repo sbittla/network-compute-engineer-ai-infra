@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "T_compute_ms": 0.566,
+    "T_memory_ms": 6.826,
+    "balance": 590.746,
+    "below_balance_x": 9.23,
+    "intensity": 64.0,
+    "kv_gpu_GB": 5.369,
+    "kv_replica_GB": 21.475,
+    "node_tokens_s": 5906.411,
+    "replica_tokens_s": 2953.206,
+    "speedup_vs_bf16_node": 1.753,
+    "step_ms": 10.836,
+    "total_GB": 22.869,
+    "weights_GB": 17.5
+  },
+  "evidence": "[MODELED]; fraction 0.63 [ILLUSTRATIVE]",
+  "inputs": {
+    "batch": 32,
+    "context": 2048,
+    "fp8_peak_tflops": 1979.0,
+    "fraction": 0.63,
+    "hbm_GBps": 3350.0,
+    "replicas_per_node": 2,
+    "tp": 4
+  },
+  "units": {
+    "bytes": "GB (1e9)",
+    "intensity": "FLOP/B",
+    "throughput": "output tokens/s",
+    "time": "ms"
+  }
+}

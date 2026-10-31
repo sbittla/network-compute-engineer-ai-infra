@@ -1,0 +1,15 @@
+id: 10.R4
+title: Blind spots of the two-snapshot method
+folder: 10.R4-two-snapshot-blind-spots
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: two failure modes of the method and one design change each.
+marking:
+- criterion: First failure mode of the method with a matching collection change
+  points: 2
+- criterion: Second failure mode of the method with a matching collection change
+  points: 2
+lab_checks: []

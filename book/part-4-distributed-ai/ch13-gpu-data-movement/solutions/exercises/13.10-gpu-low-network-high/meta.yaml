@@ -1,0 +1,33 @@
+id: '13.10'
+title: GPU utilization low, network utilization high (O2)
+folder: 13.10-gpu-low-network-high
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: lab
+points: 12
+evidence_required: a per-window verdict table with evidence fields, the decoy rejected, and the misleading
+  metric explained
+marking:
+- criterion: 'Steps 0-19: synchronization from data imbalance on rank 12, with two independent fields
+    (tokens +31 %, normal clocks; wait up, transfer normal)'
+  points: 3
+- criterion: 'Steps 20-29: thermal straggler rank 37 hidden behind rank 12 (clock -22 %, 90 °C, sw_thermal_slowdown,
+    tokens normal)'
+  points: 3
+- criterion: 'Steps 30-59: communication-bound on rail 2 (transfer 120 to 198 ms, retransmissions about
+    3,200 per step on index 2, burst rate 359 to 222 Gb/s)'
+  points: 3
+- criterion: Decoy rank 51 rejected (84 °C, normal clocks, no reason)
+  points: 1
+- criterion: Misleading metric utilization.gpu 99.7 % explained (spinning NCCL kernels); step-averaged
+    NIC rate hides bursts
+  points: 2
+lab_checks:
+- 'find_stragglers:'
+- 'rank_onset:'
+- 'attribute_cause:'
+- 'rail_health:'
+- 'hot_not_throttled:'
+- 'amplification:'
+- 'symptom_windows:'

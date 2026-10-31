@@ -40,7 +40,7 @@ python ../../../scripts/validate_labs.py capstone-g
 | Lost GPU-h | 3,840 × (1,405 + 912) / 3,600 = 2,471.5 | SIMULATED |
 | Validated resume | max relative loss deviation ≈ 0.00065 = 65 % of the 1e-3 tolerance (replay noise σ ≈ 2e-4); sample indices identical. Data-loader-not-restored resume: ≈ 0.0024, sample indices differ → fails | SIMULATED |
 | Expected loss per interruption | 3,840 × (300 + 392 + 900) / 3,600 ≈ 1,698 GPU-h | MODELED |
-| Spare-pool sizing (Poisson) | 7.5 failures/day; 5-day MTTR → mean 37.5 in repair, P(≤ 32) ≈ 0.21, P95 48, P99 52; split 70 % 1-day / 30 % 5-day → mean 16.5, P95 23, P99 27. Expect students to show one of these and the 8-node elastic fallback (DP 60 → 48 without a batch change) | MODELED |
+| Spare-pool sizing (Poisson) | 7.5 failures/day; 5-day MTTR → mean 37.5 in repair, P(≤ 32) ≈ 0.21, p95 48, p99 52; split 70 % 1-day / 30 % 5-day → mean 16.5, p95 23, p99 27. Expect students to show one of these and the 8-node elastic fallback (DP 60 → 48 without a batch change) | MODELED |
 | Young interval | √(2 × 10 × 11,520) = 480 s | MODELED |
 
 Arithmetic check for the step time: 3,840 × 4,096 = 15,728,640 tokens; 6 × 70 × 10⁹ × 15,728,640 =

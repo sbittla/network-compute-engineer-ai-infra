@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) that cite specific numbers or mechanisms.",
+  "id": "4.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "10 µs launch-latency allowance: how it misclassifies dependency vs launch-bound gaps on hosts with faster or slower launch paths",
+      "points": 1
+    },
+    {
+      "criterion": "2 µs gap threshold: drops real launch gaps or counts normal inter-kernel spacing",
+      "points": 1
+    },
+    {
+      "criterion": "Calibration: histogram inter-kernel gaps in a GPU-bound region and measure submit-to-start latency on an idle stream",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Calibrating the gap classifier",
+  "type": "reflection"
+}

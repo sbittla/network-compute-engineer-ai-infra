@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "two to four sentences.",
+  "id": "K8",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Hiring is time-sensitive; the table is a curriculum synthesis, not verified current openings",
+      "points": 1
+    },
+    {
+      "criterion": "Dropping the qualification turns it into an unverified factual claim",
+      "points": 1
+    },
+    {
+      "criterion": "One concrete way a reader is misled (targets a non-existent role, or cites it as market evidence)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Representative, not current",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,40 @@
+{
+  "answer": {
+    "decision_gen4x16": "keep running; repair at the next unplanned restart",
+    "dp_sent_GB": 7.6562,
+    "gen3x8": {
+      "extra_s": 1.0152,
+      "gpu_h_day": 338.7114,
+      "gpu_h_hour": 14.113,
+      "keep_running_beats_shrink": true,
+      "lost_fraction": 0.0551,
+      "planned_break_even_h": 2.3962,
+      "shrink_gpu_h_hour": 32,
+      "t_degraded_s": 1.1853,
+      "wait_cost_gpu_h": 677.4228
+    },
+    "gen4x16": {
+      "extra_s": 0.1262,
+      "gpu_h_day": 44.2401,
+      "gpu_h_hour": 1.8433,
+      "keep_running_beats_shrink": true,
+      "lost_fraction": 0.0072,
+      "planned_break_even_h": 0.0956,
+      "shrink_gpu_h_hour": 32,
+      "t_degraded_s": 0.2963,
+      "wait_cost_gpu_h": 88.4801
+    },
+    "raw_GBps": {
+      "gen1x16": 4.0,
+      "gen4x16": 31.5077,
+      "gen4x2": 3.9385,
+      "gen5x16": 63.0154
+    }
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] inputs",
+  "units": {
+    "bandwidth": "GB/s per direction",
+    "cost": "GPU-hours",
+    "time": "s"
+  }
+}

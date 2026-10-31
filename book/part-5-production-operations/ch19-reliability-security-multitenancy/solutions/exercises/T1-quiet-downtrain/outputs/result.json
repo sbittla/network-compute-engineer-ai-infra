@@ -1,0 +1,43 @@
+{
+  "answer": {
+    "break_even_remaining_runtime_h": 5.6,
+    "decision": "requeue onto a replacement node if remaining runtime > ~5.6 h; else finish and repair after",
+    "x16_gbs": 63.0,
+    "x8_gbs": 31.5
+  },
+  "evidence_label": "[MODELED] from [ILLUSTRATIVE] evidence",
+  "exercise": "T1",
+  "inputs": {
+    "job_gpus": 128,
+    "lost_work_min": 15.0,
+    "n10_tx_gbits": 985.0,
+    "peer_tx_gbits": [
+      1050.0,
+      1080.0
+    ],
+    "restart_min": 15.0,
+    "slowdown": 0.09
+  },
+  "steps": {
+    "degraded_loss_gpu_h_per_h": 11.52,
+    "n10_tx_deficit_range": [
+      0.062,
+      0.088
+    ],
+    "n10_tx_deficit_vs_peer_mid": 0.075,
+    "nic_line_rate_gbs": 50.0,
+    "restart_cost_gpu_h": 64.0,
+    "x16_gbs": 63.02,
+    "x8_achievable_gbs": [
+      25.0,
+      27.5
+    ],
+    "x8_gbs": 31.51
+  },
+  "tolerance": "±0.1 GB/s; ±0.01 deficit; ±0.05 h",
+  "units": {
+    "bandwidth": "GB/s per direction",
+    "cost": "GPU-h",
+    "time": "h"
+  }
+}

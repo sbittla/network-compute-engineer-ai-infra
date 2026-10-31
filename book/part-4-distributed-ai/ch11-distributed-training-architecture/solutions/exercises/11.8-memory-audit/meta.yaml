@@ -1,0 +1,19 @@
+id: '11.8'
+title: Memory audit
+folder: 11.8-memory-audit
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 6
+evidence_required: every intermediate value with units.
+marking:
+- criterion: Local parameters 4.375e9 and model state 20.78 GB (8.75 + 8.75 + 3.28)
+  points: 2
+- criterion: m = 32, in-flight 4, activation per layer 570.4 MB, 20 layers/stage → 45.63 GB
+  points: 2
+- criterion: Total 70.4 GB with the 4 GB overhead; fits 80 GB but exceeds 68 GB planning limit
+  points: 1
+- criterion: A valid fix (b = 1, full recompute, or PP = 8) with its effect
+  points: 1
+lab_checks: []

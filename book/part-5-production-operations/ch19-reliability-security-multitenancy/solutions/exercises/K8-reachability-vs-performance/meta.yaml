@@ -1,0 +1,19 @@
+id: K8
+title: Reachability vs performance
+folder: K8-reachability-vs-performance
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: mechanism through shared links/PFC; two mitigations
+marking:
+- criterion: States VRF/VNI isolate reachability, not shared spine links and switch buffers
+  points: 1
+- criterion: 'Mechanism: B''s congestion fills shared queues; ECN marks and PFC pauses (HOL blocking, pause spreading)
+    slow A'
+  points: 2
+- criterion: Two valid mitigations (separate leaf groups/spine planes, QoS classes with buffer allocation, rate
+    limits, CC tuning)
+  points: 2
+lab_checks: []

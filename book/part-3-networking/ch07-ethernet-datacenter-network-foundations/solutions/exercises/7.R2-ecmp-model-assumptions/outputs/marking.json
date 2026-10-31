@@ -1,0 +1,21 @@
+{
+  "difficulty": 2,
+  "evidence_required": "concise written answers; R4 must cite specific numbers from the chapter.",
+  "id": "7.R2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Two ways to do better (e.g. weighted ECMP or adaptive routing; non-uniform demand)",
+      "points": 1
+    },
+    {
+      "criterion": "Two ways to do worse (e.g. hash collisions and polarization; incast, congestion control or PFC effects)",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "Better and worse than the ECMP-aware number",
+  "type": "reflection"
+}

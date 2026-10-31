@@ -14,7 +14,7 @@ orchestration, observability, reliability, facilities, and cost.
 
 ## Who it is for
 
-Network engineers moving into AI fabrics (RoCEv2, InfiniBand); Linux/HPC/data-centre engineers
+Network engineers moving into AI fabrics (RoCEv2, InfiniBand); Linux/HPC/data-center engineers
 supporting GPU fleets; ML platform, MLOps, and SRE engineers operating training and inference;
 performance engineers; and architects targeting hyperscalers, neoclouds, frontier AI labs, and
 hardware vendors. Prerequisites: Linux CLI, Python, IP networking, general systems knowledge.
@@ -47,12 +47,17 @@ hardware vendors. Prerequisites: Linux CLI, Python, IP networking, general syste
 │           ├── README.md       chapter card
 │           ├── manuscript.md   chapter text
 │           ├── exercises.md    standard exercise set
+│           ├── exercises/      one folder per exercise: prompt + outputs/ for your work
 │           ├── lab/            runnable lab (starter, data, generators, check.py)
-│           ├── solutions/      instructor answer key + reference lab solution
+│           ├── solutions/      instructor: answer key, reference lab, per-exercise solution + outputs
 │           └── review/         editorial review log
 ├── capstones/                Capstones A–H, rubric, starter kits, instructor guides
+├── docker/                   lab.Dockerfile, pinned runtime, in-container test harness
+├── .github/workflows/        CI: build every lab image, then run every package test suite
 └── scripts/
-    ├── validate_labs.py      ← verifies every lab (solution passes, starter fails gracefully)
+    ├── docker_labs.py        ← build / test / regenerate outputs per lab container
+    ├── validate_labs.py      ← verifies every lab without Docker (solution passes, starter fails gracefully)
+    ├── copyedit_lint.py      ← terms, units, labels, links, cross-references
     └── make_student_release.py
 ```
 
@@ -77,6 +82,23 @@ python scripts/validate_labs.py                          # verify every lab
 cd book/part-1-foundations/ch03-linux-host-systems-diagnostics/lab
 python check.py                                          # your progress on the starter code
 ```
+
+### Run the labs in Docker
+
+Each lab is its own container: one image per chapter or capstone, with no network access. You need
+Docker; nothing else is installed on your machine.
+
+```bash
+python scripts/docker_labs.py ci                 # build all 32 lab images, then run all test suites
+python scripts/docker_labs.py build ch09         # or one package: ch01..ch24, capstone-a..capstone-h
+python scripts/docker_labs.py test ch09
+# work on a lab as a learner: mount your starter code into the learner image
+cd book/part-3-networking/ch09-congestion-control-lossless-fabrics
+docker run --rm -it --network none -v "$PWD/lab/starter:/work/pkg/lab/starter" ai-infra-lab:ch09-learner
+```
+
+Results land in `build/test-results/`. Conventions are in
+[docs/LAB_STANDARDS.md](docs/LAB_STANDARDS.md) (sections 6 and 7).
 
 ## Realism boundary
 

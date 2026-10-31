@@ -1,0 +1,18 @@
+id: 17-K2
+title: nodeSelector versus toleration
+folder: 17-K2-selector-vs-toleration
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: One sentence on attract vs repel; a correct YAML fragment.
+marking:
+- criterion: Selector/affinity attracts; taint repels and a toleration only permits
+  points: 1
+- criterion: 'nodeSelector halcyon.ai/dedicated: search present'
+  points: 1
+- criterion: Toleration with key, operator Equal, value search, effect NoSchedule (toleration alone =
+    half credit overall)
+  points: 2
+lab_checks: []

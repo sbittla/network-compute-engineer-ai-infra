@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "six results, a step table with 2(n − 1) = 4 steps, and the byte count compared with 2(n − 1)/n × S.",
+  "id": "12.10",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Six collective results correct, 1 point each",
+      "points": 6
+    },
+    {
+      "criterion": "Ring trace with 2(n − 1) = 4 steps and correct buffers after each step",
+      "points": 3
+    },
+    {
+      "criterion": "Byte count 16 B per rank = 2(n − 1)/n × 12 B",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Collectives by hand",
+  "type": "outline-mandated"
+}

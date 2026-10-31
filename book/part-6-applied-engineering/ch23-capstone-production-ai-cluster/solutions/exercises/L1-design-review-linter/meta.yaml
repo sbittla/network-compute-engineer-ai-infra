@@ -1,0 +1,34 @@
+id: L1
+title: Design-review linter
+folder: L1-design-review-linter
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: check.py output showing 13/13 PASS; the two reports; the triage memo
+marking:
+- criterion: 'Tasks 1–2: completeness and capacity arithmetic checks pass'
+  points: 20
+- criterion: 'Tasks 3–4: fabric arithmetic and rack power checks pass, no false positives on the traps'
+  points: 25
+- criterion: 'Task 5: evidence hygiene, unlabelled numbers and cross-references pass'
+  points: 20
+- criterion: 'Tasks 6–7: failure domains, SLOs, gate (6 blocker, 14 major, FAIL) and report'
+  points: 20
+- criterion: 'Task 8: triage memo with correct classification, minimal fixes and justified ordering'
+  points: 15
+lab_checks:
+- check_completeness
+- check_capacity
+- check_fabric
+- check_power
+- check_evidence
+- check_unlabeled_numbers
+- check_cross_refs
+- check_failure_domains
+- check_slos
+- check_edge_cases
+- check_run_lint_flawed
+- check_run_lint_clean
+- check_report

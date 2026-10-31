@@ -1,0 +1,17 @@
+id: R4
+title: Facility to scheduler signals
+folder: R4-facility-scheduler-signals
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: concise answers citing sections or data files.
+marking:
+- criterion: Names the signal sources (BMS/EPMS, PDU, CDU, UPS, maintenance calendar)
+  points: 2
+- criterion: Describes the integration point (power-budget service consumed by the scheduler)
+  points: 2
+- criterion: Assigns joint ownership with a defined interface (Platform + Facilities)
+  points: 1
+lab_checks: []

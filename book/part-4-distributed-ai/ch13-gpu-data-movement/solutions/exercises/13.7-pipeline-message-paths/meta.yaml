@@ -1,0 +1,19 @@
+id: '13.7'
+title: One pipeline message, two paths
+folder: 13.7-pipeline-message-paths
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 7
+evidence_required: a two-row table and both times with arithmetic
+marking:
+- criterion: 'Table row GDR: 0 host copies, 2 PCIe transfers, 16.8 MB PCIe bytes'
+  points: 2
+- criterion: 'Table row host-staged: 2 host copies, 4 PCIe transfers, 33.6 MB PCIe bytes'
+  points: 2
+- criterion: GDR time 8.39 MB / 45 GB/s = 186 µs (+ about 10 µs fixed)
+  points: 1
+- criterion: Unpipelined host-staged bound 168 + 186 + 168 = 522 µs with arithmetic
+  points: 2
+lab_checks: []

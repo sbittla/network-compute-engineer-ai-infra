@@ -1,0 +1,34 @@
+{
+  "alpha_increase_us": 11.0698,
+  "answer": {
+    "c2_2node_aligned": {
+      "alpha_us": 28.109,
+      "ceiling_GBps": 400.0,
+      "error_vs_prediction": 0.0006818,
+      "measured_plateau_GBps": 352.24,
+      "nics_per_node": 8,
+      "predicted_GBps": 352.0
+    },
+    "c3_2node_alt_map": {
+      "alpha_us": 39.1788,
+      "ceiling_GBps": 200.0,
+      "error_vs_prediction": 0.0016,
+      "measured_plateau_GBps": 184.29,
+      "nics_per_node": 4,
+      "predicted_GBps": 184.0
+    }
+  },
+  "c3_over_c2": 0.5232,
+  "evidence_label": "[MODELED] vs [SIMULATED]",
+  "inputs": {
+    "assumed_efficiency": {
+      "c2_2node_aligned": 0.88,
+      "c3_2node_alt_map": 0.92
+    },
+    "nic_GBps": 50.0
+  },
+  "units": {
+    "alpha": "us",
+    "bandwidth": "GB/s"
+  }
+}

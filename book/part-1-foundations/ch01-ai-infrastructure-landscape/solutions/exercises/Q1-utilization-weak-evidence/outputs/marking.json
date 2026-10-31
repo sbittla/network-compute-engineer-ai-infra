@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The mechanism and a better metric.",
+  "id": "Q1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Utilization counts any running kernel, so communication kernels waiting on peers count as busy",
+      "points": 1
+    },
+    {
+      "criterion": "Names SM-active or tensor-active (DCGM profiling fields) as the better metric",
+      "points": 1
+    },
+    {
+      "criterion": "Links to the Section 1.11 incident or an equivalent example of high utilization with low useful work",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "GPU utilization 97 % as evidence",
+  "type": "knowledge-check"
+}

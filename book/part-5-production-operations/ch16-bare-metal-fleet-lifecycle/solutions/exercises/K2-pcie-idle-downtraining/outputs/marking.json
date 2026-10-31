@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Verdict with the mechanism (idle power management) and the condition that would indicate a defect.",
+  "id": "K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Verdict: not a defect",
+      "points": 1
+    },
+    {
+      "criterion": "Mechanism: link speed down-trains at idle to save power and returns to Gen 5 under load",
+      "points": 2
+    },
+    {
+      "criterion": "Defect condition: below Gen 5 under load, or width below x16 (width does not change with load; x8 halves bandwidth to ≈ 31.5 GB/s per direction)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "PCIe Gen 1 at idle: defect or power management?",
+  "type": "knowledge-check"
+}

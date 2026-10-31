@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the loop-prevention mechanism in one sentence for each half of the question.",
+  "id": "7.K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Shared spine ASN: AS_PATH loop detection drops any path that already crossed the spine tier (no valley paths, no path hunting)",
+      "points": 2
+    },
+    {
+      "criterion": "Duplicate leaf ASN: each leaf drops the other's prefixes because its own ASN is in the AS_PATH",
+      "points": 1
+    },
+    {
+      "criterion": "States that the BGP sessions stay Established, so the fault is silent",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Shared spine ASN, unique leaf ASNs",
+  "type": "knowledge-check"
+}

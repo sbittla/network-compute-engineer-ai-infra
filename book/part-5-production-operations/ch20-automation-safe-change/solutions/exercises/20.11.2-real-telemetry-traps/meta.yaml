@@ -1,0 +1,15 @@
+id: 20.11.2
+title: What real telemetry would do
+folder: 20.11.2-real-telemetry-traps
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Written answer, at most 150 words, naming specific missing evidence.
+marking:
+- criterion: Three real-telemetry behaviours (gaps/late samples, counter resets/wraps, correlated fleet-wide shifts)
+  points: 3
+- criterion: For each, how it causes a false proceed or a false abort and the handling
+  points: 2
+lab_checks: []

@@ -1,0 +1,102 @@
+{
+  "evidence_label": "[MODELED] fits of [SIMULATED] data",
+  "inputs": {
+    "data": "lab/data/*.log",
+    "thresholds": {
+      "bandwidth": ">= 0.8 x plateau",
+      "latency": "t <= 1.5 x min"
+    }
+  },
+  "scaling": {
+    "aligned_alpha_us": [
+      28.109,
+      36.1634,
+      47.2924
+    ],
+    "aligned_plateau_GBps": [
+      352.24,
+      348.72,
+      345.24
+    ],
+    "plateau_drop_2_to_8_nodes": 0.0199
+  },
+  "summary": {
+    "c1_1node_8gpu": {
+      "B_GBps": 448.4185,
+      "alpha_us": 14.122,
+      "bandwidth_min_size": 16777216,
+      "egress_efficiency": null,
+      "jitter_cv": 0.007,
+      "latency_max_size": 1048576,
+      "n_half_MB": 3.6186,
+      "nodes": 1,
+      "nranks": 8,
+      "plateau_GBps": 449.055
+    },
+    "c2_2node_aligned": {
+      "B_GBps": 354.2861,
+      "alpha_us": 28.109,
+      "bandwidth_min_size": 33554432,
+      "egress_efficiency": 0.4403,
+      "jitter_cv": 0.009,
+      "latency_max_size": 1048576,
+      "n_half_MB": 5.3113,
+      "nodes": 2,
+      "nranks": 16,
+      "plateau_GBps": 352.24
+    },
+    "c3_2node_alt_map": {
+      "B_GBps": 184.503,
+      "alpha_us": 39.1788,
+      "bandwidth_min_size": 16777216,
+      "egress_efficiency": 0.2304,
+      "jitter_cv": 0.0081,
+      "latency_max_size": 1048576,
+      "n_half_MB": 3.8553,
+      "nodes": 2,
+      "nranks": 16,
+      "plateau_GBps": 184.29
+    },
+    "c4_4node_aligned": {
+      "B_GBps": 348.8125,
+      "alpha_us": 36.1634,
+      "bandwidth_min_size": 33554432,
+      "egress_efficiency": 0.218,
+      "jitter_cv": 0.0106,
+      "latency_max_size": 2097152,
+      "n_half_MB": 6.5106,
+      "nodes": 4,
+      "nranks": 32,
+      "plateau_GBps": 348.72
+    },
+    "c5_8node_aligned": {
+      "B_GBps": 345.8498,
+      "alpha_us": 47.2924,
+      "bandwidth_min_size": 33554432,
+      "egress_efficiency": 0.1079,
+      "jitter_cv": 0.0156,
+      "latency_max_size": 2097152,
+      "n_half_MB": 8.3078,
+      "nodes": 8,
+      "nranks": 64,
+      "plateau_GBps": 345.24
+    },
+    "c6_8node_run2": {
+      "B_GBps": 185.3756,
+      "alpha_us": 49.837,
+      "bandwidth_min_size": 16777216,
+      "egress_efficiency": 0.0554,
+      "jitter_cv": 0.0879,
+      "latency_max_size": 1048576,
+      "n_half_MB": 4.6926,
+      "nodes": 8,
+      "nranks": 64,
+      "plateau_GBps": 177.395
+    }
+  },
+  "units": {
+    "B": "GB/s",
+    "alpha": "us",
+    "n_half": "MB"
+  }
+}

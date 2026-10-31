@@ -16,11 +16,11 @@ writing, portfolio building from Capstones A–H, design docs, reviews, on-call 
 1. **Map** your current skills to the competency matrix of a target AI-infrastructure role and
    **identify** the three highest-priority gaps with a dated plan to close them.
 2. **Distinguish** junior, mid, senior, staff and principal performance by observable behaviours in
-   scope, ambiguity, technical judgement, operational ownership and influence.
+   scope, ambiguity, technical judgment, operational ownership and influence.
 3. **Evaluate** claims about the job market by demanding a dated, deduplicated register, and
    **validate** such a register programmatically.
 4. **Conduct** a 45-minute system-design interview for an AI training cluster or AI network: clarify
-   requirements, derive capacity numbers, draw data paths, analyse failure domains and defend
+   requirements, derive capacity numbers, draw data paths, analyze failure domains and defend
    trade-offs.
 5. **Write** an incident or performance case study that separates measured facts, inferred causes and
    remaining uncertainty, and states impact in units a reader can check.
@@ -52,11 +52,14 @@ Role-readiness matrix, portfolio narrative, and technical presentation.
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting case, design challenge, outline-mandated exercises (M1–M3), reflection |
+| [exercises/](exercises/README.md) | One folder per exercise (20): verbatim prompt, what to submit, empty `outputs/` for your deliverables |
 | [lab/README.md](lab/README.md) | Lab guide: role-readiness scorer and job-posting register validator |
 | `lab/manifest.yaml` | Environment manifest (L1, seed 24) |
-| `lab/data/` | Competency matrices, sample learner evidence, **synthetic** job register (fictional employers, `example.com` URLs) |
+| `lab/data/` | Competency matrices, sample learner evidence, **synthetic** job register (fictional employers, `example.com` URLs) used by the checker |
+| `lab/data/job_register_2026-10*.csv`, `register_meta_2026-10.yaml` | **Real** dated register: 50 public postings read on 2026-10-30, deduplicated to 42 roles (Section 24.4). Reference data, not used by `check.py`; stale after 2026-11-29 |
 | `lab/tools/generate_data.py` | Deterministic data generator — instructor copy only, removed from the student release |
 | `lab/starter/career_lab.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python check.py [--impl starter|solution]` |
 | `solutions/` | Instructor answer key and reference implementation (remove before distributing) |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, and generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |

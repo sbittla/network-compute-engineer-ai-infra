@@ -117,11 +117,11 @@ sharded optimizers).
 | Code | Item | What is wrong | Why it is planted / consequence |
 |---|---|---|---|
 | `DUPLICATE_RACK` | rack-05 | Row duplicated in `rack_plan.csv` | Spreadsheet copy-paste is the most common BOM error; the sheet totals 36 nodes, so procurement would order 4 extra servers and Facilities would plan a ninth GPU rack's power. |
-| `POWER_BASIS` | rack-03 | Planned at sustained power, 34.2 kW | Planning at sustained power under-sizes circuits by (41.0 − 34.2) ÷ 41.0 = 16.6 %; breakers trip during burn-in or synchronised peaks. |
+| `POWER_BASIS` | rack-03 | Planned at sustained power, 34.2 kW | Planning at sustained power under-sizes circuits by (41.0 − 34.2) ÷ 41.0 = 16.6 %; breakers trip during burn-in or synchronized peaks. |
 | `CIRCUIT_OVERLOAD` | rack-07 | One circuit per side | 41.0 × 1.10 = 45.1 kW needed vs 32.78 kW per side: the rack cannot survive loss of either feed at load. |
 | `FLOOR_LOAD` | rack-08 | 1,000 kg estimate | 1,000 ÷ 0.72 = 1,389 kg/m² > 1,200; real cause is often an extra component (in-rack CDU, ballast) added late. |
 | `PORT_OVERCOMMIT` | orion-be-spine-2 | 72 downlinks on a 64-port switch | Mis-summed port plan; the cable plan cannot be built. |
-| `OVERSUBSCRIBED_LEAF` | orion-be-leaf-r5 | 24 uplinks instead of 32 | 32 : 24 = 1.33 : 1 on rail 5; collectives run at the slowest rail's pace. |
+| `OVERSUBSCRIBED_LEAF` | orion-be-leaf-r5 | 24 uplinks instead of 32 | 32:24 = 1.33:1 on rail 5; collectives run at the slowest rail's pace. |
 | `UPLINK_MISMATCH` | fabric | Σ leaf uplinks 248 vs Σ spine downlinks 264 | The two previous flaws make the sheet internally inconsistent; this check catches mistakes even when the individual switch rows look plausible. |
 | `UNIT_MISMATCH` | storage.aggregate_read | "160 Gb/s" where 8 × 20 GB/s = 160 GB/s | Bits-for-bytes is the classic factor-of-8 error; taken literally, 20 GB/s would make the storage look 8× too small (or, the other way round, a vendor quoting Gb/s looks 8× better). |
 | `PSU_FEED_LOSS` | HX8 | 3 × 3.0 kW = 9.0 kW per feed < node maximum | Node cannot ride through a feed loss at full power; needs a feed-loss power policy (Section 2.10 Step 5). |
@@ -207,8 +207,10 @@ proposing mitigations without saying what they cost.
    **55.4 L/min**. Air 9.18 kW: 9.18 ÷ (1.006 × 1.20 × 15) = 0.507 m³/s = **1,074 CFM**. CDU: 8 ×
    36.71 = **293.7 kW = 97.9 %** of 300 kW ✗ (no operating margin, no redundancy).
 4. Mass 5 × 135 + 280 = 955 kg; 955 ÷ 0.72 = **1,326 kg/m²** > 1,200 ✗.
-5. Feed loss: 3 × 3.0 = 9.0 kW ≥ 8.59 kW DC peak ✓ — the fan savings remove the feed-loss problem
-   (4.8 % margin before PSU derating).
+5. Feed loss: 3 × 3.0 = 9.0 kW ≥ 8.59 kW DC peak, so the raw rating is met. Under Section 2.10's
+   95 % PSU-loading rule (8.55 kW) the node is still 40 W over, so it needs only a token cap
+   (≈ 5 W per GPU) instead of the 1.04 kW shed of the air-cooled node. Accept either "passes on
+   rating" or "40 W over at 95 %" if the student states which rule they used.
 6. **Stay at 4 nodes per rack**: the floor (and the CDU) bind before electrical capacity. The DLC
    variant's real benefits at 4 nodes are lower power (−10.4 %), feed-loss ride-through, and CDU load
    falling to 8 × 0.80 × 36.75 = 235.2 kW (78.4 %).
@@ -219,7 +221,7 @@ proposing mitigations without saying what they cost.
 | Coolant per rack | 55.4 L/min | Manifold design (ask) | Confirm |
 | CDU | 293.7 kW | 300 kW | ✗ |
 | Floor | 1,326 kg/m² | 1,200 | ✗ |
-| Feed loss | 8.59 kW DC | 9.0 kW | ✓ |
+| Feed loss | 8.59 kW DC | 9.0 kW (8.55 kW at 95 %) | ✓ on rating; 40 W over at 95 % |
 
 *Marking (15 pts):* 2 pts per item 1–5, 5 pts for verdict with binding constraint. *Common mistake:*
 applying the 94 % efficiency to the 1,000 W saving twice or applying the capture fraction to DC load.
@@ -309,7 +311,7 @@ default limits were not restored or the server was shared.
    (816 kW). Air 18 ÷ (1.006 × 1.20 × 15) = 0.994 m³/s = **2,106 CFM** per rack. CDUs: 816 kW needs one
    1 MW unit; N+1 → **2 CDUs**, each at 40.8 % normally and **81.6 %** with one failed.
 6. **Floor:** 1,400 ÷ 0.72 = **1,944 kg/m²** > 1,200 ✗. Ask the structural engineer for: the slab or
-   raised-floor rating basis (footprint vs. distributed), concentrated and rolling loads on the
+   raised-floor rating basis (footprint vs distributed), concentrated and rolling loads on the
    transport path, whether spreader plates or slab-on-grade placement are required, and seismic
    anchoring.
 7. **Safe operating envelope (example):**
@@ -339,7 +341,7 @@ default limits were not restored or the server was shared.
    power-down and leak response ownership (both, signed); maintenance windows and feed-loss power policy
    (both).
 
-*Marking (25 pts):* 2 pts each for artefacts 1–9 (18), arithmetic correctness 5, labelling and
+*Marking (25 pts):* 2 pts each for artifacts 1–9 (18), arithmetic correctness 5, labelling and
 assumption discipline 2. *Common mistakes:* using 2 × 125 A circuits (136.6 < 138); using sum of both
 feeds; omitting the transient check; presenting 120 kW as a standard rack power.
 

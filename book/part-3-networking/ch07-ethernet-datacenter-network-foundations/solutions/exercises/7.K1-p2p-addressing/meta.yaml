@@ -1,0 +1,19 @@
+id: 7.K1
+title: Point-to-point /31 addressing
+folder: 7.K1-p2p-addressing
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: RFC numbers, both address counts with arithmetic, one operational reason.
+marking:
+- criterion: RFC 3021 named as the source permitting /31 on point-to-point links
+  points: 1
+- criterion: RFC 6164 and the /127 IPv6 prefix length named
+  points: 1
+- criterion: 'Both counts correct with arithmetic: 512 × 2 = 1,024 (/31) and 512 × 4 = 2,048 (/30)'
+  points: 1
+- criterion: An operational (not address-conservation) reason, e.g. addresses computable from link index
+  points: 1
+lab_checks: []

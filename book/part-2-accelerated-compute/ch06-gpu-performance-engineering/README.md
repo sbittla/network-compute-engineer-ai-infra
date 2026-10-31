@@ -50,6 +50,7 @@ counters) · **L2** (same protocol on a real GPU with CUDA events and telemetry)
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text (Sections 6.1–6.11, trade-offs, runbook, summary) |
 | [exercises.md](exercises.md) | Exercises 6.1–6.19 including outline-mandated 6.11–6.13 |
+| [exercises/](exercises/) | One learner folder per exercise (6.1–6.20): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 6 guide |
 | `lab/manifest.yaml` | Environment manifest, decision protocol, L2 record fields |
 | `lab/data/` | Benchmark result sets, A/A data, kernel counters, device ceilings |
@@ -57,6 +58,7 @@ counters) · **L2** (same protocol on a real GPU with CUDA events and telemetry)
 | `lab/starter/harness.py`, `lab/starter/analysis.py` | Learner modules (TODOs) |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/` | Answer key and reference implementation (instructor only) |
+| `solutions/exercises/` | Per-exercise instructor folders: `meta.yaml` (marking scheme), `solution/answer.md`, `solution/solve.py` for computed exercises, generated `outputs/` (instructor only) |
 | `review/REVIEW.md` | Editorial review log |
 
 ## Course placement

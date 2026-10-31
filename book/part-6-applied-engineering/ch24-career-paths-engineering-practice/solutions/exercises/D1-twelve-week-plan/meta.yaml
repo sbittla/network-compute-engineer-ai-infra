@@ -1,0 +1,22 @@
+id: D1
+title: A 12-week plan from "near" to "ready"
+folder: D1-twelve-week-plan
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: written
+points: 15
+evidence_required: current matrix; plan with dated artifacts and hours; projected score and status after each artifact;
+  one paragraph on what you are *not* doing and why.
+marking:
+- criterion: Current matrix produced by the lab on the learner's real evidence
+  points: 3
+- criterion: Projected score and status after each artifact, with arithmetic
+  points: 4
+- criterion: Plan fits ≤ 10 h/week with realistic, dated hours
+  points: 2
+- criterion: Depth/breadth and L1/L2 choice argued from the evidence caps
+  points: 3
+- criterion: Honest 'not doing' paragraph
+  points: 3
+lab_checks: []

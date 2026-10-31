@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "headline_all_pct": 23.2,
+    "headline_excl_pct": 21.9,
+    "tp_share_all_pct": 64.7,
+    "tp_share_excl_pct": 61.4
+  },
+  "evidence_label": "SIMULATED",
+  "id": "K7",
+  "inputs": {
+    "bundle": "lab/data (seed 2214)",
+    "failed_job": 41114,
+    "failed_job_usable_steps": 60
+  },
+  "steps": {
+    "all": {
+      "after_share_pct": 8.34,
+      "headline_pct": 23.24,
+      "n_jobs": 48,
+      "tp_share_pct": 64.7
+    },
+    "excl": {
+      "after_share_pct": 8.92,
+      "headline_pct": 21.89,
+      "n_jobs": 47,
+      "tp_share_pct": 61.41
+    }
+  },
+  "units": "%"
+}

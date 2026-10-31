@@ -1,0 +1,24 @@
+id: M4
+title: Capacity/power/cooling model and guardrails
+folder: M4-power-cooling-guardrails
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: computed
+points: 15
+evidence_required: assumptions register; rack power budget; coolant-flow arithmetic; guardrail table; facility/MEP
+  hand-off checklist (≥ 8 items).
+marking:
+- criterion: Assumptions register with labels and owners
+  points: 2
+- criterion: Rack power budget 114.4 kW provisioned, redundancy mode and transient margin stated
+  points: 3
+- criterion: Coolant flow 91.5 kW / (4.18 × 10) = 2.19 kg/s ≈ 131 L/min; residual air 22.9 kW
+  points: 3
+- criterion: 'Guardrail table: signal, threshold, automated action, owner'
+  points: 3
+- criterion: Facility/MEP hand-off checklist with at least 8 items
+  points: 2
+- criterion: Every rack-power figure tied to the stated Design-B reference
+  points: 2
+lab_checks: []

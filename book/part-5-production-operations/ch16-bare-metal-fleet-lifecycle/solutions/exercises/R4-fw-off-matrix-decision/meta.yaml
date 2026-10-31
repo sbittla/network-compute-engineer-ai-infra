@@ -1,0 +1,18 @@
+id: R4
+title: Waive, reflash, or fast-track a bundle?
+folder: R4-fw-off-matrix-decision
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: A decision; the evidence and approval path for it.
+marking:
+- criterion: Clear decision (not a silent waiver)
+  points: 2
+- criterion: Evidence required for the chosen path (release notes, own reproduction of bug and fix, pilot
+    acceptance)
+  points: 2
+- criterion: Approval path / risk owner / expiry
+  points: 1
+lab_checks: []

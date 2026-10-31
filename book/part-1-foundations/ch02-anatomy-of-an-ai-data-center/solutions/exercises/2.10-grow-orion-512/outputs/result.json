@@ -1,0 +1,59 @@
+{
+  "answer": {
+    "chosen": "C",
+    "fabric": {
+      "bisection_tbps": 102.4,
+      "host_links": 512,
+      "leaf_spine_links": 512,
+      "leaves": 16,
+      "link_ends": 2048,
+      "links": 1024,
+      "spines": 8,
+      "switches": 24,
+      "uplinks_per_leaf_per_spine": 4
+    },
+    "options": {
+      "A": {
+        "cdu_fraction": 0.82,
+        "fits": false,
+        "floor": 1138.889,
+        "gpu_racks": 16,
+        "it_kw": 742.0,
+        "liquid_kw": 492.0,
+        "positions": 21,
+        "rack_kw": 41.0,
+        "residual_air_kw": 10.25,
+        "side_kw": 45.1
+      },
+      "B": {
+        "cdu_fraction": 0.795,
+        "fits": false,
+        "floor": 1326.389,
+        "gpu_racks": 13,
+        "it_kw": 682.589,
+        "liquid_kw": 477.271,
+        "positions": 18,
+        "rack_kw": 45.891,
+        "residual_air_kw": 9.178,
+        "side_kw": 50.481
+      },
+      "C": {
+        "cdu_fraction": 0.784,
+        "fits": true,
+        "floor": 1138.889,
+        "gpu_racks": 16,
+        "it_kw": 674.051,
+        "liquid_kw": 470.441,
+        "positions": 19,
+        "rack_kw": 36.753,
+        "residual_air_kw": 7.351,
+        "side_kw": 40.429
+      }
+    }
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] assumptions",
+  "units": {
+    "floor": "kg/m2",
+    "power": "kW"
+  }
+}

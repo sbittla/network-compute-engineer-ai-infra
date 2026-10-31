@@ -1,0 +1,44 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output (10/10 PASS), summary table, anomaly labels with explanations, and (optional) your gloo log labelled `[MEASURED]` with the environment.",
+  "id": "12.13",
+  "kind": "lab",
+  "lab_checks": [
+    "bus_factor:",
+    "parse_nccl_log:",
+    "compute_bw:",
+    "plateau_busbw:",
+    "classify_regions:",
+    "fit_alpha_beta:",
+    "jitter_cv:",
+    "analyze_all:",
+    "detect_anomalies:",
+    "predict_time_us:"
+  ],
+  "marking": [
+    {
+      "criterion": "bus_factor, parse_nccl_log and compute_bw pass",
+      "points": 25
+    },
+    {
+      "criterion": "plateau_busbw, classify_regions and fit_alpha_beta pass",
+      "points": 30
+    },
+    {
+      "criterion": "jitter_cv, analyze_all and predict_time_us pass",
+      "points": 25
+    },
+    {
+      "criterion": "detect_anomalies passes and the labels are explained (c3 low_plateau_steady, c6 low_plateau_jittery)",
+      "points": 15
+    },
+    {
+      "criterion": "Summary table and evidence labels correct; optional gloo log with environment if submitted",
+      "points": 5
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "nccl-tests analysis toolkit (lab)",
+  "type": "hands-on-lab"
+}

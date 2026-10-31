@@ -1,0 +1,19 @@
+id: '11.18'
+title: Why "fits in 80 GB" is not enough
+folder: 11.18-fits-80gb-insufficient
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: Explains peak vs steady allocation and fragmentation
+  points: 1
+- criterion: Names other code paths/changes that raise memory (eval, checkpoint, longer sequences, batch
+    changes)
+  points: 1
+- criterion: 'Requires concrete evidence: allocator peak stats over ≥ 200 steps incl. eval and checkpoint,
+    with ≥ 15 % headroom'
+  points: 1
+lab_checks: []

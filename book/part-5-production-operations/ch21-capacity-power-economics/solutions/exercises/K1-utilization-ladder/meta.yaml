@@ -1,0 +1,19 @@
+id: K1
+title: The ladder
+folder: K1-utilization-ladder
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: four definitions with numerator/denominator; one-sentence mechanism.
+marking:
+- criterion: Allocated and active defined with correct numerator/denominator and data source
+  points: 2
+- criterion: MFU and goodput defined with correct numerator/denominator
+  points: 2
+- criterion: Identifies DCGM_FI_DEV_GPU_UTIL as the active rung (time occupancy, fleet-averaged)
+  points: 1
+- criterion: 'Mechanism: kernels waiting on NCCL/network count as busy, so it says nothing about useful work'
+  points: 1
+lab_checks: []

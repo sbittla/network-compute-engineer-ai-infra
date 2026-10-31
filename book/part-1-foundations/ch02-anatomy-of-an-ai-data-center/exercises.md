@@ -206,7 +206,7 @@ root-cause arithmetic; fix and validation plan; one acceptance-checklist line.
 
 ## Exercise 2.8 — Power-cap sweep on one GPU server ★★★ · L2
 
-> **Safety:** Only on a dedicated server you are authorised to reconfigure. Restore default power
+> **Safety:** Only on a dedicated server you are authorized to reconfigure. Restore default power
 > limits afterwards and record that you did.
 
 On one GPU, run a fixed workload (for example a large BF16 GEMM loop or an approved burn-in tool) at
@@ -258,7 +258,7 @@ Produce:
 9. **Facility/MEP handoff checklist:** the items IT must give Facilities and receive from Facilities
    before installation (at least 12 lines), each with an owner.
 
-**Evidence required:** the nine artefacts above; arithmetic for 2, 3, 5, and 6; each number labelled.
+**Evidence required:** the nine artifacts above; arithmetic for 2, 3, 5, and 6; each number labelled.
 
 ---
 
@@ -289,7 +289,7 @@ option; the fabric change with switch and link counts.
 4. Your Facilities colleague says, "PUE is 1.25, so efficiency is fine." What is missing from that
    statement for an AI cluster?
 5. Which of the ownership cells in Table 2.7 has the highest risk of being nobody's job in your own
-   organisation, and how would you fix that?
+   organization, and how would you fix that?
 
 **Evidence required:** written answers, one paragraph each.
 

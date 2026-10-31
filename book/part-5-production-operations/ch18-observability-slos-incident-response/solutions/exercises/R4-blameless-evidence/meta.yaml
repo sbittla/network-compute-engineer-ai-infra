@@ -1,0 +1,17 @@
+id: R4
+title: What makes a postmortem blameless
+folder: R4-blameless-evidence
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Concise written answers, each referencing a specific data file, metric, or section.
+marking:
+- criterion: 'Evidence of blamelessness: system conditions and decisions in context, no names on errors'
+  points: 2
+- criterion: Contributing factors rather than a single culprit; action items on systems with owners
+  points: 1
+- criterion: A blaming sentence rewritten correctly in blameless form
+  points: 2
+lab_checks: []

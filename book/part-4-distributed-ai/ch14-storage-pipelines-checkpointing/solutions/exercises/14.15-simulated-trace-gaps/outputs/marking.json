@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four items with a direction and a reason",
+  "id": "14.15",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Four real PFS behaviours named",
+      "points": 2
+    },
+    {
+      "criterion": "Each with a direction (better or worse tail)",
+      "points": 2
+    },
+    {
+      "criterion": "Each with a mechanism-level reason",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "What the simulated trace does not capture",
+  "type": "reflection"
+}

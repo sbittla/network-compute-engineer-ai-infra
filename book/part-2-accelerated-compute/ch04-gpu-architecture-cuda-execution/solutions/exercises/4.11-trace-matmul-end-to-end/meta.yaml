@@ -1,0 +1,20 @@
+id: '4.11'
+title: Trace an operation end to end
+folder: 4.11-trace-matmul-end-to-end
+type: outline-mandated
+difficulty: 1
+tier: L1
+kind: computed
+points: 10
+evidence_required: annotated diagram, three stage times with arithmetic, one-paragraph restructuring.
+marking:
+- criterion: (a) diagram shows launch, two H2D copies, kernel, D2H and final sync; CPU waits only at the
+    final synchronize; GPU SMs wait on H2D; D2H waits on the kernel
+  points: 3
+- criterion: (b) H2D 268,435,456 B / 52 GB/s = 5.16 ms; kernel 1.0995e12 FLOP / 692.3 TFLOP/s = 1.59 ms;
+    D2H 2.58 ms; total about 9.33 ms, labelled [MODELED]
+  points: 4
+- criterion: '(c) restructuring: operands resident in HBM, only small input batches cross PCIe via pinned
+    side-stream prefetch, only scalars read back; intensity vs PCIe ridge argument'
+  points: 3
+lab_checks: []

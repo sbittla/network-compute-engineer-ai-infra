@@ -1,0 +1,18 @@
+id: '14.1'
+title: Little's law on NVMe
+folder: 14.1-littles-law-nvme
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: the formula, substituted values, and results with units
+marking:
+- criterion: (a) IOPS = 1 / 95 µs = 10,526 IOPS and 43.1 MB/s (accept 41.1 MiB/s if labelled)
+  points: 2
+- criterion: (b) QD = 330,000 /s x 0.097 ms = 32.0, formula shown
+  points: 2
+- criterion: (c) %util counts time with at least one request outstanding; NVMe is parallel; saturation
+    shows as latency rising at constant throughput
+  points: 1
+lab_checks: []

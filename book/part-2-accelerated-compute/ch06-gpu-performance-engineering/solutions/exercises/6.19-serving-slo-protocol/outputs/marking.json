@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) citing specific mechanisms or data.",
+  "id": "6.19",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "One protocol decision named (e.g. median of run medians as the statistic)",
+      "points": 1
+    },
+    {
+      "criterion": "Replacement: tail percentiles (p95/p99 TTFT/TPOT) under realistic concurrency and arrival processes, longer runs",
+      "points": 1
+    },
+    {
+      "criterion": "Reason: medians of isolated runs miss queueing effects (Chapter 15)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Protocol change for a serving SLO",
+  "type": "reflection"
+}

@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the prediction with arithmetic, the comparison, and an evidence table of at least five items (artifact, command, expected result if hypothesis true, result that falsifies it).",
+  "id": "12.12",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Prediction with arithmetic: c2 ≈ 8 × 50 × 0.88 ≈ 350 GB/s; c3 ≈ 4 × 50 × 0.92 ≈ 185 GB/s, higher α from SYS paths without GDR",
+      "points": 4
+    },
+    {
+      "criterion": "(b) Comparison with the data (352 vs 184 GB/s; α 28 vs 39 µs)",
+      "points": 2
+    },
+    {
+      "criterion": "(c) Evidence table, at least five items with artifact and exact command/log line",
+      "points": 6
+    },
+    {
+      "criterion": "Falsification column: what result would disprove the hypothesis for each item",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Two rank mappings",
+  "type": "outline-mandated"
+}

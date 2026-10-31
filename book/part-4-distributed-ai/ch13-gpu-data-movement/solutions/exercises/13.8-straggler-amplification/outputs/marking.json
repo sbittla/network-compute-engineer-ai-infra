@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "three probabilities and two numbers, formulas shown",
+  "id": "13.8",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Formula 1 - (1 - p)^N stated",
+      "points": 1
+    },
+    {
+      "criterion": "Three probabilities 12.0 %, 40.1 %, 87.1 %",
+      "points": 3
+    },
+    {
+      "criterion": "Lost GPU time 63 x 0.174 s = 10.96 GPU-s per step",
+      "points": 2
+    },
+    {
+      "criterion": "Lost fraction 10.96 / (64 x 0.924) = 18.5 %",
+      "points": 2
+    }
+  ],
+  "points": 8,
+  "tier": "L1",
+  "title": "Straggler amplification",
+  "type": "worked-problem"
+}

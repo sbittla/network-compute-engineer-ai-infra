@@ -1,0 +1,20 @@
+id: K3
+title: ADR revisit trigger for TP = 8 inside NVLink
+folder: K3-adr-revisit-trigger
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: a trigger that is observable (a metric or event), not an opinion
+marking:
+- criterion: 'Purpose stated: the trigger makes the decision self-monitoring by naming the condition that reopens
+    it'
+  points: 2
+- criterion: 'Trigger is observable: a metric with a threshold or a detectable event (placement audit, memory footprint,
+    bandwidth ratio)'
+  points: 1
+- criterion: Trigger is tied to the TP = 8 decision's actual premise (HBM fit, TP locality, NVLink-to-NIC ratio),
+    not a calendar date
+  points: 1
+lab_checks: []

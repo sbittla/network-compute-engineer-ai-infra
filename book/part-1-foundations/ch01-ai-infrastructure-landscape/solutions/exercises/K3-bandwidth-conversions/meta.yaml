@@ -1,0 +1,17 @@
+id: K3
+title: Bandwidth unit conversions
+folder: K3-bandwidth-conversions
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: Three conversions with formula and units.
+marking:
+  - criterion: (a) 400 Gb/s = 50 GB/s (divide by 8 bits per byte)
+    points: 1
+  - criterion: (b) NVLink 900 GB/s is bidirectional, so 450 GB/s per direction
+    points: 1
+  - criterion: (c) 8 x 400 Gb/s = 3,200 Gb/s = 400 GB/s per direction per node, with units shown
+    points: 2
+lab_checks: []

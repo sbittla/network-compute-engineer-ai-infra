@@ -7,7 +7,7 @@ failure analysis, and a cost/performance memo that recommends a backend fabric a
 numbers. This is the work a cluster architect does in the eight weeks before a purchase order. It is
 also where most expensive mistakes are made. Racks that cannot be powered with 2N redundancy, optics
 that do not reach, and fabrics whose oversubscription only shows up under the scheduler's real rank
-order are all cheaper to find in a spreadsheet than on the data-centre floor.
+order are all cheaper to find in a spreadsheet than on the data-center floor.
 
 ## Audience and prerequisites
 
@@ -29,7 +29,7 @@ plan and the failure analysis.
 
 Halcyon AI has been allocated 13 racks in a hall (positions in rows A, B and D) and wants to train a 70-billion-parameter
 dense model (W-TRAIN, [REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3) on 32 HX8 nodes, which
-is 256 H100-class GPUs. Each node has eight 400 Gb/s RDMA NICs, one per GPU and one per rail. Three
+is 256 H100-class GPUs. Each node has eight 400 Gb/s remote direct memory access (RDMA) network interface cards (NICs), one per GPU and one per rail. Three
 backend proposals are on the table.
 
 | Option | Shape | Who proposed it |
@@ -41,7 +41,7 @@ backend proposals are on the table.
 Facilities has sent the hall drawing and the feed schedule. One GPU position has older 63 A feeds,
 and the eighth GPU rack sits in an overflow position at the far end of the hall, in a legacy
 air-cooled row. Training Infra will launch W-TRAIN as either the 3D-parallel baseline (TP = 8, PP = 4,
-DP = 8) or a fully sharded variant (TP = 8, DP = 32). The launcher takes its node order from the
+DP = 8) or a fully sharded variant (TP = 8, DP = 32), where TP, PP and DP are tensor, pipeline and data parallelism. The launcher takes its node order from the
 inventory API, which does not sort by rack. By default ORION splits its 32 nodes into 24 training
 (`orion-n01`–`n24`) and 8 inference (`orion-n25`–`n32`) nodes. A full-size W-TRAIN run borrows the
 inference nodes through a lifecycle transition, and there are **no spare nodes** outside the 32
@@ -104,9 +104,9 @@ oversubscription and its communication consequences. Starter-kit tasks 6 and 7 c
 Physical claims require a real, compatible lab: the procedure is in the
 [starter-kit README, Section 8](starter-kit/README.md#8-extensions-hardware-backed-validation-l2l3).
 
-> **Realism boundary:** The starter-kit model is a planning model. It assumes perfect ECMP and treats
-> each flow as wanting the full NIC rate. It ignores NCCL's algorithm and channel selection, PFC/ECN
-> dynamics, thermal throttling and failures during a run. Prices, power figures and the facility are
+> **Realism boundary:** The starter-kit model is a planning model. It assumes perfect equal-cost multipath (ECMP) and treats
+> each flow as wanting the full NIC rate. It ignores the algorithm and channel selection of the NVIDIA Collective Communications Library
+> (NCCL), priority flow control (PFC) and explicit congestion notification (ECN) dynamics, thermal throttling and failures during a run. Prices, power figures and the facility are
 > `[ILLUSTRATIVE]`. A design pack that presents any of its outputs as a measurement fails the
 > measurement dimension.
 
@@ -131,7 +131,7 @@ with reproducible evidence. For Capstone A, excellent work looks like this:
 
 | Dimension | What excellent looks like in Capstone A |
 |---|---|
-| Problem framing and assumptions (10) | The assumptions register ranks assumptions by sensitivity, and the top three (MFU, the DP overlap window, ECMP efficiency) each have a validation plan |
+| Problem framing and assumptions (10) | The assumptions register ranks assumptions by sensitivity, and the top three (model FLOPs utilization (MFU), the DP overlap window, ECMP efficiency) each have a validation plan |
 | Architecture and technical correctness (20) | Counts, cable media, power and cooling are correct. Option C is rejected on design rules, not only on price. Data paths are drawn from GPU to spine |
 | Implementation / reproducibility (15) | All checks pass. One command regenerates every modeled number in the pack. Inputs are version-controlled |
 | Measurement and analysis (20) | The layout × option × scenario table includes the launcher's real order, the sensitivity reaches a stated break-even, and modeled and measured values are never mixed |

@@ -1,0 +1,20 @@
+id: K6
+title: Redfish resources and the staged-versus-running trap
+folder: K6-redfish-resources
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Three resource paths or actions from Section 16.3; the staged-vs-running explanation.
+marking:
+- criterion: (a) PATCH Systems/{id} Boot.BootSourceOverrideTarget = Pxe, Enabled = Once
+  points: 1
+- criterion: (b) POST Systems/{id}/Actions/ComputerSystem.Reset with a ResetType
+  points: 1
+- criterion: (c) GET /redfish/v1/UpdateService/FirmwareInventory
+  points: 1
+- criterion: Explains staged images activate only after reboot/AC cycle, so the running version must be
+    read back
+  points: 2
+lab_checks: []

@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three device names, the packet name, DSCP and TC values.",
+  "id": "K1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "CP = orion-be-leaf-r3 egress queue on eth1/5 toward orion-n05",
+      "points": 1
+    },
+    {
+      "criterion": "NP = orion-n05's NIC (mlx5_3), the receiver that generates CNPs",
+      "points": 1
+    },
+    {
+      "criterion": "RP = each of the 12 sending NICs",
+      "points": 1
+    },
+    {
+      "criterion": "NP→RP packet is the CNP, DSCP 48, TC 6 (strict priority)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "DCQCN roles in the 12:1 incast",
+  "type": "knowledge-check"
+}

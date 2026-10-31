@@ -1,0 +1,18 @@
+id: R1
+title: Which model number to trust
+folder: R1-trust-model-numbers
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: a short paragraph each that names specific counters, assumptions, or limitations from
+  the chapter.
+marking:
+- criterion: Trusts the direction and rough size of the pause-exposure reduction more, with the mechanism
+  points: 1
+- criterion: Explains why the ≈ 31 % completion penalty is likely overstated (simplified DCQCN recovery)
+  points: 1
+- criterion: States that both need L3 measurement
+  points: 1
+lab_checks: []

@@ -1,0 +1,16 @@
+id: '12.5'
+title: NCCL channels and 350 GB/s across two nodes
+folder: 12.5-nccl-channels
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: explanation with the 8 × 50 GB/s arithmetic.
+marking:
+- criterion: 'Defines a channel: an independent ring/tree instance run by one CUDA block, with its own
+    buffers and NIC'
+  points: 2
+- criterion: 'Arithmetic: 8 NICs × 50 GB/s = 400 GB/s node egress; 350 GB/s ≈ 88 % of it, so no contradiction'
+  points: 2
+lab_checks: []

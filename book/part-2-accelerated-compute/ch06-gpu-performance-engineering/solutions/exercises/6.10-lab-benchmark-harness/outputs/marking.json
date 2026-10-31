@@ -1,0 +1,51 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output (all PASS), `results.json` with 5 runs, and the report per the lab rubric.",
+  "id": "6.10",
+  "kind": "lab",
+  "lab_checks": [
+    "harness.time_samples",
+    "harness.summarize_ns",
+    "harness.benches",
+    "harness.manifest_and_suite",
+    "harness.run_independent",
+    "analysis.quantile_summary",
+    "analysis.cliffs_delta",
+    "analysis.clean_runs",
+    "analysis.bootstrap",
+    "analysis.permutation_mde",
+    "analysis.decisions",
+    "analysis.roofline",
+    "analysis.mfu"
+  ],
+  "marking": [
+    {
+      "criterion": "Task 1: harness checks pass; 5-run results.json with manifest submitted",
+      "points": 15
+    },
+    {
+      "criterion": "Task 2: own noise analysis separates run-level and within-run variation, plausible causes named",
+      "points": 10
+    },
+    {
+      "criterion": "Task 3: statistics checks pass",
+      "points": 10
+    },
+    {
+      "criterion": "Task 4: cleaning and decisions checks pass; A3 and B4 exclusions justified by quoted rows; naive vs cleaned contrast explained",
+      "points": 20
+    },
+    {
+      "criterion": "Task 5: roofline and MFU checks pass; L2-resident anomaly and FP32-ceiling cases explained",
+      "points": 15
+    },
+    {
+      "criterion": "Task 6: benchmark_report.md with complete protocol, labelled results tables, actionable conclusion and limitations",
+      "points": 30
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Lab 6: benchmark harness and statistics",
+  "type": "hands-on-lab"
+}

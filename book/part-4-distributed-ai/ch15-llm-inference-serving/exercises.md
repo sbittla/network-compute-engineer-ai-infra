@@ -114,7 +114,7 @@ configuration without change control, and a validation criterion with numbers.
 
 **D1. ★★★ L1 — RAG serving tier.** Design the serving tier for a retrieval-augmented assistant.
 It must handle 20 req/s at peak with 8,192-token prompts (retrieved context) and 300-token
-outputs. The SLOs are TTFT p95 ≤ 1.5 s and TPOT p95 ≤ 40 ms. Use T-tp4-fp8 replicas, and include
+outputs. The SLOs — a declared variation from W-INFER's 800 ms / 50 ms targets — are TTFT p95 ≤ 1.5 s and TPOT p95 ≤ 40 ms. Use T-tp4-fp8 replicas, and include
 the quadratic attention term in prefill.
 Decide between a shared pool (with or without chunked prefill) and disaggregated serving. Size
 the pools and choose a transport. Give the KV-transfer network budget, the QoS and isolation

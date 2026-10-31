@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "hypothesis table, the recovery decision with arithmetic, and the two changes mapped to Section 14.10",
+  "id": "14.12",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Symptom stated and hypothesis table with at least three hypotheses and discriminating evidence",
+      "points": 5
+    },
+    {
+      "criterion": "Root cause: latest advanced at snapshot time and restart trusted it; persist of 88327 interrupted; 31 warnings explained",
+      "points": 3
+    },
+    {
+      "criterion": "Recovery: stop, validate, restore step_088290; cost 512 + 45.8 + 57.5 ≈ 615 GPU-h with arithmetic",
+      "points": 4
+    },
+    {
+      "criterion": "Two prevention changes mapped to Section 14.10 (latest after commit + validation; semantic loss check)",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "The resume that trained worse",
+  "type": "troubleshooting"
+}

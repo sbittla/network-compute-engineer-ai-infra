@@ -1,0 +1,19 @@
+id: '5.20'
+title: Key the mapping by UUID and BDF
+folder: 5.20-uuid-bdf-keys
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
+marking:
+- criterion: GPU index and HCA name are software labels (CUDA_VISIBLE_DEVICES, device ordering, udev rules,
+    card replacement)
+  points: 1
+- criterion: UUID and BDF identify the physical device and its enumeration point
+  points: 1
+- criterion: Concrete hidden failure, e.g. orion-n17 replacement NIC named mlx5_3 while its BDF moved
+    from 43:00.0 to 86:00.0
+  points: 1
+lab_checks: []

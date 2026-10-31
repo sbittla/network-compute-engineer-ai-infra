@@ -1,0 +1,20 @@
+id: 17-D1
+title: ORION-XL block placement rules
+folder: 17-D1-orion-xl-placement
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: The config fragment, a modeled comparison of placements (show formula), and a wait-time
+  trade-off with numbers.
+marking:
+- criterion: topology.conf (or Kueue TAS) fragment with 16 blocks of 32 nodes under pod/top switches
+  points: 3
+- criterion: 'Modeled comparison: 2 blocks 3.1 %, 3 blocks 4.7 %, spread ≈ 95 % cross-block hops; per-block
+    uplink 51.2 Tb/s'
+  points: 4
+- criterion: 'Wait trade-off: 512·w vs 0.03 × 240 × 512 ≈ 3,686 GPU-h → break-even ≈ 7.2 h; chosen bound
+    defended'
+  points: 3
+lab_checks: []

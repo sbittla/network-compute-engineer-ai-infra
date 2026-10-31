@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "arithmetic for each part; the backlog choice justified by numbers",
+  "id": "W2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Part 1: τ = sqrt(2 × 60 × 86,400) ≈ 3,220 s; δ/τ ≈ τ/(2M) ≈ 1.86 %; R/M ≈ 1.04 %; total ≈ 4.77 %",
+      "points": 3
+    },
+    {
+      "criterion": "Part 2: (τ/2 + R) = 2,510 s × 256 / 3,600 ≈ 178.5 GPU-hours per failure",
+      "points": 2
+    },
+    {
+      "criterion": "Part 3: goodput 0.902 → 96.00 / 0.902 ≈ 106.4 days",
+      "points": 2
+    },
+    {
+      "criterion": "Part 4: reduce δ (async checkpoint) first, justified with recomputed waste (≈ 2.12 %, ≈ 3 days saved); R second",
+      "points": 3
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Checkpoint interval and goodput",
+  "type": "worked-problem"
+}

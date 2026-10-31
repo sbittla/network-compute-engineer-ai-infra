@@ -1,0 +1,36 @@
+{
+  "answer": {
+    "a_consecutive": {
+      "bytes_fetched": 128,
+      "sectors": 4,
+      "stride_elements": 1,
+      "useful_bytes": 128,
+      "useful_fraction": 1.0
+    },
+    "b_stride_2": {
+      "bytes_fetched": 256,
+      "sectors": 8,
+      "stride_elements": 2,
+      "useful_bytes": 128,
+      "useful_fraction": 0.5
+    },
+    "c_stride_32": {
+      "bytes_fetched": 1024,
+      "sectors": 32,
+      "stride_elements": 32,
+      "useful_bytes": 128,
+      "useful_fraction": 0.125
+    }
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.2",
+  "inputs": {
+    "element_bytes": 4,
+    "sector_bytes": 32,
+    "warp_threads": 32
+  },
+  "units": {
+    "bytes": "B",
+    "fraction": "1"
+  }
+}

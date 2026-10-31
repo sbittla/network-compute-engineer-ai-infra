@@ -1,0 +1,17 @@
+id: R4
+title: Dashboard annotation for the utilization trap
+folder: R4-dashboard-annotation
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: The annotation text you would add to the dashboard.
+marking:
+  - criterion: States that GPU utilization counts any running kernel, including NCCL kernels waiting on peers
+    points: 1
+  - criterion: Points the reader to SM-active and tensor-active panels (or the step-time panel) for compute efficiency
+    points: 1
+  - criterion: Gives the actionable pattern (tensor activity falls while utilization stays flat, so suspect communication or waiting) in two or three sentences an on-call engineer can use
+    points: 1
+lab_checks: []

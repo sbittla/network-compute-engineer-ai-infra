@@ -125,7 +125,7 @@ Deliverable: **congestion diagnosis, experiment plan, and mitigation proposal** 
 | Task 5: victim flows (checker) + explanation of why each is a HOL victim | 10 |
 | Task 6: QoS audit (checker) + consequence of each finding in one sentence | 10 |
 | Task 7: simulation results table, correctly labelled `[SIMULATED]`, with a "cannot conclude" list of ≥ 4 specific items | 15 |
-| Diagnosis narrative: ranked hypotheses, the discriminating evidence for each episode, proven vs. correlated | 15 |
+| Diagnosis narrative: ranked hypotheses, the discriminating evidence for each episode, proven vs correlated | 15 |
 | Experiment plan: one variable, ≥ 5 repetitions, warm-up, counters, manifest, safety boundary | 10 |
 | Mitigation proposal: ordered, safe (canary/rollback), validation criteria | 5 |
 
@@ -146,7 +146,7 @@ Record the values twice, 60 s apart, and compute rates with your `counters_to_ra
 
 ### L3 (dedicated lab fabric only — never production)
 
-> **Safety:** run only on an isolated lab fabric you are authorised to change. Incast tests saturate
+> **Safety:** run only on an isolated lab fabric you are authorized to change. Incast tests saturate
 > buffers and trigger PFC on every hop that carries the lossless class.
 
 1. Snapshot the switch QoS configuration (trust mode, DSCP→TC map, PFC priorities, ECN profile,

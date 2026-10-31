@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four values with the formula shown.",
+  "id": "11.3",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Formula (p − 1)/(m + p − 1) stated as a fraction of total time",
+      "points": 1
+    },
+    {
+      "criterion": "p = 4, m = 8: 27.3 %",
+      "points": 1
+    },
+    {
+      "criterion": "p = 4, m = 32: 8.6 %",
+      "points": 1
+    },
+    {
+      "criterion": "p = 4, m = 128: 2.3 %",
+      "points": 1
+    },
+    {
+      "criterion": "p = 8, m = 32: 17.9 %",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "1F1B bubble fraction",
+  "type": "knowledge-check"
+}

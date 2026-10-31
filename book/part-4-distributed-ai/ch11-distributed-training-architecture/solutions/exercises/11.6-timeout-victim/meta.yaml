@@ -1,0 +1,19 @@
+id: '11.6'
+title: The timeout victim
+folder: 11.6-timeout-victim
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: explanation plus two named artifacts.
+marking:
+- criterion: Explains that all healthy ranks block in the collective the faulty rank never joins, so the
+    first logger is arbitrary
+  points: 2
+- criterion: 'Artifact 1: NCCL flight-recorder dumps (lowest SeqNum / mismatched op)'
+  points: 1
+- criterion: 'Artifact 2: py-spy stacks of all ranks, or host Xid logs / scheduler events / launcher exit
+    summary'
+  points: 1
+lab_checks: []

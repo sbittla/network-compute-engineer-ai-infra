@@ -1,0 +1,20 @@
+id: M2
+title: Tenant isolation boundaries (isolation model)
+folder: M2-tenant-isolation-boundaries
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: lab
+points: 15
+evidence_required: boundary table; policy YAML; checker run showing zero violations on your config
+marking:
+- criterion: Boundary table covering identity, network, storage, GPU allocation, secrets and audit for three tenants
+  points: 5
+- criterion: Machine-readable policy and tenant config in the lab's format
+  points: 4
+- criterion: check_isolation() run on the learner's own config shows zero violations; lab T6 check passes
+  points: 3
+- criterion: Notes reachability vs performance isolation and the inference tenant's GPU mode (whole or MIG)
+  points: 3
+lab_checks:
+- 'T6 tenant isolation checker:'

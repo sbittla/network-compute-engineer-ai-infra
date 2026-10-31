@@ -1,0 +1,20 @@
+id: K2
+title: Latency metrics
+folder: K2-latency-metrics
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: the three definitions as formulas over request timestamps, plus the failure and the
+  reason it averages away
+marking:
+- criterion: TTFT = first_token − arrival
+  points: 1
+- criterion: TPOT = (finish − first_token) / (n_out − 1); ITL = t_{i+1} − t_i
+  points: 1
+- criterion: A failure visible in ITL p99 but not mean TPOT (e.g. a prefill stall of about 90 ms)
+  points: 1
+- criterion: Arithmetic showing why it averages away (90 ms over 255 gaps ≈ 0.35 ms)
+  points: 1
+lab_checks: []

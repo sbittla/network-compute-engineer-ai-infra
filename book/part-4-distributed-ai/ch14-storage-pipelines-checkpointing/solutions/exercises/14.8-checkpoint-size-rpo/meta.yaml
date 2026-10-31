@@ -1,0 +1,23 @@
+id: '14.8'
+title: Checkpoint size, write time and recovery-point exposure
+folder: 14.8-checkpoint-size-rpo
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: formula → substitution → result for each part
+marking:
+- criterion: (a) 476 GB and 3.72 GB per GPU
+  points: 1
+- criterion: (b) 40 GB/s effective, write 11.9 s, blocking 12.9 s
+  points: 2
+- criterion: (c) overhead 12.9 / 900 = 1.43 %
+  points: 1
+- criterion: (d) RPO max 912.9 s and expected lost 462.9 s
+  points: 2
+- criterion: (e) async overhead 0.067 % (0.11 % with interference), RPO unchanged at 913.5 s
+  points: 2
+- criterion: (f) τ = 286.5 s and overhead 0.34 %
+  points: 2
+lab_checks: []

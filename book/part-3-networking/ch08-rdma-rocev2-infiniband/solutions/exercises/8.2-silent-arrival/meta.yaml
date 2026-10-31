@@ -1,0 +1,19 @@
+id: '8.2'
+title: Silent arrival
+folder: 8.2-silent-arrival
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: mechanism stated; two notification methods with a cost each.
+marking:
+- criterion: 'Mechanism: one-sided WRITE is placed by the target NIC via the rkey, consumes no RECV WQE,
+    so no target completion exists'
+  points: 2
+- criterion: 'Method 1 with a cost (e.g. polling a flag written last: burns a core, relies on ordering)'
+  points: 1
+- criterion: 'Method 2 with a cost (e.g. SEND or WRITE-with-immediate: needs posted RECVs, RNR risk, a
+    CQE per message)'
+  points: 1
+lab_checks: []

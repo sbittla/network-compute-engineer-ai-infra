@@ -1,0 +1,17 @@
+id: R2
+title: The break-even paragraph
+folder: R2-break-even-paragraph
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 6
+evidence_required: concise answers citing sections or data files (shared R1–R4 line).
+marking:
+- criterion: States the break-even ≈ 1.86× per-GPU throughput with its derivation
+  points: 2
+- criterion: Shows the decision flips (1.8× → 25.7 per $M < A's 26.53)
+  points: 2
+- criterion: Proposes a concrete benchmark experiment on B-class hardware (Chapter 22 method)
+  points: 2
+lab_checks: []

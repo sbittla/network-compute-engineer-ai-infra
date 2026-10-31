@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "added_s_if_clock_58pct": 9.78,
+    "added_s_if_peers_at_sustained_1830": 0.91,
+    "added_s_upper_bound": 2.09,
+    "explains_symptom": true,
+    "observed_pct": 12.1,
+    "predicted_pct": 12.0,
+    "predicted_step_s": 19.49
+  },
+  "evidence_label": "MODELED",
+  "id": "T1",
+  "inputs": {
+    "compute_share": 0.7765,
+    "peer_clock_MHz": 1980,
+    "slow_clock_MHz": 1715,
+    "step_after_s": 19.5,
+    "step_before_s": 17.4
+  },
+  "steps": {
+    "clock_pct_of_peers": 86.6,
+    "clock_ratio": 1.1545,
+    "compute_s": 13.5,
+    "slowed_compute_s": 15.59
+  },
+  "units": {
+    "clock": "MHz",
+    "time": "s"
+  }
+}

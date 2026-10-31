@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Resource names and counts; the outcome under both strategies.",
+  "id": "17-K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "mixed: advertises nvidia.com/mig-1g.10gb: 56 and nvidia.com/gpu: 0",
+      "points": 2
+    },
+    {
+      "criterion": "mixed outcome: nvidia.com/gpu: 1 pod stays Pending (Insufficient nvidia.com/gpu), lab case P07",
+      "points": 1
+    },
+    {
+      "criterion": "single: slices advertised as nvidia.com/gpu: 56; pod gets one 1g.10gb slice (≈ 10 GB), likely OOM if it expected 80 GB",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "MIG mixed versus single strategy",
+  "type": "knowledge-check"
+}

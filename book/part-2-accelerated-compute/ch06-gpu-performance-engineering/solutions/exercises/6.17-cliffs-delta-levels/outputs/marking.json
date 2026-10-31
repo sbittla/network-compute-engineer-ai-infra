@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) citing specific mechanisms or data.",
+  "id": "6.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Cliff's delta measures how often one sample exceeds the other, and depends on the level computed",
+      "points": 1
+    },
+    {
+      "criterion": "Iterations overlap heavily (−0.28); run medians separate (−20/30 = −0.67, 25 of 30 pairs favour C)",
+      "points": 1
+    },
+    {
+      "criterion": "Effect sizes describe separation, not practical value: pair with relative change (0.50 %) and a threshold",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Cliff's delta on iterations vs run medians",
+  "type": "reflection"
+}

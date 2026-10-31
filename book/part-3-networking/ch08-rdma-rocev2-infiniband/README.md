@@ -65,6 +65,7 @@ ch08-rdma-rocev2-infiniband/
 ├── README.md                     this chapter card
 ├── manuscript.md                 chapter text (~10,000 words)
 ├── exercises.md                  20 exercises incl. 3 outline-mandated + deliverable
+├── exercises/                    learner folders, one per exercise (20), with README.md index
 ├── lab/
 │   ├── README.md                 lab guide, rubric, L3 extension
 │   ├── manifest.yaml             environment manifest (L1; L3 fields to record)
@@ -74,6 +75,7 @@ ch08-rdma-rocev2-infiniband/
 │   └── starter/                  readiness.py, perftest_analysis.py (TODOs)
 ├── solutions/                    INSTRUCTOR ONLY
 │   ├── exercises-key.md          worked answers and marking guidance
-│   └── lab/                      reference implementation + PLANTED_FAULTS.md
+│   ├── lab/                      reference implementation + PLANTED_FAULTS.md
+│   └── exercises/                per-exercise meta.yaml, answer.md, solve.py (computed), generated outputs/
 └── review/REVIEW.md              editorial review log
 ```

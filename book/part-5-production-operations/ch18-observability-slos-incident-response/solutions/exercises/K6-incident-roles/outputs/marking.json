@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Two reasons; cadence from Table 18.8; one example status update.",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Two reasons the IC does not debug (global view/tunnel vision; decisions need someone not invested in a hypothesis)",
+      "points": 2
+    },
+    {
+      "criterion": "SEV2 cadence 60 minutes, content: impact, scope, status, next update time, no speculative cause",
+      "points": 1
+    },
+    {
+      "criterion": "A correct example status update",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Incident commander and communications lead",
+  "type": "knowledge-check"
+}

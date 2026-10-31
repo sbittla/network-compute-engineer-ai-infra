@@ -1,0 +1,21 @@
+id: '11.12'
+title: Failure-aware training workflow
+folder: 11.12-o3-failure-aware-workflow
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: computed
+points: 20
+evidence_required: a table of the eight numbers per scenario, a state diagram or numbered procedure, and
+  an investment recommendation justified by the numbers.
+marking:
+- criterion: τ_opt, waste at τ_opt and at 4 h, failures/day, lost s, GPU-h per failure and per day for
+    all four scenarios (XL 4 h invalid)
+  points: 8
+- criterion: 'Restart procedure: detection, isolation, replacement, restore, validation'
+  points: 6
+- criterion: Retry/quarantine policy with concrete limits
+  points: 3
+- criterion: Investment argument from the waste decomposition (R dominates at XL; async C at 256)
+  points: 3
+lab_checks: []

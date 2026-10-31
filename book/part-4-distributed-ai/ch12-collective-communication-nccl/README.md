@@ -50,6 +50,7 @@ Collective benchmark report with scaling and bottleneck analysis (Exercises 12.1
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (12.10–12.12) |
+| [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | Six nccl-tests logs, configs, NCCL INFO excerpts (generated, seed 12) |
@@ -58,6 +59,7 @@ Collective benchmark report with scaling and bottleneck analysis (Exercises 12.1
 | `lab/optional/gloo_allreduce.py` | Optional CPU-only PyTorch gloo sweep (not run by the checker) |
 | `lab/check.py` | Automated checker |
 | `solutions/` | Instructor answer key and reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

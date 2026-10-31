@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a plan table with ≥ 8 rows (question, command, pass criterion, record), and a safety note",
+  "id": "13.11",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least 8 valid rows with question, exact command, pass criterion and record (1 pt per row up to 8)",
+      "points": 8
+    },
+    {
+      "criterion": "Deliberately misaligned GPU/NIC test and GDR-off control included",
+      "points": 2
+    },
+    {
+      "criterion": "Repetitions (≥ 5, median and spread), manifest fields and safety note",
+      "points": 2
+    }
+  ],
+  "points": 12,
+  "tier": "L2",
+  "title": "Validate GPUDirect RDMA and GPU/NIC locality (O3)",
+  "type": "outline-mandated"
+}

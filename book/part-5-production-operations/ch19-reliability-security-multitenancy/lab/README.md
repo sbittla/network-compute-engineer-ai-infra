@@ -22,7 +22,7 @@ policy.
 
 ## 2. Tier and realism boundary
 
-Everything runs on synthetic data in a few seconds. The dataset mimics real artefacts — kernel `Xid`
+Everything runs on synthetic data in a few seconds. The dataset mimics real artifacts — kernel `Xid`
 and `mlx5_core` lines, NCCL `NET/IB` warnings, PyTorch watchdog messages, a flight-recorder summary,
 switch-port counters, DCGM/`nvidia-smi` row-remapper state — but message formats are `[ILLUSTRATIVE]`
 and vary by driver/NCCL/PyTorch version. It cannot reproduce real timing races, partial log loss,
@@ -59,7 +59,7 @@ python check.py                    # progress on starter/incident_toolkit.py
 | `host_nic_snapshot.csv` | HCA counters and transceiver DOM for pipeline stage 3 nodes (and orionxl-n451) |
 | `switch_port_counters.csv` | Cumulative per-port counters every 10 min for three leaves |
 | `events.jsonl` | Kernel, NCCL, PyTorch, switch, scheduler, and checkpoint events |
-| `checkpoints.csv`, `restart_history.csv`, `spares.csv` | Recovery inputs. The spare pool is a declared variation (55 nodes, Poisson P99 at 5-day MTTR, outside the partition); `spares.csv` lists the 8 not already standing in for nodes in repair |
+| `checkpoints.csv`, `restart_history.csv`, `spares.csv` | Recovery inputs. The spare pool is a declared variation (55 nodes, Poisson p99 at 5-day MTTR, outside the partition); `spares.csv` lists the 8 not already standing in for nodes in repair |
 | `hypotheses.yaml` | Six hypotheses raised in the incident channel |
 | `fmea.csv` | The platform risk register |
 | `tenants.yaml`, `isolation_policy.yaml` | Tenant configuration and the policy it must satisfy |
@@ -69,7 +69,7 @@ python check.py                    # progress on starter/incident_toolkit.py
 | # | Task | Functions | Acceptance criterion (checked) |
 |---|---|---|---|
 | 1 | Parse evidence; map ranks to hardware | `parse_xid`, `parse_netib`, `rank_to_hardware`, `gpu_bdf_to_rank` | Parsers handle real-format lines and reject others; full rank → switch-port path; Xid PCI address → rank |
-| 2 | Localise | `stuck_ranks`, `common_hardware`, `implicate_links`, `bad_ports`, `gpu_actions` | The lagging group, its shared rail/stage, the implicated endpoint, the faulty port, and a health decision per affected GPU |
+| 2 | Localize | `stuck_ranks`, `common_hardware`, `implicate_links`, `bad_ports`, `gpu_actions` | The lagging group, its shared rail/stage, the implicated endpoint, the faulty port, and a health decision per affected GPU |
 | 3 | Cause vs correlation | `classify_hypotheses` | Each hypothesis H1–H6 classified proven_cause / real_fault_not_cause / correlation_only / refuted |
 | 4 | Contain and recover | `select_checkpoint`, `recovery_metrics`, `repeat_offenders`, `auto_restart_allowed`, `restart_plan` | Restorable checkpoint; RPO/RTO/lost GPU-hours; retry policy blocks restart until the repeat offender is excluded; healthy spares chosen; ranks remapped with coordinates preserved |
 | 5 | Risk register | `fmea_score` | RPN ranking; data-quality issues detected; action-required set |
@@ -120,7 +120,7 @@ Build a real `rank_map.csv` for one host with `nvidia-smi topo -m`, `ibdev2netde
 or `rdma link show`, and `lldpctl` / switch LLDP neighbours.
 
 **L3 — two RDMA nodes, dedicated partition.** Run `all_reduce_perf` (or a small PyTorch DDP loop) and,
-with authorisation, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
+with authorization, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
 trials. Record whether the job survives, the NCCL warnings, and time to watchdog. Record in the
 manifest: NIC firmware, RDMA stack, NCCL and PyTorch versions, `NCCL_IB_TIMEOUT`, `NCCL_IB_RETRY_CNT`,
 watchdog timeout, link-down duration, outcome per trial, number of trials. Compare with the retry

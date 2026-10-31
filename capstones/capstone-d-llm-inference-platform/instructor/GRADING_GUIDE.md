@@ -24,7 +24,7 @@ the first and last 60 s.
   budget). ITL p99 ≤ 100 ms `[ILLUSTRATIVE]`.
 - **Table format:** median [min–max] across seeds.
 
-| Config | Node load | Mix | TTFT p95 (s) | TPOT p95 (ms) | ITL p99 (ms) | Output tok/s per node | SLO met (seeds) |
+| Config | Node load | Mix | TTFT p95 (s) | TPOT p95 (ms) | ITL p99 (ms) | Output tokens/s per node | SLO met (seeds) |
 |---|---|---|---|---|---|---|---|
 | c1 BF16 TP8 chunked | 1.0 | mixed | 1.39 [1.25–1.53] | 35.0 | 103 [99–104] | 1,376 | 0/5 (TTFT, ITL) |
 | c1 | 1.25 | mixed | 1.74 [1.47–2.18] | 48.3 (max 53.9) | 108 | 1,709 | 0/5 |
@@ -53,7 +53,7 @@ tokens) are upper bounds for output pricing only.
 | Units trap | `vendor_sizing_sheet.csv`: "320 KB" per token | Uses 327,680 B (320 KiB). The 2.4 % error compounds into KV token counts |
 | Head-of-line blocking from 32k prompts | `rag-long` tenant (2 %) | Diagnoses c1's TTFT miss at load 1.0 as long prefills (≈ 1.4 s each with attention) occupying the token budget, and fixes it by isolation or routing, not more nodes |
 | Mean TPOT hides stalls | c2 (and c1) | c2 chat-only at 2.0×: TPOT p95 41 ms passes but ITL p99 241 ms fails. Unchunked prefills stall every decoder in the iteration (docs/VERIFIED_FACTS.md: ITL vs TPOT) |
-| Throughput looks best, system is unstable | c1 at 2.0× mixed: 2,784 tok/s per node | Flags instability (TTFT trend) and refuses to quote a p95 or a cost there |
+| Throughput looks best, system is unstable | c1 at 2.0× mixed: 2,784 tokens/s per node | Flags instability (TTFT trend) and refuses to quote a p95 or a cost there |
 | Single-seed knee | c3 at 1.0× mixed: 4 of 5 seeds pass | Calls the mixed-traffic knee "not robust at 1.0×" rather than quoting one seed |
 | "Meets SLO" by rejecting | c4 | Rejected requests count against availability; ≈ 21× burn; the rollback gate fires |
 | Over-length requests | c1–c3 reject 0–3 requests per trace in the steady-state window (prompt + output > 32,768) | Notes the 0–0.08 % error rate (0–0.8× burn) and the product decision it implies |

@@ -65,7 +65,9 @@ the runbook excerpt in the manuscript.
 | `lab/tools/generate_data.py` | Instructor copy only (stripped from the learner release); seeded (20) generator |
 | `lab/starter/` | `safe_change.py` (TODOs) and `findings.yaml` template |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
+| [exercises/](exercises/README.md) | One folder per exercise: verbatim prompt, what to submit, empty `outputs/` for your evidence |
 | `solutions/` | Instructor-only answer key and reference implementation |
+| `solutions/exercises/` | Instructor-only per-exercise `meta.yaml` (marking scheme), worked `solution/answer.md`, `solve.py` for computed exercises, and generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

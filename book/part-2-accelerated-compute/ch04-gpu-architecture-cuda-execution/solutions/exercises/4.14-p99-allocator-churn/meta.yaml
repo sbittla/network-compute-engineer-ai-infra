@@ -1,0 +1,21 @@
+id: '4.14'
+title: p99 tripled after a release
+folder: 4.14-p99-allocator-churn
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 10
+evidence_required: ranked hypotheses, evidence mapping, root cause, fix with rollout, validation with
+  percentiles.
+marking:
+- criterion: Three ranked hypotheses, each with its discriminating evidence (allocator churn, genuine
+    fragmentation, CPU-side pauses)
+  points: 4
+- criterion: 'Root cause: per-request empty_cache() → cudaFree implicitly synchronizes the device, then
+    cudaMalloc re-growth on the next request'
+  points: 3
+- criterion: Fix (remove the call; measure fragmentation; allocator configuration) with canary rollout,
+    and validation by p50/p99/p99.9 at matched load and cudaFree count about 0
+  points: 3
+lab_checks: []

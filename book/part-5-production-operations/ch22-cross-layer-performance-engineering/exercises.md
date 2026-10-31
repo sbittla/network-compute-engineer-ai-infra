@@ -18,7 +18,7 @@ for the optimization you recommend (Exercise O3-c); L3 learners execute the vali
 
 **K2 ★ (L1).** A dashboard shows 98 % "GPU utilisation" on every GPU of a job whose step time rose 15 %.
 Explain why this does not show the GPUs are busy computing, and name two better signals.
-*Evidence required:* definition of the utilisation metric; two named alternatives and what each measures.
+*Evidence required:* definition of the utilization metric; two named alternatives and what each measures.
 
 **K3 ★ (L1).** Mean step time of a workload family rose 20 %; the median of per-job means rose 4 %; per-job
 p99 is unchanged for most jobs. What kind of cause does this pattern suggest, and which partition of the
@@ -90,7 +90,7 @@ c. A vendor proposes an NCCL setting that "saves 0.15 s per step" at 256 GPUs. R
 ## Hands-on lab
 
 **L1 ★★ (L1) — Attribute a cross-layer regression.** Complete [the Chapter 22 lab](lab/README.md):
-tasks 1–9 in `starter/regression_lab.py`, until `python lab/check.py` reports 10/10 PASS.
+tasks 1–9 in `starter/regression_lab.py`, until `python lab/check.py` reports 11/11 PASS.
 *Evidence required:* checker output; generated `report.md`; a short note listing each data-hygiene rule
 and how many rows or jobs it affected.
 
@@ -169,7 +169,7 @@ b. For each inferred cause, cite one *direct* measurement from `node_metrics.csv
 c. Fit the model again with a `tp_split × driver_new` and a `tp_split × storage_new` interaction term.
    Report the coefficients and state whether the additive attribution is defensible.
 *Evidence required:* checker output; a corroboration table (cause × direct evidence × values);
-interaction coefficients with a one-sentence judgement.
+interaction coefficients with a one-sentence judgment.
 
 **O2 ★★ (L1) — Build a hypothesis tree and rank tests by information value, cost, and risk.**
 a. Draw the hypothesis tree for the lab regression (Mermaid or drawn), rooted in the step-time equation,

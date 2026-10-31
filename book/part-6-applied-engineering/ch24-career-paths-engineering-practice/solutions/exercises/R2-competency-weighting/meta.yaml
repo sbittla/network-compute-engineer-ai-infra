@@ -1,0 +1,17 @@
+id: R2
+title: Competency weighting
+folder: R2-competency-weighting
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: 100–200 words naming specific evidence rather than general intent (shared R1–R4 line).
+marking:
+- criterion: Names one competency and the target employer group
+  points: 1
+- criterion: Argument grounded in that group's recurring problems in Table 24.7
+  points: 2
+- criterion: Proposes a specific new weight and shows its effect on the score or gap plan
+  points: 1
+lab_checks: []

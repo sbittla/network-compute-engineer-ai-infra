@@ -1,0 +1,26 @@
+id: T1
+title: The afternoon slowdown in rack-04
+folder: T1-afternoon-slowdown
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: Decoded bitmask; ranked hypotheses with discriminating tests; a root cause that explains
+  *time of day* and *rack locality*; a validation measurement with a pass threshold; a lifecycle decision
+  with justification.
+marking:
+- criterion: Decodes 0x24 = 0x20 | 0x04 (SW Thermal Slowdown + SW Power Cap); 0x4 alone is normal
+  points: 3
+- criterion: Ranks rack-level airflow (FAC-2210) above node fan/heatsink fault and workload change, with
+    reasons
+  points: 5
+- criterion: A discriminating test for each hypothesis
+  points: 4
+- criterion: Root cause explaining time of day and rack locality; safe facilities change; validation with
+    thresholds (inlet ≤ 27 °C, no 0x20, p99/p50 ≤ 3 %)
+  points: 5
+- criterion: 'Lifecycle decision: no fault drain/repair/RMA; steer or maintenance-drain against the rack,
+    referencing FAC-2210'
+  points: 3
+lab_checks: []

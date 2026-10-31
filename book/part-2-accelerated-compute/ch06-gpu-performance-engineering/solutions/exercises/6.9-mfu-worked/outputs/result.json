@@ -1,0 +1,25 @@
+{
+  "answer": {
+    "a_mfu": 0.497,
+    "b_hfu": 0.6626,
+    "c_mfu_fp8_mistake": 0.2484
+  },
+  "evidence_label": "MODELED",
+  "exercise": "6.9",
+  "inputs": {
+    "gpus": 64,
+    "params": 13000000000.0,
+    "peak_bf16": 989000000000000.0,
+    "peak_fp8": 1979000000000000.0,
+    "step_s": 5.2,
+    "tokens_per_step": 2097152
+  },
+  "steps": {
+    "cluster_peak_bf16": 6.3296e+16,
+    "model_flops_per_s": 3.1457279999999996e+16,
+    "tokens_per_s": 403298.5
+  },
+  "units": {
+    "utilization": "fraction"
+  }
+}

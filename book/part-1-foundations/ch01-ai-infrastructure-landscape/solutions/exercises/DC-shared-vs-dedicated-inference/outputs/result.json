@@ -1,0 +1,21 @@
+{
+  "answer": {
+    "backend_nics_avoided": 64,
+    "gpus": 64,
+    "optics_avoided": 128,
+    "pool_decode_tokens_s": 26960,
+    "pool_usd_year": 1401600.0,
+    "rail_leaf_ports_avoided": 64,
+    "reclaimable_usd_year_upper_bound": 560640.0
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] cost and load",
+  "inputs": {
+    "inference_load": 0.6,
+    "nodes": 8,
+    "usd_per_gpu_hour": 2.5
+  },
+  "units": {
+    "cost": "USD per year",
+    "throughput": "output tokens/s"
+  }
+}

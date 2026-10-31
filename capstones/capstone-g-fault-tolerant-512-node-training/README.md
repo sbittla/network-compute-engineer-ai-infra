@@ -3,8 +3,8 @@
 At 512 nodes, faults stop being rare: the canonical failure rate in this book gives a full-cluster
 job an interruption roughly every three hours. This capstone builds the operations workflow that
 turns one of those interruptions into a short, evidence-backed recovery instead of an all-night
-war room. Working from a synthetic incident on ORION-XL — GPU ECC events, PCIe AER errors, a
-degraded NIC/HCA link, switch-port errors, a stalled rank and hundreds of collective timeouts — you
+war room. Working from a synthetic incident on ORION-XL — GPU error-correcting code (ECC) events, PCIe AER errors, a
+degraded network interface card (NIC)/HCA link, switch-port errors, a stalled rank and hundreds of collective timeouts — you
 will build the rank-to-device inventory, correlate the telemetry on a common clock, score component
 health, separate the proven cause from correlated noise, quarantine the smallest defensible failure
 domain, choose a checkpoint that is actually restorable, plan the restart onto healthy spares, and
@@ -12,7 +12,7 @@ prove the job resumed correctly.
 
 | | |
 |---|---|
-| **Audience** | AI Infrastructure SRE, Training Infrastructure Engineer, Cluster Platform Engineer (outline Section 22, Capstone G) |
+| **Audience** | AI Infrastructure site reliability engineer (SRE), Training Infrastructure Engineer, Cluster Platform Engineer (outline Section 22, Capstone G) |
 | **Prerequisites** | Chapters [11](../../book/part-4-distributed-ai/ch11-distributed-training-architecture/), [12](../../book/part-4-distributed-ai/ch12-collective-communication-nccl/), [14](../../book/part-4-distributed-ai/ch14-storage-pipelines-checkpointing/), [16](../../book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/), [18](../../book/part-5-production-operations/ch18-observability-slos-incident-response/), [19](../../book/part-5-production-operations/ch19-reliability-security-multitenancy/); skim [5](../../book/part-2-accelerated-compute/ch05-gpu-interconnects-host-topology/), [10](../../book/part-3-networking/ch10-switches-optics-physical-layer/), [13](../../book/part-4-distributed-ai/ch13-gpu-data-movement/) |
 | **Time budget** | 35–45 h at L1 (starter kit ≈ 12 h, design artifacts ≈ 18 h, postmortem and review ≈ 8 h); add 20 h for the lab extension |
 | **Tiers** | L1 required (synthetic incident dataset); L2 optional (single-host evidence collection); L3 advanced (controlled fault drill on ≥ 2 RDMA-connected GPU nodes) |
@@ -24,10 +24,13 @@ prove the job resumed correctly.
 > are `[SIMULATED]`, and your report must say so on its first page (outline success criterion).
 
 Acronyms: AER (PCIe Advanced Error Reporting), BDF (PCIe bus:device.function), DBE/SBE (double-/
-single-bit ECC error), DCGM (NVIDIA Data Center GPU Manager), DCIM (data-centre infrastructure
+single-bit ECC error), DCGM (NVIDIA Data Center GPU Manager), DCIM (data-center infrastructure
 management), DCP (PyTorch Distributed Checkpoint), HCA (host channel adapter, the RDMA NIC), LLDP
 (Link Layer Discovery Protocol), RPO/RTO (recovery point/time objective), Xid (NVIDIA driver error
-event identifier).
+event identifier), RDMA (remote direct memory access), MTBF (mean time between failures), TP/PP/DP
+(tensor/pipeline/data parallelism), MFU (model FLOPs utilization), NUMA (non-uniform memory access),
+NCCL (NVIDIA Collective Communications Library), FEC (forward error correction), SLO (service-level
+objective).
 
 ---
 
@@ -55,11 +58,11 @@ tolerance at scale*.
 >    1,536 / 480 = 3.2 h rather than the reference cluster's 3 h for all 512 nodes.
 >    **Sizing the pool (Poisson).** Failures arrive at 480 × 24 / 1,536 = 7.5 nodes/day. With the
 >    canonical 5-day repair turnaround, 7.5 × 5 = 37.5 nodes are in repair on average, and
->    P(≤ 32) ≈ 0.21 — the pool would run dry on ≈ 79 % of days (P95 needs 48 spares, P99 52). This
+>    P(≤ 32) ≈ 0.21 — the pool would run dry on ≈ 79 % of days (p95 needs 48 spares, p99 52). This
 >    capstone therefore declares a **split turnaround** `[ILLUSTRATIVE]`: 70 % of interruptions are
 >    reset-and-return faults (GPU reset after a contained ECC error, reseated optic, re-acceptance)
 >    back in service within 1 day, and 30 % need the 5-day repair path. Mean in repair =
->    7.5 × (0.7 × 1 + 0.3 × 5) = 16.5 nodes; P95 = 23, P99 = 27, so 32 spares cover > P99.
+>    7.5 × (0.7 × 1 + 0.3 × 5) = 16.5 nodes; p95 = 23, p99 = 27, so 32 spares cover > p99.
 >    **Elastic fallback** when spares run out: one DP replica is TP 8 × PP 8 = 64 GPUs = 8 nodes, so
 >    the job shrinks in 8-node steps, and DP must still divide the global batch. 3,840 is divisible
 >    by 60, 48 and 40 (not 59): without a batch/LR change the next size down is DP 48 (384 nodes,
@@ -105,7 +108,7 @@ Design a training-operations workflow for ORION-XL and demonstrate it on the inc
 1. **Rank-to-device topology inventory** — every rank to node, GPU index, GPU UUID, BDF, NUMA node,
    HCA, rail, leaf and leaf port, from *observed* topology (LLDP), with discrepancies against the
    DCIM cabling plan reported.
-2. **Telemetry correlation logic** — normalise kernel, DCGM, NIC, switch, job and scheduler events
+2. **Telemetry correlation logic** — normalize kernel, DCGM, NIC, switch, job and scheduler events
    onto true time and onto components.
 3. **Failure classification and health scoring** — a written scoring policy; proven cause separated
    from correlated and independent faults and from watch items.
@@ -279,7 +282,7 @@ capstone-g-fault-tolerant-512-node-training/
 ## 13. Further reading
 
 - Meta AI, "The Llama 3 Herd of Models," 2024 — the infrastructure section quantifies interruption
-  causes over a 54-day, ~16k-GPU training run; the best public calibration for this capstone.
+  causes over a 54-day, ≈ 16k-GPU training run; the best public calibration for this capstone.
 - J. W. Young, "A first order approximation to the optimum checkpoint interval," *Communications of
   the ACM*, 1974; and J. T. Daly, "A higher order estimate of the optimum checkpoint interval for
   restart dumps," *Future Generation Computer Systems*, 2006 — the interval models used in §9.

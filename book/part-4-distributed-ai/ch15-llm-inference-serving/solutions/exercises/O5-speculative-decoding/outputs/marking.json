@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "two 3 × 3 tables and the recommendation with its reasoning.",
+  "id": "O5",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Expected tokens table E = (1 − α^(k+1)) / (1 − α)",
+      "points": 3
+    },
+    {
+      "criterion": "Memory-bound speedup table E / (0.05k + 1)",
+      "points": 3
+    },
+    {
+      "criterion": "Derivation of v_k at B = 128 from the roofline (1.00, 1.55, 2.67) and the resulting table",
+      "points": 3
+    },
+    {
+      "criterion": "Recommendation: interactive k = 4 (8 only if α ≥ 0.9); throughput tier short draft k = 2",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Speculative decoding trade-off",
+  "type": "outline-mandated"
+}

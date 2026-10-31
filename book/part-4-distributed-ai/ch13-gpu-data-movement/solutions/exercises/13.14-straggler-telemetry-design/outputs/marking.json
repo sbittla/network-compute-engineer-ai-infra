@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "field list, volume estimate with arithmetic, alert rules, and a defence paragraph",
+  "id": "13.14",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Field list: CUDA-event phases, entry skew, tokens, clocks/reasons/temp/power, NIC throughput and retransmissions, map keys",
+      "points": 3
+    },
+    {
+      "criterion": "Sampling interval (every 10-50 steps per rank plus DCGM 1 Hz) and skew measured without synchronized clocks",
+      "points": 2
+    },
+    {
+      "criterion": "Volume estimate with consistent arithmetic (e.g. 4,096 x 20 x 8 B x 4,320 samples = 2.8 GB/day)",
+      "points": 3
+    },
+    {
+      "criterion": "Alert rules with thresholds and statistics (robust z ≥ 6 in ≥ 25 % of a window, wait fraction > 10 %, rail-grouped retransmission ratio)",
+      "points": 2
+    },
+    {
+      "criterion": "Defended fidelity-versus-overhead trade-off",
+      "points": 2
+    }
+  ],
+  "points": 12,
+  "tier": "L1",
+  "title": "Straggler telemetry for ORION-XL",
+  "type": "design-challenge"
+}

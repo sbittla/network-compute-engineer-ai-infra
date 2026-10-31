@@ -1,0 +1,43 @@
+id: L1
+title: 'Lab 19: ORION-XL incident'
+folder: L1-lab19-orion-xl-incident
+type: hands-on-lab
+difficulty: 3
+tier: L1
+kind: lab
+points: 100
+evidence_required: 12/12 PASS; incident_packet.md per lab README Section 8
+marking:
+- criterion: Checker Tasks 1–2 pass and a failure timeline 01:12 → 04:31 built from the events
+  points: 15
+- criterion: Rank-to-hardware table for every implicated rank (rank, node, GPU UUID, BDF, NUMA, HCA, rail, leaf
+    port)
+  points: 10
+- criterion: Task 3 passes and a proven-vs-correlated table citing timing, locality and mechanism; H1 proven pending
+    intervention
+  points: 20
+- criterion: 'Health decision and quarantine per component: smallest defensible fault domain and scheduling unit
+    removed'
+  points: 15
+- criterion: 'Safe restart plan: ckpt-0084, restore validation, spares s01/s03, rank remap, pre/post checks, retry
+    policy'
+  points: 15
+- criterion: Recovery metrics for both attempts (RPO, RTO, lost GPU-h) and the cost of the first auto-restart
+  points: 5
+- criterion: 'Risk register: top-5 risks with corrected scores, owners, mitigations'
+  points: 10
+- criterion: Isolation model with remediation for all 10 violations
+  points: 10
+lab_checks:
+- 'dataset reproducible:'
+- 'T1 log parsers:'
+- 'T1 rank -> hardware map:'
+- 'T2 stuck group localisation:'
+- 'T2 link implication + switch ports:'
+- 'T2 GPU health decisions:'
+- 'T3 proven cause vs correlation:'
+- 'T4 checkpoint selection + RPO/RTO:'
+- 'T4 retry-loop policy:'
+- 'T4 restart plan + rank remap:'
+- 'T5 FMEA scorer:'
+- 'T6 tenant isolation checker:'

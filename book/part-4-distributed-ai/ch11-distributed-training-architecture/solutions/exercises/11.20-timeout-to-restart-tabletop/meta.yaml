@@ -1,0 +1,25 @@
+id: '11.20'
+title: From timeout to restart
+folder: 11.20-timeout-to-restart-tabletop
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: timeline, rank-to-hardware table, health decision per component, restart plan, and
+  one sentence on what evidence would *prove* the cause.
+marking:
+- criterion: 'Rank-to-hardware table: n312 GPU 5 → rank 2493 (2488–2495); n141 NIC 2 → rank 1122 (1120–1127),
+    rail 2'
+  points: 2
+- criterion: Timeline from 01:00 to 03:12 with the watchdog delay
+  points: 2
+- criterion: 'Health decision: ECC fault as most likely cause, NIC flaps correlated but separate; node-level
+    quarantine for each'
+  points: 2
+- criterion: 'Restart plan: checkpoint before 02:58, replacement nodes or shrunken DP, validation criteria'
+  points: 2
+- criterion: States what would prove the cause (flight-recorder dumps showing rank 2493 behind, Xid before
+    the timeout)
+  points: 2
+lab_checks: []

@@ -135,7 +135,7 @@ two-snapshot method can miss a real fault, and how you would change the collecti
 
 **10.M1 (Outline) — Link commissioning checklist (★★, L1; L3 to execute).**
 Create a link commissioning checklist covering **port configuration, transceiver compatibility,
-optical power, lane health, error counters, and cable labeling** for ORION's backend links. For each
+optical power, lane health, error counters, and cable labelling** for ORION's backend links. For each
 item give: what to check, the exact evidence source (command, telemetry path, or record), the pass
 criterion with a number where applicable, and what to do on failure.
 *Evidence required:* a checklist table with all six required areas present, numeric pass criteria for

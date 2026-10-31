@@ -1,0 +1,17 @@
+id: "2.1.5"
+title: FWS, TCS and approach temperature
+folder: 2.1.5-fws-tcs-approach
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Definitions of FWS, TCS and approach, and the hot-afternoon mechanism.
+marking:
+  - criterion: FWS is the facility primary water loop; TCS is the clean, filtered secondary loop through the cold plates
+    points: 1
+  - criterion: Approach is TCS supply minus FWS supply at the CDU heat exchanger
+    points: 1
+  - criterion: Hot afternoon raises FWS supply, TCS supply follows at roughly constant approach, cold plates warm, and a GPU with little margin enters thermal slowdown
+    points: 1
+lab_checks: []

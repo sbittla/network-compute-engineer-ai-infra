@@ -5,7 +5,7 @@
 A working model of the GPU execution machine for infrastructure engineers: streaming multiprocessors,
 warps and SIMT, the memory hierarchy from registers to HBM and host memory, kernels and launch overhead,
 streams, events and synchronization (including the implicit kinds), pinned versus pageable memory,
-occupancy and when it matters, tensor cores, and profiling with Nsight Systems, Nsight Compute and the
+occupancy and when it matters, Tensor Cores, and profiling with Nsight Systems, Nsight Compute and the
 PyTorch profiler. The chapter's worked example and lab decompose an 85 ms training step on an ORION
 HX8 GPU into idle time, copy time and kernel inefficiency, and rank five planted problems by their cost.
 
@@ -56,6 +56,7 @@ your own job).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text (Sections 4.1–4.14, trade-offs, runbook, summary) |
 | [exercises.md](exercises.md) | Exercises 4.1–4.19 including the outline-mandated 4.11–4.13 |
+| [exercises/](exercises/) | One learner folder per exercise (4.1–4.19): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 4 guide: trace analysis of a training step |
 | `lab/manifest.yaml` | Environment manifest (L1) and L2 record fields |
 | `lab/data/` | Seeded `[SIMULATED]` capture: GPU trace, CUDA API trace, NVTX ranges, device limits |
@@ -63,6 +64,7 @@ your own job).
 | `lab/starter/trace_analysis.py` | Learner module (TODOs) |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/` | Instructor answer key and reference implementation (removed from the student release) |
+| `solutions/exercises/` | Per-exercise instructor folders: `meta.yaml` (marking scheme), `solution/answer.md`, `solution/solve.py` for computed exercises, generated `outputs/` (instructor only) |
 | `review/REVIEW.md` | Editorial review log |
 
 ## Course placement

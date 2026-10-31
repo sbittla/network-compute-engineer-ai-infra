@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "for each case, the chosen (TP, PP, DP, CP, ZeRO stage), a memory estimate showing it fits, the dominant traffic with bytes per GPU per step, and which ORION links carry it.",
+  "id": "11.10",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) DP = 64 (DDP/ZeRO-1): memory ≈ 38 GB shown; 2.6 GB gradient all-reduce over NVLink + all 8 rails",
+      "points": 5
+    },
+    {
+      "criterion": "(b) TP 8/PP 4/DP 2 + ZeRO-1 (or an equivalent): 37.3 GB shown; TP 1.2 TB on NVLink, DP 4.4 GB and PP 2.15 GB on the rail",
+      "points": 5
+    },
+    {
+      "criterion": "(c) TP 8/PP 4/DP 1 with full recompute (or TP + CP): selective 182 GB impossible, full ≈ 50 GB; TP ≈ 4.8–7.2 TB on NVLink, PP 8.6 GB on the rail",
+      "points": 5
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Choose a parallelism for three constraints",
+  "type": "outline-mandated"
+}

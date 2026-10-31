@@ -1,0 +1,16 @@
+id: K8
+title: Recompute versus swap
+folder: K8-recompute-vs-swap
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 4
+evidence_required: both estimates with stated assumptions (prefill µs/token; PCIe GB/s)
+marking:
+- criterion: 'Recompute: 10,000 x 88.4 µs ≈ 0.88 s on TP = 2 FP8 at 40 % MFU, stalls co-scheduled sequences'
+  points: 2
+- criterion: 'Swap: 3.28 GB total, 1.64 GB per GPU at about 50 GB/s ≈ 33 ms each way, plus host-memory
+    pressure'
+  points: 2
+lab_checks: []

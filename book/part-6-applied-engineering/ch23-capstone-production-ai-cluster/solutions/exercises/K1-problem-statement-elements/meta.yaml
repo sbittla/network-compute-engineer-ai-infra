@@ -1,0 +1,21 @@
+id: K1
+title: Five elements of a capstone problem statement
+folder: K1-problem-statement-elements
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: five elements, five checkable consequences
+marking:
+- criterion: Workload named, with the consequence that FLOPs, memory and communication can be recomputed
+  points: 1
+- criterion: Numeric objective named, with the consequence that required throughput and margin can be checked
+  points: 1
+- criterion: Constraints named, with a power/space/budget invariant a reviewer can check
+  points: 1
+- criterion: Scope boundary named, with the consequence that out-of-scope interfaces must be specified
+  points: 1
+- criterion: Evidence tier named, with the consequence of which numbers may be labelled MEASURED
+  points: 1
+lab_checks: []

@@ -1,0 +1,25 @@
+id: M2
+title: Compatibility matrix and staged upgrade plan
+folder: M2-compat-matrix-upgrade-plan
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: computed
+points: 25
+evidence_required: The extended matrix; the plan with every number derived; the rollback table; the abort-condition
+  list; the evidence list.
+marking:
+- criterion: 'Extended matrix: fabric manager, CUDA user-mode, DCGM, container toolkit, NVMe fw, PSU fw
+    with correct coupling rules'
+  points: 6
+- criterion: 'Plan numbers derived: canary detection probability, 8 waves, 195 h, 768 GPU-hours, replica-striping
+    condition stated'
+  points: 8
+- criterion: Pre-declared abort conditions with thresholds
+  points: 4
+- criterion: Per-component rollback table incl. at least one non-reversible component
+  points: 4
+- criterion: Audit evidence list (change ID, before/after inventory read-back, acceptance run IDs, gate
+    decisions, approvals)
+  points: 3
+lab_checks: []

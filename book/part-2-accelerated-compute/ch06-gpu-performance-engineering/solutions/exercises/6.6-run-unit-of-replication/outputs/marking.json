@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "correlation argument and consequence.",
+  "id": "6.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Iterations within one process share allocations, clocks, kernel selection, placement and thermal state, so they are positively correlated",
+      "points": 1
+    },
+    {
+      "criterion": "A CI from 300 iterations of one run reflects within-run noise only and ignores run-to-run variation",
+      "points": 1
+    },
+    {
+      "criterion": "Consequence: the interval is far too narrow, producing false positives",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "The run is the unit of replication",
+  "type": "knowledge-check"
+}

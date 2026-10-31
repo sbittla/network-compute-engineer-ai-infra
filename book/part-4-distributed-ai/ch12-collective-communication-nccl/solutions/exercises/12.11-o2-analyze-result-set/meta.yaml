@@ -1,0 +1,21 @@
+id: '12.11'
+title: Analyze an NCCL result set across message sizes
+folder: 12.11-o2-analyze-result-set
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 12
+evidence_required: a summary table (six rows), region boundaries, a log-log plot of time vs size for c2
+  and c5 (matplotlib), and a 150-word scaling verdict.
+marking:
+- criterion: 'Summary table: α, B, n½ and plateau for all six configurations'
+  points: 4
+- criterion: Region boundaries per configuration with thresholds stated
+  points: 2
+- criterion: Log-log plot of c2 and c5 with labelled units
+  points: 2
+- criterion: 'Scaling verdict: plateau flat 352 → 345 GB/s (86–88 % of egress), α +≈ 10 µs per doubling,
+    n½ grows; c3/c6 anomalous'
+  points: 4
+lab_checks: []

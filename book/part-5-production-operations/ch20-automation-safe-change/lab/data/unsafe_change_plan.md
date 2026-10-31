@@ -21,7 +21,7 @@ Also upgrade NIC firmware to 28.43.1014 at the same time, since the nodes are be
 
 ## Rollback
 
-If something goes wrong, revert the switch config by hand and re-image the affected nodes.
+If something goes wrong, revert the switch config by hand and reimage the affected nodes.
 
 ## Risk
 

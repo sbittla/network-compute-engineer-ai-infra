@@ -1,0 +1,20 @@
+id: D1
+title: Growing ORION to 48 nodes
+folder: D1-grow-orion-384-gpus
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 20
+evidence_required: the arithmetic per option; an ADR (context, options, decision, evidence, consequences, revisit
+  trigger)
+marking:
+- criterion: 'Option arithmetic: leaves, spines, port usage and oversubscription for A, B and C'
+  points: 6
+- criterion: Backend cable counts, spine-crossing traffic per option, racks (12) and GPU-node power (489.6 kW)
+  points: 4
+- criterion: 'ADR complete: context, options, decision, evidence, consequences, observable revisit trigger'
+  points: 6
+- criterion: Recommendation logic tied to the inference roadmap (cross-rail KV transfer) and SKU qualification
+  points: 4
+lab_checks: []

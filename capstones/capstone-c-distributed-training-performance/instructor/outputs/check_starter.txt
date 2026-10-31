@@ -1,0 +1,14 @@
+TODO H1 ring_allreduce correctness + bytes    ring_allreduce: reduce-scatter + all-gather over n chunks
+TODO H2 summarize statistics                  summarize: percentiles, IQR and coefficient of variation
+TODO H3 run_benchmark discipline              run_benchmark: warm-up, repetitions, timing split, manifest
+TODO H4 manifest and evidence label           capture_manifest: record the environment of this run
+TODO A1 steady_state (warm-up and restart)    steady_state: remove warm-up, including after restarts
+TODO A2 run_summary                           steady_state: remove warm-up, including after restarts
+TODO A3 validate_runs (admissibility)         steady_state: remove warm-up, including after restarts
+TODO A4 weak-scaling table                    steady_state: remove warm-up, including after restarts
+TODO A5 permutation test                      permutation_pvalue: exact enumeration (itertools.combinations)
+TODO A6 variant comparisons + significance    steady_state: remove warm-up, including after restarts
+TODO A7 exposed communication (profile)       exposed_comm: exposed communication from the profile breakdown
+TODO A8 NCCL transport from debug log         nccl_transport: which network transport did NCCL actually use?
+
+0/12 checks pass (12 TODO, 0 FAIL) [impl=starter]

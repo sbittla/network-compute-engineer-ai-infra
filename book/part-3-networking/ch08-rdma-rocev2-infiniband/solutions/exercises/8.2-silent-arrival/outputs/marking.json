@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "mechanism stated; two notification methods with a cost each.",
+  "id": "8.2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: one-sided WRITE is placed by the target NIC via the rkey, consumes no RECV WQE, so no target completion exists",
+      "points": 2
+    },
+    {
+      "criterion": "Method 1 with a cost (e.g. polling a flag written last: burns a core, relies on ordering)",
+      "points": 1
+    },
+    {
+      "criterion": "Method 2 with a cost (e.g. SEND or WRITE-with-immediate: needs posted RECVs, RNR risk, a CQE per message)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Silent arrival",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,19 @@
+id: '12.1'
+title: Reduce-scatter and all-gather compose to all-reduce
+folder: 12.1-reduce-scatter-all-gather
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: two definitions and a 2-rank example.
+marking:
+- criterion: 'Reduce-scatter contract: rank r ends with the reduced chunk r'
+  points: 1
+- criterion: 'All-gather contract: every rank ends with all chunks in rank order'
+  points: 1
+- criterion: 2-rank example worked through both steps
+  points: 1
+- criterion: Shows the composition equals the all-reduce result
+  points: 1
+lab_checks: []

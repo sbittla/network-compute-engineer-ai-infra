@@ -1,0 +1,42 @@
+{
+  "answer": {
+    "guardrail": "3 nodes per legacy rack at <= 650 W",
+    "max_cap_for_four_nodes_w": 347,
+    "single_side_budget_kw": 29.5,
+    "three_nodes_at_650w_kw": 29.4
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "T1",
+  "inputs": {
+    "breaker_a": 60,
+    "circuit_kw": 32.78,
+    "node_base_kw": 4.6,
+    "observed_kw": {
+      "lh-03 idle 08:55": 12.1,
+      "lh-03 job start 09:02:10": 41.6,
+      "lh-04 peak (3 nodes)": 30.9
+    },
+    "pdu_trip_a": 48,
+    "planned_claim_kw": 41.0,
+    "power_factor": 0.95,
+    "transient_margin": 0.1,
+    "volts": 415
+  },
+  "steps": {
+    "circuit_continuous_amps": 48.0,
+    "four_nodes_at_350w_kw": 29.6,
+    "four_uncapped_nodes_kw": 40.8,
+    "observed_amps": {
+      "lh-03 idle 08:55": 17.7,
+      "lh-03 job start 09:02:10": 60.9,
+      "lh-04 peak (3 nodes)": 45.3
+    },
+    "plan_assumed_both_sides_kw": 65.56
+  },
+  "tolerance": 0.5,
+  "units": {
+    "cap": "W per GPU",
+    "current": "A per phase",
+    "power": "kW"
+  }
+}

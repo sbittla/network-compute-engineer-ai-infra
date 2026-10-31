@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the expression τ/2 + L and a one-paragraph derivation",
+  "id": "14.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Defines blocking time (training stalled: snapshot + coordination)",
+      "points": 1
+    },
+    {
+      "criterion": "Defines completion latency L (snapshot start to commit durable)",
+      "points": 1
+    },
+    {
+      "criterion": "Derivation: failure at uniform u; u ≥ L loses u, u < L (prob L/τ) loses u + τ; E = τ/2 + L",
+      "points": 2
+    },
+    {
+      "criterion": "Explains blocking is a per-checkpoint overhead, not lost work on failure",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Blocking time versus completion latency",
+  "type": "knowledge-check"
+}

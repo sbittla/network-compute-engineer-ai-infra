@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "A definition of what GPU_UTIL measures; the role of NCCL kernels; three named signals with one sentence each on why they move.",
+  "id": "K1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "GPU_UTIL defined as time-occupancy (fraction of time any kernel runs), not an SM average",
+      "points": 2
+    },
+    {
+      "criterion": "NCCL kernels stay resident polling for network data, so occupancy stays ≈ 97 %",
+      "points": 1
+    },
+    {
+      "criterion": "Three valid signals (SM_ACTIVE, PIPE_TENSOR_ACTIVE, POWER_USAGE, job step time/tokens per second), one sentence each",
+      "points": 3
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "The lying utilization metric",
+  "type": "knowledge-check"
+}

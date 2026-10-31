@@ -13,7 +13,7 @@
 | Job / watchdog logs | rank | host | `<fill>` |
 | Scheduler | node | controller | `<fill>` |
 
-## 2. Time normalisation
+## 2. Time normalization
 `<fill: true = host_ts − offset; source of offsets (chrony tracking); what you do when an offset is unknown or > 1 s>`
 
 ## 3. Join keys and failure modes

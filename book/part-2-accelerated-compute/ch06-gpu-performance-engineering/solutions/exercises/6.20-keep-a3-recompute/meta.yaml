@@ -1,0 +1,19 @@
+id: '6.20'
+title: 'Keep run A3: recompute C vs A'
+folder: 6.20-keep-a3-recompute
+type: reflection
+difficulty: 2
+tier: L1
+kind: computed
+points: 3
+evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
+marking:
+- criterion: 'Recomputed with the lab code: −0.44 %, band [−0.77 %, +1.19 %], permutation p = 0.99, not
+    significant'
+  points: 1
+- criterion: Explains that a 2.7 %-fast baseline run among A's runs erases the small real effect
+  points: 1
+- criterion: Exclusion rules must be pre-registered and applied symmetrically to every arm; excluding
+    to favour a result is p-hacking
+  points: 1
+lab_checks: []

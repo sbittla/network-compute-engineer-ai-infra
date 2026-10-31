@@ -1,0 +1,33 @@
+{
+  "difficulty": 2,
+  "evidence_required": "all arithmetic; a classification of each option as metadata-bound or bandwidth-bound",
+  "id": "14.9",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) 16,000 images/s and 1.92 GB/s per node; 256,000 images/s and 30.7 GB/s cluster",
+      "points": 2
+    },
+    {
+      "criterion": "(b) 76.8 in flight per node; 256,000 opens/s vs 50,000; 3,125 images/s per node (19.5 %), metadata-bound",
+      "points": 3
+    },
+    {
+      "criterion": "(c) ≈ 4,474 images per shard, ≈ 3.6 opens/s per node, 19 % of PFS, ≈ 1.4 requests in flight, bandwidth-bound with margin",
+      "points": 2
+    },
+    {
+      "criterion": "(d) 4.8 TB fits on 30.7 TB NVMe; full staging 76.8 TB in 480 s",
+      "points": 2
+    },
+    {
+      "criterion": "(e) Recommend shards (plus optional staging); confirm with meta_time_share and mean_read_bytes",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Metadata-bound versus bandwidth-bound pipeline",
+  "type": "worked-problem"
+}

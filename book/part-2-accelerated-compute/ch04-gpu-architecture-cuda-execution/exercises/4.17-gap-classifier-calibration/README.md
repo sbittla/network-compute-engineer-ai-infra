@@ -1,0 +1,16 @@
+# Exercise 4.17 — Calibrating the gap classifier
+
+★ · Tier L1 · reflection · kind: `written`
+
+<!-- prompt:start -->
+**4.17** ★ L1 — The lab's gap classifier uses a 10 µs launch-latency allowance and a 2 µs gap threshold.
+How could each choice misclassify gaps on real hardware, and how would you calibrate them?
+<!-- prompt:end -->
+
+*Evidence required for 4.16–4.19:* short written answers (≤ 150 words each) that cite specific numbers or mechanisms.
+
+## What to submit
+
+Put every deliverable in `outputs/`:
+
+- `outputs/answer.md` — your answer, written to the evidence requirement above

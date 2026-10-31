@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the config, memory and step-time output from the tool, and a trade-off table.",
+  "id": "11.15",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Config edited correctly (seq_len 8,192, global batch 512 sequences) and a layout proposed",
+      "points": 2
+    },
+    {
+      "criterion": "Memory shown under 68 GB from the tool for the chosen layout",
+      "points": 2
+    },
+    {
+      "criterion": "Step time and MFU from the tool for at least the chosen layout and one alternative",
+      "points": 2
+    },
+    {
+      "criterion": "Trade-off table on memory, communication and risk, defending the choice",
+      "points": 3
+    },
+    {
+      "criterion": "Notes that attention FLOPs grow with s and are not in 6ND (bonus-level insight)",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "8k sequences next quarter",
+  "type": "design-challenge"
+}

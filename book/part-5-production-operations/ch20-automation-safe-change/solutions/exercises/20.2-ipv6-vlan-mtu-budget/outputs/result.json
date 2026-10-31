@@ -1,0 +1,75 @@
+{
+  "answer": {
+    "a_max_host_ip_mtu_B": 9078,
+    "b_ipv6_header_budget_B": 84,
+    "b_min_host_ip_mtu_B": 4180,
+    "c_host_mtu_9000_valid": true,
+    "d_efficiency_gain_pct": 7.57,
+    "d_rows": [
+      {
+        "efficiency_pct": 90.62,
+        "packets_per_s_M": 44.25,
+        "rdma_mtu_B": 1024,
+        "wire_B": 1130
+      },
+      {
+        "efficiency_pct": 97.48,
+        "packets_per_s_M": 11.9,
+        "rdma_mtu_B": 4096,
+        "wire_B": 4202
+      }
+    ]
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "20.2",
+  "inputs": {
+    "host_mtu_B": 9000,
+    "ipv4_header_budget_B": 64,
+    "l2": {
+      "dot1q": 4,
+      "ethernet": 14,
+      "fcs": 4
+    },
+    "leaf_port_mtu_B": 9100,
+    "line_rate_Gbps": 400,
+    "rdma_payload_B": 4096,
+    "wire_overhead_B": {
+      "bth": 12,
+      "dot1q": 4,
+      "ethernet": 14,
+      "fcs": 4,
+      "icrc": 4,
+      "ifg": 12,
+      "ipv6": 40,
+      "preamble_sfd": 8,
+      "udp": 8
+    }
+  },
+  "steps": {
+    "a_l2_overhead_B": 22,
+    "b_extended_header_allowance_B": 20,
+    "b_fixed_ipv6_headers_B": 64,
+    "c_fabric_frame_B": 9022,
+    "d_line_rate_Bps": 50000000000.0,
+    "d_overhead_B": 106,
+    "e_policy_data": {
+      "allowed_rdma_path_mtu": [
+        256,
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "l2_overhead_bytes": 22,
+      "roce_header_budget_bytes": 84
+    },
+    "e_rule_tests": {
+      "good_fabric": true,
+      "good_rdma": true,
+      "host_4160_rdma": false,
+      "host_9100_fabric": false
+    }
+  },
+  "tolerance": "integers exact; efficiency +/-0.05 pp; packet rate +/-0.06 M/s; gain +/-0.1 pp",
+  "units": "bytes, percent, million packets/s"
+}

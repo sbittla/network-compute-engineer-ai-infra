@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise answers citing sections or data files (shared R1–R4 line).",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Three inputs that move a decision, each tied to a data file or section",
+      "points": 3
+    },
+    {
+      "criterion": "A concrete measurement method for each (benchmark, L2 cap sweep, scheduler telemetry)",
+      "points": 3
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "Measured rather than assumed",
+  "type": "reflection"
+}

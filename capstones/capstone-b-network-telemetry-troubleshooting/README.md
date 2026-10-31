@@ -25,17 +25,18 @@ help with the runbook and the suppression logic.
 ## Scenario
 
 ORION-256's backend is a rail-optimized, 2-tier RoCEv2 fabric: 8 rail leaves, 4 spines, and 32 HX8
-hosts with eight 400 Gb/s NICs each ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §2). RoCE
-traffic rides DSCP 26 → traffic class 3, lossless with PFC and ECN. Over the last month, Training Infra
+hosts with eight 400 Gb/s network interface cards (NICs) each ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §2). RoCE
+traffic rides differentiated services code point (DSCP) 26 → traffic class 3, lossless with priority flow
+control (PFC) and explicit congestion notification (ECN). Over the last month, Training Infra
 has opened four tickets that began "the job got slow and we think it's the network". Each took the
 Fabric team more than an hour to confirm or refute. The existing alerting pages on every PFC counter
 increment and is muted by most of the team.
 
 You have a 30-minute capture of the whole backend on 2026-10-12, 10:00–10:30 UTC. W-TRAIN runs on the
-default 24-node training partition (`orion-n01`–`n24`, TP 8 × PP 4 × DP 6, a declared variation of the
+default 24-node training partition (`orion-n01`–`n24`, TP 8 × PP 4 × DP 6 for tensor, pipeline and data parallelism, a declared variation of the
 full 32-node run with the global batch set to 1,152 sequences, because 1,024 is not divisible by DP = 6), while `orion-n25`–`n32` serve inference. The capture is in
 the three formats the fleet actually emits: CLI text from the leaf vendor, streaming JSON from the
-spine vendor, and `ethtool -S` plus RDMA `hw_counters` from host agents. The capture also includes
+spine vendor, and `ethtool -S` plus remote direct memory access (RDMA) `hw_counters` from host agents. The capture also includes
 the topology, the change calendar and the device profiles. Several faults were injected. Several
 other events will look like faults.
 
@@ -46,7 +47,7 @@ Design and build a telemetry pipeline and alerting system for the ORION backend 
 1. normalizes all three sources into one documented schema, with lineage to native counter names;
 2. computes rates that are correct across 32-bit wraps, counter resets and jittered poll times;
 3. raises **root-cause** alerts for each fault class (PFC storm, link degradation, ECN
-   misconfiguration, ECMP imbalance, link down) with evidence in the alert text;
+   misconfiguration, equal-cost multipath (ECMP) imbalance, link down) with evidence in the alert text;
 4. suppresses alerts for planned work on a device *or on its link peer*, and does not page on benign
    bursts or single-interval glitches;
 5. demonstrates its precision and recall, and the latency cost of achieving them.
@@ -109,7 +110,7 @@ suspected congestion issue on physical hardware. The procedure is in the
 | Artifact | Chapters |
 |---|---|
 | Schema, parser (switch + NIC counters) | 3, 8, 10 |
-| Alert rules (PFC, ECN, CNP, ECMP, FEC/FCS) | 7, 8, 9, 10 |
+| Alert rules (PFC, ECN, congestion notification packet (CNP), ECMP, forward error correction (FEC) / FCS) | 7, 8, 9, 10 |
 | Report/dashboard, false-positive analysis | 18, 22 |
 | Runbook, incident report | 18, 19, 20 |
 | Injected-fault scenarios | 9, 10, 19 |

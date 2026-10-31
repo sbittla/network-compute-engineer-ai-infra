@@ -1,0 +1,17 @@
+id: "2.11.3"
+title: What the lab cannot tell you
+folder: 2.11.3-lab-blind-spots
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: One paragraph listing dynamic and physical effects the static model cannot capture.
+marking:
+  - criterion: Names at least three effects outside a static spreadsheet model (thermal transients, CDU control dynamics, PSU behaviour, breaker trip curves, real coolant performance, workload power profiles)
+    points: 1
+  - criterion: Explains why each matters for running well, not just fitting
+    points: 1
+  - criterion: Names how the gap would be closed (commissioning, burn-in, measured profiles)
+    points: 1
+lab_checks: []

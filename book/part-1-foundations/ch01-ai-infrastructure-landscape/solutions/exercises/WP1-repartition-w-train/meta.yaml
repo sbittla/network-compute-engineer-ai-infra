@@ -1,0 +1,21 @@
+id: WP1
+title: Re-partitioning W-TRAIN
+folder: WP1-repartition-w-train
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 15
+evidence_required: >-
+  Formula, substitution and result for each of (a) to (c), with units; a comparison table; one named
+  unmodeled cost with a one-sentence mechanism.
+marking:
+  - criterion: (a) S_TP = 343.6 GB, sent 515.4 GB using the p = 4 factor 1.5, NVLink bound 1.145 s
+    points: 4
+  - criterion: (b) 2.1875e9 parameters per GPU, 4.375 GB gradient shard, 7.66 GB sent, NIC bound 0.153 s
+    points: 3
+  - criterion: (c) 2.15 GB per direction, about 4.30 GB sent by a middle-stage GPU (0.086 s), with the intra-node boundary or worst-case assumption stated
+    points: 4
+  - criterion: (d) comparison table against TP 8 / PP 4 and one named unmodeled cost (pipeline bubble 4.5 % vs 9.9 % at m = 64) with its mechanism
+    points: 4
+lab_checks: []

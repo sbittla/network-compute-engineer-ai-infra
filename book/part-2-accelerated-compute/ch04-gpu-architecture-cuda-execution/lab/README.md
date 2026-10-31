@@ -98,7 +98,7 @@ Each check prints `PASS`, `FAIL` (with the reason) or `TODO`. The exit code is 0
 | Task 6 — findings and report | 15 | Checks pass; savings per step with units; report generated |
 | Task 7 — annotated analysis | 20 | Timeline annotated; fixes ordered by evidence; projected step time with arithmetic; validation plan uses repeated runs; limitations stated |
 
-## 8. Extension (L2): capture and analyse your own trace
+## 8. Extension (L2): capture and analyze your own trace
 
 Run on a single-GPU development machine you control — never on a shared production node.
 

@@ -1,0 +1,37 @@
+{
+  "answer": {
+    "fraction_of_links_used": 0.25,
+    "links_used_per_spine": {
+      "orion-be-spine-1": [
+        0,
+        4
+      ],
+      "orion-be-spine-2": [
+        1,
+        5
+      ],
+      "orion-be-spine-3": [
+        2,
+        6
+      ],
+      "orion-be-spine-4": [
+        3,
+        7
+      ]
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.K5",
+  "inputs": {
+    "hash_values_swept": 65536,
+    "leaf_uplinks": 32,
+    "spine_links_per_dest_leaf": 8,
+    "spines": 4
+  },
+  "steps": {
+    "since_4_divides_8": "h mod 8 in {s - 1, s + 3}",
+    "spine_s_receives": "h mod 4 = s - 1"
+  },
+  "tolerance": "exact",
+  "units": "link index k (0-7)"
+}

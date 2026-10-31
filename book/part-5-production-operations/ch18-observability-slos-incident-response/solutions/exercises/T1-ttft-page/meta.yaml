@@ -1,0 +1,23 @@
+id: T1
+title: The TTFT page on chat-70b
+folder: T1-ttft-page
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 10
+evidence_required: Ranked hypothesis table; root cause tied to specific lines above; mitigation + validation
+  criteria; the TTFT/TPOT explanation.
+marking:
+- criterion: 'Ranked hypotheses: DEP-44 OOM crashloop on replica 7 first; surge, GPU fault, fabric/storage
+    rejected'
+  points: 3
+- criterion: Evidence citations tied to the specific lines (19:52 DEP-44, OOMKilled 137, 79.1/79.6 GiB,
+    restarts 3 → 6, queue 35–48, series absent)
+  points: 3
+- criterion: Mitigation (roll back to rev 43) with validation thresholds
+  points: 2
+- criterion: TTFT includes queueing before prefill; TPOT is per-token decode of running requests, so it
+    stays flat
+  points: 2
+lab_checks: []

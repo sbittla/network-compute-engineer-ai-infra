@@ -1,0 +1,28 @@
+{
+  "answer": {
+    "d2h_ms": 2.581,
+    "h2d_ms": 5.162,
+    "kernel_ms": 1.588,
+    "kernel_share": 0.17,
+    "total_ms": 9.33
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.11",
+  "inputs": {
+    "N": 8192,
+    "efficiency": 0.7,
+    "element_bytes": 2,
+    "pcie_Bps": 52000000000.0,
+    "peak_flops": 989000000000000.0
+  },
+  "steps": {
+    "flop": 1099511627776,
+    "intensity_over_pcie_flop_per_B": 2730.7,
+    "matrix_bytes": 134217728,
+    "pcie_ridge_flop_per_B": 19019
+  },
+  "units": {
+    "bytes": "B",
+    "time": "ms"
+  }
+}

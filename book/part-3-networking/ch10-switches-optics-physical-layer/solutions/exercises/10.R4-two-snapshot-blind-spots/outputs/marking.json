@@ -1,0 +1,21 @@
+{
+  "difficulty": 2,
+  "evidence_required": "two failure modes of the method and one design change each.",
+  "id": "10.R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First failure mode of the method with a matching collection change",
+      "points": 2
+    },
+    {
+      "criterion": "Second failure mode of the method with a matching collection change",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Blind spots of the two-snapshot method",
+  "type": "reflection"
+}

@@ -1,0 +1,33 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Formula, substituted values and result with units for each part; the two policy rules.",
+  "id": "20.2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) frame = IP MTU + 22 B; max host IP MTU 9,078 B",
+      "points": 2
+    },
+    {
+      "criterion": "(b) IPv6 header budget 84 B; minimum IP MTU 4,180 B",
+      "points": 2
+    },
+    {
+      "criterion": "(c) both inequalities shown: 9,022 <= 9,100 and 4,180 <= 9,000; valid",
+      "points": 1
+    },
+    {
+      "criterion": "(d) overhead 106 B; efficiency 90.6 % / 97.5 %; 44.2 M / 11.9 M packets/s at 50 GB/s",
+      "points": 3
+    },
+    {
+      "criterion": "(e) two rules with thresholds read from policy data (22 B, 84 B, min port MTU)",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "MTU budget for an IPv6, VLAN-tagged variant",
+  "type": "worked-problem"
+}

@@ -60,6 +60,7 @@ integration map) a checkpoint benchmark, RPO/RTO analysis, and a restore test â€
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text (Sections 14.1â€“14.14, trade-offs, runbook, realism boundaries) |
 | [exercises.md](exercises.md) | Exercises 14.1â€“14.19 (all outline-mandated exercises marked) |
+| [exercises/](exercises/README.md) | One folder per exercise (prompt, what to submit, `outputs/`) and the index |
 | [lab/README.md](lab/README.md) | Progressive Lab 6 guide, rubric, L2/L3 extensions |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | Planner inputs, simulated I/O trace, simulated fio JSON, checkpoint store |
@@ -67,6 +68,7 @@ integration map) a checkpoint benchmark, RPO/RTO analysis, and a restore test â€
 | `lab/starter/storage_lab.py` | Learner module (functions raise `NotImplementedError`) |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/` | Instructor answer key and reference lab implementation |
+| `solutions/exercises/` | Per-exercise worked solutions, `meta.yaml` marking schemes, `solve.py` for computed exercises, generated outputs (instructor only) |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

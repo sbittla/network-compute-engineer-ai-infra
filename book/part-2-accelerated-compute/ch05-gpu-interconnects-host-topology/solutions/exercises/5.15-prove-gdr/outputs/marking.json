@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "raw command outputs per item, NCCL `/GDRDMA` lines or `ib_write_bw --use_cuda` results, and a verdict.",
+  "id": "5.15",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Raw command output for each of the six Table 5.3 items",
+      "points": 6
+    },
+    {
+      "criterion": "A runtime test showing GDR in use or not: NCCL /GDRDMA channel lines or ib_write_bw --use_cuda results",
+      "points": 2
+    },
+    {
+      "criterion": "Verdict consistent with the evidence (e.g. DMA-BUF path when nvidia_peermem is absent); not based on the distance-check line alone",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L2",
+  "title": "Prove GPUDirect RDMA on a real host",
+  "type": "outline-mandated"
+}

@@ -49,6 +49,7 @@ Parallelism design, timing model, and recovery plan — Exercises 11.10–11.12 
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (11.10–11.12) |
+| [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: step-time/memory model and checkpoint calculator |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | W-TRAIN, ORION, candidate configs, reliability scenarios (generated) |
@@ -56,6 +57,7 @@ Parallelism design, timing model, and recovery plan — Exercises 11.10–11.12 
 | `lab/starter/stepmodel.py` | Learner module with TODOs |
 | `lab/check.py` | Automated checker |
 | `solutions/` | Instructor answer key and reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

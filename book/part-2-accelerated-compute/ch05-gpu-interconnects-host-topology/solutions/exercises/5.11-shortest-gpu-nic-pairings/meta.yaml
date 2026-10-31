@@ -1,0 +1,17 @@
+id: '5.11'
+title: Shortest GPU-NIC pairings
+folder: 5.11-shortest-gpu-nic-pairings
+type: outline-mandated
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: 8-row table plus four examples, quoting matrix cells.
+marking:
+- criterion: '8-row table: GPUi → mlx5_i, PIX, for i = 0-7, with the topo -m column (NIC1-NIC4, NIC6-NIC9)
+    quoted'
+  points: 3
+- criterion: One example each of PXB, PHB, NODE and SYS quoted from the matrix (e.g. GPU0-NIC2, GPU0-NIC0,
+    GPU0-NIC3, GPU0-NIC6)
+  points: 2
+lab_checks: []

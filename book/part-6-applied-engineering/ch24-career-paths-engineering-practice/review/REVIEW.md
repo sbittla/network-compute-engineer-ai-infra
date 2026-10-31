@@ -130,3 +130,15 @@ Independent score: 9.375 (one major).
 
 Manuscript 10,337 words.
 `python scripts/validate_labs.py ch22 ch23 ch24`: all columns OK.
+
+---
+
+## Release gate G7 — job-market register refresh (2026-10-30)
+
+| Item | Resolution |
+|---|---|
+| G7: dated, deduplicated register | Added a real register: `lab/data/job_register_2026-10_collected.csv` (50 rows, one per requisition), `lab/data/job_register_2026-10.csv` (42 roles) and `lab/data/register_meta_2026-10.yaml` (sources, scope screen, dedupe rule `ch24-role-v1`, counts). 54 public postings read in full on 2026-10-30 from 11 employers' ATS listings; 4 excluded by the scope screen. Both CSVs pass `validate_register` with 0 issues. Report: `docs/verification/G7-ch24.md`. |
+| Synthetic lab data | Unchanged (`job_register.csv`, `register_meta.yaml`); `data_regenerates` still byte-identical. `check.py` does not read the new files. |
+| Manuscript | §24.2: note after Table 24.1 (two families outside the six; AI-network split). §24.4: new subsection "A real, dated register (October 2026)" and Table 24.8a `[OBSERVED, 2026-10-30]` (numbered 24.8a so later table numbers and their cross-references stay valid). Realism boundaries and Summary updated. |
+| Exercises / key | R4 cites the real register; key R4 adds the one-day-sample limit. |
+| Open | The style guide has no evidence label for labour-market observations; `[OBSERVED, 2026-10-30]` is defined inline in §24.4. The register goes stale on 2026-11-29. |

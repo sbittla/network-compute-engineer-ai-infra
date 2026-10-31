@@ -1,0 +1,19 @@
+id: '5.19'
+title: Time-correlated slow paths
+folder: 5.19-time-correlated-slow-paths
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
+marking:
+- criterion: Correlated slowness makes consecutive iterations slow together, raising p99 and run-to-run
+    variance
+  points: 1
+- criterion: The forced-aligned SYS/host-staged path suffers most; the deterministic shared-NIC nearest
+    policy suffers less
+  points: 1
+- criterion: 'Conclusion: strengthens nearest over aligned, and neither replaces repair'
+  points: 1
+lab_checks: []

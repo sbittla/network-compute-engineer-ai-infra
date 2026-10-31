@@ -1,7 +1,7 @@
 # Capstone D starter kit: capacity model and serving simulator for W-INFER
 
 You will build the quantitative core of an LLM inference platform design. A **capacity model** tells
-you how many KV-cache tokens a replica holds and what a prefill or decode iteration costs. A
+you how many KV cache tokens a replica holds and what a prefill or decode iteration costs. A
 **request-level discrete-event simulator** of continuous batching with paged-KV admission, chunked
 prefill and preemption turns a request trace into TTFT, TPOT, per-token inter-token latency (ITL),
 end-to-end latency, throughput and

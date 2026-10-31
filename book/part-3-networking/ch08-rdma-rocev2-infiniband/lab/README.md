@@ -13,7 +13,7 @@ build the two analysis halves of that pipeline:
    RDMA environment file for eight ORION nodes (`orion-n01`…`orion-n08`, `rack-01` and `rack-02`), checks them against
    `data/baseline.yaml`, and emits a READY / NOT_READY checklist report with evidence for every failure.
 2. **`perftest_analysis.py`** — parses `ib_write_bw -a --report_gbits` and `ib_write_lat -a` results for
-   32 node-pair/rail combinations, summarises bandwidth versus message size (plateau, n½) and latency
+   32 node-pair/rail combinations, summarizes bandwidth versus message size (plateau, n½) and latency
    percentiles, flags pairs that underperform the fleet, and correlates flags with a PCIe link-status
    capture.
 
@@ -28,7 +28,7 @@ the campaign will not show up in the perftest data.
 an instructor-side seeded generator (not shipped in the student release) to imitate real tool output closely; formats are abridged and vary by
 version in real life. The perftest numbers are `[SIMULATED]` from a simple model
 (BW(s) = 8s / (1/R + 8s/B), Manuscript Section 8.11). The lab proves you can parse, check, and reason
-about RDMA readiness evidence. It does **not** prove that any NIC, cable, or switch performs as modelled
+about RDMA readiness evidence. It does **not** prove that any NIC, cable, or switch performs as modeled
 — only the L3 extension below produces measurements.
 
 ## 3. Setup

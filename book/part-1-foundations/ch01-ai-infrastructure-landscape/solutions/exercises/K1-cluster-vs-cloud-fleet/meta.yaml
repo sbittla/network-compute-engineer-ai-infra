@@ -1,0 +1,17 @@
+id: K1
+title: Five properties of an AI training cluster
+folder: K1-cluster-vs-cloud-fleet
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: Five distinguishing properties, each with an ORION number.
+marking:
+  - criterion: Five distinct properties named (coupling, bandwidth per server, traffic pattern, power density, failure semantics, or goodput economics)
+    points: 2
+  - criterion: Each property carries a correct ORION number (for example 17.4 s step, 3.2 Tb/s backend, about 41 kW per rack, 48 h job MTBF)
+    points: 1
+  - criterion: The contrast with a conventional cloud fleet is stated for each property
+    points: 1
+lab_checks: []

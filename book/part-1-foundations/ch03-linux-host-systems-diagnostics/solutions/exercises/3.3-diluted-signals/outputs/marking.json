@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The arithmetic, and the two metrics with the command that shows each.",
+  "id": "3.3",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Maximum blocked tasks = 0.045 x 224 = 10.1 (about 10), with the one-task-per-idle-CPU reasoning",
+      "points": 2
+    },
+    {
+      "criterion": "First undiluted metric with its command (vmstat 1 5 column b, ignoring the first row)",
+      "points": 1
+    },
+    {
+      "criterion": "Second undiluted metric with its command (iostat -x 1 3 r_await/w_await and aqu-sz, or PSI /proc/pressure/io)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Diluted signals",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Two behaviours and a concrete effect on at least one job.",
+  "id": "17-R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First hidden behaviour named and explained (backfill/reservation, preemption, time, borrowing)",
+      "points": 2
+    },
+    {
+      "criterion": "Second distinct hidden behaviour",
+      "points": 2
+    },
+    {
+      "criterion": "Concrete effect on a named job in Table 17.7",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "What a single-pass simulator hides",
+  "type": "reflection"
+}

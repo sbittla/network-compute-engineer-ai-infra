@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three outcomes; one sentence on accountability",
+  "id": "K8",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Approved",
+      "points": 1
+    },
+    {
+      "criterion": "Approved with conditions, each condition with an owner and a date",
+      "points": 1
+    },
+    {
+      "criterion": "Rework (another review required)",
+      "points": 1
+    },
+    {
+      "criterion": "Accountability: 'take it offline' has no owner, date or decision",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "The three outcomes of a design review",
+  "type": "knowledge-check"
+}

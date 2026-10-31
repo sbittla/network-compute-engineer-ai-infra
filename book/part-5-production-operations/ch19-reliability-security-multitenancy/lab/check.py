@@ -65,7 +65,7 @@ def check_reproducible(c: Ctx) -> tuple[bool | None, str]:
 
 def check_parsers(c: Ctx) -> tuple[bool, str]:
     x = c.m.parse_xid("NVRM: Xid (PCI:0000:5D:00): 63, pid='<unknown>', name=<unknown>, Row remapping event")
-    y = c.m.parse_netib("h:1:2 [5] NCCL WARN NET/IB : Got completion from peer 10.135.1.167<40685> with status=12 "
+    y = c.m.parse_netib("h:1:2 [5] NCCL WARN NET/IB: Got completion from peer 10.135.1.167<40685> with status=12 "
                         "opcode=0 len=0 vendor err 129 (Send) hca mlx5_5")
     none_ok = c.m.parse_xid("mlx5_core 0000:aa:00.0: Link down") is None and c.m.parse_netib("hello") is None
     ok = x == {"pci": "0000:5d:00", "xid": 63} and y == {"peer_ip": "10.135.1.167", "status": 12, "hca": "mlx5_5"} \

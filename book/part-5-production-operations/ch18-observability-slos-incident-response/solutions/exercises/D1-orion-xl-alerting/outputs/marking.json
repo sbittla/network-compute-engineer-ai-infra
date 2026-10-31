@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "Rule table (name, SLI or cause, windows/thresholds, severity, route); grouping / inhibition strategy; estimated pages per shift with assumptions.",
+  "id": "D1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Rule table ≤ 8 page rules with SLI/cause, windows/thresholds, severity, route, plus a ticket set",
+      "points": 4
+    },
+    {
+      "criterion": "Grouping/inhibition so one fabric incident yields one page, not 40",
+      "points": 3
+    },
+    {
+      "criterion": "Page-load estimate with stated assumptions within 2 per shift",
+      "points": 2
+    },
+    {
+      "criterion": "Justification of which causes may page (imminent-risk only)",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Alerting for ORION-XL on one rotation",
+  "type": "design-challenge"
+}

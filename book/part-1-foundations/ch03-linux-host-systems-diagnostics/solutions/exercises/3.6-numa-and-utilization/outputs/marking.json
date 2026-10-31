@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "A mechanism explanation, plus the exact perf stat and numastat invocations.",
+  "id": "3.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism, a thread stalled on remote DRAM is still running, so stall cycles count as busy time",
+      "points": 2
+    },
+    {
+      "criterion": "Measurement named, lower instructions per cycle than a well-placed peer",
+      "points": 1
+    },
+    {
+      "criterion": "Exact commands (perf stat -e cycles,instructions -p <pid> -- sleep 10 and numastat -p <pid>, cross-checked with taskset -cp)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "NUMA and utilization",
+  "type": "knowledge-check"
+}

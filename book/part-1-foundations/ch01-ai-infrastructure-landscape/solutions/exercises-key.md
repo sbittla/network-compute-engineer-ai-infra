@@ -21,7 +21,7 @@ component fault.
 *Inference (W-INFER):* clients → gateway/LB → router with admission control → replica (one `HX8`,
 TP = 8) with KV cache in HBM; model registry → local NVMe → HBM at replica start (≈ 140 GB); per-
 request data is small (≈ 2,048 prompt tokens in, streamed tokens out); Kubernetes control plane;
-TTFT/TPOT histograms, queue depth, KV-cache occupancy. Failure domain: one replica (eight GPUs);
+TTFT/TPOT histograms, queue depth, KV cache occupancy. Failure domain: one replica (eight GPUs);
 requests in flight are lost/retried; fleet capacity drops by 1/n.
 
 Dependency tables should resemble Tables 1.3 and 1.4. Accept different but defensible first signals.
@@ -222,7 +222,7 @@ much smaller TPOT gap and is a watch-and-schedule item, not an emergency.
 GPU 5's links inactive or missing and every other GPU's links nominal. (2) Read the replica's NCCL
 initialization log (`NCCL_DEBUG=INFO`, captured at pod start). Expect channels touching GPU 5 to use a
 non-NVLink transport (for example `via SHM`, or `P2P` over PCIe) where healthy replicas show
-NVLink `P2P/IPC` everywhere. (3) Compare the pod spec and image digest with a healthy replica using
+NVLink `P2P/CUMEM` everywhere (`P2P/IPC` before NCCL 2.19). (3) Compare the pod spec and image digest with a healthy replica using
 `kubectl get pod <pod> -o yaml`. Expect them to be identical, which weakens H3. A further test, after
 draining: run `dcgmi diag -r 3` and an intra-node `all_reduce_perf` on the drained node and on a
 healthy node. Expect lower bus bandwidth and NVLink failures in the diag.
@@ -269,7 +269,7 @@ preemptible training/eval jobs; or a disaggregated-serving design needs RDMA KV 
 facility cannot host a separate pool.
 
 **Marking (15 pts):** recommendation with table (5); quantified argument (4); fabric need correctly
-analysed (3); assumptions + "change my mind" (3). Either option earns full credit if well argued.
+analyzed (3); assumptions + "change my mind" (3). Either option earns full credit if well argued.
 
 ---
 

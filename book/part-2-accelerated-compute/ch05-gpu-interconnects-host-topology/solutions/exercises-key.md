@@ -41,7 +41,7 @@ CUDA/NCCL/NIC driver/firmware combination; (4) IOMMU per vendor guidance (often 
 redirect on the GPU/NIC switch ports; (6) runtime proof: NCCL channel lines ending `/GDRDMA`, or
 `ib_write_bw --use_cuda`. The `GPU Direct RDMA Enabled for GPU … / HCA … (distance X <= Y)` lines are only
 the distance check and are **not** sufficient evidence. *Marking:* deduct if the learner cites a
-"NET/IB : GPU Direct RDMA Enabled for HCA" line (no NCCL release prints it).
+`NET/IB : GPU Direct RDMA Enabled for HCA` line (no NCCL release prints it).
 
 **5.7** Host memory for staging/pinned buffers (`numactl --hardware`, `numastat -p <pid>`); CPU threads of
 the rank, NCCL proxy and loaders (`taskset -cp <pid>`, topo -m CPU Affinity); NIC interrupts

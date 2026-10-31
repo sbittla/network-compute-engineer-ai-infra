@@ -115,10 +115,13 @@ budget, else cap/drain first" (owners: Facilities for the signal, Platform for t
 
 ## Design challenge D1 — reference approach
 
-Dedicated: 96 GPUs × 8,760 h = 840,960 GPU-h/yr; average load 40 % of peak → ≈ 505,000 GPU-h idle. Shared:
-never lend the N+2 headroom (16 GPUs); lend idle replicas beyond a forecast-plus-margin threshold —
-assume 60 % of the idle hours are lendable (≈ 300,000 GPU-h) at goodput 0.7 for preemptible jobs
-(frequent checkpoints) → ≈ 210,000 useful GPU-h/yr ≈ $1.0M at $4.75 `[MODELED]`. SLO risk: reclaim must
+Dedicated: 96 GPUs × 8,760 h = 840,960 GPU-h/yr; average load 40 % of the 10-replica peak = 4 busy
+replicas of 12 (Section 21.3) → 280,320 busy and 560,640 GPU-h idle. Shared: never lend the N+2 headroom
+(16 GPUs, 140,160 GPU-h; 420,480 idle GPU-h remain beyond it); lend idle replicas beyond a
+forecast-plus-margin threshold — assume 60 % of the idle hours are lendable (≈ 336,000 GPU-h) at goodput
+0.7 for preemptible jobs (frequent checkpoints) → ≈ 235,000 useful GPU-h/yr ≈ $1.12M at $4.75
+`[MODELED]`. Common mistake: taking 40 % of the whole 96-GPU pool as busy (≈ 505,000 idle), which
+ignores that the N+2 replicas are idle by design. SLO risk: reclaim must
 finish (job checkpoint/kill + model reload) before traffic ramps; keep weights resident or use fast
 reload; trigger reclaim on rising queue depth, not on breach. Guardrails: lending stops when forecast
 peak − 30 min approaches; TTFT burn-rate alert inhibits lending; audit of reclaim times (p99 < 60 s).
@@ -137,10 +140,12 @@ Recommend shared with these guardrails if reclaim is measured < 60 s; otherwise 
 
 ## Outline-mandated exercises
 
-- **M1 (P90, +25 % demand from 2028Q3):** shortfalls in 2028Q3 (usable 475.8 vs required 617.6, −141.9),
-  2029Q2 (890.4 vs 925.9), 2029Q3 (870.0 vs 1,058.8), 2029Q4 (870.0 vs 1,204.7). The 2028Q3 cause is power
-  (order by 2027Q3); the 2029 shortfalls need GPUs *and* power (1,048-GPU energizable limit) — order power
-  by 2028Q2 and GPUs by 2028Q4 for 2029Q2. P50 shortfalls: 2028Q3 (−18.3), 2029Q4 (−94.7).
+- **M1 (p90, +25 % demand from 2028Q3):** shortfalls in 2028Q3 (usable 475.8 vs required 617.6, −141.9),
+  2029Q2 (890.4 vs 926.5), 2029Q3 (870.0 vs 1,058.8), 2029Q4 (870.0 vs 1,205.9). The 2028Q3 cause is power
+  (order by 2027Q3). 2029Q2 is also power-bound: 1,280 GPUs are installed but only 1,048 can be energized
+  (≈ 1,096 needed) — order power by 2028Q2. 2029Q3–Q4 need GPUs *and* power (the 256 retirements leave
+  1,024 installed, and 1,248 / 1,424 energized GPUs are needed, above the 1,048 limit) — power by
+  2028Q3 / 2028Q4, GPUs by 2029Q1 / 2029Q2. p50 shortfalls: 2028Q3 (−18.3), 2029Q4 (−94.7).
 - **M2:** Table 21.3 plus sensitivity: B per-GPU throughput 1.8× → 25.7 units/$M (< A's 26.53); break-even
   ≈ 1.86×; if B's network does not scale with compute, efficiency ≈ 0.88 → ≈ 29.6/$M (still ahead). Electricity has small effect on per-$ ranking (≈ 4 % of TCO).
 - **M3:** Expected rows: energized power (464 stranded), cooling (CDU-limited halls), maintenance (3 %),

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "One sentence on attract vs repel; a correct YAML fragment.",
+  "id": "17-K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Selector/affinity attracts; taint repels and a toleration only permits",
+      "points": 1
+    },
+    {
+      "criterion": "nodeSelector halcyon.ai/dedicated: search present",
+      "points": 1
+    },
+    {
+      "criterion": "Toleration with key, operator Equal, value search, effect NoSchedule (toleration alone = half credit overall)",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "nodeSelector versus toleration",
+  "type": "knowledge-check"
+}

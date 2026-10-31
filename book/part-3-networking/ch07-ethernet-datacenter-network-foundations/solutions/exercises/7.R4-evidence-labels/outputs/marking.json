@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise written answers; R4 must cite specific numbers from the chapter.",
+  "id": "7.R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "One correct chapter number for each of `[MODELED]`, `[SIMULATED]` and `[ILLUSTRATIVE]`",
+      "points": 1
+    },
+    {
+      "criterion": "A concrete measurement that would upgrade each to `[MEASURED]`",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "Modeled, simulated and illustrative numbers",
+  "type": "reflection"
+}

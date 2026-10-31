@@ -1,0 +1,19 @@
+id: K1
+title: DCQCN roles in the 12:1 incast
+folder: K1-roles
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: three device names, the packet name, DSCP and TC values.
+marking:
+- criterion: CP = orion-be-leaf-r3 egress queue on eth1/5 toward orion-n05
+  points: 1
+- criterion: NP = orion-n05's NIC (mlx5_3), the receiver that generates CNPs
+  points: 1
+- criterion: RP = each of the 12 sending NICs
+  points: 1
+- criterion: NP→RP packet is the CNP, DSCP 48, TC 6 (strict priority)
+  points: 1
+lab_checks: []

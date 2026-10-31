@@ -280,7 +280,7 @@ scheduler per node; pool moves are lifecycle transitions.
 
 **17-M2 (model policy outline).** Filters in order: lifecycle `schedulable` → health → pool → GPU
 type (`nvidia.com/gpu.product` / Slurm `Feature`) → dedication (taint + selector) → MIG vs whole →
-rail completeness for multi-node (expressed as Slurm feature/constraint + `Weight`, or K8s
+rail completeness for multi-node (expressed as Slurm feature/constraint + `Weight`, or Kubernetes
 label + required affinity — never as a drain). Topology: 1/2/4-GPU jobs socket-aligned best fit; >8 GPUs whole
 nodes only, multiple of 8; prefer rail-degraded nodes for single-node 8-GPU; rack-compact gangs
 (blocks on ORION-XL). Quota: nominal per tenant, ≤ 1.2× overcommit with borrowing only into idle
@@ -317,7 +317,7 @@ changing J08's result; (b) **preemption** — J10 (priority 100) could preempt b
 **time** — R-pt-002 finishing frees n09–n12 and J01 starts; (d) Kueue **borrowing** — J14 could
 borrow idle quota within its cohort instead of `QuotaExceeded`. Any two with a concrete job effect.
 
-**17-R2.** Decayed usage remembers the last ~7 days, not the instant: a tenant that just finished a
+**17-R2.** Decayed usage remembers the last ≈ 7 days, not the instant: a tenant that just finished a
 large run keeps a low fair-share factor even with nothing running, and a tenant idle all week gets a
 high one. On Monday, pretrain (96 GPUs running for days) would have high decayed usage and rank even
 lower; research or finetune — typically bursty and recently light — benefit most. Accept any answer

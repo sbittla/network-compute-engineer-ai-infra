@@ -1,0 +1,21 @@
+id: M3
+title: Present evidence, failure exercise and backlog
+folder: M3-evidence-failure-backlog-talk
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: slides with evidence labels visible per claim; failure-exercise report with TTD/TTM/TTR and lost
+  GPU-hours (labelled by tier); backlog with scoring and rationale
+marking:
+- criterion: Slides follow the Table 23.9 20-minute structure, one claim per slide, evidence label visible on each
+    claim
+  points: 6
+- criterion: 'Failure-exercise report: hypothesis, signals, TTD/TTM/TTR and lost GPU-hours with the correct tier
+    label'
+  points: 7
+- criterion: Backlog scored (impact × confidence ÷ effort), safety/blocker items first, with a disputable rationale
+    per item
+  points: 7
+lab_checks: []

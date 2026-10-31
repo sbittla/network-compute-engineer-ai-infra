@@ -1,0 +1,19 @@
+id: K2
+title: 'PCIe Gen 1 at idle: defect or power management?'
+folder: K2-pcie-idle-downtraining
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Verdict with the mechanism (idle power management) and the condition that would indicate
+  a defect.
+marking:
+- criterion: 'Verdict: not a defect'
+  points: 1
+- criterion: 'Mechanism: link speed down-trains at idle to save power and returns to Gen 5 under load'
+  points: 2
+- criterion: 'Defect condition: below Gen 5 under load, or width below x16 (width does not change with
+    load; x8 halves bandwidth to ≈ 31.5 GB/s per direction)'
+  points: 2
+lab_checks: []

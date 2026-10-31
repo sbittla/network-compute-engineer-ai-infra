@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "swing_kw": 256.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K7",
+  "inputs": {
+    "gpus": 1024,
+    "p_high_w": 650,
+    "p_low_w": 400
+  },
+  "steps": {
+    "gpu_power_high_kw": 665.6,
+    "gpu_power_low_kw": 409.6,
+    "swing_as_fraction_of_high": 0.385,
+    "swing_in_legacy_rack_budgets": 8.7,
+    "swing_per_node_kw": 2.0
+  },
+  "tolerance_kw": 0.5,
+  "units": {
+    "swing_kw": "kW of GPU power, per step cycle"
+  }
+}

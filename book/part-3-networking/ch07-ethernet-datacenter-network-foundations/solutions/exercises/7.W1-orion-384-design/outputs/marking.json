@@ -1,0 +1,37 @@
+{
+  "difficulty": 2,
+  "evidence_required": "every count with arithmetic; a one-paragraph explanation for (b) and (d).",
+  "id": "7.W1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Leaves per rail 2, total leaves 16, spines 8, links per pair 4, with the radix arithmetic",
+      "points": 3
+    },
+    {
+      "criterion": "(a) Used/total downlinks 384/512 (75 %), ratio 1:1 as configured and 0.75:1 as used",
+      "points": 1
+    },
+    {
+      "criterion": "(a) Cables 384 + 512 = 896 and transceivers 1,792 before spares",
+      "points": 2
+    },
+    {
+      "criterion": "(b) Lab result (12 leaves, 8 spines, 768 cables) explained: not rail-aware, 48 NICs per rail = 1.5 leaves",
+      "points": 2
+    },
+    {
+      "criterion": "(c) 3:1 variant: 8 leaves, 2 spines, 8 links per pair, 6.4 Tb/s cross-leaf vs 19.2 Tb/s downlink; same-rail stays non-blocking",
+      "points": 3
+    },
+    {
+      "criterion": "(d) Same-rail traffic now crosses spines, so ECMP collisions sit on the main collective path",
+      "points": 1
+    }
+  ],
+  "points": 12,
+  "tier": "L1",
+  "title": "Design a rail-optimized ORION-384 backend",
+  "type": "worked-problem"
+}

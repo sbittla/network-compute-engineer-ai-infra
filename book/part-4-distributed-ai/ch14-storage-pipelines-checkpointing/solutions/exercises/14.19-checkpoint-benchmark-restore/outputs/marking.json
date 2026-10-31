@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "environment manifest, a results table with median and spread, and the restore test log",
+  "id": "14.19",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Environment manifest and method (warm-up, ≥ 5 reps)",
+      "points": 5
+    },
+    {
+      "criterion": "Results table with median and spread for blocking, completion, step time before/during/after, pinned memory",
+      "points": 5
+    },
+    {
+      "criterion": "Restore test: validator rejects corrupted copy; restore from intact copy; first-step loss within stated tolerance",
+      "points": 5
+    }
+  ],
+  "points": 15,
+  "tier": "L2",
+  "title": "Checkpoint benchmark and restore test",
+  "type": "outline-mandated"
+}

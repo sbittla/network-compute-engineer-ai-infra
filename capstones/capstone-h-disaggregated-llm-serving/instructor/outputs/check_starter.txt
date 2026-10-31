@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 6 files byte-identical on regeneration
+TODO  T1 KV-cache size -- not implemented: TODO: implement kv_cache_bytes()
+TODO  T2 link normalisation -- not implemented: TODO: implement link_capacity()
+TODO  T3 roofline prefill/decode -- not implemented: TODO: implement prefill_time_s()
+TODO  T3 KV transfer exposure -- not implemented: TODO: implement kv_transfer_exposed_s()
+TODO  T4 pool sizing -- not implemented: TODO: implement size_pools()
+TODO  T4 bottleneck at target load -- not implemented: TODO: implement size_pools()
+TODO  T5 admission control -- not implemented: TODO: implement admission_policy()
+TODO  T6 speculative decoding -- not implemented: TODO: implement speculative_gain()
+TODO  T7 QoS / isolation audit -- not implemented: TODO: implement audit_qos()
+TODO  T8 cost model -- not implemented: TODO: implement cost_per_million_tokens()
+
+1/11 checks passed (starter)

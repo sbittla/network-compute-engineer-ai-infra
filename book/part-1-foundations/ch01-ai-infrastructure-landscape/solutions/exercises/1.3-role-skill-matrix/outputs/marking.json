@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The matrix; a written justification (one sentence) for each role's two highest-rated and two lowest-rated domains; a gap list with chapter and artifact for each gap.",
+  "id": "1.3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least 12 skill domains rated 0-3 for the three named roles, consistent with Table 1.10 within plus or minus 1 per cell",
+      "points": 3
+    },
+    {
+      "criterion": "One-sentence justification for each role's two highest and two lowest domains",
+      "points": 3
+    },
+    {
+      "criterion": "Personal column present and every gap of 2 or more mapped to a specific chapter",
+      "points": 2
+    },
+    {
+      "criterion": "Each gap names a concrete artifact (lab output, script, design doc)",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Role-to-skill matrix",
+  "type": "outline-mandated"
+}

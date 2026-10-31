@@ -1,0 +1,18 @@
+id: '12.7'
+title: The 2,000 GB/s home-made benchmark
+folder: 12.7-impossible-2000-gbps
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: bug, fix, and why.
+marking:
+- criterion: 'Bug: timer measures asynchronous kernel launch, not execution (no synchronize/events)'
+  points: 1
+- criterion: 'Fix: synchronize (or CUDA events) around the timed region, warm up, time many iterations'
+  points: 1
+- criterion: 'Why: 2,000 GB/s exceeds the ≈ 450 GB/s NVLink per-direction rate, so it cannot be real;
+    also check bytes vs elements'
+  points: 1
+lab_checks: []

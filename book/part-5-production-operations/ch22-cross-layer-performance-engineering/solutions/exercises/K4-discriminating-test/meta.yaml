@@ -1,0 +1,20 @@
+id: K4
+title: 'Discriminating test: definition and examples'
+folder: K4-discriminating-test
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: definition; the example with each hypothesis's predicted outcome; why the non-example fails.
+marking:
+- criterion: 'Definition: competing hypotheses predict different outcomes'
+  points: 1
+- criterion: Example partition (TP span) with H-placement predicting a large gap
+  points: 1
+- criterion: H-network's prediction for the same test (uniform slowdown of multi-node jobs, no gap aligned with
+    TP span)
+  points: 1
+- criterion: 'Non-example explained: every hypothesis predicts something odd on it'
+  points: 1
+lab_checks: []

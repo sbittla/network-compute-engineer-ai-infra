@@ -1,0 +1,19 @@
+id: K4
+title: Why multiwindow burn-rate alerts need two windows
+folder: K4-two-window-alerts
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: One concrete scenario for each window.
+marking:
+- criterion: Long window prevents paging on short blips that spend a trivial share of the budget
+  points: 1
+- criterion: 'Concrete long-window scenario with numbers (lab 7-minute deploy: 5 m burn 40, 1 h burn 4.65
+    < 14.4)'
+  points: 1
+- criterion: Short window prevents firing late / continuing after the fix; concrete scenario (problem
+    stopped 10 min ago still pages on 1 h window)
+  points: 2
+lab_checks: []

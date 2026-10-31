@@ -1,0 +1,36 @@
+id: 17-L1
+title: 'Lab 17: ORION scheduler simulator and diagnoser'
+folder: 17-L1-orion-scheduler-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: '`python check.py` output showing `9/9 checks passed`; the two reports per the lab
+  rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or `all_reduce_perf`
+  results (≥ 5 repetitions, median and p95).'
+marking:
+- criterion: 'Tasks 1–3: tolerates, node_filter, select_gpus (T1, T2, T3 pass)'
+  points: 28
+- criterion: 'Task 4: place_job single-node and gang (both T4 lines pass)'
+  points: 17
+- criterion: 'Task 5: schedule invariants, exact match, order/fairness (T5 pass)'
+  points: 20
+- criterion: 'Task 6: diagnose_pending 12/12 (T6 pass)'
+  points: 15
+- criterion: 'Task 7: placement-report.md — five pending jobs with reasons, fair-share/rail/lifecycle
+    effects, one policy change'
+  points: 10
+- criterion: 'Task 8: pending-guide.md — each code mapped to real kubectl/Slurm commands and a safe fix
+    with a ''do not'''
+  points: 10
+lab_checks:
+- T1 tolerates
+- T2 node_filter
+- T3 select_gpus
+- T4 place_job single-node
+- T4 place_job gang
+- T5 schedule invariants
+- T5 schedule exact match
+- T5 schedule order/fairness
+- T6 diagnose_pending

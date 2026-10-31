@@ -1,0 +1,49 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output (all PASS), `report.md`, `analysis.md` per the lab rubric.",
+  "id": "4.10",
+  "kind": "lab",
+  "lab_checks": [
+    "merge_intervals",
+    "busy_ns",
+    "step_windows",
+    "utilization",
+    "copy_compute_overlap",
+    "find_gaps",
+    "copy_table",
+    "theoretical_occupancy",
+    "kernel_summary",
+    "analyze_findings",
+    "render_report"
+  ],
+  "marking": [
+    {
+      "criterion": "Task 1: utilization and overlap checks pass; busy(any) vs busy(kernel) vs efficiency explained",
+      "points": 15
+    },
+    {
+      "criterion": "Task 2: gap-attribution checks pass; each host_sync gap tied to its source construct (.item(), pageable copy)",
+      "points": 20
+    },
+    {
+      "criterion": "Tasks 3-4: copy-table and occupancy checks pass; PCIe degradation ruled out with the pinned 48 GB/s evidence; one occupancy configuration worked by hand",
+      "points": 20
+    },
+    {
+      "criterion": "Task 5: kernel-summary check passes; GEMM and flash-attention low occupancy judged by design",
+      "points": 10
+    },
+    {
+      "criterion": "Task 6: findings check passes; five findings with savings in ms per step; report.md generated",
+      "points": 15
+    },
+    {
+      "criterion": "Task 7: analysis.md with annotated timeline, ranked fixes, projected step time 63-65 ms with basis, validation plan with repeated runs, limitations",
+      "points": 20
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Lab 4: trace analysis of a training step",
+  "type": "hands-on-lab"
+}

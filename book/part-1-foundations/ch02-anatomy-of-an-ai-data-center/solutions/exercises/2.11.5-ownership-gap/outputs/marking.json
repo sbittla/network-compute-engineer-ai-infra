@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "One paragraph naming a Table 2.7 cell, why it falls between teams, and the fix.",
+  "id": "2.11.5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Names a specific ownership boundary from Table 2.7",
+      "points": 1
+    },
+    {
+      "criterion": "Explains why it falls between teams in the learner's organization",
+      "points": 1
+    },
+    {
+      "criterion": "Concrete fix with a named owner, a runbook link and a rehearsal date",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "The ownership cell that is nobody's job",
+  "type": "reflection"
+}

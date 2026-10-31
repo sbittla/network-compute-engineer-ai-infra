@@ -103,8 +103,8 @@ one node, after driver update); (2) NCCL topology misdetected (container/driver 
 non-NVLink transport; (3) GPU clocks low (rejected: clocks normal); (4) network (rejected: DP/PP
 normal). Tests: `nvidia-smi nvlink --status` (links inactive or fewer active); `nvidia-smi topo -m`
 (GPU↔GPU shows `NV18` when healthy vs a PCIe label); `systemctl status nvidia-fabricmanager` (or the
-platform's fabric-management service) `[VENDOR-SPEC]`; single-node `all_reduce_perf -g 8` on the
-node vs a peer (busbw ≈ 450 vs far lower); NCCL INFO shows non-NVLink P2P/SHM transports. Root
+platform's fabric-management service) `[VENDOR-SPEC, 2026-10]`; single-node `all_reduce_perf -g 8` on the
+node vs a peer (busbw ≈ 450 with NVLS assumed vs far lower); NCCL INFO shows non-NVLink P2P/SHM transports. Root
 cause (model): fabric-management service failed to start after the driver update (version mismatch).
 Fix: checkpoint, drain the node (a drain does not move the job), restart without it at reduced DP or wait for repair (ORION-256 has no spares); Fleet aligns service and driver versions under change control,
 reboot, acceptance tests. Validation: links active, single-node busbw within 5 % of fleet median,

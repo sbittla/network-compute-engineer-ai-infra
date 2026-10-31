@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "formula, substitution, result.",
+  "id": "K2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Multiplicative formula (not additive subtraction of percentages)",
+      "points": 2
+    },
+    {
+      "criterion": "Correct substitution",
+      "points": 1
+    },
+    {
+      "criterion": "Result ≈ 859 usable GPUs, labelled [MODELED]",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Usable capacity",
+  "type": "knowledge-check"
+}

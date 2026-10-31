@@ -1,0 +1,20 @@
+id: '8.8'
+title: Wire efficiency and DSCP marking
+folder: 8.8-wire-efficiency-marking
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: overhead per packet itemised; formula → substitution → result with units for each part;
+  DSCP/ECN bit arithmetic shown.
+marking:
+- criterion: (a) 86 B overhead itemized; 2,048/2,134 = 0.9597 → 383.9 Gb/s
+  points: 2
+- criterion: (b) 102 B overhead with IPv6; 4,096/4,198 = 0.9757 → 390.3 Gb/s
+  points: 2
+- criterion: (c) 400 × 10⁹ / (4,198 × 8) = 11.91 M packets/s
+  points: 2
+- criterion: (d) TC byte 26 → DSCP 6, ECN ECT(0); lands in the default lossy class; correct value 106
+  points: 2
+lab_checks: []

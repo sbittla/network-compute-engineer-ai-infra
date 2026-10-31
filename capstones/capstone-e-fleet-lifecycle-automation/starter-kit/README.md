@@ -98,7 +98,7 @@ Your repository with `starter/fleet.py` passing 17/17, plus the design artifacts
 
 The advanced extension (outline Section 16: *integrate a lab provisioning system and real hardware
 health checks*) replaces the synthetic producers in Figure E.1 with real ones. Do this **only on
-dedicated lab hardware you are authorised to reimage**.
+dedicated lab hardware you are authorized to reimage**.
 
 > **Safety:** Every command below either reads state or changes state on the lab node it targets.
 > Commands that drain, reimage or flash are labelled. Never run them against shared or production

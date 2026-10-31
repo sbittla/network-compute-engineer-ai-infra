@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise answers citing sections or data files (shared R1–R4 line).",
+  "id": "R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Lists at least four missing cost categories",
+      "points": 2
+    },
+    {
+      "criterion": "Identifies which could change a decision (financing, demand charges, resale) with reasoning",
+      "points": 3
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Missing TCO costs",
+  "type": "reflection"
+}

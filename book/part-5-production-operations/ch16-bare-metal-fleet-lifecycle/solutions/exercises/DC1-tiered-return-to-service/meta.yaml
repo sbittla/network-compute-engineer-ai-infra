@@ -1,0 +1,19 @@
+id: DC1
+title: Tiered return-to-service policy
+folder: DC1-tiered-return-to-service
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 20
+evidence_required: A table mapping repair type → tests; a weighted-average time calculation; one named
+  residual risk with a detection signal and threshold.
+marking:
+- criterion: Table mapping each repair type to a test tier, keeping re-entry at imaged → validated
+  points: 8
+- criterion: Weighted-average time computed correctly from the stated mix (reference 3.87 h vs 25.4 h)
+  points: 6
+- criterion: Named residual risk (collateral damage outside the tested tier) with detection signal and
+    threshold
+  points: 6
+lab_checks: []

@@ -1,0 +1,20 @@
+{
+  "answer": {
+    "ridge_bf16_tensor": 295.2,
+    "ridge_fp32_simt": 20.0,
+    "ridge_fp8_tensor": 590.7
+  },
+  "evidence_label": "MODELED (from VENDOR-SPEC ceilings)",
+  "exercise": "6.1",
+  "inputs": {
+    "hbm_Bps": 3350000000000.0,
+    "peak_flops": {
+      "bf16_tensor": 989000000000000.0,
+      "fp32_simt": 67000000000000.0,
+      "fp8_tensor": 1979000000000000.0
+    }
+  },
+  "units": {
+    "ridge": "FLOP/B"
+  }
+}

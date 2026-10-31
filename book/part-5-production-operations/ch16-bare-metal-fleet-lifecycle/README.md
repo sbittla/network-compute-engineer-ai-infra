@@ -53,6 +53,7 @@ in [lab/README.md](lab/README.md).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting, design, outline-mandated exercises M1–M3, deliverable D1 |
+| [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide (tasks, rubric, L2/L3 extension) |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | Acceptance policy, compatibility matrix, acceptance results, inventory, lifecycle events |
@@ -61,6 +62,7 @@ in [lab/README.md](lab/README.md).
 | `lab/check.py` | Checker: `python check.py [--impl starter|solution]` |
 | `lab/report.py` | Markdown report from your implementation (Task 5) |
 | `solutions/` | Instructor-only answer key, reference implementation, planted-fault list |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, and generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

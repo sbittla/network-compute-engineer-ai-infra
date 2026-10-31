@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "two distinct reasons (confounding/time variation; information value vs cost/risk).",
+  "id": "K8",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Reason 1: confounding and time variation; the before/after of a rollback mixes it with everything else that changed",
+      "points": 2
+    },
+    {
+      "criterion": "Reason 2: low information per cost and risk compared with offline partitions (one leaf, slow, drains/reboots)",
+      "points": 1
+    },
+    {
+      "criterion": "Notes that the rollback destroys the natural experiment (half upgraded, half not)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Why a diagnostic rollback is a poor test",
+  "type": "knowledge-check"
+}

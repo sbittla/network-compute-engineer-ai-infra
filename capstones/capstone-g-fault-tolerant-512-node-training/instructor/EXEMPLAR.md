@@ -35,7 +35,7 @@ imitate real tools and must be re-verified on a real platform.
 
 Quarantine GPU `orionxl-n377:5` (repair domain) and drain `orionxl-n377` (placement unit: TP = 8
 needs eight GPUs). Xid 94 is contained, so in principle "drain when convenient"; the job was already
-dead, so now was convenient. Reset activates the pending row remap; re-run acceptance (Capstone E)
+dead, so now was convenient. Reset activates the pending row remap; rerun acceptance (Capstone E)
 before release. Quarantine HCA `orionxl-n213:mlx5_3`, drain the node (rail-aligned job needs all
 eight rails), Fabric ticket on `orionxl-be-leaf-p06-r3` port 22 (inspect optic, clean, reseat).
 Watch tickets: `orionxl-n101:2` (SBE 2,400), `orionxl-n099:2` (30 corrected AER).

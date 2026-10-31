@@ -1,0 +1,19 @@
+id: W2
+title: Scaling efficiency and detectability
+folder: W2-scaling-and-detectability
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: formulas, substituted values, results with units; a clear yes/no with n.
+marking:
+- criterion: (a) tokens/s at 64/128/256 GPUs and E_weak 98.6 % and 97.1 % (weak, not strong scaling)
+  points: 3
+- criterion: (b) straggler terms 0.175 s of 0.24 s and 0.325 s of 0.52 s, with the remainder stated
+  points: 3
+- criterion: (c) MDE at n = 5 is 0.195 s > 0.15 s, so no
+  points: 2
+- criterion: (c) n = 2 × (2.8σ/δ)² = 8.43, rounded up to 9 runs per arm
+  points: 2
+lab_checks: []

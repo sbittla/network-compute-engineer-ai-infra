@@ -1,0 +1,11 @@
+PASS dataset reproducible: generator reproduces committed data byte-for-byte (sha256 9ea2d847e53d)
+TODO T1 plan hygiene: implement clean_plan()
+TODO T2 usable fraction + kW per GPU: implement usable_fraction()
+TODO T2 quarterly forecast: implement forecast()
+TODO T2 first shortfall + order deadlines: implement forecast()
+TODO T3 TCO and cost per GPU-hour: implement tco()
+TODO T4 design comparison: implement compare_designs()
+TODO T5 power-capping trade-off: implement power_cap_tradeoff()
+TODO T6 misleading-nominal flags: implement forecast()
+
+1/9 checks passed (starter)

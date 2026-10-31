@@ -1,0 +1,57 @@
+{
+  "a": {
+    "codewords_per_s": 156250000.0,
+    "lane_rate_gbps": 106.25,
+    "line_rate_gbps": 850.0,
+    "overhead_factor": 1.0625
+  },
+  "b": {
+    "544p": 0.1088,
+    "corrected_codewords_per_s": 16110000.0,
+    "margin_decades": 1.079,
+    "p_codeword_has_error": 0.1031,
+    "symbol_error_p": 0.0002
+  },
+  "c": {
+    "cdf": {
+      "16": 0.7437,
+      "17": 0.8171,
+      "18": 0.8747,
+      "19": 0.9176,
+      "20": 0.948,
+      "21": 0.9684,
+      "22": 0.9815,
+      "23": 0.9896,
+      "24": 0.9943,
+      "25": 0.997,
+      "26": 0.9985
+    },
+    "lambda": 14.14,
+    "normal_approx_99": 22.89,
+    "spares": {
+      "95%": 21,
+      "99%": 24
+    }
+  },
+  "d": {
+    "rate_based_spares": 492,
+    "raw": 491.52
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "afr": 0.015,
+    "ber": 2e-05,
+    "ber_limit": 0.00024,
+    "lanes": 8,
+    "lead_days": 21,
+    "optics": 16384,
+    "port_gbps": 800.0,
+    "rate_policy": 0.03
+  },
+  "units": {
+    "codewords": "codewords/s",
+    "line_rate": "Gb/s",
+    "margin": "decades",
+    "spares": "modules"
+  }
+}

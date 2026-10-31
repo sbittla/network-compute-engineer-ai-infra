@@ -1,0 +1,16 @@
+id: 10.K2
+title: Why healthy PAM4 links count corrections
+folder: 10.K2-pam4-fec-corrected-counter
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: ≤ 120 words naming the PAM4 SNR penalty (with its dB value) and the role of FEC.
+marking:
+- criterion: States the PAM4 SNR penalty with its value, 20·log10(3) ≈ 9.5 dB
+  points: 2
+- criterion: Explains that RS(544,514) FEC is mandatory at 100 Gb/s per lane and corrects the expected
+    raw BER, so corrected counts are normal
+  points: 2
+lab_checks: []

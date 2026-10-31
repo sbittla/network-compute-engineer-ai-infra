@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "two definitions; symptom naming a specific counter; reason tied to the formula.",
+  "id": "K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Xoff defined: ingress PG occupancy at which pause is sent",
+      "points": 1
+    },
+    {
+      "criterion": "Headroom defined: separate per (port, lossless PG) reservation absorbing bytes that arrive after the decision",
+      "points": 1
+    },
+    {
+      "criterion": "Symptom: non-zero lossless-class discards (discards_tc3) despite active PFC",
+      "points": 1
+    },
+    {
+      "criterion": "Longest links first because the 2 × r × L / v term grows with cable length",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Xoff threshold versus headroom",
+  "type": "knowledge-check"
+}

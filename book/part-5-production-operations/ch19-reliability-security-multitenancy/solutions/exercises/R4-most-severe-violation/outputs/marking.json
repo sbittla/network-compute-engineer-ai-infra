@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise answers that cite data files or sections",
+  "id": "R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Picks the cluster-admin binding or the parent-path export",
+      "points": 1
+    },
+    {
+      "criterion": "Reasons from blast radius: cross-tenant data access; cluster-admin covers all Secrets and all nodes",
+      "points": 1
+    },
+    {
+      "criterion": "Cites data/tenants.yaml and Section 19.8 or Table 19.7",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Most severe isolation violation",
+  "type": "reflection"
+}

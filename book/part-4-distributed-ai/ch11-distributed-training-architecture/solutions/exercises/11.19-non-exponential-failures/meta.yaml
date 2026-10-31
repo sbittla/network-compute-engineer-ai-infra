@@ -1,0 +1,19 @@
+id: '11.19'
+title: When failures are not exponential
+folder: 11.19-non-exponential-failures
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: Describes a real non-exponential pattern (infant mortality after maintenance, correlated
+    failures, wear-out)
+  points: 1
+- criterion: Explains how it violates the constant-hazard assumption
+  points: 1
+- criterion: Changes the checkpoint policy accordingly (shorter τ after maintenance/risky events, per-period
+    MTBF)
+  points: 1
+lab_checks: []

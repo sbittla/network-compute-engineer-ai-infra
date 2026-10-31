@@ -9,7 +9,7 @@ switch ASIC pipeline and shared buffer, how a 400G port is built from 100 Gb/s P
 RS(544,514) FEC, the optics and copper options for AI back-ends, link-budget arithmetic, DOM and
 error-counter interpretation, and — above all — how to separate physical-layer faults from
 congestion and configuration problems that look like them. It closes with cleaning and inspection,
-cabling schedules and labeling, commissioning, and sparing, all on the ORION reference cluster.
+cabling schedules and labelling, commissioning, and sparing, all on the ORION reference cluster.
 
 ## Learning objectives
 
@@ -18,7 +18,7 @@ cabling schedules and labeling, commissioning, and sparing, all on the ORION ref
 3. **Compare** DAC, AEC, AOC, and pluggable optics (SR8, DR4, FR4) and select a medium per link class.
 4. **Calculate** an optical link budget in dB/dBm and use it to interpret measured receive power.
 5. **Interpret** DOM and CRC, symbol, FEC, and link-flap counters, and **diagnose** physical vs higher-layer causes.
-6. **Design** a cabling schedule and labeling scheme, a commissioning checklist, and a sparing plan.
+6. **Design** a cabling schedule and labelling scheme, a commissioning checklist, and a sparing plan.
 7. **Validate** a leaf switch's physical layer with an automated analyzer and produce a commissioning report.
 
 ## Prerequisites
@@ -48,6 +48,7 @@ L1 (laptop, `[SIMULATED]` data). L2/L3 hardware extensions described in [lab/REA
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercise set including outline-mandated 10.M1–10.M4 |
+| [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: link-health analyzer, commissioning report, BOM/spares, cabling schedule |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | Two-snapshot counter/DOM dataset, cabling schedule, thresholds, fabric specs |
@@ -55,4 +56,5 @@ L1 (laptop, `[SIMULATED]` data). L2/L3 hardware extensions described in [lab/REA
 | `lab/starter/linkhealth.py` | Learner module (TODOs) |
 | `lab/check.py` | Checker: `python check.py [--impl starter|solution] [--report FILE]` |
 | `solutions/` | Instructor answer key and reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |

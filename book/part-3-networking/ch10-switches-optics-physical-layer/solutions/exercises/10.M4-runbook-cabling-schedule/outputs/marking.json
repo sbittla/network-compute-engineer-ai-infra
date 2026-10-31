@@ -1,0 +1,36 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the CSV (row count = 256, unique IDs) and the runbook; the runbook must cite which thresholds are `[ILLUSTRATIVE]` policy and which come from a specification.",
+  "id": "10.M4",
+  "kind": "lab",
+  "lab_checks": [
+    "cabling_schedule:",
+    "bom_and_spares:"
+  ],
+  "marking": [
+    {
+      "criterion": "Schedule: 256 rows, unique cable IDs and endpoints, 8 links per leaf–spine pair, labels name both ends, lengths from a stated layout",
+      "points": 40
+    },
+    {
+      "criterion": "Runbook: signal → threshold → first safe action → escalation table (BER warn 10⁻⁵, critical 10⁻⁴)",
+      "points": 20
+    },
+    {
+      "criterion": "Runbook: drain-before-touch for host links (scheduler node drain) and uplinks (routing-policy drain, then admin-down)",
+      "points": 20
+    },
+    {
+      "criterion": "Runbook: commissioning gates and cleaning/inspection procedure (IEC 61300-3-35)",
+      "points": 10
+    },
+    {
+      "criterion": "Runbook: sparing numbers (16 optics, 6 cables, 1 switch) with thresholds labelled policy vs specification",
+      "points": 10
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Physical-layer runbook and port/cabling schedule",
+  "type": "deliverable"
+}

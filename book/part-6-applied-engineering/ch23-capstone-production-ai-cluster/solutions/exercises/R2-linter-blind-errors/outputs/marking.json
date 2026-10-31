@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "specific, ORION-grounded answer of 80–150 words",
+  "id": "R2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Names a class of error that is internally consistent but wrong (e.g. TP across nodes, wrong workload model)",
+      "points": 2
+    },
+    {
+      "criterion": "Describes how a design review catches it (layer reviewers, checklist, 'what would make this fail?')",
+      "points": 1
+    },
+    {
+      "criterion": "80–150 words, ORION-grounded",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Design errors the linter cannot catch",
+  "type": "reflection"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "The mechanism and a reasoned answer.",
+  "id": "17-R2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: usage decays with a 7-day half-life, so recent history (not the instant) drives the factor",
+      "points": 2
+    },
+    {
+      "criterion": "Consequence: idle-all-week tenants score high; heavy recent users score low even with nothing running",
+      "points": 1
+    },
+    {
+      "criterion": "Reasoned choice of the Monday beneficiary (research/finetune) and pretrain ranking lower",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Decayed usage versus instantaneous share",
+  "type": "reflection"
+}

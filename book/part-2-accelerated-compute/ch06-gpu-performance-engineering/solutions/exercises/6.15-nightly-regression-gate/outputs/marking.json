@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "a design with budget arithmetic, the decision rule, and the rejected alternative.",
+  "id": "6.15",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Budget arithmetic: workloads fit 16 GPU-hours (e.g. 2 nodes × 8 GPUs × 1 h)",
+      "points": 2
+    },
+    {
+      "criterion": "Node selection and stratification (same-node history, reference node)",
+      "points": 2
+    },
+    {
+      "criterion": "Decision rule (permutation p < 0.05 and regression > max(A/A floor, 2 %) blocks; warn band)",
+      "points": 2
+    },
+    {
+      "criterion": "A/A floor control under 1 % (dedicated nodes, persistence, warm-up, pinned containers, interleaving)",
+      "points": 2
+    },
+    {
+      "criterion": "Rejected alternative defended (e.g. running on whichever production nodes are free)",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Nightly performance-regression gate",
+  "type": "design-challenge"
+}

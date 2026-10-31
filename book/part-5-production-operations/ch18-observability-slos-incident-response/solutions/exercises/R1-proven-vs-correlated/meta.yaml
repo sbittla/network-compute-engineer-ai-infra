@@ -1,0 +1,18 @@
+id: R1
+title: Proven versus correlated in the lab postmortem
+folder: R1-proven-vs-correlated
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Concise written answers, each referencing a specific data file, metric, or section.
+marking:
+- criterion: 'Proven: timing of leaf changes, scope covering both jobs, recovery on rollback (intervention)'
+  points: 2
+- criterion: 'Correlated only: the exact ECN → PFC mechanism (no queue-depth telemetry)'
+  points: 2
+- criterion: Evidence that would convert correlation to proof (watermarks, pause durations, controlled
+    single-leaf reapplication)
+  points: 1
+lab_checks: []

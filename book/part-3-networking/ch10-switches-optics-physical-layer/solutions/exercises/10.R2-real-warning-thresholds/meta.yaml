@@ -1,0 +1,21 @@
+id: 10.R2
+title: Setting real warning thresholds
+folder: 10.R2-real-warning-thresholds
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: ≤ 150 words naming the data sources (commissioning baselines, vendor thresholds, failure
+  history).
+marking:
+- criterion: Uses commissioning baselines per optic type and link class (distribution, not one value)
+  points: 1
+- criterion: Uses vendor module thresholds and the KP4 limit as outer bounds
+  points: 1
+- criterion: Refines with failure/RMA history (which trends preceded failures)
+  points: 1
+- criterion: States a concrete rule (e.g. ≥ 1 decade below the FEC limit) and keeps `[ILLUSTRATIVE]` until
+    validated
+  points: 1
+lab_checks: []

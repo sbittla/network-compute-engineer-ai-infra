@@ -1,0 +1,21 @@
+id: K7
+title: Sharing a GPU across tenants
+folder: K7-gpu-sharing-tenants
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: a 3 × 3 table
+marking:
+- criterion: 'Whole GPU row: full memory, fault and performance isolation'
+  points: 1
+- criterion: 'MIG row: hardware-partitioned memory, instance-level fault isolation with GPU-wide caveat, dedicated
+    SM/bandwidth slices'
+  points: 2
+- criterion: 'Time-slicing row: separate address spaces but no capacity limit, no fault isolation, no performance
+    isolation'
+  points: 2
+- criterion: Concludes time-slicing is never acceptable across tenants
+  points: 1
+lab_checks: []

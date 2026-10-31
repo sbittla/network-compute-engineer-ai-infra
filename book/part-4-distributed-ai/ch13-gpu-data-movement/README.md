@@ -48,6 +48,7 @@ Annotated data-path diagram and cross-layer diagnosis (Exercises 13.9–13.10 + 
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (13.9–13.11) |
+| [exercises/](exercises/README.md) | One folder per exercise (prompt, what to submit, `outputs/`) and the index |
 | [lab/README.md](lab/README.md) | Lab guide |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | Telemetry bundle and job manifest (generated, seed 13) |
@@ -55,6 +56,7 @@ Annotated data-path diagram and cross-layer diagnosis (Exercises 13.9–13.10 + 
 | `lab/starter/telemetry_diag.py` | Learner module with TODOs |
 | `lab/check.py` | Automated checker |
 | `solutions/` | Instructor answer key and reference implementation |
+| `solutions/exercises/` | Per-exercise worked solutions, `meta.yaml` marking schemes, `solve.py` for computed exercises, generated outputs — instructor only |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

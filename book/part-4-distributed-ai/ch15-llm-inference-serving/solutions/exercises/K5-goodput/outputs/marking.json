@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "both definitions and a concrete scenario",
+  "id": "K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "DistServe definition: maximum request rate at which a target fraction meets both TTFT and TPOT SLOs",
+      "points": 1
+    },
+    {
+      "criterion": "Operational definition: SLO-meeting requests per second on a trace",
+      "points": 1
+    },
+    {
+      "criterion": "Concrete scenario where throughput rises while goodput falls, with numbers",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Goodput",
+  "type": "knowledge-check"
+}

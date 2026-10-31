@@ -1,0 +1,18 @@
+id: '14.16'
+title: When Young does not set the interval
+folder: 14.16-interval-beyond-young
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: two constraints with a metric each
+marking:
+- criterion: First constraint (e.g. RPO policy) with the detecting metric (age of newest validated checkpoint
+    vs target)
+  points: 2
+- criterion: Second constraint (e.g. PFS fairness/capacity or quota) with its metric
+  points: 2
+- criterion: Clear statement that the constraint, not Young, then sets τ
+  points: 1
+lab_checks: []

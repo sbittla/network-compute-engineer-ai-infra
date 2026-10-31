@@ -1,0 +1,49 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output; generated report.md; a short note listing each data-hygiene rule and how many rows or jobs it affected.",
+  "id": "L1",
+  "kind": "lab",
+  "lab_checks": [
+    "clean_steps: dedupe + warm-up",
+    "tp_split_jobs: TP groups spanning nodes",
+    "job_factor_table: time-aware factor flags",
+    "job_factor_table: failed job retained",
+    "regression_summary: mean vs median change",
+    "estimate_effects: per-factor OLS effects",
+    "attribute: contributions and shares",
+    "bootstrap_shares: job-level 95 % interval",
+    "storage_crosscheck: direct vs inferred",
+    "rank_tests: value/cost/risk ordering + safety",
+    "render_report: facts / causes / uncertainty"
+  ],
+  "marking": [
+    {
+      "criterion": "Data hygiene (tasks 1, 3 incl. population rule) with a note of what each rule removed or kept (44 rows, 480 rows, 0 jobs)",
+      "points": 15
+    },
+    {
+      "criterion": "Factor derivation from evidence (tasks 2, 3) including time-aware driver and alert joins",
+      "points": 15
+    },
+    {
+      "criterion": "Regression summary and mean-vs-median interpretation (task 4)",
+      "points": 10
+    },
+    {
+      "criterion": "Effect estimation with uncertainty (task 5) and an interaction check",
+      "points": 15
+    },
+    {
+      "criterion": "Attribution table (task 6) and storage cross-check (task 7)",
+      "points": 15
+    },
+    {
+      "criterion": "Hypothesis tree + test ranking with safety rejection (task 8) and the before/after report with the correct alert verdict (task 9)",
+      "points": 30
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Attribute a cross-layer regression (lab)",
+  "type": "hands-on-lab"
+}

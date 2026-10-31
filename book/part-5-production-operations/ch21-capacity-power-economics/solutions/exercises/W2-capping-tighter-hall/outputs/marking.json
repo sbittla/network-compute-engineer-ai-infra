@@ -1,0 +1,25 @@
+{
+  "difficulty": 3,
+  "evidence_required": "table for the three caps; reasoning; recommendation with numbers.",
+  "id": "W2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Table: 2 / 3 / 3 nodes per rack and 31.7 / 45.4 / 33.6 node-equivalents",
+      "points": 4
+    },
+    {
+      "criterion": "Reasoning: 550 W is the lightest cap that fits a third node; a fourth needs ≤ 269 W",
+      "points": 3
+    },
+    {
+      "criterion": "22-rack recommendation: 550 W, all 64 nodes, 60.5 node-equivalents (vs 44 uncapped)",
+      "points": 3
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Capping in a tighter hall",
+  "type": "worked-problem"
+}

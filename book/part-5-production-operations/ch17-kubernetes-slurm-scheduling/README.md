@@ -57,6 +57,7 @@ and 17-M3, with the lab placement report as appendix).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting case, design challenge, mandated exercises, reflection, deliverable |
+| [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide (Progressive Lab 7, part 2) |
 | `lab/manifest.yaml` | Environment manifest |
 | `lab/data/` | `cluster_state.json`, `job_queue.json`, `pending_cases.json` (seed 17) |
@@ -64,6 +65,7 @@ and 17-M3, with the lab placement report as appendix).
 | `lab/starter/orion_sched.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `solutions/` | Instructor only: answer key and reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, and generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

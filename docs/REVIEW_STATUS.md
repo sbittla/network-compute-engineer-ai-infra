@@ -4,7 +4,7 @@ Gate: weighted ≥ 9.5, no dimension < 9.0, labs valid (`python scripts/validate
 starter, no-generator, docs), no open blocker/major findings (see [EDITORIAL_RUBRIC.md](EDITORIAL_RUBRIC.md)).
 Independent-review history and finding → resolution tables are in each package's `review/REVIEW.md`.
 
-**Status (2026-10-30): all 24 chapters, the capstone program (README + RUBRIC) and capstones A–H pass the internal gate at 9.50, with no open blocker/major/minor findings. `python scripts/validate_labs.py` → 32/32 labs valid (solution, starter, no-generator, docs).** External publication gates remain open — see [RELEASE_GATES.md](RELEASE_GATES.md).
+**Status (2026-10-30): all 24 chapters, the capstone program (README + RUBRIC) and capstones A–H pass the internal gate at 9.50, with no open blocker/major/minor findings. `python scripts/validate_labs.py` → 32/32 labs valid (solution, starter, no-generator, docs).** Since then (2026-10-31): G4 vendor-claim verification, G6 machine-assisted copyedit and G7 job-market refresh done; every lab runs in its own container and `python scripts/docker_labs.py ci` passes 32/32 packages (2,144 tests, 480 exercise folders with solutions and generated outputs). Remaining external gates: see [RELEASE_GATES.md](RELEASE_GATES.md).
 
 | Package | Independent score history | Status | Open next step |
 |---|---|---|---|

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "a trigger that is observable (a metric or event), not an opinion",
+  "id": "K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Purpose stated: the trigger makes the decision self-monitoring by naming the condition that reopens it",
+      "points": 2
+    },
+    {
+      "criterion": "Trigger is observable: a metric with a threshold or a detectable event (placement audit, memory footprint, bandwidth ratio)",
+      "points": 1
+    },
+    {
+      "criterion": "Trigger is tied to the TP = 8 decision's actual premise (HBM fit, TP locality, NVLink-to-NIC ratio), not a calendar date",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "ADR revisit trigger for TP = 8 inside NVLink",
+  "type": "knowledge-check"
+}

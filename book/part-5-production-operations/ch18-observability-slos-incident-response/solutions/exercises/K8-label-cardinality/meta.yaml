@@ -1,0 +1,19 @@
+id: K8
+title: Label cardinality for per-rank, per-step metrics
+folder: K8-label-cardinality
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 5
+evidence_required: The series-count calculation and where that information should live instead.
+marking:
+- criterion: 'Reason: each unique label value is a new series; unbounded labels explode memory/index and
+    slow queries'
+  points: 2
+- criterion: 'Arithmetic: 86,400 / 17.4 ≈ 4,966 steps/day × 4,096 ranks ≈ 20.3 million series per day'
+  points: 2
+- criterion: 'Correct home: logs or trace/flight-recorder store; export only aggregates (histogram by
+    job_id)'
+  points: 1
+lab_checks: []

@@ -1,0 +1,18 @@
+id: K3
+title: Senior versus staff
+folder: K3-senior-versus-staff
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: two short paragraphs; at least two outcomes per level, phrased as verifiable results.
+marking:
+- criterion: 'Senior response: leads the incident, proves cause with a discriminating test, postmortem names the
+    detection gap'
+  points: 2
+- criterion: 'Staff response: recognizes the cross-incident pattern and drives a multi-team policy/telemetry change'
+  points: 2
+- criterion: At least two verifiable outcomes per level (results, not activities)
+  points: 2
+lab_checks: []

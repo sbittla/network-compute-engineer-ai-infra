@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "concise answers citing sections or data files.",
+  "id": "R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Names the signal sources (BMS/EPMS, PDU, CDU, UPS, maintenance calendar)",
+      "points": 2
+    },
+    {
+      "criterion": "Describes the integration point (power-budget service consumed by the scheduler)",
+      "points": 2
+    },
+    {
+      "criterion": "Assigns joint ownership with a defined interface (Platform + Facilities)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Facility to scheduler signals",
+  "type": "reflection"
+}

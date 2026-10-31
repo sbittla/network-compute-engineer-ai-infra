@@ -4,7 +4,7 @@
 
 ## 1. Goal and the real-world task it mirrors
 
-At 02:58 UTC a researcher posts in `#training-help`: *"trn-70b tokens/s looks ~18 % lower than
+At 02:58 UTC a researcher posts in `#training-help`: *"trn-70b tokens/s looks ≈ 18 % lower than
 yesterday."* Nothing paged. You are the SRE who picks up the incident afterwards with a telemetry
 bundle exported from ORION's Prometheus, the switch telemetry collector, the change-management
 system, and the incident bot. Your job is the work every SRE does after a quiet, expensive
@@ -80,7 +80,7 @@ Baseline window for all tasks: **00:00–02:00 UTC**.
 | 6 | Dashboard spec | `dashboard_spec` | Four-level hierarchy with chained drill-downs, a burn-rate panel at fleet level, and DCGM profiling metrics at device level |
 
 Then write the deliverables (Section 8) by hand — the checker verifies your numbers, not your
-judgement.
+judgment.
 
 ## 7. Running the checker
 
@@ -109,10 +109,10 @@ question it answers), and `slo_spec.md` (the SLO specification of Exercise M1).
 
 ## 9. Extensions (L2 / L3)
 
-> **Safety:** run extensions only on a lab host or a cluster you are authorised to instrument. Do
+> **Safety:** run extensions only on a lab host or a cluster you are authorized to instrument. Do
 > not change switch configuration or alert routing on shared production systems.
 
-**L2 — one GPU host.** Stand up the same pipeline for real and re-run Tasks 1–3 on your own data.
+**L2 — one GPU host.** Stand up the same pipeline for real and rerun Tasks 1–3 on your own data.
 
 ```bash
 nvidia-smi --query-gpu=index,uuid,pci.bus_id,utilization.gpu,power.draw,temperature.gpu --format=csv
@@ -124,10 +124,11 @@ promtool check rules rules.yml                       # validate your recording/a
 promtool test rules rules_test.yml                   # unit-test alerts against synthetic series
 ```
 
-Run a GPU workload that alternates compute and synchronisation (for example a PyTorch loop with
+Run a GPU workload that alternates compute and synchronization (for example a PyTorch loop with
 periodic `torch.cuda.synchronize()` and sleeps) and show that `DCGM_FI_DEV_GPU_UTIL` and
 `DCGM_FI_PROF_SM_ACTIVE` diverge. Pick the `dcgm-exporter` tag from NVIDIA's catalogue for your
-driver; field IDs and metric names are `[VENDOR-SPEC, 2026-10]` — verify them.
+driver; field IDs and metric names are `[VENDOR-SPEC, 2026-10]` — verify them (DCGM 4.6+ renames
+the profiling fields, e.g. `DCGM_FI_PROF_SM_UTIL_RATIO`, and keeps the old names as aliases).
 
 **L3 — multi-node with RDMA and switch access (read-only).**
 

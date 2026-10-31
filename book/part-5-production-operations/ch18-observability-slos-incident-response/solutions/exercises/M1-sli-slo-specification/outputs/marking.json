@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "A table covering all four services; at least one PromQL recording rule per SLI; budget arithmetic; exclusions (e.g. client 4xx, user-code failures) stated.",
+  "id": "M1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Table covering training completion/recovery, inference latency, cluster availability, fabric health with good/valid events, source, SLO, window, owner",
+      "points": 4
+    },
+    {
+      "criterion": "At least one PromQL recording rule per SLI",
+      "points": 3
+    },
+    {
+      "criterion": "Budget arithmetic shown (e.g. 99.5 % × 30 d → 216 min) and targets derived from the canon (e^(−24/96) = 0.78; P(≤ 8) = 0.9989)",
+      "points": 4
+    },
+    {
+      "criterion": "Burn-rate alert policy and exclusions (client 4xx, user-code failures, announced maintenance) stated; no component-metric SLIs",
+      "points": 4
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "SLI/SLO specification for ORION",
+  "type": "outline-mandated"
+}

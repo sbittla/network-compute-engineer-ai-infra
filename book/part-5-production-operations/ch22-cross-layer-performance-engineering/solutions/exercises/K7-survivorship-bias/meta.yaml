@@ -1,0 +1,19 @@
+id: K7
+title: Survivorship bias in regression analysis
+folder: K7-survivorship-bias
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 4
+evidence_required: definition in this context; the mechanism linking slow jobs to failed jobs.
+marking:
+- criterion: 'Definition: analyzing only completed or healthy jobs excludes failed ones, which are often the most
+    affected'
+  points: 2
+- criterion: 'Mechanism: TP-split jobs are slowest and stress the fabric most, so they are likeliest to hit collective
+    timeouts'
+  points: 1
+- criterion: 'Quantified effect in the lab: headline 23.2 % -> 21.9 %, TP share 64.7 % -> 61.4 %'
+  points: 1
+lab_checks: []

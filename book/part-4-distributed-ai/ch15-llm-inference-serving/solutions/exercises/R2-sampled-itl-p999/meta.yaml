@@ -1,0 +1,19 @@
+id: R2
+title: What a 5 % ITL sample can show
+folder: R2-sampled-itl-p999
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: the sample size in requests and gaps, the correlation argument, and one better instrument.
+marking:
+- criterion: 'Sample size: about 227 requests and about 72k gaps; p99.9 rests on about 72 points'
+  points: 1
+- criterion: 'Correlation argument: gaps within a request (and across co-scheduled requests) are correlated,
+    so effective sample size is much smaller'
+  points: 1
+- criterion: Conclusion (usable for trends, not SLO compliance) and one better instrument (higher sampling,
+    per-request max ITL)
+  points: 1
+lab_checks: []

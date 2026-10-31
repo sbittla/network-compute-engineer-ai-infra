@@ -1,0 +1,19 @@
+id: K5
+title: Why the model needs a period indicator
+folder: K5-period-indicator-role
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 4
+evidence_required: the role of the term; a concrete misattribution it prevents.
+marking:
+- criterion: 'Role: absorbs any shift common to all after-period jobs (e.g. container rebuild)'
+  points: 2
+- criterion: 'Concrete misattribution with lab numbers: dropping `after` inflates driver 0.90 -> 1.07 s, storage
+    1.40 -> 1.57 s, TP 8.96 -> 9.18 s'
+  points: 1
+- criterion: 'Explains the mechanism: the shift is pushed onto the most-exposed factors and the container change
+    disappears from the report'
+  points: 1
+lab_checks: []

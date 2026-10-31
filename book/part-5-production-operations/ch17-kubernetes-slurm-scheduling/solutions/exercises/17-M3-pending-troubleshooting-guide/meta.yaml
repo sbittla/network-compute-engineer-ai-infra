@@ -1,0 +1,19 @@
+id: 17-M3
+title: Pending-despite-free-GPUs troubleshooting guide
+folder: 17-M3-pending-troubleshooting-guide
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: The guide with commands per evidence class; the two applied diagnoses with the evidence
+  lines quoted.
+marking:
+- criterion: Guide covers scheduler, quota/policy, node state, device plugin, placement constraints, topology/shape
+    in decision order
+  points: 5
+- criterion: Exact Kubernetes and Slurm commands correct for each evidence class
+  points: 3
+- criterion: P03 → FRAGMENTATION and P11 → UNTOLERATED_TAINT with arithmetic and quoted evidence
+  points: 2
+lab_checks: []

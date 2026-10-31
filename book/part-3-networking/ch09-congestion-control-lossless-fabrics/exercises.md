@@ -3,7 +3,7 @@
 Difficulty: ★ foundational, ★★ intermediate, ★★★ advanced. Tier: L1 laptop/paper, L2 single host,
 L3 multi-node RDMA lab fabric. Unless stated, use ORION values from
 [REFERENCE_CLUSTER.md](../../../docs/REFERENCE_CLUSTER.md) and the chapter's assumptions
-(v ≈ 2 × 10⁸ m/s in fibre, i.e. 5 ns/m; port MTU 9,216 B; t_resp = 1 µs). Label every number you
+(v ≈ 2 × 10⁸ m/s in fiber, i.e. 5 ns/m; port MTU 9,216 B; t_resp = 1 µs). Label every number you
 produce `[MODELED]`, `[SIMULATED]`, `[MEASURED]`, or `[ILLUSTRATIVE]`.
 
 **Chapter deliverable (course outline):** *congestion diagnosis, experiment plan, and mitigation
@@ -53,7 +53,7 @@ from an incast destination on the switch port facing the device.
 
 ## Worked problems
 
-**W1 ★★ L1 — Headroom budget.** A 64-port, 400 Gb/s spine has all ports on 150 m fibre runs. Two
+**W1 ★★ L1 — Headroom budget.** A 64-port, 400 Gb/s spine has all ports on 150 m fiber runs. Two
 priorities are lossless.
 (a) Compute the headroom per port per lossless priority.
 (b) Compute the total headroom reservation for the switch.

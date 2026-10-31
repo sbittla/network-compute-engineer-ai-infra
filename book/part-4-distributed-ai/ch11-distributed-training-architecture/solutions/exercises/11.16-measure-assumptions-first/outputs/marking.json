@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Not stated in exercises.md; marked against the criteria below.",
+  "id": "11.16",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Kernel efficiency, with a concrete measurement (profiled GEMM TFLOP/s)",
+      "points": 1
+    },
+    {
+      "criterion": "TP overlap fraction, with a concrete measurement (Nsight Systems trace)",
+      "points": 1
+    },
+    {
+      "criterion": "Effective NVLink/rail busbw at real message sizes (nccl-tests), or another justified high-sensitivity assumption",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Which assumptions to measure first",
+  "type": "reflection"
+}

@@ -1,0 +1,53 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output; report (≤ 3 pages) with every section in `REPORT_SECTIONS`; the simulation table labelled `[SIMULATED]`; a \"cannot conclude\" list of at least four items.",
+  "id": "H1",
+  "kind": "lab",
+  "lab_checks": [
+    "data_determinism",
+    "rates_unit",
+    "rates_dataset",
+    "episode_count",
+    "episode_labels",
+    "congestion_roots",
+    "storm_source",
+    "victim_flows",
+    "qos_audit",
+    "red_profile",
+    "sim_conservation",
+    "sim_lossless_configs",
+    "sim_compare_A_vs_B",
+    "sim_lossy_config",
+    "report_sections"
+  ],
+  "marking": [
+    {
+      "criterion": "Tasks 1–2: rates and episode detection correct (checker)",
+      "points": 15
+    },
+    {
+      "criterion": "Tasks 3–4: classification, roots, storm source (checker)",
+      "points": 20
+    },
+    {
+      "criterion": "Tasks 5–6: victim flows and QoS audit (checker), each explained in one sentence",
+      "points": 20
+    },
+    {
+      "criterion": "Task 7: simulation table labelled [SIMULATED] with a ≥ 4-item 'cannot conclude' list",
+      "points": 15
+    },
+    {
+      "criterion": "Diagnosis narrative: ranked hypotheses, discriminating evidence per episode, proven vs correlated",
+      "points": 15
+    },
+    {
+      "criterion": "Experiment plan (one variable, ≥ 5 repetitions, warm-up, counters, manifest, safety) and a safe, validated mitigation",
+      "points": 15
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Progressive Lab 3: congestion telemetry diagnosis",
+  "type": "hands-on-lab"
+}

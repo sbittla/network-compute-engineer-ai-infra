@@ -1,0 +1,37 @@
+{
+  "difficulty": 2,
+  "evidence_required": "six items; the NCCL log signature.",
+  "id": "5.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Platform P2P support with GPU and NIC under one PCIe switch",
+      "points": 1
+    },
+    {
+      "criterion": "Peer-memory mechanism: nvidia_peermem (legacy nv_peer_mem) or a verified DMA-BUF path",
+      "points": 1
+    },
+    {
+      "criterion": "Supported driver/CUDA/NCCL/NIC driver/firmware combination",
+      "points": 1
+    },
+    {
+      "criterion": "IOMMU configured per vendor guidance (often iommu=pt)",
+      "points": 1
+    },
+    {
+      "criterion": "No ACS redirect on the GPU/NIC switch ports",
+      "points": 1
+    },
+    {
+      "criterion": "Runtime proof: NCCL channel lines ending /GDRDMA or ib_write_bw --use_cuda; the distance-check line alone is not sufficient",
+      "points": 1
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "GPUDirect RDMA prerequisites",
+  "type": "knowledge-check"
+}

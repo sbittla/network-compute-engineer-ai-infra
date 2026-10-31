@@ -1,0 +1,19 @@
+id: '14.6'
+title: Recovery vocabulary
+folder: 14.6-recovery-vocabulary
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: a six-row table with definition and category
+marking:
+- criterion: Correct definitions for checkpoint overhead and completion latency
+  points: 1
+- criterion: Correct definitions for RPO and RTO as objectives (achieved worst case τ + L)
+  points: 2
+- criterion: Correct definitions for time-to-resume and lost accelerator-hours
+  points: 1
+- criterion: Categories distinguish objective, measurement and model output
+  points: 1
+lab_checks: []

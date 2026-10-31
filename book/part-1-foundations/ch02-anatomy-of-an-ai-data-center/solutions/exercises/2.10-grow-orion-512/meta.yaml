@@ -1,0 +1,21 @@
+id: "2.10"
+title: Growing ORION to 512 GPUs in the same hall
+folder: 2.10-grow-orion-512
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 15
+evidence_required: >-
+  Decision record; power, cooling, CDU, and floor arithmetic for the chosen option; the fabric change
+  with switch and link counts.
+marking:
+  - criterion: At least three options with criteria, each checked against the rack, power, CDU and floor limits
+    points: 4
+  - criterion: Arithmetic for the chosen option correct (for example 16 DLC racks at 36.75 kW, 470.4 kW liquid on two CDUs at 78.4 %, IT under 800 kW, floor 1,139 kg/m2)
+    points: 5
+  - criterion: Consistent fabric change (16 rail leaves, 8 spines, 512 host links, 512 leaf-spine links, 24 switches)
+    points: 3
+  - criterion: Honesty about constraints that cannot be met (rack positions must be reclaimed; no N+1 CDU without a third unit)
+    points: 3
+lab_checks: []

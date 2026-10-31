@@ -1,0 +1,19 @@
+id: '6.9'
+title: MFU of a 13B-parameter training job
+folder: 6.9-mfu-worked
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: three numbers with arithmetic and one explanation.
+marking:
+- criterion: (a) tokens/s = 403,298; MFU = 3.146e16 / 6.330e16 = 0.497
+  points: 2
+- criterion: (b) HFU with full recomputation = 8/6 × 0.497 = 0.663
+  points: 2
+- criterion: (c) MFU against the FP8 peak by mistake = 0.248
+  points: 2
+- criterion: (d) 98 % GPU-Util is a duty cycle and says nothing about efficiency
+  points: 2
+lab_checks: []

@@ -33,8 +33,8 @@ python ../../../scripts/validate_labs.py capstone-h
 | Decode step B = 256, ctx 2,600 | 23.1 ms | MODELED |
 | KV capacity per instance | 1,330,566 tokens | MODELED |
 | Mean prefill per request (trace) | 0.0910 s | MODELED |
-| Sizing at 30 req/s (H100, ρ 0.7) | P = 4, D = 1 (40 GPUs); B = 491 at 33.5 ms/step; 14,675 tok/s per decode instance; KV 23.8 GB/s | MODELED |
-| Utilisation, 5P2D at 30 req/s | prefill 0.55, decode 0.29; network egress per prefill 0.013 (RDMA) / 0.16 (TCP); **fan-in per decode 0.033 (RDMA) / 0.40 (TCP)** → **prefill-bound**. 5P1D over TCP: fan-in 0.79 → **network-bound**. Chapter 15 TCP profile at 5P2D: fan-in 0.95 → network-bound | MODELED |
+| Sizing at 30 req/s (H100, ρ 0.7) | P = 4, D = 1 (40 GPUs); B = 491 at 33.5 ms/step; 14,675 tokens/s per decode instance; KV 23.8 GB/s | MODELED |
+| Utilization, 5P2D at 30 req/s | prefill 0.55, decode 0.29; network egress per prefill 0.013 (RDMA) / 0.16 (TCP); **fan-in per decode 0.033 (RDMA) / 0.40 (TCP)** → **prefill-bound**. 5P1D over TCP: fan-in 0.79 → **network-bound**. Chapter 15 TCP profile at 5P2D: fan-in 0.95 → network-bound | MODELED |
 | Model vs simulation (first 115 s, same window on both sides) | 0.551 vs 0.554 (< 1 %) | MODELED vs SIMULATED |
 | Speculative α 0.8, k 4, c 0.1 | Memory-bound (small batch) model: 3.36 tokens/step, 2.40×; best k 6 (α 0.8), 3 (α 0.6), 8 (α 0.9, c 0.05). **At the operating point B = 491** (decode MFU 0.6 `[ILLUSTRATIVE]`): plain step 33.5 ms, verification 76.4 ms (compute-bound: 2 × 70 × 10⁹ × 491 × 5 = 3.44 × 10¹⁴ FLOP) → **1.25×**; k = 1 gives 1.64×, k = 6 only 1.05×. At decode MFU 0.5 (same as prefill): k = 4 → 1.08×, k = 2 → 1.30×, k = 1 → 1.43× | MODELED |
 
@@ -42,7 +42,7 @@ Simulation results `[SIMULATED]` on the full trace. TPOT is the per-request mean
 requests); ITL is the per-token gap distribution (p99 across tokens, including disaggregated
 second-token gaps). SLOs: TTFT p95 ≤ 0.8 s, TPOT p95 ≤ 50 ms, ITL p99 ≤ 100 ms, ≤ 10 % shed.
 
-| Candidate | GPUs | TTFT p95 | TPOT p95 | ITL p99 | Rejected | Output tok/s | $/M tokens | Verdict |
+| Candidate | GPUs | TTFT p95 | TPOT p95 | ITL p99 | Rejected | Output tokens/s | $/M tokens | Verdict |
 |---|---|---|---|---|---|---|---|---|
 | Colocated × 7 | 56 | 4.87 s | 119 ms | 257 ms | 0 | 9,526 | — | fails TTFT, TPOT, ITL |
 | Colocated × 7, chunk 512 (fused) | 56 | 6.04 s | 23.0 ms | 31 ms | 0 | 9,641 | — | fails TTFT (burst, no admission) |
@@ -73,7 +73,7 @@ output tokens `[MODELED from SIMULATED throughput, ILLUSTRATIVE prices]`.
 | Problem framing and assumptions | 10 | Efficiencies, prompt mix, burst, SLOs, hypothetical hardware all stated | Most | Implicit | — |
 | Architecture and technical correctness | 20 | Correct KV/roofline arithmetic, pipelining, QoS mechanism, GDR prerequisites | One slip | KV size wrong by GQA factor (×8) | Multiple errors |
 | Implementation / reproducibility | 15 | 11/11, scripted comparisons | 11/11 | 8–10 | < 8 |
-| Measurement and analysis | 20 | Bottleneck with all utilisations; model vs sim; two loads; ITL p95/p99 reported separately from TPOT; second-token gaps vs the ITL budget | Bottleneck only | Means only | Unlabelled |
+| Measurement and analysis | 20 | Bottleneck with all utilizations; model vs sim; two loads; ITL p95/p99 reported separately from TPOT; second-token gaps vs the ITL budget | Bottleneck only | Means only | Unlabelled |
 | Reliability, security and operations | 15 | Failure table, N+1 decode, shedding policy, KV encryption/isolation | Partial | Generic | — |
 | Troubleshooting and engineering judgment | 10 | "When it hurts" with evidence; rejects 5P1D on availability or justifies it | Qualitative | Pro-disaggregation by default | — |
 | Communication and portfolio quality | 10 | Memo approvable as written | Clear | Long | — |

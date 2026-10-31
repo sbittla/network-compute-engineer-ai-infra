@@ -5,17 +5,24 @@
 Two small tools that engineers and hiring managers in AI infrastructure actually build and use:
 
 1. **Role-readiness self-assessment.** Score an evidence portfolio against a role competency matrix
-   and produce a prioritised gap plan. This is the same exercise a staff engineer does when writing a
+   and produce a prioritized gap plan. This is the same exercise a staff engineer does when writing a
    promotion packet or a hiring manager does when calibrating a level, reduced to explicit rules:
    evidence is capped by its *type* (a course is not production ownership), discounted when it is
    stale or unverifiable, and rejected when it overstates what was measured.
 2. **Job-posting register validator.** Clean a hand-collected register of job postings: enforce
-   required fields, normalise and deduplicate, flag stale "active" rows, and compute skill frequencies
+   required fields, normalize and deduplicate, flag stale "active" rows, and compute skill frequencies
    only over postings that survive. This is the evidence discipline Section 13 of the course outline
    requires before anyone claims "we analysed N job postings" (see manuscript Section 24.4).
 
-The register in `data/` is **synthetic**: every employer, job ID, and URL is fictional, and URLs use
-the reserved `example.com` domain. Nothing in it is a statement about any real company's hiring.
+The register the checker uses (`data/job_register.csv`) is **synthetic**: every employer, job ID, and URL
+is fictional, and URLs use the reserved `example.com` domain. Nothing in it is a statement about any real
+company's hiring.
+
+`data/` also holds a **real** register for comparison: `job_register_2026-10_collected.csv` (50 public
+postings read on 2026-10-30, one row per requisition), `job_register_2026-10.csv` (the same postings
+deduplicated to 42 roles) and `register_meta_2026-10.yaml` (sources, scope screen, dedupe rule, counts).
+`check.py` does not read these files. They are stale after 2026-11-29: re-check a posting before you
+cite it. Manuscript Section 24.4 (Table 24.8a) summarizes what the real data changed.
 
 ## 2. Tier and realism boundary
 
@@ -95,9 +102,25 @@ One line per check (`PASS`/`FAIL`/`TODO`); exit code 0 only when every check pas
 ## 8. Extensions (L1+, L2, L3)
 
 **L1+ — your own dated register.** Collect 20–40 public postings for your target role over a fixed
-window. Record every field in `register_meta.yaml`'s `required_fields` *at the time you read the page*,
-and run the validator. Record in your copy of `manifest.yaml`: collection window, sources, the dedupe
-rule version, rows collected, unique postings, active-and-fresh count. Respect each site's terms of
+window. Use `data/register_meta_2026-10.yaml` and the two `job_register_2026-10*.csv` files as a worked
+example of the metadata to keep. Record every field in `register_meta.yaml`'s `required_fields` *at the
+time you read the page*, and run the validator, e.g.:
+
+```python
+from pathlib import Path
+import career_lab as m          # run from starter/ once Part B is implemented
+data = Path("../data")
+meta = m.load_yaml(data / "register_meta_2026-10.yaml")
+rows = m.load_register(data / "job_register_2026-10_collected.csv")
+res = m.validate_register(rows, meta)
+print(len(rows), len(res["representatives"]), len(res["active_fresh"]))   # 50 50 50 on 2026-10-30
+```
+
+The posting-level rule finds no duplicates in the real file. Compare its `role_key` column, which merges
+50 rows into 42 roles, and explain the difference.
+
+Record in your copy of `manifest.yaml`: collection window, sources, the dedupe rule version, rows
+collected, unique postings, active-and-fresh count. Respect each site's terms of
 use; do not scrape where it is prohibited. Keep the register private if it contains anything beyond
 public posting text.
 

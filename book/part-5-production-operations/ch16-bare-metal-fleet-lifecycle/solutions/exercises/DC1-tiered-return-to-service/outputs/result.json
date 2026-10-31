@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "full_h": 25.43,
+    "saving_fraction": 0.848,
+    "weighted_avg_h": 3.865
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "DC1",
+  "inputs": {
+    "full_acceptance_min": 1526,
+    "mix": {
+      "DIMM/NVMe": 0.05,
+      "GPU/baseboard": 0.1,
+      "NIC": 0.25,
+      "optic/cable": 0.6
+    },
+    "tier_hours": {
+      "DIMM/NVMe": 5.0,
+      "GPU/baseboard": 25.4,
+      "NIC": 2.5,
+      "optic/cable": 0.75
+    }
+  },
+  "steps": {
+    "DIMM/NVMe": 0.25,
+    "GPU/baseboard": 2.54,
+    "NIC": 0.625,
+    "optic/cable": 0.45
+  },
+  "units": {
+    "time": "h"
+  }
+}

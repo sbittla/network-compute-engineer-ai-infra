@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "bfd_detection_s": 0.9,
+    "bgp_detection_upper_bound_s": 9.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.K7",
+  "inputs": {
+    "bfd_interval_ms": 300,
+    "bfd_multiplier": 3,
+    "bgp_hold_s": 9,
+    "bgp_keepalive_s": 3
+  },
+  "steps": {
+    "bgp_detection_range_s": [
+      6.0,
+      9.0
+    ],
+    "bgp_over_bfd": 10.0
+  },
+  "tolerance": "1e-9 s",
+  "units": "s"
+}

@@ -1,0 +1,20 @@
+id: T1
+title: The breaker that tripped at job start
+folder: T1-breaker-trip-job-start
+type: troubleshooting
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: hypothesis table; arithmetic for the cap; guardrail statement with trigger and owner.
+marking:
+- criterion: Hypothesis table separating root-cause condition (plan to both sides), trigger (synchronized start),
+    rejected (faulty breaker) and consequence (node faults)
+  points: 3
+- criterion: 'Arithmetic: 29.5 kW per side; four nodes need cap ≤ 347 W; three nodes at ≤ 650 W = 29.4 kW'
+  points: 3
+- criterion: Guardrail with trigger and owner (single-side check before maintenance; 3 nodes per legacy rack)
+  points: 3
+- criterion: Blameless, system-level root-cause phrasing
+  points: 1
+lab_checks: []

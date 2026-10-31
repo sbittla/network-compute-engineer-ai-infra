@@ -1,0 +1,46 @@
+{
+  "answer": {
+    "bdp_b": 490000,
+    "bdp_packets": 120,
+    "t_ack_s": 4.295,
+    "tail_cost_us": 0.43,
+    "time_to_failure_s": 34.4,
+    "timeout": 20
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "8.16",
+  "inputs": {
+    "ceiling_gbps": 392,
+    "design_loss_rate": 1e-07,
+    "message_b": 4194304,
+    "nics": 4096,
+    "path_mtu_b": 4096,
+    "retry_cnt": 7,
+    "rtt_us": 10.0
+  },
+  "steps": {
+    "message_time_us": 85.6,
+    "t_ack_s": {
+      "14": 0.0671,
+      "18": 1.0737,
+      "20": 4.295
+    },
+    "tail_cost_pct_of_message": {
+      "14": 0.0078,
+      "18": 0.1254,
+      "20": 0.5018
+    },
+    "tail_cost_us_per_isolated_message": {
+      "14": 0.0067,
+      "18": 0.1074,
+      "20": 0.4295
+    },
+    "time_to_failure_s": {
+      "14": 0.54,
+      "18": 8.59,
+      "20": 34.36
+    }
+  },
+  "tolerance": "key rounding",
+  "units": "B, packets, s, us"
+}

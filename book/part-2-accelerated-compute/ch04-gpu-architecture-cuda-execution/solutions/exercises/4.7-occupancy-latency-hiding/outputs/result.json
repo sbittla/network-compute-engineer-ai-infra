@@ -1,0 +1,26 @@
+{
+  "answer": {
+    "attainable_TBps": 0.732,
+    "fraction_of_hbm": 0.2186
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.7",
+  "inputs": {
+    "hbm_Bps": 3350000000000.0,
+    "latency_s": 6e-07,
+    "request_bytes": 128,
+    "requests_per_warp": 3.25,
+    "sms": 132,
+    "warps_resident": 8
+  },
+  "steps": {
+    "fraction_one_request_per_warp": 0.0672,
+    "in_flight_per_sm_B": 3328.0,
+    "needed_in_flight_gpu_B": 2010000,
+    "needed_in_flight_per_sm_B": 15227.3
+  },
+  "units": {
+    "bandwidth": "TB/s",
+    "bytes": "B"
+  }
+}

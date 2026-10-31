@@ -21,7 +21,7 @@ MTTD = `<fill>` s, MTTR = `<fill>` s over `<fill: which faults; how unrecovered 
 
 `<fill: for each restart — which checkpoint was restored, why it was the latest DURABLE one, and what a naive reading of "last checkpoint started" would have concluded>`
 
-## 4. What-if re-runs
+## 4. What-if reruns
 
 | Change (config / rules) | Fault | Lost GPU-h before → after | Recovery s before → after |
 |---|---|---|---|

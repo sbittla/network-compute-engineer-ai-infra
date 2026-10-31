@@ -6,7 +6,7 @@
 `<fill: architecture, xPyD, transport, accelerator choice; one paragraph>`
 
 ## Evidence
-| Option | GPUs | TTFT p95 | TPOT p95 | ITL p99 | Rejected | Output tok/s | $/M output tokens | Class |
+| Option | GPUs | TTFT p95 | TPOT p95 | ITL p99 | Rejected | Output tokens/s | $/M output tokens | Class |
 |---|---|---|---|---|---|---|---|
 | `<fill>` | | | | | | | | SIMULATED |
 

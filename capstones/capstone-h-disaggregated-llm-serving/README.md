@@ -2,7 +2,7 @@
 
 Design a two-pool serving architecture for Halcyon AI's 70B chat model, in which prefill and decode
 run on separate instances and the KV cache crosses the network between them. You will size each
-pool, model KV-cache bytes and transfer time over RDMA and TCP, design network QoS and isolation for
+pool, model KV cache bytes and transfer time over remote direct memory access (RDMA) and TCP, design network QoS and isolation for
 KV traffic on a fabric shared with training, add admission control, evaluate speculative decoding
 and heterogeneous accelerators, and decide — with reproducible, clearly labelled evidence — when
 disaggregation helps and when it hurts. The starter kit ships a seeded request trace and a
@@ -18,10 +18,13 @@ brief says which.
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus [Section 10](#10-grading) |
 
 Acronyms: TTFT (time to first token), TPOT/ITL (time per output token / inter-token latency), KV
-(key/value attention cache), GQA (grouped-query attention), MFU (model FLOP utilisation), QoS
+(key/value attention cache), GQA (grouped-query attention), MFU (model FLOPs utilization), QoS
 (quality of service), DSCP (Differentiated Services Code Point), TC (traffic class), PFC
 (priority flow control), ECN (explicit congestion notification), CNP (congestion notification
-packet), xPyD (x prefill instances, y decode instances).
+packet), xPyD (x prefill instances, y decode instances), SLO/SLI (service-level objective/indicator), TP
+(tensor parallelism), NIC (network interface card), HBM (high-bandwidth memory), MTU (maximum
+transmission unit), NCCL (NVIDIA Collective Communications Library), ACS (PCIe access control services),
+DCQCN (Data Center Quantized Congestion Notification).
 
 ---
 
@@ -63,7 +66,7 @@ Produce a design and a recommendation for serving W-INFER at the target load:
 
 1. A **service architecture** with separate prefill and decode pools, routing, KV hand-off and
    failure handling.
-2. A **KV-cache size and transfer model** and an **RDMA/TCP comparison** (bandwidth, exposed latency,
+2. A **KV cache size and transfer model** and an **RDMA/TCP comparison** (bandwidth, exposed latency,
    CPU and fabric cost, failure behaviour).
 3. A **network QoS/isolation design** for KV traffic on a fabric shared with training.
 4. A **capacity model** that sizes both pools and identifies the **bottleneck at target
@@ -82,7 +85,7 @@ explicitly labelled modeling.
 | # | Artifact | Template | Evidence expected |
 |---|---|---|---|
 | 1 | Service architecture | [service-architecture.md](templates/service-architecture.md) | Diagram, request path, ownership, failure handling |
-| 2 | KV-cache size and transfer model | [kv-transfer-model.md](templates/kv-transfer-model.md) | `kv_cache_bytes`, `kv_transfer_exposed_s`; arithmetic `[MODELED]` |
+| 2 | KV cache size and transfer model | [kv-transfer-model.md](templates/kv-transfer-model.md) | `kv_cache_bytes`, `kv_transfer_exposed_s`; arithmetic `[MODELED]` |
 | 3 | RDMA/TCP comparison | [rdma-tcp-comparison.md](templates/rdma-tcp-comparison.md) | `link_capacity`; simulator runs with both links, pipelined and not `[SIMULATED]` |
 | 4 | Network QoS/isolation design | [qos-isolation-design.md](templates/qos-isolation-design.md) | `audit_qos` findings and corrected mapping |
 | 5 | Capacity model | [capacity-model.md](templates/capacity-model.md) | `size_pools`, `utilizations`; bottleneck named |
@@ -125,7 +128,7 @@ frontend.*
 | Milestone | Week | Exit criterion |
 |---|---|---|
 | M0 Choose capstone | 8 | Starter kit runs (`python check.py` → 1/11 PASS) |
-| M1 Model | 10 | KV size, roofline prefill/decode, link normalisation done; assumptions register |
+| M1 Model | 10 | KV size, roofline prefill/decode, link normalization done; assumptions register |
 | M2 Capacity | 12 | Pool sizing, bottleneck analysis, first simulator comparison of colocated vs disaggregated |
 | M3 Robustness | 13 | Admission control, QoS audit, failure scenarios, speculative and heterogeneous options |
 | M4 Final | 14 | Recommendation memo and 15-minute review: "when does disaggregation pay for itself here?" |
@@ -175,7 +178,7 @@ Procedures: [starter-kit/README.md §8](starter-kit/README.md#8-l2l3-extension).
 | [15 — LLM Inference and Serving Infrastructure](../../book/part-4-distributed-ai/ch15-llm-inference-serving/) | Prefill/decode, continuous batching, KV cache, TTFT/TPOT, speculative decoding, disaggregation | all |
 | [18 — Observability, SLOs, and Incident Response](../../book/part-5-production-operations/ch18-observability-slos-incident-response/) | Phase SLIs, burn rates | 6 |
 | [19 — Reliability, Security, and Multi-Tenancy](../../book/part-5-production-operations/ch19-reliability-security-multitenancy/) | Tenant isolation, encryption boundaries, failure domains | 4, 7 |
-| [21 — Capacity, Power, and Infrastructure Economics](../../book/part-5-production-operations/ch21-capacity-power-economics/) | Cost per token, utilisation, headroom | 5, 8 |
+| [21 — Capacity, Power, and Infrastructure Economics](../../book/part-5-production-operations/ch21-capacity-power-economics/) | Cost per token, utilization, headroom | 5, 8 |
 
 ## 9. Worked numbers
 
@@ -204,7 +207,7 @@ Procedures: [starter-kit/README.md §8](starter-kit/README.md#8-l2l3-extension).
   even 5P2D needs 95 % of the link: infeasible. The simulator gives every transfer the full link,
   so link saturation shows up only in this model, never in the simulated latencies.
 
-> **Relation to Chapter 15 (§15.10–15.12).** The chapter sizes W-INFER for 40 req/s with *fixed*
+> **Relation to Chapter 15 (Sections 15.10–15.12).** The chapter sizes W-INFER for 40 req/s with *fixed*
 > 2,048-token prompts on **TP = 4 FP8** replicas (two per HX8; 6P + 2D = 8 replicas = 32 GPUs) and a
 > TCP path of one 200 Gb/s port at 50 % (100 Gb/s), which makes TCP infeasible at 107 % of a decode
 > replica's link. This capstone uses 30 req/s on **TP = 8 BF16** whole-node instances, a long-tailed
@@ -227,7 +230,7 @@ evidence.
 | Problem framing and assumptions (10 %) | Load, prompt distribution (including the long tail and burst), SLOs and efficiencies stated as testable assumptions; ORION variation declared |
 | Architecture and technical correctness (20 %) | Correct KV arithmetic; roofline reasoning per phase; transfer exposure with and without pipelining; QoS that cannot pause training; GDR prerequisites |
 | Implementation / reproducibility (15 %) | 11/11; every table regenerates from one command; simulator configurations listed |
-| Measurement and analysis (20 %) | Bottleneck named with utilisations; model vs simulation agreement quantified; colocated vs disaggregated at two loads; RDMA vs TCP by exposed-latency distribution, not means; MODELED/SIMULATED labels everywhere |
+| Measurement and analysis (20 %) | Bottleneck named with utilizations; model vs simulation agreement quantified; colocated vs disaggregated at two loads; RDMA vs TCP by exposed-latency distribution, not means; MODELED/SIMULATED labels everywhere |
 | Reliability, security and operations (15 %) | Failure scenarios with detection and degradation modes; N+1 for decode; KV encryption/isolation at trust boundaries; admission control and shedding policy |
 | Troubleshooting and engineering judgment (10 %) | Says clearly when disaggregation hurts (small deployments, short prompts, low load) and why; challenges hypothetical hardware numbers |
 | Communication and portfolio quality (10 %) | Memo a platform lead can approve; figures captioned; results table complete |
@@ -236,7 +239,7 @@ evidence.
 
 - [ ] `python starter-kit/check.py` → 11/11 PASS (output in results)
 - [ ] Every number labelled MODELED or SIMULATED (or MEASURED with a filled manifest)
-- [ ] Bottleneck at 30 req/s named, with the utilisation of every resource
+- [ ] Bottleneck at 30 req/s named, with the utilization of every resource
 - [ ] A section titled "When disaggregation hurts" with simulator evidence
 - [ ] Corrected QoS mapping and the reason each finding matters
 
@@ -264,8 +267,8 @@ capstone-h-disaggregated-llm-serving/
   Language Model Serving," OSDI 2024 — the case for phase-specific resource allocation and goodput.
 - P. Patel et al., "Splitwise: Efficient Generative LLM Inference Using Phase Splitting," ISCA 2024
   — heterogeneous hardware per phase and KV transfer cost.
-- R. Qin et al., "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving," 2024 —
-  KV-cache-centric scheduling and transfer at production scale.
+- R. Qin et al., "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving," arXiv:2407.00079, 2024 (published at USENIX FAST 2025 as "Mooncake: Trading More Storage for Less Computation") —
+  KV cache-centric scheduling and transfer at production scale.
 - W. Kwon et al., "Efficient Memory Management for Large Language Model Serving with
   PagedAttention," SOSP 2023 — paged KV cache and continuous batching (vLLM).
 - A. Agrawal et al., "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve," OSDI

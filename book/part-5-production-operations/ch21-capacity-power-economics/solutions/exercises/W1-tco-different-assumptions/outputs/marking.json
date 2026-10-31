@@ -1,0 +1,41 @@
+{
+  "difficulty": 2,
+  "evidence_required": "every component with formula; the two unit costs.",
+  "id": "W1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Capex amortization $2.992M/yr (5 years)",
+      "points": 1
+    },
+    {
+      "criterion": "Power $0.400M/yr (PUE 1.25, $0.12/kWh)",
+      "points": 1
+    },
+    {
+      "criterion": "Space $0.570M/yr unchanged",
+      "points": 1
+    },
+    {
+      "criterion": "Support $1.197M/yr",
+      "points": 1
+    },
+    {
+      "criterion": "Staff $0.960M/yr",
+      "points": 1
+    },
+    {
+      "criterion": "Cost per nominal GPU-hour $2.73",
+      "points": 2
+    },
+    {
+      "criterion": "Cost per useful GPU-hour $4.46 with allocation applied after the usable fraction",
+      "points": 2
+    }
+  ],
+  "points": 9,
+  "tier": "L1",
+  "title": "TCO under different assumptions",
+  "type": "worked-problem"
+}

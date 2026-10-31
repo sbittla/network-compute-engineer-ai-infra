@@ -104,7 +104,7 @@ of the connections toward rail-6 NICs failing; NCCL logs contain lines such as:
 NET/IB : Got completion from peer 10.100.6.19<41022> with error 12, opcode 0, len 0, vendor err 129 (Recv)
 ```
 
-(exact format varies by NCCL version; error 12 is `IBV_WC_RETRY_EXC_ERR`: the transport retry
+(NCCL 2.18–2.19 form; 2.20+ prints `with status=12 opcode=0 len=0 …` `[VENDOR-SPEC, 2026-10]`; error 12 is `IBV_WC_RETRY_EXC_ERR`: the transport retry
 counter was exceeded). Further evidence:
 
 1. `orion-n04$ ping -c 5 -I 10.100.2.9 10.100.6.19` → 100 % loss. `ping -M do -s 8972` → 100 % loss.

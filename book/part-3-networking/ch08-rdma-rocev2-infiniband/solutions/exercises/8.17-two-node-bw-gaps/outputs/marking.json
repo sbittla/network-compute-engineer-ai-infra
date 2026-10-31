@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three distinct gaps, each tied to a mechanism (e.g., congestion, rail collisions, GPUDirect path).",
+  "id": "8.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Gap 1 tied to a mechanism (e.g. congestion/incast across many senders)",
+      "points": 1
+    },
+    {
+      "criterion": "Gap 2 tied to a mechanism (e.g. ECMP/rail collisions with many flows)",
+      "points": 1
+    },
+    {
+      "criterion": "Gap 3 tied to a mechanism (e.g. GPUDirect RDMA path, NCCL overheads, stragglers, long-run stability)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What a two-node ib_write_bw does not tell you",
+  "type": "reflection"
+}

@@ -1,0 +1,22 @@
+id: 10.M3
+title: Ports, cables, and spares for a small leaf-spine fabric
+folder: 10.M3-small-fabric-bom-spares
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: every quantity with its formula; a spares list; ≤ 80 words on growth. You may check
+  your numbers with the lab's `estimate_fabric_bom()`.
+marking:
+- criterion: Leaves 8, spines 3, 8 uplinks per leaf per spine, with formulas
+  points: 2
+- criterion: Host links 192, fabric links 192, optics 768, cables 384
+  points: 2
+- criterion: 'Ports used/free: leaves 384/128, spines 192/0'
+  points: 2
+- criterion: 'Spares: 24 optics, 8 cables, 1 switch, plus operational spares beyond optics and cables'
+  points: 2
+- criterion: 'Growth to 32 nodes: 4 spines, 256 fabric links, leaves full (≤ 80 words)'
+  points: 2
+lab_checks: []

@@ -7,3 +7,4 @@ lab/out/
 **/output/
 .DS_Store
 ~$*.docx
+build/

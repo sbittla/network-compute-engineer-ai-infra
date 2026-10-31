@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise written answers, each naming the evidence (or missing evidence) it relies on (shared R1–R4 line).",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Three distinct explanations consistent with the evidence (container rebuild, unmodeled interaction/non-linearity, time-varying environment)",
+      "points": 2
+    },
+    {
+      "criterion": "A separating test for each, named concretely",
+      "points": 1
+    },
+    {
+      "criterion": "Quotes the uncertainty on the share (8.3 % ± 1.7 pp HC3; bootstrap 4–14 %)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Explaining the unattributed common shift",
+  "type": "reflection"
+}

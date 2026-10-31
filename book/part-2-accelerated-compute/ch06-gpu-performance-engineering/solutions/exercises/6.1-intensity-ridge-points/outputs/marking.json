@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "definitions and three ridge values with arithmetic.",
+  "id": "6.1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Definitions: I = FLOP / DRAM bytes; ridge I* = peak FLOP/s / memory bandwidth",
+      "points": 1
+    },
+    {
+      "criterion": "Ridge values with arithmetic: BF16 295 FLOP/B, FP8 591 FLOP/B, FP32 SIMT 20 FLOP/B",
+      "points": 2
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Arithmetic intensity and ridge points",
+  "type": "knowledge-check"
+}

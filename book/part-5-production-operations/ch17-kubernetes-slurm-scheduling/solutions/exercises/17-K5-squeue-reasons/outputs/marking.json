@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Four correct one-line meanings.",
+  "id": "17-K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Resources: head of queue, requested resources not available now",
+      "points": 1
+    },
+    {
+      "criterion": "Priority: higher-priority pending jobs are ahead",
+      "points": 1
+    },
+    {
+      "criterion": "QOSGrpGRES: QOS group GRES (GPU) limit reached",
+      "points": 1
+    },
+    {
+      "criterion": "ReqNodeNotAvail: required/candidate nodes down, drained, or reserved",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Slurm squeue pending reasons",
+  "type": "knowledge-check"
+}

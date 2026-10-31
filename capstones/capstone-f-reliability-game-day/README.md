@@ -10,19 +10,20 @@ imperfect game day; the advanced extension repeats the exercise in a dedicated n
 
 | | |
 |---|---|
-| **Audience** | AI Infrastructure SRE, Production Engineer (outline Section 16). Also useful for Platform and Training Infra engineers who own recovery paths. |
+| **Audience** | AI Infrastructure site reliability engineer (SRE), Production Engineer (outline Section 16). Also useful for Platform and Training Infra engineers who own recovery paths. |
 | **Prerequisites** | Chapters [11](../../book/part-4-distributed-ai/ch11-distributed-training-architecture/), [14](../../book/part-4-distributed-ai/ch14-storage-pipelines-checkpointing/), [17](../../book/part-5-production-operations/ch17-kubernetes-slurm-scheduling/), [18](../../book/part-5-production-operations/ch18-observability-slos-incident-response/), [19](../../book/part-5-production-operations/ch19-reliability-security-multitenancy/); skim [12](../../book/part-4-distributed-ai/ch12-collective-communication-nccl/), [20](../../book/part-5-production-operations/ch20-automation-safe-change/) |
 | **Time budget** | 30–40 h at L1 (starter kit ≈ 10 h, game-day design and analysis ≈ 15 h, postmortem and backlog ≈ 8 h); add 15–25 h for the lab extension |
 | **Tiers** | L1 required (laptop simulation); L2 optional (single-host fault drills); L3 advanced extension (dedicated multi-node lab) |
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus the capstone-specific criteria in [Section 10](#10-grading) |
 
-Acronyms: MTTR (mean time to recover), MTTD (mean time to detect), RPO (recovery point objective —
+Acronyms: MTTR (mean time to restore), MTTD (mean time to detect), RPO (recovery point objective —
 how much work can be lost), RTO (recovery time objective — how long recovery may take), NCCL (NVIDIA
 Collective Communications Library), SLO (service-level objective), SEV (incident severity), PFS
-(parallel file system).
+(parallel file system), TP/PP/DP (tensor/pipeline/data parallelism), MTBF (mean time between
+failures), BMC (baseboard management controller), RDMA (remote direct memory access).
 
 > **Safety:** This capstone injects faults **only** into the supplied simulator (L1) or into a
-> dedicated, isolated, non-production lab that you are explicitly authorised to disrupt (L2/L3).
+> dedicated, isolated, non-production lab that you are explicitly authorized to disrupt (L2/L3).
 > Never run any fault command in this capstone against a shared or production cluster, a shared
 > fabric, or shared storage. Every L2/L3 fault must have a written abort condition and a rollback
 > step that you have rehearsed *before* the game day.
@@ -47,7 +48,7 @@ interactions: you write down what you expect, inject the fault, and compare. The
 ## 2. Scenario on ORION
 
 Halcyon AI's **SRE** team runs a quarterly game day. ORION-256 ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md))
-is modelled as follows `[SIMULATED]`:
+is modeled as follows `[SIMULATED]`:
 
 | Partition | Nodes | GPUs | Workload |
 |---|---|---|---|
@@ -70,7 +71,7 @@ With the reference batch of 1,024 on 192 GPUs the step would be ≈ 23.2 s.
 
 Storage: ≈ 80 GB/s aggregate write, ≈ 160 GB/s read `[ILLUSTRATIVE]`. A health controller drains a
 node 60 s after its node or link signal goes bad; the collective (NCCL/PyTorch watchdog) timeout is
-600 s `[ILLUSTRATIVE]`; a requeued job takes 280 s to launch, initialise communicators and warm up, plus the checkpoint load time. Together these reproduce the book's canonical restart overhead of ≈ 15 min, and the canonical failure rate (per-node MTBF ≈ 1,536 node-hours, [REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) reliability assumptions) sets how often the training job meets these faults in a year `[ILLUSTRATIVE]`.
+600 s `[ILLUSTRATIVE]`; a requeued job takes 280 s to launch, initialize communicators and warm up, plus the checkpoint load time. Together these reproduce the book's canonical restart overhead of ≈ 15 min, and the canonical failure rate (per-node MTBF ≈ 1,536 node-hours, [REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) reliability assumptions) sets how often the training job meets these faults in a year `[ILLUSTRATIVE]`.
 
 The first game day (2026-11-05, 14:00 UTC) ran five faults with the default alert rules; the
 recording is in `starter-kit/data/gameday1_*`. Platform has asked SRE for three things: a better
@@ -156,7 +157,7 @@ recovery is still bounded by the collective timeout — the gap that backlog ite
 |---|---|---|
 | M0 Choose capstone | 8 | Starter kit runs (`python check.py` → 2/11 PASS) |
 | M1 Plan and hypotheses | 10 | Fault plan and expected-behaviour sheet reviewed by a peer *before* any run; safety sign-off |
-| M2 Telemetry | 12 | Alert rules pass T2; recorded game day analysed (T3–T5) |
+| M2 Telemetry | 12 | Alert rules pass T2; recorded game day analyzed (T3–T5) |
 | M3 Game day and analysis | 13 | Own plan executed; recovery evidence and timeline; draft postmortem |
 | M4 Final submission and review | 14 | Postmortem, backlog with re-simulated top items, 15-minute review: "what we believed, what happened, what we fix first" |
 

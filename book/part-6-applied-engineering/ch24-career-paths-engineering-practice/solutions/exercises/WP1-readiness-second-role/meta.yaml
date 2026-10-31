@@ -1,0 +1,22 @@
+id: WP1
+title: Readiness for a second role
+folder: WP1-readiness-second-role
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: a table of w, d, t and w·min(d,t)/t; the score to one decimal; ordered gap list with priorities;
+  the recomputed score and status.
+marking:
+- criterion: Table of w, d, t and w·min(d,t)/t at mid targets, automation capped at 1.0
+  points: 4
+- criterion: Score 100 × 11.5 / 15 = 76.7 %
+  points: 2
+- criterion: Status near, with the score band and the gap-of-2 rule
+  points: 1
+- criterion: 'Gap plan ordered by w × gap: observability 6, scheduling 2, storage_ckpt 1'
+  points: 2
+- criterion: 'Part (d): 13.5 / 15 = 90.0 %, max gap 1 → ready'
+  points: 1
+lab_checks: []

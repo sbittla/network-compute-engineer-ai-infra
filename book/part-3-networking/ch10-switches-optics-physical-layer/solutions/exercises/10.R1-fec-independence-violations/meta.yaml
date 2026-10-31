@@ -1,0 +1,15 @@
+id: 10.R1
+title: Mechanisms that violate the binomial FEC model
+folder: 10.R1-fec-independence-violations
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: two mechanisms, each with "model underestimates/overestimates uncorrectables because…".
+marking:
+- criterion: First mechanism with the direction of bias and the reason
+  points: 2
+- criterion: Second mechanism with the direction of bias and the reason
+  points: 2
+lab_checks: []

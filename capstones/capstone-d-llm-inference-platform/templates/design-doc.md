@@ -65,7 +65,7 @@ Architecture decision: [adr-serving-config.md](adr-serving-config.md).
 | Failure | Detection | Effect on SLIs | Mitigation | Recovery |
 |---|---|---|---|---|
 | One GPU in a TP group fails (Xid) | <fill> | <fill: whole replica lost> | <fill> | <fill> |
-| KV-cache exhaustion under a long-context burst | <fill: preemption counter> | | | |
+| KV cache exhaustion under a long-context burst | <fill: preemption counter> | | | |
 | Bad model or config release | <fill: canary gate> | | | |
 | Router overload / hot tenant | <fill> | | | |
 | <fill> | | | | |

@@ -53,13 +53,13 @@ Python 3.10 or later. You edit `starter/safe_change.py` and `starter/findings.ya
 
 | Topic | Manuscript section |
 |---|---|
-| Desired state, reconciliation, idempotency | §20.3, §20.4 |
-| Schema and policy-as-code validation, MTU budget | §20.5 |
-| Canary, waves, bake time, abort conditions | §20.7 |
-| Rollback and rollback scope | §20.8 |
-| Dry-run, blast-radius caps, rate limits, kill switches | §20.9 |
-| Audit evidence | §20.10 |
-| Worked example (MTU 1024 → 4096 change, rollout decision log) | §20.11 |
+| Desired state, reconciliation, idempotency | Section 20.3, Section 20.4 |
+| Schema and policy-as-code validation, MTU budget | Section 20.5 |
+| Canary, waves, bake time, abort conditions | Section 20.7 |
+| Rollback and rollback scope | Section 20.8 |
+| Dry-run, blast-radius caps, rate limits, kill switches | Section 20.9 |
+| Audit evidence | Section 20.10 |
+| Worked example (MTU 1024 → 4096 change, rollout decision log) | Section 20.11 |
 
 ## 5. Tasks
 
@@ -162,7 +162,7 @@ gnmic -a leaf-lab:57400 -u admin -p "$GNMI_PASSWORD" --skip-verify get \
 
 Record the `L3` fields. Follow LAB_STANDARDS §5: at least 5 repetitions per sample point, median and
 p95, warm-up iterations stated, and one change at a time. Feed the samples into your
-`evaluate_wave` and compare its decision with your own judgement.
+`evaluate_wave` and compare its decision with your own judgment.
 
 > **Vendor implementation note (NVIDIA):** On ConnectX-class NICs the firmware version is reported
 > by `ethtool -i <netdev>` (`firmware-version`), and by `mlxfwmanager --query` from the Mellanox

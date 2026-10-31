@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "formulas, recomputation argument, recommendation.",
+  "id": "6.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Formulas: MFU = 6N × tokens/s / (GPUs × peak); HFU counts executed FLOPs including recomputation (about 8N per token with full recomputation)",
+      "points": 1
+    },
+    {
+      "criterion": "HFU exceeds MFU because recomputed forward passes are work the model does not require",
+      "points": 1
+    },
+    {
+      "criterion": "Report MFU (with convention and the vendor dense peak) when comparing clusters",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "MFU and HFU",
+  "type": "knowledge-check"
+}

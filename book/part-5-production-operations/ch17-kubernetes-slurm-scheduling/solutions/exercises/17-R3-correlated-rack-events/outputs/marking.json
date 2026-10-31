@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "A correlated failure mode and a modified rule.",
+  "id": "17-R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "A specific correlated failure mode on ORION (shared CDU loop/PDU, frontend leaf pair, rack-spanning upgrade wave)",
+      "points": 2
+    },
+    {
+      "criterion": "Explains why it breaks the 1 − (1 − p)^k ≈ k·p independence assumption",
+      "points": 1
+    },
+    {
+      "criterion": "Modified rule: compact within a shared-infrastructure domain; spread service replicas across domains",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Rack events are not independent",
+  "type": "reflection"
+}

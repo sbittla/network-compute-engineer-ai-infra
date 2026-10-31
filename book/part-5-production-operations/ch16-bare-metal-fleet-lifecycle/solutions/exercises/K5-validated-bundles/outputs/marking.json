@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "The combinatorial argument; one named three-component interaction.",
+  "id": "K5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Combinatorial argument: C(c,2)·v² pairwise entries that still say nothing about 3-way combinations",
+      "points": 2
+    },
+    {
+      "criterion": "Bundles qualify a few complete combinations as units, plus a blocked list; compliance is an exact match",
+      "points": 1
+    },
+    {
+      "criterion": "One correct three-way interaction from Table 16.5 (driver + fabric manager + NVSwitch firmware, or NIC fw + RDMA stack + GPU driver for GPUDirect RDMA)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Why validated bundles beat pairwise tables",
+  "type": "knowledge-check"
+}

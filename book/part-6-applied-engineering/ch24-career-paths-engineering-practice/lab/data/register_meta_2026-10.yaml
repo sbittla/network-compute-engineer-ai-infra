@@ -1,0 +1,89 @@
+# Metadata for the REAL, dated job-posting register (release gate G7). Not used by check.py.
+# The synthetic teaching register (job_register.csv + register_meta.yaml) is unchanged.
+as_of: '2026-10-30'
+synthetic: false
+evidence_class: "OBSERVED public postings, accessed 2026-10-30 (a dated snapshot, not a census)"
+note: >
+  Real public job postings read on the employers' own applicant-tracking-system (ATS) listings on 2026-10-30.
+  Every row was listed as open on that date. Postings close and change: re-check every URL before citing
+  a row, and treat the whole file as stale after 2026-11-29 (as_of + stale_active_after_days).
+  Skill fields are short normalised tags paraphrasing the posting's own wording; read the posting itself
+  for exact text. Salaries were deliberately not recorded.
+files:
+  collected: job_register_2026-10_collected.csv   # one row per requisition that passed the scope screen (50)
+  register: job_register_2026-10.csv              # one row per unique role after the role-level dedupe (42)
+collection:
+  window_start: '2026-10-30'
+  window_end: '2026-10-30'
+  collected_by: "Chapter 24 author (G7 refresh)"
+  sources_consulted:
+    - {source: greenhouse_api, endpoint: "https://boards-api.greenhouse.io/v1/boards/<board>/jobs", boards: [xai, nscaleoperationsukltd, graphcore, togetherai, coreweave, anthropic]}
+    - {source: ashby_api, endpoint: "https://api.ashbyhq.com/posting-api/job-board/<board>", boards: [lambda, crusoe, openai, baseten]}
+    - {source: workday_site, endpoint: "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite", boards: [nvidia]}
+  boards_probed_without_usable_result: "Greenhouse slugs arista, cerebrassystems, groq, mistral, lambda, crusoe, vultr, fluidstack (no board at that slug); Ashby slugs nebius, fireworks-ai (no board); Microsoft careers search (rate-limited, HTTP 429). No hyperscaler (AWS, Google, Meta, Microsoft, Oracle) is represented."
+  selection: >
+    Titles on each board were filtered for network, HPC, GPU, fabric, cluster, supercompute, inference,
+    reliability/SRE, performance and data-centre terms; recruiting, sales, management, research, support-desk
+    and construction-trade titles were dropped; the remaining titles were hand-picked to cover the chapter's
+    six role families plus data-centre facilities and inference platform. Selection is purposive, not random.
+  scope_screen: >
+    Keep a posting only if its own text places the role in AI/GPU/HPC data-centre infrastructure (cluster,
+    fabric, facility, serving platform). Excluded after reading: enterprise/corporate networking, and
+    WAN/metro/long-haul optical transport. 54 postings read in full, 4 excluded, 50 rows collected.
+  excluded:
+    - {employer: OpenAI, title: "Network Engineer", job_id: 9f78c41f-8d39-46c9-b9c3-c3b075905b24, reason: "enterprise/corporate networking"}
+    - {employer: OpenAI, title: "Network Engineer", job_id: a80e213f-c592-4337-a410-e5bf94f4e40d, reason: "enterprise/corporate networking"}
+    - {employer: Crusoe, title: "Senior Staff Optics Engineer, Network Qualification & Strategy", job_id: c0733130-91d2-4efc-be0a-0deb87530f16, reason: "WAN/long-haul optical transport"}
+    - {employer: CoreWeave, title: "Senior Optical Network Engineer II", job_id: "4715308006", reason: "metro/long-haul optical transport"}
+dedupe_rules_version: "ch24-role-v1"
+dedupe_rules: >
+  Two rows are the same ROLE when they share role_key = casefold(employer) + "|" + normalised title, where the
+  title is casefolded, whitespace-collapsed, a trailing location qualifier is removed ("(Kansas City)",
+  "- Memphis", "(Amsterdam)"), and level punctuation is unified ("Staff+" = "Staff"). Location, requisition ID
+  and small wording differences in the body do not create a new role. Different seniority bands in the title
+  ("Staff / Senior Staff" vs "Senior/Junior") DO create a new role. The kept row is the earliest collected row
+  (all rows share date_checked, the chapter's tie rule); its location field is the union of all merged
+  locations and merged_job_ids lists the other requisitions. The lab's posting-level rule (employer+job_id or
+  canonical URL) is necessary but not sufficient here: it finds 0 duplicates among the 50 collected rows.
+seniority_rule: >
+  From the title only: Junior/Senior/Staff/Principal map to the level ("Senior Staff" -> staff, "Senior Principal"
+  -> principal). A title naming more than one level -> mixed. No level in the title -> unspecified (years of
+  experience in the body were not converted to a level).
+skills_rule: >
+  required_skills: the posting's required / minimum / basic qualifications or "what we need to see" list; where
+  the posting only has a "you might thrive if" list, that list. preferred_skills: nice-to-have / preferred /
+  bonus / "ways to stand out" list. Empty preferred_skills means the posting had no separate list.
+url_rule: >
+  url is the employer's ATS posting URL. CoreWeave publishes coreweave.com/careers/job?<id>&... whose identity
+  lives in the query string, which the chapter's normalize_url strips; for CoreWeave rows url is the Greenhouse
+  board URL (it redirects to the employer page) and employer_url keeps the employer's own link.
+role_families: [ai_network, gpu_hpc, cluster_platform, performance, sre_ops, hw_vendor, dc_facilities, inference_platform]
+required_fields:
+- employer
+- title
+- job_id
+- location
+- seniority
+- url
+- date_checked
+- required_skills
+- status
+allowed_seniority:
+- junior
+- mid
+- senior
+- staff
+- principal
+- mixed
+- unspecified
+allowed_status:
+- active
+- archived
+stale_active_after_days: 30
+counts:
+  postings_read: 54
+  excluded_by_scope: 4
+  rows_collected: 50
+  unique_roles: 42
+  duplicate_rows_removed: 8
+  active_fresh_on_as_of: 42

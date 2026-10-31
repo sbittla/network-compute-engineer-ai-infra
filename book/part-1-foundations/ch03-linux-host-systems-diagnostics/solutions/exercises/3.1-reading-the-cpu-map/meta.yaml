@@ -1,0 +1,19 @@
+id: "3.1"
+title: Reading the CPU map
+folder: 3.1-reading-the-cpu-map
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: CPU lists, and one sentence that names the socket of GPU 2 and the consequence.
+marking:
+  - criterion: Socket 1 first hardware threads are CPUs 56-111
+    points: 1
+  - criterion: Their SMT siblings are CPUs 168-223
+    points: 1
+  - criterion: GPU 2 (3a:00.0) sits under socket 0 (NUMA node 0), so CPUs 56-63 are on the wrong socket
+    points: 1
+  - criterion: Consequence stated (H2D copies and launches cross the inter-socket link, raising latency and lowering bandwidth) with a fix (bind to socket-0 cores)
+    points: 1
+lab_checks: []

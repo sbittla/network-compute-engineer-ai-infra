@@ -1,13 +1,13 @@
 # Capstone D: Production LLM Inference Platform
 
 You will design the platform that serves W-INFER, Halcyon AI's 70B chat model, on ORION HX8 nodes.
-That means the service architecture, a capacity model, SLO/SLI definitions, a load-test plan,
-TTFT/inter-token-latency/throughput results (modeled and simulated at L1, measured if you take the
+That means the service architecture, a capacity model, service-level objective and indicator (SLO/SLI) definitions, a load-test plan,
+time to first token (TTFT), inter-token latency (ITL) and throughput results (modeled and simulated at L1, measured if you take the
 extension), a rollout and rollback plan, and a cost analysis. The starter kit gives you a request-level
 discrete-event simulator of continuous batching, which you complete and then use to compare serving
 configurations under the same trace. The capstone is about the decisions an inference platform
-engineer must defend: how much KV cache a replica really has, why the configuration with the best
-throughput number can be the wrong choice, why mean TPOT can hide token stalls that ITL tails reveal,
+engineer must defend: how much key-value (KV) cache a replica really has, why the configuration with the best
+throughput number can be the wrong choice, why mean time per output token (TPOT) can hide token stalls that ITL tails reveal,
 and why rejecting requests is not a way to meet a latency SLO.
 
 ## Audience and prerequisites
@@ -30,9 +30,9 @@ Kubernetes partition. The model has 70B parameters (BF16 ≈ 140 GB, FP8 ≈ 70 
 320 KiB per token in BF16. The SLOs are TTFT p95 ≤ 800 ms for prompts up to 2k tokens (end to end; 30 ms
 is budgeted for the frontend), TPOT p95 ≤ 50 ms, ITL p99 ≤ 100 ms `[ILLUSTRATIVE]` and 99.9 % availability. Most traffic is chat. A new enterprise tenant sends retrieval-augmented
 requests with ≈ 32k-token prompts, about 2 % of requests but a large share of the prompt tokens. Four
-configurations are on the table: two BF16 TP = 8 variants (chunked prefill versus large unchunked
+configurations are on the table: two BF16 tensor-parallel (TP = 8) variants (chunked prefill versus large unchunked
 batches), FP8 TP = 4 with two replicas per node, and a BF16 variant that caps context at 8k. A vendor
-sizing sheet has also been circulating. Finance wants a cost per million tokens; SRE wants rollback
+sizing sheet has also been circulating. Finance wants a cost per million tokens; site reliability engineering (SRE) wants rollback
 gates before anything ships.
 
 ## Problem statement

@@ -1,0 +1,23 @@
+id: '5.8'
+title: PCIe budget
+folder: 5.8-pcie-budget
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: arithmetic for (a), justification for (b), two traffic estimates for (c) with assumptions.
+marking:
+- criterion: (a) Gen4 x16 31.5 GB/s, Gen5 x8 31.5 GB/s, Gen5 x16 63.0 GB/s per direction with 128b/130b
+    arithmetic
+  points: 3
+- criterion: (b) only Gen5 x16 carries a 400 Gb/s (50 GB/s) NIC at line rate, with the achievable-rate
+    caveat
+  points: 2
+- criterion: '(c) with GDR the NIC-GPU DMA stays inside the switch: uplink carries essentially only control
+    traffic'
+  points: 2
+- criterion: '(c) host-staged: 200 GB/s of upstream demand against 63 GB/s, about 16 GB/s per NIC per
+    direction, assumptions stated, labelled [MODELED]'
+  points: 3
+lab_checks: []

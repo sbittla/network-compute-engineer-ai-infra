@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "explicit classification of each conclusion.",
+  "id": "8.19",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "BW pair: observation becomes fact with MEASURED data; causal x8 claim strongly supported but proven only by fix-and-retest",
+      "points": 1
+    },
+    {
+      "criterion": "Tail pair: cause remains a hypothesis until a discriminating test separates host jitter from fabric pauses",
+      "points": 1
+    },
+    {
+      "criterion": "States that in [SIMULATED] data none of these are facts about hardware",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Simulated versus measured conclusions",
+  "type": "reflection"
+}

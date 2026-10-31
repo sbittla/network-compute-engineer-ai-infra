@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Three effects with correct semantics.",
+  "id": "17-K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "NoSchedule: blocks new non-tolerating pods, running pods stay",
+      "points": 1
+    },
+    {
+      "criterion": "PreferNoSchedule: soft avoidance, never blocks",
+      "points": 1
+    },
+    {
+      "criterion": "NoExecute: blocks new and evicts running non-tolerating pods (after tolerationSeconds)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "The three taint effects",
+  "type": "knowledge-check"
+}

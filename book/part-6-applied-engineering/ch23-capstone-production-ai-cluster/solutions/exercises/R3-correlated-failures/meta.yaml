@@ -1,0 +1,21 @@
+id: R3
+title: Correlated failures and the checkpoint interval
+folder: R3-correlated-failures
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: specific, ORION-grounded answer of 80–150 words
+marking:
+- criterion: Names a realistic correlated-failure mechanism on ORION (firmware rollout, rack power/cooling, infant
+    mortality)
+  points: 1
+- criterion: 'Explains the effect: failures cluster, effective M shortens in bursts'
+  points: 1
+- criterion: 'Draws the consequence for τ: a fixed interval tuned to the average is too long during bursts; adaptive
+    or burst-triggered checkpoints'
+  points: 1
+- criterion: 80–150 words, ORION-grounded
+  points: 1
+lab_checks: []

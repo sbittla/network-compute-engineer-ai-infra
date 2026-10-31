@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the two volumes from Table 13.1 and the parallelism responsible",
+  "id": "13.1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Quotes TP 1.20 TB (NVLink) and DP + PP 7.66 + 2.15 = 9.81 GB (NIC) per GPU per step from Table 13.1",
+      "points": 2
+    },
+    {
+      "criterion": "Ratio computed with arithmetic: 1.20e12 / 9.81e9 = 122 (accept 120-160 with working)",
+      "points": 1
+    },
+    {
+      "criterion": "Names tensor parallelism (collectives per layer per micro-batch) as the cause",
+      "points": 1
+    },
+    {
+      "criterion": "Evidence label [MODELED] on the volumes and ratio",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "NVLink versus NIC bytes per step",
+  "type": "knowledge-check"
+}

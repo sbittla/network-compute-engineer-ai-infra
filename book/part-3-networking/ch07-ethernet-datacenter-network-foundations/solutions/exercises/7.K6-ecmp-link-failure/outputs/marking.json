@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "both numbers with arithmetic and the one-sentence mechanism.",
+  "id": "7.K6",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Raw uplink 31 × 400 = 12,400 Gb/s, −3.1 %",
+      "points": 1
+    },
+    {
+      "criterion": "ECMP-aware ingress 4 × 7 × 400 = 11,200 Gb/s, −12.5 %",
+      "points": 1
+    },
+    {
+      "criterion": "Mechanism: unweighted ECMP still sends a quarter of the traffic via the weakened spine, which has only 7 links",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "ECMP-aware ingress after one link failure",
+  "type": "knowledge-check"
+}

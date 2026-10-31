@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three actions with a one-line mechanism each",
+  "id": "K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Pending: drain when free, reset, verify pending cleared, diagnostics, return; mechanism: remap active only after reset",
+      "points": 2
+    },
+    {
+      "criterion": "(b) Remapping failure: quarantine and RMA; mechanism: no spare row in the bank",
+      "points": 2
+    },
+    {
+      "criterion": "(c) Remapped, nothing pending: healthy, monitor only; does not treat it as a fault",
+      "points": 2
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "Row-remapper states",
+  "type": "knowledge-check"
+}

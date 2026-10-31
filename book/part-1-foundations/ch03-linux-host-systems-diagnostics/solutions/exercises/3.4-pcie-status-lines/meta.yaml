@@ -1,0 +1,19 @@
+id: "3.4"
+title: PCIe status lines
+folder: 3.4-pcie-status-lines
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: A verdict per line, with the rule applied.
+marking:
+  - criterion: (a) GPU at x8 of x16 under load is a fault (critical), because width below capability is never benign
+    points: 1
+  - criterion: (b) idle GPU at 2.5 GT/s x16 is probably benign, verify under load (power-saving downshift, full width)
+    points: 1
+  - criterion: (c) VGA 5 GT/s x1 of 5 GT/s x1 is healthy (status equals capability)
+    points: 1
+  - criterion: (d) rail NIC at Gen4 x16 under load is a fault (warning), with the bandwidth consequence (31.5 GB/s raw, about 26 GB/s achievable, below 50 GB/s line rate)
+    points: 1
+lab_checks: []

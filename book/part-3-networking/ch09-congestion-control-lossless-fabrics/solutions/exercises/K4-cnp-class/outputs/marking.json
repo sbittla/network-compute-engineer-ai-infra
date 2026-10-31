@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a causal chain of at least three steps ending in an observable counter symptom.",
+  "id": "K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Step: CNPs queue in TC 3 behind the congestion they report",
+      "points": 1
+    },
+    {
+      "criterion": "Step: when TC 3 is paused, CNPs are paused too",
+      "points": 1
+    },
+    {
+      "criterion": "Step: RPs receive rate cuts late or in bursts and keep sending fast; queues hit Xoff more often",
+      "points": 1
+    },
+    {
+      "criterion": "Ends in an observable counter symptom (pause rate up vs ECN marks; rp_cnp_handled lagging np_cnp_sent; CNPs in TC 3 counters)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "CNPs in the wrong class",
+  "type": "knowledge-check"
+}

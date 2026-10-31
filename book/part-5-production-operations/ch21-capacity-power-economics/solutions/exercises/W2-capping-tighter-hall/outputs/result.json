@@ -1,0 +1,207 @@
+{
+  "answer": {
+    "asked_caps_16_racks": {
+      "350": {
+        "cluster_throughput": 33.6,
+        "nodes_per_rack": 3
+      },
+      "550": {
+        "cluster_throughput": 45.36,
+        "nodes_per_rack": 3
+      },
+      "650": {
+        "cluster_throughput": 31.68,
+        "nodes_per_rack": 2
+      }
+    },
+    "best_cap_16_racks_w": 550,
+    "best_cap_22_racks_w": 550,
+    "throughput_22_racks_at_550w": 60.48,
+    "throughput_22_racks_uncapped": 44.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W2",
+  "inputs": {
+    "node_base_kw": 4.6,
+    "nodes": 64,
+    "rack_limit_kw": 30.0,
+    "rack_slots": 4,
+    "racks": 16,
+    "racks_expanded": 22,
+    "transient_margin": 0.1
+  },
+  "steps": {
+    "max_cap_for_fourth_node_w": 268.8,
+    "rack_budget_kw": 27.0,
+    "table_16_racks": [
+      {
+        "cap_w": 350,
+        "cluster_throughput": 33.6,
+        "deployable_nodes": 48,
+        "node_peak_kw": 7.4,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.7,
+        "unused_budget_kw": 4.8
+      },
+      {
+        "cap_w": 400,
+        "cluster_throughput": 37.92,
+        "deployable_nodes": 48,
+        "node_peak_kw": 7.8,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.79,
+        "unused_budget_kw": 3.6
+      },
+      {
+        "cap_w": 450,
+        "cluster_throughput": 41.04,
+        "deployable_nodes": 48,
+        "node_peak_kw": 8.2,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.855,
+        "unused_budget_kw": 2.4
+      },
+      {
+        "cap_w": 500,
+        "cluster_throughput": 43.44,
+        "deployable_nodes": 48,
+        "node_peak_kw": 8.6,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.905,
+        "unused_budget_kw": 1.2
+      },
+      {
+        "cap_w": 550,
+        "cluster_throughput": 45.36,
+        "deployable_nodes": 48,
+        "node_peak_kw": 9.0,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.945,
+        "unused_budget_kw": 0.0
+      },
+      {
+        "cap_w": 600,
+        "cluster_throughput": 31.1,
+        "deployable_nodes": 32,
+        "node_peak_kw": 9.4,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 0.972,
+        "unused_budget_kw": 8.2
+      },
+      {
+        "cap_w": 650,
+        "cluster_throughput": 31.68,
+        "deployable_nodes": 32,
+        "node_peak_kw": 9.8,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 0.99,
+        "unused_budget_kw": 7.4
+      },
+      {
+        "cap_w": 700,
+        "cluster_throughput": 32.0,
+        "deployable_nodes": 32,
+        "node_peak_kw": 10.2,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 1.0,
+        "unused_budget_kw": 6.6
+      }
+    ],
+    "table_22_racks": [
+      {
+        "cap_w": 350,
+        "cluster_throughput": 44.8,
+        "deployable_nodes": 64,
+        "node_peak_kw": 7.4,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.7,
+        "unused_budget_kw": 4.8
+      },
+      {
+        "cap_w": 400,
+        "cluster_throughput": 50.56,
+        "deployable_nodes": 64,
+        "node_peak_kw": 7.8,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.79,
+        "unused_budget_kw": 3.6
+      },
+      {
+        "cap_w": 450,
+        "cluster_throughput": 54.72,
+        "deployable_nodes": 64,
+        "node_peak_kw": 8.2,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.855,
+        "unused_budget_kw": 2.4
+      },
+      {
+        "cap_w": 500,
+        "cluster_throughput": 57.92,
+        "deployable_nodes": 64,
+        "node_peak_kw": 8.6,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.905,
+        "unused_budget_kw": 1.2
+      },
+      {
+        "cap_w": 550,
+        "cluster_throughput": 60.48,
+        "deployable_nodes": 64,
+        "node_peak_kw": 9.0,
+        "nodes_per_rack": 3,
+        "racks_for_all_64": 22,
+        "rel_throughput": 0.945,
+        "unused_budget_kw": 0.0
+      },
+      {
+        "cap_w": 600,
+        "cluster_throughput": 42.77,
+        "deployable_nodes": 44,
+        "node_peak_kw": 9.4,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 0.972,
+        "unused_budget_kw": 8.2
+      },
+      {
+        "cap_w": 650,
+        "cluster_throughput": 43.56,
+        "deployable_nodes": 44,
+        "node_peak_kw": 9.8,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 0.99,
+        "unused_budget_kw": 7.4
+      },
+      {
+        "cap_w": 700,
+        "cluster_throughput": 44.0,
+        "deployable_nodes": 44,
+        "node_peak_kw": 10.2,
+        "nodes_per_rack": 2,
+        "racks_for_all_64": 32,
+        "rel_throughput": 1.0,
+        "unused_budget_kw": 6.6
+      }
+    ]
+  },
+  "tolerance": 0.05,
+  "units": {
+    "cap": "W",
+    "cluster_throughput": "node-equivalents (uncapped HX8 node = 1.0)",
+    "power": "kW"
+  }
+}

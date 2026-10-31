@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "transitions named correctly; one-sentence troubleshooting implication.",
+  "id": "8.3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Path MTU and destination GID / source GID index set at INIT→RTR",
+      "points": 2
+    },
+    {
+      "criterion": "(b) timeout and retry_cnt set at RTR→RTS",
+      "points": 1
+    },
+    {
+      "criterion": "Implication: a QP can reach RTS and pass small tests with a wrong MTU or marginal timeout; check the printed values, not 'it connected'",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Where the QP parameters live",
+  "type": "knowledge-check"
+}

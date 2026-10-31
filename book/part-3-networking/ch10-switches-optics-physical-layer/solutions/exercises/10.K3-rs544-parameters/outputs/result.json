@@ -1,0 +1,28 @@
+{
+  "answer": {
+    "codeword_bits": 5440,
+    "correctable_symbols": 15,
+    "parity_symbols": 30,
+    "symbol_bits": 10,
+    "symbols_per_codeword": 544,
+    "uncorrectable_at_symbols": 16
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "k": 514,
+    "n": 544,
+    "symbol_bits": 10
+  },
+  "steps": {
+    "code_rate": 0.9449,
+    "codeword_bits": "n x m = 544 x 10 = 5440",
+    "correctable": "t = (n - k) / 2 = 30 / 2 = 15",
+    "data_bits": "k x m = 514 x 10 = 5140",
+    "parity_symbols": "n - k = 544 - 514 = 30"
+  },
+  "units": {
+    "codeword_bits": "bit",
+    "others": "symbols",
+    "symbol_bits": "bit"
+  }
+}

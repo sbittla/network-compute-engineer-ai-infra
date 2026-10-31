@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The implied rate against line rate, and the conclusion with plausible causes.",
+  "id": "Q2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Implied rate 40 GB / 0.5 s = 80 GB/s computed with units",
+      "points": 1
+    },
+    {
+      "criterion": "Compared with 400 Gb/s = 50 GB/s line rate and declared impossible (ceiling fraction 1.6)",
+      "points": 1
+    },
+    {
+      "criterion": "At least two plausible data causes (TX + RX summed, two NICs aggregated, bits/bytes confusion, wrong time window)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "A profile that exceeds NIC line rate",
+  "type": "knowledge-check"
+}

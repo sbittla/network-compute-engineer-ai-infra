@@ -178,7 +178,7 @@ MIG strategy, Slurm version and `gres.conf`, the allocatable snapshot, and the e
 each reproduced cause. Compare the real event strings with those in `pending_cases.json`.
 
 **L3 — two or more multi-GPU nodes with RDMA.** Submit the same 2-node job under two placements
-(nodes in the same rack/leaf block vs. different blocks if your fabric has blocks; rail-complete vs.
+(nodes in the same rack/leaf block vs different blocks if your fabric has blocks; rail-complete vs.
 a node with one rail administratively down) and measure NCCL `all_reduce_perf` bus bandwidth:
 
 ```bash

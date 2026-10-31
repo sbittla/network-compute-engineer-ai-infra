@@ -1,0 +1,19 @@
+id: R3
+title: Skill versus reasoning evidence
+folder: R3-skill-versus-reasoning
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: 100–200 words naming specific evidence rather than general intent (shared R1–R4 line).
+marking:
+- criterion: 'States the line: number from your own environment with a manifest and repetitions vs from a model
+    or supplied data'
+  points: 2
+- criterion: Concrete example from each side drawn from the learner's labs
+  points: 1
+- criterion: Notes labels must match (`[MEASURED]` only for the first; simulation-as-measurement is an integrity
+    failure)
+  points: 1
+lab_checks: []

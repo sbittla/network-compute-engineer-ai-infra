@@ -1,0 +1,53 @@
+{
+  "difficulty": 2,
+  "evidence_required": "checker output (19/19), your findings report, the design note, and (stretch) the rule specification.",
+  "id": "7.L",
+  "kind": "lab",
+  "lab_checks": [
+    "T0  dataset regenerates byte-identically (seed 7)",
+    "T1a size ORION-256 backend (64-port, 1:1)",
+    "T1b size frontend pair (3:1 ports, 1.5:1 bandwidth)",
+    "T1c ORION-XL radix limit (64- vs 128-port)",
+    "T2a addressing plan: 512 unique /31s",
+    "T2b addressing plan: spot values",
+    "T3  BGP neighbor table (256 sessions, ASNs)",
+    "T4  detect planted ASN_COLLISION",
+    "T4  detect planted ASYM_ADVERT",
+    "T4  detect planted BAD_ORIGIN",
+    "T4  detect planted DUP_P2P",
+    "T4  detect planted ECMP_MAXPATHS",
+    "T4  detect planted MTU_MISMATCH",
+    "T4  no false positives (shared spine ASN, host MTU 9000 are legal)",
+    "T5  capacity: baseline",
+    "T5  capacity: one orion-be-leaf-r0/orion-be-spine-1 link down",
+    "T5  capacity: orion-be-spine-2 down",
+    "T5  capacity: orion-be-leaf-r5 prefix not sent to orion-be-spine-4",
+    "T5  capacity: orion-be-leaf-r3 down (rail 3 isolated)"
+  ],
+  "marking": [
+    {
+      "criterion": "Tasks 1–3: sizing, addressing plan and BGP neighbor table pass T1a–T3 and are exported as CSV; feasible=False for ORION-XL at radix 64 explained",
+      "points": 30
+    },
+    {
+      "criterion": "Task 4: all six planted findings, zero false positives, each with its operational consequence and a justified severity",
+      "points": 25
+    },
+    {
+      "criterion": "Task 5: T5 passes and the capacity consequence of each planted fault is quantified",
+      "points": 15
+    },
+    {
+      "criterion": "Task 6 design note: diagram, routing-policy summary, failure-convergence table, every number traced to tool output and labelled",
+      "points": 25
+    },
+    {
+      "criterion": "Code quality: type hints, docstrings with units, no global mutable state",
+      "points": 5
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Progressive Lab 2: fabric design and validation",
+  "type": "hands-on-lab"
+}

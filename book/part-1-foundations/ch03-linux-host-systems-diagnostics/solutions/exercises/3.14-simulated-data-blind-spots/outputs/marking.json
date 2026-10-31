@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Three items, each with a validation step.",
+  "id": "3.14",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First real-host failure mode with a validation step (for example tool output format differences, validated on real captures per OS image)",
+      "points": 1
+    },
+    {
+      "criterion": "Second failure mode with a validation step (for example intermittent faults missed by one snapshot, validated by repeated collection and continuous metrics)",
+      "points": 1
+    },
+    {
+      "criterion": "Third failure mode with a validation step (for example thresholds or naming that do not match the real fleet, validated by fleet distributions or a known-good baseline)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What simulated snapshots cannot reveal",
+  "type": "reflection"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Each calculation with formula, substitution, and units.",
+  "id": "K2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) 2^32 B / 50 × 10^9 B/s = 0.086 s (≈ 11.6 wraps per second)",
+      "points": 3
+    },
+    {
+      "criterion": "(b) 100 MB / 3 × 10^12 B = 3.3 × 10^-5 = 0.0033 % utilization",
+      "points": 3
+    },
+    {
+      "criterion": "(c) 65,535 quanta × 512 bit / 400 × 10^9 b/s = 83.9 µs",
+      "points": 3
+    }
+  ],
+  "points": 9,
+  "tier": "L1",
+  "title": "Why polling fails at 400 Gb/s",
+  "type": "knowledge-check"
+}

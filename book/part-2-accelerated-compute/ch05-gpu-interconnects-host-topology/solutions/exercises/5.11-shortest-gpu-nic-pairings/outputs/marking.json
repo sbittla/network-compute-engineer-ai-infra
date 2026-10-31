@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "8-row table plus four examples, quoting matrix cells.",
+  "id": "5.11",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "8-row table: GPUi → mlx5_i, PIX, for i = 0-7, with the topo -m column (NIC1-NIC4, NIC6-NIC9) quoted",
+      "points": 3
+    },
+    {
+      "criterion": "One example each of PXB, PHB, NODE and SYS quoted from the matrix (e.g. GPU0-NIC2, GPU0-NIC0, GPU0-NIC3, GPU0-NIC6)",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Shortest GPU-NIC pairings",
+  "type": "outline-mandated"
+}

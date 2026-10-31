@@ -1,0 +1,48 @@
+{
+  "answer": {
+    "bubble": {
+      "bubble_pp4": 0.0448,
+      "bubble_pp8": 0.0986
+    },
+    "tp4_pp8_dp8": {
+      "S_TP_GB": 343.5974,
+      "T_compute_s": 6.9578,
+      "T_dp_s": 0.1531,
+      "T_nic_worst_s": 0.239,
+      "T_pp_s": 0.0859,
+      "T_scaleup_s": 1.1453,
+      "dp_sent_GB": 7.6562,
+      "nic_worst_GB": 11.9512,
+      "params_per_gpu": 2187500000.0,
+      "payload_GB": 8.5899,
+      "pp_per_direction_GB": 2.1475,
+      "pp_sent_mid_GB": 4.295,
+      "tp_sent_GB": 515.3961
+    },
+    "tp8_pp4_dp8": {
+      "S_TP_GB": 687.1948,
+      "T_compute_s": 6.9578,
+      "T_dp_s": 0.1531,
+      "T_nic_s": 0.1961,
+      "T_pp_s": 0.0429,
+      "T_scaleup_s": 2.6724,
+      "dp_sent_GB": 7.6562,
+      "nic_GB": 9.8037,
+      "params_per_gpu": 2187500000.0,
+      "payload_GB": 8.5899,
+      "pp_per_direction_GB": 1.0737,
+      "pp_sent_mid_GB": 2.1475,
+      "tp_sent_GB": 1202.5908
+    }
+  },
+  "evidence": "[MODELED]; m = 64 micro-batches [ILLUSTRATIVE]",
+  "inputs": {
+    "hidden": 8192,
+    "layers": 80,
+    "nic_Bps": 50000000000.0,
+    "nvlink_Bps": 450000000000.0,
+    "params": 70000000000.0,
+    "tokens_per_step": 4194304
+  },
+  "units": "GB, seconds, fractions"
+}

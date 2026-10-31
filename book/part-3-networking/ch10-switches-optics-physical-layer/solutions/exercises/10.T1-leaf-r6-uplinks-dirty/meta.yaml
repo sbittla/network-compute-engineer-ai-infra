@@ -1,0 +1,18 @@
+id: 10.T1
+title: Leaf r6 uplinks are dirty (incomplete evidence)
+folder: 10.T1-leaf-r6-uplinks-dirty
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 5
+evidence_required: the five questions answered from the given evidence; a list of ≥ 3 missing items with
+  the command or data source for each; a two-sentence ticket update.
+marking:
+- criterion: (a) All five Section 10.8.1 questions answered from the given evidence, concluding not physical
+  points: 2
+- criterion: (b) At least three missing items, each with a safe read-only command or data source
+  points: 2
+- criterion: (c) Correct owner and a two-sentence ticket update closing the cleaning request
+  points: 1
+lab_checks: []

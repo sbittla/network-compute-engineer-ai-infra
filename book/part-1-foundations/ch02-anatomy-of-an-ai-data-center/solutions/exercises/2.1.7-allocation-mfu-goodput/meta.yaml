@@ -1,0 +1,17 @@
+id: "2.1.7"
+title: Allocation, MFU and goodput
+folder: 2.1.7-allocation-mfu-goodput
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Definitions of the three utilizations and why they multiply.
+marking:
+  - criterion: Allocation is the fraction of GPU-hours given to jobs
+    points: 1
+  - criterion: MFU is useful model FLOP/s divided by peak FLOP/s while running; goodput is the fraction of allocated time that becomes durable progress
+    points: 1
+  - criterion: They multiply because each applies to what remains after the previous one (with an example such as 0.80 x 0.38 x 0.92 = 0.28)
+    points: 1
+lab_checks: []

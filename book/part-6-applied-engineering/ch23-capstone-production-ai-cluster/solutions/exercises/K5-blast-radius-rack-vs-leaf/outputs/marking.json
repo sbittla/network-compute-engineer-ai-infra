@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "numbers for (a); a mechanism-based explanation for (b)",
+  "id": "K5",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) 32 GPUs lost (4 nodes × 8), 12.5 % of 256; only jobs with ranks in that rack affected",
+      "points": 1
+    },
+    {
+      "criterion": "(b) 0 GPUs lost, but rail r lost on all 32 nodes; every multi-node job using the rail affected (plan job-fatal)",
+      "points": 1
+    },
+    {
+      "criterion": "Mechanism: rail-optimized wiring makes one switch a logical dependency of every node, while a rack is physically local",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Blast radius: rack power versus rail leaf",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "correct component for each; a real command for each.",
+  "id": "8.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Initializing/LinkUp/LID 0 → subnet manager has not configured the port",
+      "points": 1
+    },
+    {
+      "criterion": "A real first command for it (sminfo, or SM logs / ibstat SM lid comparison)",
+      "points": 1
+    },
+    {
+      "criterion": "Down/Polling → no link partner: cable, transceiver or remote switch port",
+      "points": 1
+    },
+    {
+      "criterion": "A real first command for it (iblinkinfo / ibnetdiscover from the fabric side, then physical inspection)",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Reading ibstat",
+  "type": "knowledge-check"
+}

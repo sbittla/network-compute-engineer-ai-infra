@@ -1,0 +1,17 @@
+id: "3.6"
+title: NUMA and utilization
+folder: 3.6-numa-and-utilization
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: A mechanism explanation, plus the exact perf stat and numastat invocations.
+marking:
+  - criterion: Mechanism, a thread stalled on remote DRAM is still running, so stall cycles count as busy time
+    points: 2
+  - criterion: Measurement named, lower instructions per cycle than a well-placed peer
+    points: 1
+  - criterion: Exact commands (perf stat -e cycles,instructions -p <pid> -- sleep 10 and numastat -p <pid>, cross-checked with taskset -cp)
+    points: 1
+lab_checks: []

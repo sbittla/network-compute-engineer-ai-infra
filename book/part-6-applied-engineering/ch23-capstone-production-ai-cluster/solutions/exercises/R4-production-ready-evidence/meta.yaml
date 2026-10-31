@@ -1,0 +1,18 @@
+id: R4
+title: Evidence still needed before production-ready
+folder: R4-production-ready-evidence
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: specific, ORION-grounded answers of 80–150 words; at least four items
+marking:
+- criterion: At least four distinct evidence items listed
+  points: 2
+- criterion: Items are specific and ORION-grounded (e.g. 32-node L3 sweep, acceptance on every node, executed failure
+    exercise)
+  points: 1
+- criterion: 80–150 words
+  points: 1
+lab_checks: []

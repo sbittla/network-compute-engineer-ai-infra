@@ -1,0 +1,25 @@
+id: '8.7'
+title: 'Lossless two ways: credits and PFC'
+folder: 8.7-lossless-two-ways
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: mechanism of each; headroom reasoning; `PortXmitWait` and per-priority pause counters
+  named.
+marking:
+- criterion: 'IB credit-based flow control: receiver advertises per-VL buffer credits; sender never transmits
+    without credit'
+  points: 1
+- criterion: 'PFC: receiver sends per-priority pause at XOFF; in-flight data keeps arriving'
+  points: 1
+- criterion: 'Headroom reasoning: PFC needs headroom for bytes in flight after the pause decision; credits
+    do not'
+  points: 1
+- criterion: PortXmitWait named as the IB back-pressure counter
+  points: 1
+- criterion: Per-priority pause counters named (NIC ethtool -S rx/tx_prio3_pause, switch PFC tx/rx per
+    priority)
+  points: 1
+lab_checks: []

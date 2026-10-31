@@ -1,0 +1,25 @@
+id: W1
+title: TCO under different assumptions
+folder: W1-tco-different-assumptions
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 9
+evidence_required: every component with formula; the two unit costs.
+marking:
+- criterion: Capex amortization $2.992M/yr (5 years)
+  points: 1
+- criterion: Power $0.400M/yr (PUE 1.25, $0.12/kWh)
+  points: 1
+- criterion: Space $0.570M/yr unchanged
+  points: 1
+- criterion: Support $1.197M/yr
+  points: 1
+- criterion: Staff $0.960M/yr
+  points: 1
+- criterion: Cost per nominal GPU-hour $2.73
+  points: 2
+- criterion: Cost per useful GPU-hour $4.46 with allocation applied after the usable fraction
+  points: 2
+lab_checks: []

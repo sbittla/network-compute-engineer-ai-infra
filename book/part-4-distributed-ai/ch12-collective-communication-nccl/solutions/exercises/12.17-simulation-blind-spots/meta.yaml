@@ -1,0 +1,14 @@
+id: '12.17'
+title: What the simulated sweep cannot show
+folder: 12.17-simulation-blind-spots
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: Three distinct real NCCL behaviours, one point each, each with how it would appear in a real
+    sweep
+  points: 3
+lab_checks: []

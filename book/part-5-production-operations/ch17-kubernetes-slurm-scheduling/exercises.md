@@ -164,7 +164,7 @@ prove the policy works. Validate one rule change by replaying the lab queue in y
 
 **17-M3** ★★ L1 (L2 optional) — *Troubleshoot a job that is pending despite apparently free GPUs;
 list scheduler, device-plugin, topology, quota, and node-health evidence.* Write a troubleshooting
-guide organised by evidence source, with the exact Kubernetes and Slurm commands, what each output
+guide organized by evidence source, with the exact Kubernetes and Slurm commands, what each output
 proves, and the decision order. Apply it to lab cases P03 and P11 and show your reasoning.
 *Evidence required:* the guide with commands per evidence class; the two applied diagnoses with the
 evidence lines quoted.

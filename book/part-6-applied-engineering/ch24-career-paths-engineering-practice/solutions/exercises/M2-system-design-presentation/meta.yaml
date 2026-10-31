@@ -1,0 +1,22 @@
+id: M2
+title: System-design interview presentation
+folder: M2-system-design-presentation
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: assumptions table with labels; all capacity arithmetic; at least one data-path diagram; failure-domain
+  table; day-one validation plan; answers to two follow-ups you anticipate; rehearsal time.
+marking:
+- criterion: Assumptions table with evidence labels; complete capacity arithmetic propagated from the changed constraint
+  points: 8
+- criterion: At least one data-path diagram
+  points: 3
+- criterion: Failure-domain table with detection
+  points: 3
+- criterion: Day-one validation plan
+  points: 2
+- criterion: Two anticipated follow-ups answered and rehearsal within 18–22 min
+  points: 4
+lab_checks: []

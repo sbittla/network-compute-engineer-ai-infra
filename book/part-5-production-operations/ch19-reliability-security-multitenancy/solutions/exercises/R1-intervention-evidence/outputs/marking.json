@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise answers that cite data files or sections",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Identifies that 'H1 is the cause' (and the optic-vs-HCA localization) rests on intervention evidence not yet available",
+      "points": 1
+    },
+    {
+      "criterion": "Names how to obtain it: restart without orionxl-n212 and run ≥ 2 × job MTBF with no rail-5 hangs; soak after the optic swap",
+      "points": 1
+    },
+    {
+      "criterion": "Cites data files or sections (hypotheses.yaml, Section 19.5, Step 9 of Section 19.11)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Intervention evidence still missing",
+  "type": "reflection"
+}

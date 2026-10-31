@@ -1,0 +1,22 @@
+id: "2.8"
+title: Power-cap sweep on one GPU server
+folder: 2.8-power-cap-sweep
+type: hands-on-lab
+difficulty: 3
+tier: L2
+kind: written
+points: 20
+evidence_required: >-
+  Filled-in lab/manifest.yaml copy (GPU model, driver, default limit, workload definition, warm-up,
+  repetitions); raw CSV; plot; median and spread per step; explicit [MEASURED] versus [MODELED] labels
+  for the answer to question 3.
+marking:
+  - criterion: Manifest and benchmark discipline (2-minute warm-up, 5 repetitions, median and spread per step, defaults restored and recorded)
+    points: 8
+  - criterion: Plots of throughput, average power and throughput per watt against the limit
+    points: 4
+  - criterion: Correct interpretation of compute-bound versus memory-bound curves
+    points: 4
+  - criterion: Question 3 picks the 570 W feed-loss limit (or the highest limit that meets the feed-loss budget) and converts it to a W-TRAIN step-time impact labelled [MODELED from MEASURED]
+    points: 4
+lab_checks: []

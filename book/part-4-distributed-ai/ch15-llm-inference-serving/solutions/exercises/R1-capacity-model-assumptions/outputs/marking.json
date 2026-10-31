@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three named parameters, the output each one drives, and the L2/L3 measurement that would replace it.",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Three named parameters (HBM efficiency + step overhead, prefill MFU, KV-transfer efficiency/tail)",
+      "points": 1
+    },
+    {
+      "criterion": "The output each drives (TPOT, TTFT and pool size, disaggregation decision) with numbers",
+      "points": 1
+    },
+    {
+      "criterion": "The L2/L3 measurement that replaces each",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Capacity-model assumptions to measure",
+  "type": "reflection"
+}

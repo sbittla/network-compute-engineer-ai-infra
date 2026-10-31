@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer, at most 150 words, naming specific missing evidence.",
+  "id": "20.11.3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Identifies a keyword-passing but weak finding",
+      "points": 2
+    },
+    {
+      "criterion": "Improved finding with concrete mechanism, numbers, scope and time bound",
+      "points": 3
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "A finding that passes but fails review",
+  "type": "reflection"
+}

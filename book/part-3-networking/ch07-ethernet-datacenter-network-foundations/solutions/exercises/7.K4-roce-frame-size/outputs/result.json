@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "active_mtu_at_netdev_1500": 1024,
+    "active_mtu_at_netdev_9000": 4096,
+    "frame_on_wire_incl_fcs_b": 4174
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.K4",
+  "inputs": {
+    "headers_b": {
+      "bth": 12,
+      "ethernet": 14,
+      "fcs": 4,
+      "icrc": 4,
+      "ipv4": 20,
+      "reth": 16,
+      "udp": 8
+    },
+    "netdev_mtu_b": 1500,
+    "payload_b": 4096
+  },
+  "steps": {
+    "frame_without_reth_b": 4158,
+    "ip_packet_b": 4156,
+    "min_ip_mtu_for_4096_b": 4156,
+    "payload_space_at_1500_without_reth_b": 1456
+  },
+  "tolerance": "exact",
+  "units": "bytes"
+}

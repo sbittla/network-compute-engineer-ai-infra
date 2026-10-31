@@ -1,0 +1,16 @@
+TODO 01 parse leaf CLI text                         parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 02 parse spine JSON lines                      parse_spine_jsonl: decode ns timestamps and interface paths
+TODO 03 parse NIC ethtool + hw_counters             parse_nic_ethtool: parse ethtool -S and hw_counters blocks
+TODO 04 load full bundle                            parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 05 counter_delta: wrap vs reset                counter_delta: distinguish increment, 32-bit wrap and reset
+TODO 06 rates: resets and wraps in the bundle       parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 07 in_maintenance                              in_maintenance: start-inclusive, end-exclusive per-device windows
+TODO 08 detection recall                            parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 09 detection precision                         parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 10 persistence reduces false positives         parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 10b separated glitches do not page             detect: rules with persistence, peer comparison and suppression
+TODO 11 maintenance suppression (incl. link peers)  parse_leaf_cli: parse CLI text snapshots into the long schema
+TODO 12 score()                                     score: time-aware matching of pages to fault windows
+TODO 13 leaf health table (report)                  parse_leaf_cli: parse CLI text snapshots into the long schema
+
+0/14 checks pass (14 TODO, 0 FAIL) [impl=starter]

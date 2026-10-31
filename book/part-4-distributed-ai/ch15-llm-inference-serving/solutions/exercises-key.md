@@ -60,7 +60,7 @@ concurrency cap from 48 to 256 serves more tokens per second, but every request'
 8× lower. For example, 156 sequences of 4k tokens would become 19 per TP = 4 FP8 replica.
 
 **K7.** (Marking 4: what the counter measures 2, two better signals 2.) `utilization.gpu` is the fraction of the sample period during which at least one kernel
-was executing. It says nothing about how many SMs were active, tensor-core use or HBM bandwidth.
+was executing. It says nothing about how many SMs were active, Tensor Core use or HBM bandwidth.
 A memory-bound decode loop reads 100 % at a small fraction of peak. Better signals: (1) DCGM
 DRAM-active (field 1005) for bandwidth saturation, plus tensor or SM active for compute; (2)
 engine-level signals such as running vs the concurrency cap, KV usage, waiting-queue depth and
@@ -268,7 +268,7 @@ then falls inversely with sequence length, and memory, not compute, binds.
 
 **O2.** From Lab Part B `[SIMULATED]`:
 
-| Segment | req/s | out tok/s | TTFT p50 / p95 | ITL p50 / p99 (sampled) | Queue p95 | GPU busy | KV max | Waiting (mean) |
+| Segment | req/s | out tokens/s | TTFT p50 / p95 | ITL p50 / p99 (sampled) | Queue p95 | GPU busy | KV max | Waiting (mean) |
 |---|---|---|---|---|---|---|---|---|
 | Baseline 0–230 s | 6.00 | 1,216 | 0.138 / 0.449 s | 21.8 / 216 ms | 0.11 s | 97.6 % | 13.5 % | 0.1 |
 | Burst episode 240–345 s | 14.8 | 2,980 | 11.8 / 28.8 s | 26.9 / 444 ms | 28.5 s | 100 % | 43.3 % | 46.1 |
@@ -278,8 +278,8 @@ GPU busy is about 98–100 % in all three segments, so it cannot distinguish hea
 overloaded or slot-bound from memory-bound. The baseline ITL p99 of 216 ms reflects unchunked
 prefill stalls, which is expected for this pool.
 
-**O3.** Latency objective: **L-tp8-bf16**, with TPOT 11.7 ms (about 86 tok/s per user) against
-20.2 ms. Throughput objective: **T-tp4-fp8**, with 12,678 against 2,740 tok/s per node (4.6×).
+**O3.** Latency objective: **L-tp8-bf16**, with TPOT 11.7 ms (about 86 tokens/s per user) against
+20.2 ms. Throughput objective: **T-tp4-fp8**, with 12,678 against 2,740 tokens/s per node (4.6×).
 Flip conditions:
 (i) If the TPOT SLO tightens below about 20 ms (for example 15 ms), T fails the SLO and the
 throughput recommendation becomes L.

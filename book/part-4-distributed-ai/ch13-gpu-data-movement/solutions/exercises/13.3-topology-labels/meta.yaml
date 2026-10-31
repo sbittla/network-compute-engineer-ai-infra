@@ -1,0 +1,18 @@
+id: '13.3'
+title: Topology labels PIX, PXB, PHB, SYS
+folder: 13.3-topology-labels
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: four definitions; answer labelled `[VENDOR-SPEC, YYYY-MM]`
+marking:
+- criterion: PIX and PXB defined correctly (one switch; multiple switches without a host bridge)
+  points: 2
+- criterion: PHB and SYS defined correctly (host bridge; inter-socket link)
+  points: 2
+- criterion: States NCCL default uses GDR for PIX/PXB, not SYS, labelled [VENDOR-SPEC, 2026-10] with a
+    verify note
+  points: 1
+lab_checks: []

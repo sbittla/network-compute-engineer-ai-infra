@@ -1,0 +1,23 @@
+id: '8.9'
+title: The price of a lost packet
+folder: 8.9-price-of-lost-packet
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: every step as formula → values → result; bandwidth-delay product computed; assumptions
+  stated; labelled `[MODELED]`.
+marking:
+- criterion: (a) 256 packets; 21.4 µs at 392 Gb/s
+  points: 2
+- criterion: (b) BDP 245,000 B ≈ 60 packets; extra ≈ 5.0 µs ≈ one RTT (23 %)
+  points: 2
+- criterion: (c) T_ack = 4.096 µs × 2¹⁸ = 1.074 s extra
+  points: 2
+- criterion: (d) 10⁻⁵ × 1.074 s = 10.7 µs per isolated message → ≈ 67 % goodput; back-to-back amortized
+    per burst
+  points: 2
+- criterion: (e) (retry_cnt + 1) × T_ack = 8 × 1.074 = 8.59 s
+  points: 2
+lab_checks: []

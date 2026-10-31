@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a table for (b), the fixed-point derivation for one row, and the choice with justification",
+  "id": "W2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) t_p = 181.1 ms, demand 4.53 replica-s/s (quadratic term about 6.9 ms credited)",
+      "points": 2
+    },
+    {
+      "criterion": "(b) table for 6/8/10/12 replicas with ρ, TTFT, TPOT, B; 6 replicas unstable; one fixed-point derivation",
+      "points": 5
+    },
+    {
+      "criterion": "(c) choose 10 (+2 for N+1 and bursts), worst unchunked ITL about 197 ms, recommend chunked prefill",
+      "points": 2
+    },
+    {
+      "criterion": "(d) KV check: 288 blocks per sequence, 139 sequences per replica ≫ 38",
+      "points": 1
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Sizing a shared pool with Little's law",
+  "type": "worked-problem"
+}

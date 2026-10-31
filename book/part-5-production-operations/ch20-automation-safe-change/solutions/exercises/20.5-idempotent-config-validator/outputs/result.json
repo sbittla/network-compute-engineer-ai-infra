@@ -1,0 +1,68 @@
+{
+  "answer": {
+    "readback_rdma_active_mtu": 4096,
+    "second_apply_actions": 0,
+    "sequence_exit_codes": [
+      1,
+      1,
+      0,
+      0,
+      2
+    ],
+    "writes_total": 1
+  },
+  "evidence_label": "[SIMULATED]",
+  "exercise": "20.5",
+  "inputs": {
+    "approved_firmware": [
+      "28.42.1000",
+      "28.43.1014"
+    ],
+    "desired": {
+      "host_mtu": 9000,
+      "rdma_active_mtu": 4096,
+      "speed_mbps": 400000
+    },
+    "fixture_drift": "eth3 IP MTU 1500 (active_mtu 1024)",
+    "target": "orion-n06"
+  },
+  "steps": {
+    "run1_validate": {
+      "audit_lines": 32,
+      "changed_actions": 0,
+      "drift_lines": 2,
+      "dry_run_actions": 0,
+      "exit_code": 1
+    },
+    "run2_apply_dry_run": {
+      "audit_lines": 33,
+      "changed_actions": 0,
+      "drift_lines": 2,
+      "dry_run_actions": 1,
+      "exit_code": 1
+    },
+    "run3_apply": {
+      "audit_lines": 33,
+      "changed_actions": 1,
+      "drift_lines": 2,
+      "dry_run_actions": 0,
+      "exit_code": 0
+    },
+    "run4_apply_again": {
+      "audit_lines": 32,
+      "changed_actions": 0,
+      "drift_lines": 0,
+      "dry_run_actions": 0,
+      "exit_code": 0
+    },
+    "run5_missing_tool": {
+      "audit_lines": 1,
+      "changed_actions": 0,
+      "drift_lines": 0,
+      "dry_run_actions": 0,
+      "exit_code": 2
+    }
+  },
+  "tolerance": "exact",
+  "units": "exit codes, action counts"
+}

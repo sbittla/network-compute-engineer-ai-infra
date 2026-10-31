@@ -1,0 +1,22 @@
+id: "1.2"
+title: Scale-up versus scale-out for two workloads
+folder: 1.2-scale-up-vs-scale-out
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 20
+evidence_required: >-
+  A table of the eight lower bounds with formula and units; the dominant resource per workload with
+  ceiling fraction; named metrics with expected direction and magnitude; one placement proposal with
+  its constraint.
+marking:
+  - criterion: Eight lower bounds correct with units (A 0.566 ms, 6.02 ms, 0.327 ms, 0; B 0.404 s, 0.149 s, 0.089 s, 0.600 s), 1 point each
+    points: 8
+  - criterion: Dominant resource and the network that matters named for each workload (A memory, scale-up; B scale-out), with ceiling fractions 0.63 and 0.40
+    points: 4
+  - criterion: Two telemetry signals per workload with expected direction and magnitude
+    points: 4
+  - criterion: Placement proposal for B that moves all-to-all onto NVLink, with the eight-GPU NVLink domain and HBM capacity named as the limit
+    points: 4
+lab_checks: []

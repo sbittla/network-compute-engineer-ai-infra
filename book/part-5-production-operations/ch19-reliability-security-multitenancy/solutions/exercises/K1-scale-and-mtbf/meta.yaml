@@ -1,0 +1,17 @@
+id: K1
+title: Scale and MTBF
+folder: K1-scale-and-mtbf
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: formula and a four-row table
+marking:
+- criterion: States MTBF_job = MTBF_node / N and interruptions/day = 24 h / MTBF_job
+  points: 1
+- criterion: Correct job MTBF for 8, 32, 128 and 512 nodes (192, 48, 12, 3 h)
+  points: 2
+- criterion: Correct interruptions/day (0.125, 0.5, 2, 8) with units
+  points: 1
+lab_checks: []

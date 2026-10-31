@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Not stated in exercises.md; marked against the criteria below.",
+  "id": "12.19",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Environment manifest: versions, firmware, topology, NCCL_* variables, node list",
+      "points": 1
+    },
+    {
+      "criterion": "Repeated launches with spread, warm-up/iteration counts",
+      "points": 1
+    },
+    {
+      "criterion": "A baseline for comparison and the fabric state (idle or what else ran)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Making a nccl-tests log admissible evidence",
+  "type": "reflection"
+}

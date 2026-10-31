@@ -1,0 +1,22 @@
+id: 7.W2
+title: Failure capacity of ORION-384
+folder: 7.W2-orion-384-failure-capacity
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 12
+evidence_required: a results table, formulas with substituted values, and a 3–5 sentence comparison.
+marking:
+- criterion: '(a) Baseline row: 12.8 / 12.8 / 102.4 Tb/s'
+  points: 2
+- criterion: '(a) One link down: 12.4 / 9.6 / 102.0 Tb/s, with the 8 × 3 × 0.4 ingress arithmetic'
+  points: 2
+- criterion: '(a) One spine down: 11.2 / 11.2 / 89.6 Tb/s'
+  points: 2
+- criterion: (b) Link penalty 25 % vs 12.5 % on ORION-256, explained by 4 vs 8 links per bundle under
+    unweighted ECMP; spine penalty reverses
+  points: 3
+- criterion: (c) P(no collision) = 4!/4⁴ = 9.4 % and expected links used = 4 × (1 − (3/4)⁴) = 2.73
+  points: 3
+lab_checks: []

@@ -1,0 +1,17 @@
+id: K4
+title: Why plan to 85 %?
+folder: K4-plan-to-85-percent
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: queueing argument; consequence for gang-scheduled jobs.
+marking:
+- criterion: 'Queueing argument: waiting time grows without bound as utilization approaches 100 %'
+  points: 2
+- criterion: Gang-scheduled jobs need a large contiguous block, so they starve before the average shows it
+  points: 2
+- criterion: Links the headroom to failures/fragmentation and the 85 % planning target
+  points: 1
+lab_checks: []

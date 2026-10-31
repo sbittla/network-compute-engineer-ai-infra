@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the implication for validation, with the max-of-ranks argument",
+  "id": "13.16",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Step time is set by the maximum, so validate against the maximum, not per-rank improvement",
+      "points": 1
+    },
+    {
+      "criterion": "Fix all stragglers, or validate the fixed rank with its own compute and wait distribution",
+      "points": 1
+    },
+    {
+      "criterion": "Gives a concrete validation criterion (e.g. rank z below threshold and step time vs ideal)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Validating a fix when the maximum sets step time",
+  "type": "reflection"
+}

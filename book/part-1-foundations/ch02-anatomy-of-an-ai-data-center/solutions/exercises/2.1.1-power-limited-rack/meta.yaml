@@ -1,0 +1,17 @@
+id: "2.1.1"
+title: Why an ORION rack is power-limited, not space-limited
+folder: 2.1.1-power-limited-rack
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 3
+evidence_required: Written answer with a space number and a power number, formula to result.
+marking:
+  - criterion: Space number given (4 nodes use 32U; about 13U free, so a fifth 8U node fits physically)
+    points: 1
+  - criterion: Power number given (41.0 kW maximum at 4 nodes; 51.2 kW and 56.3 kW per side with margin at 5 nodes)
+    points: 1
+  - criterion: Names what the fifth node breaks (per-rack coolant, CDU or floor design) even though 65.55 kW per side is available
+    points: 1
+lab_checks: []

@@ -1,0 +1,33 @@
+{
+  "difficulty": 2,
+  "evidence_required": "at least four distinct risks, each with its mechanism; a procedure of at least six steps naming the counters read at each step and the decision rule applied.",
+  "id": "O2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Risk 1 with mechanism (e.g. HOL blocking / victim flows)",
+      "points": 2
+    },
+    {
+      "criterion": "Risk 2 with mechanism (e.g. pause propagation / congestion trees)",
+      "points": 2
+    },
+    {
+      "criterion": "Risk 3 with mechanism (e.g. PFC storms without a watchdog)",
+      "points": 2
+    },
+    {
+      "criterion": "Risk 4 with mechanism (e.g. deadlock, buffer cost, masking of ECN misconfiguration)",
+      "points": 2
+    },
+    {
+      "criterion": "Numbered procedure of ≥ 6 steps, each naming the counters read and the decision rule",
+      "points": 7
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Why not PFC everywhere?",
+  "type": "outline-mandated"
+}

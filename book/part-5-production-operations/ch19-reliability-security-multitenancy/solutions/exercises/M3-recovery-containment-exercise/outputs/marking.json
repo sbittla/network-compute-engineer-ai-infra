@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "complete plan per Section 19.10; at least three injections; explicit safety controls; tabletop run report",
+  "id": "M3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Hypothesis and steady-state SLIs for the non-target tenants",
+      "points": 3
+    },
+    {
+      "criterion": "At least three injections (repeated crash, disabled backend port, storage quota) on a dedicated partition only",
+      "points": 4
+    },
+    {
+      "criterion": "Abort criteria and explicit safety controls (burn rate > 2, shared-infra alerts, kill switch, owner sign-off)",
+      "points": 4
+    },
+    {
+      "criterion": "Observations, pass criteria and evidence list",
+      "points": 3
+    },
+    {
+      "criterion": "Tabletop run report: per injection expected vs discovered behaviour, gaps, owners and follow-ups",
+      "points": 6
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Recovery and containment exercise",
+  "type": "outline-mandated"
+}

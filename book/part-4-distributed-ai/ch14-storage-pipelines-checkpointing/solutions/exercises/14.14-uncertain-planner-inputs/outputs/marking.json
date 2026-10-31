@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three input → measurement pairs",
+  "id": "14.14",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First input with a specific measurement (tool, procedure, repetitions)",
+      "points": 2
+    },
+    {
+      "criterion": "Second input with a specific measurement",
+      "points": 2
+    },
+    {
+      "criterion": "Third input with a specific measurement",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Most uncertain planner inputs",
+  "type": "reflection"
+}

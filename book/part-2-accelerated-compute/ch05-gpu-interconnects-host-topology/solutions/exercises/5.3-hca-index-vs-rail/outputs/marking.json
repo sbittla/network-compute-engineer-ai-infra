@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "probe-order explanation; LLDP/cabling database.",
+  "id": "5.3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "nvidia-smi numbers NIC columns in PCI bus order (frontend mlx5_8 at bus 0d is NIC0)",
+      "points": 1
+    },
+    {
+      "criterion": "RDMA device names come from kernel/udev naming rules; neither a column index nor a name says where a cable goes",
+      "points": 1
+    },
+    {
+      "criterion": "Authoritative source: LLDP neighbour (orion-be-leaf-rR) cross-checked against the cabling database",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "HCA index is not the rail",
+  "type": "knowledge-check"
+}

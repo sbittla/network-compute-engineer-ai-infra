@@ -1,0 +1,23 @@
+id: '5.2'
+title: nvidia-smi topo legend and ordering
+folder: 5.2-topo-legend-ordering
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: five meanings and an ordering with one-line justification.
+marking:
+- criterion: PIX (at most one PCIe bridge) and PXB (multiple bridges, no host bridge) defined
+  points: 1
+- criterion: PHB (through a PCIe host bridge, typically the CPU) defined
+  points: 1
+- criterion: NODE (between host bridges within a NUMA node) and SYS (across the SMP interconnect between
+    NUMA nodes) defined
+  points: 1
+- criterion: 'Ordering best to worst: PIX, PXB, PHB, NODE, SYS'
+  points: 1
+- criterion: 'Justification: each step adds bridges, root-complex or inter-socket traversal, lowering
+    P2P bandwidth and raising variance; GDR may be refused beyond the NCCL_NET_GDR_LEVEL gate'
+  points: 1
+lab_checks: []

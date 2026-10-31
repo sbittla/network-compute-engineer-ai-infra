@@ -35,7 +35,7 @@ it by 2.4 %.
 |---|---|
 | Long prompts cause head-of-line blocking | c1 at 1.0×: TTFT p95 1.39 s [1.25–1.53] on mixed traffic, but 0.40 s chat-only even at 2.0× |
 | Mean TPOT hides token stalls | c2 chat-only at 2.0×: TPOT p95 41 ms (passes) but ITL p99 241 ms [221–257] (fails). c1's 2,048-token mixed iterations (≈ 78 ms) put its mixed-traffic ITL p99 at ≈ 103 ms |
-| The highest throughput is an unstable system | c1 at 2.0× mixed reaches 2,784 tok/s per node while TTFT grows 0.029 s per second of arrival, so the queue never drains. We report it as unstable and quote no p95 or cost |
+| The highest throughput is an unstable system | c1 at 2.0× mixed reaches 2,784 tokens/s per node while TTFT grows 0.029 s per second of arrival, so the queue never drains. We report it as unstable and quote no p95 or cost |
 | One trace would have misled us | c3 at 1.0× mixed passes on 4 seeds and fails on one (TTFT p95 0.86 s) |
 | Capping context "meets" latency by failing requests | c4: TTFT p95 0.19 s, but 2.1 % rejected, a ≈ 21× burn of a 99.9 % budget |
 

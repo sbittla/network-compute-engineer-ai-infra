@@ -1,0 +1,26 @@
+id: M3
+title: INC-2291 timeline and blameless postmortem
+folder: M3-incident-timeline-postmortem
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: lab
+points: 25
+evidence_required: Timeline table; postmortem; checker PASS on T5.
+marking:
+- criterion: 'Timeline accuracy: onset 02:10, detected 02:58, declared 03:12, mitigated 04:08:12, resolved
+    04:30; TTD 48, TTM 118.2, TTR 140 min'
+  points: 6
+- criterion: Impact with evidence labels (62.4 GPU-h, SLI 0.678, inference unaffected)
+  points: 5
+- criterion: Blameless language throughout
+  points: 4
+- criterion: Rejected hypotheses (FAC-0912, CHG-4468) with the evidence that rejected them
+  points: 4
+- criterion: ≥ 5 action items typed detect/mitigate/prevent with owners, priorities, dates; checker T5
+    PASS
+  points: 6
+lab_checks:
+- 'T4 root-cause correlation:'
+- 'T5 incident timeline:'
+- 'T5 postmortem rendering:'

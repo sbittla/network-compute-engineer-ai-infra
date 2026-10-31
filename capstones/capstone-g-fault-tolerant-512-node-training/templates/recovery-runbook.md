@@ -1,7 +1,7 @@
 # Recovery Runbook — Collective Hang on ORION-XL
 
 > Template for Capstone G artifact 7. Every command carries its tier and whether it changes state.
-> Lab or authorised production procedure only.
+> Lab or authorized production procedure only.
 
 ## 0. Signals that start this runbook
 `<fill: watchdog timeouts, progress stall, critical Xid alert>`

@@ -53,11 +53,13 @@ Annotated architecture diagrams (training and online inference) and a one-page w
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Mandated exercises 1.1–1.3, knowledge checks, worked problems, lab, troubleshooting, design, reflection |
+| [exercises/](exercises/README.md) | One learner folder per exercise (22): verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Workload-characterization lab guide |
 | `lab/data/` | Synthetic profiles and ORION ceilings (the seeded generator in `lab/tools/` is instructor material) |
 | `lab/starter/workload_model.py` | Learner implementation (TODOs) |
 | `lab/check.py` | Checker: `python check.py [--impl starter|solution]` |
 | `solutions/` | Instructor answer key and reference lab implementation |
+| `solutions/exercises/` | Instructor folder per exercise: `meta.yaml` marking scheme, worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

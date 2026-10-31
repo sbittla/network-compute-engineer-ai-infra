@@ -1,0 +1,17 @@
+id: D1
+title: The inference pool
+folder: D1-inference-pool
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: quantified comparison with assumptions; SLO risk analysis; guardrails.
+marking:
+- criterion: Quantified useful GPU-hours per year for both options with stated assumptions
+  points: 4
+- criterion: 'TTFT SLO risk analysis: reclaim time vs traffic ramp, N+2 headroom never lent'
+  points: 3
+- criterion: Guardrails with triggers, and a conditional recommendation
+  points: 3
+lab_checks: []

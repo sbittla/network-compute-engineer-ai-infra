@@ -1,0 +1,51 @@
+{
+  "answer": {
+    "gpu_h_damaged": 512.0,
+    "gpu_h_recompute": 45.8,
+    "gpu_h_restart": 57.5,
+    "gpu_h_total": 615.3,
+    "restore_from": "step_088290"
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "checkpoints": {
+      "88290": {
+        "commit": "03:02:30",
+        "completion_s": 18.9,
+        "has_commit": true,
+        "snapshot": "03:02:11"
+      },
+      "88327": {
+        "commit": null,
+        "completion_s": null,
+        "has_commit": false,
+        "snapshot": "03:12:55"
+      }
+    },
+    "damaged_training_h": 2.0,
+    "failure": "03:13:02",
+    "gpus": 256,
+    "restart": {
+      "detect_s": 300,
+      "relaunch_s": 330,
+      "replace_s": 240,
+      "validate_s": 20,
+      "warmup_s": 150
+    },
+    "step_time_s": 17.4
+  },
+  "steps": {
+    "load_s": 8.17,
+    "recompute_s": 643.8,
+    "recompute_steps": 37,
+    "seconds_into_persist_at_failure": 7,
+    "soft_restart_s": 808.2,
+    "valid_checkpoints": [
+      88290
+    ]
+  },
+  "units": {
+    "cost": "GPU-hours",
+    "time": "s"
+  }
+}

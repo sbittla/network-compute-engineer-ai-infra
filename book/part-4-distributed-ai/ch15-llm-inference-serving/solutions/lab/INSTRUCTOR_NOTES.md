@@ -10,7 +10,7 @@ seed, re-derive them with the reference solution.
 |---|---|
 | Requests | 4,539 (4,479 `chat`, 60 `longctx`) over 600 s |
 | Replicas | r0 1,263 · r1 1,133 · r2 1,313 · r3 830 (least-loaded routing sends less to the slow replica) |
-| KV pool per replica | 13,351 blocks × 16 tokens = 213,616 tokens (TP=2, FP8 weights, BF16 KV) |
+| KV pool per replica | 13,351 blocks × 16 tokens = 213,616 tokens (TP = 2, FP8 weights, BF16 KV) |
 | Scheduler | max 48 running sequences, 8,192 prefill tokens/iteration, LIFO recompute preemption, no chunked prefill |
 | Healthy baseline (arrivals < 230 s) | TTFT p50/p95/p99 = 0.138 / 0.449 / 0.621 s; TPOT p50/p95/p99 = 27.5 / 45.0 / 52.3 ms; queue p95 = 0.107 s; SLO attainment 98.2 %; goodput 5.90 req/s of 6.00 req/s offered |
 | Whole trace | chat TTFT p50/p95/p99 = 0.269 / 24.5 / 42.0 s; chat TPOT p50/p95 = 46.2 / 90.1 ms; SLO attainment 48.8 %; goodput 3.69 req/s vs throughput 7.57 req/s; 1,919 output tokens/s |
@@ -50,7 +50,7 @@ seed, re-derive them with the reference solution.
 * **Why it teaches:** the same symptom (TTFT p95 explodes) has a different root cause and a
   different fix: per-tenant admission control or concurrency limits, KV-aware routing (the
   router here balances by request *count*, which is blind to KV), a separate long-context pool,
-  FP8 KV cache, or more KV memory per replica (TP=4 instead of TP=2).
+  FP8 KV cache, or more KV memory per replica (TP = 4 instead of TP = 2).
 
 ## Planted anomaly 3 — slow replica
 
@@ -86,7 +86,7 @@ seed, re-derive them with the reference solution.
 | Tokens/s per node | 2,740 | 12,678 |
 | 2k prefill | 90.6 ms | 90.6 ms |
 
-| Design (40 req/s, 2,048 in / 256 out, TP=4 FP8 replicas) | shared (8) | disagg RDMA (6P+2D) | disagg TCP (6P+2D) |
+| Design (40 req/s, 2,048 in / 256 out, TP = 4 FP8 replicas) | shared (8) | disagg RDMA (6P+2D) | disagg TCP (6P+2D) |
 |---|---|---|---|
 | Prefill utilization ρ | 0.453 | 0.604 | 0.604 |
 | Mean TTFT | 128 ms | 160 ms | 160 ms |

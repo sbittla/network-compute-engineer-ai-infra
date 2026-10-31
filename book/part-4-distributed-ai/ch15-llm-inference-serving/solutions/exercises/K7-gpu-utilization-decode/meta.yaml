@@ -1,0 +1,20 @@
+id: K7
+title: GPU utilization does not show saturation
+folder: K7-gpu-utilization-decode
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: what the utilization counter measures, and two alternative signals with the reason
+  each is better
+marking:
+- criterion: utilization.gpu = fraction of sample period with at least one kernel running; says nothing
+    about SMs, tensor use or HBM bandwidth
+  points: 2
+- criterion: 'Signal 1: DCGM DRAM active (bandwidth saturation) plus tensor/SM active, with reason'
+  points: 1
+- criterion: 'Signal 2: engine signals (running vs cap, KV usage, waiting queue, step time vs batch),
+    with reason'
+  points: 1
+lab_checks: []

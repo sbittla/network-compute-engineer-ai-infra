@@ -1,0 +1,19 @@
+{
+  "answer": {
+    "clock_ratio": 0.5983,
+    "clock_scaled_fraction_of_step": 0.4451,
+    "dc_available_braked": 6.0,
+    "dc_available_normal": 9.0,
+    "dc_need": 7.99,
+    "node_ac_max_braked": 6.383,
+    "peer_node_ac_kw": 8.45,
+    "peer_node_dc_kw": 7.943,
+    "rack_ac_max_braked": 25.5319,
+    "slowdown": 0.2989
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] evidence",
+  "units": {
+    "power": "kW",
+    "slowdown": "fraction"
+  }
+}

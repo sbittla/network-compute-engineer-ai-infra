@@ -16,7 +16,11 @@ import pandas as pd
 import yaml
 
 XID_RE = re.compile(r"NVRM: Xid \(PCI:([0-9A-Fa-f]{4}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2})\): (\d+)")
-NETIB_RE = re.compile(r"NET/IB : Got completion from peer ([0-9.]+)<\d+> with status=(\d+).*?hca (mlx5_\d+)")
+NETIB_RE = re.compile(
+    # NCCL <= 2.21 prints "NET/IB : Got completion ...", 2.22+ "NET/IB: Got completion ..."; the status appears as "error N," (<= 2.19),
+    # "status=N" (2.20+) or "status=<text>(N)" (current master); "hca mlx5_N" is printed from 2.22 on.
+    r"NET/IB ?: Got completion from peer ([0-9.]+)<\d+> with (?:error |status=(?:[^(]*?\()?)(\d+)"
+    r"(?:.*?hca (mlx5_\d+))?")
 
 
 # --------------------------------------------------------------------------- loading (given)
@@ -48,8 +52,9 @@ def parse_xid(line: str) -> dict[str, Any] | None:
 
 
 def parse_netib(line: str) -> dict[str, Any] | None:
-    """Parse an NCCL `NET/IB : Got completion from peer <ip><port> with status=S ... hca mlx5_N` line
-    -> {"peer_ip", "status", "hca"}; None otherwise."""
+    """Parse an NCCL `NET/IB: Got completion from peer <ip><port> with status=S ... hca mlx5_N` line
+    -> {"peer_ip", "status", "hca"}; None otherwise. Accept `NET/IB :` and `NET/IB:`, and the status as
+    `error S,`, `status=S` or `status=<text>(S)`; "hca" is None when the line has no hca field (NCCL <= 2.21)."""
     m = NETIB_RE.search(line)
     return {"peer_ip": m.group(1), "status": int(m.group(2)), "hca": m.group(3)} if m else None
 

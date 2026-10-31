@@ -1,0 +1,18 @@
+id: R3
+title: Over-aggressive auto-quarantine
+folder: R3-aggressive-auto-quarantine
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: concise answers that cite data files or sections
+marking:
+- criterion: 'Way 1: drains healthy nodes, causing capacity loss and spare exhaustion'
+  points: 1
+- criterion: 'Way 2: masks software faults (collective mismatch, Section 19.13) by hardware churn, or floods repair
+    queues'
+  points: 1
+- criterion: Cites a section or data file (Section 19.13, spares.csv, Table 19.8)
+  points: 1
+lab_checks: []

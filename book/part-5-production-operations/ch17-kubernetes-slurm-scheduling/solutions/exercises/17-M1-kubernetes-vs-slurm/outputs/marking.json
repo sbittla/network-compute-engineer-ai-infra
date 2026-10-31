@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "The table, three recommendations each with one decisive reason, and the hybrid rule.",
+  "id": "17-M1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Comparison table with ≥ 8 criteria across the three workload classes",
+      "points": 4
+    },
+    {
+      "criterion": "Three recommendations, each with one decisive reason",
+      "points": 4
+    },
+    {
+      "criterion": "Hybrid rule: lifecycle system owns node state; one scheduler per node; pool moves are lifecycle transitions",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Kubernetes versus Slurm by workload class",
+  "type": "outline-mandated"
+}

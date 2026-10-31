@@ -1,0 +1,17 @@
+TODO  A1 size + transfer time         TODO: nbytes / (GBps * 1e9 * efficiency).
+TODO  A2 Young/Daly interval          TODO: sqrt(2 * delta * M).
+TODO  A3 interval selection           TODO: max(Young, floor), then round UP to a whole number of steps.
+TODO  A4 strategy timings             TODO: compute t_pfs_w, t_pfs_r, t_snap, t_loc_w, t_loc_r from cfg, then build the dict for each strategy (lab README, Part A table).
+TODO  A5 fixed-interval plan          TODO: pick tau (if None), then E_lost, E_ttr, lost GPU-h/day, RPO, overhead, PFS share.
+TODO  A6 strategy comparison          TODO: DataFrame of plan_strategy() for each strategy, indexed by name, sorted by lost_gpu_h_day.
+TODO  B1 latency percentiles          TODO: group by op; np.percentile at 50, 99, 99.9.
+TODO  B2 window classification        TODO: bin by floor(t_s / window_s); compute the listed columns; call classify_window().
+TODO  B3 phase segmentation           TODO: bin by floor(t_s / window_s); compute the listed columns; call classify_window().
+TODO  B4 interference windows         TODO: bin by floor(t_s / window_s); compute the listed columns; call classify_window().
+TODO  B5 slow storage target          TODO: median latency per target for reads >= 1 MiB; compare with the median of medians.
+TODO  B6 fio acceptance parse         TODO: json.load; pick the read or write section by rw; convert ns -> us and B/s -> GB/s.
+TODO  C1 audit checkpoint store       TODO: validate every step_* directory.
+TODO  C2 select latest valid          TODO: highest step with no defects. Do NOT trust the `latest` pointer.
+TODO  C3 validator on unseen defects  TODO: COMMIT, manifest parse, manifest hash, rank coverage, then each shard's existence/size/sha256.
+
+0/15 checks passed (starter)

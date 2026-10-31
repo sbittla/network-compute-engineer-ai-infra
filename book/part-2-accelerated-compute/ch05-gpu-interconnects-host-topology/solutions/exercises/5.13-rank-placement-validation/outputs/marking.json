@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "mapping table, launcher settings, a validation checklist with pass criteria and the commands/log lines used.",
+  "id": "5.13",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mapping table: ranks 0-7 node A GPU0-7, ranks 8-15 node B; TP group per node over NVLink; DP pairs (r, r+8) over rail r via mlx5_r (PIX)",
+      "points": 3
+    },
+    {
+      "criterion": "Launcher settings: CUDA_DEVICE_ORDER=PCI_BUS_ID, CPU and memory binding per NUMA node, NIC selection (NCCL topology detection or NCCL_IB_HCA excluding frontend NICs)",
+      "points": 3
+    },
+    {
+      "criterion": "Validation checklist with pass criteria and evidence: mapping CSV golden, NCCL NET/IB Using and /GDRDMA lines, topology dump, taskset/numastat, nccl-tests ≥ fleet floor over 5 runs",
+      "points": 4
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Rank placement and its validation",
+  "type": "outline-mandated"
+}

@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "architecture sketch; a trade-off table with at least two options and four criteria (detection time, GPU cost, false-positive rate, causal strength); a stated recommendation with the arithmetic for canary cost and detectable effect.",
+  "id": "D1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Architecture sketch with data sources (step logs, placement, time-aware inventory, change calendar) and the attribution stage",
+      "points": 3
+    },
+    {
+      "criterion": "Trade-off table: at least two options against the four criteria",
+      "points": 4
+    },
+    {
+      "criterion": "Canary GPU cost arithmetic (64 GPU-h/day of 6,144 = 1.04 %)",
+      "points": 3
+    },
+    {
+      "criterion": "Detectability arithmetic (3 % of 17.4 s = 0.52 s; n = 0.70) and threshold baseline + max(3σ, 3 %)",
+      "points": 3
+    },
+    {
+      "criterion": "Recommendation justified against false-positive cost and causal strength",
+      "points": 2
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Continuous regression detection for ORION",
+  "type": "design-challenge"
+}

@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "hypothesis table; discriminating test with expected outcomes; root-cause statement separated into proven and inferred; magnitude check with arithmetic; safe action; validation with repetitions; ECN hypothesis with its test.",
+  "id": "T1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Hypothesis table (≥ 3) ranked by information value, cost and risk, with rationale",
+      "points": 4
+    },
+    {
+      "criterion": "Discriminating tests with both expected outcomes",
+      "points": 3
+    },
+    {
+      "criterion": "Root cause split into proven (SW thermal slowdown) and inferred (fan-tray trigger), plus magnitude check 13.5 × 1,980/1,715 ≈ +2.1 s",
+      "points": 3
+    },
+    {
+      "criterion": "Safe change: drain and checkpoint restart with the job owner, Facilities inspects; no clock/power/QoS overrides",
+      "points": 2
+    },
+    {
+      "criterion": "Validation with repetitions and the ECN-as-consequence hypothesis with its test",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "The interview troubleshooting round, version 2",
+  "type": "troubleshooting"
+}

@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "A policy document (≤ 2 pages) and before/after simulator output for one rule.",
+  "id": "17-M2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Eligibility filters in order, GPU-type selection, and topology rules (socket, node, rail, rack/block)",
+      "points": 4
+    },
+    {
+      "criterion": "Quota model (hard, borrowing, overcommit), priority classes with preemption asymmetry, fairness key",
+      "points": 3
+    },
+    {
+      "criterion": "Gang mechanism and how small jobs are kept from fragmenting gang capacity",
+      "points": 2
+    },
+    {
+      "criterion": "Metrics that prove the policy works",
+      "points": 3
+    },
+    {
+      "criterion": "Before/after simulator replay of one rule change with interpretation",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "ORION scheduling policy with replay evidence",
+  "type": "outline-mandated"
+}

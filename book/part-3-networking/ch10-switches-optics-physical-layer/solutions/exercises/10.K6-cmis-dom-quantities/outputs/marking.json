@@ -1,0 +1,17 @@
+{
+  "difficulty": 1,
+  "evidence_required": "five rows: quantity → failure → what you compare it against.",
+  "id": "10.K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Five correct DOM quantities, one point each, each with a plausible failure and a stated reference to compare against",
+      "points": 5
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Five DOM quantities and the failures they reveal",
+  "type": "knowledge-check"
+}

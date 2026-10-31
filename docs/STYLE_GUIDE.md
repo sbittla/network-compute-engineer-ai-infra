@@ -35,6 +35,7 @@ inline labels the first time a figure appears in a section, and in every table c
 | `[SIMULATED]` | Output of a software simulation/emulation. State what the simulator does *not* capture. |
 | `[ILLUSTRATIVE]` | A plausible example value chosen for teaching. Not a claim about any product. |
 | `[VENDOR-SPEC, YYYY-MM]` | Taken from vendor documentation; include the platform and the month checked. Readers must re-verify. |
+| `[OBSERVED, YYYY-MM-DD]` | Counted from real public records (e.g. job postings) on the stated access date; the sample, sources and dedup rule are documented beside the data. Goes stale; state the refresh window. |
 
 Planning assumptions (growth rates, MTBF, prices, utilization targets) use `[ILLUSTRATIVE]` and
 should also appear in the chapter's or project's assumptions register.

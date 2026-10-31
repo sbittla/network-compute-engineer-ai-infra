@@ -1,0 +1,32 @@
+{
+  "answer": {
+    "aqu_sz_nvme3": 40.34,
+    "b_live": [
+      14,
+      14,
+      16,
+      17
+    ],
+    "b_mean": 15.25,
+    "b_over_cpus_pct": 6.808,
+    "delivered_fraction": 0.6,
+    "gpu_util_max": 60,
+    "gpu_util_min": 55,
+    "iowait_pct": 6.9,
+    "littles_law_nvme3": 40.338,
+    "md0_MBps": 435.159,
+    "md0_r_await_ms": 49.1,
+    "member_ratio": 231.429,
+    "nvme3n1_r_await_ms": 48.6,
+    "pid_affinity": "0-55,112-167",
+    "remote_fraction": 0.989,
+    "required_MBps": 725.265,
+    "sibling_r_await_ms": 0.21
+  },
+  "evidence": "[SIMULATED] snapshot; derived values [MODELED]",
+  "units": {
+    "fraction": "0-1",
+    "latency": "ms",
+    "throughput": "MB/s (SI)"
+  }
+}

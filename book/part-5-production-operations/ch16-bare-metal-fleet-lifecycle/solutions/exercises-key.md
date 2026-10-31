@@ -23,7 +23,7 @@ condition.]
 
 **K3.** Pending remap: the driver has recorded a failing HBM row to remap to a spare, but the remap
 takes effect only after a GPU reset; until then the GPU should not run production. Action: drain,
-reset per vendor procedure, confirm `Pending: No`, re-run DCGM `-r 3`. Remapping failure: the GPU
+reset per vendor procedure, confirm `Pending: No`, rerun DCGM `-r 3`. Remapping failure: the GPU
 could not remap (spares exhausted or the operation failed) — the GPU is an RMA candidate; drain and
 open RMA with `nvidia-bug-report.sh` and DCGM output. [2 + 2 + 1.]
 
@@ -35,7 +35,7 @@ recirculation, poor heatsink contact (thermal interface), or high inlet temperat
 **K5.** With *c* components each having *v* candidate versions, pairwise tables need
 C(c,2)·v² entries and still say nothing about combinations of three or more; bundles qualify a small
 number of complete combinations as units. Example three-way interaction: GPU driver + fabric manager
-+ NVSwitch firmware (the fabric initialises only when all three agree), or NIC firmware + RDMA stack +
++ NVSwitch firmware (the fabric initializes only when all three agree), or NIC firmware + RDMA stack +
 GPU driver for GPUDirect RDMA (`nvidia-peermem`/DMA-BUF). [3 + 2.]
 
 **K6.** (a) PATCH `/redfish/v1/Systems/{id}` with `Boot.BootSourceOverrideTarget = Pxe`,
@@ -130,7 +130,7 @@ Expected `check.py` result: 33/33 PASS. Expected acceptance report and lifecycle
 
 Reference policy (all tiers keep the "re-enter at `imaged`, pass to `validated`" rule):
 
-| Repair type | Tier | Tests | Duration [ILLUSTRATIVE] |
+| Repair type | Tier | Tests | Duration `[ILLUSTRATIVE]` |
 |---|---|---|---|
 | All | Base | Inventory diff, firmware matrix, DCGM `-r 1`, single-node NCCL | 20 min (included below) |
 | Optic / cable | Link | Base + NIC link/speed, optic DOM, RDMA pair test on the affected rail, 15 min traffic soak watching FEC/symbol errors | 0.75 h |
@@ -203,7 +203,7 @@ caps); firmware bugs triggered by a specific workload (cluster by job → bake o
 workloads); shared PDU/upstream switch.
 
 **R3.** Missing: multi-node fabric behaviour (switch-side counters, ECN/PFC behaviour under load,
-cross-rail routing, ECMP polarisation), multi-node NCCL at scale, long-tail intermittent faults,
+cross-rail routing, ECMP polarization), multi-node NCCL at scale, long-tail intermittent faults,
 interaction with other tenants' traffic. Covered by Chapters 9, 10, 12, 13 (multi-node NCCL and
 fabric validation) and Chapter 18 (production telemetry).
 

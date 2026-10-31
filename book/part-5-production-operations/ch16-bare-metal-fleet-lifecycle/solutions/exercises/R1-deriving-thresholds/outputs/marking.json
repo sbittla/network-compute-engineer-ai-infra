@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "A procedure naming repetitions, statistic (e.g., median and spread), and margin.",
+  "id": "R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Known-good population size and repetitions per node after warm-up stated",
+      "points": 2
+    },
+    {
+      "criterion": "Robust statistic named (median with IQR or percentile)",
+      "points": 2
+    },
+    {
+      "criterion": "Margin rule for FAIL/WARN and re-baselining per bundle; labels result MEASURED",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Deriving real acceptance thresholds",
+  "type": "reflection"
+}

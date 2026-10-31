@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "three gaps with an evidence source each.",
+  "id": "8.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Gap 1 with an evidence source (e.g. switch-side misconfiguration → switch config compliance/telemetry)",
+      "points": 1
+    },
+    {
+      "criterion": "Gap 2 with an evidence source (e.g. GDR blocked by ACS/IOMMU → ib_write_bw --use_cuda)",
+      "points": 1
+    },
+    {
+      "criterion": "Gap 3 with an evidence source (e.g. wrong leaf port → LLDP; NCCL_IB_TC unchecked; baseline outside the vendor matrix)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "How a READY verdict can still be wrong",
+  "type": "reflection"
+}

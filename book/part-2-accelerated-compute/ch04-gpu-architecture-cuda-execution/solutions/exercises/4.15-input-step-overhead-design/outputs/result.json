@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "copy_ms_per_step": 2.1,
+    "link_share": 0.035,
+    "per_gpu_GBps": 1.748,
+    "per_switch_uplink_GBps": 3.5,
+    "pinned_per_node_GiB": 2.344,
+    "pinned_per_node_MiB": 2400.0,
+    "pinned_per_rank_MiB": 300.0,
+    "pinned_share_of_host": 0.00114,
+    "unfused_launch_cpu_ms": 70.0,
+    "unfused_optimizer_launches": 7000
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.15",
+  "inputs": {
+    "bytes_per_rank_step": 104857600,
+    "cpu_us_per_launch": 10.0,
+    "gpus_per_switch": 2,
+    "host_bytes": 2199023255552,
+    "launches_per_tensor_unfused": 5,
+    "link_Bps": 50000000000.0,
+    "optimizer_tensors": 1400,
+    "ranks": 8,
+    "staging_buffers": 3,
+    "step_s": 0.06
+  },
+  "units": {
+    "bandwidth": "GB/s",
+    "memory": "MiB/GiB",
+    "time": "ms"
+  }
+}

@@ -1,0 +1,17 @@
+id: R1
+title: Deriving real acceptance thresholds
+folder: R1-deriving-thresholds
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: A procedure naming repetitions, statistic (e.g., median and spread), and margin.
+marking:
+- criterion: Known-good population size and repetitions per node after warm-up stated
+  points: 2
+- criterion: Robust statistic named (median with IQR or percentile)
+  points: 2
+- criterion: Margin rule for FAIL/WARN and re-baselining per bundle; labels result MEASURED
+  points: 1
+lab_checks: []

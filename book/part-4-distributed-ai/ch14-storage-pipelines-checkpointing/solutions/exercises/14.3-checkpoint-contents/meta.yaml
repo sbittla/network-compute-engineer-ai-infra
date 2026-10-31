@@ -1,0 +1,20 @@
+id: '14.3'
+title: What is in a checkpoint
+folder: 14.3-checkpoint-contents
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: the byte breakdown and three item → consequence pairs
+marking:
+- criterion: Byte breakdown 2 + 2 + 12 = 16 B training state; gradients not saved gives 14 B/param
+  points: 2
+- criterion: 'First non-tensor item with its consequence (e.g. step/LR scheduler: warm-up repeats, loss
+    jumps)'
+  points: 1
+- criterion: 'Second item with consequence (e.g. data-loader position and seed: replay/skip, bias)'
+  points: 1
+- criterion: Third item with consequence (e.g. RNG states or loss-scaler state)
+  points: 1
+lab_checks: []

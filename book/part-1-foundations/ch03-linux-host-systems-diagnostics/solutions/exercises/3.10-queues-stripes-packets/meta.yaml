@@ -1,0 +1,21 @@
+id: "3.10"
+title: Queues, stripes and packets
+folder: 3.10-queues-stripes-packets
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: Every formula with substituted values; one sentence of interpretation per part.
+marking:
+  - criterion: (a) Little's law, 830/s x 0.0486 s = 40.3 for nvme3n1 and 830 x 0.0491 = 40.8 for md0
+    points: 2
+  - criterion: (b) 830 r/s x 512 KiB = 435 MB/s, cross-checked from the members
+    points: 2
+  - criterion: (c) 41 / 0.25 ms x 512 KiB = about 86 GB/s allowed, so the limit moves to the drives (31.5 GB/s of links) and then to GPU compute
+    points: 2
+  - criterion: (d) 15.25 / 224 = 6.8 %, consistent with %iowait 6.9 %
+    points: 2
+  - criterion: (e) 2.77 Mpps at MTU 9000, 16.3 Mpps at MTU 1500, ratio 5.9x (38 B of per-frame overhead)
+    points: 2
+lab_checks: []

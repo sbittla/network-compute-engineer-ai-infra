@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "every formula, substituted values and results with units. Lab Part A functions may be used to check your arithmetic.",
+  "id": "W1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) budget 490 GB, 186,920 FP8 blocks, 365 sequences of 8,192 tokens",
+      "points": 3
+    },
+    {
+      "criterion": "(b) BF16 KV: 93,460 blocks, 182 sequences",
+      "points": 2
+    },
+    {
+      "criterion": "(c) bytes/step 132.9 GB; lower bound 4.96 ms (12,905 tokens/s); planning 10.08 ms (6,346 tokens/s)",
+      "points": 5
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Capacity of an alternative layout",
+  "type": "worked-problem"
+}

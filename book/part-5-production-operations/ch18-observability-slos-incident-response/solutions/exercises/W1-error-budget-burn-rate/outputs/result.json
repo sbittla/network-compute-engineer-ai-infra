@@ -1,0 +1,84 @@
+{
+  "answer": {
+    "a_budget_min": 43.20000000000004,
+    "a_budget_requests": 129600,
+    "b_burn": 5.999999999999995,
+    "b_consumed": 0.01249999999999999,
+    "b_windows_at_90min": {
+      "page 1h/5m": {
+        "fires": false,
+        "first_true_min": null,
+        "long": 6.0,
+        "short": 6.0
+      },
+      "page 6h/30m": {
+        "fires": false,
+        "first_true_min": null,
+        "long": 1.5,
+        "short": 6.0
+      },
+      "ticket 3d/6h": {
+        "fires": false,
+        "first_true_min": null,
+        "long": 0.125,
+        "short": 1.5
+      }
+    },
+    "c_burn": 19.999999999999982,
+    "c_consumed": 0.04167,
+    "c_long_window_crossing_min": 43.20000000000004,
+    "c_page_min": 45.20000000000004,
+    "c_windows": {
+      "page 1h/5m": {
+        "fires": true,
+        "first_true_min": 43.3,
+        "long": 20.0,
+        "short": 20.0
+      },
+      "page 6h/30m": {
+        "fires": false,
+        "first_true_min": null,
+        "long": 5.0,
+        "short": 20.0
+      },
+      "ticket 3d/6h": {
+        "fires": false,
+        "first_true_min": null,
+        "long": 0.4167,
+        "short": 5.0
+      }
+    },
+    "d_exhaustion_days": 5.000000000000004
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W1",
+  "inputs": {
+    "policy": [
+      [
+        "page 1h/5m",
+        60,
+        5,
+        14.4
+      ],
+      [
+        "page 6h/30m",
+        360,
+        30,
+        6.0
+      ],
+      [
+        "ticket 3d/6h",
+        4320,
+        360,
+        1.0
+      ]
+    ],
+    "requests_per_min": 3000,
+    "slo": 0.999,
+    "window_min": 43200
+  },
+  "units": {
+    "burn": "x budget rate",
+    "time": "min / days"
+  }
+}

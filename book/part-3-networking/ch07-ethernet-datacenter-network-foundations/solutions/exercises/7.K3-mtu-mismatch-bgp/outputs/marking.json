@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the role of the TCP MSS; the direction(s) in which large frames are lost.",
+  "id": "7.K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "TCP MSS mechanism: each side advertises an MSS from its own MTU and the peer never exceeds it, so BGP segments are ≤ 1,460 B",
+      "points": 2
+    },
+    {
+      "criterion": "9216 → 1500 direction: oversize frames dropped at ingress (giants), silently",
+      "points": 1
+    },
+    {
+      "criterion": "1500 → 9216 direction: packets routed out of the 1500 interface fail the egress MTU check; concludes loss in both directions",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "MTU mismatch and the eBGP session",
+  "type": "knowledge-check"
+}

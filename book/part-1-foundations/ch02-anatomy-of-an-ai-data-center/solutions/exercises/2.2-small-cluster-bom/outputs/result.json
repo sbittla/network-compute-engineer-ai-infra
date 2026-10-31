@@ -1,0 +1,29 @@
+{
+  "answer": {
+    "bisection_tbps": 25.6,
+    "frontend_ports": 32,
+    "gpu_racks": 6,
+    "headroom_kw_3": 1.082,
+    "host_links": 128,
+    "kw_per_circuit": 17.481,
+    "kw_per_side": 34.962,
+    "leaf_ports_unused": 256,
+    "leaf_spine_links": 128,
+    "leaves": 8,
+    "need_kw_3": 33.88,
+    "need_kw_4": 45.1,
+    "nodes": 16,
+    "nodes_per_rack": 3,
+    "oob_ports": 56,
+    "ports_used": 384,
+    "spines": 2,
+    "transceivers": 512,
+    "u_per_full_rack": 24,
+    "uplinks_per_leaf_per_spine": 8
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] assumptions",
+  "units": {
+    "bisection": "Tb/s per direction",
+    "power": "kW"
+  }
+}

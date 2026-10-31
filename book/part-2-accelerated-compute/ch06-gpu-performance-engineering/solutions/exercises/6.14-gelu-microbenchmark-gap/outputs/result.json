@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "below_noise_floor": true,
+    "end_to_end_speedup": 1.00482,
+    "kernel_time_reduction_throughput_reading": 0.1071,
+    "micro_input_fits_l2": true,
+    "step_reduction_throughput_reading": 0.00429,
+    "step_reduction_time_reading": 0.0048
+  },
+  "evidence_label": "MODELED",
+  "exercise": "6.14",
+  "inputs": {
+    "gelu_share": 0.04,
+    "kernel_time_reduction": 0.12,
+    "l2_bytes": 50000000.0,
+    "micro_input_bytes": 8192,
+    "noise_floor": 0.01,
+    "throughput_factor": 1.12
+  },
+  "units": {
+    "reduction": "fraction of step time"
+  }
+}

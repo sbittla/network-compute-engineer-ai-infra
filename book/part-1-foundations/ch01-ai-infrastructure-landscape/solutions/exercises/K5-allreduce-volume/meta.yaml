@@ -1,0 +1,17 @@
+id: K5
+title: Bandwidth-optimal all-reduce volume
+folder: K5-allreduce-volume
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: The per-participant send formula and its value for p = 4 and p = 8.
+marking:
+  - criterion: Formula 2(p - 1)/p x S bytes sent (and received) per participant
+    points: 2
+  - criterion: p = 4 gives 1.5
+    points: 1
+  - criterion: p = 8 gives 1.75
+    points: 1
+lab_checks: []

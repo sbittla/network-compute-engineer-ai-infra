@@ -1,0 +1,18 @@
+id: '11.16'
+title: Which assumptions to measure first
+folder: 11.16-measure-assumptions-first
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: Not stated in exercises.md; marked against the criteria below.
+marking:
+- criterion: Kernel efficiency, with a concrete measurement (profiled GEMM TFLOP/s)
+  points: 1
+- criterion: TP overlap fraction, with a concrete measurement (Nsight Systems trace)
+  points: 1
+- criterion: Effective NVLink/rail busbw at real message sizes (nccl-tests), or another justified high-sensitivity
+    assumption
+  points: 1
+lab_checks: []

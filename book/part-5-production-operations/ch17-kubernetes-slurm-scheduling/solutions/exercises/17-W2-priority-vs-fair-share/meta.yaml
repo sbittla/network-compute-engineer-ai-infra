@@ -1,0 +1,19 @@
+id: 17-W2
+title: Priority versus fair share on the Monday queue
+folder: 17-W2-priority-vs-fair-share
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: The predicted table, the simulator output, the comparison, and the policy.
+marking:
+- criterion: 'Prediction: J01 on n22, n24, n13, n18 (submit-time tie-break); J05 and J08 InsufficientCapacity'
+  points: 4
+- criterion: 'Comparison: 69 = 69 GPUs; pretrain 16 → 32, research 16 → 0'
+  points: 2
+- criterion: Unintended consequence identified and a better policy justified with snapshot numbers
+  points: 3
+- criterion: Verification by simulator replay of an edited copy of job_queue.json
+  points: 1
+lab_checks: []

@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "six rows: role, incident, first evidence (command, counter or log).",
+  "id": "K1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "AI Network and GPU/HPC rows: plausible page and a real first-evidence source",
+      "points": 2
+    },
+    {
+      "criterion": "Cluster/Platform and Performance rows; performance framed as an owned investigation, not a page",
+      "points": 2
+    },
+    {
+      "criterion": "SRE/Operations and Network Hardware/Vendor rows with plausible incident and evidence",
+      "points": 2
+    },
+    {
+      "criterion": "Evidence is specific (named command or counter class), no invented flags",
+      "points": 2
+    }
+  ],
+  "points": 8,
+  "tier": "L1",
+  "title": "Roles by what they are paged for",
+  "type": "knowledge-check"
+}

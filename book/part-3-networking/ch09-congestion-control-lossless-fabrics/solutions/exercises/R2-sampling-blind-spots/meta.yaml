@@ -1,0 +1,19 @@
+id: R2
+title: What 2 s sampling hides
+folder: R2-sampling-blind-spots
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: a short paragraph each that names specific counters, assumptions, or limitations from
+  the chapter.
+marking:
+- criterion: Phenomenon 1 (e.g. microbursts) with the revealing feature (queue/PG watermarks)
+  points: 1
+- criterion: Phenomenon 2 (e.g. brief pause trains/storms) with the revealing feature (pause-duration
+    counters, streaming telemetry)
+  points: 1
+- criterion: Names specific counters and the sampling limitation
+  points: 1
+lab_checks: []

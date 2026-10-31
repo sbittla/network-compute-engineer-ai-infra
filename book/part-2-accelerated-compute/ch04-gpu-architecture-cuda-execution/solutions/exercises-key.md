@@ -12,7 +12,7 @@ evidence labels, or a correct number with no arithmetic shown.
 ## Knowledge checks
 
 **4.1** SM: a streaming multiprocessor, the GPU's replicated compute unit with its own schedulers,
-register file, shared memory/L1 and tensor cores. Warp: 32 threads executing one instruction at a time
+register file, shared memory/L1 and Tensor Cores. Warp: 32 threads executing one instruction at a time
 (SIMT). Thread block (CTA): up to 1,024 threads that run on one SM and can share shared memory and
 barriers. Grid: all blocks of one kernel launch. (a) Placement unit: the **block** (assigned to one SM
 for its lifetime). (b) Issue unit: the **warp**.
@@ -83,7 +83,7 @@ at other sizes: with 45 KB (46,080 B) per block, 233,472 / 46,080 = 5.07 → 5 b
 (a) CPU-limited: 400 × 10 µs = **4.0 ms** per iteration (plus the last kernel's 6 µs tail, negligible).
 Kernel-busy = 400 × 6 µs / 4,000 µs = 2.4 / 4.0 = **60 %**.
 (b) GPU-limited: 400 × 6 µs + 399 × 1 µs + ≈ 15 µs replay launch = 2,400 + 399 + 15 = **2,814 µs ≈ 2.81 ms**;
-speed-up 4.0 / 2.81 = **1.42×**; kernel-busy 2.4 / 2.81 = 85 %.
+speedup 4.0 / 2.81 = **1.42×**; kernel-busy 2.4 / 2.81 = 85 %.
 (c) 256 MiB = 268,435,456 B. Pageable: 268,435,456 / 12 × 10⁹ = **22.4 ms**, serial and host-blocking →
 iteration ≈ 22.4 + 4.0 = 26.4 ms (eager). Pinned: 268,435,456 / 50 × 10⁹ = **5.37 ms**. Prefetching hides
 it only if compute per iteration ≥ copy time; with graphs compute is 2.81 ms < 5.37 ms, so the
@@ -209,7 +209,7 @@ one-hour windows; `num_alloc_retries` = 0.
   On HX8 two GPUs share each PCIe switch uplink (Figure R.1): 3.5 GB/s per switch — negligible. PCIe is
   not the constraint *if* copies are pinned and overlapped.
 - **Pinned memory:** reused staging pool, 3 buffers per rank (one being filled, one in flight, one in use)
-  = 3 × 100 MiB = 300 MiB per rank, 2.4 GiB per node of 2 TiB. Reject "pin every tensor" (unbounded growth).
+  = 3 × 100 MiB = 300 MiB per rank, 2,400 MiB ≈ 2.34 GiB per node of 2 TiB. Reject "pin every tensor" (unbounded growth).
 - **NUMA:** ranks 0–3 and their loader workers on socket 0 (NUMA 0), 4–7 on socket 1, with staging buffers
   allocated on the local node (`numactl --cpunodebind=N --membind=N` or framework affinity settings) so
   DMA reads do not cross the inter-socket link. Check with `nvidia-smi topo -m` CPU/NUMA affinity

@@ -1,0 +1,19 @@
+id: 10.K7
+title: Miscabled but error-free uplink
+folder: 10.K7-miscabled-uplink-capacity
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: ≤ 120 words; name the check that does detect it.
+marking:
+- criterion: 'Mechanism: each /31 belongs to a specific port pair, so swapped jumpers break eBGP and remove
+    ECMP members'
+  points: 2
+- criterion: Capacity impact quantified (2 of 32 uplinks = 6.25 % for one swapped pair)
+  points: 1
+- criterion: Names LLDP-neighbour-vs-cabling-schedule validation as the detecting check and why physical
+    counters stay at zero
+  points: 2
+lab_checks: []

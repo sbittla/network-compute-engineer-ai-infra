@@ -28,7 +28,7 @@ All values `[SIMULATED]` with the shipped simulator parameters.
 | P6 | F3 restart | Restart load at degraded read bandwidth: 980 GB / 3.2 GB/s = 306 s | Recovery 1,203.8 s vs 903.5 s for F1 | Storage health affects RTO as well as RPO |
 | P7 | F1 → F3 → F5 | Each failure consumes a spare; drained nodes are never returned even after the fault clears (orion-n07 link back at 3,600 s) | F5: `requeue_blocked` (need 1, available 0); training job down from 16,487 s to the horizon; ≥ 307.9 GPU-h lost and **unrecovered** | The failed component is not the cause: spare exhaustion and no return-to-service path are Quantitatively: training-partition failures arrive at 24 × 24 / 1,536 = 0.375/day; with the canonical 5-day MTTR, 0.375 × 5 ≈ 1.9 nodes are in repair on average (Poisson), and P(≤ 2) ≈ 0.71 — two spares are insufficient on ≈ 29 % of days even before any return-to-service delay |
 | P8 | F4 + F5 overlap | Link fault during scheduler outage | Drain pending 16,560 → 17,400 s; mitigation 900 s after F5 | Control-plane outages convert small faults into long ones |
-| P9 | `backlog_candidates.csv` | The score ignores the capacity cost of spares and the toil cost of noisy alerts | RB-05 ranks first by score (12,000) but 2 more spares reserve 2 × 8 × 8,760 = 140,160 GPU-h/yr; RB-06 scores 0 but removes ~28 false pages per day | Formulas are inputs to judgment, not substitutes for it |
+| P9 | `backlog_candidates.csv` | The score ignores the capacity cost of spares and the toil cost of noisy alerts | RB-05 ranks first by score (12,000) but 2 more spares reserve 2 × 8 × 8,760 = 140,160 GPU-h/yr; RB-06 scores 0 but removes ≈ 28 false pages per day | Formulas are inputs to judgment, not substitutes for it |
 
 ## 3. Expected numbers
 
@@ -40,7 +40,7 @@ All values `[SIMULATED]` with the shipped simulator parameters.
 | Recorded day detection (default rules) | F1 30 s, F2 none, F3 25 s, F4 none, F5 30 s | SIMULATED |
 | Recorded day lost GPU-h | F1 94.4 (45.5 work + 49.0 idle); F2 0; F3 167.8 (103.0 + 64.8); F4 0; F5 ≥ 307.9 (35.3 + 272.7, truncated at horizon); total 570.1 | SIMULATED |
 | Recorded day recovery | F1 903.5 s; F3 1,203.8 s; F5 never; F2/F4 recover at rollback (3,600 s / 1,200 s) | SIMULATED |
-| Re-run of recorded plan with reference rules | F2 detected 60 s, F4 detected 60 s; lost GPU-h unchanged (alerts alone do not shorten recovery) | SIMULATED |
+| Rerun of recorded plan with reference rules | F2 detected 60 s, F4 detected 60 s; lost GPU-h unchanged (alerts alone do not shorten recovery) | SIMULATED |
 | Single node loss (S1) | 110.3 GPU-h; with `fast_fail=True` 81.5 GPU-h — saving 28.8 GPU-h, matching the model (600 − 60) × 192 / 3600 | SIMULATED vs MODELED |
 | Recorded plan with `fast_fail=True` | total 474.3 GPU-h (F1 65.6, F3 72.5, F5 ≥ 336.2). Not a clean comparison: the whole trajectory (checkpoint phase at each fault) shifts — students who notice and use single-fault scenarios for attribution deserve credit | SIMULATED |
 | Backlog order | RB-01 (safety), RB-05 12,000, RB-04 4,500, RB-03 1,972.8 (137 interruptions/yr from the canonical MTBF), RB-02 1,200, RB-06 0 | MODELED |

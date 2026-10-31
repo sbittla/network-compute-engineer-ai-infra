@@ -1,0 +1,32 @@
+id: L1
+title: Lab 21
+folder: L1-lab21-capacity-model
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: 9/9 PASS; decision_memo.md per the lab rubric.
+marking:
+- criterion: Tasks 1–2 correct; forecast table; order-by recommendation (what, how much, by when)
+  points: 25
+- criterion: Task 3 correct; TCO breakdown with shares; sensitivity to utilization and goodput
+  points: 15
+- criterion: Task 4 correct; recommendation names the binding constraint and its assumptions
+  points: 20
+- criterion: Task 5 correct; rack-level guardrail proposal (cap, thresholds, who acts)
+  points: 15
+- criterion: Task 6 correct; one paragraph per flag for finance
+  points: 10
+- criterion: 'Assumptions register: every input with source/label, owner, measurement method'
+  points: 15
+lab_checks:
+- 'dataset reproducible:'
+- 'T1 plan hygiene:'
+- 'T2 usable fraction + kW per GPU:'
+- 'T2 quarterly forecast:'
+- 'T2 first shortfall + order deadlines:'
+- 'T3 TCO and cost per GPU-hour:'
+- 'T4 design comparison:'
+- 'T5 power-capping trade-off:'
+- 'T6 misleading-nominal flags:'

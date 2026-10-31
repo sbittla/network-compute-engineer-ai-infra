@@ -1,0 +1,18 @@
+{
+  "answer": {
+    "cdu_load_fraction_5_nodes": 1.024,
+    "design_kw_per_side_5_nodes": 56.32,
+    "floor_kg_m2_5_nodes": 1326.0,
+    "free_u_at_4_nodes": 13,
+    "rack_kw_4_nodes": 41.0,
+    "rack_kw_5_nodes": 51.2,
+    "residual_air_kw_5_nodes": 12.8,
+    "usable_kw_per_side": 65.55
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] inputs",
+  "units": {
+    "floor": "kg/m2",
+    "power": "kW",
+    "space": "U"
+  }
+}

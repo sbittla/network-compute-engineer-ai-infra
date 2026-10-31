@@ -1,0 +1,21 @@
+id: D1
+title: Alerting for ORION-XL on one rotation
+folder: D1-orion-xl-alerting
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: Rule table (name, SLI or cause, windows/thresholds, severity, route); grouping / inhibition
+  strategy; estimated pages per shift with assumptions.
+marking:
+- criterion: Rule table ≤ 8 page rules with SLI/cause, windows/thresholds, severity, route, plus a ticket
+    set
+  points: 4
+- criterion: Grouping/inhibition so one fabric incident yields one page, not 40
+  points: 3
+- criterion: Page-load estimate with stated assumptions within 2 per shift
+  points: 2
+- criterion: Justification of which causes may page (imminent-risk only)
+  points: 1
+lab_checks: []

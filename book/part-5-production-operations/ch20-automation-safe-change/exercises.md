@@ -20,7 +20,7 @@ Answer each in 2–5 sentences.
    the difference matter after the controller has been down for a day?
 3. In Terraform/OpenTofu terms, what are *state*, *plan*, and *drift*? Which plan action should make
    a fabric reviewer stop and ask questions, and why?
-4. Name the five validation layers of §20.5 and give one ORION defect that only layer 3
+4. Name the five validation layers of Section 20.5 and give one ORION defect that only layer 3
    (cross-object policy) can catch.
 5. List the four OpenGitOps principles. What does GitOps do to a hand-applied break-glass fix, and
    how should a team handle break-glass under GitOps?
@@ -40,7 +40,7 @@ Answer each in 2–5 sentences.
 A second cluster reuses ORION's design with three differences: the backend underlay is **IPv6**,
 host ports are **802.1Q-tagged**, and the leaves' configured port MTU is **9,100 B**. The vendor
 documents that the switch MTU counts the full frame including the Ethernet header, VLAN tag, and
-FCS. Assume a 64-byte extended-header budget for IPv4, as in §20.5.1. The IPv6 header is 40 B
+FCS. Assume a 64-byte extended-header budget for IPv4, as in Section 20.5.1. The IPv6 header is 40 B
 (IPv4 is 20 B).
 
 a. What is the largest host IP MTU the leaves will forward without drops?
@@ -188,7 +188,7 @@ Platform and Fabric disagree. Fabric wants the GitOps controller to **auto-rever
 leaf QoS and MTU within 5 minutes. Platform wants **alert-only**, because on-call engineers
 sometimes need to hand-tune ECN thresholds during incidents. Propose a policy covering which fields
 auto-revert, which alert, how break-glass works (who, how long, how recorded, how it expires), and
-how you prevent the fighting-writers failure of §20.13. Defend it with at least two failure
+how you prevent the fighting-writers failure of Section 20.13. Defend it with at least two failure
 scenarios.
 
 **Evidence required:** a policy table (field class × behaviour × rationale), a break-glass
@@ -208,14 +208,14 @@ Submit:
    signals and thresholds table, abort and rollback procedure, escalation, and audit bundle
    contents.
 
-**Evidence required:** both artefacts; the runbook cites the lab's decision log or your Exercise
+**Evidence required:** both artifacts; the runbook cites the lab's decision log or your Exercise
 20.6 design as its threshold source.
 
 ---
 
 ## 20.11 Reflection / review (★, L1)
 
-1. The §20.11 expected-loss comparison found a big-bang change *cheaper* in expected GPU-hours.
+1. The Section 20.11 expected-loss comparison found a big-bang change *cheaper* in expected GPU-hours.
    Under what conditions would you accept the big bang, and what evidence would you need?
 2. The Part 2 controller saw synthetic metrics. List three things real telemetry would do that the
    lab data does not, and how each could fool your controller.

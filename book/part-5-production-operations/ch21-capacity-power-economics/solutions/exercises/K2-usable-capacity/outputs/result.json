@@ -1,0 +1,24 @@
+{
+  "answer": {
+    "usable_gpus": 859
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K2",
+  "inputs": {
+    "energized_gpus": 1024,
+    "fragmentation": 0.08,
+    "maintenance": 0.04,
+    "repair_spares": 0.05
+  },
+  "steps": {
+    "additive_shortcut_gpus_wrong": 849.92,
+    "usable_factor": 0.839,
+    "usable_gpus_exact": 859.18
+  },
+  "tolerance": {
+    "usable_gpus": 1.0
+  },
+  "units": {
+    "usable_gpus": "GPUs"
+  }
+}

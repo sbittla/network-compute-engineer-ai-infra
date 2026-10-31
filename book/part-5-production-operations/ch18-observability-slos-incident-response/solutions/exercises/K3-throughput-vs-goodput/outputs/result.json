@@ -1,0 +1,22 @@
+{
+  "answer": {
+    "crashes": 28,
+    "goodput": 0.8,
+    "goodput_canonical_restart": 0.875,
+    "lost_h": 33.6,
+    "lost_h_canonical": 21.0,
+    "throughput_sli": 1.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K3",
+  "inputs": {
+    "allocated_h": 168.0,
+    "checkpoint_interval_h": 1.0,
+    "crash_every_h": 6.0,
+    "restart_h": 0.7
+  },
+  "units": {
+    "sli": "fraction",
+    "time": "h"
+  }
+}

@@ -620,7 +620,9 @@ def analyze_host(snapshot: dict, baseline: dict) -> list[Finding]:
         cf = parse_cpufreq(t)
         drivers = ",".join(cf["drivers"]) or "unknown"
         if "powersave" in cf["governors"]:
-            sev = "warning" if "acpi-cpufreq" in cf["drivers"] else "info"
+            # powersave is the generic min-frequency governor except under the active-mode
+            # drivers intel_pstate and amd-pstate-epp (passive modes report intel_cpufreq / amd-pstate).
+            sev = "warning" if set(cf["drivers"]) - {"intel_pstate", "amd-pstate-epp"} else "info"
             add("CPUFREQ_POWERSAVE", sev, "cpufreq",
                 f"governor powersave on {cf['governors']['powersave']} CPUs, driver {drivers}, cur_khz {cf['cur_khz']}")
         elif cf["governors"] and set(cf["governors"]) != {baseline["cpufreq"]["expected_governor"]}:

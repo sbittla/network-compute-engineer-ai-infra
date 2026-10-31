@@ -1,0 +1,24 @@
+id: O1
+title: Analyze the synthetic time series
+folder: O1-synthetic-time-series
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 12
+evidence_required: 'per episode: label, root or source device, and the quoted discriminating values.'
+marking:
+- criterion: 'Incast 100–158 s: label, root orion-be-leaf-r3:eth1/5, discriminating rates (tx ≈ 394 Gb/s,
+    queue ≈ 3,100 KB, ECN ≈ 0.67 M/s, pause rx 0)'
+  points: 3
+- criterion: 'Pause propagation 250–318 s: root eth1/10, fabric-port pause and spine branches quoted'
+  points: 3
+- criterion: 'PFC storm 400–468 s: source orion-n12:mlx5_3 (pause rx ≈ 23,700/s, tx ≈ 0 Gb/s, queue ≈
+    4,000 KB, NIC pfc_tx confirms)'
+  points: 3
+- criterion: Benign 520–558 s busy port recognized as not an episode (no pause, shallow queue)
+  points: 1
+- criterion: Values are rates from the learner's code, with units, and handle the counter reset and telemetry
+    gap
+  points: 2
+lab_checks: []

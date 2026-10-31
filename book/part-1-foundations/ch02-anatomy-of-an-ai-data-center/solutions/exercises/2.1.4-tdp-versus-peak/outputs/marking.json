@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer distinguishing TDP from peak draw and naming the absorbing stages.",
+  "id": "2.1.4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "TDP is the sustained design power and default power limit; instantaneous draw can exceed it for microseconds to milliseconds",
+      "points": 1
+    },
+    {
+      "criterion": "Microsecond excursions are absorbed by board capacitors, voltage regulators and PSU hold-up",
+      "points": 1
+    },
+    {
+      "criterion": "Step-boundary swings (tens of ms to seconds) are seen by PSUs, PDUs, breakers and the UPS",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "TDP versus peak power",
+  "type": "knowledge-check"
+}

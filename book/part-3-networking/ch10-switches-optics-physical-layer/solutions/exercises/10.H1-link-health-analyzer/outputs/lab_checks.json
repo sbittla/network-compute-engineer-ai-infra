@@ -1,0 +1,18 @@
+{
+  "id": "10.H1",
+  "lab_checks": {
+    "bom_and_spares:": "PASS bom_and_spares: small: 8 leaves/2 spines/256 links/512 optics; ORION: 8/4/512/1024 (matches the ORION reference)",
+    "cabling_schedule:": "PASS cabling_schedule: 256 cables, unique endpoints, 8 links per leaf-spine pair",
+    "commissioning_report:": "PASS commissioning_report: overall=FAIL, accepted=57/64, failures=7, referrals=2",
+    "compute_deltas:": "PASS compute_deltas: 64 ports, dt = 600 s, no negative deltas",
+    "counter_delta:": "PASS counter_delta: normal, zero and counter-reset cases",
+    "dataset_reproducible:": "PASS dataset_reproducible: dataset regenerates byte-identically (50160 bytes)",
+    "fec_margin_decades:": "PASS fec_margin_decades: margin(2.4e-6)=2.000, margin(2.4e-4)=0.000, margin(1.6e-4)=0.176 decades",
+    "layer_classification:": "PASS layer_classification: layer counts {'healthy': 55, 'physical': 7, 'higher_layer': 2} (expect {'healthy': 55, 'physical': 7, 'higher_layer': 2})",
+    "link_budget:": "PASS link_budget: DR4 0.5 km, 4 MPO pairs, Tx 0 dBm: {'loss_db': 2.2, 'rx_dbm': -2.2, 'margin_db': 3.7}; 50 m, 2 pairs, Tx -2.9 dBm, 1 dB penalty: {'loss_db': 2.52, 'rx_dbm': -5.42, 'margin_db': 0.48}",
+    "pcs_fec_line_rate:": "PASS pcs_fec_line_rate: 400G -> 425.0000 Gb/s, 100G -> 106.2500 Gb/s (expect 425, 106.25)",
+    "per_port_digest:": "PASS per_port_digest: per-port classification matches reference",
+    "primary_findings:": "PASS primary_findings: primary-code counts match",
+    "severity_policy:": "PASS severity_policy: critical=7 (expect 7); healthy->ok, higher_layer->refer"
+  }
+}

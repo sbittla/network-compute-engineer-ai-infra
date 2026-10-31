@@ -1,0 +1,34 @@
+{
+  "answer": {
+    "expected_step_s": 18.7805,
+    "gpu_h_lost_per_day": 435.2607,
+    "throughput_loss": 0.0708
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "baseline_step_s": 17.45,
+    "slow_ranks": [
+      96,
+      103
+    ]
+  },
+  "mapping": {
+    "dp_pp": [
+      {
+        "dp": 4,
+        "pp": 1
+      }
+    ],
+    "hostname": [
+      "orion-n13"
+    ],
+    "is_one_tp_group": true,
+    "node_index": [
+      12
+    ]
+  },
+  "units": {
+    "loss": "GPU-hours per day",
+    "step": "s"
+  }
+}

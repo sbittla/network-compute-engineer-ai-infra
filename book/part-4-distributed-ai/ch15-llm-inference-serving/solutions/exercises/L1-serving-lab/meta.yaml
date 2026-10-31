@@ -1,0 +1,45 @@
+id: L1
+title: 'Lab 15: capacity model, serving-trace analyzer, disaggregation model'
+folder: L1-serving-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: '`python check.py` output with 18/18 PASS, and the two-page report described in lab
+  Section 8.'
+marking:
+- criterion: Part A checks A1-A6 pass
+  points: 20
+- criterion: Configuration recommendation (latency vs throughput) with numbers and one risk each
+  points: 10
+- criterion: Part B checks B1-B4 pass, with the percentile/SLO table for full trace vs baseline
+  points: 15
+- criterion: Part B checks B5-B8 pass
+  points: 15
+- criterion: 'Diagnosis narrative per anomaly: symptom, discriminating evidence, root cause, safe mitigation'
+  points: 15
+- criterion: Part C checks C1-C4 pass
+  points: 10
+- criterion: Disaggregation recommendation for 40 req/s, transport choice, L2/L3 measurements; every number
+    labelled
+  points: 15
+lab_checks:
+- A1 kv_bytes_per_token (W-INFER BF16 and FP8 KV)
+- A2 kv_budget_bytes (TP=8 BF16, TP=4 FP8, TP=2 FP8)
+- A3 max_concurrent_sequences (paged, 16-token blocks)
+- A4 prefill_time_s (2k prompt, TP=8 BF16, 40% MFU)
+- A5 decode step lower bound and tokens/s (TP=8 BF16, B=32, ctx=2176)
+- A6 compare_serving_configs + recommendation per objective
+- B1 request_metrics (queue, prefill, TTFT, TPOT, e2e)
+- B2 latency_percentiles (chat TTFT p50/p95/p99)
+- B3 itl_values_s + ITL tail (sampled token gaps)
+- B4 slo_report (attainment, goodput, throughput)
+- B5 detect queueing collapse under the arrival burst
+- B6 detect preemption storm (and do not call it a burst)
+- B7 detect the slow replica
+- B8 telemetry_evidence corroborates the diagnoses
+- C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)
+- C2 md1_wait_s
+- C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED]
+- C4 speculative decoding expected tokens and speedup

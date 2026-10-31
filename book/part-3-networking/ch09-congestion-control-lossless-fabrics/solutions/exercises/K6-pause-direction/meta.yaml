@@ -1,0 +1,19 @@
+id: K6
+title: Direction of pause
+folder: K6-pause-direction
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: two correct statements.
+marking:
+- criterion: 'P (high pfc_tx_p3): P''s own ingress buffer for priority 3 is filling'
+  points: 1
+- criterion: P is asking its peer to stop sending priority 3
+  points: 1
+- criterion: 'Q (high pfc_rx_p3): the peer''s ingress buffer is filling'
+  points: 1
+- criterion: Q is being asked to stop transmitting priority 3 out of Q
+  points: 1
+lab_checks: []

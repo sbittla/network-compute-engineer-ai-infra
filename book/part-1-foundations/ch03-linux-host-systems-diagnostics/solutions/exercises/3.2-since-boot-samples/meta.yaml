@@ -1,0 +1,17 @@
+id: "3.2"
+title: Since-boot samples
+folder: 3.2-since-boot-samples
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: A definition of what the first sample measures, plus a numeric example.
+marking:
+  - criterion: The first vmstat line and the first iostat report are averages over the whole time since boot
+    points: 1
+  - criterion: A numeric example in which the since-boot sample hides or dilutes a live problem
+    points: 1
+  - criterion: The example shows the arithmetic (for example b = 0 since boot vs 15 live; averaging gives 12)
+    points: 1
+lab_checks: []

@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a short paragraph each that names specific counters, assumptions, or limitations from the chapter.",
+  "id": "R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "A situation that misidentifies the root (slow-receiver NIC, missing samples, two roots, counter reset)",
+      "points": 1
+    },
+    {
+      "criterion": "Explains why the rule fails in that situation",
+      "points": 1
+    },
+    {
+      "criterion": "Extra evidence named (NIC pause/storm counters, host PCIe state, both-end counter agreement, topology walk)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "When the root-finder rule fails",
+  "type": "reflection"
+}

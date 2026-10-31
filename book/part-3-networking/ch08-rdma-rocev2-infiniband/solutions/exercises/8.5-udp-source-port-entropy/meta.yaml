@@ -1,0 +1,18 @@
+id: '8.5'
+title: Entropy from the UDP source port
+folder: 8.5-udp-source-port-entropy
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: ECMP hashing mechanism; collision explanation; two mitigations with their trade-off.
+marking:
+- criterion: 'Mechanism: source port is the per-QP entropy field hashed by ECMP; one QP stays on one path'
+  points: 2
+- criterion: 'Collision explanation: two QPs per pair → few flows; QPNs and ports change run to run, so
+    collisions and bandwidth vary'
+  points: 1
+- criterion: Two mitigations, each with its trade-off (more QPs, rail-local placement, adaptive routing/spraying)
+  points: 2
+lab_checks: []

@@ -57,7 +57,7 @@ plan ordered by priority; (d) compute the new score and status if Capstone F rai
 priorities; the recomputed score and status.
 
 **WP2 ★★★ L1 — A 512-GPU variant.** Halcyon AI considers a 512-GPU (64 × HX8) cluster with the same
-64-port 400G switches, rail-optimised and non-blocking.
+64-port 400G switches, rail-optimized and non-blocking.
 (a) Size it: leaves per rail, total leaves, spines, links per leaf–spine pair, total links.
 (b) If 32 equal RoCE flows leave a leaf on 32 uplinks with random ECMP hashing, how many uplinks are
 idle on average? Recompute with 4 queue pairs per connection (128 flows of one quarter the size each).
@@ -148,8 +148,9 @@ you are targeting? Argue for a different weight using the problems in Table 24.7
 **R3 ★★ L1.** Your Level-1 labs produced many numbers. Which of them could you defend in an interview as
 evidence of skill, and which only as evidence of reasoning? Where is the line?
 
-**R4 ★★ L1.** The synthetic register suggests "python" is the most common required skill. What would you
-need — beyond a real, dated register — before concluding that Python skill is a hiring bottleneck for
+**R4 ★★ L1.** The synthetic register suggests "python" is the most common required skill, and the real
+October 2026 register (Section 24.4, Table 24.8a) agrees: Python is in 23 of 42 required lists. What
+would you need, beyond a dated register, before concluding that Python skill is a hiring bottleneck for
 your target role?
 
 *Evidence required (R1–R4):* 100–200 words each, naming specific evidence rather than general intent.

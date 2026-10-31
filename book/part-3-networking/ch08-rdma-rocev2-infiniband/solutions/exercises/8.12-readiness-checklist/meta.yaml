@@ -1,0 +1,21 @@
+id: '8.12'
+title: Pre-deployment readiness checklist
+folder: 8.12-readiness-checklist
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: written
+points: 20
+evidence_required: ≥ 15 items with command, criterion, read-only flag, automation flag; switch-side items
+  identified with an evidence source; ordering justified.
+marking:
+- criterion: Covers NIC, firmware, driver, addressing, MTU and peer validation (plus QoS and GPUDirect
+    RDMA)
+  points: 8
+- criterion: Criteria are precise and testable, with real commands
+  points: 6
+- criterion: Read-only and automated-in-lab flags correct for every item
+  points: 3
+- criterion: Switch-side items identified with an evidence source; ordering justified
+  points: 3
+lab_checks: []

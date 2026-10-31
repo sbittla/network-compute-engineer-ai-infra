@@ -1,0 +1,55 @@
+{
+  "answer": {
+    "a_theoretical_GBps": {
+      "gen4_x16": 31.51,
+      "gen5_x16": 63.02,
+      "gen5_x8": 31.51
+    },
+    "b_fit": {
+      "gen4_x16": {
+        "achievable_GBps": 25.2,
+        "carries_400G": false,
+        "theoretical_GBps": 31.51
+      },
+      "gen5_x16": {
+        "achievable_GBps": 50.4,
+        "carries_400G": true,
+        "theoretical_GBps": 63.02
+      },
+      "gen5_x8": {
+        "achievable_GBps": 25.2,
+        "carries_400G": false,
+        "theoretical_GBps": 31.51
+      }
+    },
+    "c_gdr_uplink_GBps": 0.0,
+    "c_staged_per_nic_GBps": 15.76,
+    "c_staged_upstream_demand_GBps": 200.0,
+    "c_uplink_GBps": 63.02
+  },
+  "evidence_label": "MODELED",
+  "exercise": "5.8",
+  "inputs": {
+    "achievable_fraction": 0.8,
+    "encoding": "128b/130b",
+    "links": {
+      "gen4_x16": {
+        "GTps": 16000000000.0,
+        "lanes": 16
+      },
+      "gen5_x16": {
+        "GTps": 32000000000.0,
+        "lanes": 16
+      },
+      "gen5_x8": {
+        "GTps": 32000000000.0,
+        "lanes": 8
+      }
+    },
+    "nic_GBps": 50.0,
+    "nics_per_switch": 2
+  },
+  "units": {
+    "bandwidth": "GB/s per direction"
+  }
+}

@@ -186,7 +186,7 @@ def gen_events(rm: pd.DataFrame) -> list[dict]:
         for host, local, peer in ((nb_lo, nb_lo, ip(FLAKY_NODE)), (nb_hi, nb_hi, ip(FLAKY_NODE)),
                                   (fl, fl, ip(FLAKY_NODE - 1))):
             r = int(rm[(rm.node == local) & (rm.local_rank == FLAKY_RAIL)]["rank"].iloc[0])
-            add(t, "nccl", host, f"{host}:{3000 + r % 997}:{3100 + r % 991} [{FLAKY_RAIL}] NCCL WARN NET/IB : Got "
+            add(t, "nccl", host, f"{host}:{3000 + r % 997}:{3100 + r % 991} [{FLAKY_RAIL}] NCCL WARN NET/IB: Got "
                 f"completion from peer {peer}<{40000 + r % 1000}> with status=12 opcode=0 len=0 vendor err 129 "
                 f"(Send) hca mlx5_{FLAKY_RAIL}", job=job, rank=r)
     add("01:23:00", "pytorch", node_name(17), "[Rank 137] Watchdog caught collective operation timeout: "

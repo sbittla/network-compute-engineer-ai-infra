@@ -1,0 +1,15 @@
+PASS harness.time_samples — warm-up separated, per-call timing, argument validation
+PASS harness.summarize_ns — median 2.5 ms, IQR 1.5 ms, 800 GFLOP/s on synthetic samples
+PASS harness.benches — matmul 2n^3 FLOP, copy 2x bytes, deterministic inputs
+PASS harness.manifest_and_suite — manifest complete (incl. pid); suite records raw samples and config
+PASS harness.run_independent — 2 runs in fresh processes (pids <n>)
+PASS analysis.quantile_summary — matches numpy linear quantiles; summary fields correct
+PASS analysis.cliffs_delta — sign and tie handling correct
+PASS analysis.clean_runs — A3 (torch 2.3.1) and B4 (thermal, clock 21 % below peers) excluded; routine power-cap events kept
+PASS analysis.bootstrap — point -3.146%, 95 % CI [-3.507%, -2.750%] reproduces the documented recipe
+PASS analysis.permutation_mde — exact enumeration correct; MDE formula correct
+PASS analysis.decisions — floor ±0.66%; B naive +1.04% -> -3.15% p=0.008 improvement; C naive -1.83% -> -0.50% p=0.026 below_threshold
+PASS analysis.roofline — 9 kernels classified; precision-specific ceilings; L2-resident anomaly flagged
+PASS analysis.mfu — W-TRAIN MFU 40.0%, HFU with full recompute 53.3%
+
+13/13 checks passed (solution)

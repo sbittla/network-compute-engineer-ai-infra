@@ -1,0 +1,22 @@
+id: M3
+title: Case study
+folder: M3-case-study
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: written
+points: 15
+evidence_required: every Table 24.12 section present; impact in units with arithmetic; at least one discriminating
+  test; a "remaining uncertainty" paragraph; a statement of what was anonymised.
+marking:
+- criterion: All nine Table 24.12 sections present
+  points: 5
+- criterion: Impact in units (GPU-hours, step time, SLO minutes) with arithmetic
+  points: 3
+- criterion: A genuinely discriminating test with its result
+  points: 3
+- criterion: Remaining-uncertainty paragraph
+  points: 2
+- criterion: Anonymisation statement; no confidential detail
+  points: 2
+lab_checks: []

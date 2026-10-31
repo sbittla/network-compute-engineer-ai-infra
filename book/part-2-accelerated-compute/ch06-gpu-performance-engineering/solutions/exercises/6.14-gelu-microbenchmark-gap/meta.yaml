@@ -1,0 +1,20 @@
+id: '6.14'
+title: 12 % faster kernel, unchanged step time
+folder: 6.14-gelu-microbenchmark-gap
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: mechanisms, Amdahl arithmetic, experiment design.
+marking:
+- criterion: At least three mechanisms (Amdahl, shape mismatch/L2 residency, fusion in production, one-process
+    measurement, clocks)
+  points: 4
+- criterion: 'Amdahl arithmetic: 0.04 × 0.12 = 0.48 % (or 0.43 % for a 1.12× throughput reading), below
+    the noise floor'
+  points: 3
+- criterion: 'Experiment design: production profile for share and shapes, production-shape benchmark with
+    full protocol, Amdahl prediction vs noise floor'
+  points: 3
+lab_checks: []

@@ -1,0 +1,16 @@
+PASS data_regenerates_identically: 6 files byte-identical
+TODO validate_rack_plan: implement validate_inputs()
+TODO validate_fabric_plan: implement validate_inputs()
+TODO validate_storage_and_node: implement validate_inputs()
+TODO validate_no_false_positives: implement validate_inputs()
+TODO bom_counts: implement compute_bom()
+TODO bom_optics_frontend_oob: implement compute_bom()
+TODO rack_power_budget: implement compute_power_cooling()
+TODO rack_cooling_budget: implement compute_power_cooling()
+TODO cluster_power_energy: implement compute_power_cooling()
+TODO capacity_compute_fabric: implement compute_capacity()
+TODO capacity_storage_utilization: implement compute_capacity()
+TODO spof_set: implement find_spofs()
+TODO spof_service_impact: implement find_spofs()
+
+1/14 checks passed, 0 skipped (starter)

@@ -1,0 +1,12 @@
+PASS load_telemetry: rows=3840 ranks=64 steps=60
+PASS per_step_stats: step 10: slowest rank 12, ratio 1.294 (exp 1.294)
+PASS robust_z: z(rank 37, step 40) = 14.4 (exp 14.4)
+PASS find_stragglers: stragglers=[12, 37] (expect two ranks with persistent robust z > 6)
+PASS rank_onset: onset rank 37 = 20, rank 12 = 0
+PASS attribute_cause: rank 37 -> thermal, rank 12 -> data_imbalance
+PASS rail_health: flagged rails=[2], onset=[30.0]
+PASS hot_not_throttled: hot-but-not-throttled=[51]
+PASS amplification: lost 334 GPU-s (17.3 %), ideal step 827 ms vs actual 1004 ms
+PASS symptom_windows: sm_active 58.5 -> 54.7 %, gpu_util 99.7 -> 99.7 %, comm 120 -> 198 ms, burst tx 359 -> 222 Gb/s
+
+10/10 checks passed (solution)

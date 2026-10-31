@@ -1,0 +1,37 @@
+{
+  "difficulty": 3,
+  "evidence_required": "The document; your lab `acceptance_report.md` as an appendix; `check.py` output; for L2/L3, the filled `manifest.yaml` and raw command outputs.",
+  "id": "D1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Acceptance spec complete, fail-fast ordered, thresholds labelled and justified",
+      "points": 25
+    },
+    {
+      "criterion": "Evaluator schema and reason-code catalogue consistent with lab",
+      "points": 10
+    },
+    {
+      "criterion": "State machine with guards, forbidden transitions, audit schema",
+      "points": 15
+    },
+    {
+      "criterion": "Compatibility matrix process and staged upgrade with derived numbers",
+      "points": 20
+    },
+    {
+      "criterion": "Runbook: signals, thresholds, safe actions, evidence capture, escalation",
+      "points": 20
+    },
+    {
+      "criterion": "Realism section and evidence appendix (lab report, check output, manifest if L2/L3)",
+      "points": 10
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Node acceptance specification and lifecycle runbook",
+  "type": "deliverable"
+}

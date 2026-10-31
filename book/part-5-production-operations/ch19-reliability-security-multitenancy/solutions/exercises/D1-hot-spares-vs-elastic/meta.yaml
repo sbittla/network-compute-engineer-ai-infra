@@ -1,0 +1,18 @@
+id: D1
+title: Hot spares vs elastic training
+folder: D1-hot-spares-vs-elastic
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: model with assumptions; numeric comparison; recommendation with risks
+marking:
+- criterion: Model with stated assumptions (M = 3 h, τ = 19 min, δ = 1 min, 8 failures/day, mean 40 in repair)
+  points: 4
+- criterion: 'Numbers: A 0.733, B re-packed 0.799, B not re-packed 0.450 expected / 0.325 worst per fleet node'
+  points: 3
+- criterion: Global-batch divisibility at DP = 59 and recommendation with risks (B only with re-packing; else A
+    or hybrid)
+  points: 3
+lab_checks: []

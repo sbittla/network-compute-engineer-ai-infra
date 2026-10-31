@@ -43,9 +43,9 @@ python check.py                                           # progress meter
 
 | Path | Contents |
 |---|---|
-| `leaf_cli/orion-be-leaf-r{0..7}.txt.gz` | Rail leaves, CLI text tables, ~60 s polls, 64 ports each |
-| `spine_stream.jsonl.gz` | Four spines, one JSON record per device per ~60 s poll |
-| `nic/orion-n{01..32}.txt.gz` | Host-agent dumps for 8 NICs per host, ~120 s polls |
+| `leaf_cli/orion-be-leaf-r{0..7}.txt.gz` | Rail leaves, CLI text tables, ≈ 60 s polls, 64 ports each |
+| `spine_stream.jsonl.gz` | Four spines, one JSON record per device per ≈ 60 s poll |
+| `nic/orion-n{01..32}.txt.gz` | Host-agent dumps for 8 NICs per host, ≈ 120 s polls |
 | `topology.csv` | Every backend link: leaf port ↔ host NIC (`host`), leaf uplink ↔ spine port (`fabric`) |
 | `device_profiles.yaml` | Format, timestamp encoding, poll interval and **counter widths** per platform |
 | `maintenance.yaml` | The change calendar for the capture window |

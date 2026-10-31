@@ -262,7 +262,7 @@ c. Without controls: PFC removed and ECN disabled on 16 nodes (`n17`–`n32`) at
    changed by 50 % > 10 % → refuse); plan-size anomaly (48 ≫ 0–3 → hold for review);
    blast-radius cap (≤ 8 targets, ≤ 1 per rack); dry-run review (it was caught here); canary
    waves.
-d. **Fix**: follow pagination; fail closed on partial reads. **Validate**: re-run the dry run →
+d. **Fix**: follow pagination; fail closed on partial reads. **Validate**: rerun the dry run →
    0 actions; unit test with a paginated fixture. **Guard**: a rule that a target's profile may not
    downgrade from lossless to lossy without an explicit, reviewed intent change, plus "group size
    delta > 10 % → halt".

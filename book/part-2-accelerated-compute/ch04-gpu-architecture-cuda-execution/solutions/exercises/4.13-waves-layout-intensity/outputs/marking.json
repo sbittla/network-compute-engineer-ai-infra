@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "wave arithmetic for both shapes, coalescing explanation, two fixes, intensity argument.",
+  "id": "4.13",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) 8,192 × 2,048: 512 tiles, 3.88 → 4 waves, 97 % efficiency; 1,024 × 2,048: 64 tiles, 1 wave, 48 %",
+      "points": 4
+    },
+    {
+      "criterion": "(b) adjacent threads 8,192 B apart, one 32 B sector per 2 useful bytes, 6.25 % efficiency; two valid fixes",
+      "points": 3
+    },
+    {
+      "criterion": "(c) intensity about m FLOP/B when m << k, n, so halving the batch halves intensity; nvidia-smi is a duty cycle and stays near 100 %",
+      "points": 3
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Batch size and data layout",
+  "type": "outline-mandated"
+}

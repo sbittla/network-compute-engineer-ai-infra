@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "a_wrap_s": 0.0859,
+    "a_wraps_per_s": 11.64,
+    "b_burst_bytes": 100000000.0,
+    "b_poll_bytes": 3000000000000.0,
+    "b_utilization_pct": 0.00333,
+    "c_max_pause_us": 83.88
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K2",
+  "inputs": {
+    "burst_s": 0.002,
+    "line_rate_bps": 400000000000.0,
+    "pause_quanta": 65535,
+    "poll_s": 60.0,
+    "quantum_bits": 512
+  },
+  "units": {
+    "data": "bytes",
+    "time": "s / µs"
+  }
+}

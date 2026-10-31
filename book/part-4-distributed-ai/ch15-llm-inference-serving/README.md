@@ -15,7 +15,7 @@ law, goodput and tensor-parallel serving are covered with worked ORION numbers.
 
 1. **Explain** why prefill is compute-bound and decode is memory-bandwidth-bound, and calculate
    each phase's arithmetic intensity for W-INFER on H100-class GPUs.
-2. **Calculate** KV-cache bytes per token, the KV budget per replica, and the maximum concurrent
+2. **Calculate** KV cache bytes per token, the KV budget per replica, and the maximum concurrent
    sequences for a given model, precision, tensor-parallel (TP) degree and memory reservation.
 3. **Model** decode throughput and TPOT from HBM bandwidth, and size a serving pool against TTFT
    and TPOT SLOs with Little's law and a simple queueing model.
@@ -65,6 +65,7 @@ ch15-llm-inference-serving/
 ├── manuscript.md                 chapter text
 ├── exercises.md                  knowledge checks, worked problems, lab, troubleshooting,
 │                                 design challenge, outline-mandated exercises, deliverable
+├── exercises/                    one folder per exercise (prompt, what to submit, outputs/) + README.md index
 ├── lab/
 │   ├── README.md                 lab guide (tasks, rubric, L2/L3 extensions)
 │   ├── manifest.yaml             environment manifest
@@ -74,6 +75,7 @@ ch15-llm-inference-serving/
 │   └── starter/serving_lab.py    learner module (functions raise NotImplementedError)
 ├── solutions/                    instructor only
 │   ├── exercises-key.md
+│   ├── exercises/                per-exercise answer.md, meta.yaml, solve.py (computed), outputs/
 │   └── lab/serving_lab.py, INSTRUCTOR_NOTES.md
 └── review/REVIEW.md              editorial review log
 ```

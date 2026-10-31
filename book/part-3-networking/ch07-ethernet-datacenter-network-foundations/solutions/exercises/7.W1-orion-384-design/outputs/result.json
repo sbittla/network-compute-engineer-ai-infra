@@ -1,0 +1,76 @@
+{
+  "answer": {
+    "a_rail_optimized_1to1": {
+      "cross_leaf_tbps": 12.8,
+      "down_per_leaf": 32,
+      "downlink_tbps": 12.8,
+      "downlink_use_pct": 75.0,
+      "downlinks_total": 512,
+      "downlinks_used": 384,
+      "fabric_cables": 512,
+      "host_cables": 384,
+      "leaves": 16,
+      "leaves_per_rail": 2,
+      "links_per_pair": 4,
+      "nodes_per_leaf": 24,
+      "ratio_configured": "1:1",
+      "ratio_used": 0.75,
+      "spine_ports_used": 64,
+      "spines": 8,
+      "total_cables": 896,
+      "transceivers": 1792,
+      "up_per_leaf": 32
+    },
+    "b_size_two_tier": {
+      "bandwidth_oversubscription": 1.0,
+      "down_per_leaf": 32,
+      "fabric_cables": 384,
+      "feasible": true,
+      "host_cables": 384,
+      "leaf_uplink_gbps": 12800,
+      "leaves": 12,
+      "links_per_leaf_spine": 4,
+      "max_endpoints_two_tier": 2048,
+      "oversubscription": 1.0,
+      "spines": 8,
+      "total_cables": 768,
+      "transceivers": 1536,
+      "up_per_leaf": 32
+    },
+    "c_rail_optimized_3to1": {
+      "cross_leaf_tbps": 6.4,
+      "down_per_leaf": 48,
+      "downlink_tbps": 19.2,
+      "downlink_use_pct": 100.0,
+      "downlinks_total": 384,
+      "downlinks_used": 384,
+      "fabric_cables": 128,
+      "host_cables": 384,
+      "leaves": 8,
+      "leaves_per_rail": 1,
+      "links_per_pair": 8,
+      "nodes_per_leaf": 48,
+      "ratio_configured": "3:1",
+      "ratio_used": 3.0,
+      "spine_ports_used": 64,
+      "spines": 2,
+      "total_cables": 512,
+      "transceivers": 1024,
+      "up_per_leaf": 16
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.W1",
+  "inputs": {
+    "link_gbps": 400,
+    "nodes": 48,
+    "rails": 8,
+    "switch_radix": 64
+  },
+  "steps": {
+    "b_dense_leaves_per_rail": 1.5,
+    "b_why_differs": "size_two_tier packs 384 endpoints into ceil(384/32) = 12 leaves; 48 NICs per rail need 1.5 leaves, so a rail-optimized design rounds up to 2 per rail"
+  },
+  "tolerance": "exact",
+  "units": "counts; capacities in Tb/s"
+}

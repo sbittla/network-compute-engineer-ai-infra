@@ -1,0 +1,17 @@
+id: K2
+title: Why one slow GPU slows the whole job
+folder: K2-straggler-coupling
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 4
+evidence_required: Mechanism plus the throughput-loss arithmetic for a 256-GPU synchronous job.
+marking:
+  - criterion: States that every synchronous step waits for the slowest rank in the collective
+    points: 2
+  - criterion: Computes the loss as about 10 % of the whole job (about 25.6 GPU-equivalents), not 10 %/256
+    points: 1
+  - criterion: Notes that the other 255 GPUs idle (spin in the collective) rather than doing useful work
+    points: 1
+lab_checks: []

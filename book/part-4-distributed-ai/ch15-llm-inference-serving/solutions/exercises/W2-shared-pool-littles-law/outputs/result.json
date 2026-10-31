@@ -1,0 +1,74 @@
+{
+  "answer": {
+    "choice": 10,
+    "choice_with_spares": 12,
+    "itl_worst_unchunked_ms": 197.3,
+    "kv_blocks_per_seq": 288,
+    "kv_max_seqs": 139,
+    "table": {
+      "10": {
+        "batch": 38.0,
+        "decode_demand": 0.195,
+        "free_fraction": 0.547,
+        "lambda_r": 2.5,
+        "rho": 0.4528,
+        "tpot_ms": 29.7,
+        "ttft_s": 0.256
+      },
+      "12": {
+        "batch": 24.2,
+        "decode_demand": 0.162,
+        "free_fraction": 0.623,
+        "lambda_r": 2.083,
+        "rho": 0.3773,
+        "tpot_ms": 22.7,
+        "ttft_s": 0.236
+      },
+      "6": {
+        "batch": null,
+        "decode_demand": 0.324,
+        "free_fraction": 0.245,
+        "lambda_r": 4.167,
+        "rho": 0.7546,
+        "tpot_ms": null,
+        "ttft_s": 0.46
+      },
+      "8": {
+        "batch": 87.7,
+        "decode_demand": 0.243,
+        "free_fraction": 0.434,
+        "lambda_r": 3.125,
+        "rho": 0.5659,
+        "tpot_ms": 54.8,
+        "ttft_s": 0.299
+      }
+    },
+    "unstable": [
+      6
+    ]
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "out": 512,
+    "pools": [
+      6,
+      8,
+      10,
+      12
+    ],
+    "prompt": 4096,
+    "rate": 25.0
+  },
+  "steps": {
+    "attention_term_ms": 6.9,
+    "c_ms_per_seq": 0.15203,
+    "prefill_demand_replica_s_per_s": 4.53,
+    "t_fix_ms": 10.463,
+    "t_p_ms": 181.1
+  },
+  "units": {
+    "batch": "sequences",
+    "tpot": "ms",
+    "ttft": "s"
+  }
+}

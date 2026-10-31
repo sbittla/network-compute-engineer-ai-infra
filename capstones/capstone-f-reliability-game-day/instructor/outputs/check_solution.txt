@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 7 files byte-identical on regeneration
+PASS  simulator deterministic -- 97 events identical across two runs
+PASS  T1 fault plan: structure and safety -- 6 scenarios, all four kinds, 2 combined, no protected targets
+PASS  T1 fault plan: executes in the simulator -- plan executed: 6 hypotheses held, 2 refuted (refutations are findings)
+PASS  T2 alert rules: no false positives -- 0 alerts on a fault-free 6 h run
+PASS  T2 alert rules: detection targets -- node_loss 70s, link_down 40s, scheduler_outage 70s, storage_slow 70s
+PASS  T3 detection times on recorded game day -- F1 30s, F2 undetected, F3 25s, F4 undetected, F5 30s (default rules)
+PASS  T4 recovery metrics on recorded game day -- total 570.1 GPU-h lost; F3 restored from durable step 414; F5 unrecovered
+PASS  T5 incident timeline -- 47 rows, sorted, windowable, UTC and T+ offsets correct
+PASS  T6 hypothesis evaluation -- held / failed verdicts correct, undetected never ok
+PASS  T7 backlog prioritisation -- RB-01 (safety) > RB-05 > RB-04 > RB-03 > RB-02 > RB-06
+
+11/11 checks passed (solution)

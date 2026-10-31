@@ -1,0 +1,19 @@
+id: '5.3'
+title: HCA index is not the rail
+folder: 5.3-hca-index-vs-rail
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: probe-order explanation; LLDP/cabling database.
+marking:
+- criterion: nvidia-smi numbers NIC columns in PCI bus order (frontend mlx5_8 at bus 0d is NIC0)
+  points: 1
+- criterion: RDMA device names come from kernel/udev naming rules; neither a column index nor a name says
+    where a cable goes
+  points: 1
+- criterion: 'Authoritative source: LLDP neighbour (orion-be-leaf-rR) cross-checked against the cabling
+    database'
+  points: 1
+lab_checks: []

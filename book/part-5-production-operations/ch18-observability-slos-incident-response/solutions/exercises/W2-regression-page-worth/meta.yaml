@@ -1,0 +1,22 @@
+id: W2
+title: Is a 9 % regression worth a page?
+folder: W2-regression-page-worth
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: Arithmetic for (a)–(b); a justified threshold for (c) with a noise argument.
+marking:
+- criterion: (a) ratio 0.916, lost fraction 0.084
+  points: 2
+- criterion: (b) Case A 2,242 GPU-h ≈ $6,730; Case B 241 GPU-h ≈ $724
+  points: 4
+- criterion: (c) 1.092 < 1.10 so the rule does not fire; proposes a threshold in 1.03–1.07
+  points: 1
+- criterion: '(c) Noise argument: 10-min median sd ≈ 1.25 × 1.2 % / √34 ≈ 0.26 %, so 5 % ≈ 19 sd'
+  points: 2
+- criterion: '(c) Evidence plan: ≥ 2 weeks of rolling-median ratios incl. checkpoint/eval boundaries,
+    baseline reset on config change'
+  points: 1
+lab_checks: []

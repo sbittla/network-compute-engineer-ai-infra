@@ -8,8 +8,8 @@ command flag (–25 %; it would mislead a practitioner). All numbers below are `
 
 ## 8.1 Keys and access rights
 
-- `lkey`: authorises the **local** NIC to read/write the registered buffer when it appears in a
-  scatter/gather entry of a locally posted work request. `rkey`: handed to the **peer**; authorises the
+- `lkey`: authorizes the **local** NIC to read/write the registered buffer when it appears in a
+  scatter/gather entry of a locally posted work request. `rkey`: handed to the **peer**; authorizes the
   peer's RDMA READ/WRITE/atomic to target the buffer, within the MR's access flags.
 - The MR lacks `IBV_ACCESS_REMOTE_WRITE`. The **target NIC** rejects the WRITE when it validates the
   `rkey` and access rights and returns a NAK (remote access error). Nothing is written. The
@@ -129,7 +129,7 @@ timeout. P ≈ p = 10⁻⁵ per message. Expected timeout cost per message = 10�
 Mid-message losses: 256 × 10⁻⁵ = 0.00256 per message × 5 µs = 0.013 µs (negligible). Goodput ≈
 21.4 / (21.4 + 10.7 + 0.013) ≈ **0.67 → ≈ 67 %**. For **back-to-back** messages the next message's
 first packet reveals a lost tail and triggers a NAK, so the timeout exposure is per *burst* (the last
-packet before the QP idles): with bursts of *k* messages the timeout cost is amortised over *k*
+packet before the QP idles): with bursts of *k* messages the timeout cost is amortized over *k*
 messages (≈ 10.7 / *k* µs each). Lesson: with long timeouts, even a 10⁻⁵ loss rate can cost a third
 of throughput for idle-between-messages traffic; the fabric must be effectively loss-free or the NIC
 must recover tail loss faster (selective repeat, `[VENDOR-SPEC, 2026-10]`).
@@ -175,7 +175,7 @@ A model answer contains:
   Halcyon already runs a large Ethernet estate and the Fabric team automates switch config; RoCEv2
   lossless (PFC prio 3 + ECN/DCQCN) because ORION NICs are assumed go-back-N; accept configuration risk
   and mitigate it with the readiness validator and switch config compliance checks.
-- **Addressing/GID:** `10.100.r.(2n+1)/31` per rail, per-rail policy routing; GID chosen as the RoCE v2
+- **Addressing/GID:** `10.100.r.(2n+1)/31` per rail, per-rail policy routing; GID chosen as the RoCEv2
   entry matching the rail IP (validated per host) or rdma_cm.
 - **QoS:** DSCP 26 → TC3 (PFC + ECN), CNP DSCP 48 → TC6 strict; `NCCL_IB_TC = 26 × 4 + 2 = 106`.
 - **MTU:** host 9000, RDMA 4096, switch 9216 (with the "4,158-byte frame fits" arithmetic).
@@ -183,8 +183,8 @@ A model answer contains:
   PFC transients versus slow detection; mention that NCCL's defaults are version-specific.
 - **Multi-rail failure:** one rail lost = –12.5 % node bandwidth; synchronous job runs at the degraded
   node's pace; policy: drain and replace rather than run degraded for long jobs.
-- **Failure signatures:** mis-marked traffic in lossy queue; PFC storm/pause propagation (Ch 9);
-  switch-port MTU mismatch / GID index; optics/FEC degradation (Ch 10).
+- **Failure signatures:** mis-marked traffic in lossy queue; PFC storm/pause propagation (Chapter 9);
+  switch-port MTU mismatch / GID index; optics/FEC degradation (Chapter 10).
 
 *Marking (20):* comparison 6, recommendation with criteria 4, numbers with labels 5, failure
 signatures 3, cross-references 2. *Common mistakes:* claiming IB "never congests" (it back-pressures);
@@ -201,7 +201,7 @@ Model answer = Manuscript Table 8.10 plus three columns. Key grading points:
 | 4–5 | Firmware, driver vs matrix | yes | yes (FIRMWARE, DRIVER) |
 | 6 | Netdev MTU + `active_mtu` | yes | yes (MTU) |
 | 7 | Address plan | yes | yes (ADDRESS_PLAN) |
-| 8 | GID index → RoCE v2 + rail IP | yes | yes (GID_INDEX) |
+| 8 | GID index → RoCEv2 + rail IP | yes | yes (GID_INDEX) |
 | 9–10 | DSCP trust + map, PFC priorities | yes | map and PFC yes (QOS_DSCP, QOS_PFC); trust mode no |
 | 11 | `NCCL_IB_TC=106` | yes | no (good extension) |
 | 12 | Peer-memory/DMA-BUF mechanism present (necessary, not sufficient) | yes | yes (PEERMEM) |
@@ -310,7 +310,7 @@ risk + detection 3, scale considerations 2.
 
 **8.17** Any three: congestion and incast across many senders (PFC/ECN behaviour, Chapter 9); ECMP or
 rail collisions with many flows; GPUDirect RDMA path (host-memory test bypasses GPU↔NIC PCIe P2P);
-NCCL algorithm/protocol overheads and synchronisation; stragglers from other nodes; long-run stability
+NCCL algorithm/protocol overheads and synchronization; stragglers from other nodes; long-run stability
 (link flaps, FEC degradation).
 
 **8.18** Examples: switch-side misconfiguration (MTU, trust, PFC) invisible to host captures → switch
@@ -321,7 +321,7 @@ are right → LLDP neighbour check; `NCCL_IB_TC` not checked by the lab.
 
 **8.19** In `[MEASURED]` data with a manifest, "pair X on rail Y has a plateau of 202 Gb/s and a PCIe
 link at x8" becomes an observed fact; the *causal* claim that x8 caused the shortfall becomes strongly
-supported (modelled ceiling matches) but is proven only by a fix-and-retest (reseat → x16 → plateau
+supported (modeled ceiling matches) but is proven only by a fix-and-retest (reseat → x16 → plateau
 recovers). The tail-latency cause remains a hypothesis until a discriminating test (pinning, different
 peer, pause counters in the run window) separates host jitter from fabric pauses. In `[SIMULATED]` data
 none of these are facts about hardware.

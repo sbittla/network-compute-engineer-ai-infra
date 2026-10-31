@@ -2,7 +2,7 @@
 """Generate the Chapter 2 lab input sheets for the ORION capacity/BOM/power model.
 
 The sheets mimic what a build team receives from several sources: a design-intent
-sheet, a rack plan from the deployment planner, a fabric plan from the network team,
+sheet, a rack plan from the deployment planner, a fabric plan from the Fabric team,
 a storage sizing sheet from a vendor, a facility envelope from the MEP engineer, and a
 dependency model used for failure-domain analysis. Some sheets contain deliberate
 errors; they are documented only in the instructor solutions. This generator is instructor

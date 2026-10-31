@@ -1,0 +1,49 @@
+{
+  "difficulty": 2,
+  "evidence_required": "per the lab rubric.",
+  "id": "5.10",
+  "kind": "lab",
+  "lab_checks": [
+    "normalize_bdf",
+    "parse_topo_matrix",
+    "parse_lstopo",
+    "classify_path",
+    "small_parsers",
+    "parse_gdr",
+    "build_mapping",
+    "detect_issues",
+    "make_rank_map",
+    "model_allreduce",
+    "scenarios"
+  ],
+  "marking": [
+    {
+      "criterion": "Task 1: parser checks pass; robust to the three BDF forms",
+      "points": 15
+    },
+    {
+      "criterion": "Task 2: classify_path matches nvidia-smi on all 160 GPU-NIC pairs; one disagreement scenario discussed",
+      "points": 10
+    },
+    {
+      "criterion": "Task 3: mapping CSV keyed by UUID/BDF with slot, NUMA and rail; 29 of 32 rows aligned",
+      "points": 15
+    },
+    {
+      "criterion": "Task 4: every planted fault found with the right severity, raw evidence lines cited, no findings on orion-n01",
+      "points": 15
+    },
+    {
+      "criterion": "Task 5: rank maps and model checks pass; formula and parameter labels reproduced",
+      "points": 15
+    },
+    {
+      "criterion": "Task 6: topology_report.md with diagram, recommendations, validation checklist, L3 methodology, limitations; modeled never presented as measured",
+      "points": 30
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Lab 5: topology mapper",
+  "type": "hands-on-lab"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "L1",
+  "lab_checks": {
+    "T1 baseline step times:": "PASS T1 baseline step times: baseline step time trn-70b=17.389 s (expect ~17.4), ft-13b=5.998 s (expect ~6.0)",
+    "T1 checkpoint steps excluded:": "PASS T1 checkpoint steps excluded: per-minute series excludes checkpoint stalls (baseline-window max 17.82 s < 18.5 s)",
+    "T1 regression onset/recovery:": "PASS T1 regression onset/recovery: trn-70b onset 02:10 recovery 04:07; ft-13b onset 02:10 recovery 04:07 (expect onset 02:06-02:16, recovery 04:02-04:15)",
+    "T2 burn rates:": "PASS T2 burn rates: availability burn at 05:16: 5m=40.0 (expect ~40), 1h=4.65 (expect ~5); partial windows NaN=True",
+    "T2 multiwindow page logic:": "PASS T2 multiwindow page logic: 7-min deploy blip does not page (0 minutes); synthetic 3% outage pages at 01:27",
+    "T2 training SLI + lost GPU-hours:": "PASS T2 training SLI + lost GPU-hours: trn-70b SLI=0.678 (expect ~0.68); lost GPU-hours onset->recovery=62.4 (expect ~62)",
+    "T3 goodput alert design:": "PASS T3 goodput alert design: trn-70b: 1 firing(s), first 02:19; ft-13b: 1 firing(s), first 02:19 (must fire by 02:25 with no firing outside the incident)",
+    "T3 noisy + missing alert:": "PASS T3 noisy + missing alert: noisy=['GPUUtilLow'] (expect ['GPUUtilLow']); actionable pages during incident=[] (expect none -> missing alert)",
+    "T3 rule evaluation:": "PASS T3 rule evaluation: GPUTempHigh fires once (orion-n08@01:53, expect orion-n08 ~01:53); FabricOutDiscards silent (0)",
+    "T4 root-cause correlation:": "PASS T4 root-cause correlation: trigger=CHG-4471 (expect CHG-4471), rejected=['CHG-4468', 'FAC-0912']; leaf PFC TX x91, ECN x0.03",
+    "T5 incident timeline:": "PASS T5 incident timeline: TTD=48.0 min, TTM=118.2 min, TTR=140.0 min (expect ~48 / ~118 / ~140)",
+    "T5 postmortem rendering:": "PASS T5 postmortem rendering: all placeholders filled=True; missing fact raises KeyError=True",
+    "T6 dashboard hierarchy:": "PASS T6 dashboard hierarchy: levels=['fleet', 'node', 'device', 'workload']; drilldowns chain; fleet has a burn-rate panel; uses DCGM profiling metrics"
+  }
+}

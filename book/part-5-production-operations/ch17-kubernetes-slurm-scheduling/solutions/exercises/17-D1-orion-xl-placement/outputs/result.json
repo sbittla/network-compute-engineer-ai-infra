@@ -1,0 +1,31 @@
+{
+  "answer": {
+    "blocks": 16,
+    "breakeven_wait_h": 7.2,
+    "chosen_wait_cost_gpu_hours": 2048.0,
+    "chosen_wait_h": 4.0,
+    "cross_block_fraction": {
+      "2": 0.0312,
+      "3": 0.0469
+    },
+    "min_blocks": 2,
+    "per_block_uplink_tbps": 51.2,
+    "slowdown_gpu_hours": 3686.4,
+    "spread_cross_block_fraction": 0.9524
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "17-D1",
+  "inputs": {
+    "block_nodes": 32,
+    "job_nodes": 64,
+    "nodes": 512,
+    "oversubscription": 2,
+    "run_h": 240.0,
+    "slowdown": 0.03
+  },
+  "units": {
+    "bandwidth": "Tb/s",
+    "cost": "GPU-hours",
+    "time": "h"
+  }
+}

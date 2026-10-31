@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "one sentence per strategy, plus the interference mechanism in terms of iterations",
+  "id": "K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Static batching: fixed batch run to completion, early finishers idle",
+      "points": 1
+    },
+    {
+      "criterion": "Dynamic batching: batch formed on size or timeout, still run to completion",
+      "points": 1
+    },
+    {
+      "criterion": "Continuous batching: admit/retire at every iteration (Orca)",
+      "points": 1
+    },
+    {
+      "criterion": "Interference: a new request's prefill occupies an iteration (or part, with chunking), so running sequences get no or slower tokens",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Static, dynamic and continuous batching",
+  "type": "knowledge-check"
+}

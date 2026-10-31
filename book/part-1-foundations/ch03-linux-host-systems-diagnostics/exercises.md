@@ -64,7 +64,7 @@ and the operator's note says "CPU utilisation is low".
 
 1. From the snapshot alone, list every abnormal signal with its evidence: the section and the value.
 2. Form **at least four hypotheses** that involve memory locality, I/O wait, interrupts, PCIe
-   constraints or CPU frequency, and rank them by how well each explains a ~40 % throughput loss.
+   constraints or CPU frequency, and rank them by how well each explains a ≈ 40 % throughput loss.
 3. For each hypothesis, give one **discriminating test** that you would run next on the live host (L2),
    and the result that would confirm or reject it.
 4. State the most likely primary cause, the contributing factors, and the **order** of remediation.
@@ -81,13 +81,13 @@ plan. Quote at least three raw lines from the snapshot.
 ## Worked problems
 
 ### Exercise 3.9 — The price of a narrower pipe ★★ · L1
-Using the method of §3.11 and W-TRAIN's parallelism (TP = 8, PP = 4, DP = 8, BF16 gradients, ring
+Using the method of Section 3.11 and W-TRAIN's parallelism (TP = 8, PP = 4, DP = 8, BF16 gradients, ring
 all-reduce, 45 GB/s achievable on a healthy rail, 82 % PCIe efficiency):
 (a) Compute the raw per-direction bandwidth of PCIe Gen5 x16, Gen4 x16, Gen4 x2 and Gen1 x16 (note that
 Gen1/Gen2 use 8b/10b encoding).
 (b) Rail NIC 4 on one node has trained at Gen4 x16 instead of Gen5 x16. Compute the extra DP all-reduce
 time per step (upper bound) and the GPU-hours lost per day across ORION.
-(c) ORION-256 has no spare node. Using the decision rule of §3.11 Step 6, decide whether to keep
+(c) ORION-256 has no spare node. Using the decision rule of Section 3.11 Step 6, decide whether to keep
 running, shrink to DP = 7, or plan a stop for this fault, and compare with the Gen3 x8 case.
 *Evidence required:* formulas, substituted values and results with units, each labelled `[MODELED]`.
 
@@ -156,7 +156,7 @@ concluded about that node, and what would you collect next?
 *Evidence required:* a list of the missing evidence, with the command or privilege needed for each.
 
 ### Exercise 3.16 ★★ · L1
-The §3.11 cost estimate is an upper bound. Name the assumptions that make it an upper bound, and
+The Section 3.11 cost estimate is an upper bound. Name the assumptions that make it an upper bound, and
 describe the L3 measurement that would replace it with a measured value.
 *Evidence required:* at least three assumptions and a measurement plan (tools, repetitions, statistic).
 

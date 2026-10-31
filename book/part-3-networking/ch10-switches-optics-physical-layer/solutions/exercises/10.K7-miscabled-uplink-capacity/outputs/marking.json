@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "≤ 120 words; name the check that does detect it.",
+  "id": "10.K7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: each /31 belongs to a specific port pair, so swapped jumpers break eBGP and remove ECMP members",
+      "points": 2
+    },
+    {
+      "criterion": "Capacity impact quantified (2 of 32 uplinks = 6.25 % for one swapped pair)",
+      "points": 1
+    },
+    {
+      "criterion": "Names LLDP-neighbour-vs-cabling-schedule validation as the detecting check and why physical counters stay at zero",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Miscabled but error-free uplink",
+  "type": "knowledge-check"
+}

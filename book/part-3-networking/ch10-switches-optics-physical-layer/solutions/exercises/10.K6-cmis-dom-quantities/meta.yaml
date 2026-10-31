@@ -1,0 +1,14 @@
+id: 10.K6
+title: Five DOM quantities and the failures they reveal
+folder: 10.K6-cmis-dom-quantities
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: 'five rows: quantity → failure → what you compare it against.'
+marking:
+- criterion: Five correct DOM quantities, one point each, each with a plausible failure and a stated reference
+    to compare against
+  points: 5
+lab_checks: []

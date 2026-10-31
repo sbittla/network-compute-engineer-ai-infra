@@ -1,0 +1,179 @@
+{
+  "answer": {
+    "P1": {
+      "ber_ratio_7d": 1.09,
+      "cause": "congestion",
+      "lane_imbalance_db": 0.4,
+      "layer": "higher-layer",
+      "margin_decades": 3.301,
+      "p_uncorr_random_model": 4.16e-65,
+      "pfc_per_s": 1833.3
+    },
+    "P2": {
+      "ber_ratio_7d": 1.11,
+      "cause": "bursty corruption (uncorrectables at moderate BER, DOM normal)",
+      "lane_imbalance_db": 0.2,
+      "layer": "physical",
+      "margin_decades": 0.778,
+      "p_uncorr_random_model": 7.9e-25,
+      "pfc_per_s": 0.0
+    },
+    "P3": {
+      "ber_ratio_7d": 0.95,
+      "cause": "stomped frames from an upstream cut-through hop",
+      "lane_imbalance_db": 0.2,
+      "layer": "physical-elsewhere",
+      "margin_decades": 4.079,
+      "p_uncorr_random_model": 1.47e-77,
+      "pfc_per_s": 0.0
+    },
+    "P4": {
+      "ber_ratio_7d": 1.07,
+      "cause": "link flap (FEC/FCS counts are side effects of transitions)",
+      "lane_imbalance_db": 0.3,
+      "layer": "physical",
+      "margin_decades": 3.477,
+      "p_uncorr_random_model": 6.33e-68,
+      "pfc_per_s": 0.0
+    },
+    "P5": {
+      "ber_ratio_7d": 45.0,
+      "cause": "one-lane loss: contamination/damage on one MPO fiber, BER rising",
+      "drop_vs_siblings_db": 4.7,
+      "lane_imbalance_db": 4.8,
+      "layer": "physical",
+      "margin_decades": 0.426,
+      "p_uncorr_random_model": 2.65e-19,
+      "pfc_per_s": 0.0
+    },
+    "P6": {
+      "ber_ratio_7d": 1.0,
+      "cause": "MTU mismatch",
+      "lane_imbalance_db": 0.2,
+      "layer": "higher-layer",
+      "margin_decades": 4.38,
+      "p_uncorr_random_model": 2.25e-82,
+      "pfc_per_s": 0.0
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "ber_limit": 0.00024,
+    "ports": {
+      "P1": {
+        "ber": 1.2e-07,
+        "ber7": 1.1e-07,
+        "corr": 31000000.0,
+        "disc": 52410,
+        "fcs": 0,
+        "flaps": 0,
+        "giants": 0,
+        "pfc": 1100000.0,
+        "rx": [
+          -1.1,
+          -1.3,
+          -0.9,
+          -1.2
+        ],
+        "sym": "low",
+        "uncorr": 0
+      },
+      "P2": {
+        "ber": 4e-05,
+        "ber7": 3.6e-05,
+        "corr": 8600000000.0,
+        "disc": 0,
+        "fcs": 322,
+        "flaps": 0,
+        "giants": 0,
+        "pfc": 0,
+        "rx": [
+          -2.0,
+          -2.1,
+          -1.9,
+          -2.0
+        ],
+        "sym": "high",
+        "uncorr": 340
+      },
+      "P3": {
+        "ber": 2e-08,
+        "ber7": 2.1e-08,
+        "corr": 5100000.0,
+        "disc": 0,
+        "fcs": 1870,
+        "flaps": 0,
+        "giants": 0,
+        "pfc": 0,
+        "rx": [
+          -0.8,
+          -0.7,
+          -0.9,
+          -0.8
+        ],
+        "sym": "~0",
+        "uncorr": 0
+      },
+      "P4": {
+        "ber": 8e-08,
+        "ber7": 7.5e-08,
+        "corr": 20000000.0,
+        "disc": 0,
+        "fcs": 9,
+        "flaps": 5,
+        "giants": 0,
+        "pfc": 0,
+        "rx": [
+          -1.4,
+          -1.5,
+          -1.3,
+          -1.6
+        ],
+        "sym": "low",
+        "uncorr": 12
+      },
+      "P5": {
+        "ber": 9e-05,
+        "ber7": 2e-06,
+        "corr": 19000000000.0,
+        "disc": 0,
+        "fcs": 0,
+        "flaps": 0,
+        "giants": 0,
+        "pfc": 0,
+        "rx": [
+          -6.8,
+          -2.1,
+          -2.0,
+          -2.2
+        ],
+        "sym": "high",
+        "uncorr": 0
+      },
+      "P6": {
+        "ber": 1e-08,
+        "ber7": 1e-08,
+        "corr": 2600000.0,
+        "disc": 0,
+        "fcs": 0,
+        "flaps": 0,
+        "giants": 12044,
+        "pfc": 0,
+        "rx": [
+          -0.5,
+          -0.6,
+          -0.4,
+          -0.5
+        ],
+        "sym": "~0",
+        "uncorr": 0
+      }
+    },
+    "window_s": 600
+  },
+  "units": {
+    "margin": "decades",
+    "pfc": "frames/s",
+    "rx": "dBm"
+  }
+}

@@ -1,0 +1,19 @@
+id: '14.2'
+title: Metadata path versus data path
+folder: 14.2-metadata-vs-data-path
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: a labelled sketch or numbered sequence of the RPCs for open → read → close
+marking:
+- criterion: 'RPC sequence: open to MDS (lookup, permissions, layout), read directly to OSSs, close to
+    MDS'
+  points: 2
+- criterion: Stripe count and stripe size semantics
+  points: 2
+- criterion: Valid case where wider striping does not help (many clients each with own file, or small
+    files)
+  points: 1
+lab_checks: []

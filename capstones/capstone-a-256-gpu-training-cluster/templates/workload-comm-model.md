@@ -35,7 +35,7 @@ Explain how ranks map to nodes for `dp_contiguous` and `pp_contiguous`, and what
 | Option | Scenario | Node order | Scheme | DP contention | PP contention | Step time (s) | $/M tokens |
 |---|---|---|---|---|---|---|---|
 | A | baseline_3d | sorted | dp_contiguous | <fill> | <fill> | <fill> | <fill> |
-| <fill: all combinations you analysed> | | | | | | | |
+| <fill: all combinations you analyzed> | | | | | | | |
 
 ## 5. Sensitivity
 

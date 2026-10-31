@@ -1,0 +1,17 @@
+{
+  "difficulty": 1,
+  "evidence_required": "an eight-row table.",
+  "id": "12.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "One point per variable: what it controls plus a correct production-template decision",
+      "points": 8
+    }
+  ],
+  "points": 8,
+  "tier": "L1",
+  "title": "NCCL environment variables",
+  "type": "knowledge-check"
+}

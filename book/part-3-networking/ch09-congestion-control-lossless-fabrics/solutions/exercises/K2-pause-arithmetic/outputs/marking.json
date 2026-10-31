@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four values with formula and units; one-sentence explanation.",
+  "id": "K2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Quantum at 100 Gb/s: 512 bit / 100 Gb/s = 5.12 ns",
+      "points": 1
+    },
+    {
+      "criterion": "Maximum single pause at 100 Gb/s: 65,535 × 5.12 ns ≈ 335.5 µs",
+      "points": 1
+    },
+    {
+      "criterion": "Quantum at 400 Gb/s: 1.28 ns",
+      "points": 1
+    },
+    {
+      "criterion": "Maximum single pause at 400 Gb/s: ≈ 83.9 µs",
+      "points": 1
+    },
+    {
+      "criterion": "Sustained pause needs refresh frames before the timer expires, so counters show a frame rate",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Pause quantum arithmetic",
+  "type": "knowledge-check"
+}

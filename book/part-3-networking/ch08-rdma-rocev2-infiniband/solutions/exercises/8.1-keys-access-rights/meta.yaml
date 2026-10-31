@@ -1,0 +1,19 @@
+id: '8.1'
+title: Keys and access rights
+folder: 8.1-keys-access-rights
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: correct definitions; the failing check and the completion status; resulting QP state.
+marking:
+- criterion: 'Correct definitions: lkey authorizes the local NIC in a local SGE; rkey authorizes the peer''s
+    remote access within the MR flags'
+  points: 2
+- criterion: Failing check named (target NIC validates rkey/access rights, MR lacks IBV_ACCESS_REMOTE_WRITE,
+    NAK) and the initiator CQE IBV_WC_REM_ACCESS_ERR
+  points: 2
+- criterion: Initiator QP moves to ERROR; later WRs flush with IBV_WC_WR_FLUSH_ERR
+  points: 1
+lab_checks: []

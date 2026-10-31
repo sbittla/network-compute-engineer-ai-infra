@@ -1,0 +1,25 @@
+id: T1
+title: Token-2 stall in the disaggregated pool
+folder: T1-token-2-stall
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: ranked hypotheses with for/against evidence, at least two discriminating tests with
+  real commands or data sources, a mitigation that touches no shared fabric configuration without change
+  control, and a validation criterion with numbers.
+marking:
+- criterion: Ranked hypotheses with for/against evidence (shared NICs/rail ports first; fabric hot spot;
+    KV demand rejected by request rate; physical fault unlikely)
+  points: 6
+- criterion: At least two discriminating tests with real commands or data sources (squeue/scontrol node
+    list, ethtool prio counters, leaf ECN/PFC per port, job NCCL INFO)
+  points: 6
+- criterion: Safe mitigation touching no shared fabric configuration (exclude decode nodes from the job
+    or reserve inference nodes); structural fix via change control
+  points: 4
+- criterion: Validation criteria with numbers over the next windows (KV p99 < 10 ms, token-2 ITL p99 <
+    30 ms, ECN < 100/s, PFC 0)
+  points: 4
+lab_checks: []

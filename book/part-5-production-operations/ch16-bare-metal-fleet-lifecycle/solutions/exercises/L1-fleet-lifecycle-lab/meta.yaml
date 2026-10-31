@@ -1,0 +1,56 @@
+id: L1
+title: Fleet lifecycle automation lab
+folder: L1-fleet-lifecycle-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: '`python lab/check.py` output showing 33/33 PASS; your `acceptance_report.md` listing
+  every non-PASS node with codes, the raw evidence values that triggered them, and the remediation; the
+  list of rejected lifecycle events with reason codes.'
+marking:
+- criterion: 'Task 1 check_compat: all T1 checks pass'
+  points: 15
+- criterion: 'Task 2 evaluate_node: all T2 checks pass, policy-driven, no magic numbers'
+  points: 35
+- criterion: 'Task 3 state machine: all T3 checks pass, guards in one place, audit complete'
+  points: 25
+- criterion: 'Task 4 planner: all T4 checks pass'
+  points: 15
+- criterion: 'Task 5 report: correct physical cause and remediation for each non-PASS node; guard explanations'
+  points: 10
+lab_checks:
+- T1.compat_exact_production
+- T1.compat_deprecated
+- T1.compat_list_values_and_blocked
+- T1.compat_off_matrix_closest
+- T2.clean_node_passes
+- T2.distractors_do_not_fail
+- T2.detects_GPU_COUNT
+- T2.detects_PCIE_DEGRADED
+- T2.detects_NIC_SPEED
+- T2.detects_FW_OFF_MATRIX
+- T2.detects_THERMAL_THROTTLE
+- T2.detects_HBM_ROW_REMAP_PENDING
+- T2.detects_NVLINK_DOWN
+- T2.detects_ECC_DBE
+- T2.detects_RDMA_PAIR_BW_LOW
+- T2.detects_NCCL_BUSBW_LOW
+- T2.detects_NCCL_ALGO_UNRECORDED
+- T2.detects_NIC_MTU
+- T2.nccl_floor_follows_algorithm
+- T2.sbe_is_warning_not_failure
+- T2.fleet_verdict_counts
+- T2.fleet_digest
+- T3.transition_table_shape
+- T3.guard_rejects_and_audits
+- T3.replay_does_not_mutate_input
+- T3.replay_rejections
+- T3.replay_final_states
+- T3.invariant_no_shortcut_to_schedulable
+- T4.excluded_nodes
+- T4.coverage_exactly_once
+- T4.canary_and_wave_limits
+- T4.minimal_wave_count
+- T4.deterministic

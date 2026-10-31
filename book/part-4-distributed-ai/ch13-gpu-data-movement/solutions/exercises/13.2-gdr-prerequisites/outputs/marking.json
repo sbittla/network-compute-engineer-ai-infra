@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four items and one sentence on proof",
+  "id": "13.2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "P2P-capable PCIe platform with supported GPU and NIC",
+      "points": 1
+    },
+    {
+      "criterion": "Peer-memory mechanism (nvidia-peermem or dma-buf)",
+      "points": 1
+    },
+    {
+      "criterion": "ACS/IOMMU configured so P2P is not redirected through the root complex",
+      "points": 1
+    },
+    {
+      "criterion": "Compatible driver/firmware/library versions",
+      "points": 1
+    },
+    {
+      "criterion": "Proof requires observing the path in use (NCCL /GDRDMA, CUDA-buffer perftest at line rate, GDR on/off delta)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "GPUDirect RDMA prerequisites and proof",
+  "type": "knowledge-check"
+}

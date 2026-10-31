@@ -1,0 +1,21 @@
+{
+  "difficulty": 2,
+  "evidence_required": "concise written answers; R4 must cite specific numbers from the chapter.",
+  "id": "7.R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "A two-sentence rule requiring a multi-flow, full-size sweep (≥ 4N flows, varying source port) before ruling out a path-dependent fault",
+      "points": 1
+    },
+    {
+      "criterion": "ECMP reason: each flow hashes to one member and ICMP has no ports, so one ping tests one path",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "The single-ping troubleshooting rule",
+  "type": "reflection"
+}

@@ -11,8 +11,8 @@
 | Decode instances D | ceil(rate × mean output / (ρ_max × throughput)) | `<fill>` |
 | KV GB/s total and per prefill instance | | `<fill>` |
 
-## Utilisation at the target load for the deployed candidate
-| Resource | Utilisation | |
+## Utilization at the target load for the deployed candidate
+| Resource | Utilization | |
 |---|---|---|
 | Prefill | `<fill>` | |
 | Decode | `<fill>` | |

@@ -1,0 +1,31 @@
+# T1 — The quiet downtrain (★★, L1)
+
+Type: Troubleshooting · Kind: `computed` · Points: 12
+
+## Prompt
+
+<!-- prompt:start -->
+**T1 ★★ L1 — The quiet downtrain.** A 16-node job on ORION runs 9 % slower than its baseline since a
+maintenance reboot of orion-n10 yesterday. Evidence `[ILLUSTRATIVE]`:
+
+```text
+per-node SM active: 15 nodes 0.57, orion-n10 0.57    (no compute straggler)
+per-node backend NIC TX (Gb/s, 8 NICs summed): 15 nodes 1,050-1,080, orion-n10 985
+orion-n10 rdma statistic: out_of_sequence flat; rp_cnp_handled normal; link_downed 0
+orion-n10 journalctl -k | grep AER: 3,400 "Corrected error ... type=Physical Layer ... RxErr" since boot (others: 0-5)
+orion-n10 lspci -vvv -s 3b:00.0 (mlx5_2):  LnkCap: Speed 32GT/s, Width x16   LnkSta: Speed 32GT/s, Width x8 (downgraded)
+switch counters for all 8 orion-n10 ports: clean
+```
+
+Run the diagnostic loop: hypotheses, discriminating evidence, root cause, containment (domain and
+unit), fix, validation. Explain why SM activity does not single out orion-n10 here, unlike the Chapter 18
+power-cap case.
+*Evidence required:* hypothesis table; bandwidth arithmetic for x16 vs x8; containment decision;
+validation criteria.
+<!-- prompt:end -->
+
+## What to submit
+
+Put every deliverable in [`outputs/`](outputs/). Expected files:
+
+- `outputs/answer.md`

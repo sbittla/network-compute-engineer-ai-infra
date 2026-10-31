@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Three values with arithmetic.",
+  "id": "17-K7",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "U = S → 2^(−1) = 0.5",
+      "points": 1
+    },
+    {
+      "criterion": "U = S/2 → 2^(−0.5) ≈ 0.707",
+      "points": 1
+    },
+    {
+      "criterion": "U = 2S → 2^(−2) = 0.25",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Classic fair-share factor",
+  "type": "knowledge-check"
+}

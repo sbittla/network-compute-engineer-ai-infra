@@ -1,0 +1,13 @@
+PASS data_regenerates          data/ is byte-identical to tools/generate_data.py output
+TODO effective_level_rules     not implemented: effective_level
+TODO demonstrated_levels       not implemented: demonstrated_levels
+TODO readiness_scores          not implemented: demonstrated_levels
+TODO gap_plan_priorities       not implemented: demonstrated_levels
+TODO normalize_url_and_key     not implemented: normalize_url
+TODO row_issues_rules          not implemented: row_issues
+TODO duplicate_clusters        not implemented: duplicate_clusters
+TODO representative_selection  not implemented: representative
+TODO validate_register         not implemented: validate_register
+TODO skill_frequency           not implemented: validate_register
+
+1/11 checks passed (starter); 0 skipped

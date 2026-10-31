@@ -1,0 +1,19 @@
+id: K1
+title: Roles by what they are paged for
+folder: K1-roles-paged-for
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 8
+evidence_required: 'six rows: role, incident, first evidence (command, counter or log).'
+marking:
+- criterion: 'AI Network and GPU/HPC rows: plausible page and a real first-evidence source'
+  points: 2
+- criterion: Cluster/Platform and Performance rows; performance framed as an owned investigation, not a page
+  points: 2
+- criterion: SRE/Operations and Network Hardware/Vendor rows with plausible incident and evidence
+  points: 2
+- criterion: Evidence is specific (named command or counter class), no invented flags
+  points: 2
+lab_checks: []

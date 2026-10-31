@@ -42,10 +42,10 @@ The eight progressive labs from the course outline are delivered by chapter labs
 
 | Assessment | Weight | Evidence |
 |---|---|---|
-| Knowledge checks and design reviews | 15% | Accurate concepts, architecture and trade-off explanations |
-| Hands-on labs and troubleshooting | 30% | Reproducible diagnostics, configurations/simulations, root-cause reasoning |
-| Performance and benchmark assignments | 20% | Valid methodology, baselines, repeatability, percentile analysis, conclusions |
-| Capstone project | 35% | Integrated architecture, operational plan, failure exercise, measured results, communication |
+| Knowledge checks and design reviews | 15 % | Accurate concepts, architecture and trade-off explanations |
+| Hands-on labs and troubleshooting | 30 % | Reproducible diagnostics, configurations/simulations, root-cause reasoning |
+| Performance and benchmark assignments | 20 % | Valid methodology, baselines, repeatability, percentile analysis, conclusions |
+| Capstone project | 35 % | Integrated architecture, operational plan, failure exercise, measured results, communication |
 
 Completion requires demonstrated competence: learners must explain design trade-offs, troubleshoot
 at least one cross-layer failure, and support every performance claim with reproducible evidence.
@@ -61,7 +61,7 @@ Capstone scoring: see [capstones/RUBRIC.md](capstones/RUBRIC.md) (pass ≥ 70/10
 | AI Cluster / Platform Engineer | 16, 17, 19, 20 | E (fleet lifecycle) or G | Fleet automation; scheduler internals; capacity |
 | AI Performance Engineer | 6, 12, 15, 22 | C or H | Roofline; distributed scaling; inference performance |
 | AI Infrastructure SRE / Operations | 18, 19, 20, 22 | F (game day) or G | Incident simulation; fault injection; automated recovery |
-| Network Hardware / Vendor Engineer | 9, 10, 8 | B with L3 extension | Hardware validation; congestion characterisation; interoperability |
+| Network Hardware / Vendor Engineer | 9, 10, 8 | B with L3 extension | Hardware validation; congestion characterization; interoperability |
 
 ## Instructor notes
 
@@ -70,4 +70,4 @@ Capstone scoring: see [capstones/RUBRIC.md](capstones/RUBRIC.md) (pass ≥ 70/10
   folders before distributing to learners (`scripts/make_student_release.py`).
 - Many datasets contain intentionally planted faults; the planted-fault list is in `solutions/`.
 - Safety: no production changes, disruptive fault injection, or changes to shared fabrics without
-  authorisation and an isolated test environment.
+  authorization and an isolated test environment.

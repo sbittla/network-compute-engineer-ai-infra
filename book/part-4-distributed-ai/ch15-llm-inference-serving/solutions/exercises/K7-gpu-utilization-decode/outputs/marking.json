@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "what the utilization counter measures, and two alternative signals with the reason each is better",
+  "id": "K7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "utilization.gpu = fraction of sample period with at least one kernel running; says nothing about SMs, tensor use or HBM bandwidth",
+      "points": 2
+    },
+    {
+      "criterion": "Signal 1: DCGM DRAM active (bandwidth saturation) plus tensor/SM active, with reason",
+      "points": 1
+    },
+    {
+      "criterion": "Signal 2: engine signals (running vs cap, KV usage, waiting queue, step time vs batch), with reason",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "GPU utilization does not show saturation",
+  "type": "knowledge-check"
+}

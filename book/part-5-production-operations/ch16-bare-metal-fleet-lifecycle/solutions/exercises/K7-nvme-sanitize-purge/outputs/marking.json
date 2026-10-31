@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "The category (Purge); the over-provisioning / remapped-block argument; what gets recorded.",
+  "id": "K7",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Category: Purge",
+      "points": 1
+    },
+    {
+      "criterion": "Argument: file-system overwrite misses over-provisioned, remapped/retired blocks and data outside the file system; crypto erase covers the whole device",
+      "points": 2
+    },
+    {
+      "criterion": "Certificate contents: device serials, method, tool/version, operator, date, verification result",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "NVMe crypto erase in NIST SP 800-88 terms",
+  "type": "knowledge-check"
+}

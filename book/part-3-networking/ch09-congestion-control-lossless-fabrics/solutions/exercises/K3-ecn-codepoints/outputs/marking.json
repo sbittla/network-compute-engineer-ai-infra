@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "four bit patterns; two behaviours; one reason.",
+  "id": "K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Four bit patterns: Not-ECT 00, ECT(1) 01, ECT(0) 10, CE 11",
+      "points": 2
+    },
+    {
+      "criterion": "Above Kmin an ECT packet is marked CE with probability p(q)",
+      "points": 1
+    },
+    {
+      "criterion": "Above Kmin a Not-ECT packet is dropped with the WRED probability",
+      "points": 1
+    },
+    {
+      "criterion": "Reason: a drop in lossless TC 3 triggers go-back-N; RoCE data must be ECT and WRED drop disabled",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "ECN codepoints and WRED",
+  "type": "knowledge-check"
+}

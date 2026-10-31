@@ -1,0 +1,36 @@
+id: L1
+title: Role-readiness scorer and register validator
+folder: L1-readiness-register-lab
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: '`python check.py` output showing 11/11 PASS; the generated report; a one-page explanation of
+  the flags (rule, why it exists, what the learner should do).'
+marking:
+- criterion: 'Tasks 1–4 (Part A: evidence rules, levels, readiness, gap plan) pass check.py'
+  points: 30
+- criterion: 'Tasks 5–8 (Part B: URL/key, field rules, duplicate clusters, validation and skill frequency) pass
+    check.py'
+  points: 30
+- criterion: Written explanation (≤ 1 page) of every evidence flag for the sample learner and why each rule exists
+  points: 10
+- criterion: Own role-readiness matrix (target plus two adjacent roles), each level backed by a named artifact
+  points: 15
+- criterion: 'Own gap plan: top three gaps, the artifact for each, and a date'
+  points: 10
+- criterion: 'Statement of limitations: what the score can and cannot say about hiring readiness'
+  points: 5
+lab_checks:
+- data_regenerates
+- effective_level_rules
+- demonstrated_levels
+- readiness_scores
+- gap_plan_priorities
+- normalize_url_and_key
+- row_issues_rules
+- duplicate_clusters
+- representative_selection
+- validate_register
+- skill_frequency

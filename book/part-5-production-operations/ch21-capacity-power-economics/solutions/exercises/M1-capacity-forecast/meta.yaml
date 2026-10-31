@@ -1,0 +1,19 @@
+id: M1
+title: Capacity forecast
+folder: M1-capacity-forecast
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: forecast table for both scenarios; order-by dates; the binding resource per shortfall.
+marking:
+- criterion: 'p50 forecast table: shortfalls 2028Q3 (−18.3) and 2029Q4 (−94.7)'
+  points: 3
+- criterion: 'p90 forecast table: shortfalls 2028Q3, 2029Q2, 2029Q3, 2029Q4'
+  points: 3
+- criterion: Order-by dates per resource for each first shortfall
+  points: 2
+- criterion: Binding resource named per shortfall (power in 2028Q3/2029Q2; GPUs and power in 2029Q3–Q4)
+  points: 2
+lab_checks: []

@@ -31,7 +31,7 @@ python ../../../scripts/validate_labs.py capstone-e
 | P11 | `events.jsonl` | `ev-0028` delivered twice | Second copy recorded as `duplicate`, no state change | At-least-once queues; idempotency by event ID |
 | P12 | `events.jsonl` | `ev-0034` (undrain orion-n13) delivered before `ev-0033` (drain) | Sorting by (utc, event_id) gives drain → undrain → schedulable. In file order: undrain = noop, then drain → node stranded in `drained` | Out-of-order delivery silently strands capacity |
 | P13 | `events.jsonl` | `ev-0026` admit of a failed node by a human; `ev-0027` fault_confirmed on a node running jobs; `ev-0030` retire of an already-retired node; `ev-0031` drain of a drained node | Rejected; rejected; noop; noop | Guards stop humans as well as bots; noop vs reject distinction |
-| P14 | `canary_metrics.csv` S2 | Training canary orion-n01 busbw 415 vs training baseline mean 452.85 GB/s (−8.4 %); inference canary orion-n25 452.0 vs inference baseline 455.45 (−0.8 %); a naive gate on the mean of all canaries vs all baselines sees −4.5 % | Abort naming orion-n01 | Averaging canaries hides the regression the canary exists to catch |
+| P14 | `canary_metrics.csv` S2 | Training canary orion-n01 busbw 415 vs training baseline mean 452.85 GB/s (NVLS assumed; −8.4 %); inference canary orion-n25 452.0 vs inference baseline 455.45 (−0.8 %); a naive gate on the mean of all canaries vs all baselines sees −4.5 % | Abort naming orion-n01 | Averaging canaries hides the regression the canary exists to catch |
 | P15 | S3 | Soak 10 h < 24 h, metrics fine | Extend | Time-dependent failures (thermal, memory, firmware timers) need the soak |
 | P16 | S4 | Xid on orion-n05, throughput fine | Abort | Hard errors beat performance; a fast but erroring node is not promotable |
 | P17 | `audit_log.jsonl` | Record seq 23 `actor` changed to `jdoe` without rehash | `audit_verify` returns 23 | Tamper evidence; also discuss that the chain alone cannot detect a full rewrite — needs an external anchor |
@@ -50,7 +50,7 @@ python ../../../scripts/validate_labs.py capstone-e
 | Remediation | 7 actions: orion-n30 drain(1)+reimage(2); orion-n20 reimage(1); orion-n25..n28 schedule_upgrade | SIMULATED |
 | Audit | first broken record seq 23 | SIMULATED |
 
-Arithmetic for P14: training baseline mean = (452.4 + 453.3) / 2 = 452.85 GB/s; orion-n01
+Arithmetic for P14 (single-node busbw, NVLS assumed): training baseline mean = (452.4 + 453.3) / 2 = 452.85 GB/s; orion-n01
 regression = (452.85 − 415.0) / 452.85 = 8.36 %; inference baseline mean = (457.1 + 453.8) / 2 =
 455.45 GB/s; orion-n25 = (455.45 − 452.0) / 455.45 = 0.76 %. Naive gate: mean of canaries
 (415.0 + 452.0) / 2 = 433.5 vs mean of all four baselines 454.15 → 4.55 % < 5 % threshold, so it

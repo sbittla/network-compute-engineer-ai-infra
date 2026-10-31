@@ -1,0 +1,18 @@
+id: M2
+title: Dashboard hierarchy from fleet to workload
+folder: M2-dashboard-hierarchy
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: lab
+points: 15
+evidence_required: Level table; mock-up; drill-down keys; justification of two panels you rejected.
+marking:
+- criterion: 'Level table: one question per level (fleet, node, device incl. GPU/NIC/switch, workload)'
+  points: 5
+- criterion: 4–8 panels per level with query and unit, justified
+  points: 5
+- criterion: Drill-down keys, fleet mock-up, two rejected panels justified; lab T6 passes
+  points: 5
+lab_checks:
+- 'T6 dashboard hierarchy:'

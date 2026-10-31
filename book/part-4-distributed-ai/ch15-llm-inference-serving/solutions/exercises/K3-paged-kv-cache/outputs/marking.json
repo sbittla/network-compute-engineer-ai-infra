@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the fragmentation/over-reservation mechanism, and preemption (recompute or swap) with its cost",
+  "id": "K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Mechanism: contiguous max-length reservation wastes memory (over-reservation, fragmentation; ≈ 20-40 % used in prior systems)",
+      "points": 2
+    },
+    {
+      "criterion": "New failure mode: pool runs out while sequences decode, so the scheduler must preempt",
+      "points": 1
+    },
+    {
+      "criterion": "Recompute vs swap cost (re-prefill on GPU vs PCIe copy to host); repeated preemption is a storm",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Paged KV cache",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "explanation that busy can mean slow or a burst after a wait, with the comparison to make",
+  "id": "13.15",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Busy may mean slow (retransmissions, low burst rate) rather than saturated",
+      "points": 1
+    },
+    {
+      "criterion": "Busy may be the burst after the wait ended (synchronization, not communication)",
+      "points": 1
+    },
+    {
+      "criterion": "States the test: burst rate vs line rate and transfer time vs baseline",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "A busy network is not a bottleneck",
+  "type": "reflection"
+}

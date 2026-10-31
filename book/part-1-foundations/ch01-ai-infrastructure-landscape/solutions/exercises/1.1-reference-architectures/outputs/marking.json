@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Two diagrams, each with at least 6 labelled components and at least 4 labelled data paths with volumes; a dependency table per workload (layer, component, dependency, first signal); one paragraph contrasting their failure domains.",
+  "id": "1.1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Both diagrams show at least 6 labelled components and at least 4 labelled data paths, including the checkpoint path for W-TRAIN and the weight-load path for W-INFER",
+      "points": 6
+    },
+    {
+      "criterion": "Volumes on the data paths are correct within 2x (TP about 1,203 GB, DP about 7.66 GB, PP about 2.15 GB per GPU per step; checkpoint about 980 GB; weights about 140 GB)",
+      "points": 4
+    },
+    {
+      "criterion": "Dependency tables cover every layer (compute, scale-up, scale-out, frontend, storage, orchestration, observability) with a defensible first signal",
+      "points": 6
+    },
+    {
+      "criterion": "Failure-domain paragraph contrasts the whole 256-GPU job with a single eight-GPU replica and states the capacity consequence",
+      "points": 4
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Reference architectures for training and inference",
+  "type": "outline-mandated"
+}

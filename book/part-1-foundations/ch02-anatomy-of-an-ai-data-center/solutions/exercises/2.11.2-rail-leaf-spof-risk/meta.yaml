@@ -1,0 +1,17 @@
+id: "2.11.2"
+title: Accepting the rail-leaf SPOF
+folder: 2.11.2-rail-leaf-spof-risk
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: One paragraph arguing for or against accepting the risk, with restart cost quantified.
+marking:
+  - criterion: Takes a position (accept or reject) consistently
+    points: 1
+  - criterion: Quantifies the restart cost (256 x 0.25 h = 64 GPU-hours plus 256 GPU-hours per hour of replacement plus lost work)
+    points: 1
+  - criterion: Weighs it against the cost or complexity of a design without the rail SPOF
+    points: 1
+lab_checks: []

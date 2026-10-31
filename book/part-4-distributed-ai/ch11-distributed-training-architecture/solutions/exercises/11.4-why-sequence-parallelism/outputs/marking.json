@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "two sentences naming the quantity and the factor.",
+  "id": "11.4",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Names activation memory (the replicated LayerNorm/dropout activations) as the quantity reduced",
+      "points": 1
+    },
+    {
+      "criterion": "Factor for TP = 8: (10 + 24/8)/(34/8) = 13/4.25 ≈ 3.1×",
+      "points": 1
+    },
+    {
+      "criterion": "States why wire bytes are unchanged (all-reduce = reduce-scatter + all-gather)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Why sequence parallelism?",
+  "type": "knowledge-check"
+}

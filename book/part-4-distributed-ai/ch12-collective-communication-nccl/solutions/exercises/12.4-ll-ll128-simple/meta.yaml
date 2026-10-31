@@ -1,0 +1,17 @@
+id: '12.4'
+title: LL, LL128 and Simple protocols
+folder: 12.4-ll-ll128-simple
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: a three-row comparison with the reason each costs what it costs.
+marking:
+- criterion: 'LL: ≈ 50 % payload (4 B data + 4 B flag per 8 B store), lowest latency, with mechanism'
+  points: 2
+- criterion: 'LL128: ≈ 94 % (120 of 128 B), low latency, needs 128-byte write ordering (NVLink-class)'
+  points: 2
+- criterion: 'Simple: ≈ 100 % payload, highest latency from fences and per-chunk synchronization'
+  points: 2
+lab_checks: []

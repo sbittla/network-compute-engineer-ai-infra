@@ -1,0 +1,19 @@
+id: K5
+title: TP inside the node
+folder: K5-tp-inside-node
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: computed
+points: 5
+evidence_required: formula, substituted values, both times with units and labels.
+marking:
+- criterion: TP volume per GPU per step derived with arithmetic (67.1 MB → 117 MB → 1.20 TB)
+  points: 2
+- criterion: Time over NVLink ≈ 3.3 s at 360 GB/s, labelled
+  points: 1
+- criterion: Time over a NIC ≈ 30 s at 40 GB/s, labelled
+  points: 1
+- criterion: 'Conclusion: NIC time exceeds the 17.4 s step, so TP stays in the NVLink domain'
+  points: 1
+lab_checks: []

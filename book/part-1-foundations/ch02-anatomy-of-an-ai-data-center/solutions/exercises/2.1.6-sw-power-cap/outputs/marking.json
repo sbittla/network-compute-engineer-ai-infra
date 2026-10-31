@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Verdict with the condition that would make it a fault and the command to check.",
+  "id": "2.1.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Not a fault under dense GEMM, because a GPU commonly runs at its power limit",
+      "points": 1
+    },
+    {
+      "criterion": "A fault if the current limit is lower than intended, checked with nvidia-smi -q -d POWER (Current vs Default Power Limit)",
+      "points": 1
+    },
+    {
+      "criterion": "A fault if only some GPUs in a job are capped (stragglers), or if clocks are far below peers",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Is SW Power Cap Active a fault?",
+  "type": "knowledge-check"
+}

@@ -1,0 +1,19 @@
+id: K8
+title: The three outcomes of a design review
+folder: K8-design-review-outcomes
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: three outcomes; one sentence on accountability
+marking:
+- criterion: Approved
+  points: 1
+- criterion: Approved with conditions, each condition with an owner and a date
+  points: 1
+- criterion: Rework (another review required)
+  points: 1
+- criterion: 'Accountability: ''take it offline'' has no owner, date or decision'
+  points: 1
+lab_checks: []

@@ -1,0 +1,44 @@
+{
+  "answer": {
+    "attack_first": "tp",
+    "tp2_bytes": 171800000000.0,
+    "tp2_bytes_layout_check": 171800000000.0,
+    "tp8_over_tp2": 7.0
+  },
+  "dp_window_s": 0.0725,
+  "evidence_label": "[MODELED]",
+  "exposed_s": {
+    "dp": 0.0977,
+    "pp": 0.0277,
+    "tp": 3.0833
+  },
+  "inputs": {
+    "layout": {
+      "dp": 8,
+      "micro_batch": 1,
+      "pp": 4,
+      "recompute": "selective",
+      "tp": 8,
+      "zero_stage": 1
+    },
+    "nvlink_gbs": 300.0,
+    "rail_gbs": 45.0
+  },
+  "step_s": 17.4504,
+  "times_s": {
+    "dp": 0.1702,
+    "pp": 0.0554,
+    "tp": 4.111
+  },
+  "tp_share_of_exposed": 0.9609,
+  "tp_share_of_step": 0.1767,
+  "units": {
+    "times": "s",
+    "volumes": "bytes per GPU per step"
+  },
+  "volumes_bytes": {
+    "dp": 7656000000.0,
+    "pp": 2147000000.0,
+    "tp": 1203000000000.0
+  }
+}

@@ -1,0 +1,22 @@
+id: '6.7'
+title: clocks_event_reasons and thermal slowdown
+folder: 6.7-clocks-event-reasons
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: definition, legacy names, ordering of thresholds.
+marking:
+- criterion: 'Definition: the active reasons the GPU runs below maximum clocks (power cap, SW thermal,
+    HW slowdown, idle, application clocks, sync boost)'
+  points: 1
+- criterion: 'Legacy names: Clocks Throttle Reasons, clocks_throttle_reasons.*, DCGM_FI_DEV_CLOCK_THROTTLE_REASONS'
+  points: 1
+- criterion: SW thermal slowdown engages at the maximum operating temperature; HW slowdown a few degrees
+    higher or on external power-brake signals (deduct 2 if reversed)
+  points: 1
+- criterion: Throttling judged against peers' sustained clock (about 1,830 MHz), not the 1,980 MHz max
+    boost; sw_power_cap is routine
+  points: 1
+lab_checks: []

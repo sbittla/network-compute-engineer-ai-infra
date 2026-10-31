@@ -1,0 +1,20 @@
+id: K8
+title: PFC storm or incast?
+folder: K8-storm-or-incast
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: four signals with the expected value for each case.
+marking:
+- criterion: Signal 1 with both expected values (e.g. queue flat at max vs deep but varying)
+  points: 1
+- criterion: Signal 2 with both values (e.g. egress ≈ 0 vs ≈ line rate)
+  points: 1
+- criterion: Signal 3 with both values (e.g. ECN marks ≈ 0 vs heavy)
+  points: 1
+- criterion: Signal 4 with both values (e.g. pause received from the device sustained vs ≈ 0; device rx
+    throughput)
+  points: 1
+lab_checks: []

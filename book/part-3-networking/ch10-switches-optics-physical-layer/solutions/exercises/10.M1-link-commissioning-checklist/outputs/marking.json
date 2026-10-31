@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a checklist table with all six required areas present, numeric pass criteria for optical power, lane health, and error counters, and a stated soak duration.",
+  "id": "10.M1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "All six required areas present (port config, transceiver compatibility, optical power, lane health, error counters, cable labelling), 1 point each",
+      "points": 6
+    },
+    {
+      "criterion": "Numeric pass criteria for optical power, lane health and error counters, plus a stated soak duration (≥ 30 min loaded)",
+      "points": 2
+    },
+    {
+      "criterion": "A failure action for every item, with acceptance thresholds stricter than alert thresholds",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Link commissioning checklist",
+  "type": "outline-mandated"
+}

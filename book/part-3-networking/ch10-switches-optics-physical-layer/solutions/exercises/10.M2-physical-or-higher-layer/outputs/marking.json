@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a six-row answer table (layer, cause, first action, further evidence) and, for P2 and P5, the FEC margin in decades with arithmetic.",
+  "id": "10.M2",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "P1 and P6 classified higher-layer (congestion; MTU) with correct action",
+      "points": 2
+    },
+    {
+      "criterion": "P2 and P4 classified physical (bursty corruption; flap) with correct action",
+      "points": 2
+    },
+    {
+      "criterion": "P3 and P5 correct (stomped frames from upstream; critical one-lane loss)",
+      "points": 2
+    },
+    {
+      "criterion": "FEC margins with arithmetic: P2 0.78 decades, P5 0.43 decades",
+      "points": 2
+    }
+  ],
+  "points": 8,
+  "tier": "L1",
+  "title": "Interpret counters: physical or higher-layer?",
+  "type": "outline-mandated"
+}

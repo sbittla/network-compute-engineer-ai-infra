@@ -159,5 +159,7 @@ ORION-XL conventions:
 ## 5. Organisation (for incident and operations scenarios)
 
 Halcyon AI teams: **Fabric** (network), **Fleet** (bare-metal lifecycle), **Platform** (Kubernetes,
-Slurm), **Training Infra**, **Inference**, **SRE**, and **Facilities** (power/cooling, MEP).
+Slurm), **Storage** (parallel file system, object store, checkpoint tier), **Training Infra**, **Inference**,
+**SRE**, and **Facilities** (power/cooling, MEP). Architecture review and corporate IT may appear as
+stakeholders, but they are not operating teams. Call the network team "Fabric", not "Network".
 Incidents use severity SEV1–SEV4 and a blameless postmortem template (Chapter 18).

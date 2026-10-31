@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Young's formulas with substitutions; results to 3 significant figures",
+  "id": "W1",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) M = 2,880 min, τ_opt = 75.9 min, overhead 0.0316, goodput 96.8 %",
+      "points": 3
+    },
+    {
+      "criterion": "(b) goodput 81.1 % (R = 15) and 86.7 % (R = 5); notes τ_opt does not depend on R",
+      "points": 4
+    },
+    {
+      "criterion": "(c) 0.0556 × 4,096 × 24 h = 5,461 GPU-h/day ≈ $16,400/day, labelled [MODELED]",
+      "points": 3
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "Checkpoint interval and restart overhead",
+  "type": "worked-problem"
+}

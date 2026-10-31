@@ -1,0 +1,21 @@
+id: '11.11'
+title: Step-time sensitivity
+folder: 11.11-o2-step-time-sensitivity
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 12
+evidence_required: five step times and MFUs with arithmetic, and the ranking with one sentence each.
+marking:
+- criterion: (a) 16.16 s / 43.1 % with compute, bubble and DP window rescaled
+  points: 2
+- criterion: (b) 16.01 s / 43.5 %
+  points: 2
+- criterion: (c) 18.59 s / 37.4 % (everyone waits for the straggler)
+  points: 2
+- criterion: (d) 17.79 s / 39.1 % and (e) 17.15 s / 40.6 %
+  points: 3
+- criterion: Ranking of levers with one sentence each, noting why DP congestion is fully exposed
+  points: 3
+lab_checks: []

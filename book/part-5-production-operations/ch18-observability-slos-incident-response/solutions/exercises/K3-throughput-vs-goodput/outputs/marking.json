@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Both definitions as good/valid ratios; a numeric example that produces 80 %.",
+  "id": "K3",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Throughput SLI as good/valid job-minutes (median step ≤ 1.10 × baseline / running job-minutes)",
+      "points": 1
+    },
+    {
+      "criterion": "Goodput SLI as retained-progress accelerator time / allocated accelerator time",
+      "points": 1
+    },
+    {
+      "criterion": "Numerically consistent week with throughput 100 % and goodput 80 %",
+      "points": 2
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Throughput SLI versus goodput SLI",
+  "type": "knowledge-check"
+}

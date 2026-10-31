@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "launch_overhead": {
+      "first_row_id": 222,
+      "grid_x": 4,
+      "last_row_id": 821,
+      "median_gap_us": 6.66,
+      "median_kernel_us": 2.61,
+      "median_launch_interval_us": 9.31,
+      "nvtx_range": "optimizer_step",
+      "range_ms": 5.915,
+      "tiny_kernel_busy_ms": 1.563,
+      "tiny_kernels": 600
+    },
+    "memory_bandwidth": {
+      "achieved_GBps": 724.7,
+      "dram_bytes_each": 201326592,
+      "fraction_of_hbm": 0.2163,
+      "instances": 12,
+      "kernel": "layernorm_bwd_fused_kernel"
+    },
+    "memory_transfer": {
+      "GBps": 12.19,
+      "api_call": "cudaMemcpyAsync",
+      "api_ms": 8.269,
+      "bytes": 100663296,
+      "gpu_ms": 8.258,
+      "pinned_GBps_median": 48.2,
+      "row_id": 1
+    },
+    "occupancy_constraint": {
+      "block_threads": 256,
+      "kernel": "layernorm_bwd_fused_kernel",
+      "limiter": "registers",
+      "occupancy": 0.125,
+      "regs_per_thread": 168,
+      "row_id_example": 98,
+      "warps_allowed_by_registers": 12
+    }
+  },
+  "evidence_label": "SIMULATED trace; occupancy and roof fractions MODELED",
+  "exercise": "4.12",
+  "inputs": {
+    "data": "lab/data (seed 4 capture)",
+    "step": "train_step_41"
+  },
+  "units": {
+    "bandwidth": "GB/s",
+    "bytes": "B",
+    "time": "\u00b5s or ms as named"
+  }
+}

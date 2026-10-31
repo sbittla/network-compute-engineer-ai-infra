@@ -1,0 +1,19 @@
+id: T1
+title: The contaminated 4-node benchmark
+folder: T1-contaminated-benchmark
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: median and mean computed; ranked hypotheses with tests; corrected rows with labels
+marking:
+- criterion: 'Part 1: median 318.4 and mean 275.0 GB/s computed; bimodal mean, unstated shared fabric and the unsupported
+    A-06 change identified'
+  points: 3
+- criterion: 'Part 2: at least three hypotheses ranked, interference first, each with a discriminating test'
+  points: 4
+- criterion: 'Part 3: corrected benchmark row(s) with label, tier and manifest; no A-06 change until an isolated
+    rerun; runs 2 and 4 not silently deleted'
+  points: 3
+lab_checks: []

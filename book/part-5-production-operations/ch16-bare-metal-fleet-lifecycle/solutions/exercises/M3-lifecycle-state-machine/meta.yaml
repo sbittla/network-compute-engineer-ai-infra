@@ -1,0 +1,26 @@
+id: M3
+title: Lifecycle state machine
+folder: M3-lifecycle-state-machine
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: lab
+points: 15
+evidence_required: A diagram; a transition table; a forbidden-transition table; `check.py` T3.* checks
+  passing.
+marking:
+- criterion: Diagram with the eight states and guarded edges
+  points: 3
+- criterion: 'Transition table: 13 transitions with event, guard, side effects, audit fields'
+  points: 5
+- criterion: Forbidden-transition table with reasons
+  points: 4
+- criterion: check.py T3.* checks pass and rejected replay events shown
+  points: 3
+lab_checks:
+- T3.transition_table_shape
+- T3.guard_rejects_and_audits
+- T3.replay_does_not_mutate_input
+- T3.replay_rejections
+- T3.replay_final_states
+- T3.invariant_no_shortcut_to_schedulable

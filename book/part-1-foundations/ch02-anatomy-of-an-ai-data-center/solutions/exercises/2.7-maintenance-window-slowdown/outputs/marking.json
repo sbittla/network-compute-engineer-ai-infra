@@ -1,0 +1,33 @@
+{
+  "difficulty": 3,
+  "evidence_required": "Slowdown arithmetic; ranked hypothesis table; evidence plan with commands; root-cause arithmetic; fix and validation plan; one acceptance-checklist line.",
+  "id": "2.7",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Slowdown 29.9 % computed, clock ratio 0.598, and the synchronous-job explanation of why it is smaller than the clock loss",
+      "points": 3
+    },
+    {
+      "criterion": "At least three hypotheses ranked with reasons (PSU cording first, failed PSUs, BMC power policy, PDU fault), thermal rejected",
+      "points": 5
+    },
+    {
+      "criterion": "Evidence plan with real read-only commands or data sources (ipmitool sdr, Redfish PowerSupplies, PDU outlet map, dcmi power limit)",
+      "points": 5
+    },
+    {
+      "criterion": "Root-cause arithmetic (2 x 3.0 = 6.0 kW against about 7.99 kW DC sustained; braked rack at most about 25.5 kW, consistent with 24.1 kW)",
+      "points": 4
+    },
+    {
+      "criterion": "Safe fix (drain, re-cord 3A/3B under change control), validation without a maintenance window, and the acceptance-checklist line",
+      "points": 3
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "The maintenance-window slowdown",
+  "type": "troubleshooting"
+}

@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "concise written answers; R4 must cite specific numbers from the chapter.",
+  "id": "7.R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Three distinct production fault classes outside intent (e.g. physical layer, running-state drift, FIB programming)",
+      "points": 1
+    },
+    {
+      "criterion": "A correct evidence source named for each",
+      "points": 1
+    }
+  ],
+  "points": 2,
+  "tier": "L1",
+  "title": "What an intent validator can never catch",
+  "type": "reflection"
+}

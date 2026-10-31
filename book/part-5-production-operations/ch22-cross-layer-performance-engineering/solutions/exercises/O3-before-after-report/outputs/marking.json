@@ -1,0 +1,37 @@
+{
+  "difficulty": 3,
+  "evidence_required": "the report; every number labelled; no causal language in \"Measured facts\".",
+  "id": "O3",
+  "kind": "lab",
+  "lab_checks": [
+    "render_report: facts / causes / uncertainty",
+    "attribute: contributions and shares",
+    "bootstrap_shares: job-level 95 % interval"
+  ],
+  "marking": [
+    {
+      "criterion": "(a) one-page report with Measured facts, Inferred causes, Remaining uncertainty in order; no causal language in Measured facts",
+      "points": 6
+    },
+    {
+      "criterion": "(a) full attribution row set summing to 100 % with uncertainty (HC3 and bootstrap)",
+      "points": 4
+    },
+    {
+      "criterion": "(b) hygiene rules with effects and the orion-n13 verdict with evidence",
+      "points": 4
+    },
+    {
+      "criterion": "(c) each fix with predicted range, canary scope, MDE for n, and abort condition",
+      "points": 4
+    },
+    {
+      "criterion": "Every number carries an evidence label",
+      "points": 2
+    }
+  ],
+  "points": 20,
+  "tier": "L1",
+  "title": "Before/after report for the change owners",
+  "type": "outline-mandated"
+}

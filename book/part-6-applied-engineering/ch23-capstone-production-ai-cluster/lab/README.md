@@ -76,7 +76,7 @@ python check.py                        # progress meter on starter/design_lint.p
 | NUM-001 | major | a `design.md` line has a number with a unit but no inline label and no ID reference | `design.md:L<n>` |
 | XREF-001 | major | `design.md` cites an A-/B-/FD-/SLO- ID that the bundle does not define | `design.md:<ID>` |
 | FD-001 | major | failure domain with redundancy `none` and an empty mitigation | `failure_domains.yaml:<id>` |
-| FD-002 | major | one of gpu, node, nic, rail_leaf, spine, rack_power, storage, scheduler is not analysed | `failure_domains.yaml:<class>` |
+| FD-002 | major | one of gpu, node, nic, rail_leaf, spine, rack_power, storage, scheduler is not analyzed | `failure_domains.yaml:<class>` |
 | SLO-001 | major | SLO target is not a numeric threshold (`>= 0.99`, `<= 800`) | `slos.yaml:<id>.target` |
 
 **Known limitation of EVID-004.** The rule is a heuristic over two declared fields: it fires only when
@@ -159,7 +159,7 @@ sudo ipmitool dcmi power reading                                          # node
 ```
 
 Run the node power reading during a sustained GPU load (for example the burn-in from Chapter 16) and
-record the peak over at least 10 minutes. Replace the `[VENDOR-SPEC]` node power in your BOM with the
+record the peak over at least 10 minutes. Replace the `[VENDOR-SPEC, YYYY-MM]` node power in your BOM with the
 measured value *and* keep the vendor maximum for rack budgeting; note both in the assumptions register.
 
 **L3 (2+ nodes with RDMA).** Produce a real `B-02`-style row:
@@ -180,7 +180,7 @@ nodes (8 × 400G) expect ≈ 350+ GB/s node busbw; the per-rail figure is busbw 
 channel lines must end in `/GDRDMA` (for example `via NET/IB/0/GDRDMA`); also record
 `lsmod | grep nvidia_peermem`, remembering that DMA-BUF can provide GPUDirect RDMA without that module.
 Copy `manifest.yaml`, fill every `record:` field of the L3 extension, commit it under
-`manifests/`, and reference that path in the `manifest` column. Re-run the linter: the row must
+`manifests/`, and reference that path in the `manifest` column. Rerun the linter: the row must
 pass EVID-003/EVID-004.
 
 ## 9. Intentionally flawed inputs

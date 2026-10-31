@@ -1,0 +1,35 @@
+{
+  "difficulty": 2,
+  "evidence_required": "≥ 12 rows covering all six domains; corrected scores; top-5 actions with owners",
+  "id": "M1",
+  "kind": "lab",
+  "lab_checks": [
+    "T5 FMEA scorer:"
+  ],
+  "marking": [
+    {
+      "criterion": "≥ 12 rows covering GPU node, rack, leaf switch, storage, scheduler and control plane",
+      "points": 4
+    },
+    {
+      "criterion": "Effects on training and on inference stated separately per row",
+      "points": 2
+    },
+    {
+      "criterion": "S/O/D justified; detection scores consistent with the stated control (F07 re-scored to D = 10)",
+      "points": 3
+    },
+    {
+      "criterion": "RPN plus action priority; severity ≥ 9 actioned regardless of RPN",
+      "points": 3
+    },
+    {
+      "criterion": "Top-5 actions with owners and mitigations; lab FMEA scorer passes",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Failure-mode analysis (risk register)",
+  "type": "outline-mandated"
+}

@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "two correct statements.",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "P (high pfc_tx_p3): P's own ingress buffer for priority 3 is filling",
+      "points": 1
+    },
+    {
+      "criterion": "P is asking its peer to stop sending priority 3",
+      "points": 1
+    },
+    {
+      "criterion": "Q (high pfc_rx_p3): the peer's ingress buffer is filling",
+      "points": 1
+    },
+    {
+      "criterion": "Q is being asked to stop transmitting priority 3 out of Q",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Direction of pause",
+  "type": "knowledge-check"
+}

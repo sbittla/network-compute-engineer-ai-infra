@@ -65,3 +65,62 @@ they actually run.
 | Reliability | See REFERENCE_CLUSTER.md: node MTBF 1,536 h; 256-GPU job 48 h (= 1,536 / 32); ORION-XL 3 h; restart **≈ 15 min (900 s)**. Do not use 600 s or "1 failure per 50 node-days" unless you label it as a deliberate variation. |
 | Frontend oversubscription | 3:1 by port count, 1.5:1 by bandwidth (200G hosts, 400G uplinks). |
 | Names | See REFERENCE_CLUSTER.md "Canonical names" (`orion-nNN`, `rack-NN`, `orion-be-leaf-rR`, `orion-be-spine-S`). |
+
+## G4 verification additions (2026-10-30)
+
+Merged from the per-group reports in [verification/](verification/). Each row was checked against primary source, either code at a tagged release or official docs. Where two reports disagreed, the coordinator re-checked the source; the result is noted in the row.
+
+### NCCL
+
+| Topic | Correct statement |
+|---|---|
+| IB completion WARN format | Re-checked in `src/transport/net_ib.cc` at the v2.19.4-1, v2.20.5-1, v2.21.5-1, v2.22.3-1 and v2.23.4-1 tags. Formats by release: ≤ 2.19 `NET/IB : Got completion from peer … with error N, opcode N, len N, vendor err N (…)`; 2.20–2.21 `NET/IB : … with status=N opcode=N len=N vendor err N (…)` with no `hca` field; **2.22+** `NET/IB: … status=N … hca mlx5_N` (no space before the colon); current master `status=<name>(N) opcode=<name>(N) vendor_err=N qp_num=N … hca …`. Status 12 = `IBV_WC_RETRY_EXC_ERR`. Parsers must accept `NET/IB ?:` and both `error N,` and `status=`. |
+| `NCCL_MIN/MAX_NCHANNELS` | Deprecated since 2.17 in favour of `NCCL_MIN_CTAS` / `NCCL_MAX_CTAS`. |
+| `NCCL_NVLS_ENABLE` | Since 2.17. Values 0/1/2; default 2 (use NVLS if supported, do not fail). |
+| `NCCL_CROSS_NIC` | Default 2 (prefer same NIC, allow a different NIC if faster); 0 = same NIC only; 1 = allow different. |
+| `NCCL_ALGO` names | Ring, Tree; CollnetDirect/CollnetChain (2.14+); NVLS (2.17+); NVLSTree (2.18+); PAT (2.23+). |
+| `NCCL_IB_HCA` matching | Names are prefixes unless the list starts with `=`; `^` makes the list an exclude list. `^mlx5_1` also excludes `mlx5_10`–`mlx5_19`; use `^=mlx5_1`. |
+| P2P channel lines | `via P2P/CUMEM` (≥ 2.19, cuMem on by default), `via P2P/IPC` (cuMem off or older releases), `via P2P/direct pointer` (same process). |
+| PXN channel line | `… via NET/IB/<netDev>(<proxyRank>)/GDRDMA`; the number in parentheses is the proxy rank. |
+| nccl-tests `-w` | Warm-up defaults to 1 and `-n` to 20. Pass `-w` explicitly whenever a warm-up policy is claimed. |
+
+### GPU, DCGM, host
+
+| Topic | Correct statement |
+|---|---|
+| H100 SXM peaks | Dense BF16 ≈ 989 TFLOP/s and dense FP8 ≈ 1,979 TFLOP/s; the datasheet's 1,979 / 3,958 figures are *with sparsity*. 80 GB HBM3 at 3.35 TB/s; NVLink4 900 GB/s total = 450 GB/s per direction; up to 700 W. DGX H100-class node maximum is 10.2 kW. |
+| DCGM 4.6 field renames | `PROF_SM_ACTIVE`→`PROF_SM_UTIL_RATIO`, `PIPE_TENSOR_ACTIVE`→`TENSOR_UTIL_RATIO`, `DRAM_ACTIVE`→`DRAM_UTIL_RATIO`, `GR_ENGINE_ACTIVE`→`GR_ENGINE_UTIL_RATIO`, and similar. The old names remain aliases with the same IDs (1001–1008), so the tables and labs in this book keep the old names. |
+| DCGM 4.7 deprecations | `DCGM_FI_DEV_GPU_UTIL` (203, %) → `DCGM_FI_DEV_GPU_UTIL_RATIO` (1613, 0–1). `POWER_VIOLATION`/`THERMAL_VIOLATION` (240/241) → `*_THROTTLE_SECONDS_TOTAL`. The units of 240/241 are µs in 3.x and ns in 4.x headers. |
+| DCGM ECC/row remap | `ECC_SBE_VOL_TOTAL` 310, `ECC_DBE_VOL_TOTAL` 311, `ROW_REMAP_FAILURE` 395, `ROW_REMAP_PENDING` 396. A pending remap takes effect only after a GPU reset. |
+| SM activity during collectives | SM_ACTIVE/TENSOR_ACTIVE drop during collective waits because NCCL kernels occupy only a few SMs (one block per channel) and issue no tensor work. They do not drop because SMs "idle in spin loops". |
+| nvidia-smi v590 | "Driver Version"/"CUDA Version" in `-q` output are deprecated in favour of "KMD Version"/"CUDA UMD Version". |
+| lspci annotations | pciutils 3.6–3.7 print `(ok)`/`(downgraded)`; 3.8+ print nothing for a healthy link and only `(downgraded)`/`(overdriven)` otherwise. Compare numbers, never annotations. |
+| cpufreq `powersave` | Dynamic only with active-mode `intel_pstate` and `amd-pstate-epp`. With `acpi-cpufreq`, `intel_cpufreq` or passive `amd-pstate` it pins the minimum frequency. |
+| GDS check | `/usr/local/cuda-<ver>/gds/tools/gdscheck.py -p`. |
+
+### Network and physical layer
+
+| Topic | Correct statement |
+|---|---|
+| perftest latency | `ib_*_lat` reports RTT/2 for SEND/WRITE and the full round trip for READ/ATOMIC. `-a` sweeps 2 B–2²³ B; `-m` defaults to active_mtu. |
+| DCQCN paper parameters | g = 1/256, N = 50 µs, K = T = 55 µs, B = 10 MB, F = 5, Kmin 5 KB, Kmax 200 KB, Pmax 1 % (Zhu et al. 2015). NIC defaults differ. |
+| ethtool module labels | Threshold label is `Laser rx power low warning threshold`. CMIS per-lane labels: `Rcvr signal avg optical power (Channel n)`, etc. OSFP identifier 0x19. |
+| FRR RFC 8212 | `bgp ebgp-requires-policy` is on under the `traditional` profile and off under `frr defaults datacenter`. |
+| SONiC | Port MTU default 9100. `show interfaces counters fec-stats` adds FEC_PRE_BER/FEC_POST_BER/FLR/FEC_MAX_T columns on current builds. |
+
+### Training, storage, serving, orchestration
+
+| Topic | Correct statement |
+|---|---|
+| PyTorch flight recorder | `TORCH_FR_BUFFER_SIZE` (fallback `TORCH_NCCL_TRACE_BUFFER_SIZE`; 0 disables), `TORCH_FR_DUMP_TEMP_FILE` (legacy `TORCH_NCCL_DEBUG_INFO_TEMP_FILE`), `TORCH_NCCL_DUMP_ON_TIMEOUT`. |
+| PyTorch PG timeout | `init_process_group` default timeout is 10 min for NCCL and 30 min for other backends (2.15 docs). |
+| DDP `bucket_cap_mb` | Default `None`, which selects 25 MiB. |
+| DCP | `*.distcp` data files plus `.metadata`. `async_save` returns a `Future` or an `AsyncSaveResponse` (separate staging and upload futures). |
+| Megatron async save | On current main, `--async-save` needs `--use-persistent-ckpt-worker`, and fully parallel save is on by default. |
+| S3 throttling | Requests above the current request rate can get `503 Slow Down` while S3 scales. Bursts are not rejected deterministically. |
+| vLLM | V1 metric `vllm:kv_cache_usage_perc` replaces V0 `vllm:gpu_cache_usage_perc`. The current `--gpu-memory-utilization` default is 0.92 (older releases used 0.90); always set it explicitly. |
+| Kueue | `kueue.x-k8s.io/v1beta2` is served from v0.15; v0.20 no longer serves v1beta1. The cohort field is `spec.cohortName` (v1beta1 `spec.cohort`). |
+| Kubernetes | DRA core API GA in 1.34 as `resource.k8s.io/v1`. Topology Manager stable since 1.27. |
+| GFD labels | `nvidia.com/cuda.driver.major` etc. are deprecated; use `nvidia.com/cuda.driver-version.major`. |
+| Slurm | `topology/block` from 23.11 (reworked 24.05); multiple topologies via `topology.yaml` from 25.05. |
+| Xid | 63 row-remap event, 64 row-remap failure, 92 excessive SBE rate, 119/120 GSP RPC timeout/GSP error, 154 recovery action changed. |

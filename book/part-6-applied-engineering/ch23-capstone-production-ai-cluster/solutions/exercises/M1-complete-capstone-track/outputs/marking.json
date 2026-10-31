@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "every required artifact listed in the chosen brief; a design bundle that lints with gate PASS (or with each remaining finding explicitly waived with a reason); evidence labels on every number",
+  "id": "M1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Scored with capstones/RUBRIC.md: total ≥ 70/100 to pass, with R2 ≥ 10/20 and R4 ≥ 10/20",
+      "points": 60
+    },
+    {
+      "criterion": "Every required artifact of the chosen brief present (problem statement, assumptions, architecture, test plan, results, failure analysis, security, final review)",
+      "points": 15
+    },
+    {
+      "criterion": "Design bundle lints with gate PASS, or each remaining finding waived with a reason",
+      "points": 15
+    },
+    {
+      "criterion": "Every number carries an evidence label; no MEASURED physical claim from L1 (R4 cap)",
+      "points": 10
+    }
+  ],
+  "points": 100,
+  "tier": "L1",
+  "title": "Complete one capstone track",
+  "type": "outline-mandated"
+}

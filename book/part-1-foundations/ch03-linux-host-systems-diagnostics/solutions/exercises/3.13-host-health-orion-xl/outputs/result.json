@@ -1,0 +1,28 @@
+{
+  "answer": {
+    "compressed_GB_per_year_range": [
+      5.28,
+      2.64
+    ],
+    "daily_sweeps_GB_per_year": 26.4,
+    "false_drain_gpu_h": 8.0,
+    "max_KB": 155.8,
+    "median_KB": 141.2,
+    "min_KB": 75.9,
+    "missed_straggler_gpu_h_per_hour_xl": 225.7,
+    "snapshot_KB": {
+      "orion-n01": 141.5,
+      "orion-n07": 155.8,
+      "orion-n12": 140.9,
+      "orion-n19": 140.9,
+      "orion-n23": 143.3,
+      "orion-n28": 75.9
+    },
+    "sweep_MB": 72.3
+  },
+  "evidence": "[SIMULATED] snapshot sizes; volumes [MODELED]",
+  "units": {
+    "cost": "GPU-hours",
+    "size": "KB/MB/GB (SI)"
+  }
+}

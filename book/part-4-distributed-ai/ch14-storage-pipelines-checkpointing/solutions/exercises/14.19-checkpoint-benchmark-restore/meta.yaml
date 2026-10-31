@@ -1,0 +1,20 @@
+id: '14.19'
+title: Checkpoint benchmark and restore test
+folder: 14.19-checkpoint-benchmark-restore
+type: outline-mandated
+difficulty: 2
+tier: L2
+kind: written
+points: 15
+evidence_required: environment manifest, a results table with median and spread, and the restore test
+  log
+marking:
+- criterion: Environment manifest and method (warm-up, ≥ 5 reps)
+  points: 5
+- criterion: Results table with median and spread for blocking, completion, step time before/during/after,
+    pinned memory
+  points: 5
+- criterion: 'Restore test: validator rejects corrupted copy; restore from intact copy; first-step loss
+    within stated tolerance'
+  points: 5
+lab_checks: []

@@ -1,0 +1,29 @@
+{
+  "difficulty": 2,
+  "evidence_required": "SPOF table (component, impact, mitigation, fix/accept, reason); failure-domain diagram; answer to task 4.",
+  "id": "2.5",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "At least five correct SPOFs, each with its service impact (for example network-rack single PDU, border router, load balancer, NFS weight server, control plane on one host, DNS/NTP VM)",
+      "points": 6
+    },
+    {
+      "criterion": "Failure-domain diagram showing which components share a host, rack, PDU or feed",
+      "points": 3
+    },
+    {
+      "criterion": "A mitigation per SPOF with a fix or accept decision justified by cost, likelihood or recovery time",
+      "points": 4
+    },
+    {
+      "criterion": "Task 4 names a placement SPOF (the three control-plane VMs on one hypervisor, or the single-feed network-rack PDU)",
+      "points": 2
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "Five single points of failure",
+  "type": "outline-mandated"
+}

@@ -1,0 +1,17 @@
+id: '14.15'
+title: What the simulated trace does not capture
+folder: 14.15-simulated-trace-gaps
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: four items with a direction and a reason
+marking:
+- criterion: Four real PFS behaviours named
+  points: 2
+- criterion: Each with a direction (better or worse tail)
+  points: 2
+- criterion: Each with a mechanism-level reason
+  points: 1
+lab_checks: []

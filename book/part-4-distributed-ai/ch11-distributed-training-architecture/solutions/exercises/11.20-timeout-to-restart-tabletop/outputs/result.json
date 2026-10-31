@@ -1,0 +1,36 @@
+{
+  "answer": {
+    "orionxl-n141": {
+      "event": "14 link-down/up events",
+      "global_rank": 1122,
+      "local_index": 2,
+      "node_ranks": [
+        1120,
+        1127
+      ],
+      "rail": 2,
+      "time": "01:00"
+    },
+    "orionxl-n312": {
+      "event": "uncorrectable ECC (Xid 48-class)",
+      "global_rank": 2493,
+      "local_index": 5,
+      "node_ranks": [
+        2488,
+        2495
+      ],
+      "rail": 5,
+      "time": "02:58"
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "gpus_per_node": 8,
+    "nodes": "orionxl-n[001-512]",
+    "order": "TP fastest"
+  },
+  "timing": {
+    "ecc_to_timeout_min": 14,
+    "nic_flap_runtime_before_timeout_min": 132
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "answer": {
+    "orion256_async_staged": {
+      "C_s": 5.0,
+      "R_s": 900.0,
+      "decomposition": {
+        "C_over_tau": 0.0038,
+        "R_over_mtbf": 0.0052,
+        "tau_over_2mtbf": 0.0038
+      },
+      "failures_per_day": 0.5,
+      "gpus": 256,
+      "lost_gpu_h_per_day": 55.3695,
+      "lost_gpu_h_per_failure": 110.739,
+      "lost_s_per_failure": 1557.2671,
+      "mtbf_h": 48.0,
+      "p_4h_interval_completes": 0.92,
+      "tau_opt_min": 21.9089,
+      "tau_opt_s": 1314.5341,
+      "waste_at_4h": 0.0472,
+      "waste_at_opt": 0.0128
+    },
+    "orion256_sync_pfs": {
+      "C_s": 45.0,
+      "R_s": 900.0,
+      "decomposition": {
+        "C_over_tau": 0.0114,
+        "R_over_mtbf": 0.0052,
+        "tau_over_2mtbf": 0.0114
+      },
+      "failures_per_day": 0.5,
+      "gpus": 256,
+      "lost_gpu_h_per_day": 102.1085,
+      "lost_gpu_h_per_failure": 204.217,
+      "lost_s_per_failure": 2871.8012,
+      "mtbf_h": 48.0,
+      "p_4h_interval_completes": 0.92,
+      "tau_opt_min": 65.7267,
+      "tau_opt_s": 3943.6024,
+      "waste_at_4h": 0.05,
+      "waste_at_opt": 0.028
+    },
+    "orionxl4096_async_staged": {
+      "C_s": 5.0,
+      "R_s": 900.0,
+      "decomposition": {
+        "C_over_tau": 0.0152,
+        "R_over_mtbf": 0.0833,
+        "tau_over_2mtbf": 0.0152
+      },
+      "failures_per_day": 8.0,
+      "gpus": 4096,
+      "lost_gpu_h_per_day": 9687.6477,
+      "lost_gpu_h_per_failure": 1210.956,
+      "lost_s_per_failure": 1064.3168,
+      "mtbf_h": 3.0,
+      "p_4h_interval_completes": 0.2636,
+      "tau_opt_min": 5.4772,
+      "tau_opt_s": 328.6335,
+      "waste_at_4h": null,
+      "waste_at_opt": 0.1138
+    },
+    "orionxl4096_sync_pfs": {
+      "C_s": 45.0,
+      "R_s": 900.0,
+      "decomposition": {
+        "C_over_tau": 0.0456,
+        "R_over_mtbf": 0.0833,
+        "tau_over_2mtbf": 0.0456
+      },
+      "failures_per_day": 8.0,
+      "gpus": 4096,
+      "lost_gpu_h_per_day": 12678.9432,
+      "lost_gpu_h_per_failure": 1584.8679,
+      "lost_s_per_failure": 1392.9503,
+      "mtbf_h": 3.0,
+      "p_4h_interval_completes": 0.2636,
+      "tau_opt_min": 16.4317,
+      "tau_opt_s": 985.9006,
+      "waste_at_4h": null,
+      "waste_at_opt": 0.1746
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "naive_interval_s": 14400.0,
+    "source": "lab/data/reliability_scenarios.csv"
+  },
+  "units": {
+    "lost": "GPU-hours",
+    "tau": "s",
+    "waste": "fraction"
+  }
+}

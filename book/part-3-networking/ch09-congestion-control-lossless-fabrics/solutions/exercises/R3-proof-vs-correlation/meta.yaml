@@ -1,0 +1,19 @@
+id: R3
+title: Proof versus correlation in Section 9.12
+folder: R3-proof-vs-correlation
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: a short paragraph each that names specific counters, assumptions, or limitations from
+  the chapter.
+marking:
+- criterion: 'Proof: LnkSta x8 vs LnkCap x16 and the matching ≈ 213 Gb/s ceiling; pause originates from
+    that NIC''s own counters'
+  points: 1
+- criterion: Proof closed by the fix-and-validate loop (x16 removes pauses, restores step time)
+  points: 1
+- criterion: 'Correlated only: maintenance timing, victim senders'' pauses, job-level slowdown'
+  points: 1
+lab_checks: []

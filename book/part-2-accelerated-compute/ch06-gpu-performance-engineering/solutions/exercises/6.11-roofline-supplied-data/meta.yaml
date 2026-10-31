@@ -1,0 +1,19 @@
+id: '6.11'
+title: Roofline from supplied data
+folder: 6.11-roofline-supplied-data
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: table with intensity, ridge, bound, fraction of roof; ranked list with levers.
+marking:
+- criterion: K1 (I = 0.625, memory, 79.6 % of HBM) and K2 (I = 7,333, compute, 60.1 % of BF16) rows correct
+  points: 3
+- criterion: K3 (I = 4.0, memory, 85.6 % of HBM) and K4 (I = 500 vs FP32 ridge 20, compute, 59.7 % of
+    FP32) rows correct
+  points: 3
+- criterion: Ranking by opportunity with the right lever per bound (K4 tensor cores/TF32-BF16, K2 tiles/library/FP8,
+    K1 fusion, K3 fewer bytes)
+  points: 4
+lab_checks: []

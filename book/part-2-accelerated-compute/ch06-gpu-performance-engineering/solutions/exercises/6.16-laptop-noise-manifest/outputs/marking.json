@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) citing specific mechanisms or data.",
+  "id": "6.16",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Manifest fields named: CPU frequency scaling/turbo, thermal state, background processes, BLAS threading, power mode, memory pressure",
+      "points": 1
+    },
+    {
+      "criterion": "Why each could cause a 10-20 % spread",
+      "points": 1
+    },
+    {
+      "criterion": "The supplied GPU analysis is a different system with its own A/A floor, so it is not invalidated",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Laptop harness noise",
+  "type": "reflection"
+}

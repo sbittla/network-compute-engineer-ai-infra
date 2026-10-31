@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "both formulas; the choice with the reason (what is held constant).",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "E_strong formula with fixed global problem",
+      "points": 1
+    },
+    {
+      "criterion": "E_weak formula with throughput and fixed per-GPU work",
+      "points": 1
+    },
+    {
+      "criterion": "Chooses weak scaling for 64 -> 256 GPUs",
+      "points": 1
+    },
+    {
+      "criterion": "Reason: DP grows 2 -> 8 and global batch 256 -> 1,024 sequences, so per-GPU work is constant",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Weak- and strong-scaling efficiency",
+  "type": "knowledge-check"
+}

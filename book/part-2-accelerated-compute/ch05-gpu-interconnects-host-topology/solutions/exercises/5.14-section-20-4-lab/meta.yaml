@@ -1,0 +1,29 @@
+id: '5.14'
+title: 'Section 20.4 lab: topology, rank maps, all-reduce comparison'
+folder: 5.14-section-20-4-lab
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: lab
+points: 30
+evidence_required: raw outputs, diagram, CSV, two rank maps, results table with labels, methodology, limitations.
+marking:
+- criterion: Raw topology outputs included and an annotated topology diagram of one HX8 host (sockets,
+    host bridges, switches, GPUs, NICs with slot/NUMA/rail)
+  points: 6
+- criterion: GPU-to-HCA mapping CSV keyed by GPU UUID and NIC BDF
+  points: 6
+- criterion: Aligned and intentionally misaligned rank/rail maps
+  points: 6
+- criterion: All-reduce results table labelled [MEASURED] (manifest, ≥ 5 runs) or [MODELED] (Table 5.4
+    parameters cited)
+  points: 6
+- criterion: Benchmark methodology and limitations stated
+  points: 6
+lab_checks:
+- parse_topo_matrix
+- parse_lstopo
+- build_mapping
+- make_rank_map
+- model_allreduce
+- scenarios

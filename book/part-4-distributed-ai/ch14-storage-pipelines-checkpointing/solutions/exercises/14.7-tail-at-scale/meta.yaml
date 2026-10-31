@@ -1,0 +1,20 @@
+id: '14.7'
+title: Tail at scale
+folder: 14.7-tail-at-scale
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: the expression 1 − q^N, values to two significant figures
+marking:
+- criterion: Expression 1 - q^N with q = 0.99 and 0.999
+  points: 1
+- criterion: '256 ranks: 0.92 (p99) and 0.23 (p99.9)'
+  points: 2
+- criterion: '4,096 ranks: about 1.0 and 0.98'
+  points: 1
+- criterion: 'Interpretation: at scale the per-read p99.9 is the typical step''s experience; accept storage
+    on p99.9 or reduce exposure'
+  points: 1
+lab_checks: []

@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "the rank arithmetic.",
+  "id": "11.5",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Rank decomposition r = tp + 8·dp + 64·pp and rank 19 → (tp 3, dp 2, pp 0)",
+      "points": 1
+    },
+    {
+      "criterion": "DP group {3, 11, …, 59} all have local rank 3 → GPU 3 → NIC 3 → rail leaf 3",
+      "points": 1
+    },
+    {
+      "criterion": "States the two assumptions (CUDA_VISIBLE_DEVICES not reordered; GPU i uses NIC i)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Rail locality of DP peers",
+  "type": "knowledge-check"
+}

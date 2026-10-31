@@ -1,0 +1,23 @@
+id: '11.14'
+title: The quiet 8 %
+folder: 11.14-the-quiet-8-percent
+type: troubleshooting
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: ranked hypotheses (≥ 3), tests with expected outcomes, root cause, fix, validation
+  criteria, and an estimate of GPU-hours lost per day.
+marking:
+- criterion: At least three ranked hypotheses, with ranks 96–103 mapped to orion-n13 (one TP group)
+  points: 2
+- criterion: Discriminating tests with expected outcomes (clock-event reasons, power limit, peer comparison,
+    token counts)
+  points: 3
+- criterion: 'Root cause: power cap left by maintenance on orion-n13'
+  points: 1
+- criterion: Safe fix (checkpoint, drain, Fleet restores policy under change control) and validation criteria
+  points: 2
+- criterion: Loss estimate ≈ 435 GPU-h per day with arithmetic
+  points: 2
+lab_checks: []

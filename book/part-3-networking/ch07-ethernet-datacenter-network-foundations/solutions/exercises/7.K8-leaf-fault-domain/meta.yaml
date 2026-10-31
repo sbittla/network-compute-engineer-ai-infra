@@ -1,0 +1,19 @@
+id: 7.K8
+title: Why one leaf is a cluster-wide fault domain
+folder: 7.K8-leaf-fault-domain
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: the rail mapping argument and its effect on a 256-GPU job.
+marking:
+- criterion: 'Rail mapping: orion-be-leaf-r<r> connects NIC r of every node, so a leaf loss removes one
+    NIC from all 32 nodes'
+  points: 1
+- criterion: 'Job effect: every communicator using rail r breaks; the 256-GPU job fails and restarts (not
+    just −1/8 bandwidth)'
+  points: 1
+- criterion: Contrast with a top-of-rack leaf, whose failure removes only its own rack's servers
+  points: 1
+lab_checks: []

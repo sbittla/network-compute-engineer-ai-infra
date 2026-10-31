@@ -7,7 +7,7 @@ scheduler, and software. When its step time regresses after a change window in w
 changed several things, the cause can sit in any layer. This chapter integrates the book into one
 method: decompose the step, build a hypothesis tree, rank discriminating tests by information value,
 cost, and risk, attribute the regression across simultaneous changes from a natural experiment,
-analyse scaling efficiency, tune one evidence-backed change at a time, and write a before/after report
+analyze scaling efficiency, tune one evidence-backed change at a time, and write a before/after report
 that separates measured facts, inferred causes, and remaining uncertainty. The worked example and lab
 use ORION and the W-TRAIN workload; the troubleshooting scenario traces a "network" slowdown to a
 thermal straggler.
@@ -22,7 +22,7 @@ thermal straggler.
    value, cost, and risk, rejecting tests that are unsafe for production.
 4. **Design** discriminating tests whose predicted outcomes differ under competing hypotheses.
 5. **Attribute** a regression to simultaneous changes using a natural experiment, **quantify**
-   uncertainty, and **recognise** confounding, collinearity, and interaction.
+   uncertainty, and **recognize** confounding, collinearity, and interaction.
 6. **Calculate** weak- and strong-scaling efficiency and the minimum detectable effect of a benchmark,
    and **use** them to decide whether a claimed improvement is real.
 7. **Write** a before/after report that separates measured facts, inferred causes, and remaining
@@ -59,6 +59,7 @@ each recommended fix (Exercise O3).
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises O1–O3 |
+| [exercises/](exercises/) | One learner folder per exercise (20): verbatim prompt, what to submit, empty `outputs/`; index with kinds |
 | [lab/README.md](lab/README.md) | Lab guide: attribute a cross-layer W-TRAIN regression |
 | `lab/manifest.yaml` | Environment manifest (tier, seed, extensions) |
 | `lab/data/` | Multi-source bundle: jobs, step log, placement, inventory, node metrics, alerts, change log, candidate tests |
@@ -66,6 +67,7 @@ each recommended fix (Exercise O3).
 | `lab/starter/regression_lab.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python lab/check.py [--impl starter\|solution]` |
 | `solutions/` | Instructor only: exercise key, planted-flaw list, reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

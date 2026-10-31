@@ -189,7 +189,7 @@ def main() -> int:
             print(f"FAIL {chk.__name__:26s} {type(exc).__name__}: {exc}")
             failed += 1
     print(f"\n{passed}/{len(CHECKS)} passed, {todo} TODO, {failed} failed "
-          f"({time.perf_counter() - t0:.2f}s, impl={args.impl})")
+          f"(impl={args.impl}) in {time.perf_counter() - t0:.2f} s")
     return 0 if passed == len(CHECKS) else 1
 
 

@@ -1,0 +1,55 @@
+{
+  "answer": {
+    "a_nodes_for_90pct": 114,
+    "a_p_canary_binomial": 0.1492,
+    "a_p_canary_hypergeometric": 0.1469,
+    "b_p_detect_stratified": 0.96,
+    "c_duration_h": 8.75,
+    "c_duration_min": 525,
+    "c_gpu_hours": 5120.0,
+    "c_peak_fraction_out": 0.25,
+    "c_wave_plan": [
+      2,
+      6,
+      24,
+      96,
+      128,
+      128,
+      128
+    ],
+    "d_p_after_three_waves": 0.4761
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "20.3",
+  "inputs": {
+    "affected_nodes": 10,
+    "canary_nodes": 8,
+    "defect_fraction": 0.02,
+    "gpus_per_node": 8,
+    "max_waves": 8,
+    "nodes": 512,
+    "nodes_per_rack": 4,
+    "p_manifest": 0.8,
+    "racks": 128,
+    "stratified_affected_in_canary": 2,
+    "target_probability": 0.9,
+    "wave_minutes": 75
+  },
+  "steps": {
+    "a_k_real": 113.97,
+    "c_cumulative_nodes": [
+      2,
+      8,
+      32,
+      128,
+      256,
+      384,
+      512
+    ],
+    "c_max_wave_size": 128,
+    "d_nodes_after_three_waves": 32,
+    "d_p_after_three_waves_exact": 0.4786
+  },
+  "tolerance": "probabilities +/-0.001 vs the key's 3-decimal values; counts exact",
+  "units": "probabilities (0-1), nodes, minutes, hours, GPU-hours"
+}

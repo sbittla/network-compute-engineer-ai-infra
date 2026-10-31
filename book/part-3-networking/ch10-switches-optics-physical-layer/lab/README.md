@@ -15,7 +15,7 @@ You will build the tool a fabric engineer builds in their first month on an AI c
 - produce a **commissioning report** suitable for a change ticket;
 - do the supporting arithmetic (KP4 line rate, FEC margin, link budget);
 - estimate **ports, optics, cables, and spares** for a small leaf-spine fabric and for ORION, and
-  generate a labeled **cabling schedule**.
+  generate a labelled **cabling schedule**.
 
 ## 2. Tier and realism boundary
 

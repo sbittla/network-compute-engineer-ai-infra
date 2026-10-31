@@ -31,7 +31,7 @@ starter-kit/manifest.yaml.>
 
 ## 5. Metrics collected
 
-<fill: client-side TTFT/ITL per request; engine metrics (running/waiting requests, KV-cache usage,
+<fill: client-side TTFT/ITL per request; engine metrics (running/waiting requests, KV cache usage,
 preemptions); GPU utilization and memory; error counts.>
 
 ## 6. Analysis method

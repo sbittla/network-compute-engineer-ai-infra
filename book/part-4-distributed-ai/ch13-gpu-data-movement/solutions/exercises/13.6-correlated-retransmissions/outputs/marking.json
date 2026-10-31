@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "probability argument (one sentence) and the component",
+  "id": "13.6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Probability argument: independent simultaneous failures have joint probability about p^8, negligible",
+      "points": 2
+    },
+    {
+      "criterion": "Identifies the shared component: the rail leaf (orion-be-leaf-r2), its configuration or optics batch",
+      "points": 2
+    },
+    {
+      "criterion": "Proposes a confirming check (leaf port counters, recent change, other rails clean)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Eight NICs retransmitting at the same step",
+  "type": "knowledge-check"
+}

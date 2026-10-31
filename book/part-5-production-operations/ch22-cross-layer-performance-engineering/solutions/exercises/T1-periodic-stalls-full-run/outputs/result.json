@@ -1,0 +1,85 @@
+{
+  "answer": {
+    "one_to_two_timeouts_s": [
+      4.29,
+      8.59
+    ],
+    "scores": [
+      1.6,
+      1.2,
+      0.117
+    ],
+    "timeout_s": {
+      "2.23+": 4.295,
+      "<=2.22": 1.074
+    }
+  },
+  "evidence_label": "ILLUSTRATIVE",
+  "id": "T1",
+  "inputs": {
+    "fec_corrected_bad": 1900000000.0,
+    "fec_corrected_others": [
+      1000000.0,
+      4000000.0
+    ],
+    "nccl_ib_timeout": {
+      "2.23+": 20,
+      "<=2.22": 18
+    },
+    "risk_mult": {
+      "high": 5.0,
+      "low": 1.0,
+      "medium": 2.0
+    },
+    "tests": [
+      [
+        "correlate long steps with local_ack_timeout_err and FEC uncorrectable (existing telemetry)",
+        0.8,
+        0.5,
+        "low"
+      ],
+      [
+        "module DOM diagnostics on both ends (ethtool -m, switch transceiver)",
+        0.6,
+        0.5,
+        "low"
+      ],
+      [
+        "ib_write_bw on drained orion-n15 and a peer, rail 3",
+        0.7,
+        3.0,
+        "medium"
+      ]
+    ]
+  },
+  "steps": {
+    "fec_ratio_range": [
+      475.0,
+      1900.0
+    ],
+    "ranked": [
+      {
+        "cost_h": 0.5,
+        "info": 0.8,
+        "risk": "low",
+        "score": 1.6,
+        "test": "correlate long steps with local_ack_timeout_err and FEC uncorrectable (existing telemetry)"
+      },
+      {
+        "cost_h": 0.5,
+        "info": 0.6,
+        "risk": "low",
+        "score": 1.2,
+        "test": "module DOM diagnostics on both ends (ethtool -m, switch transceiver)"
+      },
+      {
+        "cost_h": 3.0,
+        "info": 0.7,
+        "risk": "medium",
+        "score": 0.117,
+        "test": "ib_write_bw on drained orion-n15 and a peer, rail 3"
+      }
+    ]
+  },
+  "units": "score (dimensionless); s; ratio"
+}

@@ -58,7 +58,7 @@ storage; `observed_step_s` is wall-clock seconds reported by the workload owner.
    the only accepted units). *Acceptance:* 4 rejected rows, 14 clean rows; checks
    `validation_issues`, `unit_normalization` pass.
 2. **Resource lower bounds** — implement `resource_times(profile, platform)` returning compute, memory,
-   scaleup, scaleout, io_read, io_write in seconds. The per-node storage ceiling is
+   scaleup, scale-out, io_read, io_write in seconds. The per-node storage ceiling is
    `min(frontend NICs, PFS aggregate / nodes in the job)`. *Acceptance:* `resource_times_core`,
    `resource_times_io`, `w01_worked_example` pass; W01 compute ≈ 6.95 s, scaleup ≈ 2.67 s.
 3. **Classify and flag** — implement `classify(profile, platform)` and `analyze(...)`: dominant

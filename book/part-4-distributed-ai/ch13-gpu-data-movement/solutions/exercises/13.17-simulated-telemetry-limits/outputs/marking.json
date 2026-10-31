@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "three properties and how each complicates diagnosis",
+  "id": "13.17",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Three distinct missing properties named (e.g. missing samples, clock skew, counter wraps/resets, mixed intervals, interacting causes, overlapping collectives)",
+      "points": 1
+    },
+    {
+      "criterion": "Each paired with how it complicates the diagnosis",
+      "points": 1
+    },
+    {
+      "criterion": "At least one mitigation or handling technique",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What simulated telemetry lacks",
+  "type": "reflection"
+}

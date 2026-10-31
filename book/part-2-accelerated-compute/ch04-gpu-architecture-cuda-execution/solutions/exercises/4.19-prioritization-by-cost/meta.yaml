@@ -1,0 +1,18 @@
+id: '4.19'
+title: Prioritize by cost, not interest
+folder: 4.19-prioritization-by-cost
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: short written answers (≤ 150 words each) that cite specific numbers or mechanisms.
+marking:
+- criterion: Interest correlates with novelty, not with the time a finding costs
+  points: 1
+- criterion: 'Worked-example numbers: low-occupancy kernel 2.43 ms vs pageable copy 8.77 ms (3.6× larger,
+    one-line fix)'
+  points: 1
+- criterion: 'Better rule stated: rank by modeled saving × confidence / effort'
+  points: 1
+lab_checks: []

@@ -1,0 +1,6 @@
+{
+  "id": "M1",
+  "lab_checks": {
+    "T5 FMEA scorer:": "PASS T5 FMEA scorer: top=F03 RPN 336; issues={'F07': 'DETECTION_INCONSISTENT', 'F11': 'OUT_OF_RANGE'}; action_required=['F03', 'F06', 'F07', 'F12']"
+  }
+}

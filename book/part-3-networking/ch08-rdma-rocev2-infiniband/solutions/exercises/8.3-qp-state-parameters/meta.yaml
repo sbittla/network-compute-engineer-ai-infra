@@ -1,0 +1,18 @@
+id: '8.3'
+title: Where the QP parameters live
+folder: 8.3-qp-state-parameters
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: transitions named correctly; one-sentence troubleshooting implication.
+marking:
+- criterion: (a) Path MTU and destination GID / source GID index set at INIT→RTR
+  points: 2
+- criterion: (b) timeout and retry_cnt set at RTR→RTS
+  points: 1
+- criterion: 'Implication: a QP can reach RTS and pass small tests with a wrong MTU or marginal timeout;
+    check the printed values, not ''it connected'''
+  points: 1
+lab_checks: []

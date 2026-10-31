@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Three resource paths or actions from Section 16.3; the staged-vs-running explanation.",
+  "id": "K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) PATCH Systems/{id} Boot.BootSourceOverrideTarget = Pxe, Enabled = Once",
+      "points": 1
+    },
+    {
+      "criterion": "(b) POST Systems/{id}/Actions/ComputerSystem.Reset with a ResetType",
+      "points": 1
+    },
+    {
+      "criterion": "(c) GET /redfish/v1/UpdateService/FirmwareInventory",
+      "points": 1
+    },
+    {
+      "criterion": "Explains staged images activate only after reboot/AC cycle, so the running version must be read back",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Redfish resources and the staged-versus-running trap",
+  "type": "knowledge-check"
+}

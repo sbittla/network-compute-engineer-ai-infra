@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "The Section 1.9 numbers sorted into MODELED and ILLUSTRATIVE, and the list that must become MEASURED.",
+  "id": "R3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "MODELED numbers identified (FLOP counts, lower bounds, KV sizes, TP/DP volumes)",
+      "points": 1
+    },
+    {
+      "criterion": "ILLUSTRATIVE numbers identified (observed 17.4 s via the assumed 40 % MFU, 9.5 ms, 75 ms, HBM 2.1 TB, 10 us all-reduce latency)",
+      "points": 1
+    },
+    {
+      "criterion": "A concrete list of quantities to measure before the budget review, each with a measurement method",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Evidence labels in the worked example",
+  "type": "reflection"
+}

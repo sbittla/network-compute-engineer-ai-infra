@@ -1,0 +1,17 @@
+id: K7
+title: Why GPU utilization is weak evidence
+folder: K7-gpu-utilization-metric
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 4
+evidence_required: The mechanism and a better metric.
+marking:
+  - criterion: Explains that GPU utilization is the fraction of time any kernel is running, including communication kernels waiting on peers
+    points: 2
+  - criterion: Names DCGM_FI_PROF_SM_ACTIVE or DCGM_FI_PROF_PIPE_TENSOR_ACTIVE (or their DCGM 4.6+ ratio names) as a better metric
+    points: 1
+  - criterion: Gives an example where utilization stays high while useful work falls
+    points: 1
+lab_checks: []

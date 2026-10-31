@@ -1,0 +1,20 @@
+id: R4
+title: Evidence for FP8 KV safety
+folder: R4-fp8-kv-safety
+type: reflection
+difficulty: 2
+tier: L1
+kind: written
+points: 3
+evidence_required: at least three distinct pieces of evidence (offline evaluation at real context length,
+  canary signal, engine support), each with its acceptance criterion.
+marking:
+- criterion: Offline evaluation at the tenant's real context length (8-12k), BF16 vs FP8 KV on task metrics,
+    with a criterion
+  points: 1
+- criterion: Canary with per-tenant quality signals and a criterion
+  points: 1
+- criterion: Engine support for the model's KV scaling method confirmed, with criterion; memory saving
+    is not evidence of safety
+  points: 1
+lab_checks: []

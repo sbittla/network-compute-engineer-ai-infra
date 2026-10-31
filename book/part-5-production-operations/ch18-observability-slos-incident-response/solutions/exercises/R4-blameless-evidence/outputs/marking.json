@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Concise written answers, each referencing a specific data file, metric, or section.",
+  "id": "R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Evidence of blamelessness: system conditions and decisions in context, no names on errors",
+      "points": 2
+    },
+    {
+      "criterion": "Contributing factors rather than a single culprit; action items on systems with owners",
+      "points": 1
+    },
+    {
+      "criterion": "A blaming sentence rewritten correctly in blameless form",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "What makes a postmortem blameless",
+  "type": "reflection"
+}

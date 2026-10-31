@@ -1,0 +1,66 @@
+{
+  "answer": {
+    "a_sizing": {
+      "fabric_links": 512,
+      "host_links": 512,
+      "leaves_per_rail": 2,
+      "links_per_leaf_spine_pair": 4,
+      "spines": 8,
+      "switches": 24,
+      "total_leaves": 16,
+      "total_links": 1024
+    },
+    "b_ecmp": {
+      "flows_128": {
+        "idle_pct": 1.7,
+        "idle_uplinks": 0.55,
+        "mean_flows_per_uplink": 4.0,
+        "p_idle": 0.0172
+      },
+      "flows_32": {
+        "idle_pct": 36.2,
+        "idle_uplinks": 11.59,
+        "mean_flows_per_uplink": 1.0,
+        "p_idle": 0.3621
+      }
+    },
+    "c_young_768h": {
+      "ckpt_pct": 0.842,
+      "job_mtbf_s": 86400.0,
+      "restart_pct": 1.042,
+      "rework_pct": 0.842,
+      "tau_s": 1454.9,
+      "total_pct": 2.73
+    }
+  },
+  "evidence_label": "MODELED",
+  "id": "WP2",
+  "inputs": {
+    "ckpt_s": 12.25,
+    "flows": [
+      32,
+      128
+    ],
+    "job_nodes": 32,
+    "node_mtbf_h": 768,
+    "nodes": 64,
+    "radix": 64,
+    "rails": 8,
+    "restart_s": 900,
+    "uplinks": 32
+  },
+  "steps": {
+    "canonical_48h": {
+      "ckpt_pct": 0.595,
+      "job_mtbf_s": 172800.0,
+      "restart_pct": 0.521,
+      "rework_pct": 0.595,
+      "tau_s": 2057.6,
+      "total_pct": 1.71
+    }
+  },
+  "units": {
+    "overheads": "% of cluster time",
+    "tau": "s"
+  }
+}

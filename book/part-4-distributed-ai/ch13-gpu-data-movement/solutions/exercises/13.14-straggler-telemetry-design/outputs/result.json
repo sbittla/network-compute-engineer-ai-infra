@@ -1,0 +1,24 @@
+{
+  "answer": {
+    "dcgm_1hz_GB_per_day": 28.3,
+    "per_rank_GB_per_day": 2.83,
+    "per_rank_every_step_GB_per_day": 28.3
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "bytes_per_field": 8,
+    "dcgm_fields": 10,
+    "fields": 20,
+    "ranks": 4096,
+    "step_s": 2.0,
+    "stride_steps": 10
+  },
+  "steps": {
+    "bytes_per_sample": 655360,
+    "samples_per_day": 4320.0,
+    "steps_per_day": 43200.0
+  },
+  "units": {
+    "volume": "GB/day (1e9 B), before compression"
+  }
+}

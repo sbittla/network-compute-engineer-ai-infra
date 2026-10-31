@@ -33,15 +33,15 @@ colocation the better choice: about 7 % cheaper, and with no KV network path to 
 
 ## 2. Why: the bottleneck at target concurrency
 
-| Resource (5P2D at 30 req/s) | Utilisation `[MODELED]` |
+| Resource (5P2D at 30 req/s) | Utilization `[MODELED]` |
 |---|---|
 | Prefill (0.091 s mean per request) | 30 × 0.091 / 5 = **0.55** |
-| Decode (B = 491 at 33.5 ms; 14,675 tok/s/instance) | 30 × 285 / (2 × 14,675) = 0.29 |
+| Decode (B = 491 at 33.5 ms; 14,675 tokens/s/instance) | 30 × 285 / (2 × 14,675) = 0.29 |
 | KV egress per prefill instance (RDMA / TCP pair) | 23.8 / 5 = 4.8 GB/s → 0.013 / 0.16 |
 | **KV fan-in per decode instance** (RDMA / TCP pair) | 23.8 / 2 = 11.9 GB/s ≈ 95 Gb/s → 0.033 / **0.40** |
 
 The service is **prefill-bound**. Over the same 115 s steady-state window the simulator measures a
-prefill utilisation of 0.554, against 0.551 from the model. The network is sized on the receiving
+prefill utilization of 0.554, against 0.551 from the model. The network is sized on the receiving
 side: with P > D every decode instance is a fan-in point. Over TCP, 5P1D would put
 190 Gb/s (79 %) on one decode instance and become network-bound. With Chapter 15's TCP profile
 (100 Gb/s achievable) even 5P2D needs 95 %, which is the chapter's "TCP infeasible" verdict.
@@ -133,7 +133,7 @@ recommendation.
 ## 7. Failure scenarios (excerpt)
 
 Losing one of the two decode instances drops all its in-flight sequences (their KV is lost) and
-halves decode capacity. With 14,675 tok/s per instance and 8,550 tok/s needed, the surviving
+halves decode capacity. With 14,675 tokens/s per instance and 8,550 tokens/s needed, the surviving
 instance still carries the load at 58 %, and its fan-in doubles to 79 % of a TCP pair (7 % of
 RDMA). That is why I keep 5P2D rather than the cheaper 5P1D ($5.99 per million tokens) for 99.9 %
 availability. A failed KV transfer is retried once to a different decode instance; if that also
@@ -142,7 +142,7 @@ fails, the request is re-prefilled.
 ---
 
 **Instructor note.** Distinction because:
-- the bottleneck is shown with every utilisation, on both network sides, and cross-checked against
+- the bottleneck is shown with every utilization, on both network sides, and cross-checked against
   simulation over the same window;
 - both "helps" and "hurts" are shown with numbers, and the chunked-prefill result is reported
   honestly;

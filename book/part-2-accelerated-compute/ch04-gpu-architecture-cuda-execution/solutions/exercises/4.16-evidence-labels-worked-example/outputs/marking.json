@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "short written answers (≤ 150 words each) that cite specific numbers or mechanisms.",
+  "id": "4.16",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "[SIMULATED] items named: trace-derived values (85.57 ms step, busy fractions, gap totals, copy bandwidths, roof fractions)",
+      "points": 1
+    },
+    {
+      "criterion": "[MODELED] items named: occupancy, the 80 %-of-roof target, savings and the 63.2 ms projection",
+      "points": 1
+    },
+    {
+      "criterion": "Path to [MEASURED]: apply changes on hardware, manifest, nsys capture, at least 5 runs with warm-up discarded, median and IQR",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Evidence labels in the worked example",
+  "type": "reflection"
+}

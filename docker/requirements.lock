@@ -1,0 +1,14 @@
+# Pinned runtime for every lab container (docker/lab.Dockerfile).
+# Change a version only together with a full `python scripts/docker_labs.py outputs` + `ci` run,
+# because seeded generators and golden outputs are byte-compared.
+numpy==2.1.2
+pandas==2.3.3
+python-dateutil==2.9.0.post0
+pytz==2024.2
+tzdata==2024.2
+six==1.16.0
+PyYAML==6.0.2
+pytest==8.3.3
+iniconfig==2.0.0
+packaging==24.1
+pluggy==1.5.0

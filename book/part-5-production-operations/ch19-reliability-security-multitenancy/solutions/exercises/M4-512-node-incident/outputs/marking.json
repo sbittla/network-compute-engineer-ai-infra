@@ -1,0 +1,50 @@
+{
+  "difficulty": 3,
+  "evidence_required": "checker PASS; the six artifacts",
+  "id": "M4",
+  "kind": "lab",
+  "lab_checks": [
+    "dataset reproducible:",
+    "T1 log parsers:",
+    "T1 rank -> hardware map:",
+    "T2 stuck group localisation:",
+    "T2 link implication + switch ports:",
+    "T2 GPU health decisions:",
+    "T3 proven cause vs correlation:",
+    "T4 checkpoint selection + RPO/RTO:",
+    "T4 retry-loop policy:",
+    "T4 restart plan + rank remap:",
+    "T5 FMEA scorer:",
+    "T6 tenant isolation checker:"
+  ],
+  "marking": [
+    {
+      "criterion": "Failure timeline from 00:10 to 04:31 with both attempts",
+      "points": 5
+    },
+    {
+      "criterion": "Rank-to-hardware mapping for the stuck group and the implicated ranks",
+      "points": 5
+    },
+    {
+      "criterion": "Health decision with smallest failure domain and quarantine; proven vs correlated distinguished",
+      "points": 6
+    },
+    {
+      "criterion": "Checkpoint/restore validation (ckpt-0084, not ckpt-0085) and restart plan with spares s01/s03",
+      "points": 5
+    },
+    {
+      "criterion": "Recovery metrics for both attempts (RPO, RTO, GPU-h)",
+      "points": 3
+    },
+    {
+      "criterion": "Chapter 18-style postmortem with the four required action items",
+      "points": 6
+    }
+  ],
+  "points": 30,
+  "tier": "L1",
+  "title": "512-node incident (Section 20.1)",
+  "type": "outline-mandated"
+}

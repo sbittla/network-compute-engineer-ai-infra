@@ -1,0 +1,18 @@
+id: K2
+title: Row-remapper states
+folder: K2-row-remapper-states
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 6
+evidence_required: three actions with a one-line mechanism each
+marking:
+- criterion: '(a) Pending: drain when free, reset, verify pending cleared, diagnostics, return; mechanism: remap
+    active only after reset'
+  points: 2
+- criterion: '(b) Remapping failure: quarantine and RMA; mechanism: no spare row in the bank'
+  points: 2
+- criterion: '(c) Remapped, nothing pending: healthy, monitor only; does not treat it as a fault'
+  points: 2
+lab_checks: []

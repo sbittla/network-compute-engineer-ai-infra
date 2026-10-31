@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "components_usd_per_year": {
+      "capex": 2992000,
+      "power": 400297,
+      "space": 570286,
+      "staff": 960000,
+      "support": 1196800,
+      "total": 6119383
+    },
+    "usd_per_allocated_gpu_h": 4.01,
+    "usd_per_nominal_gpu_h": 2.73,
+    "usd_per_useful_gpu_h": 4.46
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W1",
+  "inputs": {
+    "allocation": 0.8,
+    "amortization_years": 5,
+    "colo_usd_per_kw_month": 130,
+    "goodput": 0.9,
+    "hardware_capex_usd": 14960000,
+    "nodes": 32,
+    "pue": 1.25,
+    "staff_usd": 960000,
+    "support_fraction": 0.08,
+    "usable_fraction": 0.8496,
+    "usd_per_kwh": 0.12
+  },
+  "steps": {
+    "allocated_fraction": 0.6797,
+    "it_sustained_kw": 304.64,
+    "nominal_gpu_h": 2242560,
+    "provisioned_kw": 365.57,
+    "shares": {
+      "capex": 0.489,
+      "power": 0.065,
+      "space": 0.093,
+      "staff": 0.157,
+      "support": 0.196
+    },
+    "wrong_useful_if_allocation_replaces_usable": 3.79
+  },
+  "tolerance": {
+    "component_usd": 1000,
+    "unit_cost_usd": 0.005
+  },
+  "units": {
+    "components": "USD per year",
+    "unit_costs": "USD per GPU-hour"
+  }
+}

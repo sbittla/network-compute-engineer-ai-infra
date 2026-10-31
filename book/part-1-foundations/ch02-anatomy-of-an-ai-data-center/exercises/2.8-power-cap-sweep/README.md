@@ -1,0 +1,36 @@
+# Exercise 2.8 — Power-cap sweep on one GPU server
+
+**Difficulty:** ★★★ · **Tier:** L2 · **Type:** hands-on-lab · **Kind:** written · **Points:** 20
+
+## Prompt
+
+<!-- prompt:start -->
+> **Safety:** Only on a dedicated server you are authorized to reconfigure. Restore default power
+> limits afterwards and record that you did.
+
+On one GPU, run a fixed workload (for example a large BF16 GEMM loop or an approved burn-in tool) at
+power limits from the maximum down to roughly 55 % of it in about 50 W steps (`sudo nvidia-smi -i 0
+-pl <W>`). At each step: 2-minute warm-up, then 5 repetitions of a 60-second measurement, sampling
+`nvidia-smi --query-gpu=power.draw,clocks.sm,temperature.gpu --format=csv -l 1`. Plot throughput,
+average power, and throughput per watt against the limit.
+
+1. At what limit does throughput per watt peak? How much throughput is lost at that point?
+2. Repeat with a memory-bound workload (large element-wise copy). How does the curve change, and why?
+3. Using your curve, what fleet-wide limit would you propose as ORION's feed-loss policy
+   (Section 2.10), and what would it cost the W-TRAIN step time if it were applied continuously?
+
+**Evidence required:** filled-in `lab/manifest.yaml` copy (GPU model, driver, default limit, workload
+definition, warm-up, repetitions); raw CSV; plot; median and spread per step; explicit
+`[MEASURED]` versus `[MODELED]` labels for the answer to question 3.
+<!-- prompt:end -->
+
+## What to submit
+
+Put every deliverable in [`outputs/`](outputs/):
+
+- `outputs/manifest.yaml`: filled-in copy of `lab/manifest.yaml`
+- `outputs/sweep.csv`: raw per-second samples for every limit and repetition
+- `outputs/sweep.png`: throughput, power and throughput per watt against the limit
+- `outputs/report.md`: median and spread per step and answers to questions 1 to 3 with `[MEASURED]`/`[MODELED]` labels
+
+Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.

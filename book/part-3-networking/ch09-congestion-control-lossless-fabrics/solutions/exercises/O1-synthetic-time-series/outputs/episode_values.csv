@@ -1,0 +1,83 @@
+episode,port,metric,median
+incast,root leaf-r3 eth1/5,tx_gbps,393.62
+incast,root leaf-r3 eth1/5,rx_gbps,147.41
+incast,root leaf-r3 eth1/5,q_tc3_max_kb,3178.6
+incast,root leaf-r3 eth1/5,ecn_marked_tc3_rate,670868.25
+incast,root leaf-r3 eth1/5,pfc_tx_p3_rate,0.0
+incast,root leaf-r3 eth1/5,pfc_rx_p3_rate,0.0
+incast,sender port leaf-r3 eth1/1,tx_gbps,160.43
+incast,sender port leaf-r3 eth1/1,rx_gbps,93.78
+incast,sender port leaf-r3 eth1/1,q_tc3_max_kb,11.05
+incast,sender port leaf-r3 eth1/1,ecn_marked_tc3_rate,0.0
+incast,sender port leaf-r3 eth1/1,pfc_tx_p3_rate,5072.5
+incast,sender port leaf-r3 eth1/1,pfc_rx_p3_rate,0.0
+incast,leaf-r3 uplink eth1/33,tx_gbps,96.94
+incast,leaf-r3 uplink eth1/33,rx_gbps,81.52
+incast,leaf-r3 uplink eth1/33,q_tc3_max_kb,10.9
+incast,leaf-r3 uplink eth1/33,ecn_marked_tc3_rate,0.0
+incast,leaf-r3 uplink eth1/33,pfc_tx_p3_rate,0.0
+incast,leaf-r3 uplink eth1/33,pfc_rx_p3_rate,0.0
+incast,orion-n05 mlx5_3 (NP),tx_gbps,147.41
+incast,orion-n05 mlx5_3 (NP),rx_gbps,393.62
+incast,orion-n05 mlx5_3 (NP),pfc_tx_p3_rate,0.0
+incast,orion-n05 mlx5_3 (NP),pfc_rx_p3_rate,0.0
+incast,orion-n05 mlx5_3 (NP),cnp_sent_rate,381840.5
+pause_propagation,root leaf-r3 eth1/10,tx_gbps,394.08
+pause_propagation,root leaf-r3 eth1/10,rx_gbps,159.41
+pause_propagation,root leaf-r3 eth1/10,q_tc3_max_kb,3297.8
+pause_propagation,root leaf-r3 eth1/10,ecn_marked_tc3_rate,826438.0
+pause_propagation,root leaf-r3 eth1/10,pfc_tx_p3_rate,0.0
+pause_propagation,root leaf-r3 eth1/10,pfc_rx_p3_rate,0.0
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),tx_gbps,95.02
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),rx_gbps,198.18
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),q_tc3_max_kb,9.5
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),ecn_marked_tc3_rate,0.0
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),pfc_tx_p3_rate,7965.5
+pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),pfc_rx_p3_rate,0.0
+pause_propagation,spine-1 eth1/25 (to leaf-r3),tx_gbps,198.18
+pause_propagation,spine-1 eth1/25 (to leaf-r3),rx_gbps,95.02
+pause_propagation,spine-1 eth1/25 (to leaf-r3),q_tc3_max_kb,2491.1
+pause_propagation,spine-1 eth1/25 (to leaf-r3),ecn_marked_tc3_rate,5948586.0
+pause_propagation,spine-1 eth1/25 (to leaf-r3),pfc_tx_p3_rate,0.0
+pause_propagation,spine-1 eth1/25 (to leaf-r3),pfc_rx_p3_rate,7965.5
+pause_propagation,spine-2 eth1/25 (to leaf-r3),tx_gbps,194.44
+pause_propagation,spine-2 eth1/25 (to leaf-r3),rx_gbps,93.33
+pause_propagation,spine-2 eth1/25 (to leaf-r3),q_tc3_max_kb,2357.9
+pause_propagation,spine-2 eth1/25 (to leaf-r3),ecn_marked_tc3_rate,5994750.43
+pause_propagation,spine-2 eth1/25 (to leaf-r3),pfc_tx_p3_rate,0.0
+pause_propagation,spine-2 eth1/25 (to leaf-r3),pfc_rx_p3_rate,8249.5
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),tx_gbps,195.02
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),rx_gbps,103.89
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),q_tc3_max_kb,1879.1
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),ecn_marked_tc3_rate,5886255.5
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),pfc_tx_p3_rate,0.0
+pause_propagation,leaf-r4 uplink eth1/33 (to spine-1),pfc_rx_p3_rate,4780.0
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),tx_gbps,171.19
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),rx_gbps,52.68
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),q_tc3_max_kb,9.4
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),ecn_marked_tc3_rate,0.0
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),pfc_tx_p3_rate,2649.5
+pause_propagation,leaf-r4 eth1/1 (to orion-n01),pfc_rx_p3_rate,0.0
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),tx_gbps,0.03
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),rx_gbps,0.03
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),q_tc3_max_kb,3995.0
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),ecn_marked_tc3_rate,0.0
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),pfc_tx_p3_rate,0.0
+pfc_storm,leaf-r3 eth1/12 (to orion-n12),pfc_rx_p3_rate,23730.0
+pfc_storm,orion-n12 mlx5_3 (storm source),tx_gbps,0.03
+pfc_storm,orion-n12 mlx5_3 (storm source),rx_gbps,0.03
+pfc_storm,orion-n12 mlx5_3 (storm source),pfc_tx_p3_rate,23730.0
+pfc_storm,orion-n12 mlx5_3 (storm source),pfc_rx_p3_rate,0.0
+pfc_storm,orion-n12 mlx5_3 (storm source),cnp_sent_rate,0.0
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),tx_gbps,158.63
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),rx_gbps,35.82
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),q_tc3_max_kb,12.6
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),ecn_marked_tc3_rate,0.0
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),pfc_tx_p3_rate,6171.0
+pfc_storm,leaf-r3 eth1/3 (to orion-n03),pfc_rx_p3_rate,0.0
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),tx_gbps,380.97
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),rx_gbps,160.78
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),q_tc3_max_kb,211.5
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),ecn_marked_tc3_rate,45816.75
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),pfc_tx_p3_rate,0.0
+not_an_episode_520_558,leaf-r4 eth1/7 (to orion-n07),pfc_rx_p3_rate,0.0

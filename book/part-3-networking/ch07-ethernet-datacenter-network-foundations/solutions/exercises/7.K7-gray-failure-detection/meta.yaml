@@ -1,0 +1,17 @@
+id: 7.K7
+title: Gray failures and detection time
+folder: 7.K7-gray-failure-detection
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 3
+evidence_required: definition, mechanism, two detection times.
+marking:
+- criterion: 'Definition: component looks up (link up, control plane alive) but does not forward correctly'
+  points: 1
+- criterion: BFD named as the mechanism that catches it
+  points: 1
+- criterion: 'Both detection times: 300 ms × 3 = 0.9 s (BFD) and up to 9 s (BGP 3 s / 9 s hold)'
+  points: 1
+lab_checks: []

@@ -1,0 +1,21 @@
+id: 10.K3
+title: RS(544,514) parameters
+folder: 10.K3-rs544-parameters
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: computed
+points: 5
+evidence_required: five values with the arithmetic for the correctable-symbol count.
+marking:
+- criterion: Symbol size 10 bits
+  points: 1
+- criterion: 544 symbols per codeword
+  points: 1
+- criterion: 30 parity symbols (544 − 514)
+  points: 1
+- criterion: t = 30/2 = 15 correctable symbols, arithmetic shown
+  points: 1
+- criterion: Codeword size 5,440 bits (544 × 10)
+  points: 1
+lab_checks: []

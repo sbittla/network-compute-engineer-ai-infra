@@ -1,0 +1,18 @@
+id: '12.10'
+title: Collectives by hand
+folder: 12.10-o1-collectives-by-hand
+type: outline-mandated
+difficulty: 1
+tier: L1
+kind: computed
+points: 10
+evidence_required: six results, a step table with 2(n − 1) = 4 steps, and the byte count compared with
+  2(n − 1)/n × S.
+marking:
+- criterion: Six collective results correct, 1 point each
+  points: 6
+- criterion: Ring trace with 2(n − 1) = 4 steps and correct buffers after each step
+  points: 3
+- criterion: Byte count 16 B per rank = 2(n − 1)/n × 12 B
+  points: 1
+lab_checks: []

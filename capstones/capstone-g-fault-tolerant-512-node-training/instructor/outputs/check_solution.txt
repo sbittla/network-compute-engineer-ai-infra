@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 15 files byte-identical, 1.20 MB
+PASS  T1 rank-to-device inventory -- 3,840 ranks; rank 3013 -> orionxl-n377 GPU5 (0000:ab:00.0, NUMA 1, mlx5_5, rail 5)
+PASS  T1 cabling plan vs LLDP -- 2 DCIM-vs-LLDP mismatches on orionxl-be-leaf-p06-r3 ports 21/22
+PASS  T2 telemetry normalisation and correlation -- true-time ordering; Xid 94 -> GPU5 via BDF; skew corrected; switch port -> LLDP peer
+PASS  T3 health scoring -- 4 non-zero components; background correctable ECC scored 0; orionxl-n214 untouched
+PASS  T4 failure classification -- cause GPU5 on orionxl-n377 (rank 3013); flaky HCA correlated but not causal
+PASS  T5 quarantine policy -- quarantine GPU + HCA, drain 2 nodes, Fabric ticket on port 22, watch 2
+PASS  T6 checkpoint selection -- 51,474 selected; 51,750 (uncommitted, missing shards) and 51,612 (checksum) rejected
+PASS  T7 restart orchestration -- orionxl-n213->n483, n377->n484; n481 (acceptance pending), n482 (open quarantine) excluded
+PASS  T8 RTO/RPO and lost GPU-hours -- detect 38 s, isolate 242 s, RTO 912 s, RPO 323 steps (target missed), 2,471.5 GPU-h
+PASS  T9 post-incident validation -- validated resume ok (max dev 0.00065); corrupt-checkpoint restore and data-loader-not-restored resume (max dev 0.0024) both fail
+
+11/11 checks passed (solution)

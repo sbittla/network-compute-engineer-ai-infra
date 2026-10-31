@@ -1,0 +1,40 @@
+{
+  "answer": {
+    "a_per_gpu_GB": 3.72,
+    "a_size_GB": 476.0,
+    "b_blocking_s": 12.9,
+    "b_write_s": 11.9,
+    "c_overhead_pct": 1.43,
+    "d_expected_lost_s": 462.9,
+    "d_rpo_max_s": 912.9,
+    "e_completion_s": 13.5,
+    "e_overhead_blocking_pct": 0.067,
+    "e_overhead_with_interference_pct": 0.11,
+    "e_rpo_max_s": 913.5,
+    "f_delta_s": 0.987,
+    "f_interval_s": 286.5,
+    "f_overhead_pct": 0.34
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "bytes_per_param": 14,
+    "commit_s": 1.0,
+    "efficiency": 0.8,
+    "gpus": 128,
+    "interference": 0.03,
+    "interval_s": 900,
+    "params": 34000000000.0,
+    "pfs_GBps": 50.0,
+    "rpo_target_s": 300,
+    "snapshot_s": 0.6
+  },
+  "steps": {
+    "effective_GBps": 40.0,
+    "persist_s": 12.9
+  },
+  "units": {
+    "overhead": "%",
+    "size": "GB (1e9 B)",
+    "time": "s"
+  }
+}

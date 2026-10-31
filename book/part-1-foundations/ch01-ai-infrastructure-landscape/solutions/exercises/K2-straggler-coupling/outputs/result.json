@@ -1,0 +1,22 @@
+{
+  "answer": {
+    "gpu_equivalents_lost": 25.6,
+    "loss_if_10pct_longer": 0.0909,
+    "naive_wrong_loss": 0.000391,
+    "throughput_loss": 0.1,
+    "usd_per_hour_wasted": 64.0
+  },
+  "evidence": "[MODELED]",
+  "inputs": {
+    "gpus": 256,
+    "straggler_speed": 0.9
+  },
+  "steps": {
+    "step_time_normalized": 1.1111,
+    "throughput_fraction": 0.9
+  },
+  "units": {
+    "gpu_equivalents_lost": "GPUs",
+    "throughput_loss": "fraction"
+  }
+}

@@ -1,0 +1,34 @@
+id: LAB
+title: Workload-characterization lab
+folder: LAB-workload-characterization
+type: hands-on-lab
+difficulty: 2
+tier: L1
+kind: lab
+points: 100
+evidence_required: >-
+  check.py output showing 9/9 PASS; the generated comparison Markdown; the data-quality note (one line
+  per rejected or flagged row with the root-cause hypothesis for the flaw).
+marking:
+  - criterion: Task 1, validation and unit normalization (checks validation_issues and unit_normalization)
+    points: 20
+  - criterion: Task 2, resource lower bounds (checks resource_times_core, resource_times_io, w01_worked_example)
+    points: 20
+  - criterion: Task 3, classification and flags (checks classification and flags)
+    points: 20
+  - criterion: Task 4, one-page W01 vs W02 comparison, correct, at most 600 words, meaningful evidence section
+    points: 15
+  - criterion: Task 5, data-quality note covering all nine flawed rows with a plausible cause and an owner
+    points: 20
+  - criterion: Code quality, type hints, docstrings with units, no hard-coded workload IDs in logic
+    points: 5
+lab_checks:
+  - dataset_reproducible
+  - validation_issues
+  - unit_normalization
+  - resource_times_core
+  - resource_times_io
+  - w01_worked_example
+  - classification
+  - flags
+  - comparison_markdown

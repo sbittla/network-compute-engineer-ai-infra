@@ -6,7 +6,7 @@ A practitioner's guide to executing a production-scale AI-cluster design-and-ope
 end: framing the problem and an assumptions register, recording Architecture Decision Records
 (ADRs), checking a design's internal arithmetic, failure-domain analysis with a goodput model,
 running a design review with a 40-item checklist, assembling benchmark evidence that separates
-measured from modeled values, running a safe failure exercise, presenting, and prioritising a
+measured from modeled values, running a safe failure exercise, presenting, and prioritizing a
 next-step backlog. A fully worked mini-capstone on the ORION reference cluster ties Chapters 1–22
 together. The lab builds a design-review linter that checks a capstone design bundle for
 completeness and internal consistency before humans review it.
@@ -23,7 +23,7 @@ The capstone briefs are in [`capstones/`](../../../capstones/) (Tracks A–H) an
    and the condition that would reopen the decision.
 3. **Verify** a design's internal consistency (counts, port budgets, oversubscription, cables, rack
    power, checkpoint bandwidth) by explicit arithmetic and with an automated linter.
-4. **Analyse** failure domains from GPU to facility and estimate the goodput cost of failures with
+4. **Analyze** failure domains from GPU to facility and estimate the goodput cost of failures with
    the Young/Daly checkpoint model.
 5. **Run** a design review using a structured checklist, classify findings by severity and reach an
    explicit outcome.
@@ -31,11 +31,11 @@ The capstone briefs are in [`capstones/`](../../../capstones/) (Tracks A–H) an
    values, with manifests, repetitions and spread.
 7. **Design** and execute a safe failure exercise (tabletop or isolated lab) and report detection
    time, recovery time and lost GPU-hours.
-8. **Present** the capstone and a prioritised next-step backlog to a technical audience.
+8. **Present** the capstone and a prioritized next-step backlog to a technical audience.
 
 ## Prerequisites
 
-Chapters 1–22, in particular Chapter 2 (data-centre anatomy), Chapter 11 (parallelism), Chapter 14
+Chapters 1–22, in particular Chapter 2 (data-center anatomy), Chapter 11 (parallelism), Chapter 14
 (checkpointing), Chapter 19 (failure domains), Chapter 21 (capacity and power) and Chapter 22
 (cross-layer performance engineering). Python 3.10+, `pyyaml`.
 
@@ -53,7 +53,7 @@ Chapters 1–22, in particular Chapter 2 (data-centre anatomy), Chapter 11 (para
 **Complete capstone portfolio**: one capstone track (A–H) with problem statement, assumptions
 register, architecture and ADRs, failure-domain analysis, benchmark evidence table, failure-exercise
 report, a design-review record (checklist, findings, outcome), the linter report for your bundle,
-presentation, and a prioritised next-step backlog.
+presentation, and a prioritized next-step backlog.
 
 ## File map
 
@@ -67,7 +67,9 @@ presentation, and a prioritised next-step backlog.
 | `lab/tools/generate_bundles.py` | Deterministic generator for `data/` (seed 23) — instructor copy only, removed from the student release |
 | `lab/starter/design_lint.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
+| [exercises/](exercises/) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` (index with exercise count) |
 | `solutions/` | Instructor-only answer key and reference linter |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections

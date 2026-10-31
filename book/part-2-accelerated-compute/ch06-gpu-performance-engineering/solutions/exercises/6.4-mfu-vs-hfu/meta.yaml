@@ -1,0 +1,18 @@
+id: '6.4'
+title: MFU and HFU
+folder: 6.4-mfu-vs-hfu
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: formulas, recomputation argument, recommendation.
+marking:
+- criterion: 'Formulas: MFU = 6N × tokens/s / (GPUs × peak); HFU counts executed FLOPs including recomputation
+    (about 8N per token with full recomputation)'
+  points: 1
+- criterion: HFU exceeds MFU because recomputed forward passes are work the model does not require
+  points: 1
+- criterion: Report MFU (with convention and the vendor dense peak) when comparing clusters
+  points: 1
+lab_checks: []

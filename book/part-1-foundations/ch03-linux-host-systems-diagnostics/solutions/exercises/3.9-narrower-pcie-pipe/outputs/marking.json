@@ -1,0 +1,33 @@
+{
+  "difficulty": 2,
+  "evidence_required": "Formulas, substituted values and results with units, each labelled [MODELED].",
+  "id": "3.9",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Gen5 x16 63.0, Gen4 x16 31.5, Gen4 x2 3.94 and Gen1 x16 4.0 GB/s, with 8b/10b for Gen1",
+      "points": 3
+    },
+    {
+      "criterion": "(b) formulas, DP all-reduce 7.656 GB, healthy 0.170 s against degraded 0.296 s at 25.8 GB/s achievable",
+      "points": 2
+    },
+    {
+      "criterion": "(b) numbers, at most 0.126 s extra per step and about 44 GPU-hours per day",
+      "points": 2
+    },
+    {
+      "criterion": "(b) every result labelled [MODELED]",
+      "points": 1
+    },
+    {
+      "criterion": "(c) keep running and repair at the next restart (1.8 GPU-h/h against 32 for DP = 7; waiting about 88 GPU-h), compared with the Gen3 x8 case (339 GPU-h/day, planned stop if repair under about 2.4 h)",
+      "points": 2
+    }
+  ],
+  "points": 10,
+  "tier": "L1",
+  "title": "The price of a narrower pipe",
+  "type": "worked-problem"
+}

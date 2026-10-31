@@ -1,0 +1,8 @@
+.git
+.github
+build
+network-compute-engineer-ai-infra
+*.docx
+**/__pycache__
+**/*.pyc
+**/.pytest_cache

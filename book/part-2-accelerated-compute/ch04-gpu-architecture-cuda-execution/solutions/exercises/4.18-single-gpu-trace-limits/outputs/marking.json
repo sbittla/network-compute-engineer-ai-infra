@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "short written answers (≤ 150 words each) that cite specific numbers or mechanisms.",
+  "id": "4.18",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "First multi-GPU effect named with mechanism (for example collective time and its overlap with compute)",
+      "points": 1
+    },
+    {
+      "criterion": "Second effect named (for example stragglers/rank skew, network congestion, GPU-NIC locality)",
+      "points": 1
+    },
+    {
+      "criterion": "Later chapters correctly identified (for example Chapters 11-12, 9, 5, 13)",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "What a single-GPU trace cannot show",
+  "type": "reflection"
+}

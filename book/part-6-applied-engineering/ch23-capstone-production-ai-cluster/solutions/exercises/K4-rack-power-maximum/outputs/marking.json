@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "the reason plus two events",
+  "id": "K4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Reason: the rack budget is a hard electrical limit (breaker/PDU rating) that trips on the worst case, not the average",
+      "points": 2
+    },
+    {
+      "criterion": "First operational event that drives a rack toward maximum, correctly explained",
+      "points": 1
+    },
+    {
+      "criterion": "Second, distinct operational event, correctly explained",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Rack power budgets use maximum node power",
+  "type": "knowledge-check"
+}

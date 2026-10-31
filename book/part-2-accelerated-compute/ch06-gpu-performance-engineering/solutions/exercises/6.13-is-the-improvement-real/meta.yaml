@@ -1,0 +1,21 @@
+id: '6.13'
+title: Is the improvement real?
+folder: 6.13-is-the-improvement-real
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: medians, relative changes, p-values, bootstrap bands, decisions, justification.
+marking:
+- criterion: 'Medians: baseline 12.425 ms, candidate 12.17 ms (all runs) and 12.12 ms (without run 5)'
+  points: 2
+- criterion: 'Relative changes: −2.05 % and −2.45 %'
+  points: 2
+- criterion: 'Tests: bootstrap bands [−2.97 %, +1.65 %] and [−3.16 %, −0.85 %]; exact permutation p =
+    0.36 and 0.002'
+  points: 3
+- criterion: 'Decisions (not significant vs improvement) and justification: exclusion stands only if pre-registered
+    and applied to both arms'
+  points: 3
+lab_checks: []

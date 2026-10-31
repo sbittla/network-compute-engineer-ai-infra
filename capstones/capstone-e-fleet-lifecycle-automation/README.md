@@ -11,7 +11,7 @@ a real lab provisioning system and real hardware health checks.
 
 | | |
 |---|---|
-| **Audience** | Cluster Platform Engineer, Infrastructure SRE (outline Section 16). Also useful for Fleet/Datacenter Operations engineers moving into automation. |
+| **Audience** | Cluster Platform Engineer, Infrastructure site reliability engineer (SRE) (outline Section 16). Also useful for Fleet/Data Center Operations engineers moving into automation. |
 | **Prerequisites** | Chapters [3](../../book/part-1-foundations/ch03-linux-host-systems-diagnostics/), [16](../../book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/), [17](../../book/part-5-production-operations/ch17-kubernetes-slurm-scheduling/), [20](../../book/part-5-production-operations/ch20-automation-safe-change/); skim [5](../../book/part-2-accelerated-compute/ch05-gpu-interconnects-host-topology/), [8](../../book/part-3-networking/ch08-rdma-rocev2-infiniband/), [18](../../book/part-5-production-operations/ch18-observability-slos-incident-response/), [19](../../book/part-5-production-operations/ch19-reliability-security-multitenancy/) |
 | **Time budget** | 30–40 h at L1 (starter kit ≈ 10 h, design artifacts ≈ 15 h, review and write-up ≈ 8 h); add 15–25 h for the advanced extension |
 | **Tiers** | L1 required (laptop, Python 3.10+); L2 optional (one GPU host); L3 advanced extension (lab provisioning system plus at least two multi-GPU RDMA nodes) |
@@ -20,7 +20,11 @@ a real lab provisioning system and real hardware health checks.
 Acronyms used throughout: BMC (baseboard management controller), BDF (PCIe bus:device.function),
 DCGM (NVIDIA Data Center GPU Manager), ECC (error-correcting code), PXE (preboot execution
 environment), RDMA (remote direct memory access), VBIOS (GPU video BIOS/firmware image), Xid (NVIDIA
-driver error event identifier), SLO (service-level objective), RTO (recovery time objective).
+driver error event identifier), SLO (service-level objective), RTO (recovery time objective), NCCL
+(NVIDIA Collective Communications Library), NIC (network interface card), TP/PP/DP (tensor/pipeline/data
+parallelism), HBM (high-bandwidth memory), NUMA (non-uniform memory access), FEC (forward error
+correction), SLI (service-level indicator), OOB (out-of-band), NVLS (NVLink SHARP), SHARP (Scalable
+Hierarchical Aggregation and Reduction Protocol), TPOT (time per output token).
 
 ---
 
@@ -49,7 +53,7 @@ Admitted expansion nodes join the **training** partition. Otherwise the default 
 applies: training on `orion-n01`–`n24` (`rack-01`–`rack-06`, Slurm) and W-INFER inference on
 `orion-n25`–`n32` (`rack-07`–`rack-08`, Kubernetes). There are no spare nodes.
 
-Monday morning, 2026-10-19 [ILLUSTRATIVE]:
+Monday morning, 2026-10-19 `[ILLUSTRATIVE]`:
 
 - **Expansion.** Eight new nodes (`orion-n33` … `orion-n40`) are in `discovered`. The provisioner
   will image them today; acceptance runs overnight.
@@ -67,7 +71,7 @@ Monday morning, 2026-10-19 [ILLUSTRATIVE]:
   During maintenance Training Infra accepts DP = 4 (16 nodes, batch 512, same 128 per replica), so
   **at least 16 training nodes** must stay schedulable. Inference needs **at least 6 of its 8 nodes**
   to hold its SLO. A node that is about to be drained for remediation does not count toward either
-  floor [ILLUSTRATIVE agreements]. **This week** only 21 training nodes are schedulable
+  floor `[ILLUSTRATIVE agreements]`. **This week** only 21 training nodes are schedulable
   (`orion-n10` and `orion-n23` in repair, `orion-n20` drained), so W-TRAIN is already at DP = 5
   (20 nodes) with a batch of 640 (768 / 5 is not an integer; 640 keeps 128 per replica). Dropping
   to DP = 4 during the rollout waves costs another 20 % of training throughput (4 / 5 of the
@@ -114,10 +118,10 @@ every capstone (outline Section 16). Templates are in [templates/](templates/).
 | # | Artifact | Template | Evidence expected |
 |---|---|---|---|
 | 1 | **Lifecycle state machine** — states, events, guards, side effects (scheduler drain/resume, ticketing), invariants, Mermaid diagram | [state-machine-spec.md](templates/state-machine-spec.md) | Spec + `lifecycle_spec()` passing T1 checks |
-| 2 | **Node acceptance test plan** — every test, command, threshold, rationale with arithmetic, duration, failure action | [acceptance-test-plan.md](templates/acceptance-test-plan.md) | Thresholds labelled [ILLUSTRATIVE]/[VENDOR-SPEC]/[MEASURED]; T2 checks |
+| 2 | **Node acceptance test plan** — every test, command, threshold, rationale with arithmetic, duration, failure action | [acceptance-test-plan.md](templates/acceptance-test-plan.md) | Thresholds labelled `[ILLUSTRATIVE]`/`[VENDOR-SPEC, YYYY-MM]`/`[MEASURED]`; T2 checks |
 | 3 | **Compatibility matrix** — bundles with status (golden/canary/deprecated/blocked), validation date, expiry, evidence link | [compatibility-matrix.csv](templates/compatibility-matrix.csv) | Matrix + `check_compatibility()`; T3 checks |
 | 4 | **Automation prototype** — the `fleet.py` module, CLI or service wrapper, tests, and the reconciliation (remediation) plan | [starter-kit/](starter-kit/) | `python check.py` all PASS; idempotency demonstrated |
-| 5 | **Canary/rollback design** — wave plan, soak gate, abort conditions, rollback bundle, maintenance windows, capacity cost | [canary-rollback-plan.md](templates/canary-rollback-plan.md) | Wave table + canary decisions for S1–S4 with reasons; [MODELED] capacity cost |
+| 5 | **Canary/rollback design** — wave plan, soak gate, abort conditions, rollback bundle, maintenance windows, capacity cost | [canary-rollback-plan.md](templates/canary-rollback-plan.md) | Wave table + canary decisions for S1–S4 with reasons; `[MODELED]` capacity cost |
 | 6 | **Audit trail** — record schema, hash chain, anchoring, retention, verification procedure | [audit-trail-spec.md](templates/audit-trail-spec.md) | Verifier output on the supplied log; threat model |
 | 7 | **Operational runbook** — admission, drain, repair return, rollout abort, audit failure | [runbook.md](templates/runbook.md) | Signals, thresholds, commands (tier-labelled), escalation |
 | 8 | Problem statement, architecture, assumptions, implementation/simulation boundary, test plan, results, failure analysis, security considerations, final engineering review | [design-document.md](templates/design-document.md) | One document, ≤ 15 pages, every number labelled |
@@ -180,7 +184,7 @@ The extension procedure, exact commands and the manifest fields to record are in
 > your BMC. Thresholds must be calibrated on known-good nodes of your own platform, and every
 > firmware procedure must follow the vendor's documented update path.
 
-> **Safety:** Run L2/L3 work only on hosts you own or are explicitly authorised to disrupt, in a
+> **Safety:** Run L2/L3 work only on hosts you own or are explicitly authorized to disrupt, in a
 > dedicated lab. Never point the controller, Redfish calls, `scontrol`, or `kubectl drain` at a
 > shared or production cluster. Firmware updates can brick hardware; keep a vendor-supported
 > recovery path (and a spare) before flashing anything.

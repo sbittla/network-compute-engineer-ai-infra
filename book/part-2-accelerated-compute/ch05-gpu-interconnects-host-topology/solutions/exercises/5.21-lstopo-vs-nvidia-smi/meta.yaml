@@ -1,0 +1,18 @@
+id: '5.21'
+title: When lstopo and nvidia-smi disagree
+folder: 5.21-lstopo-vs-nvidia-smi
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 3
+evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
+marking:
+- criterion: Platform features the tree model misses (extra bridges, retimers, multi-level or firmware-hidden
+    switches, NVSwitch functions, other PCI domains)
+  points: 1
+- criterion: Or the driver classifies differently from the hwloc-derived rule
+  points: 1
+- criterion: 'Action: lspci -tv, vendor block diagram, measured P2P bandwidth as tie-breakers'
+  points: 1
+lab_checks: []

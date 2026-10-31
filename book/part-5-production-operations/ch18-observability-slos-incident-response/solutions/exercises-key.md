@@ -53,8 +53,8 @@ counters, and CPU/IRQ placement.
 **K6.** The IC must keep a global view — priorities, roles, decisions, stakeholder needs — which hands-on
 debugging destroys (tunnel vision); and decisions such as "roll back now" need someone not invested in
 their own hypothesis. For SEV2 the comms lead publishes every 60 minutes: impact, scope, current
-status, next update time — never speculative cause. Example: "03:20 UTC — Both training jobs ~15–20 %
-slower since ~02:12. Inference unaffected. Fabric and Training Infra investigating. Next update 04:20."
+status, next update time — never speculative cause. Example: "03:20 UTC — Both training jobs ≈ 15–20 %
+slower since ≈ 02:12. Inference unaffected. Fabric and Training Infra investigating. Next update 04:20."
 *Marking:* 2 + 1 + 1.
 
 **K7.** TTD = detection − onset; TTM = mitigation (user impact stopped) − onset; TTR = resolution
@@ -138,7 +138,7 @@ Reference values from `solutions/lab/telemetry_analysis.py` `[SIMULATED]`:
 4. **Missing rule.** No page-severity rule fires during the incident; detection is a chat message at
    02:58. The fix is a training-throughput (goodput) symptom alert.
 5. **Inference blip.** DEP-41 (05:10–05:16) produces 4 % errors for 7 minutes; the multiwindow logic must
-   *not* page (1 h burn 4.65 < 14.4). A learner who pages on the 5 m window alone is penalised.
+   *not* page (1 h burn 4.65 < 14.4). A learner who pages on the 5 m window alone is penalized.
 6. **Checkpoint stalls.** +9 s every 30 min (trn-70b) and +4 s every 20 min (ft-13b), with GPU_UTIL dips
    to 83–89 %. They must be excluded from baselines and per-minute series (checked: max baseline-window
    minute < 18.5 s).
@@ -197,7 +197,7 @@ prompt; the others are at risk.)
 
 Mitigation: roll back to rev 43 (change precedes symptom; rollback is the safest fastest action).
 Validation: no new restarts for 30 min; `num_requests_waiting` < 5 on all replicas; TTFT p95 < 0.8 s;
-5 m burn < 1 and the alert resolves. Follow-up: capacity model for 32k context (Chapter 15 KV-cache and
+5 m burn < 1 and the alert resolves. Follow-up: capacity model for 32k context (Chapter 15 KV cache and
 activation memory), CI check of memory headroom per max context, canary with long-prompt test traffic.
 *Marking:* ranking 3, evidence citations 3, mitigation/validation 2, TTFT/TPOT explanation 2.
 

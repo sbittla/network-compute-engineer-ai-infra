@@ -1,0 +1,17 @@
+id: '6.2'
+title: GB/s for elementwise, TFLOP/s for GEMM
+folder: 6.2-gbps-vs-tflops
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 2
+evidence_required: intensity argument for both.
+marking:
+- criterion: 'Elementwise: intensity about 0.3-2 FLOP/B, far below the 295 FLOP/B ridge, so time is set
+    by bytes and GB/s vs 3.35 TB/s is the figure of merit'
+  points: 1
+- criterion: 'Large GEMM: intensity in the thousands, far above the ridge, so time is set by FLOPs and
+    TFLOP/s vs 989 TFLOP/s is the figure of merit'
+  points: 1
+lab_checks: []

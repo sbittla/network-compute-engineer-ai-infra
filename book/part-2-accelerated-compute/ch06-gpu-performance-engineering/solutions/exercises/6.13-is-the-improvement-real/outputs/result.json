@@ -1,0 +1,60 @@
+{
+  "answer": {
+    "all_runs": {
+      "change": -0.020523,
+      "ci95": [
+        -0.029671,
+        0.016499
+      ],
+      "decision": "not_significant",
+      "median_candidate_ms": 12.17,
+      "n_candidate_runs": 6,
+      "p_perm": 0.36147
+    },
+    "without_run5": {
+      "change": -0.024547,
+      "ci95": [
+        -0.031613,
+        -0.008458
+      ],
+      "decision": "improvement",
+      "median_candidate_ms": 12.12,
+      "n_candidate_runs": 5,
+      "p_perm": 0.00216
+    }
+  },
+  "evidence_label": "MODELED (statistics on supplied run medians)",
+  "exercise": "6.13",
+  "inputs": {
+    "alpha": 0.05,
+    "baseline_ms": [
+      12.41,
+      12.37,
+      12.52,
+      12.44,
+      12.39,
+      12.47
+    ],
+    "bootstrap": {
+      "replicates": 4000,
+      "seed": 11
+    },
+    "candidate_ms": [
+      12.1,
+      12.22,
+      12.05,
+      12.31,
+      12.95,
+      12.12
+    ],
+    "floor": 0.009,
+    "threshold": 0.02
+  },
+  "steps": {
+    "median_baseline_ms": 12.425
+  },
+  "units": {
+    "change": "fraction",
+    "time": "ms"
+  }
+}

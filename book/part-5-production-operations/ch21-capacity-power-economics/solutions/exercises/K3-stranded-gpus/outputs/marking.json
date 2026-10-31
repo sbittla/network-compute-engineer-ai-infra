@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "definition; two causes with the telemetry that reveals each.",
+  "id": "K3",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Definition: installed, paid-for capacity that cannot be used",
+      "points": 1
+    },
+    {
+      "criterion": "First non-power cause with mechanism",
+      "points": 1
+    },
+    {
+      "criterion": "Telemetry that reveals the first cause",
+      "points": 1
+    },
+    {
+      "criterion": "Second non-power cause with mechanism",
+      "points": 1
+    },
+    {
+      "criterion": "Telemetry that reveals the second cause",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Stranded GPUs",
+  "type": "knowledge-check"
+}

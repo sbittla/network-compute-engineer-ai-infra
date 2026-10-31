@@ -1,0 +1,33 @@
+{
+  "difficulty": 1,
+  "evidence_required": "five values with the arithmetic for the correctable-symbol count.",
+  "id": "10.K3",
+  "kind": "computed",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Symbol size 10 bits",
+      "points": 1
+    },
+    {
+      "criterion": "544 symbols per codeword",
+      "points": 1
+    },
+    {
+      "criterion": "30 parity symbols (544 − 514)",
+      "points": 1
+    },
+    {
+      "criterion": "t = 30/2 = 15 correctable symbols, arithmetic shown",
+      "points": 1
+    },
+    {
+      "criterion": "Codeword size 5,440 bits (544 × 10)",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "RS(544,514) parameters",
+  "type": "knowledge-check"
+}

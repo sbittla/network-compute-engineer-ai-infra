@@ -1,0 +1,20 @@
+id: 7.D
+title: Parallel links and spine count for the next build
+folder: 7.D-parallel-links-spines
+type: design-challenge
+difficulty: 3
+tier: L1
+kind: computed
+points: 15
+evidence_required: a comparison table with arithmetic, a recommendation, and one stated assumption that
+  would change your recommendation.
+marking:
+- criterion: 'Comparison table: ingress after link and spine failure, bisection after a spine failure,
+    session counts, spine ports, ECMP width (≥ 6 cells correct per column)'
+  points: 8
+- criterion: 'Recommendation (A or C) tied to the optics-failure risk: A loses 12.5 % per affected leaf
+    per link vs 25 % for B'
+  points: 4
+- criterion: A stated assumption that flips it, e.g. spine drains or upgrades dominate, favouring B
+  points: 3
+lab_checks: []

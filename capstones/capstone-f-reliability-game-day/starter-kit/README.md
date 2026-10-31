@@ -77,7 +77,7 @@ while the scheduler is down), `sim_inference_ready_replicas`.
 | **T4** Recovery metrics | `recovery_metrics` | Mitigation, recovery and lost GPU-hours on the recorded game day; restore point from the last *durable* checkpoint; unrecovered faults reported as such | 22 |
 | **T5** Incident timeline | `build_timeline` | Sorted, windowable, noise-free timeline with UTC and `T+` offsets | 12 |
 | **T6** Hypothesis evaluation | `evaluate_hypotheses` | Correct held/failed verdicts; an undetected fault never meets a detection target | 8 |
-| **T7** Backlog prioritisation | `prioritize_backlog` | Correct scores and order; your report must then critique the formula | 12 |
+| **T7** Backlog prioritization | `prioritize_backlog` | Correct scores and order; your report must then critique the formula | 12 |
 | | | **Total** | **100** |
 
 Hints:
@@ -86,7 +86,7 @@ Hints:
 - On the recorded game day, find every `ckpt_aborted` event before you compute lost work.
 - One fault on the recorded day never recovers. Find out why before you write the postmortem —
   the failed component is not the cause.
-- Re-run the recorded plan with *your* rules and with `{"fast_fail": True}`; compare.
+- Rerun the recorded plan with *your* rules and with `{"fast_fail": True}`; compare.
 
 ## 7. Running the checker
 
@@ -103,7 +103,7 @@ analysis of the recorded game day with the expected values.
 Outline Section 16: *conduct safe fault injection in a dedicated non-production lab with explicit
 rollback and isolation.*
 
-> **Safety:** Proceed only with written authorisation for a dedicated lab whose hosts, fabric and
+> **Safety:** Proceed only with written authorization for a dedicated lab whose hosts, fabric and
 > storage are not shared with any other user or workload. Before each injection, write the abort
 > condition and rehearse the rollback. Keep an out-of-band path (BMC console) to every host you
 > disrupt. Never run these commands on production or shared systems.
@@ -111,7 +111,7 @@ rollback and isolation.*
 | Fault | Inject (lab only) | Roll back | Observe |
 |---|---|---|---|
 | Backend link down | `sudo ip link set dev <rail_iface> down` | `sudo ip link set dev <rail_iface> up` | `rdma link show`, `ip -s link show <rail_iface>`, job logs for the collective timeout |
-| Node loss | `ipmitool -I lanplus -H <bmc> -U <user> -P <pass> chassis power off` (or a Redfish `ComputerSystem.Reset` action) | `... chassis power on`, then re-run acceptance before undrain | `sinfo -R`, `scontrol show node <node>`, job requeue in `squeue` |
+| Node loss | `ipmitool -I lanplus -H <bmc> -U <user> -P <pass> chassis power off` (or a Redfish `ComputerSystem.Reset` action) | `... chassis power on`, then rerun acceptance before undrain | `sinfo -R`, `scontrol show node <node>`, job requeue in `squeue` |
 | Storage slow | `sudo tc qdisc add dev <storage_iface> root netem delay 20ms rate 1gbit` on the lab client only | `sudo tc qdisc del dev <storage_iface> root` | Checkpoint write duration in job logs; PFS client stats |
 | Scheduler outage | `sudo systemctl stop slurmctld` on the lab controller | `sudo systemctl start slurmctld` | `scontrol ping`, `journalctl -u slurmctld`, absence alert firing |
 

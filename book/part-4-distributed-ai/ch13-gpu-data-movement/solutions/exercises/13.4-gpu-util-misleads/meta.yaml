@@ -1,0 +1,19 @@
+id: '13.4'
+title: Why utilization.gpu stays near 100 %
+folder: 13.4-gpu-util-misleads
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 5
+evidence_required: mechanism + two metrics
+marking:
+- criterion: Defines utilization.gpu as the fraction of sample time in which any kernel ran
+  points: 1
+- criterion: Explains that NCCL kernels spin on flags while waiting, so the GPU counts as busy
+  points: 2
+- criterion: Names DCGM SM active or tensor-pipe active as a better metric
+  points: 1
+- criterion: Names per-rank phase timings (wait vs transfer vs compute) as a better metric
+  points: 1
+lab_checks: []

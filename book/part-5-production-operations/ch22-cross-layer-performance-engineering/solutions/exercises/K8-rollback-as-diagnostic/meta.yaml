@@ -1,0 +1,18 @@
+id: K8
+title: Why a diagnostic rollback is a poor test
+folder: K8-rollback-as-diagnostic
+type: knowledge-check
+difficulty: 2
+tier: L1
+kind: written
+points: 4
+evidence_required: two distinct reasons (confounding/time variation; information value vs cost/risk).
+marking:
+- criterion: 'Reason 1: confounding and time variation; the before/after of a rollback mixes it with everything
+    else that changed'
+  points: 2
+- criterion: 'Reason 2: low information per cost and risk compared with offline partitions (one leaf, slow, drains/reboots)'
+  points: 1
+- criterion: Notes that the rollback destroys the natural experiment (half upgraded, half not)
+  points: 1
+lab_checks: []

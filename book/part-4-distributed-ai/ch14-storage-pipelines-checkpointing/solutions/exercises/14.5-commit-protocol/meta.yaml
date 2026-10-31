@@ -1,0 +1,16 @@
+id: '14.5'
+title: Commit protocol
+folder: 14.5-commit-protocol
+type: knowledge-check
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: ordered list with one justification per fsync
+marking:
+- criterion: Correct order of the ten steps (-1 per misplaced fsync)
+  points: 3
+- criterion: 'Object-store adaptation: manifest written last is the commit; conditional writes or unique
+    keys; never list-then-assume'
+  points: 2
+lab_checks: []

@@ -54,6 +54,7 @@ SLO specification, dashboard mock-up, and blameless postmortem (Exercises M1–M
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting, design, reflection, outline-mandated M1–M3 |
+| [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide: telemetry-bundle forensics |
 | `lab/data/` | Synthetic bundle: step records, node/switch metrics, inference SLO counts, events, alert rules, postmortem template |
 | `lab/tools/` | Data generator — instructor copy only (not in the student release) |
@@ -61,6 +62,7 @@ SLO specification, dashboard mock-up, and blameless postmortem (Exercises M1–M
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |
 | `lab/manifest.yaml` | Environment manifest |
 | `solutions/` | Instructor answer key and reference implementation |
+| `solutions/exercises/` | Instructor only: per-exercise `meta.yaml` (marking), worked `solution/answer.md`, `solve.py` for computed exercises, and generated `outputs/` |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |
 
 ## Connections
