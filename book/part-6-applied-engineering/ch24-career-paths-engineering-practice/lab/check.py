@@ -181,6 +181,9 @@ def main() -> int:
             "https://careers.example.com/a/jobs/X1": "careers.example.com/a/jobs/X1",
             "HTTPS://Careers.Example.COM/a/jobs/X1/?utm_source=board#apply": "careers.example.com/a/jobs/X1",
             "http://careers.example.com/a/jobs/X1/": "careers.example.com/a/jobs/X1",
+            # job ID in the query (some ATSs): keep it, drop only tracking parameters, sort the rest
+            "https://Example.com/careers/job?gh_jid=4721&utm_medium=x&board=ex": "example.com/careers/job?board=ex&gh_jid=4721",
+            "https://example.com/careers/job?gh_jid=4658&ref=board": "example.com/careers/job?gh_jid=4658",
             "": "",
         }
         for u, want in cases.items():

@@ -56,7 +56,7 @@ is the specification.
 | 2 | `demonstrated_levels` | The learner's 15 checked competency levels and 9 evidence flags match |
 | 3 | `readiness` | AI Network Engineer scores 100.0 / 94.1 / 78.4 / 69.6 for junior / mid / senior / staff; a score above threshold with a gap of 2 is *not* "ready" |
 | 4 | `gap_plan` | Senior AI-network plan is observability (priority 4), congestion (3), host_topology (2), physical_layer (2) |
-| 5 | `normalize_url`, `posting_key` | Tracking queries, trailing slashes, host case and scheme do not create new postings |
+| 5 | `normalize_url`, `posting_key` | Tracking parameters, trailing slashes, host case and scheme do not create new postings; a job ID carried in the query (`?gh_jid=…`) still separates postings |
 | 6 | `row_issues` | Field rules: missing, bad date, future date, non-HTTPS URL, invalid seniority/status, stale active (> 30 days) |
 | 7 | `duplicate_clusters`, `representative` | 61 rows → 51 postings; a key-then-URL chain of three rows merges into one |
 | 8 | `validate_register`, `skill_frequency` | 51 unique / 40 complete / 31 active-and-fresh; top skills match |

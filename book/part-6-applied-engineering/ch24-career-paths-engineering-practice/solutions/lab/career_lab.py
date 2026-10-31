@@ -21,9 +21,12 @@ import datetime as dt
 import re
 from collections import Counter
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import parse_qsl, urlencode, urlsplit
 
 import yaml
+
+# Query parameters that identify the referrer, not the posting (plus every utm_* parameter).
+TRACKING_PARAMS = frozenset({"gclid", "fbclid", "msclkid", "ref", "referrer", "source", "src", "trk", "lever-source"})
 
 # ============================================================================================
 # Loading helpers (provided; identical in starter)
@@ -186,17 +189,27 @@ def normalize_text(value: str | None) -> str:
     return " ".join(str(value or "").split()).casefold()
 
 
+def is_tracking_param(name: str) -> bool:
+    """True for query parameters that only record where a click came from (never a job identity)."""
+    name = name.casefold()
+    return name.startswith("utm_") or name in TRACKING_PARAMS
+
+
 def normalize_url(url: str | None) -> str:
     """Canonical posting URL for duplicate detection.
 
-    Lowercase the host, drop scheme, query string, fragment and trailing slash; keep path case.
+    Lowercase the host; drop scheme, fragment, trailing slash and *tracking* query parameters; keep
+    path case and every other query parameter, sorted. Some ATSs carry the job ID in the query
+    (``/careers/job?gh_jid=123``), so stripping the whole query would merge different postings.
     "" for empty input. e.g. "HTTPS://Careers.Example.COM/a/jobs/X/?utm_source=y" -> "careers.example.com/a/jobs/X"
     """
     url = str(url or "").strip()
     if not url:
         return ""
     parts = urlsplit(url if "://" in url else "https://" + url)
-    return parts.netloc.lower() + parts.path.rstrip("/")
+    kept = sorted((k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True) if not is_tracking_param(k))
+    query = "&".join(k if v == "" else urlencode([(k, v)]) for k, v in kept)
+    return parts.netloc.lower() + parts.path.rstrip("/") + (f"?{query}" if query else "")
 
 
 def posting_key(row: dict) -> str:
