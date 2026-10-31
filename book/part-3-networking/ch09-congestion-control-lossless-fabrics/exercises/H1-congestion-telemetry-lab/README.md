@@ -25,3 +25,7 @@ Run:
 ```bash
 cd ../../lab && python check.py | tee ../exercises/H1-congestion-telemetry-lab/outputs/check_output.txt
 ```
+
+**Hardware run (course harness).** Hardware notes on the course harness: `python scripts/hw_labs.py run
+ch09` records that no RDMA NIC counters exist on that host. It runs your `counters_to_rates` on the
+host's real TCP/ECN counters around a loopback N:1 incast; see `lab/l2/results/`.

@@ -32,3 +32,8 @@ Run:
 ```bash
 cd ../../lab && python check.py
 ```
+
+**Hardware run (course harness).** L2 on the course harness: `python scripts/hw_labs.py run ch20` feeds
+measured GPU (or CPU) samples through your `evaluate_wave` / `run_rollout`, covering a no-op change, an
+injected regression and a short bake. Its `lab/l2/results/<gpu-model|cpu-fallback>/environment.json` can
+back the manifest fields.

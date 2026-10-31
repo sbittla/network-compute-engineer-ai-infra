@@ -94,6 +94,25 @@ Field names and IDs are `[VENDOR-SPEC, 2026-10]`; older drivers name the clock f
 them. Create imbalance *only in your own job* (give one rank longer sequences) and confirm the
 detector finds it.
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` measures the transfer
+paths this chapter models: host→device and device→host bandwidth for pageable and pinned memory over a
+size sweep, against the PCIe ceiling of the link the GPU actually negotiated. It also measures how much of
+a copy a second CUDA stream hides behind compute. It probes for an RDMA device and records the GDR-locality
+part as not runnable when there is none.
+
+```bash
+python scripts/hw_labs.py build ch13
+python scripts/hw_labs.py run ch13 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch13 --device cpu   # automatic fallback when no GPU: host-memory copies
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback.
+That fallback measures host-memory copy bandwidth, which is the staging copy a pageable transfer pays, and a
+two-thread overlap. The GPU-only invariants are skipped. **Observed on the reference run:** the committed
+bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/`, a PCIe Gen4 x8 laptop GPU, and `cpu-fallback/`)
+show pinned H2D near 80 % of the link ceiling, pageable clearly slower, and small copies latency-bound
+`[MEASURED]`. Your H100-class host on Gen5 x16 should land near 50–55 GB/s (VERIFIED_FACTS, PCIe Gen5).
+
 **L3 — validate the data path (two drained nodes).** Execute the measurement plan of manuscript
 Table 13.5: `nvidia-smi topo -m`; `lsmod | grep nvidia_peermem` (or confirm the dma-buf path);
 `sudo lspci -vvv -s <BDF>` for `ACSCtl` and `LnkSta`; perftest `ib_write_bw -d mlx5_2 --use_cuda=2

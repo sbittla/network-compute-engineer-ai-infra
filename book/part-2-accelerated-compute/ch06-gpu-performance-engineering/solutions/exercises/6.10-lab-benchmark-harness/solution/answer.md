@@ -36,3 +36,19 @@ do not ship C for performance alone) and limitations, including what would make 
 **Common mistakes.** Bootstrapping iterations instead of runs; judging throttling against max boost;
 applying an exclusion rule to one arm only; excluding B4's throttled iterations but keeping the run; reading
 C's "below_threshold" as "no effect" (small real effect, not worth acting on); t-tests on iterations.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch06 --device gpu` is the lab's L2 extension, scripted. It runs six
+interleaved arms (FP32 baseline, an A/A pair, BF16, TF32 allowed, a no-op API change), ≥ 5 runs each,
+timed with CUDA events. Every iteration is tagged with the SM clock, temperature, power and decoded
+`clocks_event_reasons`. The arms are compared with the reference `noise_floor()` and `compare()`. A
+measured roofline (copy/add bandwidth above L2 size, BF16 GEMM K-sweep) is classified with
+`classify_kernels()` against this GPU's vendor-class ceilings. Expected shape: BF16 and TF32 decided
+`improvement` far above the A/A floor; the no-op `not_significant` or `below_threshold`; thin GEMMs
+memory-bound, square GEMMs compute-bound, nothing above a ceiling. A good report also explains the
+lesson the laptop GPU teaches. Under a power cap the sustained clock depends on the kernel, so the lab's
+session-wide peer-clock rule excludes a whole arm of a cross-kernel comparison. The experiment applies
+the same rule against each arm's own peers, a rule fixed before collection. The CPU fallback
+(`--device cpu`) runs the same harness on single-threaded CPU GEMMs, with FP64 versus FP32 as the real
+effect, and the roofline against the measured CPU roofs.

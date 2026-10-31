@@ -34,3 +34,12 @@ InsufficientCapacity · J15 n29 [2] · J06 Fragmentation · J14 QuotaExceeded ·
 **Planted traps the report should mention:** n30's `PreferNoSchedule` taint is not blocking; n28 is
 MIG-only; quota checks use `>` not `≥` (P07 at 47 + 1 = 48 is allowed); P12's cordoned node is
 `NODE_DRAINED`, not `UNTOLERATED_TAINT`.
+
+## Hardware run (L2 harness)
+
+The course harness (`python scripts/hw_labs.py run ch17`) cannot run a kubelet or slurmd, so the event
+capture is not runnable. It builds a node from real discovery (`nvidia-smi -L`, memory, compute
+capability, MIG mode, device nodes) and runs `diagnose_pending` on it. As found it gives
+DEVICE_PLUGIN_NOT_ADVERTISING; with a plugin, an H100 selector gives SELECTOR_MISMATCH. It also measures
+two processes sharing the GPU: on the reference GPU each ran at less than half its solo throughput and
+together they do no more work than one. That is the evidence for integer `nvidia.com/gpu` requests.

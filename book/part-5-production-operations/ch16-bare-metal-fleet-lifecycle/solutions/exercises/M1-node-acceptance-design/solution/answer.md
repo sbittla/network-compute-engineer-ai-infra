@@ -36,3 +36,14 @@ GPUs against the *expected* number so tests do not silently adapt to 7 GPUs (ori
 Multi-node NCCL and fabric validation run after a group of nodes is validated (Chapter 12).
 
 Source: Section 16.5, Table 16.4, Figure 16.3, Section 16.6 Step 3.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch16 --device gpu` executes the single-GPU subset of this design in fail-fast
+order: discovery and inventory, the memory write/verify pattern test, PCIe link under load, a GEMM throughput
+check, and a sustained burn-in with temperature, power, clock and clock-event-reason sampling. It evaluates the
+result with the lab policy, recording `policy_version` as `acc-2026.10+local-sku`. It shows that `SW_POWER_CAP`
+under load is normal (ignored by the policy) and that the burn-in duration is a real field, not a constant. The
+checks in the table that need an HX8 (NVLink, RDMA pair bandwidth, single-node NCCL, DCGM `-r 3`, NVMe/fio) are
+probed and listed as not runnable in `lab/l2/results/*/report.md`. With `--device cpu` the same harness runs on
+host RAM and CPU cores.

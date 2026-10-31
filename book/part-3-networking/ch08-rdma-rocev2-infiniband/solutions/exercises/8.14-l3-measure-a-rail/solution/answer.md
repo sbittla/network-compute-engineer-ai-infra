@@ -44,3 +44,13 @@ A measured plateau **1–3 % below** the ceiling is normal (ACKs, doorbells, PCI
 
 Award the "method" points only with ≥ 5 runs, warm-up discarded and pinning stated. Deduct where a
 single run is reported as "the" result, or where the model uses 400 Gb/s for a 200 Gb/s lab link.
+
+## Hardware run (L2 harness)
+
+Not runnable on the course harness: it needs two hosts with RDMA NICs on a lab fabric. `python
+scripts/hw_labs.py run ch08` probes `/sys/class/infiniband`, `/dev/infiniband`, `rdma_rxe` and the
+perftest tools and records them as absent. It runs the lab's `check_node` on the host's real inventory
+(NOT_READY: every rail missing, no `nvidia_peermem`) and measures page-pinning cost (`cudaHostRegister`,
+`mlock`) against size. Do not accept its output as evidence for this exercise; it has no bandwidth
+plateau and no latency percentiles. Fallback for learners without a lab fabric: the L1 perftest analysis
+on `lab/data/perftest/`, labelled `[ILLUSTRATIVE]`.

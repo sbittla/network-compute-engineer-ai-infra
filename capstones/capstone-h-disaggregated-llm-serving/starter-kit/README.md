@@ -92,6 +92,30 @@ Measure prefill latency for prompt lengths 256–8,192 with output length 1, and
 for batch 1–256 at fixed context. Fit `mfu_prefill`, `hbm_eff` and `step_overhead_s`, then rerun
 the capacity model with the measured values (≥ 5 repetitions per point, report median and p95).
 
+**L2 — the packaged calibration (one GPU, no model download).** With no network and no weights in the container,
+`l2/experiment.py` builds a randomly initialised decoder (d=2048, 8 layers, fp16) with a KV cache. It measures prefill
+latency against prompt length (output 1), and decode step time against batch at a fixed context, interleaving the sizes
+round-robin. It fits `mfu_prefill`, `hbm_eff` and `step_overhead_s` with the L1 formulas (`prefill_time_s` and
+`decode_step_time_s`, `MODEL` re-pointed at the small model, cross-checked against your `serve.py`) against both the
+measured ceilings and the vendor peaks, and reruns `size_pools()` with the fitted efficiencies as a `[MODELED]` what-if.
+The RDMA KV path is recorded as **not runnable**. The GPU-to-pinned-host copy of a prompt's KV over PCIe is measured
+instead.
+
+```bash
+python scripts/hw_labs.py build capstone-h                 # from the repository root: the ai-infra-gpu:capstone-h image
+python scripts/hw_labs.py run capstone-h --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-h --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-h                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback uses a smaller fp32 model, and its constants are relative to a GEMM and a copy measured on the CPU.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show prefill reaching a large fraction of the GEMM ceiling at long prompts, and decode nearly flat in batch at a high
+fraction of memory bandwidth, with a step overhead of about a millisecond from eager kernel launches. The fitted model
+reproduces the measured points within the stated tolerances. The constants describe a laptop Ada GPU and a toy model.
+Refit them on your target GPU and serving stack before sizing pools with them.
+
 **L3 — measure the KV path on two RDMA nodes, one rail at a time.**
 
 ```bash

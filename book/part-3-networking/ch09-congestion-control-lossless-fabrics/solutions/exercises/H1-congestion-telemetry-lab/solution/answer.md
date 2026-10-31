@@ -56,3 +56,11 @@ next incast, zero TC 3 discards over 24 h, and a config-compliance audit clean.
 
 Flagging the 520–558 s window. Naming P3 as a victim. Presenting simulated numbers without the label.
 Claiming the rank-mapping cause as proven.
+
+## Hardware run (L2 harness)
+
+The course harness (`python scripts/hw_labs.py run ch09`) has no RDMA NIC, so the PFC/ECN/CNP counter
+capture is not runnable. It does exercise the same method: `counters_to_rates` on real cumulative
+counters (`RetransSegs`, `InCEPkts`, `InECT0Pkts`, loss probes) snapshotted around a loopback TCP incast,
+with per-flow percentiles and Jain's index. The report notes that loopback has no egress queue, so it
+cannot reproduce the episodes in this lab.

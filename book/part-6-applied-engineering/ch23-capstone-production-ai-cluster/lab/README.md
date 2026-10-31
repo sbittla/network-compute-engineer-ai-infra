@@ -183,6 +183,41 @@ Copy `manifest.yaml`, fill every `record:` field of the L3 extension, commit it 
 `manifests/`, and reference that path in the `manifest` column. Rerun the linter: the row must
 pass EVID-003/EVID-004.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch23
+python scripts/hw_labs.py run ch23 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch23 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch23               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+It validates the reference bundle's node-level assumptions against this host. A-01 is an FP16/BF16 GEMM
+sweep against this GPU's peak, and that fraction is the ceiling for A-04 MFU. A-02 is GPU memory, A-03 is
+GPU board power under load (node power is not measurable here), and A-08 is a checkpoint write and
+verified restore. A-10, GPU-NIC affinity and NUMA are probed. It then appends the measured rows to a copy
+of `benchmarks.md` as `MEASURED`, tier `L2`, with the run's manifest, and runs the lab's own
+`check_evidence`. The new rows must pass, and two negative controls must fire EVID-003 and EVID-004.
+
+Not runnable on the harness: node power from a BMC/PDU, `ibv_devinfo` MTU/firmware (no RDMA NIC), and the
+L3 B-02 all-reduce row.
+
+The CPU fallback uses an FP32 CPU GEMM for A-01 and host memory for A-02, writes host tensors for the
+checkpoint test and measures no power. The lint step is identical.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. The assumption register shows how an acceptance check flags a node that does
+not match the bundle. Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 The Kestrel bundle contains planted flaws and also several *traps*: things that look wrong but are

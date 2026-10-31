@@ -1,0 +1,92 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same idle / GEMM / copy phases on the CPU, reporting throughput only: the container sees no CPU or server power sensor (no RAPL, no BMC), so power is recorded as not measurable",
+    "evidence": "MEASURED",
+    "id": "ch02-l2",
+    "title": "Lab 2 L2: GPU power, clocks and throttle reasons under compute- and memory-bound load"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "GEMM 2048x2048x2048 float32 (torch.matmul, out=), copy 128 MiB buffer-to-buffer (read + write counted); phases idle 15 s, GEMM 45 s, copy 30 s, idle 10 s"
+  ],
+  "metrics": {
+    "copy_gbs_median": 35.2,
+    "gemm_tflops_median": 0.36,
+    "power_measured": false
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a BMC with IPMI/Redfish read access",
+        "network access to it"
+      ],
+      "part": "Server (node) power from the BMC: ipmitool dcmi power reading / Redfish PowerSubsystem",
+      "probe": {
+        "bmc_ipmi_device": false,
+        "dcgmi": null,
+        "euid": 1000,
+        "ipmitool": null,
+        "nvidia_smi": null,
+        "rapl_domains": [],
+        "redfish_reachable": false
+      }
+    },
+    {
+      "needs": [
+        "root on a dedicated, authorised GPU server",
+        "a driver that permits power-limit changes (not WSL2 GPU paravirtualisation)"
+      ],
+      "part": "Exercise 2.8 power-cap sweep (nvidia-smi -pl <W> from max down to 55 %)",
+      "probe": "not attempted on purpose: the harness container is unprivileged and the lab never changes power limits"
+    },
+    {
+      "needs": [
+        "an NVIDIA GPU (nvidia-smi)",
+        "or RAPL / hwmon power sensors exposed to the container"
+      ],
+      "part": "GPU and CPU power telemetry",
+      "probe": {
+        "bmc_ipmi_device": false,
+        "dcgmi": null,
+        "euid": 1000,
+        "ipmitool": null,
+        "nvidia_smi": null,
+        "rapl_domains": [],
+        "redfish_reachable": false
+      }
+    }
+  ],
+  "notes": [
+    "Workload: GEMM 2048x2048x2048 float32 (torch.matmul, out=), copy 128 MiB buffer-to-buffer (read + write counted); phases idle 15 s, GEMM 45 s, copy 30 s, idle 10 s.",
+    "Throughput is timed in ~0.5 s windows after 3 warm-up steps (>= 5 windows per phase); power, clocks and temperature are nvidia-smi samples every 100 ms during the same phase.",
+    "CPU fallback: no power sensor is visible, so only throughput is reported."
+  ],
+  "runtime_s": 101.26,
+  "status": "ran",
+  "tables": {
+    "phases": [],
+    "throughput": [
+      {
+        "max": 0.4326006146610256,
+        "median": 0.35962704723347577,
+        "min": 0.3302064787357076,
+        "p95": 0.41985481620315096,
+        "phase": "gemm",
+        "unit": "TFLOP/s",
+        "windows": 95
+      },
+      {
+        "max": 36.13313653192222,
+        "median": 35.197429038802085,
+        "min": 34.02475162937464,
+        "p95": 35.70945934593181,
+        "phase": "copy",
+        "unit": "GB/s",
+        "windows": 62
+      }
+    ]
+  }
+}

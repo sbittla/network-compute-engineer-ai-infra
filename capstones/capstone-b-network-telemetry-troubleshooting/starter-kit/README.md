@@ -135,6 +135,35 @@ mlnx_qos -i <netdev>                                 # PFC enablement and trust 
 Write a small collector that emits your NIC format every 10 s for 10 minutes, run your parser on it,
 and record which canonical counters exist under which native names on your driver and firmware.
 
+### L2 on a single host without an RDMA NIC: the packaged experiment
+
+`l2/experiment.py` builds the collector this section asks for and runs it against the counters the host does have. It probes
+for RDMA hw_counters, `ethtool`, `rdma` and `mlnx_qos`. Then, for a rate-limited TCP stream over the loopback interface, it:
+
+- polls the kernel interface counters every second in the bundle's `### collected_at=...` format;
+- parses them with the L1 `parse_nic_ethtool`. The stock map finds nothing, because the native names differ. A host
+  adapter map makes the parse work;
+- rates the counters with `compute_rates` and checks the result against the bytes the application sent;
+- replays the real series as a wrapping 32-bit counter through `counter_delta`.
+
+It also exposes GPU telemetry (power, clocks, temperature, utilization, clock-event reasons) as Prometheus text, re-parses
+and validates the exposition, and measures the cost of each scrape. mlx5 counters, PFC/ECN configuration and the L3 drill
+are recorded as **not runnable**, each with its probe result.
+
+```bash
+python scripts/hw_labs.py build capstone-b                 # from the repository root: the ai-infra-gpu:capstone-b image
+python scripts/hw_labs.py run capstone-b --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-b --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-b                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the same loopback collector, L1 checks and exposition without the GPU metrics.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show zero rows from the stock NIC map, then L1 rates that match the generated stream. The interface counters carry about
+52 B of TCP/IP header per packet on top of the application bytes. The 32-bit wrap is recovered exactly. Each nvidia-smi
+scrape costs tens of milliseconds, which is why sub-second GPU telemetry needs a resident agent.
+
 ### L3: validate a congestion signature on a lab fabric
 
 1. Stream switch counters, for example with gNMI:

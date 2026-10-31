@@ -1,0 +1,223 @@
+{
+  "experiment": {
+    "cpu_fallback": "PCI / NUMA / RDMA probes and the Table 5.3 gate without a GPU, plus a host-memory copy bandwidth sweep (the memory a host-staged transfer bounces through)",
+    "evidence": "MEASURED",
+    "id": "ch05-l2",
+    "title": "Lab 5 L2: real host topology capture, PCIe link measurement and the GDR gate"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "link Gen4 x8 (host up to Gen5), idle Gen4, loaded Gen4; H2D pinned 12.66 GB/s of 15.75 GB/s"
+  ],
+  "metrics": {
+    "d2h_pinned_gbs": 13.12,
+    "driver": "592.82",
+    "gdr_gate": "PXB",
+    "gdr_pairs_allowed": 0,
+    "gdr_possible": false,
+    "gpu_bdf": "00000000:01:00.0",
+    "h2d_pageable_gbs": 11.76,
+    "h2d_pinned_efficiency": 0.804,
+    "h2d_pinned_gbs": 12.66,
+    "host_staged_cap_model_gbs": 18.0,
+    "link_ceiling_gbs": 15.75,
+    "link_gen_host_max": "5",
+    "link_gen_idle": "4",
+    "link_gen_loaded": "4",
+    "link_gen_max": 4,
+    "link_width_loaded": "8",
+    "link_width_max": 8,
+    "numa_nodes": 1,
+    "pci_network_controllers": 0,
+    "rdma_devices": 0,
+    "topo_gpus": 1,
+    "topo_nics": 0,
+    "topo_parser": "solutions/lab/topo_mapper.py"
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "an RDMA NIC (ConnectX-class or similar) on the GPU's PCIe switch",
+        "nvidia_peermem or DMA-BUF support",
+        "a second host on an RDMA fabric"
+      ],
+      "part": "Exercise 5.15 runtime proof: NCCL NET/IB/.../GDRDMA channel lines or ib_write_bw --use_cuda",
+      "probe": {
+        "dev_infiniband": false,
+        "modules_visible": 36,
+        "netdevs": [
+          "lo"
+        ],
+        "rdma_modules_loaded": [],
+        "sys_class_infiniband": [],
+        "tools": {
+          "ethtool": true,
+          "ib_write_bw": false,
+          "ibv_devinfo": false,
+          "lspci": true,
+          "lstopo": true,
+          "ofed_info": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        "root on bare metal (not a WSL2 guest)",
+        "lspci, lstopo, rdma-core",
+        "an RDMA NIC"
+      ],
+      "part": "L2 capture script (capture/capture_topology.sh) with lspci -vvv ACS/LnkSta, lstopo, ibdev2netdev, LLDP",
+      "probe": {
+        "euid": 1000,
+        "tools": {
+          "ethtool": true,
+          "ib_write_bw": false,
+          "ibv_devinfo": false,
+          "lspci": true,
+          "lstopo": true,
+          "ofed_info": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        "an NVLink-equipped multi-GPU host"
+      ],
+      "part": "NVLink / fabric manager status (nvidia-smi nvlink --status)",
+      "probe": "1 GPU(s) in topo -m"
+    }
+  ],
+  "notes": [
+    "Every row of the Table 5.3 checklist is built from a command or sysfs file read during this run; the raw topo -m output and the PCI scan are in results.json.",
+    "GDR gate from lab/data/path_model.yaml: a GPU-NIC pair is GDR-eligible when its relation is at most PXB.",
+    "Bandwidth: median of >= 5 timed repetitions after 3 warm-ups (CUDA events on the GPU, perf_counter on the CPU)."
+  ],
+  "runtime_s": 8.93,
+  "status": "ran",
+  "tables": {
+    "bandwidth": [
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 12.659947889030526,
+        "gbs_p95_time": 12.405917179401543,
+        "median_s": 0.021203519821166993,
+        "n": 10,
+        "p95_s": 0.0216376953125,
+        "size_mib": 256
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 11.76142650877025,
+        "gbs_p95_time": 9.360405546463696,
+        "median_s": 0.0228233757019043,
+        "n": 10,
+        "p95_s": 0.028677759170532228,
+        "size_mib": 256
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 13.123378685545124,
+        "gbs_p95_time": 12.925635706702778,
+        "median_s": 0.02045475196838379,
+        "n": 10,
+        "p95_s": 0.02076767921447754,
+        "size_mib": 256
+      }
+    ],
+    "gdr_checklist": [
+      {
+        "evidence": "topo -m devices: GPU0; PCI network controllers: 0; /sys/class/infiniband: absent",
+        "item": "1 Topology",
+        "verdict": "FAIL: no NIC to pair with the GPU"
+      },
+      {
+        "evidence": "peer-memory modules: none (36 modules visible); kernel 6.18.54.1-microsoft-standard-WSL2",
+        "item": "2 Peer memory",
+        "verdict": "FAIL: no nvidia_peermem, and DMA-BUF needs an RDMA NIC driver"
+      },
+      {
+        "evidence": "driver 592.82; CUDA runtime 12.4; ofed_info absent; ibv_devinfo absent",
+        "item": "3 Versions",
+        "verdict": "INCOMPLETE: no NIC stack or firmware to match against the support matrix"
+      },
+      {
+        "evidence": "/proc/cmdline: initrd=\\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=24 hv_utils.timesync_implicit=1 printk.devkmsg=on page_reporting.page_reporting_order=5 hv_storvsc.storvsc_m",
+        "item": "4 IOMMU",
+        "verdict": "n/a: WSL2 guest kernel; the IOMMU belongs to the Windows host"
+      },
+      {
+        "evidence": "no lspci and no root; the guest PCI view is 4 paravirtual functions (2 Microsoft GPU-PV render devices, class 0x0302)",
+        "item": "5 ACS",
+        "verdict": "NOT READABLE here: needs root lspci -vvv on bare metal"
+      },
+      {
+        "evidence": "NCCL /GDRDMA channel lines or ib_write_bw --use_cuda need an RDMA NIC and a peer",
+        "item": "6 Runtime",
+        "verdict": "NOT RUNNABLE: no RDMA NIC, no second host"
+      }
+    ],
+    "gdr_pairs": [],
+    "link": [
+      {
+        "gen": "4",
+        "host_max_gen": "5",
+        "state": "capability (GPU max)",
+        "width": "8"
+      },
+      {
+        "gen": "4",
+        "host_max_gen": "",
+        "state": "idle (current)",
+        "width": "8"
+      },
+      {
+        "gen": "4",
+        "host_max_gen": "",
+        "state": "under H2D load (current)",
+        "width": "8"
+      }
+    ],
+    "numa": [
+      {
+        "cpulist": "0-23",
+        "node": "node0"
+      }
+    ],
+    "pci_devices": [
+      {
+        "bdf": "5582:00:00.0",
+        "class": "0x010000",
+        "device": "0x1043",
+        "numa_node": "0",
+        "vendor": "0x1af4"
+      },
+      {
+        "bdf": "61e4:00:00.0",
+        "class": "0x088000",
+        "device": "0x105a",
+        "numa_node": "0",
+        "vendor": "0x1af4"
+      },
+      {
+        "bdf": "6294:00:00.0",
+        "class": "0x030200",
+        "device": "0x008e",
+        "numa_node": "0",
+        "vendor": "0x1414"
+      },
+      {
+        "bdf": "a1c2:00:00.0",
+        "class": "0x030200",
+        "device": "0x008e",
+        "numa_node": "0",
+        "vendor": "0x1414"
+      }
+    ],
+    "topo_m_raw": "\tGPU0\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\nGPU0\t X \t\t\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+  }
+}

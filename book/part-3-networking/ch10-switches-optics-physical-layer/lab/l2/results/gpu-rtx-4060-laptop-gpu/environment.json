@@ -1,0 +1,39 @@
+{
+  "cpu_count": 24,
+  "cpu_model": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cuda_runtime": "12.4",
+  "cudnn": 90100,
+  "device": "cuda",
+  "gpu0": {
+    "capability": "8.9",
+    "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "sm_count": 24,
+    "total_memory_gib": 8.0
+  },
+  "gpus": [
+    {
+      "clocks.max.memory": "8001",
+      "clocks.max.sm": "3105",
+      "compute_cap": "8.9",
+      "driver_version": "592.82",
+      "memory.total": "8188",
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "pci.bus_id": "00000000:01:00.0",
+      "pcie.link.gen.current": "4",
+      "pcie.link.gen.max": "4",
+      "pcie.link.width.current": "8",
+      "pcie.link.width.max": "8",
+      "power.limit": "[N/A]",
+      "power.max_limit": "120.00",
+      "temperature.gpu": "47"
+    }
+  ],
+  "kernel": "6.18.54.1-microsoft-standard-WSL2",
+  "mem_total_gib": 7.8,
+  "os": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python": "3.11.10",
+  "quick": false,
+  "run_utc": "2026-10-31T23:42:25Z",
+  "torch": "2.5.1+cu124",
+  "wsl": true
+}

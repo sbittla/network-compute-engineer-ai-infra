@@ -1,0 +1,211 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same readiness run on the real host inventory, and mlock/munlock registration cost versus size (no cudaHostRegister or pinned-vs-pageable copy without a GPU)",
+    "evidence": "MEASURED",
+    "id": "ch08-l2",
+    "title": "Lab 8 L2: readiness validator on this host's real inventory, and memory-registration cost"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "    4 MiB  mlock reg 0.17 ms",
+    "   64 MiB  mlock reg 2.59 ms",
+    "  256 MiB  mlock reg 11.98 ms",
+    " 1024 MiB  mlock reg 56.30 ms"
+  ],
+  "metrics": {
+    "mlock_us_per_mib_at_1024MiB": 54.98,
+    "rdma_devices": 0,
+    "readiness_checks_failed": [
+      "PEERMEM",
+      "PORT_STATE"
+    ],
+    "readiness_findings": 9,
+    "readiness_verdict": "NOT_READY",
+    "rlimit_memlock": "unlimited"
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "2+ hosts with RDMA NICs (RoCEv2 or InfiniBand) on a lab fabric",
+        "rdma-core and perftest",
+        "root or CAP_NET_ADMIN for dcb/ethtool"
+      ],
+      "part": "perftest per rail (ib_write_bw -a --report_gbits, ib_write_lat -a) between two hosts",
+      "probe": {
+        "dev_infiniband": false,
+        "euid": 1000,
+        "rdma_rxe_module": false,
+        "rlimit_memlock": [
+          -1,
+          -1
+        ],
+        "sys_class_infiniband": [],
+        "tools": {
+          "ethtool": true,
+          "ib_write_bw": false,
+          "ib_write_lat": false,
+          "ibv_devinfo": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        "a kernel with the rdma_rxe module",
+        "CAP_NET_ADMIN",
+        "a real netdev (the harness runs with --network none)"
+      ],
+      "part": "Soft-RoCE stand-in (rdma link add rxe0 type rxe netdev <if>)",
+      "probe": {
+        "euid": 1000,
+        "rdma_rxe_module": false
+      }
+    }
+  ],
+  "notes": [
+    "Inventory sections are the real command output where the tool exists; ip -o link and lsmod are rendered from /sys/class/net and /proc/modules in those tools' formats (see tables.inventory_provenance).",
+    "The host is labelled l2host-01 because check_node derives the node index from a trailing number.",
+    "Registration timing: perf_counter around each call, 2 warm-ups, then >= 5 repetitions per size; the buffer's pages are touched first so the cost measured is pinning, not page allocation."
+  ],
+  "runtime_s": 1.8,
+  "status": "ran",
+  "tables": {
+    "inventory": "### host: l2host-01\n### collected: 2026-10-31T23:42:04Z\n### cmd: ibv_devinfo\nibv_devinfo: command not found\n### cmd: rdma link show\nFailed to open NETLINK_RDMA socket\n### cmd: show_gids\nshow_gids: command not found\n### cmd: ethtool -i ens1np0\nCannot get driver information: No such device\n### cmd: ethtool ens1np0\nNo data available\nnetlink error: no device matches name (offset 24)\nnetlink error: No such device\nnetlink error: no device matches name (offset 24)\nnetlink error: No such device\nnetlink error: Operation not permitted\nnetlink error: no device matches name (offset 24)\nnetlink error: No such device\nnetlink error: no device matches name (offset 24)\nnetlink error: No such device\n### cmd: ip -o link show\n1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000\\    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\n### cmd: ip -o -4 addr show\n1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever\n### cmd: lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'\n\n### cmd: cat /etc/halcyon/rdma.env\n\n",
+    "inventory_provenance": [
+      {
+        "lines": 1,
+        "section": "ibv_devinfo",
+        "source": "command not installed"
+      },
+      {
+        "lines": 1,
+        "section": "rdma link show",
+        "source": "command"
+      },
+      {
+        "lines": 1,
+        "section": "show_gids",
+        "source": "command not installed"
+      },
+      {
+        "lines": 1,
+        "section": "ethtool -i ens1np0",
+        "source": "command"
+      },
+      {
+        "lines": 10,
+        "section": "ethtool ens1np0",
+        "source": "command"
+      },
+      {
+        "lines": 1,
+        "section": "ip -o link show",
+        "source": "command"
+      },
+      {
+        "lines": 1,
+        "section": "ip -o -4 addr show",
+        "source": "command"
+      },
+      {
+        "lines": 0,
+        "section": "lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'",
+        "source": "rendered from /proc/modules (filtered)"
+      },
+      {
+        "lines": 0,
+        "section": "cat /etc/halcyon/rdma.env",
+        "source": "file absent"
+      }
+    ],
+    "pinned_vs_pageable": [],
+    "readiness_findings": [
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_0",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_1",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_2",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_3",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_4",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_5",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_6",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PORT_STATE",
+        "device": "mlx5_7",
+        "message": "device missing from ibv_devinfo"
+      },
+      {
+        "check": "PEERMEM",
+        "device": "-",
+        "message": "nvidia_peermem not loaded"
+      }
+    ],
+    "registration": [
+      {
+        "deregister_median_s": 0.00012088497169315815,
+        "method": "mlock",
+        "n": 10,
+        "register_median_s": 0.0001738060382194817,
+        "register_p95_s": 0.00019224104471504688,
+        "size_mib": 4,
+        "us_per_mib": 43.45150955487043
+      },
+      {
+        "deregister_median_s": 0.0018210285052191466,
+        "method": "mlock",
+        "n": 10,
+        "register_median_s": 0.0025938740000128746,
+        "register_p95_s": 0.0031998989870771766,
+        "size_mib": 64,
+        "us_per_mib": 40.529281250201166
+      },
+      {
+        "deregister_median_s": 0.007327763014473021,
+        "method": "mlock",
+        "n": 10,
+        "register_median_s": 0.011982867494225502,
+        "register_p95_s": 0.013140503026079386,
+        "size_mib": 256,
+        "us_per_mib": 46.80807614931837
+      },
+      {
+        "deregister_median_s": 0.03326574701350182,
+        "method": "mlock",
+        "n": 10,
+        "register_median_s": 0.05629857850726694,
+        "register_p95_s": 0.06680849200347438,
+        "size_mib": 1024,
+        "us_per_mib": 54.97908057350287
+      }
+    ]
+  }
+}

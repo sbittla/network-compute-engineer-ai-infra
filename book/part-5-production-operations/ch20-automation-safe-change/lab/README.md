@@ -169,6 +169,41 @@ p95, warm-up iterations stated, and one change at a time. Feed the samples into 
 > Firmware Tools (MFT) package. Use the vendor's documented burn-and-reset procedure only in the
 > lab, never ad hoc.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch20
+python scripts/hw_labs.py run ch20 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch20 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch20               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+The mutating `LinuxHost` adapter (MTU change, soft-RoCE) needs root on a lab VM with an RDMA NIC, so it
+is probed and recorded as not runnable. A read-only `LinuxHost` adapter runs instead: it reads the real
+state, the lab's `compute_plan` classifies this host as unreachable (no backend NIC), and `apply_plan`
+proves a dry run writes nothing. The main measurement is a real canary gate. Measured GEMM-throughput
+samples stand in for per-rail busbw and go through the lab's `evaluate_wave` / `run_rollout` with abort
+condition AC1 and the bake rule from `abort_conditions.json`. Three changes are measured, with baseline
+and post samples interleaved: a no-op (must *proceed*), an injected ≈ 20 % regression (must *abort* on
+AC1) and the regression with half the bake samples (must *hold*).
+
+Not runnable on the harness: the MTU-changing reconciler run and the L3 two-node canary.
+
+The CPU fallback measures the same three changes on a single-thread CPU GEMM; the gate logic and
+invariants are identical.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 The dataset contains planted defects in Parts 1 and 2, and the plan in Part 3 contains deliberate

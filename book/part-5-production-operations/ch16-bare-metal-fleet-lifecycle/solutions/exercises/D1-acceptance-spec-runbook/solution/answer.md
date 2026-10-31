@@ -36,3 +36,14 @@ remediation) and the checker output (33/33).
 
 **Grading notes.** Deduct under criterion 4 if numbers are asserted rather than derived, and under
 criterion 5 if any runbook path skips evidence preservation or re-acceptance.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch16 --device gpu` produces the L2 appendix for section (6), the realism section.
+It collects the GPU part of an acceptance record from a real device: inventory, PCIe link idle and under load,
+row-remapper state, a memory write/verify test, a GEMM check and a short burn-in with clock-event-reason telemetry.
+It then runs the lab's `evaluate_node` on that record with policy `acc-2026.10`, with only `expected` adapted to the
+SKU. The bundle in `lab/l2/results/` (`environment.json`, `results.json`, `report.md`) is the "raw command output"
+the prompt asks for, and its not-runnable table names each check that stays L1-only on a one-GPU host: NVLink, ECC,
+DCGM, RDMA NICs, NVMe/fio, multi-GPU NCCL, Xid and BMC firmware. Without a GPU (`--device cpu`) the run falls back
+to a host-RAM pattern test and a CPU burn-in, and the evaluator must fail the GPU-less host with `GPU_COUNT`.

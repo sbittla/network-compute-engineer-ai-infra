@@ -23,3 +23,4 @@ Put these files in `outputs/`:
 - `acceptance_report.md` — your lab report (appendix)
 - `check_output.txt` — from `cd lab && python check.py`
 - L2/L3 only: your filled `manifest.yaml` and the raw command outputs
+- L2 on one GPU: `python scripts/hw_labs.py run ch16 --device gpu` (CPU fallback: `--device cpu`) writes the raw outputs to `lab/l2/results/`

@@ -23,3 +23,5 @@ python check.py | tee ../exercises/6.10-lab-benchmark-harness/outputs/check.txt
 python starter/harness.py --runs 5 --out ../exercises/6.10-lab-benchmark-harness/outputs/results.json
 python starter/analysis.py
 ```
+
+**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch06 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on.

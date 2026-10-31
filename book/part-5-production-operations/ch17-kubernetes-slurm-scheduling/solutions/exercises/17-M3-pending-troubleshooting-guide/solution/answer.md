@@ -28,3 +28,10 @@ P08 shows two independent causes):
 
 `solve.py` recomputes both diagnoses from the evidence bundles with the diagnoser's rules and
 asserts the codes and arithmetic.
+
+## Hardware run (L2 harness)
+
+On the course harness the L2 run (`python scripts/hw_labs.py run ch17`) diagnoses a real single-GPU node
+built from `nvidia-smi` discovery: hardware present and allocatable 0 gives
+DEVICE_PLUGIN_NOT_ADVERTISING, and an H100 node selector gives SELECTOR_MISMATCH. A guide may cite it as
+the hardware-backed version of those two causes. Taint, quota and drain causes still need a real cluster.

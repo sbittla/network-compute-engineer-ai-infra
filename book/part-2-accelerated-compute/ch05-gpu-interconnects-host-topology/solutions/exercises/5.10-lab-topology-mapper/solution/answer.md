@@ -45,3 +45,10 @@ repetitions and manifest (6); limitations and correct labels (6).
 
 **Common mistakes.** Keying by GPU index; treating `NICk` as `mlx5_k`; flagging n23 GPU4/5 as `NIC_NOT_LOCAL`
 (they have a PIX NIC, cabled wrong); running the model with n23 included; presenting Table 5.5 as measured.
+
+## Hardware run (L2 harness)
+
+The course harness (`python scripts/hw_labs.py run ch05`) feeds the host's real `topo -m` through
+`parse_topo_matrix` and checks it against the raw text. That is a quick test of whether the parser copes
+with real output: an ANSI-underlined header and a single-GPU matrix with empty affinity columns. The L3
+aligned/misaligned all-reduce runs remain not runnable on one host.

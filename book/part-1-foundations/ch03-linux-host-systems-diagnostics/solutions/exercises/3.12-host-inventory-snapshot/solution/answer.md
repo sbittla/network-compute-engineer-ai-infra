@@ -28,3 +28,19 @@ capabilities without root (`<access denied>`) and that sysfs (`current_link_spee
 recovers them; that `dmesg` may be denied and `journalctl -k` recovers it with `adm` or
 `systemd-journal` group membership; and that `nvme smart-log` and `turbostat` need root, with no
 unprivileged fallback.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch03 --device gpu` (from the repository root) runs the reference collector
+on a real GPU host inside the lab's GPU container, non-root, idle and under a GEMM load. It writes both raw
+`hostdiag/1` snapshots into `lab/l2/results/<label>/results.json` (`snapshots.idle`, `snapshots.loaded`).
+The report has the inventory table cross-checked against independent probes (`/proc/cpuinfo`,
+`/sys/devices/system/node`, `/proc/meminfo`, torch), with the source of every value. It also has the
+evidence-gap table: every section that was `missing` or `denied` without root, with the reason. That is
+the non-root half of this exercise's L2 path, `[MEASURED]` on the host named in `environment.json`. The
+harness never runs as root, so the root snapshot is recorded as not runnable. A learner who may use root
+still runs `sudo python host_collector.py` by hand for the root/non-root gap comparison. On the
+WSL2 reference host, `lspci`, `numactl` and `sysstat` are absent from the image and `dmesg` is denied.
+sysfs lists Microsoft GPU-PV functions (vendor 0x1414) with no link files, so the GPU's PCIe state comes
+only from `nvidia-smi`. The CPU fallback (`--device cpu`) takes the same snapshots without the GPU. There
+the `nvidia_smi` section is `missing`, and it is reported as an `EVIDENCE_GAP`, not a crash.

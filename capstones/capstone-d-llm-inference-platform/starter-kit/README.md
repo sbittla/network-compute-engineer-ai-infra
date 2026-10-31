@@ -119,6 +119,32 @@ configurations under an identical trace on identical hardware. Warm up first, ru
 and report p50/p95/p99 with spread. Record every field under `extensions` in `manifest.yaml`.
 Then compare measured TTFT, TPOT and ITL percentiles with your simulator, and explain the gaps.
 
+### L2 on one GPU without a model download: the packaged experiment
+
+The container has no network and no model weights, so `l2/experiment.py` replaces "an open model on a serving stack" with
+a small randomly initialised decoder (about 0.4 B parameters, fp16) and a minimal vLLM-like continuous-batching engine:
+FIFO admission up to `max_num_seqs`, whole-prompt prefill, and one batched decode step per iteration over a slot-based KV
+cache. It replays the first requests of `data/trace_s1.csv` in real time, lengths / 8 and arrivals compressed, under two
+configurations (`max_num_seqs` 2 and 16) and measures per-request TTFT, TPOT, ITL and goodput. The SLIs come from the L1
+`summarize()` definitions. The L1 `simulate()` runs on the identical trace with this GPU's measured ceilings, so measured
+and simulated percentiles sit side by side. The serving stack, TP=8 and the L3 canary drill are recorded as
+**not runnable**, each with its probe result.
+
+```bash
+python scripts/hw_labs.py build capstone-d                 # from the repository root: the ai-infra-gpu:capstone-d image
+python scripts/hw_labs.py run capstone-d --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-d --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-d                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback uses a smaller fp32 model and an arrival rate sized for the CPU.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show the small-slot configuration queueing until it misses the TTFT SLO, while the large-slot configuration meets it on
+the same trace. Decode steps grow only slightly with batch, and every decode step sits above the memory floor. Use the
+measured-vs-simulated rows to practise explaining the gaps. The numbers are a laptop Ada GPU serving a toy model, not
+W-INFER on an HX8.
+
 ## 9. Deliverable
 
 All templates in [`../templates/`](../templates/), your `serving.py`, and checker output.

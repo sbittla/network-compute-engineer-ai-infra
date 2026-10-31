@@ -32,3 +32,18 @@ repetitions.
 
 **Deductions:** heavy if the server was shared or the default limit was not restored; no medians or only
 one run per step; mixing `[MEASURED]` single-GPU numbers with modeled job numbers without labels.
+
+## Hardware run (L2 harness)
+
+The course harness (`python scripts/hw_labs.py run ch02 --device gpu`, experiment `lab/l2/experiment.py`)
+measures the default-limit point of this exercise and nothing below it. It reads the enforced limit, runs
+idle / FP16 GEMM / copy phases and samples `power.draw.instant`, SM clock, temperature and the
+clock-event bitmask every 100 ms. On the reference laptop GPU the GEMM sits at the enforced limit with SW
+Power Cap active in almost every sample and the SM clock well below the clock-table maximum. The copy
+draws clearly less power and is not capped. That is the qualitative answer to question 2 at one limit,
+and the reason throughput per watt must be quoted per workload. The sweep itself (questions 1 and 3) is
+recorded as not runnable: it needs root on a dedicated, authorized server and a driver that allows
+`nvidia-smi -pl` (not a WSL2 laptop). Accept the harness report as evidence for the default-limit step
+only; the remaining steps, the plot and question 3 still need the real sweep, and question 3 stays
+`[MODELED from MEASURED]`. CPU fallback: the same phases on the CPU, throughput only, power recorded as
+not measurable.

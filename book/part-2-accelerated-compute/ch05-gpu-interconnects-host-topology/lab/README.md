@@ -144,6 +144,40 @@ recalibrate `path_model.yaml`; label everything `[MEASURED]` with the manifest a
 > **Safety:** Misaligned runs deliberately degrade performance; run them only on drained lab nodes,
 > never inside a shared production job.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch05
+python scripts/hw_labs.py run ch05 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch05 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch05               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+It captures the real `nvidia-smi topo -m` (parsed with the lab's own `parse_topo_matrix`), the GPU's PCIe
+capability and negotiated link at idle and under load, a PCI/sysfs scan for RDMA NICs, and every Table
+5.3 GPUDirect RDMA prerequisite readable without root. It measures pinned/pageable H2D and D2H bandwidth
+against the link ceiling, then applies the lab's GDR gate (`path_model.yaml: gdr_max_relation`) to the
+GPU-NIC pairs actually found. With no NIC the verdict is "GDR impossible on this host".
+
+Not runnable on the harness: the capture script's root-only parts (`lspci -vvv` ACS/LnkSta, `lstopo`,
+`ibdev2netdev`, LLDP), NVLink status, and the L3 aligned-versus-misaligned `all_reduce_perf` runs.
+
+The CPU fallback captures the PCI/NUMA/RDMA probes and the Table 5.3 gate without a GPU, and measures
+host-memory copy bandwidth.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. The Table 5.3 evidence table and its verdict are the input to Exercise 5.15.
+Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 Three of the four hosts contain planted faults of different kinds, and one is clean. The fault list,

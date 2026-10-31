@@ -51,3 +51,18 @@ occupancy, single GPU (3).
 **Common mistakes.** Double-counting overlapping intervals across streams; classifying a gap by the
 previous activity instead of the next activity's submit time; computing pageable bandwidth from the API
 duration; reporting occupancy without the limiter; flagging the GEMMs.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch04 --device gpu` is the lab's L2 extension, scripted. It captures a real
+training step twice: a baseline with a pageable batch, a per-layer `.item()` hook and a per-parameter
+AdamW, and a fixed step with a pinned side-stream prefetch, no hook and the fused AdamW. Each capture is
+exported in this lab's schema and analysed with the reference `analyze()`. The baseline must show
+`PAGEABLE_H2D` and `EXCESS_SYNC` and the fixed step must not. The uninstrumented step times (median of
+≥ 5) and the launch and sync counts per step give the before/after the extension asks for, using the
+Chapter 6 protocol. Under WSL2, CUPTI delivers no GPU activity to `torch.profiler`, so the GPU intervals
+come from a CUDA-event tracer around each op. Occupancy (and so `LOW_OCCUPANCY`) is recorded as not
+runnable there. Credit an `analysis.md` that uses the L2 report for "an annotated execution trace" if it
+labels the numbers `[MEASURED]` and names the tracer's limits. The tracer adds host time per op, so the
+launch-bound gaps are upper bounds. The CPU fallback (`--device cpu`) profiles both variants on the CPU,
+classifies aten time, and runs `analyze()` on the shipped simulated trace.

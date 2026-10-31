@@ -185,6 +185,32 @@ What to do with it:
   you the real `hbm_efficiency` + overhead for your stack. Record it in the manifest. Do **not**
   copy it back into `configs.yaml` and call the model "validated".
 
+**L2 on any single GPU without an engine (scripted, with CPU fallback).** A serving engine and an open
+model need the network and more than 8 GB of VRAM. `lab/l2/experiment.py` therefore uses a random-weight
+GQA decoder with known shapes (no download), so your Part A formulas can be checked against real kernels.
+It measures:
+
+- KV cache bytes per token (allocator delta) against `kv_bytes_per_token`;
+- prefill latency against prompt length, with achieved TFLOP/s and the implied `prefill_mfu`;
+- decode step time over a batch sweep and a context sweep, against the `decode_step_time_s` lower bound,
+  giving the implied `hbm_efficiency` and per-step overhead;
+- a generation loop for TTFT, ITL p50/p95/p99 and TPOT;
+- `kv_budget_bytes` and `max_concurrent_sequences` for this GPU, using the measured weight bytes and
+  activation reserve.
+
+```bash
+python scripts/hw_labs.py build ch15
+python scripts/hw_labs.py run ch15 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch15 --device cpu   # CPU fallback
+```
+
+The CPU fallback is automatic: with no GPU a smaller FP32 model runs the same measurements on the CPU, and
+the bandwidth and peak invariants are skipped. This run is eager PyTorch, with no CUDA graphs, paged
+attention or continuous batching. Its overhead and efficiency describe that stack, not vLLM.
+**Observed on the reference run:** `lab/l2/results/gpu-rtx-4060-laptop-gpu/` (a laptop Ada GPU with
+≈ 256 GB/s GDDR6, not an H100) and `lab/l2/results/cpu-fallback/` hold the coordinator's full runs. Each
+`report.md` puts the prefill and decode tables next to the lab model's prediction.
+
 **L3: two or more nodes, disaggregated serving over RDMA.** First baseline the transport:
 
 ```bash

@@ -164,6 +164,40 @@ Record the values twice, 60 s apart, and compute rates with your `counters_to_ra
    "cannot conclude" list.
 6. Fill a copy of `manifest.yaml` with the real values listed under `extensions[].record`.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch09
+python scripts/hw_labs.py run ch09 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch09 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch09               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+This host has no RDMA NIC, so the NIC counter capture above is probed and recorded as not runnable. The
+harness reads the host's real TCP congestion-control algorithm and ECN mode. It then runs an N:1 TCP
+incast on loopback (N = 1, 2, 4, 8; >= 5 repetitions) and reports per-flow bandwidth, FCT median/p95/p99,
+Jain's fairness and incast completion. It snapshots the namespace's cumulative counters (`RetransSegs`,
+`InCEPkts`, `InECT0Pkts`, loss probes ...) around every run and turns them into rates with the lab's own
+`counters_to_rates`, then sets the lab's `[SIMULATED]` 400 Gb/s incast model beside them. Loopback has no
+switch queue, ECN marking or PFC, so the measurement teaches the method, not fabric behaviour.
+
+Not runnable on the harness: RDMA NIC PFC/ECN/CNP counters, and the L3 RDMA incast with ECN threshold A/B
+on a lab leaf.
+
+The CPU fallback is identical (the experiment does not use the GPU).
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 10. Intentionally flawed inputs
 
 The dataset contains planted anomalies and configuration faults. They are documented for instructors

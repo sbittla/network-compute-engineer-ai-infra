@@ -179,6 +179,31 @@ time (until the future resolves), and step time before/during/after. These APIs 
 `[VENDOR-SPEC, 2026-10]`: confirm their names and arguments in the documentation for your PyTorch
 version; `async_save` requires an initialized process group in some versions.
 
+**L2 checkpoint run, scripted (one GPU, with CPU fallback).** `lab/l2/experiment.py` implements the
+checkpoint extension above and exercise 14.19 on a model with ≥ 1 GB of state (full mode). It runs
+`dcp.save`, `dcp.async_save` and `async_save` with pinned cached staging, one warm-up then ≥ 5
+repetitions each. It records blocking and completion time, step time before, during and after the
+persist, the host bytes DCP staged (and how many are pinned), D2H snapshot GB/s against the PCIe link,
+write GB/s with fsync, and `dcp.load` GB/s after evicting the page cache. It checks whether the async
+checkpoint equals the state at the call. Then it plugs the measured rates into your `strategy_timings`
+(`async_pfs`). Finally it runs the restore test: a halcyon-ckpt-v1 manifest is written, a scratch copy is
+corrupted, your `validate_checkpoint` rejects it, and the run restores from the intact copy and compares
+the first-step loss with the value recorded at save.
+
+```bash
+python scripts/hw_labs.py build ch14
+python scripts/hw_labs.py run ch14 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch14 --device cpu   # CPU fallback
+```
+
+The CPU fallback is automatic: with no GPU the model lives in host memory and the same benchmark and
+restore test run. The pinned series and the D2H/PCIe invariants are skipped. The fio NVMe acceptance test
+needs fio and a raw NVMe device, which a Docker Desktop/WSL2 container does not have, so it is recorded as
+not runnable. **Observed on the reference run:** the coordinator's full runs are in
+`lab/l2/results/gpu-rtx-4060-laptop-gpu/` and `lab/l2/results/cpu-fallback/`. The target is a WSL2
+virtual disk, not NVMe or a PFS. Read the shape there: blocking much shorter than completion, interference
+above zero, and the consistency and restore-test lines.
+
 **L3 — shared storage (2+ GPU nodes, maintenance window).** On a Lustre-class PFS, record the
 striping of your checkpoint directory (`lfs getstripe <dir>`; set a stripe count and size for a new
 directory with `lfs setstripe -c <count> -S <size> <dir>`), then run the checkpoint from all ranks and

@@ -128,6 +128,38 @@ percentages. Run `analyze()` on three separate captures and report the spread of
 number `[MEASURED]` with the manifest attached. Try one fix (for example `pin_memory=True`) and show
 before/after with the Chapter 6 benchmark protocol.
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` captures a real training
+step in two variants and runs this lab's `analyze()` on both. The step is a 4-block MLP in BF16 autocast
+with AdamW. The **baseline** has three pathologies on purpose: a pageable batch copy, a `.item()` debug
+hook on every Linear, and a per-parameter AdamW. The **fixed** step uses a pinned batch prefetched on a
+side stream, no hook, and the fused AdamW. Each capture is written in this lab's schema
+(`gpu_trace.csv`, `cuda_api_trace.csv`, `nvtx_ranges.csv`, `device.json` for this GPU). The kernels are
+classified (GEMM, elementwise, cast/copy, reduction, optimizer, memcpy) with their achieved TFLOP/s and
+GB/s. The uninstrumented step times are then compared: median of ≥ 5 steps, with kernel-launch and
+host-sync counts per step from `torch.profiler`. Under WSL2, `torch.profiler` (CUPTI) records the CPU
+side but no GPU activity. The experiment probes for this and then takes the GPU-side intervals from a
+CUDA-event tracer around each aten op. Occupancy needs the launch configuration (CUPTI kernel records or
+Nsight Compute), so it is recorded as not runnable.
+
+```bash
+python scripts/hw_labs.py build ch04
+python scripts/hw_labs.py run ch04 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch04 --device cpu   # the CPU fallback
+```
+
+The CPU fallback is automatic (`--device auto` without an NVIDIA driver). It captures both variants with
+`torch.profiler` on the CPU, classifies aten self time, and measures the step and optimizer-step times.
+It also runs `analyze()` on the shipped simulated trace. The report says that the GPU-only invariants
+were skipped. On a GPU, the invariants are: the baseline shows `PAGEABLE_H2D` and `EXCESS_SYNC` and the
+fixed step shows neither; there are fewer launches and syncs per step; the fixed step is faster; H2D
+stays below the PCIe link; GEMMs stay below the BF16 peak; and kernels larger than 2× L2 stay below the
+DRAM bandwidth.
+
+*Observed on the reference run:* `lab/l2/results/gpu-<model>/` and `cpu-fallback/` hold the bundles
+from a laptop RTX 4060 (Ada, 24 SMs). They show the baseline's gaps attributed to their causes, the
+findings disappearing in the fixed step, and the measured speed-up. It is a laptop GPU, not the
+manuscript's H100-class part: the absolute times differ, but the signatures in the timeline are the same.
+
 ## 9. Intentionally flawed inputs
 
 The capture contains planted problems and at least one planted distractor. Their list, magnitudes and

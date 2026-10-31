@@ -1,0 +1,3119 @@
+{
+  "device": {
+    "compute_capability": "8.9",
+    "evidence": "MODELED from VENDOR-SPEC: CUDA C++ Programming Guide per-CC limits; peaks = SMs x FLOP/clk/SM x clocks.max.sm and bus width x 2 x clocks.max.memory",
+    "hbm_bytes_per_s": 256032000000.0,
+    "l2_cache_bytes": 33554432,
+    "max_blocks_per_sm": 24,
+    "max_regs_per_thread": 255,
+    "max_smem_per_block_bytes": 101376,
+    "max_threads_per_sm": 1536,
+    "max_warps_per_sm": 48,
+    "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "pcie_bytes_per_s_per_dir": 15752000000.0,
+    "peak_bf16_dense_flops": 38154240000000.0,
+    "reg_alloc_unit_per_warp": 256,
+    "regs_per_sm": 65536,
+    "sm_count": 24,
+    "smem_per_sm_bytes": 102400,
+    "smem_reserved_per_block_bytes": 1024,
+    "warp_alloc_granularity": 4,
+    "warp_size": 32
+  },
+  "experiment": {
+    "cpu_fallback": "torch.profiler capture of the same baseline and fixed steps on the CPU, aten ops classified by self time, uninstrumented before/after step times, and the lab's analyze() on the shipped simulated trace",
+    "evidence": "MEASURED",
+    "id": "ch04-l2",
+    "title": "Lab 4 L2: capture, classify and analyse a real training step (before and after the fixes)"
+  },
+  "invariants": {
+    "failures": [
+      "baseline capture lacks ['EXCESS_SYNC']: the pathologies it contains on purpose were not detected",
+      "baseline capture lacks ['EXCESS_SYNC']: the pathologies it contains on purpose were not detected"
+    ],
+    "passed": false
+  },
+  "log": [
+    "baseline step median    49.65 ms  p95    52.31 ms  launches/step 232  syncs/step 11",
+    "fixed    step median    39.39 ms  p95    39.77 ms  launches/step 83  syncs/step 2"
+  ],
+  "metrics": {
+    "baseline_busy_any_frac": 0.885,
+    "baseline_launches_per_step": 232,
+    "baseline_opt_step_ms": 7.928,
+    "baseline_step_ms": 49.652,
+    "fixed_busy_any_frac": 0.98,
+    "fixed_launches_per_step": 83,
+    "fixed_opt_step_ms": 6.5812,
+    "fixed_step_ms": 39.394,
+    "speedup": 1.26
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "CUDA-event tracer per aten op; occupancy / LOW_OCCUPANCY not evaluated",
+      "needs": [
+        "CUPTI activity tracing (native Linux driver; not delivered under WSL2 here)",
+        "Nsight Compute for counters"
+      ],
+      "part": "GPU activity in torch.profiler / nsys (CUPTI kernel and memcpy records: launch config, registers, shared memory)",
+      "probe": "torch.profiler with ProfilerActivity.CUDA over one step: 0 device events (232 cudaLaunchKernel calls recorded on the CPU side)"
+    }
+  ],
+  "notes": [
+    "Step time = median of >= 5 uninstrumented steps (CUDA events) after warm-up; the traced captures are separate.",
+    "3 captures of 2 steps per variant; analyze() runs on each and the spread is reported.",
+    "Tracer overhead (~10-30 us host time per op) inflates launch-bound gaps; FLOPs/bytes per op are [MODELED].",
+    "Pageable vs pinned and the per-layer .item() are deliberate pathologies of the baseline step."
+  ],
+  "runtime_s": 5.97,
+  "status": "ran",
+  "tables": {
+    "step_time": [
+      {
+        "iqr": 0.0014609842300415052,
+        "max": 0.05231196975708008,
+        "median": 0.04965228843688965,
+        "min": 0.04916559982299805,
+        "n": 10,
+        "p95": 0.05231196975708008,
+        "variant": "baseline"
+      },
+      {
+        "iqr": 0.00025450229644775196,
+        "max": 0.039766815185546874,
+        "median": 0.03939395141601562,
+        "min": 0.03917011260986328,
+        "n": 10,
+        "p95": 0.039766815185546874,
+        "variant": "fixed"
+      }
+    ]
+  },
+  "variants": {
+    "baseline": {
+      "captures": [
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 3624767,
+                "gbps": 4.628495017748727,
+                "host_mem": "pageable",
+                "id": 1,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 243968,
+                "gbps": 1.6395592864637986e-05,
+                "host_mem": "pageable",
+                "id": 9,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 89889,
+                "gbps": 4.4499326947679916e-05,
+                "host_mem": "pageable",
+                "id": 17,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 125503,
+                "gbps": 3.187174808570313e-05,
+                "host_mem": "pageable",
+                "id": 24,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 70273,
+                "gbps": 5.692086576636831e-05,
+                "host_mem": "pageable",
+                "id": 32,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 171425,
+                "gbps": 2.333381945457197e-05,
+                "host_mem": "pageable",
+                "id": 39,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 79745,
+                "gbps": 5.015988463226535e-05,
+                "host_mem": "pageable",
+                "id": 47,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 118208,
+                "gbps": 3.383865728207905e-05,
+                "host_mem": "pageable",
+                "id": 54,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 78591,
+                "gbps": 5.089641307528852e-05,
+                "host_mem": "pageable",
+                "id": 62,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1507,
+                "gbps": 0.0026542800265428003,
+                "host_mem": "pageable",
+                "id": 137,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 17731,
+                "gbps": 0.00022559359314195478,
+                "host_mem": "pageable",
+                "id": 147,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1438,
+                "gbps": 0.0027816411682892906,
+                "host_mem": "pageable",
+                "id": 157,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 2335,
+                "gbps": 0.0017130620985010706,
+                "host_mem": "pageable",
+                "id": 167,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1568,
+                "gbps": 0.002551020408163265,
+                "host_mem": "pageable",
+                "id": 177,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 15618,
+                "gbps": 0.00025611473940325265,
+                "host_mem": "pageable",
+                "id": 187,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1567,
+                "gbps": 0.0025526483726866626,
+                "host_mem": "pageable",
+                "id": 197,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 13314,
+                "gbps": 0.0003004356316659156,
+                "host_mem": "pageable",
+                "id": 207,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 217,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 2014,
+                "gbps": 0.0019860973187686196,
+                "host_mem": "pageable",
+                "id": 227,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 5535,
+                "gbps": 0.0007226738934056008,
+                "host_mem": "pageable",
+                "id": 237,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 247,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 257,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 57667,
+                "gbps": 6.936376090311617e-05,
+                "host_mem": "pageable",
+                "id": 267,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 5638,
+                "gbps": 0.000709471443774388,
+                "host_mem": "pageable",
+                "id": 277,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 37246,
+                "gbps": 0.00010739408258604951,
+                "host_mem": "pageable",
+                "id": 287,
+                "stream": 0
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 2856414,
+                "gbps": 5.8735239359560625,
+                "host_mem": "pageable",
+                "id": 295,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 104354,
+                "gbps": 3.833106541196313e-05,
+                "host_mem": "pageable",
+                "id": 303,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 129249,
+                "gbps": 3.094801507168334e-05,
+                "host_mem": "pageable",
+                "id": 311,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 271263,
+                "gbps": 1.474583706587334e-05,
+                "host_mem": "pageable",
+                "id": 318,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 96642,
+                "gbps": 4.1389871898346477e-05,
+                "host_mem": "pageable",
+                "id": 326,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 161148,
+                "gbps": 2.4821902847072255e-05,
+                "host_mem": "pageable",
+                "id": 333,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 79110,
+                "gbps": 5.056250790039186e-05,
+                "host_mem": "pageable",
+                "id": 341,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 102783,
+                "gbps": 3.891694151756613e-05,
+                "host_mem": "pageable",
+                "id": 348,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 125091,
+                "gbps": 3.1976720947150476e-05,
+                "host_mem": "pageable",
+                "id": 356,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 415,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 13664,
+                "gbps": 0.0002927400468384075,
+                "host_mem": "pageable",
+                "id": 425,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 435,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 445,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 455,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 2052,
+                "gbps": 0.001949317738791423,
+                "host_mem": "pageable",
+                "id": 465,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 475,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 3586,
+                "gbps": 0.0011154489682097045,
+                "host_mem": "pageable",
+                "id": 485,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 495,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 29502,
+                "gbps": 0.00013558402820147786,
+                "host_mem": "pageable",
+                "id": 505,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1572,
+                "gbps": 0.002544529262086514,
+                "host_mem": "pageable",
+                "id": 515,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 4860,
+                "gbps": 0.0008230452674897119,
+                "host_mem": "pageable",
+                "id": 525,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 535,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 23071,
+                "gbps": 0.0001733778336439686,
+                "host_mem": "pageable",
+                "id": 545,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1511,
+                "gbps": 0.0026472534745201853,
+                "host_mem": "pageable",
+                "id": 555,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 14785,
+                "gbps": 0.0002705444707473791,
+                "host_mem": "pageable",
+                "id": 565,
+                "stream": 0
+              }
+            ],
+            "findings": [
+              {
+                "code": "PAGEABLE_H2D",
+                "est_saving_ms_per_step": 3.2405905,
+                "evidence": "2 large copies from pageable memory, 32 MiB, 6.5 ms total at 5.2 GB/s (no pinned copy in this capture); host thread blocked and no kernel overlaps them",
+                "recommendation": "Pin the source buffers (DataLoader pin_memory=True or a pinned staging pool), copy with non_blocking=True on a side stream one step ahead, and make the compute stream wait on an event."
+              },
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 2.1820055,
+                "evidence": "54 kernels/step shorter than 10 \u00b5s (median 3.8 \u00b5s, grid size not captured on a 24-SM GPU); 7 launch-bound gaps/step totalling 2.18 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              },
+              {
+                "code": "STREAM_DEPENDENCY",
+                "est_saving_ms_per_step": 5.7534635,
+                "evidence": "98 gap(s)/step totalling 5.75 ms where the next kernel (aten::_to_copy) had been submitted long before the GPU went idle: the compute stream was waiting on an event from another stream",
+                "recommendation": "Find the cudaStreamWaitEvent/cudaLaunchHostFunc pair (here a monitoring callback) and take the host function off the compute stream's dependency chain (record an event and poll it later)."
+              }
+            ],
+            "gaps_by_cause": {
+              "dependency": 197,
+              "launch_bound": 14
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1159761.7666666666,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7764942669596046,
+                "time_share": 0.33285490599810746,
+                "total_ns": 34792853
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1235600.0,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.7288348679634261,
+                "time_share": 0.18913103646947796,
+                "total_ns": 19769600
+              },
+              {
+                "bound": "memory",
+                "count": 86,
+                "limiter": "not captured",
+                "mean_ns": 108319.09302325582,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 0.8232216373439952,
+                "time_share": 0.0891186063770287,
+                "total_ns": 9315442
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 501132.5625,
+                "name": "aten::abs",
+                "occupancy": null,
+                "roof_frac": 0.6537971579513158,
+                "time_share": 0.07670744654761286,
+                "total_ns": 8018121
+              },
+              {
+                "bound": "memory",
+                "count": 64,
+                "limiter": "not captured",
+                "mean_ns": 88653.65625,
+                "name": "aten::mul_",
+                "occupancy": null,
+                "roof_frac": 0.3697975176545352,
+                "time_share": 0.05428021331619072,
+                "total_ns": 5673834
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 134844.0,
+                "name": "aten::addcdiv_",
+                "occupancy": null,
+                "roof_frac": 0.7293739879916452,
+                "time_share": 0.04128064985705776,
+                "total_ns": 4315008
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 120253.96875,
+                "name": "aten::lerp_",
+                "occupancy": null,
+                "roof_frac": 0.5452444081975211,
+                "time_share": 0.03681411095703418,
+                "total_ns": 3848127
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 436852.25,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.8999996088911804,
+                "time_share": 0.03343408822698426,
+                "total_ns": 3494818
+              },
+              {
+                "bound": "memory",
+                "count": 18,
+                "limiter": "not captured",
+                "mean_ns": 176017.66666666666,
+                "name": "aten::mean",
+                "occupancy": null,
+                "roof_frac": 0.8686527868154247,
+                "time_share": 0.030310540790147673,
+                "total_ns": 3168318
+              },
+              {
+                "bound": "memory",
+                "count": 80,
+                "limiter": "not captured",
+                "mean_ns": 30274.675,
+                "name": "aten::add_",
+                "occupancy": null,
+                "roof_frac": 0.8663056369655092,
+                "time_share": 0.023170446186171062,
+                "total_ns": 2421974
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 61899.53125,
+                "name": "aten::addcmul_",
+                "occupancy": null,
+                "roof_frac": 1.0592617213801103,
+                "time_share": 0.018949696507425284,
+                "total_ns": 1980785
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 246453.625,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 1.0635316729282764,
+                "time_share": 0.018862103244541132,
+                "total_ns": 1971629
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.8678725767340133,
+                "busy_any_ns": 58995651,
+                "busy_copy_ns": 4769996,
+                "busy_kernel_frac": 0.7977021718082173,
+                "busy_kernel_ns": 54225655,
+                "copy_ns": 4769996,
+                "gaps": {
+                  "dependency": {
+                    "count": 99,
+                    "ms": 5.664104
+                  },
+                  "launch_bound": {
+                    "count": 6,
+                    "ms": 2.617854
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_1",
+                "step_ms": 67.977319,
+                "window_ns": 67977319
+              },
+              {
+                "busy_any_frac": 0.8715833086613181,
+                "busy_any_ns": 54267850,
+                "busy_copy_ns": 4031025,
+                "busy_kernel_frac": 0.8068419543088517,
+                "busy_kernel_ns": 50236825,
+                "copy_ns": 4031025,
+                "gaps": {
+                  "dependency": {
+                    "count": 98,
+                    "ms": 5.842823
+                  },
+                  "launch_bound": {
+                    "count": 8,
+                    "ms": 1.746157
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_2",
+                "step_ms": 62.263526,
+                "window_ns": 62263526
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 240.41550923023462,
+            "max_gemm_tflops": 29.938378721631953
+          },
+          "categories": [
+            {
+              "achieved_gbs": 42.43463408802386,
+              "achieved_tflops": 28.967685249195085,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 27.2812265,
+              "time_share": 0.4814492343430677
+            },
+            {
+              "achieved_gbs": 194.7410277553507,
+              "achieved_tflops": 0.02884154270895661,
+              "category": "elementwise",
+              "count_per_step": 178.0,
+              "gpu_ms_per_step": 18.1842595,
+              "time_share": 0.3209092455344944
+            },
+            {
+              "achieved_gbs": 210.7710822524578,
+              "achieved_tflops": 0.03512851370874297,
+              "category": "cast/copy",
+              "count_per_step": 43.0,
+              "gpu_ms_per_step": 4.657721,
+              "time_share": 0.08219777835991456
+            },
+            {
+              "achieved_gbs": 3.8125685644881435,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 25.0,
+              "gpu_ms_per_step": 4.4005105,
+              "time_share": 0.07765862033159067
+            },
+            {
+              "achieved_gbs": 242.93025620403472,
+              "achieved_tflops": 9.569440562069772e-06,
+              "category": "reduction",
+              "count_per_step": 17.0,
+              "gpu_ms_per_step": 2.1410865,
+              "time_share": 0.03778512143093268
+            }
+          ],
+          "ops_per_step": 286.0
+        },
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 2416385,
+                "gbps": 6.943105506779756,
+                "host_mem": "pageable",
+                "id": 1,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 123008,
+                "gbps": 3.251821019771072e-05,
+                "host_mem": "pageable",
+                "id": 9,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 142016,
+                "gbps": 2.8165840468679586e-05,
+                "host_mem": "pageable",
+                "id": 17,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 139744,
+                "gbps": 2.862376917792535e-05,
+                "host_mem": "pageable",
+                "id": 24,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 67039,
+                "gbps": 5.966676113903847e-05,
+                "host_mem": "pageable",
+                "id": 32,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 104063,
+                "gbps": 3.843825375013213e-05,
+                "host_mem": "pageable",
+                "id": 39,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 85951,
+                "gbps": 4.653814382613349e-05,
+                "host_mem": "pageable",
+                "id": 47,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 134081,
+                "gbps": 2.9832713061507598e-05,
+                "host_mem": "pageable",
+                "id": 54,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 78720,
+                "gbps": 5.08130081300813e-05,
+                "host_mem": "pageable",
+                "id": 62,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 121,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1408,
+                "gbps": 0.002840909090909091,
+                "host_mem": "pageable",
+                "id": 131,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 141,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 19680,
+                "gbps": 0.0002032520325203252,
+                "host_mem": "pageable",
+                "id": 151,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 161,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1407,
+                "gbps": 0.0028429282160625444,
+                "host_mem": "pageable",
+                "id": 171,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 181,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 14175,
+                "gbps": 0.0002821869488536155,
+                "host_mem": "pageable",
+                "id": 191,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 201,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 211,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1469,
+                "gbps": 0.002722940776038121,
+                "host_mem": "pageable",
+                "id": 221,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 19295,
+                "gbps": 0.00020730759264058046,
+                "host_mem": "pageable",
+                "id": 231,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1507,
+                "gbps": 0.0026542800265428003,
+                "host_mem": "pageable",
+                "id": 241,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 4383,
+                "gbps": 0.0009126169290440338,
+                "host_mem": "pageable",
+                "id": 251,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 261,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1918,
+                "gbps": 0.0020855057351407717,
+                "host_mem": "pageable",
+                "id": 271,
+                "stream": 0
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1939137,
+                "gbps": 8.651898241331066,
+                "host_mem": "pageable",
+                "id": 279,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 124801,
+                "gbps": 3.2051025232169614e-05,
+                "host_mem": "pageable",
+                "id": 287,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 97664,
+                "gbps": 4.0956749672346e-05,
+                "host_mem": "pageable",
+                "id": 295,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 127388,
+                "gbps": 3.14001318805539e-05,
+                "host_mem": "pageable",
+                "id": 302,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 176545,
+                "gbps": 2.26571129173865e-05,
+                "host_mem": "pageable",
+                "id": 310,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 153885,
+                "gbps": 2.5993436657244047e-05,
+                "host_mem": "pageable",
+                "id": 317,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 86052,
+                "gbps": 4.6483521591595777e-05,
+                "host_mem": "pageable",
+                "id": 325,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 121918,
+                "gbps": 3.280893715448088e-05,
+                "host_mem": "pageable",
+                "id": 332,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 71037,
+                "gbps": 5.63086842068218e-05,
+                "host_mem": "pageable",
+                "id": 340,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 399,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 13023,
+                "gbps": 0.00030714889042463337,
+                "host_mem": "pageable",
+                "id": 409,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1441,
+                "gbps": 0.002775850104094379,
+                "host_mem": "pageable",
+                "id": 419,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 13061,
+                "gbps": 0.0003062552637623459,
+                "host_mem": "pageable",
+                "id": 429,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 439,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 449,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 459,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 469,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 479,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 12512,
+                "gbps": 0.00031969309462915604,
+                "host_mem": "pageable",
+                "id": 489,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 499,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 12924,
+                "gbps": 0.00030950170225936243,
+                "host_mem": "pageable",
+                "id": 509,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 519,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 529,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 539,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 20164,
+                "gbps": 0.00019837333862328903,
+                "host_mem": "pageable",
+                "id": 549,
+                "stream": 0
+              }
+            ],
+            "findings": [
+              {
+                "code": "PAGEABLE_H2D",
+                "est_saving_ms_per_step": 2.177761,
+                "evidence": "2 large copies from pageable memory, 32 MiB, 4.4 ms total at 7.7 GB/s (no pinned copy in this capture); host thread blocked and no kernel overlaps them",
+                "recommendation": "Pin the source buffers (DataLoader pin_memory=True or a pinned staging pool), copy with non_blocking=True on a side stream one step ahead, and make the compute stream wait on an event."
+              },
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 3.6607045,
+                "evidence": "66 kernels/step shorter than 10 \u00b5s (median 3.8 \u00b5s, grid size not captured on a 24-SM GPU); 32 launch-bound gaps/step totalling 3.66 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              },
+              {
+                "code": "STREAM_DEPENDENCY",
+                "est_saving_ms_per_step": 0.6757405,
+                "evidence": "42 gap(s)/step totalling 0.68 ms where the next kernel (aten::addmm) had been submitted long before the GPU went idle: the compute stream was waiting on an event from another stream",
+                "recommendation": "Find the cudaStreamWaitEvent/cudaLaunchHostFunc pair (here a monitoring callback) and take the host function off the compute stream's dependency chain (record an event and poll it later)."
+              }
+            ],
+            "gaps_by_cause": {
+              "dependency": 85,
+              "launch_bound": 65
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1159999.9333333333,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7763348401821252,
+                "time_share": 0.35853007277274873,
+                "total_ns": 34799998
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1236224.625,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.7284666108763278,
+                "time_share": 0.20378102539647916,
+                "total_ns": 19779594
+              },
+              {
+                "bound": "memory",
+                "count": 86,
+                "limiter": "not captured",
+                "mean_ns": 106452.18604651163,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 0.8376589004500133,
+                "time_share": 0.09431904739955342,
+                "total_ns": 9154888
+              },
+              {
+                "bound": "memory",
+                "count": 64,
+                "limiter": "not captured",
+                "mean_ns": 76709.234375,
+                "name": "aten::mul_",
+                "occupancy": null,
+                "roof_frac": 0.4273788192433444,
+                "time_share": 0.05057943717410207,
+                "total_ns": 4909391
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 303484.25,
+                "name": "aten::abs",
+                "occupancy": null,
+                "roof_frac": 1.0795915936967406,
+                "time_share": 0.050026775398266665,
+                "total_ns": 4855748
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 125986.65625,
+                "name": "aten::addcdiv_",
+                "occupancy": null,
+                "roof_frac": 0.78065176872051,
+                "time_share": 0.04153563919971055,
+                "total_ns": 4031573
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 114803.59375,
+                "name": "aten::lerp_",
+                "occupancy": null,
+                "roof_frac": 0.5711302397665312,
+                "time_share": 0.03784877534465199,
+                "total_ns": 3673715
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 432856.0,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.9083086618719206,
+                "time_share": 0.03567629933314845,
+                "total_ns": 3462848
+              },
+              {
+                "bound": "memory",
+                "count": 18,
+                "limiter": "not captured",
+                "mean_ns": 166669.38888888888,
+                "name": "aten::mean",
+                "occupancy": null,
+                "roof_frac": 0.9173744362900316,
+                "time_share": 0.030908271497366524,
+                "total_ns": 3000049
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 248867.0,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 1.0532181289423188,
+                "time_share": 0.0205117951146401,
+                "total_ns": 1990936
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 54996.4375,
+                "name": "aten::addcmul_",
+                "occupancy": null,
+                "roof_frac": 1.1922191146380516,
+                "time_share": 0.01813138195156625,
+                "total_ns": 1759886
+              },
+              {
+                "bound": "memory",
+                "count": 34,
+                "limiter": "not captured",
+                "mean_ns": 42993.85294117647,
+                "name": "aten::div",
+                "occupancy": null,
+                "roof_frac": 1.6146500866946027,
+                "time_share": 0.015060231716350935,
+                "total_ns": 1461791
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.9316331674265019,
+                "busy_any_ns": 51113614,
+                "busy_copy_ns": 3364547,
+                "busy_kernel_frac": 0.8703085352342774,
+                "busy_kernel_ns": 47749067,
+                "copy_ns": 3364547,
+                "gaps": {
+                  "dependency": {
+                    "count": 38,
+                    "ms": 0.599911
+                  },
+                  "launch_bound": {
+                    "count": 23,
+                    "ms": 2.623425
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_1",
+                "step_ms": 54.864528,
+                "window_ns": 54864528
+              },
+              {
+                "busy_any_frac": 0.8998610057461526,
+                "busy_any_ns": 52282791,
+                "busy_copy_ns": 2988163,
+                "busy_kernel_frac": 0.8484304812641401,
+                "busy_kernel_ns": 49294628,
+                "copy_ns": 2988163,
+                "gaps": {
+                  "dependency": {
+                    "count": 47,
+                    "ms": 0.75157
+                  },
+                  "launch_bound": {
+                    "count": 42,
+                    "ms": 4.697984
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_2",
+                "step_ms": 58.100963,
+                "window_ns": 58100963
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 240.55468670187884,
+            "max_gemm_tflops": 29.924246808985007
+          },
+          "categories": [
+            {
+              "achieved_gbs": 42.42130882913159,
+              "achieved_tflops": 28.95858886097939,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 27.289796,
+              "time_share": 0.5277689579256502
+            },
+            {
+              "achieved_gbs": 233.16471922545105,
+              "achieved_tflops": 0.034744506712861764,
+              "category": "elementwise",
+              "count_per_step": 170.0,
+              "gpu_ms_per_step": 14.611652,
+              "time_share": 0.28258094525925526
+            },
+            {
+              "achieved_gbs": 214.46748360001783,
+              "achieved_tflops": 0.03574458060000297,
+              "category": "cast/copy",
+              "count_per_step": 43.0,
+              "gpu_ms_per_step": 4.577444,
+              "time_share": 0.08852513407733131
+            },
+            {
+              "achieved_gbs": 5.281918425364923,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 25.0,
+              "gpu_ms_per_step": 3.176355,
+              "time_share": 0.06142887870440397
+            },
+            {
+              "achieved_gbs": 253.40297447285127,
+              "achieved_tflops": 9.98197894474274e-06,
+              "category": "reduction",
+              "count_per_step": 17.0,
+              "gpu_ms_per_step": 2.052599,
+              "time_share": 0.03969608403335927
+            }
+          ],
+          "ops_per_step": 278.0
+        },
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 3099103,
+                "gbps": 5.413571604428765,
+                "host_mem": "pageable",
+                "id": 1,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 172097,
+                "gbps": 2.3242706148276844e-05,
+                "host_mem": "pageable",
+                "id": 9,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 122304,
+                "gbps": 3.270538984824699e-05,
+                "host_mem": "pageable",
+                "id": 17,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 133152,
+                "gbps": 3.004085556356645e-05,
+                "host_mem": "pageable",
+                "id": 24,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 102784,
+                "gbps": 3.891656288916563e-05,
+                "host_mem": "pageable",
+                "id": 32,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 260960,
+                "gbps": 1.5328019619865113e-05,
+                "host_mem": "pageable",
+                "id": 39,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 109600,
+                "gbps": 3.649635036496351e-05,
+                "host_mem": "pageable",
+                "id": 47,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 412864,
+                "gbps": 9.688420399937994e-06,
+                "host_mem": "pageable",
+                "id": 54,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 106848,
+                "gbps": 3.7436358191075174e-05,
+                "host_mem": "pageable",
+                "id": 62,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 121,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1889,
+                "gbps": 0.0021175224986765486,
+                "host_mem": "pageable",
+                "id": 131,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 141,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 2209,
+                "gbps": 0.0018107741059302852,
+                "host_mem": "pageable",
+                "id": 151,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 161,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 2273,
+                "gbps": 0.0017597888253409592,
+                "host_mem": "pageable",
+                "id": 171,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1438,
+                "gbps": 0.0027816411682892906,
+                "host_mem": "pageable",
+                "id": 181,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 14400,
+                "gbps": 0.0002777777777777778,
+                "host_mem": "pageable",
+                "id": 191,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 201,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 32032,
+                "gbps": 0.00012487512487512488,
+                "host_mem": "pageable",
+                "id": 211,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1537,
+                "gbps": 0.002602472348731295,
+                "host_mem": "pageable",
+                "id": 221,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 20321,
+                "gbps": 0.0001968407066581369,
+                "host_mem": "pageable",
+                "id": 231,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1568,
+                "gbps": 0.002551020408163265,
+                "host_mem": "pageable",
+                "id": 241,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 7328,
+                "gbps": 0.0005458515283842794,
+                "host_mem": "pageable",
+                "id": 251,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 261,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 19135,
+                "gbps": 0.00020904102430101908,
+                "host_mem": "pageable",
+                "id": 271,
+                "stream": 0
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 2277218,
+                "gbps": 7.367417612191718,
+                "host_mem": "pageable",
+                "id": 279,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 650009,
+                "gbps": 6.153760947925336e-06,
+                "host_mem": "pageable",
+                "id": 287,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 139930,
+                "gbps": 2.8585721432144643e-05,
+                "host_mem": "pageable",
+                "id": 295,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 164154,
+                "gbps": 2.4367362354861898e-05,
+                "host_mem": "pageable",
+                "id": 302,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 116890,
+                "gbps": 3.422020703225254e-05,
+                "host_mem": "pageable",
+                "id": 310,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 134720,
+                "gbps": 2.9691211401425178e-05,
+                "host_mem": "pageable",
+                "id": 317,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 163902,
+                "gbps": 2.4404827274834962e-05,
+                "host_mem": "pageable",
+                "id": 325,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 103363,
+                "gbps": 3.869856718554995e-05,
+                "host_mem": "pageable",
+                "id": 332,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 66170,
+                "gbps": 6.0450355145836485e-05,
+                "host_mem": "pageable",
+                "id": 340,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1541,
+                "gbps": 0.0025957170668397143,
+                "host_mem": "pageable",
+                "id": 399,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 13565,
+                "gbps": 0.0002948765204570586,
+                "host_mem": "pageable",
+                "id": 409,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1435,
+                "gbps": 0.0027874564459930314,
+                "host_mem": "pageable",
+                "id": 419,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1503,
+                "gbps": 0.0026613439787092482,
+                "host_mem": "pageable",
+                "id": 429,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1602,
+                "gbps": 0.0024968789013732834,
+                "host_mem": "pageable",
+                "id": 439,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 449,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 459,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 14366,
+                "gbps": 0.00027843519420854795,
+                "host_mem": "pageable",
+                "id": 469,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 479,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1442,
+                "gbps": 0.0027739251040221915,
+                "host_mem": "pageable",
+                "id": 489,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 499,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1404,
+                "gbps": 0.002849002849002849,
+                "host_mem": "pageable",
+                "id": 509,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 519,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1473,
+                "gbps": 0.0027155465037338763,
+                "host_mem": "pageable",
+                "id": 529,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 1472,
+                "gbps": 0.002717391304347826,
+                "host_mem": "pageable",
+                "id": 539,
+                "stream": 0
+              },
+              {
+                "bytes": 4,
+                "copy_kind": "DtoH",
+                "dur_ns": 17823,
+                "gbps": 0.00022442910845536665,
+                "host_mem": "pageable",
+                "id": 549,
+                "stream": 0
+              }
+            ],
+            "findings": [
+              {
+                "code": "PAGEABLE_H2D",
+                "est_saving_ms_per_step": 2.6881605,
+                "evidence": "2 large copies from pageable memory, 32 MiB, 5.4 ms total at 6.2 GB/s (no pinned copy in this capture); host thread blocked and no kernel overlaps them",
+                "recommendation": "Pin the source buffers (DataLoader pin_memory=True or a pinned staging pool), copy with non_blocking=True on a side stream one step ahead, and make the compute stream wait on an event."
+              },
+              {
+                "code": "EXCESS_SYNC",
+                "est_saving_ms_per_step": 0.037792,
+                "evidence": "0 host-sync gaps per step, 0.04 ms GPU idle per step; the CPU blocks on .item()/synchronize and the GPU drains before new work arrives",
+                "recommendation": "Remove the per-layer debug .item() hook; accumulate metrics on the GPU and read them once every N steps; time steps with CUDA events instead of cudaDeviceSynchronize."
+              },
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 6.74655,
+                "evidence": "48 kernels/step shorter than 10 \u00b5s (median 3.8 \u00b5s, grid size not captured on a 24-SM GPU); 58 launch-bound gaps/step totalling 6.75 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              },
+              {
+                "code": "STREAM_DEPENDENCY",
+                "est_saving_ms_per_step": 0.7149985,
+                "evidence": "34 gap(s)/step totalling 0.71 ms where the next kernel (aten::_to_copy) had been submitted long before the GPU went idle: the compute stream was waiting on an event from another stream",
+                "recommendation": "Find the cudaStreamWaitEvent/cudaLaunchHostFunc pair (here a monitoring callback) and take the host function off the compute stream's dependency chain (record an event and poll it later)."
+              }
+            ],
+            "gaps_by_cause": {
+              "dependency": 69,
+              "host_sync": 1,
+              "launch_bound": 115
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1159214.3666666667,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7768609402634871,
+                "time_share": 0.3500393099862141,
+                "total_ns": 34776431
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1240044.625,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.7262225444956139,
+                "time_share": 0.19970507721720546,
+                "total_ns": 19840714
+              },
+              {
+                "bound": "memory",
+                "count": 86,
+                "limiter": "not captured",
+                "mean_ns": 108405.59302325582,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 0.8225647646712451,
+                "time_share": 0.09383869300226885,
+                "total_ns": 9322881
+              },
+              {
+                "bound": "memory",
+                "count": 64,
+                "limiter": "not captured",
+                "mean_ns": 79471.625,
+                "name": "aten::mul_",
+                "occupancy": null,
+                "roof_frac": 0.4125233630525168,
+                "time_share": 0.05119456731551672,
+                "total_ns": 5086184
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 303409.1875,
+                "name": "aten::abs",
+                "occupancy": null,
+                "roof_frac": 1.079858681337262,
+                "time_share": 0.04886304411673658,
+                "total_ns": 4854547
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 132328.5,
+                "name": "aten::addcdiv_",
+                "occupancy": null,
+                "roof_frac": 0.7432390304185825,
+                "time_share": 0.042622132748709705,
+                "total_ns": 4234512
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 119499.4375,
+                "name": "aten::lerp_",
+                "occupancy": null,
+                "roof_frac": 0.5486871352385817,
+                "time_share": 0.03848997675119977,
+                "total_ns": 3823982
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 432517.125,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.9090203171567649,
+                "time_share": 0.0348277247868756,
+                "total_ns": 3460137
+              },
+              {
+                "bound": "memory",
+                "count": 18,
+                "limiter": "not captured",
+                "mean_ns": 174944.0,
+                "name": "aten::mean",
+                "occupancy": null,
+                "roof_frac": 0.8739838844358678,
+                "time_share": 0.03169592034421555,
+                "total_ns": 3148992
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 297716.5,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 0.8804054733126584,
+                "time_share": 0.023973127830515032,
+                "total_ns": 2381732
+              },
+              {
+                "bound": "memory",
+                "count": 32,
+                "limiter": "not captured",
+                "mean_ns": 59945.46875,
+                "name": "aten::addcmul_",
+                "occupancy": null,
+                "roof_frac": 1.0937908300950094,
+                "time_share": 0.019308038153127476,
+                "total_ns": 1918255
+              },
+              {
+                "bound": "memory",
+                "count": 34,
+                "limiter": "not captured",
+                "mean_ns": 50059.617647058825,
+                "name": "aten::div",
+                "occupancy": null,
+                "roof_frac": 1.3867470756218263,
+                "time_share": 0.017131612978281356,
+                "total_ns": 1702027
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.8616758067917003,
+                "busy_any_ns": 54952450,
+                "busy_copy_ns": 4631174,
+                "busy_kernel_frac": 0.7890571957408237,
+                "busy_kernel_ns": 50321276,
+                "copy_ns": 4631174,
+                "gaps": {
+                  "dependency": {
+                    "count": 39,
+                    "ms": 0.696105
+                  },
+                  "host_sync": {
+                    "count": 1,
+                    "ms": 0.075584
+                  },
+                  "launch_bound": {
+                    "count": 70,
+                    "ms": 7.447112
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_1",
+                "step_ms": 63.773927,
+                "window_ns": 63773927
+              },
+              {
+                "busy_any_frac": 0.879667216162407,
+                "busy_any_ns": 52910112,
+                "busy_copy_ns": 3881315,
+                "busy_kernel_frac": 0.8151376691242266,
+                "busy_kernel_ns": 49028797,
+                "copy_ns": 3881315,
+                "gaps": {
+                  "dependency": {
+                    "count": 30,
+                    "ms": 0.733892
+                  },
+                  "launch_bound": {
+                    "count": 45,
+                    "ms": 6.045988
+                  }
+                },
+                "overlap_frac": 0.0,
+                "overlapped_ns": 0,
+                "step": "train_step_2",
+                "step_ms": 60.147873,
+                "window_ns": 60147873
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 239.8932741047193,
+            "max_gemm_tflops": 29.95260232038545
+          },
+          "categories": [
+            {
+              "achieved_gbs": 42.39214129555838,
+              "achieved_tflops": 28.938677862564955,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 27.3085725,
+              "time_share": 0.5063586844896193
+            },
+            {
+              "achieved_gbs": 218.71371783792895,
+              "achieved_tflops": 0.03259112383236322,
+              "category": "elementwise",
+              "count_per_step": 170.0,
+              "gpu_ms_per_step": 15.577083,
+              "time_share": 0.28883206019156116
+            },
+            {
+              "achieved_gbs": 210.60290182830823,
+              "achieved_tflops": 0.03510048363805137,
+              "category": "cast/copy",
+              "count_per_step": 43.0,
+              "gpu_ms_per_step": 4.6614405,
+              "time_share": 0.08643296457208202
+            },
+            {
+              "achieved_gbs": 3.94179610687309,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 25.0,
+              "gpu_ms_per_step": 4.2562445,
+              "time_share": 0.07891977385072682
+            },
+            {
+              "achieved_gbs": 244.43103178871775,
+              "achieved_tflops": 9.628558693252936e-06,
+              "category": "reduction",
+              "count_per_step": 17.0,
+              "gpu_ms_per_step": 2.1279405,
+              "time_share": 0.039456516896010686
+            }
+          ],
+          "ops_per_step": 278.0
+        }
+      ],
+      "meta": {
+        "batch_bytes": 16777216,
+        "blocks": 4,
+        "d": 1024,
+        "fixed": false,
+        "params": 33574912,
+        "tokens": 4096
+      },
+      "optimizer_step_time": {
+        "iqr": 0.00010706388950347881,
+        "max": 0.008293312072753906,
+        "mean": 0.007952618408203124,
+        "median": 0.007928016185760499,
+        "min": 0.007809663772583008,
+        "n": 40,
+        "p95": 0.008159168243408203
+      },
+      "profiler": {
+        "aten_ops": 464,
+        "aten_self_cpu_us_by_category": {
+          "cast/copy": 1160.417999999987,
+          "elementwise": 3715.056000000017,
+          "gemm": 1284.1630000000014,
+          "reduction": 577.6299999999865,
+          "sync": 214.00700000000325
+        },
+        "cudaLaunchKernel": 232,
+        "cudaMemcpyAsync": 10,
+        "gpu_activity_events": 0,
+        "sync_calls": 11
+      },
+      "step_time": {
+        "iqr": 0.0014609842300415052,
+        "max": 0.05231196975708008,
+        "mean": 0.05015556526184082,
+        "median": 0.04965228843688965,
+        "min": 0.04916559982299805,
+        "n": 10,
+        "p95": 0.05231196975708008
+      }
+    },
+    "fixed": {
+      "captures": [
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1624800,
+                "gbps": 10.325711472181192,
+                "host_mem": "pinned",
+                "id": 2,
+                "stream": 35
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1613056,
+                "gbps": 10.400888747817806,
+                "host_mem": "pinned",
+                "id": 107,
+                "stream": 35
+              }
+            ],
+            "findings": [
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 0.226144,
+                "evidence": "24 kernels/step shorter than 10 \u00b5s (median 5.0 \u00b5s, grid size not captured on a 24-SM GPU); 0 launch-bound gaps/step totalling 0.23 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              },
+              {
+                "code": "STREAM_DEPENDENCY",
+                "est_saving_ms_per_step": 0.012559,
+                "evidence": "3 gap(s)/step totalling 0.01 ms where the next kernel (aten::_to_copy) had been submitted long before the GPU went idle: the compute stream was waiting on an event from another stream",
+                "recommendation": "Find the cudaStreamWaitEvent/cudaLaunchHostFunc pair (here a monitoring callback) and take the host function off the compute stream's dependency chain (record an event and poll it later)."
+              }
+            ],
+            "gaps_by_cause": {
+              "dependency": 6,
+              "launch_bound": 1
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1158799.9333333333,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7771387768940811,
+                "time_share": 0.44378792547758106,
+                "total_ns": 34763998
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1168365.75,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.7707760714961126,
+                "time_share": 0.2386407282115518,
+                "total_ns": 18693852
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 6126398.5,
+                "name": "aten::_fused_adamw_",
+                "occupancy": null,
+                "roof_frac": 0.3424801665697483,
+                "time_share": 0.1564159381762687,
+                "total_ns": 12252797
+              },
+              {
+                "bound": "memory",
+                "count": 70,
+                "limiter": "not captured",
+                "mean_ns": 54080.08571428571,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 0.9871615995934867,
+                "time_share": 0.04832603641892638,
+                "total_ns": 3785606
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 447451.625,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.8786801347368715,
+                "time_share": 0.045696384727745655,
+                "total_ns": 3579613
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 263947.625,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 0.9930426011428899,
+                "time_share": 0.02695587980035772,
+                "total_ns": 2111581
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 69228.1875,
+                "name": "aten::sum",
+                "occupancy": null,
+                "roof_frac": 1.1834739827639207,
+                "time_share": 0.014139977209847042,
+                "total_ns": 1107651
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 64173.5625,
+                "name": "aten::add_",
+                "occupancy": null,
+                "roof_frac": 1.0217261044919694,
+                "time_share": 0.013107561298274562,
+                "total_ns": 1026777
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 119376.75,
+                "name": "aten::mul",
+                "occupancy": null,
+                "roof_frac": 1.3722900192849952,
+                "time_share": 0.00609572699121152,
+                "total_ns": 477507
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 74335.25,
+                "name": "aten::pow",
+                "occupancy": null,
+                "roof_frac": 1.7630346040101301,
+                "time_share": 0.003795775892905915,
+                "total_ns": 297341
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 45103.5,
+                "name": "aten::record_stream",
+                "occupancy": null,
+                "roof_frac": 1.4528320202173226,
+                "time_share": 0.0011515585000768944,
+                "total_ns": 90207
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 25553.0,
+                "name": "aten::div",
+                "occupancy": null,
+                "roof_frac": 5.128776192530976,
+                "time_share": 0.0006524055639244156,
+                "total_ns": 51106
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.9312974552895498,
+                "busy_any_ns": 30906381,
+                "busy_copy_ns": 1624800,
+                "busy_kernel_frac": 0.9063339228223491,
+                "busy_kernel_ns": 30077932,
+                "copy_ns": 1624800,
+                "gaps": {
+                  "dependency": {
+                    "count": 3,
+                    "ms": 0.017633
+                  },
+                  "launch_bound": {
+                    "count": 1,
+                    "ms": 0.452288
+                  }
+                },
+                "overlap_frac": 0.49012247661250613,
+                "overlapped_ns": 796351,
+                "step": "train_step_1",
+                "step_ms": 33.186369,
+                "window_ns": 33186369
+              },
+              {
+                "busy_any_frac": 0.9961975182276781,
+                "busy_any_ns": 22945794,
+                "busy_copy_ns": 1613056,
+                "busy_kernel_frac": 0.9929549630106361,
+                "busy_kernel_ns": 22871107,
+                "copy_ns": 1613056,
+                "gaps": {
+                  "dependency": {
+                    "count": 3,
+                    "ms": 0.007485
+                  }
+                },
+                "overlap_frac": 0.9536984456832249,
+                "overlapped_ns": 1538369,
+                "step": "train_step_2",
+                "step_ms": 23.033378,
+                "window_ns": 23033378
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 236.16631983464677,
+            "max_gemm_tflops": 30.044821310649727
+          },
+          "categories": [
+            {
+              "achieved_gbs": 43.311463667169555,
+              "achieved_tflops": 29.56624639651613,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 26.728925,
+              "time_share": 0.6553410451173136
+            },
+            {
+              "achieved_gbs": 155.1231322641429,
+              "achieved_tflops": 0.017279183319390896,
+              "category": "elementwise",
+              "count_per_step": 28.0,
+              "gpu_ms_per_step": 9.952826,
+              "time_share": 0.24402385777620209
+            },
+            {
+              "achieved_gbs": 252.7449586671196,
+              "achieved_tflops": 0.04212415977785327,
+              "category": "cast/copy",
+              "count_per_step": 35.0,
+              "gpu_ms_per_step": 1.892803,
+              "time_share": 0.04640783331994035
+            },
+            {
+              "achieved_gbs": 10.363163772570491,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 1.618928,
+              "time_share": 0.039692953139330606
+            },
+            {
+              "achieved_gbs": 322.619577356723,
+              "achieved_tflops": 3.579586864536381e-05,
+              "category": "reduction",
+              "count_per_step": 9.0,
+              "gpu_ms_per_step": 0.572161,
+              "time_share": 0.014028270411749342
+            },
+            {
+              "achieved_gbs": 0.0031008503112963004,
+              "achieved_tflops": 0.0,
+              "category": "optimizer",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 0.0206395,
+              "time_share": 0.0005060402354639701
+            }
+          ],
+          "ops_per_step": 97.0
+        },
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1566751,
+                "gbps": 10.708284851900526,
+                "host_mem": "pinned",
+                "id": 2,
+                "stream": 35
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1575327,
+                "gbps": 10.649989494244688,
+                "host_mem": "pinned",
+                "id": 91,
+                "stream": 35
+              }
+            ],
+            "findings": [
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 0.083104,
+                "evidence": "21 kernels/step shorter than 10 \u00b5s (median 4.7 \u00b5s, grid size not captured on a 24-SM GPU); 0 launch-bound gaps/step totalling 0.08 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              }
+            ],
+            "gaps_by_cause": {
+              "launch_bound": 1
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1160077.8,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7762827310854576,
+                "time_share": 0.45245713379672065,
+                "total_ns": 34802334
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1160271.625,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.77615305196799,
+                "time_share": 0.2413507893456403,
+                "total_ns": 18564346
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 6112753.0,
+                "name": "aten::_fused_adamw_",
+                "occupancy": null,
+                "roof_frac": 0.3432446851283957,
+                "time_share": 0.15894098953175415,
+                "total_ns": 12225506
+              },
+              {
+                "bound": "memory",
+                "count": 70,
+                "limiter": "not captured",
+                "mean_ns": 51986.485714285714,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 1.0269165762285202,
+                "time_share": 0.04731050344415094,
+                "total_ns": 3639054
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 436239.875,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.9012629900997291,
+                "time_share": 0.045371633635914115,
+                "total_ns": 3489919
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 262675.75,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 0.9978509097070744,
+                "time_share": 0.027319895720305184,
+                "total_ns": 2101406
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 68649.875,
+                "name": "aten::sum",
+                "occupancy": null,
+                "roof_frac": 1.1934436702201203,
+                "time_share": 0.014280019577079237,
+                "total_ns": 1098398
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 125815.75,
+                "name": "aten::mul",
+                "occupancy": null,
+                "roof_frac": 1.3020589438101353,
+                "time_share": 0.0065428064257396935,
+                "total_ns": 503263
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 80104.25,
+                "name": "aten::pow",
+                "occupancy": null,
+                "roof_frac": 1.6360632306992955,
+                "time_share": 0.004165667665845165,
+                "total_ns": 320417
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 27985.0,
+                "name": "aten::record_stream",
+                "occupancy": null,
+                "roof_frac": 2.341533286541791,
+                "time_share": 0.0007276530872499085,
+                "total_ns": 55970
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 26176.0,
+                "name": "aten::div",
+                "occupancy": null,
+                "roof_frac": 5.006709124684598,
+                "time_share": 0.0006806163020137074,
+                "total_ns": 52352
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 18513.0,
+                "name": "aten::mean",
+                "occupancy": null,
+                "roof_frac": 3.5395573190146994,
+                "time_share": 0.0004813665036361463,
+                "total_ns": 37026
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.9817886785456041,
+                "busy_any_ns": 22938332,
+                "busy_copy_ns": 1566751,
+                "busy_kernel_frac": 0.9568365923754414,
+                "busy_kernel_ns": 22355356,
+                "copy_ns": 1566751,
+                "gaps": {
+                  "launch_bound": {
+                    "count": 1,
+                    "ms": 0.166208
+                  }
+                },
+                "overlap_frac": 0.6279076892243886,
+                "overlapped_ns": 983775,
+                "step": "train_step_1",
+                "step_ms": 23.363818,
+                "window_ns": 23363818
+              },
+              {
+                "busy_any_frac": 0.9971820039963464,
+                "busy_any_ns": 19775230,
+                "busy_copy_ns": 1575327,
+                "busy_kernel_frac": 0.994618002801053,
+                "busy_kernel_ns": 19724383,
+                "copy_ns": 1575327,
+                "gaps": {},
+                "overlap_frac": 0.967722891818651,
+                "overlapped_ns": 1524480,
+                "step": "train_step_2",
+                "step_ms": 19.831114,
+                "window_ns": 19831114
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 236.3259999389601,
+            "max_gemm_tflops": 30.033108667187616
+          },
+          "categories": [
+            {
+              "achieved_gbs": 43.385455643858684,
+              "achieved_tflops": 29.616756465419996,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 26.68334,
+              "time_share": 0.6665785667356977
+            },
+            {
+              "achieved_gbs": 150.2156900638405,
+              "achieved_tflops": 0.016537762713020366,
+              "category": "elementwise",
+              "count_per_step": 20.0,
+              "gpu_ms_per_step": 9.3839325,
+              "time_share": 0.2344207387903663
+            },
+            {
+              "achieved_gbs": 262.92350484494045,
+              "achieved_tflops": 0.04382058414082341,
+              "category": "cast/copy",
+              "count_per_step": 35.0,
+              "gpu_ms_per_step": 1.819527,
+              "time_share": 0.04545374378907977
+            },
+            {
+              "achieved_gbs": 10.679057617283847,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 1.571039,
+              "time_share": 0.03924624596867873
+            },
+            {
+              "achieved_gbs": 325.1478566597148,
+              "achieved_tflops": 3.6076390846062795e-05,
+              "category": "reduction",
+              "count_per_step": 9.0,
+              "gpu_ms_per_step": 0.567712,
+              "time_share": 0.014182057091752997
+            },
+            {
+              "achieved_gbs": 0.01347510264238341,
+              "achieved_tflops": 0.0,
+              "category": "optimizer",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 0.0047495,
+              "time_share": 0.00011864762442449844
+            }
+          ],
+          "ops_per_step": 89.0
+        },
+        {
+          "analysis": {
+            "copies": [
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1802752,
+                "gbps": 9.306447032093155,
+                "host_mem": "pinned",
+                "id": 2,
+                "stream": 35
+              },
+              {
+                "bytes": 16777216,
+                "copy_kind": "HtoD",
+                "dur_ns": 1504480,
+                "gbps": 11.151504838881207,
+                "host_mem": "pinned",
+                "id": 91,
+                "stream": 35
+              }
+            ],
+            "findings": [
+              {
+                "code": "LAUNCH_BOUND",
+                "est_saving_ms_per_step": 0.1005115,
+                "evidence": "22 kernels/step shorter than 10 \u00b5s (median 4.4 \u00b5s, grid size not captured on a 24-SM GPU); 0 launch-bound gaps/step totalling 0.10 ms",
+                "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+              }
+            ],
+            "gaps_by_cause": {
+              "launch_bound": 1
+            },
+            "kernels": [
+              {
+                "bound": "compute",
+                "count": 30,
+                "limiter": "not captured",
+                "mean_ns": 1164673.5,
+                "name": "aten::mm",
+                "occupancy": null,
+                "roof_frac": 0.7732195871680855,
+                "time_share": 0.4525774946656335,
+                "total_ns": 34940205
+              },
+              {
+                "bound": "compute",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 1166222.0625,
+                "name": "aten::addmm",
+                "occupancy": null,
+                "roof_frac": 0.7721928711630847,
+                "time_share": 0.24169559818898045,
+                "total_ns": 18659553
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 6167762.5,
+                "name": "aten::_fused_adamw_",
+                "occupancy": null,
+                "roof_frac": 0.340183328841319,
+                "time_share": 0.15978100299884584,
+                "total_ns": 12335525
+              },
+              {
+                "bound": "memory",
+                "count": 70,
+                "limiter": "not captured",
+                "mean_ns": 52316.614285714284,
+                "name": "aten::_to_copy",
+                "occupancy": null,
+                "roof_frac": 1.0204365219108764,
+                "time_share": 0.047435684925064996,
+                "total_ns": 3662163
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 431628.0,
+                "name": "aten::gelu_backward",
+                "occupancy": null,
+                "roof_frac": 0.9108928386092472,
+                "time_share": 0.04472672529941666,
+                "total_ns": 3453024
+              },
+              {
+                "bound": "memory",
+                "count": 8,
+                "limiter": "not captured",
+                "mean_ns": 263960.125,
+                "name": "aten::gelu",
+                "occupancy": null,
+                "roof_frac": 0.9929955749774254,
+                "time_share": 0.027352423848486854,
+                "total_ns": 2111681
+              },
+              {
+                "bound": "memory",
+                "count": 16,
+                "limiter": "not captured",
+                "mean_ns": 67985.875,
+                "name": "aten::sum",
+                "occupancy": null,
+                "roof_frac": 1.2050997178480456,
+                "time_share": 0.014089843825541803,
+                "total_ns": 1087774
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 119503.5,
+                "name": "aten::mul",
+                "occupancy": null,
+                "roof_frac": 1.370834515806483,
+                "time_share": 0.0061916745633031674,
+                "total_ns": 478014
+              },
+              {
+                "bound": "memory",
+                "count": 4,
+                "limiter": "not captured",
+                "mean_ns": 75903.5,
+                "name": "aten::pow",
+                "occupancy": null,
+                "roof_frac": 1.7266083651971782,
+                "time_share": 0.003932686241119984,
+                "total_ns": 303614
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 28465.0,
+                "name": "aten::record_stream",
+                "occupancy": null,
+                "roof_frac": 2.3020484462979804,
+                "time_share": 0.0007374094333823891,
+                "total_ns": 56930
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 24655.5,
+                "name": "aten::div",
+                "occupancy": null,
+                "roof_frac": 5.315471925036768,
+                "time_share": 0.0006387211763484804,
+                "total_ns": 49311
+              },
+              {
+                "bound": "memory",
+                "count": 2,
+                "limiter": "not captured",
+                "mean_ns": 18256.5,
+                "name": "aten::mean",
+                "occupancy": null,
+                "roof_frac": 3.589287357758559,
+                "time_share": 0.00047294977412772125,
+                "total_ns": 36513
+              }
+            ],
+            "low_occupancy_by_design": [],
+            "steps": [
+              {
+                "busy_any_frac": 0.9782636397543564,
+                "busy_any_ns": 18079215,
+                "busy_copy_ns": 1802752,
+                "busy_kernel_frac": 0.946883280667313,
+                "busy_kernel_ns": 17499277,
+                "copy_ns": 1802752,
+                "gaps": {
+                  "launch_bound": {
+                    "count": 1,
+                    "ms": 0.201023
+                  }
+                },
+                "overlap_frac": 0.6783040595711446,
+                "overlapped_ns": 1222814,
+                "step": "train_step_1",
+                "step_ms": 18.480923,
+                "window_ns": 18480923
+              },
+              {
+                "busy_any_frac": 0.9966081008861214,
+                "busy_any_ns": 16760967,
+                "busy_copy_ns": 1504480,
+                "busy_kernel_frac": 0.9959479158416583,
+                "busy_kernel_ns": 16749864,
+                "copy_ns": 1504480,
+                "gaps": {},
+                "overlap_frac": 0.9926200414761246,
+                "overlapped_ns": 1493377,
+                "step": "train_step_2",
+                "step_ms": 16.818012,
+                "window_ns": 16818012
+              }
+            ]
+          },
+          "bounds": {
+            "max_big_kernel_gbs": 236.27164011651243,
+            "max_gemm_tflops": 29.772406044641617
+          },
+          "categories": [
+            {
+              "achieved_gbs": 43.1967944332883,
+              "achieved_tflops": 29.487968302543457,
+              "category": "gemm",
+              "count_per_step": 23.0,
+              "gpu_ms_per_step": 26.799879,
+              "time_share": 0.6657533549307512
+            },
+            {
+              "achieved_gbs": 149.90629045620736,
+              "achieved_tflops": 0.016503699844538627,
+              "category": "elementwise",
+              "count_per_step": 20.0,
+              "gpu_ms_per_step": 9.4033005,
+              "time_share": 0.23359354925807727
+            },
+            {
+              "achieved_gbs": 261.2644035778855,
+              "achieved_tflops": 0.04354406726298092,
+              "category": "cast/copy",
+              "count_per_step": 35.0,
+              "gpu_ms_per_step": 1.8310815,
+              "time_share": 0.04548709536250639
+            },
+            {
+              "achieved_gbs": 10.145775077164226,
+              "achieved_tflops": 0.0,
+              "category": "memcpy",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 1.653616,
+              "time_share": 0.04107855859226712
+            },
+            {
+              "achieved_gbs": 328.36871724034876,
+              "achieved_tflops": 3.643375757257711e-05,
+              "category": "reduction",
+              "count_per_step": 9.0,
+              "gpu_ms_per_step": 0.5621435,
+              "time_share": 0.013964575029518407
+            },
+            {
+              "achieved_gbs": 0.012939749292357462,
+              "achieved_tflops": 0.0,
+              "category": "optimizer",
+              "count_per_step": 1.0,
+              "gpu_ms_per_step": 0.004946,
+              "time_share": 0.00012286682687961
+            }
+          ],
+          "ops_per_step": 89.0
+        }
+      ],
+      "meta": {
+        "batch_bytes": 16777216,
+        "blocks": 4,
+        "d": 1024,
+        "fixed": true,
+        "params": 33574912,
+        "tokens": 4096
+      },
+      "optimizer_step_time": {
+        "iqr": 0.00023746430873870794,
+        "max": 0.007598368167877198,
+        "mean": 0.006624977588653565,
+        "median": 0.006581232070922852,
+        "min": 0.0062689919471740725,
+        "n": 40,
+        "p95": 0.00703007984161377
+      },
+      "profiler": {
+        "aten_ops": 195,
+        "aten_self_cpu_us_by_category": {
+          "cast/copy": 515.2889999999996,
+          "elementwise": 351.10399999999674,
+          "gemm": 821.8390000000012,
+          "optimizer": 29.66700000000128,
+          "reduction": 204.53299999999945
+        },
+        "cudaLaunchKernel": 83,
+        "cudaMemcpyAsync": 2,
+        "gpu_activity_events": 0,
+        "sync_calls": 2
+      },
+      "step_time": {
+        "iqr": 0.00025450229644775196,
+        "max": 0.039766815185546874,
+        "mean": 0.039425535583496096,
+        "median": 0.03939395141601562,
+        "min": 0.03917011260986328,
+        "n": 10,
+        "p95": 0.039766815185546874
+      }
+    }
+  }
+}

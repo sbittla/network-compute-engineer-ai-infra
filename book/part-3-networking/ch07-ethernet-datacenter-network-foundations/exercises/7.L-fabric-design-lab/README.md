@@ -29,3 +29,7 @@ Run:
 ```bash
 cd ../../lab && python check.py | tee ../exercises/7.L-fabric-design-lab/outputs/check_output.txt
 ```
+
+**Hardware run (course harness).** L2 on the course harness: `python scripts/hw_labs.py run ch07` probes
+for containerlab and records the container-fabric part as not runnable there. It also reproduces Section
+7.6's ECMP statistics with a hashing Monte Carlo (`[SIMULATED]`); see `lab/l2/results/`.

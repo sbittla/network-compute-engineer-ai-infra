@@ -1,0 +1,437 @@
+{
+  "ceilings": null,
+  "decisions": {
+    "aa": {
+      "ci_hi": 0.024449405739895624,
+      "ci_lo": -0.01925482210160112,
+      "decision": "not_significant",
+      "p_perm": 0.7173271173271173,
+      "point": -0.004820980114868312
+    },
+    "alt": {
+      "ci_hi": -0.6127300641670517,
+      "ci_lo": -0.638537334799582,
+      "cliffs_delta_runs": -1.0,
+      "decision": "improvement",
+      "excluded": [],
+      "floor": 0.024449405739895624,
+      "lab_rule": {
+        "decision": "improvement",
+        "n_runs_base": 8,
+        "n_runs_cand": 8,
+        "p_perm": 0.0001554001554001554,
+        "point": -0.6240780862458428
+      },
+      "n_runs_base": 8,
+      "n_runs_cand": 8,
+      "naive": -0.5908096608390366,
+      "p_perm": 0.0001554001554001554,
+      "point": -0.6240780862458428,
+      "rule": "per-arm peer clock",
+      "threshold": 0.01
+    },
+    "fast": {
+      "ci_hi": -0.4926004087866761,
+      "ci_lo": -0.5160774165211677,
+      "cliffs_delta_runs": -1.0,
+      "decision": "improvement",
+      "excluded": [],
+      "floor": 0.024449405739895624,
+      "lab_rule": {
+        "decision": "improvement",
+        "n_runs_base": 8,
+        "n_runs_cand": 8,
+        "p_perm": 0.0001554001554001554,
+        "point": -0.4991608818720735
+      },
+      "n_runs_base": 8,
+      "n_runs_cand": 8,
+      "naive": -0.5038414074852324,
+      "p_perm": 0.0001554001554001554,
+      "point": -0.4991608818720735,
+      "rule": "per-arm peer clock",
+      "threshold": 0.01
+    },
+    "noise_floor": 0.024449405739895624,
+    "noop": {
+      "ci_hi": 0.04531485785395475,
+      "ci_lo": -0.01811546318806423,
+      "cliffs_delta_iter": 0.11327814025128932,
+      "cliffs_delta_runs": 0.40625,
+      "decision": "not_significant",
+      "excluded": [],
+      "floor": 0.024449405739895624,
+      "lab_rule": {
+        "decision": "not_significant",
+        "n_runs_base": 8,
+        "n_runs_cand": 8,
+        "p_perm": 0.2588966588966589,
+        "point": 0.01936610028426955
+      },
+      "n_runs_base": 8,
+      "n_runs_cand": 8,
+      "naive": 0.004543114304827789,
+      "p_perm": 0.2588966588966589,
+      "point": 0.01936610028426955,
+      "rule": "lab rule (session-wide peer clock)",
+      "threshold": 0.01
+    }
+  },
+  "event_reason_counts": {
+    "none": 11520
+  },
+  "experiment": {
+    "cpu_fallback": "the same interleaved-arm harness and compare() on single-threaded CPU GEMMs (FP64 baseline, A/A pair, FP32 as the real effect), a host-memory copy roof and an FP32 GEMM K-sweep classified against the measured CPU roofs",
+    "evidence": "MEASURED",
+    "id": "ch06-l2",
+    "title": "Lab 6 L2: benchmark protocol, measured roofline and statistical decisions on a real GPU"
+  },
+  "harness_manifest": {
+    "blas": {
+      "detection method": "pkgconfig",
+      "found": true,
+      "include directory": "/opt/conda/include",
+      "lib directory": "/opt/conda/lib",
+      "name": "blas",
+      "openblas configuration": "unknown",
+      "pc file directory": "/opt/conda/lib/pkgconfig",
+      "version": "3.9.0"
+    },
+    "cpu_count": 24,
+    "harness_version": "1.0",
+    "hostname": "1dde4695cf83",
+    "machine": "x86_64",
+    "numpy": "2.1.2",
+    "pid": 1,
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.11.10",
+    "seed": 6,
+    "thread_env": {
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null
+    },
+    "timestamp_utc": "2026-10-31T23:40:02+00:00"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "arms done in 54.6s (8 runs x 6 arms)"
+  ],
+  "metrics": {
+    "alt_decision": "improvement",
+    "fast_decision": "improvement",
+    "fast_vs_base_pct": -49.92,
+    "measured_bw_gbs": 43.97,
+    "measured_peak_tflops": 0.278,
+    "measured_ridge_flop_per_byte": 6.3,
+    "noise_floor_pct": 2.445,
+    "noop_decision": "not_significant",
+    "tflops_AA1": 0.045,
+    "tflops_AA2": 0.044,
+    "tflops_alt": 0.12,
+    "tflops_base": 0.044,
+    "tflops_fast": 0.09,
+    "tflops_noop": 0.044
+  },
+  "notes": [
+    "Each run is 5 warm-up iterations (dropped by clean_runs) plus timed iterations; runs are interleaved round-robin with a rotated start. Runs share one process (a deviation from the lab's one-process-per-run rule, made so the GPU context and allocations are created once); run-to-run variance therefore understates cold-start effects.",
+    "CPU fallback: no GPU telemetry; sm_clock_mhz holds the mean /proc/cpuinfo MHz (static under WSL2), temperature/power are 0 and clocks_event_reasons is 'none'. torch runs single-threaded (the 'alt' arm uses 4) so that other jobs on the host do not oversubscribe the cores mid-run.",
+    "GEMM DRAM bytes are compulsory traffic (each operand read once, output written once) [MODELED]: a lower bound on real traffic, so the achieved bandwidth they imply is a lower bound too."
+  ],
+  "roof": {
+    "device": {
+      "hbm_bytes_per_s": 43972185785.62474,
+      "peak_flops": {
+        "fp32_simt": 278268039740.51514
+      },
+      "roof": "measured"
+    },
+    "m": 3072,
+    "measured_bw": 43972185785.62474,
+    "measured_flops": 278268039740.51514,
+    "measured_ridge": 6.328273993408936,
+    "precision": "fp32_simt",
+    "roof": "measured"
+  },
+  "runtime_s": 61.64,
+  "status": "ran",
+  "tables": {
+    "arms": [
+      {
+        "arm": "base",
+        "cv": 0.10154612341227416,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.42175651469733566,
+        "label": "FP64 GEMM, 1 thread",
+        "max_ms": 13.661791977938265,
+        "median_ms": 6.041670480044559,
+        "min_ms": 5.643447977490723,
+        "p95_ms": 7.170175822102463,
+        "p99_ms": 9.02312124089805,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 4.486414316724006,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.04443066812177751
+      },
+      {
+        "arm": "AA1",
+        "cv": 0.08189709916934346,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.39691045822110027,
+        "label": "FP64 GEMM, 1 thread (A/A group 1)",
+        "max_ms": 11.510863027069718,
+        "median_ms": 6.013626465573907,
+        "min_ms": 5.64235495403409,
+        "p95_ms": 6.889328375109471,
+        "p99_ms": 8.133829062571746,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 3.8751822283795097,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.044637866607895815
+      },
+      {
+        "arm": "AA2",
+        "cv": 0.08975066579318389,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.44309749500826,
+        "label": "FP64 GEMM, 1 thread (A/A group 2)",
+        "max_ms": 12.86151900421828,
+        "median_ms": 6.051499512977898,
+        "min_ms": 5.651190993376076,
+        "p95_ms": 7.073600185685789,
+        "p99_ms": 8.437744175898823,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 5.3748391365957975,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.04435850245452716
+      },
+      {
+        "arm": "fast",
+        "cv": 0.1243007607282284,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.21683474187739193,
+        "label": "FP32 GEMM, 1 thread",
+        "max_ms": 8.76163801876828,
+        "median_ms": 2.989469008753076,
+        "min_ms": 2.810598991345614,
+        "p95_ms": 3.51189523935318,
+        "p99_ms": 4.812731650890772,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 4.746661878222791,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.08979369085748305
+      },
+      {
+        "arm": "noop",
+        "cv": 0.0880106105658409,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.41613900975789875,
+        "label": "FP64 GEMM via torch.mm(out=), 1 thread",
+        "max_ms": 11.324655031785369,
+        "median_ms": 6.094609998399392,
+        "min_ms": 5.697681976016611,
+        "p95_ms": 7.157579006161541,
+        "p99_ms": 8.68543350079564,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 5.182013129167353,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.04404473068342328
+      },
+      {
+        "arm": "alt",
+        "cv": 0.30748232302817985,
+        "event_reasons": [
+          "none"
+        ],
+        "iqr_ms": 0.5728167598135769,
+        "label": "FP64 GEMM, 4 threads",
+        "max_ms": 11.054129980038851,
+        "median_ms": 2.245196985313669,
+        "min_ms": 1.714882964733988,
+        "p95_ms": 3.889125652494838,
+        "p99_ms": 5.479021370410914,
+        "power_median_w": 0.0,
+        "run_median_spread_pct": 6.382010605733569,
+        "runs": 8,
+        "sm_clock_median_mhz": 2303.998,
+        "temp_max_c": 0.0,
+        "tflops_median": 0.11955986835716234
+      }
+    ],
+    "roofline": [
+      {
+        "achieved_bw": 34358302460.00971,
+        "achieved_flops": 0.0,
+        "ai": 0.0,
+        "bound": "memory",
+        "dram_bytes": 536870912.0,
+        "flop": 0.0,
+        "iqr_us": 3425.390532356687,
+        "k": null,
+        "n": 20,
+        "name": "copy_fp32_256MiB",
+        "note": "",
+        "p95_us": 18876.8400112167,
+        "pct_of_roof": 0.7813644431394635,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 15625.653002643958
+      },
+      {
+        "achieved_bw": 43972185785.62474,
+        "achieved_flops": 3664348815.468728,
+        "ai": 0.08333333333333333,
+        "bound": "memory",
+        "dram_bytes": 805306368.0,
+        "flop": 67108864.0,
+        "iqr_us": 2692.9000014206395,
+        "k": null,
+        "n": 20,
+        "name": "add_fp32_256MiB",
+        "note": "",
+        "p95_us": 25420.797988772392,
+        "pct_of_roof": 1.0,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 18313.994485652074
+      },
+      {
+        "achieved_bw": 5384934081.07902,
+        "achieved_flops": 10741894478.619967,
+        "ai": 1.9948051948051948,
+        "bound": "memory",
+        "dram_bytes": 37847040.0,
+        "flop": 75497472.0,
+        "iqr_us": 2081.2834991374984,
+        "k": 4.0,
+        "n": 20,
+        "name": "gemm_3072x3072x4",
+        "note": "",
+        "p95_us": 10072.032979223877,
+        "pct_of_roof": 0.1224622789354139,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 7028.320018434897
+      },
+      {
+        "achieved_bw": 4508033378.893541,
+        "achieved_flops": 35692470463.8169,
+        "ai": 7.917525773195877,
+        "bound": "compute",
+        "dram_bytes": 38141952.0,
+        "flop": 301989888.0,
+        "iqr_us": 747.7682374883443,
+        "k": 16.0,
+        "n": 20,
+        "name": "gemm_3072x3072x16",
+        "note": "",
+        "p95_us": 9337.643976323307,
+        "pct_of_roof": 0.128266510581309,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 8460.885001113638
+      },
+      {
+        "achieved_bw": 3602763644.8701835,
+        "achieved_flops": 110676899170.41203,
+        "ai": 30.72,
+        "bound": "compute",
+        "dram_bytes": 39321600.0,
+        "flop": 1207959552.0,
+        "iqr_us": 829.3729479191825,
+        "k": 64.0,
+        "n": 20,
+        "name": "gemm_3072x3072x64",
+        "note": "",
+        "p95_us": 11793.878977186978,
+        "pct_of_roof": 0.39773485763445277,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 10914.287995547056
+      },
+      {
+        "achieved_bw": 2041671802.4714687,
+        "achieved_flops": 224000563471.15543,
+        "ai": 109.71428571428571,
+        "bound": "compute",
+        "dram_bytes": 44040192.0,
+        "flop": 4831838208.0,
+        "iqr_us": 2490.7477491069585,
+        "k": 256.0,
+        "n": 20,
+        "name": "gemm_3072x3072x256",
+        "note": "",
+        "p95_us": 24383.527983445674,
+        "pct_of_roof": 0.804981282363709,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 21570.652024820447
+      },
+      {
+        "achieved_bw": 905820441.8636562,
+        "achieved_flops": 278268039740.51514,
+        "ai": 307.2,
+        "bound": "compute",
+        "dram_bytes": 62914560.0,
+        "flop": 19327352832.0,
+        "iqr_us": 8010.768971871585,
+        "k": 1024.0,
+        "n": 20,
+        "name": "gemm_3072x3072x1024",
+        "note": "",
+        "p95_us": 77627.07397341728,
+        "pct_of_roof": 1.0,
+        "peak": 278268039740.51514,
+        "precision": "fp32_simt",
+        "ridge": 6.328273993408936,
+        "time_us": 69455.8845134452
+      }
+    ]
+  },
+  "workload": {
+    "gemm_n": 512,
+    "iters_per_run": {
+      "AA1": 176,
+      "AA2": 176,
+      "alt": 389,
+      "base": 178,
+      "fast": 349,
+      "noop": 172
+    },
+    "roofline_gemm_m": 3072,
+    "run_order": "round-robin, start rotated per round",
+    "runs_per_arm": 8,
+    "timer": "perf_counter",
+    "warmup_iters": 5
+  }
+}

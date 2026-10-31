@@ -96,6 +96,30 @@ and, inside the training script, `torch.cuda.max_memory_allocated()` and
 with the model's s·b·h·34/t estimate, and measured step time with `compute_s` (scaled to your layer
 count) to back out real kernel efficiency.
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` trains a scaled-down
+GPT-style stack (h = 1024, causal SDPA, 4h GELU MLP, BF16 autocast with FP32 Adam) for real and compares it
+with this lab's model. It measures model-state bytes per parameter against the 16 B convention, and the
+activation coefficient *c* in s·b·h·*c* per layer, counted exactly with autograd saved-tensor hooks and
+cross-checked against the allocator's peak-memory slope. It compares *c* with 34 (fused attention), with
+34 + 5as/h (attention scores materialized) and with full recomputation. It also records step time p50/p95
+after ≥ 20 warm-up steps, the kernel efficiency that `compute_s` implies, and the measured cost of full
+recompute against the model's 1.333.
+
+```bash
+python scripts/hw_labs.py build ch11
+python scripts/hw_labs.py run ch11 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch11 --device cpu   # CPU fallback
+```
+
+The CPU fallback is automatic: with no GPU visible (`--device auto` on a host without an NVIDIA driver),
+the same model, smaller and in FP32, trains on the CPU. Activation bytes are still counted exactly. The
+GPU-only invariants (device peak, allocator slope, 16 B/param) are skipped and the report says so. TP = 8
+with sequence parallelism and the pipeline schedule need an 8-GPU node, so they are listed as not run.
+**Observed on the reference run:** `lab/l2/results/` holds the bundles from the coordinator's full runs,
+`gpu-rtx-4060-laptop-gpu/` (a laptop Ada GPU, not an H100) and `cpu-fallback/`. Each has
+`environment.json`, `results.json` with the raw cases and invariants, and `report.md` with the
+measured-vs-model table. Compare the coefficients and ratios with the model, not the absolute step times.
+
 **L3 — validate the layout ranking on ≥ 2 nodes.** On two or more HX8-class nodes with rail-aligned
 RDMA NICs, run the baseline and the recommended layout for ≥ 200 measured steps each after ≥ 20
 warm-up steps, ≥ 3 repetitions, one variable changed at a time. Launch, e.g.:

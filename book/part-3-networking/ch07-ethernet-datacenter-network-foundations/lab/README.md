@@ -154,6 +154,41 @@ firmware, driver version, topology, MTU per tier, RDMA path MTU, ECMP hash field
 BGP timers, failure injected, number of runs, and per-run convergence (ms). Label results
 `[MEASURED]` only with that manifest attached.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch07
+python scripts/hw_labs.py run ch07 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch07 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch07               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+It probes for the container-fabric prerequisites (containerlab, the Docker socket, CAP_NET_ADMIN, real
+netdevs). It then runs what applies on one host: a vectorised Monte Carlo of per-flow ECMP hashing for
+low-entropy RoCEv2 flows (UDP destination port 4791, one source port per QP) through a real 64-bit hash.
+That reproduces Section 7.6: P(8 flows on 8 distinct links), expected links used, the most-loaded-link
+distribution, polarization with a reused hash seed, and modulo versus resilient rehash after a failure.
+Each figure is checked against its closed form. Results are `[SIMULATED]`; trials per second are
+`[MEASURED]`.
+
+Not runnable on the harness: the containerlab 2-spine x 4-leaf FRR fabric and its BFD/reconvergence
+timings. They need a Linux host with containerlab, root and network namespaces, and the harness runs
+unprivileged with `--network none`.
+
+The CPU fallback runs the same Monte Carlo on the CPU with fewer trials; the invariants are identical.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 The intent dataset contains planted errors and legal-but-unusual configurations that test for false

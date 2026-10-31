@@ -34,3 +34,12 @@ stays clean.
 **Common mistakes:** RMA-ing GPUs; treating `SW Power Cap` as the fault; no validation threshold;
 a root cause that explains rack locality but not the daily cycle.
 Source: Section 16.5 ("Thermals and burn-in"), runbook Table 16.7a (thermal row).
+
+## Hardware run
+
+The signals in this scenario can be reproduced on one GPU with `python scripts/hw_labs.py run ch16 --device gpu`
+(and, read-only, with `ch19`). The burn-in samples `clocks_event_reasons.active` every 250 ms and decodes it, so
+the learner sees `0x4` (SW Power Cap) at full load as the normal state and can check that the evaluator raises
+`THERMAL_THROTTLE` only for a thermal reason or a temperature at or above 87 C. Rack inlet temperature and BMC
+sensors are not available on a laptop. The rack-locality and time-of-day parts of the diagnosis stay L1/L3. With
+`--device cpu` the run falls back to a CPU burn-in, and no clock-event reasons exist to decode.

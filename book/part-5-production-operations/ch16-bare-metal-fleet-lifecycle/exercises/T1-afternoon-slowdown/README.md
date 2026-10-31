@@ -37,3 +37,6 @@ lifecycle decision with justification.
 Write your answer in `outputs/answer.md`. Cover every item in the "Evidence required" line; cite the
 manuscript Section, table, or lab file you relied on, and label every number with its evidence class
 (`[MODELED]`, `[ILLUSTRATIVE]`, `[SIMULATED]`, ...).
+
+On a single GPU host you can reproduce the clock-event-reason signals with `python scripts/hw_labs.py run ch16 --device gpu`
+(CPU fallback with `--device cpu`). Inlet temperature and rack locality need the real rack.

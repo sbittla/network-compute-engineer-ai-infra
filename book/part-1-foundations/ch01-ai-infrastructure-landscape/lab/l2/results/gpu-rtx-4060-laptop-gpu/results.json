@@ -1,0 +1,482 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same kernel mix (training step, GEMM, decode GEMV, elementwise, tiny launches) timed on the CPU in FP32 and classified by the lab's classify() against the measured CPU roofs; no GPU inventory",
+    "evidence": "MEASURED",
+    "id": "ch01-l2",
+    "title": "Lab 1 L2: workload characterisation of a measured kernel mix and a GPU inventory"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "inventory": {
+    "capability": "8.9",
+    "clocks_max_mem_mhz": "8001",
+    "clocks_max_sm_mhz": "3105",
+    "cuda_runtime": "12.4",
+    "driver_version": "592.82",
+    "gpu_count_torch": 1,
+    "l2_cache_mib": 32.0,
+    "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "nccl_version": "2.21.5",
+    "nvlink": "GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU (UUID: GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629)\nDevice does not have or support Nvlink",
+    "pci_bus_id": "00000000:01:00.0",
+    "pcie_gen_current": "4",
+    "pcie_gen_max": "4",
+    "pcie_width_current": "8",
+    "pcie_width_max": "8",
+    "power_limit_w": "[N/A]",
+    "sm_count": 24,
+    "smi_total_mib": 8188.0,
+    "topology_nvidia_smi_topo_m": "\u001b[4mGPU0\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \t\t\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks",
+    "torch": "2.5.1+cu124",
+    "torch_total_mib": 8188
+  },
+  "issues": [],
+  "log": [
+    "L2-TRAIN   median    73.400 ms  p95    74.607 ms",
+    "L2-GEMM    median     4.914 ms  p95     5.039 ms",
+    "L2-DECODE  median     0.554 ms  p95     0.593 ms",
+    "L2-ELTWISE median     3.525 ms  p95     3.605 ms",
+    "L2-H2D     median    20.877 ms  p95    21.012 ms",
+    "L2-TINY    median     3.205 ms  p95     3.811 ms"
+  ],
+  "manifest_record": {
+    "cuda_version": "12.4",
+    "dcgm_version": "not installed",
+    "driver_version": "592.82",
+    "gpu_count": 1,
+    "gpu_model": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "nccl_version": "2.21.5",
+    "run_count": 20,
+    "warmup_policy": "3 warm-up calls per workload (+0.4/1.0 s pre-load on the GPU)"
+  },
+  "metrics": {
+    "L2-DECODE_ceiling_fraction": 0.948,
+    "L2-DECODE_median_ms": 0.5544,
+    "L2-ELTWISE_ceiling_fraction": 0.892,
+    "L2-ELTWISE_median_ms": 3.5254,
+    "L2-GEMM_ceiling_fraction": 0.733,
+    "L2-GEMM_median_ms": 4.9136,
+    "L2-H2D_ceiling_fraction": 0.816,
+    "L2-H2D_median_ms": 20.8771,
+    "L2-TINY_ceiling_fraction": 0.002,
+    "L2-TINY_median_ms": 3.2051,
+    "L2-TRAIN_ceiling_fraction": 0.589,
+    "L2-TRAIN_median_ms": 73.3998,
+    "machine_balance_flop_per_byte": 149.0,
+    "orion_machine_balance_flop_per_byte": 295.2,
+    "rejected_rows": 0
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "nvidia-smi clocks/power/utilisation/clock-event reasons sampled during each workload",
+      "needs": [
+        "DCGM with profiling-metric support (data-center GPUs)"
+      ],
+      "part": "dcgmi dmon -e 1002,1004,1005,1011 (SM_ACTIVE, PIPE_TENSOR_ACTIVE, DRAM_ACTIVE, NVLINK_TX)",
+      "probe": "which dcgmi -> not found"
+    },
+    {
+      "fallback": "the step is timed with CUDA events (Chapter 4's L2 uses torch.profiler)",
+      "needs": [
+        "Nsight Systems CLI"
+      ],
+      "part": "nsys profile of the training step",
+      "probe": "which nsys -> not found"
+    },
+    {
+      "fallback": "scale-up columns are 0 in every measured row; the PCIe link is the only interconnect",
+      "needs": [
+        ">= 2 GPUs in one node, NVLink/NVSwitch",
+        "nccl-tests"
+      ],
+      "part": "nccl-tests all_reduce_perf -g 8 (intra-node NVLink all-reduce)",
+      "probe": "torch.cuda.device_count() = 1; nvidia-smi nvlink -s: Device does not have or support Nvlink"
+    },
+    {
+      "fallback": "scale-out column is 0 in every measured row",
+      "needs": [
+        "2+ nodes with RoCEv2 or InfiniBand NICs"
+      ],
+      "part": "L3: ibv_devinfo, ethtool -S, multi-node all_reduce_perf",
+      "probe": "/sys/class/infiniband absent"
+    }
+  ],
+  "notes": [
+    "Observed time = median of >= 5 timed repetitions after 3 warm-ups (CUDA events on the GPU, perf_counter on the CPU); p95, IQR and min/max are in the table. FLOP and byte counts are from shapes [MODELED]; the training-step bytes are a lower bound (optimizer state + saved activations), so its memory time is too.",
+    "Rows are passed to the reference solution's normalize_and_validate() and classify() exactly as CSV strings."
+  ],
+  "platform": {
+    "frontend_gbit_per_s_per_node": 126.016,
+    "gpu_dense_bf16_tflops": 38.15424,
+    "gpus_per_node": 1,
+    "hbm_gb_per_s": 256.032,
+    "latency_fraction_threshold": 0.25,
+    "nic_line_rate_gbit_per_s": 126.016,
+    "nvlink_gb_per_s_per_direction": 15.752,
+    "platform": "NVIDIA GeForce RTX 4060 Laptop GPU (this host)",
+    "storage_read_gb_per_s_aggregate": 15.752,
+    "storage_write_gb_per_s_aggregate": 15.752
+  },
+  "platform_source": {
+    "gpu_dense_bf16_tflops": "24 SMs x 512 FLOP/clk/SM x 3105 MHz (clocks.max.sm) [MODELED from VENDOR-SPEC]",
+    "hbm_gb_per_s": "128-bit bus x 2 x 8001 MHz (GDDR6, clocks.max.memory) [MODELED from VENDOR-SPEC]",
+    "io/scale-up": "PCIe Gen4 x8 = 15.75 GB/s per direction [MODELED]"
+  },
+  "runtime_s": 10.55,
+  "status": "ran",
+  "tables": {
+    "csv_rows": [
+      {
+        "declared_class": "compute",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "2.148057088",
+        "io_read_gb_per_node": "0.0",
+        "io_write_gb_per_node": "0",
+        "name": "mlp4x1024-train-step",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "33.6 M params, 8192 tokens/step, BF16 autocast, AdamW",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.07339980697631837",
+        "phase": "train",
+        "tflop_per_gpu": "1.650274074624",
+        "workload_id": "L2-TRAIN"
+      },
+      {
+        "declared_class": "compute",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "0.100663296",
+        "io_read_gb_per_node": "0.0",
+        "io_write_gb_per_node": "0",
+        "name": "gemm-4096",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "4096^3, bfloat16",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.004913552045822143",
+        "phase": "train",
+        "tflop_per_gpu": "0.137438953472",
+        "workload_id": "L2-GEMM"
+      },
+      {
+        "declared_class": "memory",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "0.134545408",
+        "io_read_gb_per_node": "0.0",
+        "io_write_gb_per_node": "0",
+        "name": "decode-gemv-b8",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "weights 16384x4096 (128 MiB), batch 8",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.0005544320046901702",
+        "phase": "infer",
+        "tflop_per_gpu": "0.001073741824",
+        "workload_id": "L2-DECODE"
+      },
+      {
+        "declared_class": "memory",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "0.805306368",
+        "io_read_gb_per_node": "0.0",
+        "io_write_gb_per_node": "0",
+        "name": "eltwise-add",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "256 MiB per tensor, FP32",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.003525375962257385",
+        "phase": "train",
+        "tflop_per_gpu": "6.7108864e-05",
+        "workload_id": "L2-ELTWISE"
+      },
+      {
+        "declared_class": "io",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "0.268435456",
+        "io_read_gb_per_node": "0.268435456",
+        "io_write_gb_per_node": "0",
+        "name": "batch-load-h2d-pinned",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "256 MiB pinned host -> device",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.020877103805541992",
+        "phase": "train",
+        "tflop_per_gpu": "0.0",
+        "workload_id": "L2-H2D"
+      },
+      {
+        "declared_class": "memory",
+        "gpus": "1",
+        "hbm_gb_per_gpu": "0.0016384",
+        "io_read_gb_per_node": "0.0",
+        "io_write_gb_per_node": "0",
+        "name": "tiny-launch-x200",
+        "net_unit": "GB",
+        "net_value_per_gpu": "0",
+        "notes": "200 x 1024-element adds",
+        "nvlink_gb_per_gpu": "0",
+        "observed_step_s": "0.003205072045326233",
+        "phase": "train",
+        "tflop_per_gpu": "2.048e-07",
+        "workload_id": "L2-TINY"
+      }
+    ],
+    "workloads": [
+      {
+        "achieved_gbs": 29.265159902846158,
+        "achieved_io_gbs": 0.0,
+        "achieved_tflops": 22.483357145018683,
+        "ai_flop_per_byte": 768.2636014858093,
+        "bound": "compute",
+        "ceiling_fraction": 0.5892754552316777,
+        "declared": "compute",
+        "detail": "33.6 M params, 8192 tokens/step, BF16 autocast, AdamW",
+        "dominant": "compute",
+        "flags": [],
+        "id": "L2-TRAIN",
+        "iqr_s": 0.0008741779327392646,
+        "lower_bound_s": 0.04325270466988728,
+        "max_s": 0.07495884704589843,
+        "median_s": 0.07339980697631837,
+        "min_s": 0.07251148986816407,
+        "n": 20,
+        "name": "mlp4x1024-train-step",
+        "p95_s": 0.07460659027099609,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000001",
+            "0x0000000000000004"
+          ],
+          "power_w": 71.54,
+          "samples": 24,
+          "sm_clock_mhz": 2370.0,
+          "temp_c_max": 77.0,
+          "util_gpu_pct": 99.0,
+          "util_mem_pct": 40.0
+        },
+        "times": {
+          "compute": 0.04325270466988728,
+          "io_read": 0.0,
+          "io_write": 0.0,
+          "memory": 0.008389799275090613,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      },
+      {
+        "achieved_gbs": 20.486868778685515,
+        "achieved_io_gbs": 0.0,
+        "achieved_tflops": 27.971404839165288,
+        "ai_flop_per_byte": 1365.3333333333333,
+        "bound": "compute",
+        "ceiling_fraction": 0.7331139301730368,
+        "declared": "compute",
+        "detail": "4096^3, bfloat16",
+        "dominant": "compute",
+        "flags": [],
+        "id": "L2-GEMM",
+        "iqr_s": 0.00011327242851257371,
+        "lower_bound_s": 0.003602193451422437,
+        "max_s": 0.005039103984832764,
+        "median_s": 0.004913552045822143,
+        "min_s": 0.004794367790222168,
+        "n": 20,
+        "name": "gemm-4096",
+        "p95_s": 0.005038943767547608,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000004"
+          ],
+          "power_w": 79.94,
+          "samples": 11,
+          "sm_clock_mhz": 2355.0,
+          "temp_c_max": 78.0,
+          "util_gpu_pct": 97.0,
+          "util_mem_pct": 19.0
+        },
+        "times": {
+          "compute": 0.003602193451422437,
+          "io_read": 0.0,
+          "io_write": 0.0,
+          "memory": 0.00039316685414323213,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      },
+      {
+        "achieved_gbs": 242.67251324206504,
+        "achieved_io_gbs": 0.0,
+        "achieved_tflops": 1.936651951757425,
+        "ai_flop_per_byte": 7.980516317584024,
+        "bound": "memory",
+        "ceiling_fraction": 0.9478210272234138,
+        "declared": "memory",
+        "detail": "weights 16384x4096 (128 MiB), batch 8",
+        "dominant": "memory",
+        "flags": [],
+        "id": "L2-DECODE",
+        "iqr_s": 2.0279988646507326e-05,
+        "lower_bound_s": 0.0005255023122109737,
+        "max_s": 0.0006113280057907104,
+        "median_s": 0.0005544320046901702,
+        "min_s": 0.0005468159914016723,
+        "n": 20,
+        "name": "decode-gemv-b8",
+        "p95_s": 0.0005928959846496582,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000000"
+          ],
+          "power_w": 74.03,
+          "samples": 9,
+          "sm_clock_mhz": 2520.0,
+          "temp_c_max": 77.0,
+          "util_gpu_pct": 85.0,
+          "util_mem_pct": 100.0
+        },
+        "times": {
+          "compute": 2.8142136339237788e-05,
+          "io_read": 0.0,
+          "io_write": 0.0,
+          "memory": 0.0005255023122109737,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      },
+      {
+        "achieved_gbs": 228.43134366989398,
+        "achieved_io_gbs": 0.0,
+        "achieved_tflops": 0.0190359453058245,
+        "ai_flop_per_byte": 0.08333333333333333,
+        "bound": "memory",
+        "ceiling_fraction": 0.8921984114090974,
+        "declared": "memory",
+        "detail": "256 MiB per tensor, FP32",
+        "dominant": "memory",
+        "flags": [],
+        "id": "L2-ELTWISE",
+        "iqr_s": 6.032794713974011e-05,
+        "lower_bound_s": 0.003145334833145857,
+        "max_s": 0.0036145598888397217,
+        "median_s": 0.003525375962257385,
+        "min_s": 0.0034805760383605955,
+        "n": 20,
+        "name": "eltwise-add",
+        "p95_s": 0.003605247974395752,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000000"
+          ],
+          "power_w": 64.1,
+          "samples": 10,
+          "sm_clock_mhz": 2520.0,
+          "temp_c_max": 71.0,
+          "util_gpu_pct": 95.0,
+          "util_mem_pct": 100.0
+        },
+        "times": {
+          "compute": 1.7588835212023617e-06,
+          "io_read": 0.0,
+          "io_write": 0.0,
+          "memory": 0.003145334833145857,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      },
+      {
+        "achieved_gbs": 12.857887688844164,
+        "achieved_io_gbs": 12.857887688844164,
+        "achieved_tflops": 0.0,
+        "ai_flop_per_byte": 0.0,
+        "bound": "io",
+        "ceiling_fraction": 0.8162701681592283,
+        "declared": "io",
+        "detail": "256 MiB pinned host -> device",
+        "dominant": "io_read",
+        "flags": [],
+        "id": "L2-H2D",
+        "iqr_s": 6.265640258788785e-05,
+        "lower_bound_s": 0.017041357034027427,
+        "max_s": 0.02105855941772461,
+        "median_s": 0.020877103805541992,
+        "min_s": 0.02082022476196289,
+        "n": 20,
+        "name": "batch-load-h2d-pinned",
+        "p95_s": 0.021011648178100587,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000000"
+          ],
+          "power_w": 43.59,
+          "samples": 14,
+          "sm_clock_mhz": 2535.0,
+          "temp_c_max": 69.0,
+          "util_gpu_pct": 99.0,
+          "util_mem_pct": 6.0
+        },
+        "times": {
+          "compute": 0.0,
+          "io_read": 0.017041357034027427,
+          "io_write": 0.0,
+          "memory": 0.0010484449443819524,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      },
+      {
+        "achieved_gbs": 0.5111897569944431,
+        "achieved_io_gbs": 0.0,
+        "achieved_tflops": 6.38987196243054e-05,
+        "ai_flop_per_byte": 0.125,
+        "bound": "memory",
+        "ceiling_fraction": 0.0019965854150826583,
+        "declared": "memory",
+        "detail": "200 x 1024-element adds",
+        "dominant": "memory",
+        "flags": [
+          "LATENCY_OR_OVERHEAD"
+        ],
+        "id": "L2-TINY",
+        "iqr_s": 0.0003245840072631837,
+        "lower_bound_s": 6.399200099987502e-06,
+        "max_s": 0.004514815807342529,
+        "median_s": 0.003205072045326233,
+        "min_s": 0.0029818880558013915,
+        "n": 20,
+        "name": "tiny-launch-x200",
+        "p95_s": 0.003811327934265137,
+        "telemetry": {
+          "clock_event_masks": [
+            "0x0000000000000000"
+          ],
+          "power_w": 26.33,
+          "samples": 11,
+          "sm_clock_mhz": 2535.0,
+          "temp_c_max": 64.0,
+          "util_gpu_pct": 13.0,
+          "util_mem_pct": 0.0
+        },
+        "times": {
+          "compute": 5.367686527106817e-09,
+          "io_read": 0.0,
+          "io_write": 0.0,
+          "memory": 6.399200099987502e-06,
+          "scaleout": 0.0,
+          "scaleup": 0.0
+        }
+      }
+    ]
+  },
+  "workload_definition": {
+    "L2-DECODE": "weights 16384x4096 (128 MiB), batch 8",
+    "L2-ELTWISE": "256 MiB per tensor, FP32",
+    "L2-GEMM": "4096^3, bfloat16",
+    "L2-H2D": "256 MiB pinned host -> device",
+    "L2-TINY": "200 x 1024-element adds",
+    "L2-TRAIN": "33.6 M params, 8192 tokens/step, BF16 autocast, AdamW"
+  }
+}

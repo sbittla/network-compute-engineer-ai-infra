@@ -210,6 +210,41 @@ difference is the real air-side heat. Record every field listed under `extension
 `manifest.yaml`. Never trip a breaker on purpose: single-feed tests are tabletop exercises unless the
 Facilities team runs them as part of formal commissioning.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch02
+python scripts/hw_labs.py run ch02 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch02 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch02               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+On the GPU it measures idle, sustained, p95/p99 and peak board power while the GPU runs a compute-bound
+FP16 GEMM loop and then a memory-bound copy loop. It samples `power.draw.instant`, SM clock, temperature
+and the clock-event (throttle) reasons with `nvidia-smi` every 100 ms, reports TFLOP/s per W and GB/s per
+W, and sets the measured sustained-to-limit and peak-to-sustained ratios next to the capacity model's 8.5
+kW / 10.2 kW node assumption and its transient margin.
+
+Not runnable on the harness, so probed and recorded: server power from the BMC (no IPMI device, no
+network) and the power-cap sweep of Exercise 2.8 (it needs root on a dedicated, authorized server; the
+harness never changes power limits). The GPU's default limit is read, not changed.
+
+The CPU fallback runs the same phases on the CPU and reports throughput only. No power sensor is visible,
+so the power invariants are skipped.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Look at the time the GEMM spends power-capped and at the copy phase's lower
+power. Rerun on your own hardware and compare like with like.
+
 ## 9. Instructor notes
 
 The planted flaws, why each was chosen, the complete expected findings, and model answers to the

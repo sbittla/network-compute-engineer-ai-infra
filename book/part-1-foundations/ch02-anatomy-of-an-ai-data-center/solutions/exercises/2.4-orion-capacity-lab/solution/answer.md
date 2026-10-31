@@ -52,3 +52,12 @@ single spine (3 of 4 suffice), any chiller (2 of 3), any GPU-rack PDU (2N), any 
 
 **Common mistakes:** listing only the singleton groups (missing the power-path SPOFs); comparing PSU DC
 rating with AC input; reporting the empty 13U as a finding.
+
+## Hardware run (L2 harness)
+
+The L2 extension on the course harness (`python scripts/hw_labs.py run ch02`) replaces the GPU share of
+the node power assumption with measured idle, sustained and peak GPU power under a defined GEMM and copy
+load. It sets the measured sustained-to-limit and peak-to-sustained ratios next to the 8.5 kW / 10.2 kW
+model and its transient margin. Server-level (BMC) power is recorded as not runnable on that host. A
+submission using it should keep the model's maximum for rack sizing and quote the measured ratios as
+`[MEASURED]` on the named GPU, not as HX8 figures. CPU fallback: throughput only, no power.

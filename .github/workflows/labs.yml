@@ -25,3 +25,19 @@ jobs:
         with:
           name: lab-test-results
           path: build/test-results/
+
+  l2-cpu-fallback:
+    # GitHub-hosted runners have no GPU: build the CPU-only torch variant of every L2 image and prove
+    # each experiment's CPU fallback runs and passes its invariants; also validate the committed
+    # GPU and CPU evidence bundles.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build CPU-only L2 images
+        run: python scripts/hw_labs.py build --cpu-image
+      - name: Run L2 tests (CPU fallback now + committed evidence)
+        run: python scripts/hw_labs.py test --device cpu

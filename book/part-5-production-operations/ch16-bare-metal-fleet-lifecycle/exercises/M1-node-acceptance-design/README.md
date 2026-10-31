@@ -17,3 +17,6 @@ evidence class; a total duration estimate; the policy-version field you will rec
 Write your answer in `outputs/answer.md`. Cover every item in the "Evidence required" line; cite the
 manuscript Section, table, or lab file you relied on, and label every number with its evidence class
 (`[MODELED]`, `[ILLUSTRATIVE]`, `[SIMULATED]`, ...).
+
+On a single GPU host you can execute the GPU subset of your design with `python scripts/hw_labs.py run ch16 --device gpu`
+(CPU fallback with `--device cpu`). The HX8-only checks are reported as not runnable.

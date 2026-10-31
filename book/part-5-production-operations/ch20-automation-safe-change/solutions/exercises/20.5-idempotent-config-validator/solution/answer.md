@@ -45,3 +45,11 @@ run is a no-op 2 · JSON audit lines 2 · missing tool is "cannot determine" 1.
 **Common wrong answers.** Treating an `ibv_devinfo` failure as in sync. Changing the MTU on every interface,
 including the frontend NICs. Scraping `ifconfig` text. No second-run evidence. Reporting `active_mtu` drift as
 a separate remediation instead of re-reading it after the netdev fix (credit read-back verification).
+
+## Hardware run (L2 harness)
+
+Not runnable on the course harness: the L2 apply step needs root on a lab VM with an RDMA NIC or
+soft-RoCE. `python scripts/hw_labs.py run ch20` runs a read-only `LinuxHost` adapter against the host's
+sysfs. With no backend netdev the target is unreachable, `compute_plan` plans 0 actions and the dry run
+writes nothing. That is the idempotency contract's read side only; the apply/re-apply evidence must come
+from the lab VM.

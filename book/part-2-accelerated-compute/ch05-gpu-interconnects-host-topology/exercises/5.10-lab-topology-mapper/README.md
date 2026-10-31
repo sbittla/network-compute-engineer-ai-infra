@@ -22,3 +22,7 @@ Run from the chapter's `lab/` folder:
 python check.py | tee ../exercises/5.10-lab-topology-mapper/outputs/check.txt
 python starter/topo_mapper.py --data data --out ../exercises/5.10-lab-topology-mapper/outputs/gpu_nic_mapping.csv
 ```
+
+**Hardware run (course harness).** Optional hardware capture on the course harness: `python
+scripts/hw_labs.py run ch05 --device gpu` runs your parser on the host's real `nvidia-smi topo -m` and
+records the PCIe link and GDR prerequisites in `lab/l2/results/`.

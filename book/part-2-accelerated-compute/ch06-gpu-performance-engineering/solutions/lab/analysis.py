@@ -180,6 +180,7 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
       "regression"      p_perm < ALPHA, point > 0 and |point| ≥ max(floor, threshold)
       "below_threshold" p_perm < ALPHA but |point| < max(floor, threshold): real but not worth acting on
       "not_significant" p_perm ≥ ALPHA
+      "undecidable"     cleaning left fewer than 2 runs in an arm: no comparison is possible
     Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), cliffs_delta_iter
     (candidate vs baseline, cleaned iterations), cliffs_delta_runs (on run medians), floor, threshold,
     decision, excluded, n_runs_base, n_runs_cand, naive.
@@ -189,9 +190,15 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
     cb, eb = clean_runs(base, reference_sw, peer_clock_mhz=peer)
     cc, ec = clean_runs(cand, reference_sw, peer_clock_mhz=peer)
     rb, rc = run_medians(cb), run_medians(cc)
+    bar = max(floor, threshold)
+    if len(rb) < 2 or len(rc) < 2:  # e.g. every run of one arm excluded for clock events
+        nan = float("nan")
+        return {"point": nan, "ci_lo": nan, "ci_hi": nan, "p_perm": nan, "cliffs_delta_iter": nan,
+                "cliffs_delta_runs": nan, "floor": floor, "threshold": threshold, "decision": "undecidable",
+                "excluded": eb + ec, "n_runs_base": int(cb["run_id"].nunique()),
+                "n_runs_cand": int(cc["run_id"].nunique()), "naive": naive_compare(base, cand)}
     p, lo, hi = bootstrap_ratio_ci(rb, rc)
     pp = permutation_test(rb, rc)
-    bar = max(floor, threshold)
     if pp >= ALPHA:
         decision = "not_significant"
     elif abs(p) < bar:

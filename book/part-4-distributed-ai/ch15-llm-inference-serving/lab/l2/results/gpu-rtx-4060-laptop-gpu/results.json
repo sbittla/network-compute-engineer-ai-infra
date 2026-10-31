@@ -1,0 +1,266 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same random-weight GQA decoder, smaller and in FP32, runs prefill/decode/generation on the CPU; KV bytes are counted from tensor sizes and GPU bandwidth/peak invariants are skipped",
+    "evidence": "MEASURED",
+    "id": "ch15-l2",
+    "title": "Lab 15 L2: prefill vs decode, TTFT/ITL and KV cache memory vs the capacity model"
+  },
+  "generation": {
+    "batch": 8,
+    "itl": {
+      "iqr": 0.0004697029944509268,
+      "max": 0.02966411702800542,
+      "mean": 0.018858906682506796,
+      "median": 0.018686379014980048,
+      "min": 0.015507720992900431,
+      "n": 315,
+      "p95": 0.02002265799092129
+    },
+    "itl_p99_s": 0.02440922596724704,
+    "output": 64,
+    "prompt": 512,
+    "runs": 5,
+    "tpot": {
+      "iqr": 0.0005149957862505238,
+      "max": 0.01922402498386209,
+      "mean": 0.018858906682506796,
+      "median": 0.01879543212745043,
+      "min": 0.01856743799991876,
+      "n": 5,
+      "p95": 0.01922402498386209
+    },
+    "ttft": {
+      "iqr": 0.005236444500042126,
+      "max": 0.491390114009846,
+      "mean": 0.4881244992138818,
+      "median": 0.4891771550173871,
+      "min": 0.4830236400011927,
+      "n": 5,
+      "p95": 0.491390114009846
+    }
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "model 672 M params (1.34 GB bfloat16), KV 24576 B/token [MODELED]",
+    "prefill P=128: 21.16 ms, 8.17 TFLOP/s",
+    "prefill P=512: 62.28 ms, 11.26 TFLOP/s",
+    "prefill P=1024: 125.39 ms, 11.39 TFLOP/s",
+    "prefill P=2048: 258.49 ms, 11.45 TFLOP/s",
+    "decode B=1 ctx=512: 15.85 ms/step, 63 tok/s, 85.6 GB/s effective",
+    "decode B=2 ctx=512: 17.62 ms/step, 113 tok/s, 77.7 GB/s effective",
+    "decode B=4 ctx=512: 17.72 ms/step, 226 tok/s, 78.7 GB/s effective",
+    "decode B=8 ctx=512: 18.15 ms/step, 441 tok/s, 79.6 GB/s effective",
+    "decode B=16 ctx=512: 19.92 ms/step, 803 tok/s, 77.6 GB/s effective",
+    "decode B=32 ctx=512: 23.92 ms/step, 1338 tok/s, 73.0 GB/s effective",
+    "decode B=8 ctx=1024: 19.17 ms/step, 417 tok/s, 80.6 GB/s effective",
+    "decode B=8 ctx=2048: 21.85 ms/step, 366 tok/s, 80.0 GB/s effective",
+    "decode B=8 ctx=4096: 25.70 ms/step, 311 tok/s, 83.7 GB/s effective"
+  ],
+  "metrics": {
+    "activation_reserve_bytes": 138412032,
+    "decode_fit_GBps": 83.70630946837132,
+    "decode_fit_overhead_s": 0.0003384002237116941,
+    "dtype": "bfloat16",
+    "itl_p50_s": 0.018686379014980048,
+    "itl_p95_s": 0.02002265799092129,
+    "itl_p99_s": 0.02440922596724704,
+    "kv_bytes_per_token_measured": 24576.0,
+    "kv_bytes_per_token_model": 24576,
+    "lab_model_source": "solutions/lab/serving_lab.py",
+    "model": {
+      "ffn": 5632,
+      "h": 2048,
+      "head_dim": 128,
+      "heads": 16,
+      "kv_heads": 4,
+      "layers": 12,
+      "vocab": 32000
+    },
+    "n_params": 672188416,
+    "peak_alloc_bytes": 2177298944,
+    "tpot_p50_s": 0.01879543212745043,
+    "ttft_p50_s": 0.4891771550173871,
+    "ttft_p95_s": 0.491390114009846,
+    "weight_alloc_bytes": 1346473984,
+    "weight_bytes": 1344376832
+  },
+  "notes": [
+    "Model: random-weight GQA decoder (RMSNorm, SwiGLU MLP, untied embedding/LM head), no tokenizer or download; greedy argmax sampling. Latency depends only on shapes, so random weights measure the same thing a real checkpoint of these shapes would.",
+    "Benchmark: prefill 5 reps after 2 warm-ups, decode 20 reps after 3 warm-ups (CUDA events on the GPU); generation: 1 warm-up run then 5 runs, every step synchronised (what a client sees).",
+    "Eager PyTorch, no CUDA graphs, no paged attention, no continuous batching: the per-step overhead measured here is Python + kernel-launch cost that engines remove; do not read it as vLLM's overhead.",
+    "Lab model: solutions/lab/serving_lab.py.",
+    "Not runnable here: the README's L2 serving-engine benchmark (vLLM/SGLang with an open 7-8B model; needs the network to fetch the engine and weights, and > 8 GB for BF16 7B weights + KV) and the L3 disaggregated prefill/decode over RDMA (needs 2+ nodes with RDMA NICs)."
+  ],
+  "runtime_s": 25.48,
+  "status": "ran",
+  "tables": {
+    "decode": [
+      {
+        "batch": 1,
+        "bytes_moved": 1356959744,
+        "context": 512,
+        "eff_GBps": 85.61269023074243,
+        "iqr_s": 0.0005534720420837386,
+        "median_s": 0.015849983692169188,
+        "min_s": 0.014993408203125,
+        "n": 20,
+        "p95_s": 0.01698406410217285,
+        "sweep": "batch",
+        "tokens_per_s": 63.09154756380337
+      },
+      {
+        "batch": 2,
+        "bytes_moved": 1369542656,
+        "context": 512,
+        "eff_GBps": 77.71544752718049,
+        "iqr_s": 0.0010150394439697279,
+        "median_s": 0.017622528076171873,
+        "min_s": 0.016945152282714843,
+        "n": 20,
+        "p95_s": 0.019252223968505858,
+        "sweep": "batch",
+        "tokens_per_s": 113.49109454416363
+      },
+      {
+        "batch": 4,
+        "bytes_moved": 1394708480,
+        "context": 512,
+        "eff_GBps": 78.7272019838901,
+        "iqr_s": 0.00042879962921142656,
+        "median_s": 0.017715712547302247,
+        "min_s": 0.017171455383300782,
+        "n": 20,
+        "p95_s": 0.018311168670654295,
+        "sweep": "batch",
+        "tokens_per_s": 225.78826503984573
+      },
+      {
+        "batch": 8,
+        "bytes_moved": 1445040128,
+        "context": 512,
+        "eff_GBps": 79.62152036225962,
+        "iqr_s": 0.0010165772438049323,
+        "median_s": 0.018148863792419433,
+        "min_s": 0.017123327255249024,
+        "n": 20,
+        "p95_s": 0.019944448471069336,
+        "sweep": "batch",
+        "tokens_per_s": 440.79894430314175
+      },
+      {
+        "batch": 16,
+        "bytes_moved": 1545703424,
+        "context": 512,
+        "eff_GBps": 77.61001793329193,
+        "iqr_s": 0.0005813760757446343,
+        "median_s": 0.019916287422180178,
+        "min_s": 0.01927168083190918,
+        "n": 20,
+        "p95_s": 0.020257791519165038,
+        "sweep": "batch",
+        "tokens_per_s": 803.3625776148057
+      },
+      {
+        "batch": 32,
+        "bytes_moved": 1747030016,
+        "context": 512,
+        "eff_GBps": 73.04379780149405,
+        "iqr_s": 0.0007449598312377938,
+        "median_s": 0.02391756820678711,
+        "min_s": 0.02369740867614746,
+        "n": 20,
+        "p95_s": 0.025032703399658202,
+        "sweep": "batch",
+        "tokens_per_s": 1337.9286607791228
+      },
+      {
+        "batch": 8,
+        "bytes_moved": 1545703424,
+        "context": 1024,
+        "eff_GBps": 80.62148228493547,
+        "iqr_s": 0.000544513225555418,
+        "median_s": 0.0191723518371582,
+        "min_s": 0.018755584716796874,
+        "n": 20,
+        "p95_s": 0.019752960205078125,
+        "sweep": "context",
+        "tokens_per_s": 417.2675354567137
+      },
+      {
+        "batch": 8,
+        "bytes_moved": 1747030016,
+        "context": 2048,
+        "eff_GBps": 79.96831403777264,
+        "iqr_s": 0.00029388713836669966,
+        "median_s": 0.02184652805328369,
+        "min_s": 0.021196800231933592,
+        "n": 20,
+        "p95_s": 0.022387712478637696,
+        "sweep": "context",
+        "tokens_per_s": 366.19091054139113
+      },
+      {
+        "batch": 8,
+        "bytes_moved": 2149683200,
+        "context": 4096,
+        "eff_GBps": 83.65244747672465,
+        "iqr_s": 0.0005580787658691425,
+        "median_s": 0.025697792053222656,
+        "min_s": 0.02474291229248047,
+        "n": 20,
+        "p95_s": 0.026291200637817383,
+        "sweep": "context",
+        "tokens_per_s": 311.31079212685717
+      }
+    ],
+    "prefill": [
+      {
+        "activation_peak_bytes": 17170432,
+        "flops": 172885540864.0,
+        "iqr_s": 0.0005089273452758801,
+        "median_s": 0.021156864166259767,
+        "min_s": 0.020993024826049804,
+        "n": 5,
+        "p95_s": 0.021792768478393554,
+        "prompt": 128,
+        "tflops": 8.171605182383875
+      },
+      {
+        "activation_peak_bytes": 37224448,
+        "flops": 701205839872.0,
+        "iqr_s": 0.0011007995605468723,
+        "median_s": 0.062284801483154295,
+        "min_s": 0.062045185089111325,
+        "n": 5,
+        "p95_s": 0.06324531173706055,
+        "prompt": 512,
+        "tflops": 11.258056912353648
+      },
+      {
+        "activation_peak_bytes": 71289856,
+        "flops": 1428181483520.0,
+        "iqr_s": 0.0016122894287109446,
+        "median_s": 0.12538982391357423,
+        "min_s": 0.12499967956542969,
+        "n": 5,
+        "p95_s": 0.127067138671875,
+        "prompt": 1024,
+        "tflops": 11.389931327317148
+      },
+      {
+        "activation_peak_bytes": 138412032,
+        "flops": 2959442182144.0,
+        "iqr_s": 0.002105331420898471,
+        "median_s": 0.2584903564453125,
+        "min_s": 0.25734759521484374,
+        "n": 5,
+        "p95_s": 0.2605076599121094,
+        "prompt": 2048,
+        "tflops": 11.448946192196205
+      }
+    ]
+  }
+}

@@ -1,0 +1,1440 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same idle / GEMM / copy phases on the CPU, reporting throughput only: the container sees no CPU or server power sensor (no RAPL, no BMC), so power is recorded as not measurable",
+    "evidence": "MEASURED",
+    "id": "ch02-l2",
+    "title": "Lab 2 L2: GPU power, clocks and throttle reasons under compute- and memory-bound load"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "GEMM 4096x4096x4096 float16 (torch.matmul, out=), copy 256 MiB buffer-to-buffer (read + write counted); phases idle 15 s, GEMM 45 s, copy 30 s, idle 10 s"
+  ],
+  "metrics": {
+    "copy_gbs_median": 227.63,
+    "copy_gbs_per_w": 4.264,
+    "copy_power_median_w": 53.39,
+    "copy_sm_clock_median_mhz": 2520.0,
+    "enforced_power_limit_w": 80.0,
+    "gemm_fraction_of_clock_peak": 0.986,
+    "gemm_max_to_sustained": 1.031,
+    "gemm_p99_to_sustained": 1.015,
+    "gemm_power_max_w": 82.55,
+    "gemm_power_median_w": 80.07,
+    "gemm_power_p99_w": 81.24,
+    "gemm_sm_clock_median_mhz": 2280.0,
+    "gemm_sustained_to_limit": 1.001,
+    "gemm_sw_power_cap_fraction": 0.9925925925925926,
+    "gemm_tflops_median": 27.633,
+    "gemm_tflops_per_w": 0.3451,
+    "idle_power_w": 2.105,
+    "peak_dram_gbs": 256.03,
+    "peak_fp16_tflops_at_max_clock": 38.15,
+    "peak_fp16_tflops_at_run_clock": 28.02,
+    "power_measured": true
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a BMC with IPMI/Redfish read access",
+        "network access to it"
+      ],
+      "part": "Server (node) power from the BMC: ipmitool dcmi power reading / Redfish PowerSubsystem",
+      "probe": {
+        "bmc_ipmi_device": false,
+        "dcgmi": null,
+        "euid": 1000,
+        "ipmitool": null,
+        "nvidia_smi": "/usr/bin/nvidia-smi",
+        "rapl_domains": [],
+        "redfish_reachable": false
+      }
+    },
+    {
+      "needs": [
+        "root on a dedicated, authorised GPU server",
+        "a driver that permits power-limit changes (not WSL2 GPU paravirtualisation)"
+      ],
+      "part": "Exercise 2.8 power-cap sweep (nvidia-smi -pl <W> from max down to 55 %)",
+      "probe": "not attempted on purpose: the harness container is unprivileged and the lab never changes power limits"
+    }
+  ],
+  "notes": [
+    "Workload: GEMM 4096x4096x4096 float16 (torch.matmul, out=), copy 256 MiB buffer-to-buffer (read + write counted); phases idle 15 s, GEMM 45 s, copy 30 s, idle 10 s.",
+    "Throughput is timed in ~0.5 s windows after 3 warm-up steps (>= 5 windows per phase); power, clocks and temperature are nvidia-smi samples every 100 ms during the same phase.",
+    "The cumulative clock-event counters did not advance during this run although the active bitmask reported SW Power Cap (seen on this driver under WSL2); time power-capped is therefore the fraction of 100 ms samples whose active bitmask has the SW Power Cap bit set.",
+    "The first 0.4 s of each phase is excluded from its telemetry statistics (nvidia-smi output lags the switch).",
+    "power.draw.instant is used for distribution statistics; power.draw (a ~1 s average) hides transients. Even 100 ms sampling cannot see millisecond-scale load steps: the model's transient margin covers those."
+  ],
+  "runtime_s": 102.07,
+  "status": "ran",
+  "tables": {
+    "l1_comparison": [
+      {
+        "orion_basis": "node 8.5 kW / 10.2 kW [MODELED]",
+        "orion_model": 0.833,
+        "quantity": "sustained / maximum power",
+        "this_basis": "GPU GEMM median power / enforced power limit [MEASURED]",
+        "this_gpu": 1.001
+      },
+      {
+        "orion_basis": "rack design load = max x (1 + 0.1) transient margin [MODELED]",
+        "orion_model": 1.1,
+        "quantity": "peak / sustained power",
+        "this_basis": "GPU max instant sample / GEMM median (100 ms sampling) [MEASURED]",
+        "this_gpu": 1.031
+      },
+      {
+        "orion_basis": "not modeled (the model sizes for the compute-bound worst case)",
+        "orion_model": null,
+        "quantity": "memory-bound / compute-bound power",
+        "this_basis": "copy median power / GEMM median power [MEASURED]",
+        "this_gpu": 0.667
+      },
+      {
+        "orion_basis": "solutions/lab/capacity_model.py: compute_power_cooling [MODELED]",
+        "orion_model": 327.6,
+        "quantity": "cluster IT sustained kW if nodes behaved like this GPU",
+        "this_basis": "same model, node_sustained_kw = node_max_kw x measured ratio [MODELED from MEASURED, method illustration only]",
+        "this_gpu": 382.3
+      }
+    ],
+    "phases": [
+      {
+        "counters_monotonic": true,
+        "event_reasons_seen": [
+          "gpu_idle"
+        ],
+        "hw_thermal_us": 0.0,
+        "phase": "idle",
+        "power_max_w": 18.99,
+        "power_median_w": 2.105,
+        "power_p95_w": 18.79,
+        "power_p99_w": 18.92,
+        "samples": 114,
+        "sm_clock_median_mhz": 240.0,
+        "sm_clock_min_mhz": 210.0,
+        "sw_power_cap_counter_fraction": 0.0,
+        "sw_power_cap_fraction": 0.0,
+        "sw_power_cap_us": 0.0,
+        "sw_thermal_us": 0.0,
+        "temp_max_c": 58.0
+      },
+      {
+        "counters_monotonic": true,
+        "event_reasons_seen": [
+          "gpu_idle",
+          "sw_power_cap"
+        ],
+        "hw_thermal_us": 0.0,
+        "phase": "gemm",
+        "power_max_w": 82.55,
+        "power_median_w": 80.07,
+        "power_p95_w": 80.75,
+        "power_p99_w": 81.24,
+        "samples": 405,
+        "sm_clock_median_mhz": 2280.0,
+        "sm_clock_min_mhz": 210.0,
+        "sw_power_cap_counter_fraction": 0.0,
+        "sw_power_cap_fraction": 0.9925925925925926,
+        "sw_power_cap_us": 0.0,
+        "sw_thermal_us": 0.0,
+        "temp_max_c": 79.0
+      },
+      {
+        "counters_monotonic": true,
+        "event_reasons_seen": [],
+        "hw_thermal_us": 0.0,
+        "phase": "copy",
+        "power_max_w": 54.02,
+        "power_median_w": 53.39,
+        "power_p95_w": 53.71,
+        "power_p99_w": 53.94,
+        "samples": 271,
+        "sm_clock_median_mhz": 2520.0,
+        "sm_clock_min_mhz": 2520.0,
+        "sw_power_cap_counter_fraction": 0.0,
+        "sw_power_cap_fraction": 0.0,
+        "sw_power_cap_us": 0.0,
+        "sw_thermal_us": 0.0,
+        "temp_max_c": 79.0
+      },
+      {
+        "counters_monotonic": true,
+        "event_reasons_seen": [
+          "gpu_idle"
+        ],
+        "hw_thermal_us": 0.0,
+        "phase": "cooldown",
+        "power_max_w": 22.53,
+        "power_median_w": 2.31,
+        "power_p95_w": 22.3,
+        "power_p99_w": 22.42,
+        "samples": 75,
+        "sm_clock_median_mhz": 210.0,
+        "sm_clock_min_mhz": 210.0,
+        "sw_power_cap_counter_fraction": 0.0,
+        "sw_power_cap_fraction": 0.0,
+        "sw_power_cap_us": 0.0,
+        "sw_thermal_us": 0.0,
+        "temp_max_c": 65.0
+      }
+    ],
+    "telemetry_samples": [
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "start",
+        "power.draw.instant": "12.36",
+        "temperature.gpu": "57"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.87",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.56",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.81",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.79",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.73",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.61",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.70",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.49",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.54",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "18.77",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "420",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "6.92",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "285",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.63",
+        "temperature.gpu": "56"
+      },
+      {
+        "clocks.sm": "225",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.12",
+        "temperature.gpu": "56"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.94",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.47",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.10",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.75",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.11",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.07",
+        "temperature.gpu": "55"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.42",
+        "temperature.gpu": "54"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.18",
+        "temperature.gpu": "54"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.09",
+        "temperature.gpu": "54"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "1.47",
+        "temperature.gpu": "54"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "idle",
+        "power.draw.instant": "2.06",
+        "temperature.gpu": "54"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "gemm",
+        "power.draw.instant": "7.41",
+        "temperature.gpu": "65"
+      },
+      {
+        "clocks.sm": "2325",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.97",
+        "temperature.gpu": "70"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "78.90",
+        "temperature.gpu": "71"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "82.13",
+        "temperature.gpu": "71"
+      },
+      {
+        "clocks.sm": "2325",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.42",
+        "temperature.gpu": "72"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.07",
+        "temperature.gpu": "72"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.43",
+        "temperature.gpu": "72"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.65",
+        "temperature.gpu": "73"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.94",
+        "temperature.gpu": "73"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "78.89",
+        "temperature.gpu": "73"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "81.02",
+        "temperature.gpu": "73"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.99",
+        "temperature.gpu": "73"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.91",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.89",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.96",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.98",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.98",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.29",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2310",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.82",
+        "temperature.gpu": "74"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.90",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.06",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.23",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.96",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.24",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.10",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.61",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.34",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.75",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.43",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.10",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.55",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.03",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.68",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.88",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.01",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.57",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.28",
+        "temperature.gpu": "76"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.83",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.92",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.01",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.67",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.97",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.90",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.43",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.22",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.54",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.03",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.88",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.79",
+        "temperature.gpu": "77"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.96",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.12",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2295",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.03",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.74",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.07",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.17",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.12",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.13",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.15",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.25",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.16",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.07",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.27",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.80",
+        "temperature.gpu": "78"
+      },
+      {
+        "clocks.sm": "2250",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.34",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.26",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.29",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.28",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.12",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.18",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.22",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.84",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.37",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.37",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.30",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.58",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.63",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2265",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.61",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.28",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.51",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "80.51",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2280",
+        "clocks_event_reasons.active": "0x0000000000000004",
+        "phase": "gemm",
+        "power.draw.instant": "79.85",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "54.19",
+        "temperature.gpu": "79"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.89",
+        "temperature.gpu": "75"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.71",
+        "temperature.gpu": "70"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.65",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.80",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.53",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.49",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.51",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.63",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.61",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.56",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.69",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.53",
+        "temperature.gpu": "69"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.50",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.50",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.47",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.49",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.48",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.54",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.44",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.48",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.46",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.42",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.46",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.34",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.44",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.39",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.48",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.35",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.31",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.30",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.51",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.42",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.38",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.42",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.38",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.36",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.35",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.39",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.39",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.28",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.26",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.22",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.28",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.32",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.26",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.27",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.30",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.20",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.21",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.38",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.21",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.24",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.27",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2520",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "copy",
+        "power.draw.instant": "53.19",
+        "temperature.gpu": "68"
+      },
+      {
+        "clocks.sm": "2535",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "cooldown",
+        "power.draw.instant": "22.40",
+        "temperature.gpu": "65"
+      },
+      {
+        "clocks.sm": "2535",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "cooldown",
+        "power.draw.instant": "22.30",
+        "temperature.gpu": "64"
+      },
+      {
+        "clocks.sm": "2535",
+        "clocks_event_reasons.active": "0x0000000000000000",
+        "phase": "cooldown",
+        "power.draw.instant": "22.20",
+        "temperature.gpu": "63"
+      },
+      {
+        "clocks.sm": "615",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "11.55",
+        "temperature.gpu": "63"
+      },
+      {
+        "clocks.sm": "465",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "8.95",
+        "temperature.gpu": "61"
+      },
+      {
+        "clocks.sm": "360",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "4.66",
+        "temperature.gpu": "60"
+      },
+      {
+        "clocks.sm": "270",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "5.92",
+        "temperature.gpu": "60"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "5.32",
+        "temperature.gpu": "59"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "2.01",
+        "temperature.gpu": "59"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "1.98",
+        "temperature.gpu": "59"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "1.56",
+        "temperature.gpu": "59"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "2.03",
+        "temperature.gpu": "59"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "2.31",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "2.01",
+        "temperature.gpu": "58"
+      },
+      {
+        "clocks.sm": "210",
+        "clocks_event_reasons.active": "0x0000000000000001",
+        "phase": "cooldown",
+        "power.draw.instant": "2.02",
+        "temperature.gpu": "58"
+      }
+    ],
+    "throughput": [
+      {
+        "max": 28.217874499340393,
+        "median": 27.632629776758144,
+        "min": 2.7075957771242365,
+        "p95": 27.90681885933743,
+        "phase": "gemm",
+        "unit": "TFLOP/s",
+        "windows": 93
+      },
+      {
+        "max": 228.04693835596836,
+        "median": 227.63037025014336,
+        "min": 213.4101115258232,
+        "p95": 227.82865572837272,
+        "phase": "copy",
+        "unit": "GB/s",
+        "windows": 62
+      }
+    ]
+  }
+}

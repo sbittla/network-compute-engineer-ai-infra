@@ -40,3 +40,7 @@ python validator.py --fixture outputs/fixture.json            # validate (exit 1
 python validator.py --fixture outputs/fixture.json --apply --no-dry-run
 python validator.py --fixture outputs/fixture.json --apply --no-dry-run   # must plan 0 actions
 ```
+
+**Hardware run (course harness).** The course harness cannot do the L2 run (it has no root and no netdev
+besides `lo`). `python scripts/hw_labs.py run ch20` runs only a read-only `LinuxHost` adapter, which
+proves a dry run writes nothing. Use a lab VM with soft-RoCE for the L2 evidence.

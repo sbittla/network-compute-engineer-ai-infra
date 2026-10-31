@@ -21,3 +21,8 @@ Run only on a dedicated lab fabric. Record the environment in `manifest.yaml` wi
 - `outputs/raw/` (the unedited ib_write_bw / ib_write_lat captures and inventories)
 - `outputs/manifest.yaml`
 - `outputs/report.md` (median and min/max table, model-versus-measured table, gap explanation)
+
+**Hardware run (course harness).** This exercise cannot be done on the course harness. `python
+scripts/hw_labs.py run ch08` records the missing RDMA hardware, runs the readiness validator on the
+host's real inventory and measures memory-registration cost (`lab/l2/results/`). That is useful
+preparation, not a substitute for the two-host perftest runs.

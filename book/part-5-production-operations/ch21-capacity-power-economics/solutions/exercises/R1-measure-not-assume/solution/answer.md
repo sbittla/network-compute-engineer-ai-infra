@@ -26,3 +26,13 @@ Choose inputs by how much they move a *decision*, not by how uncertain they feel
 Acceptable alternatives with the same reasoning: goodput (from step and failure records, Chapters
 18–19), the repair fraction (from the measured MTTR), or the energized-kW schedule (from the
 facility's commissioning plan).
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch21 --device gpu` measures one of these inputs instead of assuming it: how power
+and throughput relate on a real GPU. It duty-cycles a GEMM from 0 to 100 % and adds a memory-bound copy. It
+records power every 100 ms, throughput, SM clock and `SW_POWER_CAP` share, and derives perf/W and a static-power
+term. The cap sweep itself (`nvidia-smi -pl`) needs root on a dedicated bare-metal host, so the run records it as
+not runnable and keeps the lab's modeled curve. That is the measurement this answer says must replace
+`power_cap_curve.csv` on your own GPUs. With `--device cpu` the sweep runs on the CPU, where host power is not
+readable.

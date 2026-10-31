@@ -62,3 +62,12 @@ second-run plan size (must be 0). L1-only submissions leave these fields empty.
 
 15 + 20 + 20 + 5 + 15 + 10 + 15 as in `meta.yaml`. Deduct a point in (a) if the answer claims RoCE breaks on
 `orion-n10`.
+
+## Hardware run (L2 harness)
+
+The course harness (`python scripts/hw_labs.py run ch20`) runs the decision half of the L3 canary on real
+measurements. GEMM throughput samples stand in for busbw and go through `evaluate_wave` with the lab's
+AC1 and bake rule. A no-op change must *proceed*, an injected ≈ 20 % regression must *abort* naming AC1,
+and the regression with half the bake samples must *hold*; `run_rollout` must roll back every changed
+node. It also reports run-to-run noise against the 5 % threshold, the point behind answer (b). The
+MTU-changing reconciler is not runnable there (no root, no RDMA NIC).

@@ -34,3 +34,11 @@ Put every deliverable in [`outputs/`](outputs/):
 - `outputs/report.md`: median and spread per step and answers to questions 1 to 3 with `[MEASURED]`/`[MODELED]` labels
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+
+**Hardware run (course harness).** From the repository root, `python scripts/hw_labs.py run ch02 --device
+gpu` measures the GPU at its *default* power limit: idle, a compute-bound GEMM and a memory-bound copy,
+with power, clocks and clock-event reasons sampled every 100 ms. It writes `lab/l2/results/gpu-<model>/`.
+It never changes the limit, so it gives you the first point of the sweep and the compute- versus
+memory-bound contrast of question 2, not the sweep itself. If you use it, copy its `report.md` to
+`outputs/l2_baseline_report.md`. Without a GPU, `--device cpu` runs the CPU fallback automatically
+(throughput only, no power).

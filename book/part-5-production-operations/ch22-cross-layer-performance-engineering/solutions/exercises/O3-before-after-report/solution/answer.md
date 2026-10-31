@@ -51,3 +51,12 @@ alert verdict is evidence-based; each fix has a predicted range (effect ± 2 SE)
 
 **Deductions.** Causal language in Measured facts; unlabelled numbers; dropping the interaction row
 (shares exceed 100 %); a recommendation without predicted effect or abort condition.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch22 --device gpu` writes a before/after report in this exercise's shape, on
+regressions whose ground truth is known. The measured facts are the copy bandwidths, the interleaved A/B and the
+per-job step times. The inferred causes are the lab's OLS attribution of the injected pageable-copy and
+micro-batch changes, with a placebo ruled out. The remaining uncertainty is the common-shift term and the MDE
+from the before-period spread. Use it to check your report's structure against real numbers before the L3
+canary. With `--device cpu` the same design runs on the host (strided-gather data path, per-job medians).

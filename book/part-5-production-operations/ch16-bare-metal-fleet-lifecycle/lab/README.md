@@ -134,6 +134,29 @@ sudo dmesg -T | grep -i xid
 Write a small collector that emits the same JSON schema, then run your `evaluate_node` against it
 with the lab policy (adjust `expected` for your GPU count/model and say so in the manifest).
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` collects the GPU part of an
+`acceptance_results.json` record from the real device: inventory (UUID, BDF, VBIOS, driver, memory), PCIe link at
+idle and under load, row-remapper state, a device-memory write/verify pattern test, a GEMM check against the
+Tensor Core ceiling, and a short sustained GEMM burn-in sampled every 250 ms. The samples cover temperature,
+power, SM clock, link and the clock-event-reason bitmask, and the run reads the reason counters before and after.
+The record goes through the lab's `evaluate_node` with policy `acc-2026.10`. Only `expected` is adapted to the
+detected SKU (one GPU, its memory and link, no NVLink), and the report says so. Checks that need absent hardware
+(NVLink, ECC, DCGM, RDMA NICs, NVMe, multi-GPU NCCL, kernel Xid log, BMC) are probed and listed as not runnable.
+
+```bash
+python scripts/hw_labs.py build ch16
+python scripts/hw_labs.py run ch16 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch16 --device cpu   # host-RAM pattern test + CPU burn-in; evaluator must FAIL GPU_COUNT
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It runs the
+same pattern test on host RAM and a CPU GEMM burn-in with `/proc/stat` telemetry. The host record has no GPU, so
+the evaluator must fail it with `GPU_COUNT`. GPU-only invariants are skipped. **Observed on the reference run:**
+the committed bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/`, a laptop Ada GPU, and `cpu-fallback/`)
+record the burn-in telemetry, the reasons seen under load (expect `SW_POWER_CAP`, which the policy ignores), the
+verdict on the checks that apply, and the not-runnable table `[MEASURED]`. A laptop is not an HX8 node: the
+thresholds transfer, the expected hardware does not.
+
 **L3 (two or more nodes with RDMA).** Per compute NIC:
 
 ```bash

@@ -128,6 +128,32 @@ models, driver/CUDA/NCCL/PyTorch versions, scheduler and version, configured col
 checkpoint mechanism and size, storage system, monitoring stack and versions, alert rules used,
 injection tool and exact command, repetitions, and the rollback verification for every injection.
 
+### L2 on one GPU host: the packaged, contained drill
+
+None of the injections in the table are safe or possible on a shared laptop. Link-down, BMC power-off, `tc netem` and
+`slurmctld` each need root, a lab fabric or a scheduler, so `l2/experiment.py` records them as **not runnable** after
+probing. It runs the one fault whose blast radius is a single disposable process. A real training job on the GPU (an MLP
+with Adam) writes a heartbeat every step and an atomic checkpoint every 25 steps. It is SIGKILLed at a seeded random
+moment. A monitor applies the L1 `JobStalled` rule form (progress age > threshold, held for `for_s`), scaled to this job's
+step time, then requeues the job, which reloads the last durable checkpoint. Over ≥ 3 repetitions it measures detect_s,
+resume_s (process launch, CUDA init, checkpoint load) and steps lost, and compares them with the simulator's recovery
+model. Abort condition and rollback verification are written into the run.
+
+```bash
+python scripts/hw_labs.py build capstone-f                 # from the repository root: the ai-infra-gpu:capstone-f image
+python scripts/hw_labs.py run capstone-f --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-f --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-f                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the same drill with the job on the CPU.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show detection at threshold + hold + one poll, and steps lost always inside one checkpoint interval. Resume time is
+dominated by process launch and framework/CUDA initialisation rather than by the checkpoint load. A model that counts
+only bytes / bandwidth underestimates RTO. The seconds are a laptop container's, not ORION's. The decomposition is what
+transfers.
+
 ## 9. Files
 
 ```text

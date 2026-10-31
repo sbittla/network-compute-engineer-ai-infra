@@ -89,3 +89,12 @@ priority (3) on every fabric and host port.
 
 Reporting the shared spine ASN or host MTU 9000 as errors. Treating the MTU mismatch as "major"
 because BGP is up. Quoting raw uplink instead of ECMP-aware ingress for planted-fault consequences.
+
+## Hardware run (L2 harness)
+
+On the course harness (`python scripts/hw_labs.py run ch07`) the containerlab fabric cannot run: there is
+no containerlab, no Docker socket, no CAP_NET_ADMIN and `--network none`. That is recorded with the
+probe. The harness instead reproduces Section 7.6: 8 RoCE flows on 8 links, 32 on 32, polarization with a
+reused seed, and modulo versus resilient rehash. Every figure is checked against its closed form, which
+supports the design note's ECMP discussion with `[SIMULATED]` numbers. Convergence timings still need the
+containerlab L2 on a Linux host.

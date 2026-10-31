@@ -32,3 +32,8 @@ cd ../../lab && python check.py | tee ../exercises/2.4-orion-capacity-lab/output
 ```
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+
+**Hardware run (course harness).** For the L2 extension on the course harness, run `python
+scripts/hw_labs.py run ch02 --device gpu` from the repository root (the CPU fallback runs automatically
+without a GPU) and add its `lab/l2/results/<gpu-model|cpu-fallback>/environment.json` and `report.md` to
+`outputs/`.

@@ -1,0 +1,242 @@
+{
+  "experiment": {
+    "cpu_fallback": "host-memory copy bandwidth sweep and a two-thread overlap test (no PCIe involved)",
+    "evidence": "MEASURED",
+    "id": "ch13-l2",
+    "title": "Lab 13 L2: host-GPU copy bandwidth and copy/compute overlap"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "  0.0625 MiB  h2d_pageable=0.57 GB/s  h2d_pinned=2.35 GB/s  d2h_pinned=1.70 GB/s",
+    "       1 MiB  h2d_pageable=4.10 GB/s  h2d_pinned=9.53 GB/s  d2h_pinned=9.62 GB/s",
+    "       4 MiB  h2d_pageable=7.61 GB/s  h2d_pinned=11.14 GB/s  d2h_pinned=9.12 GB/s",
+    "      16 MiB  h2d_pageable=9.72 GB/s  h2d_pinned=10.90 GB/s  d2h_pinned=10.01 GB/s",
+    "      64 MiB  h2d_pageable=9.95 GB/s  h2d_pinned=12.23 GB/s  d2h_pinned=13.14 GB/s",
+    "     256 MiB  h2d_pageable=10.03 GB/s  h2d_pinned=12.87 GB/s  d2h_pinned=13.09 GB/s",
+    "    1024 MiB  h2d_pageable=9.17 GB/s  h2d_pinned=12.71 GB/s  d2h_pinned=12.99 GB/s"
+  ],
+  "metrics": {
+    "d2h_pinned_gbs_at_1024MiB": 12.985,
+    "h2d_pageable_gbs_at_1024MiB": 9.172,
+    "h2d_pinned_gbs_at_1024MiB": 12.707,
+    "overlap_compute_s": 0.156732,
+    "overlap_copy_hidden_fraction": 0.668,
+    "overlap_copy_s": 0.021683,
+    "overlap_overlapped_s": 0.159515,
+    "overlap_serial_s": 0.174003
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "RDMA NIC (mlx5-class) on the GPU's PCIe switch",
+        "perftest built with CUDA",
+        "a second node"
+      ],
+      "part": "GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 6-11, exercise 13.11)",
+      "reason": "no RDMA device under /sys/class/infiniband on this host"
+    }
+  ],
+  "notes": [
+    "Median of >= 5 timed repetitions after 3 warm-ups; CUDA events on the GPU, perf_counter on the CPU.",
+    "PCIe ceiling = per-lane rate after encoding x max negotiated width from nvidia-smi."
+  ],
+  "rdma_devices": [],
+  "runtime_s": 13.77,
+  "status": "ran",
+  "tables": {
+    "bandwidth": [
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 0.5670773876258847,
+        "iqr_s": 7.800799608230591e-05,
+        "median_s": 0.00011556800082325935,
+        "n": 20,
+        "p95_s": 0.00021062399446964263,
+        "size_mib": 0.0625
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 2.354022939694356,
+        "iqr_s": 3.1728000612929465e-05,
+        "median_s": 2.7840000577270983e-05,
+        "n": 20,
+        "p95_s": 5.4207999259233475e-05,
+        "size_mib": 0.0625
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 1.7045360647623837,
+        "iqr_s": 5.579999997280538e-05,
+        "median_s": 3.8447998464107515e-05,
+        "n": 20,
+        "p95_s": 0.00020867200195789337,
+        "size_mib": 0.0625
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 4.095743998316274,
+        "iqr_s": 0.0001385440118610859,
+        "median_s": 0.0002560160011053085,
+        "n": 20,
+        "p95_s": 0.0004641279876232147,
+        "size_mib": 1
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 9.528351284864502,
+        "iqr_s": 1.3591999188065538e-05,
+        "median_s": 0.00011004799976944923,
+        "n": 20,
+        "p95_s": 0.00013942399621009826,
+        "size_mib": 1
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 9.620669150557681,
+        "iqr_s": 4.848003387451173e-06,
+        "median_s": 0.00010899200290441513,
+        "n": 20,
+        "p95_s": 0.00011846400052309036,
+        "size_mib": 1
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 7.611393430414566,
+        "iqr_s": 0.00010723201930522915,
+        "median_s": 0.0005510559976100921,
+        "n": 20,
+        "p95_s": 0.0007621759772300721,
+        "size_mib": 4
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 11.140841531313436,
+        "iqr_s": 2.1192014217376743e-05,
+        "median_s": 0.00037647999823093415,
+        "n": 20,
+        "p95_s": 0.0004026879966259003,
+        "size_mib": 4
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 9.118369540819184,
+        "iqr_s": 3.9592005312442783e-05,
+        "median_s": 0.00045998398959636684,
+        "n": 20,
+        "p95_s": 0.0005557439923286438,
+        "size_mib": 4
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 9.72416354431621,
+        "iqr_s": 0.00010183200240135195,
+        "median_s": 0.0017253119945526123,
+        "n": 20,
+        "p95_s": 0.0018447040319442749,
+        "size_mib": 16
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 10.901204952067847,
+        "iqr_s": 0.00014330396056175254,
+        "median_s": 0.0015390239953994751,
+        "n": 20,
+        "p95_s": 0.0017491519451141358,
+        "size_mib": 16
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 10.011514681943286,
+        "iqr_s": 2.3191988468170043e-05,
+        "median_s": 0.0016757919788360596,
+        "n": 20,
+        "p95_s": 0.0017213120460510254,
+        "size_mib": 16
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 9.954228992893853,
+        "iqr_s": 0.0001605439186096189,
+        "median_s": 0.006741744041442871,
+        "n": 10,
+        "p95_s": 0.006907455921173096,
+        "size_mib": 64
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 12.227150732454326,
+        "iqr_s": 0.0007923197746276846,
+        "median_s": 0.00548851203918457,
+        "n": 10,
+        "p95_s": 0.006124415874481201,
+        "size_mib": 64
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 13.143055556766496,
+        "iqr_s": 3.1208157539368286e-05,
+        "median_s": 0.005106032133102416,
+        "n": 10,
+        "p95_s": 0.005158271789550781,
+        "size_mib": 64
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 10.032414054778142,
+        "iqr_s": 0.0010755848884582524,
+        "median_s": 0.026756815910339356,
+        "n": 10,
+        "p95_s": 0.02828892707824707,
+        "size_mib": 256
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 12.874295759642104,
+        "iqr_s": 6.995248794555362e-05,
+        "median_s": 0.02085049629211426,
+        "n": 10,
+        "p95_s": 0.020903839111328124,
+        "size_mib": 256
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 13.093216813531784,
+        "iqr_s": 0.00032287120819091825,
+        "median_s": 0.020501872062683106,
+        "n": 10,
+        "p95_s": 0.02098441505432129,
+        "size_mib": 256
+      },
+      {
+        "case": "h2d_pageable",
+        "gbs_median": 9.171954859759943,
+        "iqr_s": 0.013809396743774419,
+        "median_s": 0.11706793594360351,
+        "n": 10,
+        "p95_s": 0.1810806121826172,
+        "size_mib": 1024
+      },
+      {
+        "case": "h2d_pinned",
+        "gbs_median": 12.707177078794842,
+        "iqr_s": 0.0016243400573730388,
+        "median_s": 0.08449884796142579,
+        "n": 10,
+        "p95_s": 0.08593619537353515,
+        "size_mib": 1024
+      },
+      {
+        "case": "d2h_pinned",
+        "gbs_median": 12.985144445040598,
+        "iqr_s": 0.0020058479309082167,
+        "median_s": 0.08269001770019532,
+        "n": 10,
+        "p95_s": 0.08469261169433594,
+        "size_mib": 1024
+      }
+    ]
+  }
+}

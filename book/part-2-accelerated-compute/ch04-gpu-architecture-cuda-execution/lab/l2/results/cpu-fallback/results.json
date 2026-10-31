@@ -1,0 +1,187 @@
+{
+  "experiment": {
+    "cpu_fallback": "torch.profiler capture of the same baseline and fixed steps on the CPU, aten ops classified by self time, uninstrumented before/after step times, and the lab's analyze() on the shipped simulated trace",
+    "evidence": "MEASURED",
+    "id": "ch04-l2",
+    "title": "Lab 4 L2: capture, classify and analyse a real training step (before and after the fixes)"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "baseline step median    36.54 ms  p95    52.37 ms  launches/step 0  syncs/step 0",
+    "fixed    step median    34.25 ms  p95    54.94 ms  launches/step 0  syncs/step 0"
+  ],
+  "metrics": {
+    "baseline_launches_per_step": 0,
+    "baseline_opt_step_ms": 3.0149,
+    "baseline_step_ms": 36.535,
+    "fixed_launches_per_step": 0,
+    "fixed_opt_step_ms": 3.8176,
+    "fixed_step_ms": 34.252,
+    "speedup": 1.067
+  },
+  "notes": [
+    "CPU fallback: torch limited to 4 threads; step time = median of >= 5 steps (perf_counter).",
+    "The shipped trace is the lab's SIMULATED ORION capture; it is analysed here only to exercise the pipeline in the GPU image."
+  ],
+  "runtime_s": 3.39,
+  "shipped_trace_analysis": {
+    "codes": [
+      "EXCESS_SYNC",
+      "LAUNCH_BOUND",
+      "LOW_OCCUPANCY",
+      "PAGEABLE_H2D",
+      "STREAM_DEPENDENCY"
+    ],
+    "findings": [
+      {
+        "code": "PAGEABLE_H2D",
+        "est_saving_ms_per_step": 8.8513,
+        "evidence": "4 large copies from pageable memory, 200 MiB, 17.7 ms total at 11.8 GB/s vs 48.1 GB/s for pinned; host thread blocked and no kernel overlaps them",
+        "recommendation": "Pin the source buffers (DataLoader pin_memory=True or a pinned staging pool), copy with non_blocking=True on a side stream one step ahead, and make the compute stream wait on an event."
+      },
+      {
+        "code": "EXCESS_SYNC",
+        "est_saving_ms_per_step": 4.843806,
+        "evidence": "15 host-sync gaps per step, 4.84 ms GPU idle per step; the CPU blocks on .item()/synchronize and the GPU drains before new work arrives",
+        "recommendation": "Remove the per-layer debug .item() hook; accumulate metrics on the GPU and read them once every N steps; time steps with CUDA events instead of cudaDeviceSynchronize."
+      },
+      {
+        "code": "LAUNCH_BOUND",
+        "est_saving_ms_per_step": 4.028238,
+        "evidence": "600 kernels/step shorter than 10 \u00b5s (median 2.6 \u00b5s, grids of 4 blocks on a 132-SM GPU); 600 launch-bound gaps/step totalling 4.03 ms",
+        "recommendation": "Use fused/foreach optimizer kernels (multi-tensor apply), flatten small parameters into one buffer, or capture the optimizer step in a CUDA Graph."
+      },
+      {
+        "code": "STREAM_DEPENDENCY",
+        "est_saving_ms_per_step": 0.3140835,
+        "evidence": "1 gap(s)/step totalling 0.31 ms where the next kernel (layer_norm_fwd_kernel) had been submitted long before the GPU went idle: the compute stream was waiting on an event from another stream",
+        "recommendation": "Find the cudaStreamWaitEvent/cudaLaunchHostFunc pair (here a monitoring callback) and take the host function off the compute stream's dependency chain (record an event and poll it later)."
+      },
+      {
+        "code": "LOW_OCCUPANCY",
+        "est_saving_ms_per_step": 2.438403147761194,
+        "evidence": "layernorm_bwd_fused_kernel: theoretical occupancy 12.5% (limited by registers), memory-bound at 22% of its roof, 5.0% of kernel time",
+        "kernel": "layernorm_bwd_fused_kernel",
+        "recommendation": "Reduce register pressure (launch bounds / maxrregcount, split the fused kernel) or use smaller blocks so more warps are resident to hide memory latency; re-measure with ncu."
+      }
+    ],
+    "gaps_by_cause": {
+      "dependency": 2,
+      "host_sync": 30,
+      "launch_bound": 1200
+    }
+  },
+  "status": "ran",
+  "tables": {
+    "step_time": [
+      {
+        "iqr": 0.008373416509130038,
+        "max": 0.05236858403077349,
+        "median": 0.03653514402685687,
+        "min": 0.030760237015783787,
+        "n": 10,
+        "p95": 0.05236858403077349,
+        "variant": "baseline"
+      },
+      {
+        "iqr": 0.00911587497103028,
+        "max": 0.05494237196398899,
+        "median": 0.03425236151088029,
+        "min": 0.03151962399715558,
+        "n": 10,
+        "p95": 0.05494237196398899,
+        "variant": "fixed"
+      }
+    ]
+  },
+  "variants": {
+    "baseline": {
+      "meta": {
+        "batch_bytes": 524288,
+        "blocks": 4,
+        "d": 256,
+        "fixed": false,
+        "params": 2102272,
+        "tokens": 512
+      },
+      "optimizer_step_time": {
+        "iqr": 0.0009783502900972962,
+        "max": 0.007078239985276014,
+        "mean": 0.0032125202254974284,
+        "median": 0.0030148874793667346,
+        "min": 0.0021069670328870416,
+        "n": 40,
+        "p95": 0.004999727010726929
+      },
+      "profiler": {
+        "aten_ops": 664,
+        "aten_self_cpu_us_by_category": {
+          "cast/copy": 726.3539999999459,
+          "elementwise": 7558.527999999951,
+          "gemm": 23884.219000000005,
+          "reduction": 994.5559999999919,
+          "sync": 17.496000000019876
+        },
+        "cudaLaunchKernel": 0,
+        "cudaMemcpyAsync": 0,
+        "gpu_activity_events": 0,
+        "sync_calls": 0
+      },
+      "step_time": {
+        "iqr": 0.008373416509130038,
+        "max": 0.05236858403077349,
+        "mean": 0.03808782130945474,
+        "median": 0.03653514402685687,
+        "min": 0.030760237015783787,
+        "n": 10,
+        "p95": 0.05236858403077349
+      }
+    },
+    "fixed": {
+      "meta": {
+        "batch_bytes": 524288,
+        "blocks": 4,
+        "d": 256,
+        "fixed": true,
+        "params": 2102272,
+        "tokens": 512
+      },
+      "optimizer_step_time": {
+        "iqr": 0.001079870227840729,
+        "max": 0.0069436850026249886,
+        "mean": 0.004140213249775116,
+        "median": 0.00381757749710232,
+        "min": 0.0031748409965075552,
+        "n": 40,
+        "p95": 0.006109668989665806
+      },
+      "profiler": {
+        "aten_ops": 587,
+        "aten_self_cpu_us_by_category": {
+          "cast/copy": 690.826999999967,
+          "elementwise": 7154.032999999944,
+          "gemm": 23783.317999999992,
+          "optimizer": 179.52900000006412,
+          "reduction": 345.24400000000605,
+          "sync": 94.48200000001088
+        },
+        "cudaLaunchKernel": 0,
+        "cudaMemcpyAsync": 0,
+        "gpu_activity_events": 0,
+        "sync_calls": 0
+      },
+      "step_time": {
+        "iqr": 0.00911587497103028,
+        "max": 0.05494237196398899,
+        "mean": 0.037536685401573774,
+        "median": 0.03425236151088029,
+        "min": 0.03151962399715558,
+        "n": 10,
+        "p95": 0.05494237196398899
+      }
+    }
+  }
+}

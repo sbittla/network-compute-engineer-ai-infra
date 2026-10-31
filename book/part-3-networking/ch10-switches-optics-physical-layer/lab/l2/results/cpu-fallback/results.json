@@ -1,0 +1,140 @@
+{
+  "experiment": {
+    "cpu_fallback": "the L1 link-health analyzer on the lab snapshots, a NIC/optic probe of this host, and the soak length needed to certify a BER [MODELED]; no PCIe link is visible without the GPU",
+    "evidence": "MEASURED",
+    "id": "ch10-l2",
+    "title": "Lab 10 L2: NIC/optic probe and a physical-layer soak of the GPU's PCIe link"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1": {
+    "by_layer": {
+      "healthy": 55,
+      "higher_layer": 2,
+      "physical": 7
+    },
+    "by_primary": {
+      "CONGESTION": 1,
+      "CRC_ERRORS": 1,
+      "HEALTHY": 55,
+      "LINK_FLAP": 1,
+      "MISCABLED": 2,
+      "OPTIC_MISMATCH": 1,
+      "OVERSIZE_FRAMES": 1,
+      "PRE_FEC_BER_HIGH": 1,
+      "RX_POWER_LOW": 1
+    },
+    "module": "solutions/lab/linkhealth.py",
+    "ports": 64
+  },
+  "log": [],
+  "metrics": {
+    "l1_ports_classified": 64,
+    "l1_primary_counts": {
+      "CONGESTION": 1,
+      "CRC_ERRORS": 1,
+      "HEALTHY": 55,
+      "LINK_FLAP": 1,
+      "MISCABLED": 2,
+      "OPTIC_MISMATCH": 1,
+      "OVERSIZE_FRAMES": 1,
+      "PRE_FEC_BER_HIGH": 1,
+      "RX_POWER_LOW": 1
+    },
+    "physical_ports": 0
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a 100G+ NIC port with a pluggable optic or DAC",
+        "ethtool >= 5.13 (mlxlink for NVIDIA NICs)",
+        "root for ethtool -m",
+        "a peer or loopback to carry load"
+      ],
+      "part": "NIC port soak: ethtool -m (DOM per lane), --show-fec / -I --show-fec, ethtool -S, ip -s -s link, 600 s apart",
+      "probe": {
+        "netdevs": {
+          "lo": {
+            "device": false,
+            "mtu": "65536",
+            "operstate": "unknown",
+            "speed": null
+          }
+        },
+        "pci_link_status_files": [],
+        "physical_ports": [],
+        "tools": {
+          "ethtool": true,
+          "ip": true,
+          "mlxlink": false
+        }
+      }
+    }
+  ],
+  "notes": [
+    "CPU fallback: no PCIe link status is visible in this container; the soak table is [MODELED]."
+  ],
+  "runtime_s": 0.37,
+  "status": "ran",
+  "tables": {
+    "certify": [
+      {
+        "ber_target": 1e-12,
+        "bits_needed": 3000000000000.0,
+        "link": "400GbE port (one direction)",
+        "seconds_at_line_rate": 7.5
+      },
+      {
+        "ber_target": 1e-15,
+        "bits_needed": 3000000000000000.0,
+        "link": "400GbE port (one direction)",
+        "seconds_at_line_rate": 7500.0
+      },
+      {
+        "ber_target": 1e-12,
+        "bits_needed": 3000000000000.0,
+        "link": "PCIe Gen4 x8 (one direction)",
+        "seconds_at_line_rate": 23.803710937499996
+      },
+      {
+        "ber_target": 1e-15,
+        "bits_needed": 3000000000000000.0,
+        "link": "PCIe Gen4 x8 (one direction)",
+        "seconds_at_line_rate": 23803.710937499996
+      },
+      {
+        "ber_target": 1e-12,
+        "bits_needed": 3000000000000.0,
+        "link": "PCIe Gen5 x16 (one direction)",
+        "seconds_at_line_rate": 5.950927734374999
+      },
+      {
+        "ber_target": 1e-15,
+        "bits_needed": 3000000000000000.0,
+        "link": "PCIe Gen5 x16 (one direction)",
+        "seconds_at_line_rate": 5950.927734374999
+      }
+    ],
+    "nic_probe": [
+      {
+        "netdevs": {
+          "lo": {
+            "device": false,
+            "mtu": "65536",
+            "operstate": "unknown",
+            "speed": null
+          }
+        },
+        "pci_link_status_files": [],
+        "physical_ports": [],
+        "tools": {
+          "ethtool": true,
+          "ip": true,
+          "mlxlink": false
+        }
+      }
+    ]
+  }
+}

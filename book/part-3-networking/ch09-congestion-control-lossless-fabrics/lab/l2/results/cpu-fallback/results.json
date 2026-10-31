@@ -1,0 +1,517 @@
+{
+  "experiment": {
+    "cpu_fallback": "identical: the loopback incast, counter snapshots and simulation use only the CPU",
+    "evidence": "MEASURED",
+    "gpu_optional": true,
+    "id": "ch09-l2",
+    "title": "Lab 9 L2: RDMA-counter probe, host-stack N:1 incast and real ECN/retransmit counters"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "N=1: per-flow 34.2 Gb/s, aggregate 34.2 Gb/s, FCT p99 49.9 ms, Jain 1.000",
+    "N=2: per-flow 33.9 Gb/s, aggregate 67.7 Gb/s, FCT p99 40.6 ms, Jain 1.000",
+    "N=4: per-flow 28.3 Gb/s, aggregate 111.7 Gb/s, FCT p99 48.1 ms, Jain 1.000",
+    "N=8: per-flow 10.3 Gb/s, aggregate 80.3 Gb/s, FCT p99 115.0 ms, Jain 0.999"
+  ],
+  "metrics": {
+    "aggregate_gbps_n1": 34.19,
+    "aggregate_gbps_n8": 80.27,
+    "burst_mib_per_sender": 128,
+    "ce_marked_pkts_delta": 0,
+    "ect0_pkts_delta": 0,
+    "fct_p99_ms_n8": 115.02,
+    "flow_gbps_n1": 34.19,
+    "flow_gbps_n8": 10.26,
+    "jain_median_n8": 0.9995,
+    "rdma_devices": 0,
+    "retrans_segs_delta": 6,
+    "tcp_congestion_control": "cubic",
+    "tcp_ecn": "2"
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "an RDMA-capable NIC (mlx5-class or similar)",
+        "ethtool / rdma-core",
+        "a real netdev (the harness runs with --network none)"
+      ],
+      "part": "RDMA NIC congestion counters (PFC pause, np_cnp_sent, rp_cnp_handled, np_ecn_marked_roce_packets) sampled 60 s apart",
+      "probe": {
+        "hw_counters_dirs": [],
+        "netdevs": [
+          "lo"
+        ],
+        "rdma_devices": [],
+        "tcp_available_congestion_control": "reno cubic",
+        "tcp_congestion_control": "cubic",
+        "tcp_ecn": "2",
+        "tools": {
+          "dcb": true,
+          "ethtool": true,
+          "ib_write_bw": false,
+          "mlnx_qos": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        ">= 4 hosts with RoCEv2 NICs on one lab leaf",
+        "switch CLI/telemetry access",
+        "perftest"
+      ],
+      "part": "L3 N:1 RDMA incast with switch queue watermarks, ECN threshold A/B on a lab leaf",
+      "probe": "not applicable to a single host"
+    }
+  ],
+  "notes": [
+    "Incast: N sender threads each send 128 MiB over loopback TCP to one receiver; 1 warm-up (1/8 size) and 10 timed repetitions per N; FCT measured at the receiver from a common start.",
+    "Loopback has no egress queue, no ECN marking and no PFC: the shared bottleneck is the receiver's CPU and socket stack. Treat the numbers as host-stack behaviour, not fabric behaviour.",
+    "Counter rates: solutions/lab/congestion_lab.py. Simulation: solutions/lab/congestion_lab.py: compare_configs (0.6 s)."
+  ],
+  "runtime_s": 3.64,
+  "status": "ran",
+  "tables": {
+    "counter_deltas": [
+      {
+        "IpExt.InCEPkts": 0,
+        "IpExt.InECT0Pkts": 0,
+        "IpExt.InECT1Pkts": 0,
+        "IpExt.InNoECTPkts": 446705,
+        "Tcp.InSegs": 446670,
+        "Tcp.OutSegs": 446699,
+        "Tcp.RetransSegs": 6,
+        "TcpExt.TCPBacklogDrop": 0,
+        "TcpExt.TCPFastRetrans": 6,
+        "TcpExt.TCPLossProbes": 0,
+        "TcpExt.TCPRcvQDrop": 0,
+        "TcpExt.TCPSpuriousRTOs": 0,
+        "TcpExt.TCPTimeouts": 0
+      }
+    ],
+    "counter_rates": [
+      {
+        "IpExt.InCEPkts": 0.0,
+        "IpExt.InECT0Pkts": 0.0,
+        "IpExt.InECT1Pkts": 0.0,
+        "IpExt.InNoECTPkts": 136928.0,
+        "Tcp.InSegs": 136919.1,
+        "Tcp.OutSegs": 136928.0,
+        "Tcp.RetransSegs": 0.0,
+        "TcpExt.TCPBacklogDrop": 0.0,
+        "TcpExt.TCPFastRetrans": 0.0,
+        "TcpExt.TCPLossProbes": 0.0,
+        "TcpExt.TCPRcvQDrop": 0.0,
+        "TcpExt.TCPSpuriousRTOs": 0.0,
+        "TcpExt.TCPTimeouts": 0.0,
+        "run": "N1"
+      },
+      {
+        "IpExt.InCEPkts": 0.0,
+        "IpExt.InECT0Pkts": 0.0,
+        "IpExt.InECT1Pkts": 0.0,
+        "IpExt.InNoECTPkts": 231798.31,
+        "Tcp.InSegs": 231793.39,
+        "Tcp.OutSegs": 231798.31,
+        "Tcp.RetransSegs": 0.0,
+        "TcpExt.TCPBacklogDrop": 0.0,
+        "TcpExt.TCPFastRetrans": 0.0,
+        "TcpExt.TCPLossProbes": 0.0,
+        "TcpExt.TCPRcvQDrop": 0.0,
+        "TcpExt.TCPSpuriousRTOs": 0.0,
+        "TcpExt.TCPTimeouts": 0.0,
+        "run": "N2"
+      },
+      {
+        "IpExt.InCEPkts": 0.0,
+        "IpExt.InECT0Pkts": 0.0,
+        "IpExt.InECT1Pkts": 0.0,
+        "IpExt.InNoECTPkts": 182625.53,
+        "Tcp.InSegs": 182614.08,
+        "Tcp.OutSegs": 182625.53,
+        "Tcp.RetransSegs": 0.0,
+        "TcpExt.TCPBacklogDrop": 0.0,
+        "TcpExt.TCPFastRetrans": 0.0,
+        "TcpExt.TCPLossProbes": 0.0,
+        "TcpExt.TCPRcvQDrop": 0.0,
+        "TcpExt.TCPSpuriousRTOs": 0.0,
+        "TcpExt.TCPTimeouts": 0.0,
+        "run": "N4"
+      },
+      {
+        "IpExt.InCEPkts": 0.0,
+        "IpExt.InECT0Pkts": 0.0,
+        "IpExt.InECT1Pkts": 0.0,
+        "IpExt.InNoECTPkts": 153276.81,
+        "Tcp.InSegs": 153263.07,
+        "Tcp.OutSegs": 153271.96,
+        "Tcp.RetransSegs": 4.85,
+        "TcpExt.TCPBacklogDrop": 0.0,
+        "TcpExt.TCPFastRetrans": 4.85,
+        "TcpExt.TCPLossProbes": 0.0,
+        "TcpExt.TCPRcvQDrop": 0.0,
+        "TcpExt.TCPSpuriousRTOs": 0.0,
+        "TcpExt.TCPTimeouts": 0.0,
+        "run": "N8"
+      }
+    ],
+    "incast": [
+      {
+        "aggregate_gbps_median": 34.185664608890875,
+        "bytes_missing": 0,
+        "completion_ms_median": 31.409213494043797,
+        "fct_ms_median": 31.409213494043797,
+        "fct_ms_p95": 49.92626095190644,
+        "fct_ms_p99": 49.92626095190644,
+        "flow_gbps_median": 34.185664608890875,
+        "flow_gbps_p5": 21.506553936300712,
+        "jain_median": 1.0,
+        "jain_min": 1.0,
+        "reps": 10,
+        "senders": 1
+      },
+      {
+        "aggregate_gbps_median": 67.69993439621274,
+        "bytes_missing": 0,
+        "completion_ms_median": 31.75354396807961,
+        "fct_ms_median": 31.655759492423385,
+        "fct_ms_p95": 39.87132402835414,
+        "fct_ms_p99": 40.58502905536443,
+        "flow_gbps_median": 33.94829017940961,
+        "flow_gbps_p5": 26.93017726816441,
+        "jain_median": 0.9999457397167409,
+        "jain_min": 0.9982657931080309,
+        "reps": 10,
+        "senders": 2
+      },
+      {
+        "aggregate_gbps_median": 111.73707968196686,
+        "bytes_missing": 0,
+        "completion_ms_median": 38.49330698722042,
+        "fct_ms_median": 37.943923991406336,
+        "fct_ms_p95": 45.99658597726375,
+        "fct_ms_p99": 48.1472079991363,
+        "flow_gbps_median": 28.3143245133787,
+        "flow_gbps_p5": 23.34394610353807,
+        "jain_median": 0.9997962937858161,
+        "jain_min": 0.9977630770777883,
+        "reps": 10,
+        "senders": 4
+      },
+      {
+        "aggregate_gbps_median": 80.26875352855677,
+        "bytes_missing": 0,
+        "completion_ms_median": 107.01711801812053,
+        "fct_ms_median": 104.69954751897603,
+        "fct_ms_p95": 112.70889599109069,
+        "fct_ms_p99": 115.01532205147669,
+        "flow_gbps_median": 10.255458129567241,
+        "flow_gbps_p5": 9.526682118196563,
+        "jain_median": 0.9994907587951094,
+        "jain_min": 0.9988320679068842,
+        "reps": 10,
+        "senders": 8
+      }
+    ],
+    "probe": [
+      {
+        "hw_counters_dirs": [],
+        "netdevs": [
+          "lo"
+        ],
+        "rdma_devices": [],
+        "tcp_available_congestion_control": "reno cubic",
+        "tcp_congestion_control": "cubic",
+        "tcp_ecn": "2",
+        "tools": {
+          "dcb": true,
+          "ethtool": true,
+          "ib_write_bw": false,
+          "mlnx_qos": false,
+          "rdma": true
+        }
+      }
+    ],
+    "raw_fct": [
+      {
+        "fct_s": [
+          [
+            0.028206489980220795
+          ],
+          [
+            0.035276312031783164
+          ],
+          [
+            0.030297881981823593
+          ],
+          [
+            0.03146183799253777
+          ],
+          [
+            0.028828583017457277
+          ],
+          [
+            0.03235757502261549
+          ],
+          [
+            0.03135658899554983
+          ],
+          [
+            0.030450870981439948
+          ],
+          [
+            0.03801931097405031
+          ],
+          [
+            0.04992626095190644
+          ]
+        ],
+        "senders": 1
+      },
+      {
+        "fct_s": [
+          [
+            0.03987132402835414,
+            0.04058502905536443
+          ],
+          [
+            0.034298298007342964,
+            0.03448402800131589
+          ],
+          [
+            0.03313705400796607,
+            0.03350106003927067
+          ],
+          [
+            0.030428640951868147,
+            0.030731013976037502
+          ],
+          [
+            0.03258050500880927,
+            0.03277607396012172
+          ],
+          [
+            0.032782410038635135,
+            0.03363160800654441
+          ],
+          [
+            0.02130855800351128,
+            0.01960335101466626
+          ],
+          [
+            0.02041503496002406,
+            0.020549770968500525
+          ],
+          [
+            0.02024580998113379,
+            0.020826595020480454
+          ],
+          [
+            0.019075262011028826,
+            0.020210627000778913
+          ]
+        ],
+        "senders": 2
+      },
+      {
+        "fct_s": [
+          [
+            0.03228535200469196,
+            0.03298863599775359,
+            0.0313277340028435,
+            0.03415325499372557
+          ],
+          [
+            0.0443124960293062,
+            0.04562527302186936,
+            0.04078296304214746,
+            0.04572336800629273
+          ],
+          [
+            0.034742483985610306,
+            0.03602874401258305,
+            0.035513009992428124,
+            0.035245625011157244
+          ],
+          [
+            0.03938100900268182,
+            0.038851574005093426,
+            0.0397113660001196,
+            0.039950339996721596
+          ],
+          [
+            0.03553022100823,
+            0.036603245011065155,
+            0.03636036301031709,
+            0.03703627397771925
+          ],
+          [
+            0.034787804004736245,
+            0.033198251971043646,
+            0.034088785003405064,
+            0.03474424697924405
+          ],
+          [
+            0.033313972991891205,
+            0.033041381975635886,
+            0.03387037996435538,
+            0.03265313198789954
+          ],
+          [
+            0.0407486250041984,
+            0.041168680996634066,
+            0.04185935197165236,
+            0.04153620597207919
+          ],
+          [
+            0.0481472079991363,
+            0.04599658597726375,
+            0.046342348970938474,
+            0.04267504799645394
+          ],
+          [
+            0.0429085930227302,
+            0.04249152296688408,
+            0.042242254014126956,
+            0.0420247059664689
+          ]
+        ],
+        "senders": 4
+      },
+      {
+        "fct_s": [
+          [
+            0.10437469597673044,
+            0.09862186695681885,
+            0.10192533698864281,
+            0.10389442095765844,
+            0.09504923998611048,
+            0.10520702099893242,
+            0.10276353097287938,
+            0.10531980596715584
+          ],
+          [
+            0.10676454502390698,
+            0.1064547430141829,
+            0.10991605900926515,
+            0.11079340800642967,
+            0.11005209101131186,
+            0.11157312302384526,
+            0.11160533700603992,
+            0.10483123798621818
+          ],
+          [
+            0.102647416992113,
+            0.10311796696623787,
+            0.1015894619631581,
+            0.10397042299155146,
+            0.09854605799773708,
+            0.10343311401084065,
+            0.10371243301779032,
+            0.10261663899291307
+          ],
+          [
+            0.10387066705152392,
+            0.10299892805051059,
+            0.10244785499526188,
+            0.0963197440141812,
+            0.0978118980419822,
+            0.1012634570361115,
+            0.10148739704163745,
+            0.10475065000355244
+          ],
+          [
+            0.11135797802126035,
+            0.11203822901006788,
+            0.11270889599109069,
+            0.11089065199485049,
+            0.1082116499892436,
+            0.11345015198457986,
+            0.11149802699219435,
+            0.10720436403062195
+          ],
+          [
+            0.1053907810128294,
+            0.10142417502356693,
+            0.10650582803646103,
+            0.10256102302810177,
+            0.10507988202152774,
+            0.10578817903297022,
+            0.10470379301114008,
+            0.103788398031611
+          ],
+          [
+            0.11241559899644926,
+            0.1156832340057008,
+            0.10322104603983462,
+            0.11092043004464358,
+            0.11344975599786267,
+            0.11501532205147669,
+            0.11190429504495114,
+            0.10970012203324586
+          ],
+          [
+            0.1038146200007759,
+            0.10161655803676695,
+            0.10752840799978003,
+            0.10469530202681199,
+            0.10242277599172667,
+            0.10640074498951435,
+            0.09990296000614762,
+            0.10437979403650388
+          ],
+          [
+            0.1110747400089167,
+            0.11002820200519636,
+            0.11212343501392752,
+            0.11110981000820175,
+            0.10911355301504955,
+            0.11184766096994281,
+            0.11080804700031877,
+            0.10302967898314819
+          ],
+          [
+            0.10404024500166997,
+            0.10333573399111629,
+            0.10311344300862402,
+            0.09999042795971036,
+            0.10068254795623943,
+            0.10196979297325015,
+            0.10179696895647794,
+            0.10087453096639365
+          ]
+        ],
+        "senders": 8
+      }
+    ],
+    "simulated_incast": [
+      {
+        "cnps": 0.0,
+        "completion_us": 960.0,
+        "config": "A_as_found",
+        "dropped_bytes": 0.0,
+        "pause_time_us": 862.8,
+        "peak_queue_kb": 1660.0
+      },
+      {
+        "cnps": 60.0,
+        "completion_us": 1256.8,
+        "config": "B_template",
+        "dropped_bytes": 0.0,
+        "pause_time_us": 113.6,
+        "peak_queue_kb": 1660.0
+      },
+      {
+        "cnps": 84.0,
+        "completion_us": 3875.2,
+        "config": "C_lossy",
+        "dropped_bytes": 17840000.0,
+        "pause_time_us": 0.0,
+        "peak_queue_kb": 4000.0
+      }
+    ]
+  }
+}

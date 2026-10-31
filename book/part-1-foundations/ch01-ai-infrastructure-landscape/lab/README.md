@@ -115,6 +115,38 @@ Build a CSV row for your workload: FLOPs from the model formula, HBM bytes from 
 time (an approximation; Nsight Compute gives exact per-kernel bytes), NVLink bytes from DCGM, observed
 step time as the **median of ≥ 5 runs after warm-up**. Record p95 and min/max too.
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` replaces the synthetic
+profiles with measured ones. It runs a six-workload kernel mix on the GPU: a training step of a 4-block
+MLP, a square BF16 GEMM, a batch-8 decode GEMV, a large elementwise op, a pinned host-to-device batch
+load and a burst of tiny launches. Each workload's time is the median of at least 5 repetitions after
+warm-up, with p95 and min/max. Its FLOPs and bytes come from its shapes. The experiment writes the
+rows in this lab's CSV schema and a platform file for *this* GPU: vendor-class peaks from SM count ×
+FLOP/clock/SM × max clock, DRAM from bus width × data rate, and I/O from the negotiated PCIe link. It
+then runs the reference `normalize_and_validate()` and `classify()` on them unchanged. It also records
+the GPU inventory (`nvidia-smi`, `nvidia-smi topo -m`, torch device properties) and samples clocks,
+power, utilisation and clock-event reasons during each workload. That sampling stands in for DCGM.
+DCGM, Nsight Systems, nccl-tests on 8 GPUs and the L3 RDMA steps are probed and recorded as not
+runnable when the hardware or tools are absent.
+
+```bash
+python scripts/hw_labs.py build ch01
+python scripts/hw_labs.py run ch01 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch01 --device cpu   # the CPU fallback
+```
+
+The CPU fallback is automatic: with `--device auto` on a host with no NVIDIA driver, the same mix runs on
+the CPU in FP32. It skips the host-to-device row and classifies the mix against the measured CPU roofs.
+The report says that the GPU inventory and the GPU-only invariants were skipped. The invariants are:
+no lower bound above the observed time (`IMPOSSIBLE` never fires), GEMM and training step
+compute-bound, GEMV and elementwise memory-bound, the batch load I/O-bound on PCIe, the tiny-launch
+burst flagged `LATENCY_OR_OVERHEAD`, and H2D below the PCIe link.
+
+*Observed on the reference run:* the evidence bundles in `lab/l2/results/` (`gpu-<model>/` and
+`cpu-fallback/`, each with `environment.json`, `results.json` and `report.md`) come from a laptop RTX
+4060 (Ada, 24 SMs, PCIe Gen4 x8). The report compares that GPU's machine balance with ORION's
+295 FLOP/B and reads each row's ceiling fraction. It is a laptop GPU, not an H100: use it for the shape
+of the result, not for ORION's absolute numbers.
+
 **L3 — two or more nodes with RDMA.**
 
 ```bash

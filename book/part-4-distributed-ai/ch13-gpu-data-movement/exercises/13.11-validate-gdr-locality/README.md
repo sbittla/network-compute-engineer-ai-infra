@@ -20,3 +20,6 @@ Put every deliverable in `outputs/` in this folder:
 - `outputs/measurement_plan.md`
 
 Label every number `[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`.
+
+On a single GPU host you can execute the link-check part with `python scripts/hw_labs.py run ch13 --device gpu`
+(CPU fallback with `--device cpu`). The NIC and GDR rows need RDMA hardware and are reported as not runnable.

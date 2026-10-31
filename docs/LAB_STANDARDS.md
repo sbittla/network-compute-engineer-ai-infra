@@ -144,3 +144,38 @@ Pitfalls found while building the exercise solvers:
   describes the expected figure.
 - In `lab_checks`, a check name may be given with or without the trailing colon some checkers print
   (`"bom_counts:"` or `bom_counts`). Quote names that end in a colon, or YAML reads them as a mapping.
+
+## 8. L2 extensions on a real GPU (with CPU fallback)
+
+Packages whose L2 extension can be exercised on one GPU host provide `lab/l2/experiment.py`
+(capstones: `starter-kit/l2/experiment.py`). It runs in the package's GPU image
+([`docker/gpu.Dockerfile`](../docker/gpu.Dockerfile): PyTorch 2.5.1 + CUDA 12.4) through the shared
+runtime [`docker/hwlab/`](../docker/hwlab/):
+
+```bash
+python scripts/hw_labs.py build ch13
+python scripts/hw_labs.py run ch13 --device gpu      # measure on the GPU  -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch13 --device cpu      # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch13                  # quick run now + committed-evidence checks
+python scripts/hw_labs.py evidence                   # full GPU then CPU runs for every package, serially
+```
+
+- **Device selection:** `--device auto` uses the GPU when one is visible and falls back to the CPU otherwise.
+  The same experiment always runs. Without a GPU it executes its documented `cpu_fallback` (for example,
+  a host-memory copy sweep in place of PCIe transfers). Its report says so, and the GPU-only invariants are
+  skipped.
+- **The evidence bundle** is `environment.json` (the filled-in manifest: GPU, driver, CUDA, PCIe link,
+  CPU, OS), `results.json` (raw repetitions, summary statistics, status, invariants) and `report.md`. It
+  is `[MEASURED]` on the hardware named in it. Re-run on your own hardware; never compare a laptop GPU's
+  numbers with H100-class figures without saying so.
+- **Invariants:** `check()` encodes physical facts the measurement must respect. Examples: bandwidth
+  stays below the negotiated PCIe link; pinned memory is no slower than pageable; achieved TFLOP/s stays
+  below the device peak. A run that breaks an invariant fails.
+- **Absent hardware:** an extension that needs something the host lacks (RDMA NIC, BMC, NVLink, a second
+  GPU or node) probes for it. When the hardware is missing, it records `status: not-runnable` with what is
+  missing, and runs its fallback analysis. It is never faked.
+- **Benchmark discipline (section 5):** 3 warm-ups and ≥ 5 timed repetitions; report the median, p95 and
+  spread. GPU runs are serial. `--quick` mode (small sizes, 5 repetitions) is for CI and smoke tests, and
+  is never committed as evidence.
+- **L3 (multi-node RDMA):** these extensions cannot run on a single host. Their status and requirements are
+  tracked in [HARDWARE_RUNS.md](HARDWARE_RUNS.md).

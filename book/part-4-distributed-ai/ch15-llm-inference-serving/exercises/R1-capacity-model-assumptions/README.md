@@ -18,3 +18,7 @@ Put every deliverable in `outputs/` in this folder:
 - `outputs/answer.md`
 
 Label every number `[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`.
+
+To see two of these measurements on real hardware, run `python scripts/hw_labs.py run ch15 --device gpu`
+(CPU fallback with `--device cpu`) and read `lab/l2/results/*/report.md`: the implied `hbm_efficiency`,
+step overhead and `prefill_mfu` for that stack.

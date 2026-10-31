@@ -139,6 +139,7 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
       "regression"      p_perm < ALPHA, point > 0 and |point| ≥ max(floor, threshold)
       "below_threshold" p_perm < ALPHA but |point| < max(floor, threshold): real but not worth acting on
       "not_significant" p_perm ≥ ALPHA
+      "undecidable"     cleaning left fewer than 2 runs in an arm: no comparison is possible
     Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), cliffs_delta_iter
     (candidate vs baseline, cleaned iterations), cliffs_delta_runs (on run medians), floor, threshold,
     decision, excluded, n_runs_base, n_runs_cand, naive.

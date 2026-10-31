@@ -16,3 +16,6 @@ Shared evidence line for R1â€“R4 (from `exercises.md`): *Evidence required (R1â€
 Put every deliverable in [`outputs/`](outputs/). Expected files:
 
 - `outputs/answer.md`
+
+On a single GPU host, `python scripts/hw_labs.py run ch21 --device gpu` measures power vs throughput at the default limit
+(CPU fallback with `--device cpu`). The cap sweep itself is reported as not runnable without root on bare metal.

@@ -113,6 +113,35 @@ plus a long-running training proxy) and log chassis power every second for at le
 the median and maximum. Replace the `watts_sustained` and `watts_max` assumptions in your assumptions
 register with these `[MEASURED]` values, and recompute the 2N check for rack-05.
 
+### L2 on a single GPU host: the packaged experiment
+
+`l2/experiment.py` runs the parts of this procedure that one GPU host can support:
+
+- It probes the topology the design relies on: `nvidia-smi topo -m`, NUMA nodes, the GPU's PCIe link, RDMA NICs and the BMC.
+- It measures GPU board power at idle and under a sustained GEMM load, sampled every 200 ms through nvidia-smi together
+  with SM clock, temperature and clock-event reasons. It reports the sustained (median) and maximum power and their ratio.
+- It reruns the L1 `rack_power()` 2N check with `watts_sustained` rescaled by the measured ratio. This is a `[MODELED]`
+  sensitivity analysis, not an HX8 measurement.
+
+GPU<->NIC affinity, `lstopo`, chassis power from `ipmitool`/Redfish, and the 8-GPU load are recorded as **not runnable**,
+each with its probe result.
+
+```bash
+python scripts/hw_labs.py build capstone-a                 # from the repository root: the ai-infra-gpu:capstone-a image
+python scripts/hw_labs.py run capstone-a --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-a --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-a                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the topology probe and a sustained CPU GEMM load. CPU package power is not readable in the
+container (no RAPL powercap), so the CPU fallback records power as not runnable and runs the rack-power check with the
+design's own values.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, a laptop GPU, and
+`cpu-fallback/`) show the GPU pinned at its enforced board limit under load, with the SW power cap active and the SM clock
+well below `clocks.max.sm`. The sustained/maximum ratio is therefore close to 1. With a ratio that high, the rescaled 2N check flips rack-05's
+sustained verdict. That is a laptop at its power limit, not an H100 node. Replace the ratio with your chassis measurement.
+
 ### L3: two or more nodes on a rail-optimized fabric
 
 ```bash

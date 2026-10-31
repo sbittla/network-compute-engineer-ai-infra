@@ -1,0 +1,5 @@
+# Extra packages for the L2 GPU image (docker/gpu.Dockerfile). torch 2.5.1 + CUDA 12.4 come from the base image.
+numpy==2.1.2
+pandas==2.2.3
+PyYAML==6.0.2
+pytest==8.3.3

@@ -121,6 +121,36 @@ RDMA is used. Change them only as a controlled experiment, one at a time. Record
 under `extensions` in `manifest.yaml`, run at least 5 repetitions per configuration after a stated
 warm-up, and report the median with min/max or IQR.
 
+### L2 on one GPU: the packaged harness port
+
+`l2/experiment.py` ports the L1 harness to PyTorch on one device. It keeps the per-rank matmul and the ring all-reduce,
+with ranks simulated on one GPU, the same warm-up and repetitions, and the same percentile statistics from the harness.
+
+- **Numerics:** the result is checked against the L1 numpy `ring_allreduce`, values and per-rank bytes sent.
+- **Timing:** both phases are timed with CUDA events and checked against the FP32 peak and the memory-bandwidth peak.
+- **Profile:** kernel time is classified as GEMM, reduction or copy with `torch.profiler`. Where CUPTI kernel tracing is
+  unavailable (WSL2), CUDA-event timing of the same groups is used instead, and the report says so.
+- **NCCL:** a real one-rank `torch.distributed` NCCL group runs with `NCCL_DEBUG=INFO`, and its log goes through the L1
+  `nccl_transport()`. On a host without an RDMA device it shows the same `Using network Socket` signature as
+  `data/nccl_debug_baseline.log`.
+
+Multi-GPU collectives, weak scaling, GPUDirect RDMA and `nsys` are recorded as **not runnable**, each with its probe
+result.
+
+```bash
+python scripts/hw_labs.py build capstone-c                 # from the repository root: the ai-infra-gpu:capstone-c image
+python scripts/hw_labs.py run capstone-c --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-c --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-c                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the same harness on the CPU (fp32), a CPU-operator profile and a gloo one-rank group.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show the ported ring matching the L1 numerics exactly, a ring phase bounded by device memory bandwidth (no link involved),
+and an NCCL log on this laptop that reports `Socket` with libibverbs missing. That is a laptop Ada GPU, not an H100 node:
+compare shapes, not milliseconds, with the supplied ORION logs.
+
 ## 9. Deliverable
 
 Filled templates in [`../templates/`](../templates/), your two modules, and checker output.

@@ -26,3 +26,6 @@ Run:
 ```bash
 python ../../lab/starter/regression_lab.py --report outputs/report.md   # then edit to one page
 ```
+
+On a single GPU host, `python scripts/hw_labs.py run ch22 --device gpu` produces a before/after report on injected
+regressions with known ground truth (CPU fallback with `--device cpu`).

@@ -185,6 +185,37 @@ Convert each tool's output into the `acceptance_results.json` schema with a smal
 your unchanged `evaluate_acceptance()` over it. Record calibration runs on at least two known-good
 nodes (≥ 5 repetitions per bandwidth test; report median and min) before you trust any threshold.
 
+#### L2 on one GPU host: the packaged burn-in and acceptance run
+
+`l2/experiment.py` produces real acceptance evidence on the host it runs on and gates it with your **unchanged**
+`evaluate_acceptance()`. It collects:
+
+- read-only inventory and health: VBIOS, driver, PCIe link read under load, ECC, row remapping, clock-event counters;
+- pinned H2D/D2H and device-copy bandwidth (≥ 5 repetitions; the gate uses the worst one);
+- a sustained FP16 GEMM burn-in, with power, SM clock, temperature, PCIe link and clock-event reasons sampled every 250 ms;
+- a sequential storage read with the page cache dropped for the file.
+
+The evidence is written as an `acceptance_results.json` record and gated twice: by the ORION policy, which a laptop must
+fail, and by a single-host calibration policy. Checks that cannot be evidenced here (DCGM, NVLink, RDMA, NIC link, Xid,
+ECC on a GeForce part) are listed as **not gated**, never as passed. DCGM, nvbandwidth P2P, nccl-tests, Redfish, the
+kernel Xid scan and the provisioning/scheduler steps are recorded as **not runnable**, each with its probe result.
+
+```bash
+python scripts/hw_labs.py build capstone-e                 # from the repository root: the ai-infra-gpu:capstone-e image
+python scripts/hw_labs.py run capstone-e --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-e --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-e                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback burns in with a CPU GEMM, measures host-memory copy and storage, and gates the same record with
+the GPU fields empty.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show the ORION policy rejecting the laptop on GPU count, PCIe link, NICs, DCGM, NVLink, RDMA, storage and burn-in
+duration. The local calibration policy passes it, with the ungated checks listed. The burn-in holds a stable throughput
+under a permanent SW power cap. It is one node and a minutes-long run: calibrate on ≥ 2 known-good nodes and burn in for
+the policy's 12 h before trusting a threshold.
+
 ### 8.3 What to record
 
 Copy `manifest.yaml`, set `tier: L3` (or `L2`) and `evidence_class: MEASURED`, and fill

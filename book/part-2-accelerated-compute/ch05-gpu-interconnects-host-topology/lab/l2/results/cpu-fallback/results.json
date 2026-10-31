@@ -1,0 +1,167 @@
+{
+  "experiment": {
+    "cpu_fallback": "PCI / NUMA / RDMA probes and the Table 5.3 gate without a GPU, plus a host-memory copy bandwidth sweep (the memory a host-staged transfer bounces through)",
+    "evidence": "MEASURED",
+    "id": "ch05-l2",
+    "title": "Lab 5 L2: real host topology capture, PCIe link measurement and the GDR gate"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [],
+  "metrics": {
+    "gdr_gate": "PXB",
+    "gdr_pairs_allowed": 0,
+    "gdr_possible": false,
+    "host_copy_gbs": 26.36,
+    "host_staged_cap_model_gbs": 18.0,
+    "numa_nodes": 1,
+    "pci_network_controllers": 0,
+    "rdma_devices": 0
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "an RDMA NIC (ConnectX-class or similar) on the GPU's PCIe switch",
+        "nvidia_peermem or DMA-BUF support",
+        "a second host on an RDMA fabric"
+      ],
+      "part": "Exercise 5.15 runtime proof: NCCL NET/IB/.../GDRDMA channel lines or ib_write_bw --use_cuda",
+      "probe": {
+        "dev_infiniband": false,
+        "modules_visible": 36,
+        "netdevs": [
+          "lo"
+        ],
+        "rdma_modules_loaded": [],
+        "sys_class_infiniband": [],
+        "tools": {
+          "ethtool": true,
+          "ib_write_bw": false,
+          "ibv_devinfo": false,
+          "lspci": true,
+          "lstopo": true,
+          "ofed_info": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        "root on bare metal (not a WSL2 guest)",
+        "lspci, lstopo, rdma-core",
+        "an RDMA NIC"
+      ],
+      "part": "L2 capture script (capture/capture_topology.sh) with lspci -vvv ACS/LnkSta, lstopo, ibdev2netdev, LLDP",
+      "probe": {
+        "euid": 1000,
+        "tools": {
+          "ethtool": true,
+          "ib_write_bw": false,
+          "ibv_devinfo": false,
+          "lspci": true,
+          "lstopo": true,
+          "ofed_info": false,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        "an NVLink-equipped multi-GPU host"
+      ],
+      "part": "NVLink / fabric manager status (nvidia-smi nvlink --status)",
+      "probe": "0 GPU(s) in topo -m"
+    }
+  ],
+  "notes": [
+    "Every row of the Table 5.3 checklist is built from a command or sysfs file read during this run; the raw topo -m output and the PCI scan are in results.json.",
+    "GDR gate from lab/data/path_model.yaml: a GPU-NIC pair is GDR-eligible when its relation is at most PXB.",
+    "Bandwidth: median of >= 5 timed repetitions after 3 warm-ups (CUDA events on the GPU, perf_counter on the CPU)."
+  ],
+  "runtime_s": 0.23,
+  "status": "ran",
+  "tables": {
+    "bandwidth": [
+      {
+        "case": "host_copy",
+        "gbs_median": 26.361657030106038,
+        "gbs_p95_time": 23.780165731748543,
+        "median_s": 0.010182799043832347,
+        "n": 10,
+        "p95_s": 0.011288207955658436,
+        "size_mib": 256
+      }
+    ],
+    "gdr_checklist": [
+      {
+        "evidence": "topo -m devices: no nvidia-smi; PCI network controllers: 0; /sys/class/infiniband: absent",
+        "item": "1 Topology",
+        "verdict": "FAIL: no NIC to pair with the GPU"
+      },
+      {
+        "evidence": "peer-memory modules: none (36 modules visible); kernel 6.18.54.1-microsoft-standard-WSL2",
+        "item": "2 Peer memory",
+        "verdict": "FAIL: no nvidia_peermem, and DMA-BUF needs an RDMA NIC driver"
+      },
+      {
+        "evidence": "driver n/a; CUDA runtime 12.4; ofed_info absent; ibv_devinfo absent",
+        "item": "3 Versions",
+        "verdict": "INCOMPLETE: no NIC stack or firmware to match against the support matrix"
+      },
+      {
+        "evidence": "/proc/cmdline: initrd=\\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=24 hv_utils.timesync_implicit=1 printk.devkmsg=on page_reporting.page_reporting_order=5 hv_storvsc.storvsc_m",
+        "item": "4 IOMMU",
+        "verdict": "n/a: WSL2 guest kernel; the IOMMU belongs to the Windows host"
+      },
+      {
+        "evidence": "no lspci and no root; the guest PCI view is 4 paravirtual functions (2 Microsoft GPU-PV render devices, class 0x0302)",
+        "item": "5 ACS",
+        "verdict": "NOT READABLE here: needs root lspci -vvv on bare metal"
+      },
+      {
+        "evidence": "NCCL /GDRDMA channel lines or ib_write_bw --use_cuda need an RDMA NIC and a peer",
+        "item": "6 Runtime",
+        "verdict": "NOT RUNNABLE: no RDMA NIC, no second host"
+      }
+    ],
+    "gdr_pairs": [],
+    "numa": [
+      {
+        "cpulist": "0-23",
+        "node": "node0"
+      }
+    ],
+    "pci_devices": [
+      {
+        "bdf": "5582:00:00.0",
+        "class": "0x010000",
+        "device": "0x1043",
+        "numa_node": "0",
+        "vendor": "0x1af4"
+      },
+      {
+        "bdf": "61e4:00:00.0",
+        "class": "0x088000",
+        "device": "0x105a",
+        "numa_node": "0",
+        "vendor": "0x1af4"
+      },
+      {
+        "bdf": "6294:00:00.0",
+        "class": "0x030200",
+        "device": "0x008e",
+        "numa_node": "0",
+        "vendor": "0x1414"
+      },
+      {
+        "bdf": "a1c2:00:00.0",
+        "class": "0x030200",
+        "device": "0x008e",
+        "numa_node": "0",
+        "vendor": "0x1414"
+      }
+    ]
+  }
+}

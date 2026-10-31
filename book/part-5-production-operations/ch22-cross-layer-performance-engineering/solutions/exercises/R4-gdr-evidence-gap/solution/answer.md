@@ -26,3 +26,12 @@ label the result `[MEASURED]` with the manifest.
 
 **Common wrong answers.** Treating `lsmod` as sufficient proof; proposing a production driver rollback
 (T5, rejected); quoting a busbw number without run count or manifest.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch22 --device gpu` does not close this gap, and says so. A single laptop GPU has no
+RDMA NIC, no `nvidia_peermem` path and no second node, so the L2 precondition and the L3 `/GDRDMA` A/B remain
+hardware work. What the run does establish is that the attribution method used for the GDR hypothesis recovers
+a *known* host-staging regression. Pageable (host-staged) input copies are injected next to a placebo factor. The
+lab's estimator attributes the effect correctly, and the effect is corroborated by an interleaved A/B and a bytes ÷
+bandwidth mechanism model. With `--device cpu` the data-path factor becomes a strided host gather.

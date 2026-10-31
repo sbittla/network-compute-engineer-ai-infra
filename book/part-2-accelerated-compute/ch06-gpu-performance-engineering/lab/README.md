@@ -125,6 +125,43 @@ off/on for FP32), plus an A/A pair, write the data in the lab's CSV schema inclu
 `clocks_event_reasons`, and apply your `compare()` unchanged. Record every `extensions.record` field from
 `manifest.yaml`. Label results `[MEASURED]`.
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` is this protocol,
+automated. It interleaves six arms round-robin with a rotated start, ≥ 5 runs per arm, each run 5
+warm-up plus timed iterations. The arms are an FP32 GEMM with TF32 off (the baseline, plus an A/A pair),
+BF16, FP32 with TF32 allowed, and a no-op API change. Every iteration is timed with CUDA events and
+tagged with the SM clock, temperature, power and decoded `clocks_event_reasons`, which `nvidia-smi -lms
+100` samples in the background. The experiment then applies the reference `noise_floor()` and
+`compare()` unchanged. It also measures a roofline: device-memory copy/add bandwidth on buffers larger
+than L2, and a BF16 GEMM K-sweep from AI ≈ 8 to ≈ 700–1,400 FLOP/B. Both are classified by
+`classify_kernels()` against this GPU's vendor-class ceilings (SM count × FLOP/clock/SM × max clock;
+DRAM from bus width × data rate).
+
+```bash
+python scripts/hw_labs.py build ch06
+python scripts/hw_labs.py run ch06 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch06 --device cpu   # the CPU fallback
+```
+
+The CPU fallback is automatic (`--device auto` without an NVIDIA driver). It runs the same harness and
+`compare()` on single-threaded CPU GEMMs: an FP64 baseline with an A/A pair, FP32 as the real effect,
+and FP64 on 4 threads and a no-op as extra arms. It also measures a host-memory copy roof and an FP32
+K-sweep, classified against the measured CPU roofs. The report says that the GPU-only invariants were
+skipped. Those invariants are: achieved TFLOP/s ≤ the peak for each precision, DRAM bandwidth ≤ the
+spec, the large real effect decided `improvement` above the A/A floor, the A/A pair never decided a
+change, and thin GEMMs memory-bound with square GEMMs compute-bound.
+
+One protocol lesson shows only on real hardware. On a power-capped GPU, the sustained SM clock depends on
+the kernel: BF16 tensor-core GEMMs run at a higher clock than FP32 SIMT GEMMs. The lab's rule judges
+each run against the session-wide peer clock, so it excludes the slower-clocked arm wholesale. The
+experiment therefore decides cross-kernel comparisons with the same rules but against each arm's own
+peer clock. This choice is fixed in the code before any data is collected. The report shows both
+decisions side by side. Same-kernel comparisons (A/A, no-op) use `compare()` exactly as written.
+
+*Observed on the reference run:* `lab/l2/results/gpu-<model>/` and `cpu-fallback/` hold the bundles
+from a laptop RTX 4060 (Ada, 24 SMs, ~38 TFLOP/s BF16 and 256 GB/s at max clocks). They contain the
+arm tables with clocks and clock-event reasons, the decisions, and the measured roofline next to the
+manuscript's H100-class roofline (989 TFLOP/s, 3.35 TB/s). It is a laptop GPU, not an H100.
+
 ## 9. Intentionally flawed inputs
 
 The result sets contain several planted traps, and the kernel table contains at least two cases where a

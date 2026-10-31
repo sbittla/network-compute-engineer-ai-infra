@@ -134,6 +134,30 @@ kernel/driver/RDMA-stack combination does or does not support DMA-BUF. DMA-BUF c
 RDMA without `nvidia_peermem`, so "module absent" means "no GDR" only where DMA-BUF is unavailable
 `[VENDOR-SPEC, 2026-10]`. Record the manifest fields under `extensions[0].record`.
 
+**L2 on any single GPU (scripted, with CPU fallback): the method, on regressions whose truth is known.** The GDR
+precondition check above needs an HX8-class node. `lab/l2/experiment.py` instead validates this chapter's
+attribution method on one GPU. A small training step (input H2D copy, then forward, backward and update of a
+2-layer MLP) runs as a sequence of jobs. After-period jobs are exposed, in a balanced 2 × 2 design, to two
+injected regressions: pageable instead of pinned input (host-staged, like the lab's R570 path) and 8 micro-batches
+with gradient accumulation. A placebo flag that changes nothing is set on a random half. Per-job step times go
+through the lab's `clean_steps`, `estimate_effects`, `attribute` and `bootstrap_shares` with the factor list
+swapped. Each factor is then corroborated three ways (Table 22.6): OLS ± HC3, an interleaved A/B of the factor
+alone, and, for the copy, a bytes ÷ measured-bandwidth mechanism model. The MDE comes from the before-period
+spread.
+
+```bash
+python scripts/hw_labs.py build ch22
+python scripts/hw_labs.py run ch22 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch22 --device cpu   # same design; data-path factor = strided fp64 gather
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It uses one
+thread, a strided-gather data-path factor and per-job medians, and skips the GPU-only invariants (PCIe ceiling,
+pinned ≥ pageable). **Observed on the reference run:** the committed bundles in `lab/l2/results/`
+(`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show the estimator recovering both injected effects within their
+uncertainty, the placebo near zero, and the copy mechanism model accounting for the data-path effect `[MEASURED]`.
+The W-TRAIN factors themselves (TP split, cross-node GDR, storage tier) still need the L3 setup below.
+
 **L3 — controlled A/B for placement and GDR** (tests T6 and T7). `srun` launches of `all_reduce_perf`
 need nccl-tests built with MPI support (`make MPI=1 MPI_HOME=<path>`) and a Slurm MPI plugin matching your
 MPI (commonly `--mpi=pmix`); without it each task runs as an independent single-rank job.

@@ -17,3 +17,8 @@ Put these files in `outputs/`:
 - `check_output.txt` — from the chapter folder, `cd lab && python check.py > ../exercises/17-L1-orion-scheduler-lab/outputs/check_output.txt`
 - `placement-report.md` and `pending-guide.md` (lab Tasks 7–8)
 - L2/L3 extension only: your filled `manifest.yaml` and the captured events or `all_reduce_perf` results
+
+**Hardware run (course harness).** L2 on the course harness: `python scripts/hw_labs.py run ch17` runs
+your `diagnose_pending` on a node object built from the host's real GPU discovery, and measures what
+time-slicing one GPU between two jobs costs; see `lab/l2/results/`. The kind/k3s/Slurm part is recorded
+as not runnable there.

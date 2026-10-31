@@ -1,0 +1,493 @@
+{
+  "experiment": {
+    "cpu_fallback": "gloo world_size-1 init and all_reduce floor sweep, a host-memory a+b reduction sweep, and a two-process gloo all_reduce over loopback; all fitted with the lab's alpha-beta model",
+    "evidence": "MEASURED",
+    "id": "ch12-l2",
+    "title": "Lab 12 L2: NCCL bring-up, per-call floor and reduction-kernel bandwidth on one GPU"
+  },
+  "gloo": {
+    "command": "lab/optional/gloo_allreduce.py --world 2 --max-bytes 67108864 --warmup 5 --iters 20 --port 29531",
+    "fit": {
+      "alpha_us": 430.38272410522796,
+      "busbw_fit_GBps": 1.7238768799195467,
+      "n_half_bytes": 741926.8276017956
+    },
+    "ran": true
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "not runnable here: 2+ GPUs in one host (found 0); NVLink/NVSwitch between GPUs (nvidia-smi nvlink -s shows no active links); RDMA NICs for the L3 multi-node runs (/sys/class/infiniband is empty or absent); nccl-tests all_reduce_perf built against this CUDA/NCCL (not in the image)",
+    "gloo world=1 init p50 1.0 ms; all_reduce floor alpha 72.93 us",
+    "reduction kernel alpha 0.97 us, B 58.5 GB/s; largest 14.8 GB/s algbw",
+    "gloo 2-rank loopback alpha 430.4 us, B 1.72 GB/s"
+  ],
+  "metrics": {
+    "alpha_beta_model_source": "solutions/lab/nccl_analysis.py",
+    "backend": "gloo",
+    "c1_alpha_us": 14.12203657706899,
+    "c1_busbw_fit_GBps": 448.4184651711007,
+    "c1_nranks": 8,
+    "c1_plateau_busbw": 449.055,
+    "floor_8B_p50_us": 87.17885008081794,
+    "floor_alpha_us": 72.93111397649547,
+    "gloo2_alpha_us": 430.38272410522796,
+    "gloo2_busbw_fit_GBps": 1.7238768799195467,
+    "init_p50_ms": 1.0102950036525726,
+    "init_p95_ms": 5.203375010751188,
+    "reduction_B_fit_GBps": 58.536589350702684,
+    "reduction_B_min_fit_GBps": 70.77270811799615,
+    "reduction_algbw_largest_GBps": 14.773295970155782,
+    "reduction_alpha_min_us": 0.8974657765291485,
+    "reduction_alpha_us": 0.9737566737786332,
+    "reduction_dram_traffic_largest_GBps": 44.319887910467344,
+    "reduction_n_half_bytes": 57000.394540486
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "1 x 8-GPU host with NVLink",
+        "nccl-tests"
+      ],
+      "part": "L2: all_reduce_perf -g 8 sweep, plateau busbw, 8 B latency over 5 launches",
+      "reason": "2+ GPUs in one host (found 0); NVLink/NVSwitch between GPUs (nvidia-smi nvlink -s shows no active links); RDMA NICs for the L3 multi-node runs (/sys/class/infiniband is empty or absent); nccl-tests all_reduce_perf built against this CUDA/NCCL (not in the image)"
+    },
+    {
+      "needs": [
+        "2+ HX8-class nodes",
+        "RoCEv2/InfiniBand NICs",
+        "MPI or Slurm"
+      ],
+      "part": "L3: multi-node rail-pinned all_reduce_perf, ib_write_bw per rail",
+      "reason": "single host, no RDMA NIC"
+    }
+  ],
+  "notes": [
+    "alpha-beta fits use the lab's fit_alpha_beta (solutions/lab/nccl_analysis.py): t = alpha + factor*S/B, least squares weighted by 1/t. World-size-1 and the a+b kernel use factor 1 (no bus correction applies).",
+    "Tables and fits report medians. The physical invariants (monotonicity, DRAM bound, fit quality) use the best-of-n sample per size, the uncontended cost, so that GPU time-slicing with another process cannot fail or pass them by accident.",
+    "Small sizes run many calls per timed sample (calls_per_sample) so the sample is >> timer resolution; times are medians of >= 5 samples after 3 warm-ups.",
+    "Not runnable on this host: L2: all_reduce_perf -g 8 sweep, plateau busbw, 8 B latency over 5 launches; L3: multi-node rail-pinned all_reduce_perf, ib_write_bw per rail. Needs: 2+ GPUs in one host (found 0); NVLink/NVSwitch between GPUs (nvidia-smi nvlink -s shows no active links); RDMA NICs for the L3 multi-node runs (/sys/class/infiniband is empty or absent); nccl-tests all_reduce_perf built against this CUDA/NCCL (not in the image).",
+    "gloo over loopback measures CPU memory copies and the TCP stack: never compare it with NCCL.",
+    "CPU fallback: the floor sweep uses gloo (world_size 1) and the reduction kernel runs on host memory; no GPU, NCCL or DRAM-bound invariant applies."
+  ],
+  "probe": {
+    "cuda_device_count": 0,
+    "infiniband_devices": [],
+    "nccl_tests_on_path": false,
+    "nvidia_smi_nvlink_s": "nvidia-smi absent",
+    "nvidia_smi_topo_m": "nvidia-smi absent",
+    "nvlink_active": false
+  },
+  "runtime_s": 10.4,
+  "status": "ran",
+  "tables": {
+    "collective_floor": [
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 16.393026162404567,
+        "min_us": 76.8574298126623,
+        "n": 10,
+        "p95_us": 99.61204516002908,
+        "size": 8,
+        "time_us": 87.17885008081794
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 10.421432307339273,
+        "min_us": 56.029554980341345,
+        "n": 10,
+        "p95_us": 78.88718508183956,
+        "size": 32,
+        "time_us": 72.96151481568813
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 24.9298574635759,
+        "min_us": 55.495905107818544,
+        "n": 10,
+        "p95_us": 125.75636006658897,
+        "size": 128,
+        "time_us": 66.48461261647753
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 8.956267338362522,
+        "min_us": 54.91509509738535,
+        "n": 10,
+        "p95_us": 92.4856451456435,
+        "size": 512,
+        "time_us": 65.11303508887067
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 15.32687369035557,
+        "min_us": 58.46427986398339,
+        "n": 10,
+        "p95_us": 80.2522650337778,
+        "size": 2048,
+        "time_us": 68.77585998154245
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 11.915797367691994,
+        "min_us": 61.86251499457285,
+        "n": 10,
+        "p95_us": 79.1917450260371,
+        "size": 8192,
+        "time_us": 72.37952740979381
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 6.902856184751727,
+        "min_us": 56.622720148880035,
+        "n": 10,
+        "p95_us": 74.49352997355163,
+        "size": 32768,
+        "time_us": 62.79533248743973
+      },
+      {
+        "calls_per_sample": 200,
+        "iqr_us": 15.166108933044598,
+        "min_us": 61.16721488069743,
+        "n": 10,
+        "p95_us": 81.73420501407236,
+        "size": 131072,
+        "time_us": 71.43932249164209
+      },
+      {
+        "calls_per_sample": 128,
+        "iqr_us": 9.754087727742444,
+        "min_us": 60.01300789648667,
+        "n": 10,
+        "p95_us": 88.91206243788474,
+        "size": 524288,
+        "time_us": 64.83333595497243
+      },
+      {
+        "calls_per_sample": 32,
+        "iqr_us": 12.547273399832193,
+        "min_us": 65.09853119496256,
+        "n": 10,
+        "p95_us": 90.60503180080559,
+        "size": 2097152,
+        "time_us": 73.35409372899448
+      },
+      {
+        "calls_per_sample": 8,
+        "iqr_us": 70.04564940871205,
+        "min_us": 104.31349801365286,
+        "n": 10,
+        "p95_us": 242.28312395280227,
+        "size": 8388608,
+        "time_us": 159.67581202858128
+      },
+      {
+        "calls_per_sample": 2,
+        "iqr_us": 73.65088822552934,
+        "min_us": 93.62699347548187,
+        "n": 10,
+        "p95_us": 266.5570063982159,
+        "size": 33554432,
+        "time_us": 166.96749662514776
+      },
+      {
+        "calls_per_sample": 1,
+        "iqr_us": 38.198966649360955,
+        "min_us": 90.91105312108994,
+        "n": 10,
+        "p95_us": 356.2900237739086,
+        "size": 134217728,
+        "time_us": 124.03851724229753
+      },
+      {
+        "calls_per_sample": 1,
+        "iqr_us": 89.64052540250123,
+        "min_us": 93.59099203720689,
+        "n": 10,
+        "p95_us": 295.6239623017609,
+        "size": 536870912,
+        "time_us": 173.69596753269434
+      }
+    ],
+    "gloo_two_rank": [
+      {
+        "busbw_GBps": 0.0,
+        "size": 8,
+        "time_us": 302.19
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 16,
+        "time_us": 455.84
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 32,
+        "time_us": 452.13
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 64,
+        "time_us": 487.79
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 128,
+        "time_us": 385.99
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 256,
+        "time_us": 378.08
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 512,
+        "time_us": 464.42
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 1024,
+        "time_us": 733.16
+      },
+      {
+        "busbw_GBps": 0.0,
+        "size": 2048,
+        "time_us": 426.14
+      },
+      {
+        "busbw_GBps": 0.01,
+        "size": 4096,
+        "time_us": 428.7
+      },
+      {
+        "busbw_GBps": 0.02,
+        "size": 8192,
+        "time_us": 372.67
+      },
+      {
+        "busbw_GBps": 0.03,
+        "size": 16384,
+        "time_us": 563.5
+      },
+      {
+        "busbw_GBps": 0.07,
+        "size": 32768,
+        "time_us": 496.96
+      },
+      {
+        "busbw_GBps": 0.13,
+        "size": 65536,
+        "time_us": 488.28
+      },
+      {
+        "busbw_GBps": 0.25,
+        "size": 131072,
+        "time_us": 517.31
+      },
+      {
+        "busbw_GBps": 0.31,
+        "size": 262144,
+        "time_us": 850.14
+      },
+      {
+        "busbw_GBps": 0.66,
+        "size": 524288,
+        "time_us": 791.71
+      },
+      {
+        "busbw_GBps": 0.84,
+        "size": 1048576,
+        "time_us": 1251.47
+      },
+      {
+        "busbw_GBps": 1.09,
+        "size": 2097152,
+        "time_us": 1927.09
+      },
+      {
+        "busbw_GBps": 1.39,
+        "size": 4194304,
+        "time_us": 3008.03
+      },
+      {
+        "busbw_GBps": 1.62,
+        "size": 8388608,
+        "time_us": 5187.61
+      },
+      {
+        "busbw_GBps": 1.72,
+        "size": 16777216,
+        "time_us": 9762.25
+      },
+      {
+        "busbw_GBps": 1.52,
+        "size": 33554432,
+        "time_us": 22032.81
+      },
+      {
+        "busbw_GBps": 2.16,
+        "size": 67108864,
+        "time_us": 31070.71
+      }
+    ],
+    "reduction_kernel": [
+      {
+        "algbw_GBps": 0.009168397437578841,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 0.027505192312736522,
+        "iqr_us": 0.18986866052728146,
+        "min_us": 0.8570650243200362,
+        "n": 10,
+        "p95_us": 1.0611049947328866,
+        "size": 8,
+        "time_us": 0.8725625229999423
+      },
+      {
+        "algbw_GBps": 0.03819960438121725,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 0.11459881314365175,
+        "iqr_us": 0.1287563645746559,
+        "min_us": 0.8297749445773661,
+        "n": 10,
+        "p95_us": 1.266055041924119,
+        "size": 32,
+        "time_us": 0.8377050107810646
+      },
+      {
+        "algbw_GBps": 0.14789864614661347,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 0.4436959384398405,
+        "iqr_us": 0.08165603503584862,
+        "min_us": 0.8523950236849487,
+        "n": 10,
+        "p95_us": 1.1050599277950823,
+        "size": 128,
+        "time_us": 0.8654575503896922
+      },
+      {
+        "algbw_GBps": 0.5724268694960911,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 1.7172806084882732,
+        "iqr_us": 0.05732639692723751,
+        "min_us": 0.8673849515616894,
+        "n": 10,
+        "p95_us": 1.060130016412586,
+        "size": 512,
+        "time_us": 0.8944373985286802
+      },
+      {
+        "algbw_GBps": 1.638380276726692,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 4.915140830180076,
+        "iqr_us": 0.8235024870373309,
+        "min_us": 0.8992551011033356,
+        "n": 10,
+        "p95_us": 2.730324922595173,
+        "size": 2048,
+        "time_us": 1.2500150478444993
+      },
+      {
+        "algbw_GBps": 4.063623327540859,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 12.190869982622576,
+        "iqr_us": 1.3401012984104455,
+        "min_us": 1.0829902021214366,
+        "n": 10,
+        "p95_us": 2.8937598108313978,
+        "size": 8192,
+        "time_us": 2.015934878727421
+      },
+      {
+        "algbw_GBps": 12.796400900767408,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 38.38920270230223,
+        "iqr_us": 0.7446874951710925,
+        "min_us": 2.2814350086264312,
+        "n": 10,
+        "p95_us": 4.374090058263391,
+        "size": 32768,
+        "time_us": 2.560720022302121
+      },
+      {
+        "algbw_GBps": 24.648934243125318,
+        "calls_per_sample": 200,
+        "dram_traffic_GBps": 73.94680272937595,
+        "iqr_us": 1.520468867965974,
+        "min_us": 4.904740198981017,
+        "n": 10,
+        "p95_us": 8.408470021095127,
+        "size": 131072,
+        "time_us": 5.3175524226389825
+      },
+      {
+        "algbw_GBps": 51.80757521038024,
+        "calls_per_sample": 128,
+        "dram_traffic_GBps": 155.4227256311407,
+        "iqr_us": 2.4661873112563626,
+        "min_us": 8.640781288704602,
+        "n": 10,
+        "p95_us": 24.26793753329548,
+        "size": 524288,
+        "time_us": 10.119910029970924
+      },
+      {
+        "algbw_GBps": 89.48319660915902,
+        "calls_per_sample": 32,
+        "dram_traffic_GBps": 268.44958982747704,
+        "iqr_us": 6.502953965537017,
+        "min_us": 19.392875401536003,
+        "n": 10,
+        "p95_us": 30.534407414961606,
+        "size": 2097152,
+        "time_us": 23.436266019416507
+      },
+      {
+        "algbw_GBps": 59.3340289700415,
+        "calls_per_sample": 8,
+        "dram_traffic_GBps": 178.00208691012452,
+        "iqr_us": 25.679873942863196,
+        "min_us": 125.47263031592593,
+        "n": 10,
+        "p95_us": 173.38537145406008,
+        "size": 8388608,
+        "time_us": 141.37937614577822
+      },
+      {
+        "algbw_GBps": 16.939470652618393,
+        "calls_per_sample": 2,
+        "dram_traffic_GBps": 50.818411957855176,
+        "iqr_us": 366.0141155705787,
+        "min_us": 1775.661512510851,
+        "n": 10,
+        "p95_us": 2395.4059870447963,
+        "size": 33554432,
+        "time_us": 1980.8430079137906
+      },
+      {
+        "algbw_GBps": 15.211237246700609,
+        "calls_per_sample": 1,
+        "dram_traffic_GBps": 45.63371174010183,
+        "iqr_us": 443.337979959324,
+        "min_us": 8025.124028790742,
+        "n": 10,
+        "p95_us": 9373.520966619253,
+        "size": 134217728,
+        "time_us": 8823.590469546616
+      },
+      {
+        "algbw_GBps": 14.773295970155782,
+        "calls_per_sample": 1,
+        "dram_traffic_GBps": 44.319887910467344,
+        "iqr_us": 1289.484993321821,
+        "min_us": 35090.86201665923,
+        "n": 10,
+        "p95_us": 39825.80499723554,
+        "size": 536870912,
+        "time_us": 36340.63198114745
+      }
+    ]
+  }
+}

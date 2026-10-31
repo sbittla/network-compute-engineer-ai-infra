@@ -184,6 +184,36 @@ Then copy `data/orion_hx8_baseline.yaml` to `my_baseline.yaml`, edit the invento
 groups to match *your* platform, and run the analyzer on your snapshots. Compare the idle and loaded
 snapshots: does the GPU PCIe link speed change? (Many GPUs drop link speed when idle.)
 
+**L2 on any single GPU host (scripted, with CPU fallback).** `lab/l2/experiment.py` runs the reference
+collector and analyzer, unchanged, inside the GPU container. It is read-only and non-root. It first
+checks that every planned command passes the read-only guard. It then checks that a list of real
+mutating forms is refused before anything executes: `nvidia-smi -pl`, `--power-limit=` hidden in one
+token, `ethtool -s`, `ip link set`, `taskset -cp <list> <pid>`, `setpci`, and others. Next it takes an
+idle snapshot and a snapshot under a GPU GEMM load (with that process's PID), and samples the GPU's PCIe
+link five times in each state through the collector's own guarded `run_command()`. Finally it triages
+both snapshots with `analyze_fleet()` against two baselines. The first is written for this host from
+independent probes (`/proc/cpuinfo`, `/sys/devices/system/node`, `/proc/meminfo`, torch) and must
+produce no `INVENTORY_MISMATCH`. The second is the ORION HX8 baseline, which must flag the host as the
+wrong platform. The root snapshot, `lspci`/`ethtool`/`sysstat`/`hwloc` output and the L3 fleet run are
+probed and recorded as not runnable when absent.
+
+```bash
+python scripts/hw_labs.py build ch03
+python scripts/hw_labs.py run ch03 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch03 --device cpu   # the CPU fallback
+```
+
+The CPU fallback is automatic (`--device auto` without an NVIDIA driver). It runs the same guard tests,
+an idle snapshot, a CPU-loaded snapshot and the same triage. `nvidia-smi` is absent there, and that must
+surface as an `EVIDENCE_GAP` finding, not a crash. The report says that the PCIe idle/loaded comparison
+was skipped.
+
+*Observed on the reference run:* `lab/l2/results/` holds the bundles (`gpu-<model>/`, `cpu-fallback/`)
+from a WSL2 laptop host (one RTX 4060 Laptop GPU). They show which sections a non-root container can and
+cannot collect, the PCIe link idle versus loaded, and how WSL2 presents GPUs in sysfs (Microsoft GPU-PV
+functions with no link files). Expect more sections to be `ok` on a native Linux host with pciutils
+and sysstat installed.
+
 **L3 — two or more RDMA-connected GPU nodes.** Run the collector on every node during the same
 `all_reduce_perf` run (from `nccl-tests`, Chapter 12) and once idle; analyze the set as a fleet and
 check the cross-host MTU and link-speed consistency rules on real data.

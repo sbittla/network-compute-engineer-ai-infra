@@ -34,3 +34,5 @@ python ../../lab/starter/host_collector.py --out-dir outputs/l2_user --note "inv
 ```
 
 Label every number (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`) and show formula, substitution and result with units. Quote raw snapshot lines where you rely on them.
+
+**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch03 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on.

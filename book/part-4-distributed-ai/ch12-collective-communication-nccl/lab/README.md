@@ -91,6 +91,30 @@ for i in 2 3 4 5; do ./build/all_reduce_perf -b 8 -e 8G -f 2 -g 8 > l2_allreduce
 (`-g 8` runs 8 GPUs from one process.) Parse all five runs; report median and min plateau busbw and
 8 B latency spread.
 
+**L2 on one GPU (scripted, with CPU fallback).** The 8-GPU sweep above cannot run on a single-GPU
+host. `lab/l2/experiment.py` probes for it (`torch.cuda.device_count()`, `nvidia-smi topo -m`,
+`nvidia-smi nvlink -s`, `/sys/class/infiniband`, nccl-tests on `PATH`) and records the multi-GPU parts as
+**not runnable**, with what they need. It then measures what one GPU can, all fitted with your
+`fit_alpha_beta`:
+
+- NCCL bring-up with world_size 1 (`init_process_group` + communicator creation) and the NCCL version;
+- the per-call floor: a world-size-1 `all_reduce` sweep from 8 B up, which is pure software and launch cost;
+- the reduction kernel every ring step runs (`dst = a + b`) over message size, against the GPU's DRAM peak;
+- a real two-rank collective: `optional/gloo_allreduce.py --world 2` over loopback (CPU and TCP, never
+  comparable with NCCL).
+
+```bash
+python scripts/hw_labs.py build ch12
+python scripts/hw_labs.py run ch12 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch12 --device cpu   # CPU fallback
+```
+
+The CPU fallback is automatic: with no GPU, gloo replaces NCCL, the reduction runs on host memory, and the
+GPU-only invariants (DRAM bound, NCCL version) are skipped. **Observed on the reference run:**
+`lab/l2/results/gpu-rtx-4060-laptop-gpu/` and `lab/l2/results/cpu-fallback/` hold the coordinator's full
+runs. Each `report.md` lists the not-runnable parts first, then the floor, reduction and gloo tables with
+their alpha-beta fits next to the fit of the lab's synthetic 8 × H100 log `c1`.
+
 **L3 — two or more nodes (reserved window).**
 
 ```bash

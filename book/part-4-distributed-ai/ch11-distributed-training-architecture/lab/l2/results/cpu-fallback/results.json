@@ -1,0 +1,143 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same GPT-style model, smaller and in FP32, trains on the CPU; activation memory is counted exactly with autograd saved-tensor hooks and step time is timed with perf_counter; allocator peak-memory and GPU-peak invariants are skipped",
+    "evidence": "MEASURED",
+    "id": "ch11-l2",
+    "title": "Lab 11 L2: scaled-down training step - measured memory and step time vs the L1 model"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "L=2 recompute=False attn=flash params=1.6M step p50 45.87 ms  saved-act c=68.1",
+    "L=4 recompute=False attn=flash params=3.2M step p50 87.50 ms  saved-act c=66.1",
+    "L=4 recompute=True  attn=flash params=3.2M step p50 111.34 ms  saved-act c=6.0",
+    "L=4 recompute=False attn=math  params=3.2M step p50 83.16 ms  saved-act c=106.1"
+  ],
+  "metrics": {
+    "act_coeff_saved_flash": 66.1328125,
+    "act_coeff_saved_full_recompute": 6.0078125,
+    "act_coeff_saved_math_attn": 106.0703125,
+    "b": 1,
+    "h": 256,
+    "heads": 4,
+    "korthikanti_score_term_5as_over_h": 40.0,
+    "layer_counts": [
+      2,
+      4
+    ],
+    "params_per_layer": 789760.0,
+    "recompute_act_ratio": 0.09084465445953928,
+    "recompute_step_ratio": 1.2724979166222021,
+    "s": 512,
+    "step_p50_s_largest": 0.08749556250404567,
+    "step_s_per_layer": 0.020813605762668885
+  },
+  "notes": [
+    "Model: pre-LN GPT block (fused QKV, causal SDPA, 4h GELU MLP), no embedding/vocab head; input is a random (s, b, h) tensor and the loss is mean(LN(x)^2). Parameters counted exactly from the module.",
+    "Benchmark: 5 warm-up steps then 10 timed steps per case (CUDA events on the GPU, perf_counter on the CPU); median, p95, IQR reported.",
+    "GPU numeric precision: BF16 autocast with FP32 master weights and FP32 Adam (4+4+4+4 = 16 B/param, the Section 11.2 convention). PyTorch AMP keeps the residual stream and LayerNorm inputs in FP32, which Megatron's 34 coefficient (all-BF16 activations) does not; expect c a few units above 34.",
+    "Activation coefficient c = saved bytes / (layers x s x b x h); saved bytes are unique storages handed to autograd's pack hook, excluding parameters and autocast's BF16 weight copies (counted separately: they live until backward and show up in the allocator peak).",
+    "Not runnable here: TP=8 with sequence parallelism and the 1F1B pipeline (needs an 8-GPU node with NVLink, README Section 8); the s*b*h*34/t division by t therefore is not measured, only the t=1 coefficient.",
+    "CPU fallback: FP32 activations (4 B), so the coefficient is expected near 2 x the BF16 value; allocator peak memory is not available on the CPU and is not reported."
+  ],
+  "runtime_s": 6.55,
+  "status": "ran",
+  "tables": {
+    "cases": [
+      {
+        "act_coeff_saved": 68.140625,
+        "attn": "flash",
+        "attn_flops": 805306368.0,
+        "autocast_weight_copy_bytes": 0,
+        "b": 1,
+        "h": 256,
+        "heads": 4,
+        "layers": 2,
+        "measured_steps": 10,
+        "n_params": 1580032,
+        "recompute": false,
+        "rf": 1.0,
+        "s": 512,
+        "saved_act_bytes": 17862656,
+        "step_iqr_s": 0.005509499198524281,
+        "step_max_s": 0.04930249898461625,
+        "step_min_s": 0.037420639011543244,
+        "step_p50_s": 0.045868350978707895,
+        "step_p95_s": 0.04930249898461625,
+        "useful_flops": 4853858304.0,
+        "warmup_steps": 5
+      },
+      {
+        "act_coeff_saved": 66.1328125,
+        "attn": "flash",
+        "attn_flops": 1610612736.0,
+        "autocast_weight_copy_bytes": 0,
+        "b": 1,
+        "h": 256,
+        "heads": 4,
+        "layers": 4,
+        "measured_steps": 10,
+        "n_params": 3159552,
+        "recompute": false,
+        "rf": 1.0,
+        "s": 512,
+        "saved_act_bytes": 34672640,
+        "step_iqr_s": 0.0068577182973967865,
+        "step_max_s": 0.10053332499228418,
+        "step_min_s": 0.07301455800188705,
+        "step_p50_s": 0.08749556250404567,
+        "step_p95_s": 0.10053332499228418,
+        "useful_flops": 9706143744.0,
+        "warmup_steps": 5
+      },
+      {
+        "act_coeff_saved": 6.0078125,
+        "attn": "flash",
+        "attn_flops": 2147483648.0,
+        "autocast_weight_copy_bytes": 0,
+        "b": 1,
+        "h": 256,
+        "heads": 4,
+        "layers": 4,
+        "measured_steps": 10,
+        "n_params": 3159552,
+        "recompute": true,
+        "rf": 1.333,
+        "s": 512,
+        "saved_act_bytes": 3149824,
+        "step_iqr_s": 0.009740640234667808,
+        "step_max_s": 0.11902522697346285,
+        "step_min_s": 0.09635527501814067,
+        "step_p50_s": 0.11133792100008577,
+        "step_p95_s": 0.11902522697346285,
+        "useful_flops": 9706143744.0,
+        "warmup_steps": 5
+      },
+      {
+        "act_coeff_saved": 106.0703125,
+        "attn": "math",
+        "attn_flops": 1610612736.0,
+        "autocast_weight_copy_bytes": 0,
+        "b": 1,
+        "h": 256,
+        "heads": 4,
+        "layers": 4,
+        "measured_steps": 10,
+        "n_params": 3159552,
+        "recompute": false,
+        "rf": 1.0,
+        "s": 512,
+        "saved_act_bytes": 55611392,
+        "step_iqr_s": 0.01225766574498266,
+        "step_max_s": 0.09224751498550177,
+        "step_min_s": 0.07146152597852051,
+        "step_p50_s": 0.08315617646439932,
+        "step_p95_s": 0.09224751498550177,
+        "useful_flops": 9706143744.0,
+        "warmup_steps": 5
+      }
+    ]
+  }
+}

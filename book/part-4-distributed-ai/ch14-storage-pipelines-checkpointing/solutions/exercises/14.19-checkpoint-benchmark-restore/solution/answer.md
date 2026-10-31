@@ -38,3 +38,33 @@ Report median and spread (min–max or IQR) for each cell.
 
 **Common failures.** Timing `async_save` only to its return, which reports blocking time as completion.
 Corrupting the original checkpoint. No warm-up, so the first save includes allocator and plan setup.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch14 --device gpu` runs this exercise end to end
+(`lab/l2/experiment.py`). In full mode it uses an MLP with ≥ 1 GB of FP32 weights and Adam state on the
+GPU. `dcp.save`, `dcp.async_save` and `async_save` with pinned cached staging each get one warm-up and
+≥ 5 timed repetitions. The run reports median, p95 and min–max for blocking time, completion time,
+step time before, during and after the persist, and the host bytes DCP staged (pinned and pageable). It
+then performs the restore test above: SHA-256 manifest + COMMIT, a 4 KiB overwrite in a *scratch copy*,
+rejection by the lab's `validate_checkpoint` (`CHECKSUM_MISMATCH`), restore from the intact copy, and a
+first-step loss compared with the value recorded at save (tolerance stated first: relative 1e-6, FP32,
+same kernels and batch). The bundle in `lab/l2/results/gpu-*/` is the model answer's evidence: the
+environment manifest is `environment.json`, the results table is `report.md`, and the restore test log is
+the fenced block in `report.md` (also under `restore_test.log` in `results.json`).
+
+What the run shows beyond the expected shape above:
+
+- `dcp.load` has no data checksums. Depending on where the 4 KiB lands, it either refuses the copy (the
+  zip/pickle framing was hit) or loads it silently with a few tensors changed, often optimizer state, so
+  the loss looks unchanged. Only the manifest validator catches both cases.
+- In PyTorch 2.5.1, `FileSystemWriter(cache_staged_state_dict=True)` silently drops the flag. The
+  experiment detects this and sets the stager attribute itself; a submission that "saw no pinned memory"
+  may have hit it.
+- With non-fused Adam, the `step` counters are CPU scalars. DCP stages host tensors by reference, so an
+  async checkpoint can record a later step count than its moments. The consistency check reports it.
+
+**Fallback.** Without a GPU (`--device cpu`, or automatically when none is visible), the same benchmark
+and restore test run with the state in host memory. The pinned series and the D2H/PCIe invariants are
+skipped, and the report says so. There the consistency check shows the full torn-checkpoint hazard: host
+state is staged by reference, so steps taken during the persist land in the checkpoint.

@@ -130,6 +130,28 @@ periodic `torch.cuda.synchronize()` and sleeps) and show that `DCGM_FI_DEV_GPU_U
 driver; field IDs and metric names are `[VENDOR-SPEC, 2026-10]` — verify them (DCGM 4.6+ renames
 the profiling fields, e.g. `DCGM_FI_PROF_SM_UTIL_RATIO`, and keeps the old names as aliases).
 
+**L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` runs the pipeline end to end on
+real telemetry. A training-like loop runs four phases: healthy; degraded, with an injected host-side stall after
+every step; recovered; and busy-idle, a single-thread kernel that keeps the GPU "utilized" while doing no useful
+work. Every second a scraper renders the Prometheus text exposition. It carries `nvidia-smi` gauges (each `# HELP`
+names the DCGM field it stands for) and the job's counters, including a step-time histogram with a bucket at the
+SLO threshold. The step-time SLI, the lab's `burn_rate` (windows compressed to 10 and 2 scrapes) and a replay of
+`GPUUtilLow` are then computed from the scraped series only.
+
+```bash
+python scripts/hw_labs.py build ch18
+python scripts/hw_labs.py run ch18 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch18 --device cpu   # automatic fallback when no GPU: host gauges, same SLI/burn maths
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It exposes
+host gauges (`/proc/stat`, the training thread's CPU-time rate) and the same job counters. GPU-only invariants
+(utilization, power, sample staleness) are skipped. **Observed on the reference run:** the committed bundles in
+`lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show the SLI collapsing in the degraded
+phase and the fast-burn page firing inside the long window. In the busy-idle phase utilization stays high while
+useful TFLOP/s and power fall, and `GPUUtilLow` does not fire (exercise K1) `[MEASURED]`. DCGM profiling fields
+(`PROF_SM_ACTIVE`) are not available on a GeForce laptop.
+
 **L3 — multi-node with RDMA and switch access (read-only).**
 
 ```bash

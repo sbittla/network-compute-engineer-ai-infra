@@ -15,3 +15,10 @@ Put every deliverable in `outputs/`:
 - `outputs/evidence/` — raw command outputs, one file per Table 5.3 item
 - `outputs/gdr_test.log` — NCCL log excerpt with the channel lines, or `ib_write_bw --use_cuda` output
 - `outputs/answer.md` — the evidence table and your verdict
+
+**Hardware run (course harness).** On the course harness, `python scripts/hw_labs.py run ch05 --device
+gpu` (from the repository root) collects every Table 5.3 item the host exposes without root. That means
+raw `nvidia-smi topo -m`, PCIe link state, the peer-memory modules, `/proc/cmdline` and the PCI/RDMA
+scan. It writes an evidence table and a verdict to `lab/l2/results/<gpu-model>/report.md`, with the raw
+outputs in `results.json`. On a host without an RDMA NIC the verdict is "GDR impossible" and item 6 is
+recorded as not runnable. Use its raw outputs for `outputs/evidence/` and say so in your verdict.

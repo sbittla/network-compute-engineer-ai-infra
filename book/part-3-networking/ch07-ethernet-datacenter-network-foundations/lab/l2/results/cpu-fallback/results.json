@@ -1,0 +1,125 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same ECMP Monte Carlo on the CPU with fewer trials (the GPU only makes it faster)",
+    "evidence": "SIMULATED",
+    "gpu_optional": true,
+    "id": "ch07-l2",
+    "title": "Lab 7 L2: container-fabric probe and an ECMP hashing Monte Carlo for low-entropy RoCE flows"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "8 flows/8 links: P(distinct)=0.223 %, links used 5.250; polarised spine-1 uses 2/8 links, seeded 8/8; 2.26e+06 trials/s on cpu"
+  ],
+  "metrics": {
+    "fabric_lab_runnable": false,
+    "links_used_32x32": 20.423,
+    "links_used_8x8": 5.2497,
+    "maxload_8x8_2": 0.4978,
+    "maxload_8x8_3": 0.41,
+    "maxload_8x8_4plus": 0.09,
+    "modulo_keep_fraction": 0.0315,
+    "p_all_distinct_8x8": 0.0022325,
+    "p_link_ge3_32x32": 0.9697,
+    "polarized_spine1_links_used": 2,
+    "resilient_keep_of_survivors": 1.0,
+    "seeded_spine1_links_used": 8,
+    "trial_batch_s_median": 0.1772,
+    "trials_8x8": 400000,
+    "trials_per_s": 2257834.0
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a Linux host with containerlab and FRR images",
+        "the Docker socket",
+        "root / CAP_NET_ADMIN",
+        "network namespaces the lab may create (the harness runs with --network none)"
+      ],
+      "part": "containerlab 2-spine x 4-leaf eBGP fabric (FRR): ECMP next-hop counts, BFD, reconvergence loss window",
+      "probe": {
+        "cap_net_admin": false,
+        "containerlab": null,
+        "docker_cli": null,
+        "docker_socket": false,
+        "euid": 1000,
+        "fib_multipath_hash_policy": "0",
+        "lo_mtu": "65536",
+        "netdevs": [
+          "lo"
+        ],
+        "vtysh_frr": null
+      }
+    }
+  ],
+  "notes": [
+    "[SIMULATED] ECMP hashing only: flows are independent, constant-rate and never adapt; there are no queues, ECN or PFC.",
+    "Flows: random 10.x.y.z source/destination NICs, UDP source port per queue pair in 49152-65535, destination port 4791.",
+    "Timing [MEASURED]: 5 repetitions of the 400000-trial 8x8 batch after 1 warm-up; median 177.2 ms, p95 449.3 ms."
+  ],
+  "runtime_s": 1.76,
+  "status": "ran",
+  "tables": {
+    "analytic": [
+      {
+        "closed_form": 0.0024,
+        "quantity": "p_all_distinct_8x8",
+        "simulated": 0.00223
+      },
+      {
+        "closed_form": 5.25113,
+        "quantity": "links_used_8x8",
+        "simulated": 5.24974
+      },
+      {
+        "closed_form": 20.41423,
+        "quantity": "links_used_32x32",
+        "simulated": 20.4228
+      },
+      {
+        "closed_form": 0.03125,
+        "quantity": "modulo_keep_32",
+        "simulated": 0.03149
+      },
+      {
+        "closed_form": 1.0,
+        "quantity": "resilient_keep_of_survivors",
+        "simulated": 1.0
+      }
+    ],
+    "ecmp_8x8": [
+      {
+        "manuscript_simulated": 0.499,
+        "most_loaded_link_flows": 2,
+        "simulated": 0.4978
+      },
+      {
+        "manuscript_simulated": 0.409,
+        "most_loaded_link_flows": 3,
+        "simulated": 0.41
+      },
+      {
+        "manuscript_simulated": 0.089,
+        "most_loaded_link_flows": "4+",
+        "simulated": 0.09
+      }
+    ],
+    "probe": [
+      {
+        "cap_net_admin": false,
+        "containerlab": null,
+        "docker_cli": null,
+        "docker_socket": false,
+        "euid": 1000,
+        "fib_multipath_hash_policy": "0",
+        "lo_mtu": "65536",
+        "netdevs": [
+          "lo"
+        ],
+        "vtysh_frr": null
+      }
+    ]
+  }
+}

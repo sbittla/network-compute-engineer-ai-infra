@@ -28,3 +28,15 @@ firmware, kernel, BIOS, perftest version, environment variables, the date, and e
 **Safety note.** The plan only *reads* configuration. Changing ACS, IOMMU or kernel modules needs a
 maintenance window and Fleet change control (Chapter 20). A wrong ACS change can break device
 isolation. Run only on drained nodes, never next to a production job.
+
+## Hardware run
+
+`python scripts/hw_labs.py run ch13 --device gpu` runs the single-GPU part of this plan on the reference
+laptop (RTX 4060 Laptop GPU, PCIe Gen4 x8). It covers rows 1–2, the topology and link check: the negotiated
+link is recorded in `environment.json`, and host↔GPU bandwidth is measured against that link's ceiling. The
+probe of `/sys/class/infiniband` finds no RDMA device, so rows 6–11 (`ib_write_bw --use_cuda`, `/GDRDMA` on
+NCCL channel lines, the GDR-off control) are recorded as **not runnable** in
+`lab/l2/results/*/results.json` → `not_runnable_parts`. They are not faked. They need an mlx5-class NIC on
+the GPU's PCIe switch, perftest built with CUDA, and a second node. With no GPU at all, the run falls back to
+host-memory copies on the CPU, and the report says so.
+

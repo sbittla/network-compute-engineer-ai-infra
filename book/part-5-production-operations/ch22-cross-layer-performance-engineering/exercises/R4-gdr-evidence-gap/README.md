@@ -15,3 +15,6 @@ relies on.
 Put every deliverable in `outputs/` in this folder:
 
 - `outputs/answer.md`
+
+On a single GPU host, `python scripts/hw_labs.py run ch22 --device gpu` validates the attribution method on a known
+host-staging regression (CPU fallback with `--device cpu`). The GDR evidence itself still needs RDMA hardware.

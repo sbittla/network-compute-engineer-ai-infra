@@ -153,6 +153,40 @@ versions installed on your systems.
 > **Safety:** never run fabric benchmarks on a shared or production fabric to produce portfolio
 > evidence. Saturating all-reduce traffic is indistinguishable from an incident to the people on call.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch24
+python scripts/hw_labs.py run ch24 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch24 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch24               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+It converts the fictional learner's item E08 (`host_topology`, `lab_l1`) into `lab_hw` evidence. It
+captures the Chapter 5 evidence on this host (`nvidia-smi -q`, `topo -m`, PCIe link, NUMA layout, RDMA
+probe), measures pinned H2D bandwidth (>= 5 repetitions), and fills every L2 `record:` field of
+`manifest.yaml`. It writes the converted item with its artifact pointing at the raw results and scores it
+with the lab's own `effective_level` / `demonstrated_levels` / `readiness`, alongside the two classic
+mistakes (`measured_on_hardware: true` on a `lab_l1` item, and `lab_hw` with no artifact).
+
+Not runnable on the harness: intra-node `all_reduce_perf -g <ngpus>` (needs >= 2 GPUs) and the GPU-NIC
+half of E08 (no NIC).
+
+The CPU fallback measures the host half only (NUMA, host copy bandwidth, RDMA probe) and keeps the
+converted item's claim at level 2.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 Both datasets contain planted problems (portfolio-hygiene problems in the evidence file; data-quality

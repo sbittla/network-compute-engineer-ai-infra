@@ -25,3 +25,8 @@ Put every deliverable in `outputs/` in this folder:
 - `outputs/restore_test.log`
 
 Label every number `[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`.
+
+On a single GPU host you can produce all three deliverables with
+`python scripts/hw_labs.py run ch14 --device gpu` (CPU fallback with `--device cpu`). It writes
+`lab/l2/results/<gpu-model>/environment.json` (manifest), `results.json` and `report.md` (results table and
+restore test log). Copy or summarize them into `outputs/` and add your own analysis.

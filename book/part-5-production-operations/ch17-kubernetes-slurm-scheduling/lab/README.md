@@ -188,6 +188,41 @@ Record ≥ 5 repetitions per placement (median, p95, min/max), warm-up policy, `
 (or the topology labels you used), NIC firmware and driver versions, and time-to-start (p50/p95) for
 gang jobs with and without topology constraints.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch17
+python scripts/hw_labs.py run ch17 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch17 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch17               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+It reads what a device plugin / GPU Feature Discovery would read (`nvidia-smi -L`, UUID, memory, compute
+capability, MIG and compute mode, device nodes) and derives the `nvidia.com/gpu` capacity, the product
+label and a `gres.conf` line. It runs the lab's own `diagnose_pending` on that real node, as found (no
+plugin, so DEVICE_PLUGIN_NOT_ADVERTISING) and with a plugin, for a 1-GPU, a 2-GPU and an H100-selector
+job. Then it measures what sharing one GPU costs: two independent processes running the same GEMM loop
+alone and together under time-slicing, interleaved over >= 5 repetitions, plus whether one job's
+allocation is visible to the other.
+
+Not runnable on the harness: kind/k3s + GPU Operator or single-node Slurm (no kubelet/slurmd, no network,
+and WSL2 exposes `/dev/dxg` rather than `/dev/nvidia0`), and the L3 multi-node placement runs.
+
+The CPU fallback runs discovery and the diagnoser (no GPU found), and the sharing test with two CPU
+processes pinned to the same two cores.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 9. Intentionally flawed inputs
 
 The datasets contain planted traps and anomalies that teach diagnosis. They are documented for

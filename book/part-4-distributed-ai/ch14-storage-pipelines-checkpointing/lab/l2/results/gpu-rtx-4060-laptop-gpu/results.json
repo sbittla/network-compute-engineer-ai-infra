@@ -1,0 +1,23 @@
+{
+  "error": "Traceback (most recent call last):\n  File \"/opt/hwlab/run.py\", line 61, in main\n    result = exp.run(ctx)\n             ^^^^^^^^^^^^\n  File \"/work/pkg/lab/l2/experiment.py\", line 266, in run\n    train_step_on(torch, m3, o3, x, y)\n  File \"/work/pkg/lab/l2/experiment.py\", line 134, in train_step_on\n    opt.step()\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/optimizer.py\", line 487, in wrapper\n    out = func(*args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/optimizer.py\", line 91, in _use_grad\n    ret = func(self, *args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/adam.py\", line 213, in step\n    has_complex = self._init_group(\n                  ^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/adam.py\", line 157, in _init_group\n    state[\"exp_avg_sq\"] = torch.zeros_like(\n                          ^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 36.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 3.66 GiB is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 3.24 GiB is allocated by PyTorch, and 4.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
+  "experiment": {
+    "cpu_fallback": "the same DCP save/async_save/load benchmark, interference and restore test with the model in host memory (staging is a host copy, not a PCIe D2H transfer); D2H/PCIe invariants skipped",
+    "evidence": "MEASURED",
+    "id": "ch14-l2",
+    "title": "Lab 14 L2: checkpoint blocking vs completion time, save/restore throughput and restore test"
+  },
+  "invariants": {
+    "failures": [
+      "experiment raised an exception"
+    ],
+    "passed": false
+  },
+  "log": [
+    "model 94.4 M params, checkpointed state 1.133 GB on cuda"
+  ],
+  "metrics": {},
+  "notes": [],
+  "runtime_s": 242.37,
+  "status": "error",
+  "tables": {}
+}

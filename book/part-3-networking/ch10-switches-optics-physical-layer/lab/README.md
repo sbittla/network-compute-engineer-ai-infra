@@ -131,6 +131,41 @@ your optic vendor permits it (low Rx) — and confirm your analyzer's classifica
 predicted. Record everything listed under `extensions` in `manifest.yaml`, plus ≥ 5 repeated
 snapshot pairs per condition, and report median and spread of the pre-FEC BER.
 
+### Running the L2 experiment (course harness)
+
+From the repository root:
+
+```bash
+python scripts/hw_labs.py build ch10
+python scripts/hw_labs.py run ch10 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
+python scripts/hw_labs.py run ch10 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py test ch10               # quick run now + committed-evidence checks
+```
+
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
+visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
+skipped. Add `--quick` for a smoke test (never committed as evidence).
+
+This host has no NIC port or optic, so the DOM/FEC soak above is probed and recorded as not runnable. The
+harness applies the same soak method to the one serial link it has under test, the GPU's PCIe link. It
+snapshots capability versus negotiated generation/width and the replay counters at T0 and T1 around a
+sustained bidirectional copy load, differences them with the lab's `counter_delta`, and compares
+throughput with the 128b/130b-coded line rate. It then states the error rate the soak can certify (95 %
+rule of three) and how long a soak would need to certify 1e-12. Every run also executes the L1 analyzer
+on the lab snapshots.
+
+Not runnable on the harness: `ethtool -m` DOM, FEC mode/statistics and driver counters on a 100G+ port
+(and the L3 switch-side soak).
+
+The CPU fallback runs the L1 analyzer and the NIC probe and tabulates the soak length needed per BER
+target `[MODELED]`. No PCIe link is visible without the GPU.
+
+**Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
+(`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
+`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+the invariants it passed. Rerun on your own hardware and compare like with like.
+
 ## 10. Intentionally flawed inputs
 
 The dataset contains planted faults and decoys. They are documented for instructors only in

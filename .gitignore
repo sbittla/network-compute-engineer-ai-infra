@@ -8,3 +8,4 @@ lab/out/
 .DS_Store
 ~$*.docx
 build/
+**/l2/results/*-quick/

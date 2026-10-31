@@ -1,0 +1,114 @@
+{
+  "experiment": {
+    "cpu_fallback": "host-memory copy bandwidth sweep and a two-thread overlap test (no PCIe involved)",
+    "evidence": "MEASURED",
+    "id": "ch13-l2",
+    "title": "Lab 13 L2: host-GPU copy bandwidth and copy/compute overlap"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "  0.0625 MiB  host_copy=10.94 GB/s",
+    "       1 MiB  host_copy=66.46 GB/s",
+    "       4 MiB  host_copy=61.91 GB/s",
+    "      16 MiB  host_copy=90.33 GB/s",
+    "      64 MiB  host_copy=32.76 GB/s",
+    "     256 MiB  host_copy=25.17 GB/s",
+    "    1024 MiB  host_copy=25.15 GB/s"
+  ],
+  "metrics": {
+    "host_copy_gbs_at_1024MiB": 25.149,
+    "overlap_compute_s": 0.028112,
+    "overlap_copy_hidden_fraction": 1.0,
+    "overlap_copy_s": 0.005394,
+    "overlap_overlapped_s": 0.030247,
+    "overlap_serial_s": 0.035854
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "RDMA NIC (mlx5-class) on the GPU's PCIe switch",
+        "perftest built with CUDA",
+        "a second node"
+      ],
+      "part": "GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 6-11, exercise 13.11)",
+      "reason": "no RDMA device under /sys/class/infiniband on this host"
+    }
+  ],
+  "notes": [
+    "Median of >= 5 timed repetitions after 3 warm-ups; CUDA events on the GPU, perf_counter on the CPU.",
+    "PCIe ceiling = per-lane rate after encoding x max negotiated width from nvidia-smi."
+  ],
+  "rdma_devices": [],
+  "runtime_s": 3.12,
+  "status": "ran",
+  "tables": {
+    "bandwidth": [
+      {
+        "case": "host_copy",
+        "gbs_median": 10.939085512609962,
+        "iqr_s": 2.8075490263290703e-05,
+        "median_s": 5.990994395688176e-06,
+        "n": 20,
+        "p95_s": 6.195198511704803e-05,
+        "size_mib": 0.0625
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 66.46226857143589,
+        "iqr_s": 5.7366269174963236e-05,
+        "median_s": 1.57770118676126e-05,
+        "n": 20,
+        "p95_s": 0.00021520804148167372,
+        "size_mib": 1
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 61.913101414595715,
+        "iqr_s": 8.774630259722471e-05,
+        "median_s": 6.77450152579695e-05,
+        "n": 20,
+        "p95_s": 0.00021728099090978503,
+        "size_mib": 4
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 90.33413090352559,
+        "iqr_s": 5.844319821335375e-05,
+        "median_s": 0.00018572399858385324,
+        "n": 20,
+        "p95_s": 0.0003723349655047059,
+        "size_mib": 16
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 32.76486415408546,
+        "iqr_s": 0.00040982154314406216,
+        "median_s": 0.002048196009127423,
+        "n": 10,
+        "p95_s": 0.0025978490011766553,
+        "size_mib": 64
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 25.16794789999813,
+        "iqr_s": 0.0004963427491020411,
+        "median_s": 0.010665766516467556,
+        "n": 10,
+        "p95_s": 0.010891749989241362,
+        "size_mib": 256
+      },
+      {
+        "case": "host_copy",
+        "gbs_median": 25.148979383195048,
+        "iqr_s": 0.004518527741311118,
+        "median_s": 0.0426952445122879,
+        "n": 10,
+        "p95_s": 0.051911627990193665,
+        "size_mib": 1024
+      }
+    ]
+  }
+}

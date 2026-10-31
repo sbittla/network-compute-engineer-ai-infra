@@ -90,6 +90,38 @@ dcgmi discovery -l
 Feed the outputs through your parsers (write small adapters into the `events.jsonl` schema) and
 record where real formats differ from the synthetic ones.
 
+**L2 — the packaged experiment (one GPU host, read-only plus a local drill).** `l2/experiment.py` has three parts.
+
+1. It runs the command list above, records which commands exist, converts what does exist (nvidia-smi inventory and row
+   remapping) into the `events.jsonl` schema, and passes it through your `normalize_events` and `health_scores`. A healthy
+   host must score nothing, and a labelled synthetic positive control must score something. It also records the real
+   format differences.
+2. It trains a small MLP on the GPU with an index-addressed data loader. It measures the replay noise by restoring one
+   checkpoint twice, sets the tolerance from that noise, and gates three resumes with your `validate_resume`: correct,
+   data loader not restored, and optimizer not restored.
+3. It writes sharded checkpoints with the checksummed metadata last, SIGKILLs one save mid-write, corrupts one committed
+   shard, scans the directory into the `checkpoints.json` form, and checks that your `select_checkpoint` picks the newest
+   restorable checkpoint with the right rejection reasons. Save and restore throughput are measured too.
+
+DCGM, ECC, the kernel log, rdma, ethtool, lldpctl, chrony and the L3 drill are recorded as **not runnable**, each with its
+probe result.
+
+```bash
+python scripts/hw_labs.py build capstone-g                 # from the repository root: the ai-infra-gpu:capstone-g image
+python scripts/hw_labs.py run capstone-g --device gpu      # measure on the GPU      -> l2/results/gpu-<model>/
+python scripts/hw_labs.py run capstone-g --device cpu      # CPU fallback            -> l2/results/cpu-fallback/
+python scripts/hw_labs.py test capstone-g                  # quick run now + checks on the committed evidence
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs parts 2 and 3 on the CPU.
+
+**Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
+show only the nvidia-smi commands available inside the container, and a healthy host that scores nothing while its
+positive control is flagged. Replay noise is zero on this deterministic job, so the tolerance sits at its 1e-5 floor. The
+correct resume passes, and both broken resumes fail: one on the sample index, one on continuity. The selector rejects the
+killed save (metadata not committed) and the corrupted one (checksum failure). The host is a laptop container, not an
+ORION-XL node.
+
 **L3 — controlled drill on ≥ 2 RDMA-connected GPU nodes:** run a small PyTorch DDP or FSDP job with
 asynchronous sharded checkpoints (for example DCP async save) and a deliberately short process-group
 timeout. Then:

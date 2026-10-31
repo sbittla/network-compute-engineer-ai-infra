@@ -119,6 +119,28 @@ lspci -vvv -s <gpu-bdf> | grep -A3 'Advanced Error Reporting'
 Build a real `rank_map.csv` for one host with `nvidia-smi topo -m`, `ibdev2netdev` (where available)
 or `rdma link show`, and `lldpctl` / switch LLDP neighbours.
 
+**L2 on any single GPU (scripted, read-only, with CPU fallback).** `lab/l2/experiment.py` runs the read-only
+queries above that a container can run. They cover identity (UUID, BDF, serial, VBIOS, InfoROM), ECC mode,
+row-remapper state and bank histogram, retired pages, the driver's recovery action, the PCIe link (device and host
+maximum) with replays since reset, and `nvidia-smi topo -m`. The real row goes through the lab's `gpu_actions`.
+The run then samples clock-event reasons every 200 ms through idle, GEMM, memory-copy and idle phases, reads the
+per-reason counters around each phase, and classifies every phase with the chapter's rules (normal, investigate,
+drain). Nothing is reset or reconfigured. Kernel Xid/AER logs, `lspci` AER, DCGM, RDMA HCAs and the L3 link-flap
+trials are probed and recorded as not runnable.
+
+```bash
+python scripts/hw_labs.py build ch19
+python scripts/hw_labs.py run ch19 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch19 --device cpu   # host health queries + /proc/pressure/cpu phases
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It runs the
+host-side read-only queries (CPU, memory, EDAC, kernel-log access) and the same phases, read through
+pressure-stall information. GPU-only invariants are skipped. **Observed on the reference run:** the committed
+bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show `GPU_IDLE` at idle,
+`SW_POWER_CAP` at the enforced limit under GEMM (normal, exercise K4), no limiting reason in the memory-bound copy,
+and whether the driver's reason counters kept up with the sampled bitmask on that platform `[MEASURED]`.
+
 **L3 — two RDMA nodes, dedicated partition.** Run `all_reduce_perf` (or a small PyTorch DDP loop) and,
 with authorization, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
 trials. Record whether the job survives, the NCCL warnings, and time to watchdog. Record in the

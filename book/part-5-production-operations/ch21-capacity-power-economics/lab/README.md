@@ -107,6 +107,28 @@ Run a fixed training-like benchmark (warm-up, then ≥ 5 runs per cap) at each c
 record median and p95 step time and mean power. Replace `power_cap_curve.csv` with your measured
 curve, labelled `[MEASURED]` with the manifest filled in.
 
+**L2 on any single GPU (scripted, with CPU fallback).** The cap sweep above needs root on a dedicated bare-metal
+host. `lab/l2/experiment.py` never changes a power limit. It reads the default, enforced, minimum and maximum
+limits and records the cap sweep as not runnable when it cannot be done (for example under WSL2 or without root).
+It then measures what one GPU can show at its default limit: a compute-bound FP16 GEMM duty-cycled at 0, 25, 50,
+75 and 100 %, plus a memory-bound copy. For each level it records power sampled every 100 ms (mean, p5/p95,
+swing), throughput, SM clock, temperature and `SW_POWER_CAP` share, then derives perf/W, energy per TFLOP and a
+linear power model. It puts the result next to the lab's `power_cap_tradeoff` on `power_cap_curve.csv`.
+
+```bash
+python scripts/hw_labs.py build ch21
+python scripts/hw_labs.py run ch21 --device gpu   # needs the NVIDIA container runtime
+python scripts/hw_labs.py run ch21 --device cpu   # throughput vs duty on the CPU; perf/W not runnable (no RAPL)
+```
+
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It runs the
+same sweep with throughput and CPU busy time. Host power is not readable, so perf/W is recorded as not runnable,
+and the lab's modeled cap curve stands in. GPU-only invariants are skipped. **Observed on the reference run:** the
+committed bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show perf/W *falling* as
+duty drops, because static power is paid regardless, while the lab's cap curve shows perf/W rising as the cap
+falls. Full-load GEMM sits at the enforced limit with `SW_POWER_CAP`, and the memory-bound copy does not
+`[MEASURED]`. These are laptop watts. Do not put them into the rack model.
+
 **L3 — rack telemetry (read-only).** Pull 1 s (or finest available) rack-PDU power during a
 multi-node training job and compute peak, p99, and the swing between compute and communication phases.
 Compare with the `transient_margin` assumption.
