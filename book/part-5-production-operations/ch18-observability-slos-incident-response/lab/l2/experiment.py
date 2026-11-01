@@ -301,9 +301,18 @@ def run(ctx) -> dict:
         "fast-burn page. The arithmetic is the lab's; only the time base is compressed.",
         "The degraded phase is an injected host-side sleep after each step (stall = 50 % of the baseline step), i.e. a "
         "real slowdown of a real loop, not a synthetic series.",
+        "The baseline is calibrated after a fixed-time clock warm-up (3 s); without it a laptop GPU calibrates at idle "
+        "clocks and the baseline comes out ~2x the healthy step.",
     ]
     # Calibrate the baseline step with the normal benchmark discipline, then put a histogram bucket at the SLO threshold.
     probe = Job(ctx, [1.0])
+    # A count of warm-ups is not enough here: a laptop GPU needs seconds of load to leave its idle clocks,
+    # and a baseline taken at idle clocks is ~2x the healthy step, which hides the injected stall below the
+    # SLO bucket. Run the step for a fixed wall time first, then apply the usual warm-up + timed reps.
+    warm_end = time.perf_counter() + (1.0 if ctx.quick else 3.0)
+    while time.perf_counter() < warm_end:
+        probe.compute_step()
+        ctx.sync()
     base = ctx.bench(probe.compute_step, warmup=3, reps=ctx.reps(10))
     baseline = base["median"]
     buckets = sorted({round(baseline * f, 6) for f in (0.5, 0.8, 1.0, SLO_RATIO, 1.25, 1.5, 2.0, 4.0)})
@@ -519,7 +528,7 @@ def report(result: dict, env: dict) -> str:
     gpu = env["device"] == "cuda"
     util_name = "GPU util % (`nvsmi_gpu_utilization_percent`)" if gpu else "main-thread CPU-time rate %"
     L = ["## Per-phase SLI and telemetry (computed from the scraped exposition)", "",
-         f"Baseline step **{m['baseline_step_ms']:.2f} ms** (median of ≥ 5 after 3 warm-ups); SLO: step ≤ "
+         f"Baseline step **{m['baseline_step_ms']:.2f} ms** (median of ≥ 5 timed reps, after a 3 s clock warm-up and 3 warm-ups); SLO: step ≤ "
          f"{SLO_RATIO} x baseline = {m['slo_threshold_ms']:.2f} ms (a histogram bucket sits exactly there), target {SLO_TARGET}.", "",
          f"| Phase | Scrapes | Steps | SLI (good/all) | Mean step ms (median) | Useful TFLOP/s | {util_name} | Power W | SM MHz | Max burn ({LONG_W}-scrape) | `GPUUtilLow` fires |",
          "|---|---|---|---|---|---|---|---|---|---|---|"]

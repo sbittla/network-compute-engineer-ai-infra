@@ -1,0 +1,865 @@
+{
+  "capture_text": "### collected_at=1793491939 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 43356996\n     tx_bytes: 43356996\n     rx_packets: 1985\n     tx_packets: 1985\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491940 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 243754652\n     tx_bytes: 243754652\n     rx_packets: 9327\n     tx_packets: 9327\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491941 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 444018460\n     tx_bytes: 444018460\n     rx_packets: 14095\n     tx_packets: 14095\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491942 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 644273428\n     tx_bytes: 644273428\n     rx_packets: 18693\n     tx_packets: 18693\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491943 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 844527304\n     tx_bytes: 844527356\n     rx_packets: 23271\n     tx_packets: 23271\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491944 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 1044781284\n     tx_bytes: 1044781284\n     rx_packets: 27849\n     tx_packets: 27849\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491945 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 1245035368\n     tx_bytes: 1245035368\n     rx_packets: 32430\n     tx_packets: 32430\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491946 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 1445197066\n     tx_bytes: 1445328504\n     rx_packets: 37762\n     tx_packets: 37762\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491947 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 1645615556\n     tx_bytes: 1645615556\n     rx_packets: 42977\n     tx_packets: 42977\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491948 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 1845678335\n     tx_bytes: 1845875204\n     rx_packets: 47665\n     tx_packets: 47665\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491949 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 2046921960\n     tx_bytes: 2046921960\n     rx_packets: 52366\n     tx_packets: 52366\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491950 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 2247183012\n     tx_bytes: 2247445468\n     rx_packets: 57087\n     tx_packets: 57087\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491951 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 2447443596\n     tx_bytes: 2447443596\n     rx_packets: 61787\n     tx_packets: 61787\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491952 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 2647702256\n     tx_bytes: 2647702256\n     rx_packets: 66456\n     tx_packets: 66456\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491953 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 2847963412\n     tx_bytes: 2847963412\n     rx_packets: 71173\n     tx_packets: 71173\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491954 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 3048422681\n     tx_bytes: 3048488532\n     rx_packets: 75925\n     tx_packets: 75925\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491955 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 3248484164\n     tx_bytes: 3248484164\n     rx_packets: 80577\n     tx_packets: 80577\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491956 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 3448742252\n     tx_bytes: 3448742252\n     rx_packets: 85235\n     tx_packets: 85235\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491957 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 3649002108\n     tx_bytes: 3649002108\n     rx_packets: 89927\n     tx_packets: 89927\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491958 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 3849261704\n     tx_bytes: 3849261704\n     rx_packets: 94614\n     tx_packets: 94614\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491959 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 4049520572\n     tx_bytes: 4049520572\n     rx_packets: 99287\n     tx_packets: 99287\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491960 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 4249779804\n     tx_bytes: 4249779804\n     rx_packets: 103967\n     tx_packets: 103967\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491961 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 4450037580\n     tx_bytes: 4450037580\n     rx_packets: 108619\n     tx_packets: 108619\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491962 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 4650298112\n     tx_bytes: 4650298112\n     rx_packets: 113324\n     tx_packets: 113324\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491963 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 4850556252\n     tx_bytes: 4850556252\n     rx_packets: 117983\n     tx_packets: 117983\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491964 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 5050814860\n     tx_bytes: 5050814860\n     rx_packets: 122651\n     tx_packets: 122651\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491965 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 5250810440\n     tx_bytes: 5250810440\n     rx_packets: 127302\n     tx_packets: 127302\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491966 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 5451135259\n     tx_bytes: 5451332232\n     rx_packets: 131990\n     tx_packets: 131990\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491967 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 5651592296\n     tx_bytes: 5651592296\n     rx_packets: 136686\n     tx_packets: 136686\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491968 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 5851589956\n     tx_bytes: 5851589956\n     rx_packets: 141377\n     tx_packets: 141377\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491969 host=e916fe3cc22f dev=lo netdev=lo rail=-\n     rx_bytes: 6051849448\n     tx_bytes: 6051849448\n     rx_packets: 146062\n     tx_packets: 146062\n     rx_dropped: 0\n     tx_dropped: 0\n",
+  "experiment": {
+    "cpu_fallback": "the same loopback-interface collector, L1 parse/rate/wrap checks and Prometheus exposition of interface and process counters, without GPU metrics; RDMA NIC counters are recorded as not runnable",
+    "evidence": "MEASURED",
+    "id": "capstone-b-l2",
+    "title": "Capstone B L2: real counter collection, L1 rate pipeline and Prometheus exposition"
+  },
+  "exposition_last": "# HELP node_network_transmit_bytes_total Bytes transmitted (kernel interface counter).\n# TYPE node_network_transmit_bytes_total counter\nnode_network_transmit_bytes_total{device=\"lo\"} 6051849448\n# HELP node_network_receive_bytes_total Bytes received (kernel interface counter).\n# TYPE node_network_receive_bytes_total counter\nnode_network_receive_bytes_total{device=\"lo\"} 6051849448\n# HELP node_network_transmit_packets_total Packets transmitted.\n# TYPE node_network_transmit_packets_total counter\nnode_network_transmit_packets_total{device=\"lo\"} 146062\n# HELP node_network_receive_drop_total Received packets dropped.\n# TYPE node_network_receive_drop_total counter\nnode_network_receive_drop_total{device=\"lo\"} 0\n# HELP process_cpu_seconds_total Collector process CPU time.\n# TYPE process_cpu_seconds_total counter\nprocess_cpu_seconds_total 10.0809\n# HELP collector_scrape_duration_seconds Time the collector spent producing this scrape.\n# TYPE collector_scrape_duration_seconds gauge\ncollector_scrape_duration_seconds 0.000314\n",
+  "exposition_problems": [],
+  "gpu_samples": [],
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1": {
+    "adapted_counters": [
+      "rx_bytes",
+      "rx_discards",
+      "tx_bytes",
+      "tx_discards"
+    ],
+    "adapted_rows": 124,
+    "adapter_map": {
+      "rx_bytes": "rx_bytes",
+      "rx_dropped": "rx_discards",
+      "tx_bytes": "tx_bytes",
+      "tx_dropped": "tx_discards"
+    },
+    "available": true,
+    "intervals": [
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200397656,
+        "dt_s": 1.0,
+        "interval": 1,
+        "l1_delta": 200397656.0,
+        "l1_rate_Bps": 200397656.0,
+        "overhead_per_packet": 52.0,
+        "packets": 7342,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200263808,
+        "dt_s": 1.0,
+        "interval": 2,
+        "l1_delta": 200263808.0,
+        "l1_rate_Bps": 200263808.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4768,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200254968,
+        "dt_s": 1.0,
+        "interval": 3,
+        "l1_delta": 200254968.0,
+        "l1_rate_Bps": 200254968.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4598,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200253928,
+        "dt_s": 1.0,
+        "interval": 4,
+        "l1_delta": 200253928.0,
+        "l1_rate_Bps": 200253928.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4578,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200253928,
+        "dt_s": 1.0,
+        "interval": 5,
+        "l1_delta": 200253928.0,
+        "l1_rate_Bps": 200253928.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4578,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200254084,
+        "dt_s": 1.0,
+        "interval": 6,
+        "l1_delta": 200254084.0,
+        "l1_rate_Bps": 200254084.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4581,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200293136,
+        "dt_s": 1.0,
+        "interval": 7,
+        "l1_delta": 200293136.0,
+        "l1_rate_Bps": 200293136.0,
+        "overhead_per_packet": 52.0,
+        "packets": 5332,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200287052,
+        "dt_s": 1.0,
+        "interval": 8,
+        "l1_delta": 200287052.0,
+        "l1_rate_Bps": 200287052.0,
+        "overhead_per_packet": 52.0,
+        "packets": 5215,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259648,
+        "dt_s": 1.0,
+        "interval": 9,
+        "l1_delta": 200259648.0,
+        "l1_rate_Bps": 200259648.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4688,
+        "valid": true
+      },
+      {
+        "app_delta": 200802304,
+        "counter_delta": 201046756,
+        "dt_s": 1.0,
+        "interval": 10,
+        "l1_delta": 201046756.0,
+        "l1_rate_Bps": 201046756.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4701,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200523508,
+        "dt_s": 1.0,
+        "interval": 11,
+        "l1_delta": 200523508.0,
+        "l1_rate_Bps": 200523508.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4721,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199998128,
+        "dt_s": 1.0,
+        "interval": 12,
+        "l1_delta": 199998128.0,
+        "l1_rate_Bps": 199998128.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4700,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200258660,
+        "dt_s": 1.0,
+        "interval": 13,
+        "l1_delta": 200258660.0,
+        "l1_rate_Bps": 200258660.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4669,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261156,
+        "dt_s": 1.0,
+        "interval": 14,
+        "l1_delta": 200261156.0,
+        "l1_rate_Bps": 200261156.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4717,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200525120,
+        "dt_s": 1.0,
+        "interval": 15,
+        "l1_delta": 200525120.0,
+        "l1_rate_Bps": 200525120.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4752,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199995632,
+        "dt_s": 1.0,
+        "interval": 16,
+        "l1_delta": 199995632.0,
+        "l1_rate_Bps": 199995632.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4652,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200258088,
+        "dt_s": 1.0,
+        "interval": 17,
+        "l1_delta": 200258088.0,
+        "l1_rate_Bps": 200258088.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4658,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259856,
+        "dt_s": 1.0,
+        "interval": 18,
+        "l1_delta": 200259856.0,
+        "l1_rate_Bps": 200259856.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4692,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259596,
+        "dt_s": 1.0,
+        "interval": 19,
+        "l1_delta": 200259596.0,
+        "l1_rate_Bps": 200259596.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4687,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200258868,
+        "dt_s": 1.0,
+        "interval": 20,
+        "l1_delta": 200258868.0,
+        "l1_rate_Bps": 200258868.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4673,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259232,
+        "dt_s": 1.0,
+        "interval": 21,
+        "l1_delta": 200259232.0,
+        "l1_rate_Bps": 200259232.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4680,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200257776,
+        "dt_s": 1.0,
+        "interval": 22,
+        "l1_delta": 200257776.0,
+        "l1_rate_Bps": 200257776.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4652,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200260532,
+        "dt_s": 1.0,
+        "interval": 23,
+        "l1_delta": 200260532.0,
+        "l1_rate_Bps": 200260532.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4705,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200258140,
+        "dt_s": 1.0,
+        "interval": 24,
+        "l1_delta": 200258140.0,
+        "l1_rate_Bps": 200258140.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4659,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200258608,
+        "dt_s": 1.0,
+        "interval": 25,
+        "l1_delta": 200258608.0,
+        "l1_rate_Bps": 200258608.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4668,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199995580,
+        "dt_s": 1.0,
+        "interval": 26,
+        "l1_delta": 199995580.0,
+        "l1_rate_Bps": 199995580.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4651,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200521792,
+        "dt_s": 1.0,
+        "interval": 27,
+        "l1_delta": 200521792.0,
+        "l1_rate_Bps": 200521792.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4688,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200260064,
+        "dt_s": 1.0,
+        "interval": 28,
+        "l1_delta": 200260064.0,
+        "l1_rate_Bps": 200260064.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4696,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199997660,
+        "dt_s": 1.0,
+        "interval": 29,
+        "l1_delta": 199997660.0,
+        "l1_rate_Bps": 199997660.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4691,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259492,
+        "dt_s": 1.0,
+        "interval": 30,
+        "l1_delta": 200259492.0,
+        "l1_rate_Bps": 200259492.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4685,
+        "valid": true
+      }
+    ],
+    "native_names_present": [
+      "rx_bytes",
+      "rx_dropped",
+      "rx_packets",
+      "tx_bytes",
+      "tx_dropped",
+      "tx_packets"
+    ],
+    "rates_invalid": 0,
+    "source": "instructor/reference/telemetry.py",
+    "stock_counters": [],
+    "stock_rows": 0,
+    "wrap_test": {
+      "deltas_32bit": [
+        200397656,
+        200263808,
+        200254968,
+        200253928,
+        200253928
+      ],
+      "deltas_true": [
+        200397656,
+        200263808,
+        200254968,
+        200253928,
+        200253928
+      ],
+      "n": 30,
+      "offset": 1247364074,
+      "recovered_exact": true,
+      "wraps": 1
+    }
+  },
+  "log": [],
+  "metrics": {
+    "exposition_problems": 0,
+    "header_overhead_B_per_pkt_median": 52.0,
+    "loopback_rate_MBps_median": 200.3,
+    "polls": 31,
+    "scrape_cost_ms_if_median": 0.391
+  },
+  "non_monotonic_counters": [],
+  "not_runnable_parts": [
+    {
+      "fallback": "kernel loopback counters collected in the same native format",
+      "needs": [
+        "host with an mlx5-class RDMA NIC",
+        "root for ethtool/sysfs reads"
+      ],
+      "part": "RDMA NIC hw_counters (np_cnp_sent, rp_cnp_handled, out_of_sequence, ...) and ethtool -S on an mlx5 netdev",
+      "probe": "/sys/class/infiniband=none; interfaces=['lo']; ethtool=True"
+    },
+    {
+      "fallback": "none",
+      "needs": [
+        "vendor NIC tools"
+      ],
+      "part": "PFC/ECN configuration (mlnx_qos) and rdma statistic",
+      "probe": "mlnx_qos=False, rdma=True"
+    },
+    {
+      "fallback": "none",
+      "needs": [
+        "2+ RDMA hosts",
+        "lab switch with PFC/ECN"
+      ],
+      "part": "L3: switch streaming telemetry (gNMI) and incast with ECN disabled",
+      "probe": "gnmic=False, single host"
+    }
+  ],
+  "notes": [
+    "Polls aligned to whole seconds (collected_at is integer epoch seconds, as in the bundle).",
+    "Traffic: one TCP stream over 127.0.0.1, rate-limited to 200 MB/s of application bytes.",
+    "The 32-bit wrap test replays the real tx_bytes series modulo 2^32 with an offset; the wrap is synthetic, the deltas are real."
+  ],
+  "polls": [
+    {
+      "app_sent": 43253760,
+      "collected_at": 1793491939,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 43356996,
+      "rx_dropped": 0,
+      "rx_packets": 1985,
+      "tx_bytes": 43356996,
+      "tx_dropped": 0,
+      "tx_packets": 1985
+    },
+    {
+      "app_sent": 243269632,
+      "collected_at": 1793491940,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 243754652,
+      "rx_dropped": 0,
+      "rx_packets": 9327,
+      "tx_bytes": 243754652,
+      "tx_dropped": 0,
+      "tx_packets": 9327
+    },
+    {
+      "app_sent": 443285504,
+      "collected_at": 1793491941,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 444018460,
+      "rx_dropped": 0,
+      "rx_packets": 14095,
+      "tx_bytes": 444018460,
+      "tx_dropped": 0,
+      "tx_packets": 14095
+    },
+    {
+      "app_sent": 643301376,
+      "collected_at": 1793491942,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 644273428,
+      "rx_dropped": 0,
+      "rx_packets": 18693,
+      "tx_bytes": 644273428,
+      "tx_dropped": 0,
+      "tx_packets": 18693
+    },
+    {
+      "app_sent": 843317248,
+      "collected_at": 1793491943,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 844527304,
+      "rx_dropped": 0,
+      "rx_packets": 23271,
+      "tx_bytes": 844527356,
+      "tx_dropped": 0,
+      "tx_packets": 23271
+    },
+    {
+      "app_sent": 1043333120,
+      "collected_at": 1793491944,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 1044781284,
+      "rx_dropped": 0,
+      "rx_packets": 27849,
+      "tx_bytes": 1044781284,
+      "tx_dropped": 0,
+      "tx_packets": 27849
+    },
+    {
+      "app_sent": 1243348992,
+      "collected_at": 1793491945,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 1245035368,
+      "rx_dropped": 0,
+      "rx_packets": 32430,
+      "tx_bytes": 1245035368,
+      "tx_dropped": 0,
+      "tx_packets": 32430
+    },
+    {
+      "app_sent": 1443364864,
+      "collected_at": 1793491946,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 1445197066,
+      "rx_dropped": 0,
+      "rx_packets": 37762,
+      "tx_bytes": 1445328504,
+      "tx_dropped": 0,
+      "tx_packets": 37762
+    },
+    {
+      "app_sent": 1643380736,
+      "collected_at": 1793491947,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 1645615556,
+      "rx_dropped": 0,
+      "rx_packets": 42977,
+      "tx_bytes": 1645615556,
+      "tx_dropped": 0,
+      "tx_packets": 42977
+    },
+    {
+      "app_sent": 1843396608,
+      "collected_at": 1793491948,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 1845678335,
+      "rx_dropped": 0,
+      "rx_packets": 47665,
+      "tx_bytes": 1845875204,
+      "tx_dropped": 0,
+      "tx_packets": 47665
+    },
+    {
+      "app_sent": 2044198912,
+      "collected_at": 1793491949,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 2046921960,
+      "rx_dropped": 0,
+      "rx_packets": 52366,
+      "tx_bytes": 2046921960,
+      "tx_dropped": 0,
+      "tx_packets": 52366
+    },
+    {
+      "app_sent": 2244476928,
+      "collected_at": 1793491950,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 2247183012,
+      "rx_dropped": 0,
+      "rx_packets": 57087,
+      "tx_bytes": 2247445468,
+      "tx_dropped": 0,
+      "tx_packets": 57087
+    },
+    {
+      "app_sent": 2444230656,
+      "collected_at": 1793491951,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 2447443596,
+      "rx_dropped": 0,
+      "rx_packets": 61787,
+      "tx_bytes": 2447443596,
+      "tx_dropped": 0,
+      "tx_packets": 61787
+    },
+    {
+      "app_sent": 2644246528,
+      "collected_at": 1793491952,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 2647702256,
+      "rx_dropped": 0,
+      "rx_packets": 66456,
+      "tx_bytes": 2647702256,
+      "tx_dropped": 0,
+      "tx_packets": 66456
+    },
+    {
+      "app_sent": 2844262400,
+      "collected_at": 1793491953,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 2847963412,
+      "rx_dropped": 0,
+      "rx_packets": 71173,
+      "tx_bytes": 2847963412,
+      "tx_dropped": 0,
+      "tx_packets": 71173
+    },
+    {
+      "app_sent": 3044540416,
+      "collected_at": 1793491954,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 3048422681,
+      "rx_dropped": 0,
+      "rx_packets": 75925,
+      "tx_bytes": 3048488532,
+      "tx_dropped": 0,
+      "tx_packets": 75925
+    },
+    {
+      "app_sent": 3244294144,
+      "collected_at": 1793491955,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 3248484164,
+      "rx_dropped": 0,
+      "rx_packets": 80577,
+      "tx_bytes": 3248484164,
+      "tx_dropped": 0,
+      "tx_packets": 80577
+    },
+    {
+      "app_sent": 3444310016,
+      "collected_at": 1793491956,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 3448742252,
+      "rx_dropped": 0,
+      "rx_packets": 85235,
+      "tx_bytes": 3448742252,
+      "tx_dropped": 0,
+      "tx_packets": 85235
+    },
+    {
+      "app_sent": 3644325888,
+      "collected_at": 1793491957,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 3649002108,
+      "rx_dropped": 0,
+      "rx_packets": 89927,
+      "tx_bytes": 3649002108,
+      "tx_dropped": 0,
+      "tx_packets": 89927
+    },
+    {
+      "app_sent": 3844341760,
+      "collected_at": 1793491958,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 3849261704,
+      "rx_dropped": 0,
+      "rx_packets": 94614,
+      "tx_bytes": 3849261704,
+      "tx_dropped": 0,
+      "tx_packets": 94614
+    },
+    {
+      "app_sent": 4044357632,
+      "collected_at": 1793491959,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 4049520572,
+      "rx_dropped": 0,
+      "rx_packets": 99287,
+      "tx_bytes": 4049520572,
+      "tx_dropped": 0,
+      "tx_packets": 99287
+    },
+    {
+      "app_sent": 4244373504,
+      "collected_at": 1793491960,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 4249779804,
+      "rx_dropped": 0,
+      "rx_packets": 103967,
+      "tx_bytes": 4249779804,
+      "tx_dropped": 0,
+      "tx_packets": 103967
+    },
+    {
+      "app_sent": 4444389376,
+      "collected_at": 1793491961,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 4450037580,
+      "rx_dropped": 0,
+      "rx_packets": 108619,
+      "tx_bytes": 4450037580,
+      "tx_dropped": 0,
+      "tx_packets": 108619
+    },
+    {
+      "app_sent": 4644405248,
+      "collected_at": 1793491962,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 4650298112,
+      "rx_dropped": 0,
+      "rx_packets": 113324,
+      "tx_bytes": 4650298112,
+      "tx_dropped": 0,
+      "tx_packets": 113324
+    },
+    {
+      "app_sent": 4844421120,
+      "collected_at": 1793491963,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 4850556252,
+      "rx_dropped": 0,
+      "rx_packets": 117983,
+      "tx_bytes": 4850556252,
+      "tx_dropped": 0,
+      "tx_packets": 117983
+    },
+    {
+      "app_sent": 5044436992,
+      "collected_at": 1793491964,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 5050814860,
+      "rx_dropped": 0,
+      "rx_packets": 122651,
+      "tx_bytes": 5050814860,
+      "tx_dropped": 0,
+      "tx_packets": 122651
+    },
+    {
+      "app_sent": 5244190720,
+      "collected_at": 1793491965,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 5250810440,
+      "rx_dropped": 0,
+      "rx_packets": 127302,
+      "tx_bytes": 5250810440,
+      "tx_dropped": 0,
+      "tx_packets": 127302
+    },
+    {
+      "app_sent": 5444468736,
+      "collected_at": 1793491966,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 5451135259,
+      "rx_dropped": 0,
+      "rx_packets": 131990,
+      "tx_bytes": 5451332232,
+      "tx_dropped": 0,
+      "tx_packets": 131990
+    },
+    {
+      "app_sent": 5644484608,
+      "collected_at": 1793491967,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 5651592296,
+      "rx_dropped": 0,
+      "rx_packets": 136686,
+      "tx_bytes": 5651592296,
+      "tx_dropped": 0,
+      "tx_packets": 136686
+    },
+    {
+      "app_sent": 5844238336,
+      "collected_at": 1793491968,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 5851589956,
+      "rx_dropped": 0,
+      "rx_packets": 141377,
+      "tx_bytes": 5851589956,
+      "tx_dropped": 0,
+      "tx_packets": 141377
+    },
+    {
+      "app_sent": 6044254208,
+      "collected_at": 1793491969,
+      "gpu": null,
+      "reasons": {},
+      "rx_bytes": 6051849448,
+      "rx_dropped": 0,
+      "rx_packets": 146062,
+      "tx_bytes": 6051849448,
+      "tx_dropped": 0,
+      "tx_packets": 146062
+    }
+  ],
+  "probes": {
+    "ethtool": true,
+    "gnmic": false,
+    "hw_counters": [],
+    "mlnx_qos": false,
+    "net_interfaces": [
+      "lo"
+    ],
+    "nvidia_smi": false,
+    "rdma_devices": [],
+    "rdma_tool": true
+  },
+  "reason_rates_s_per_s": {},
+  "runtime_s": 30.59,
+  "scrape_cost": {
+    "gpu_ms": [],
+    "if_ms": [
+      0.3405030001886189,
+      0.40831795195117593,
+      0.3253979957662523,
+      0.2174460096284747,
+      0.47406897647306323,
+      0.27586700161919,
+      0.4387939698062837,
+      0.6684939726255834,
+      0.36018103128299117,
+      0.823192996904254,
+      0.5381029914133251,
+      0.787172990385443,
+      0.22738100960850716,
+      0.2534220111556351,
+      0.6752529880031943,
+      0.5997379776090384,
+      0.3338690148666501,
+      0.318873964715749,
+      0.3188639529980719,
+      0.40839798748493195,
+      0.2464849967509508,
+      0.4916140460409224,
+      0.3913219552487135,
+      0.4583969712257385,
+      0.35207701148465276,
+      0.382326019462198,
+      0.40652998723089695,
+      0.7078490452840924,
+      0.25529100093990564,
+      0.3950229729525745,
+      0.31070696422830224
+    ]
+  },
+  "seconds": 30,
+  "status": "ran",
+  "stream_rate_target_Bps": 200000000.0
+}

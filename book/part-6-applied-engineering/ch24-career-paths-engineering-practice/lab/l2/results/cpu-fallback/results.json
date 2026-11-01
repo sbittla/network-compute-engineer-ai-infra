@@ -1,0 +1,176 @@
+{
+  "experiment": {
+    "cpu_fallback": "the host half of the topology run (NUMA layout, host memory copy bandwidth, RDMA probe), with the converted item's claim kept at level 2 because no GPU was measured",
+    "evidence": "MEASURED",
+    "id": "ch24-l2",
+    "title": "Lab 24 L2: converting a lab_l1 evidence item into lab_hw evidence (host topology, Chapter 5)"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [],
+  "metrics": {
+    "claimed_after": 2,
+    "competency": "host_topology",
+    "effective_after": 2,
+    "effective_before": 2,
+    "host_copy_gbs_median": 24.63,
+    "item": "E08",
+    "manifest_fields_filled": 9,
+    "manifest_fields_required": 9,
+    "readiness_after": 78.4,
+    "readiness_before": 78.4,
+    "run_count": 10
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        ">= 2 GPUs in one host",
+        "nccl-tests built against the installed NCCL"
+      ],
+      "part": "Intra-node nccl-tests all_reduce_perf -b 8 -e 4G -f 2 -g <ngpus> (Chapter 12 evidence)",
+      "probe": {
+        "all_reduce_perf": false,
+        "gpu_count": 0
+      }
+    },
+    {
+      "needs": [
+        "an RDMA NIC on the GPU host"
+      ],
+      "part": "GPU-NIC alignment half of E08 (topo -m GPU-NIC relation, ibdev2netdev)",
+      "probe": {
+        "rdma_devices": [],
+        "topo_lists_nic": false
+      }
+    }
+  ],
+  "notes": [
+    "Item converted: E08 (host_topology). Its artifact points at lab/l2/results/cpu-fallback/results.json, the results.json this run writes; raw command output is stored inside it.",
+    "Scoring uses the lab's own effective_level / demonstrated_levels / readiness with as_of = the run date."
+  ],
+  "runtime_s": 0.27,
+  "status": "ran",
+  "tables": {
+    "converted_item_yaml": "- id: E08\n  competency: host_topology\n  type: lab_hw\n  claimed_level: 2\n  artifact: lab/l2/results/cpu-fallback/results.json\n  date: '2026-11-01'\n  verifier: ''\n  measured_on_hardware: true\n  summary: 'GPU-to-NIC mapping CSV and aligned/misaligned model. Hardware run on a CPU-only host: topo\n    -m, PCIe link state, NUMA layout and 10-rep pinned H2D bandwidth [MEASURED]. Not shown: GPU-NIC alignment\n    (no NIC on this host).'\n",
+    "hardware": [
+      {
+        "commands": [
+          "cat /sys/devices/system/node/node*/cpulist   # lstopo / numactl are not installed in the image",
+          "ls /sys/class/infiniband",
+          "python: torch host copy_ 256 MiB, perf_counter, 3 warm-ups + 10 reps"
+        ],
+        "cuda_runtime": "12.4",
+        "driver_version": null,
+        "gpu_count": 0,
+        "gpu_model": null,
+        "host_copy_gbs_median": 24.62826178925341,
+        "kernel": "6.18.54.1-microsoft-standard-WSL2",
+        "label": "cpu-fallback",
+        "nccl_version": null,
+        "numa_nodes": {
+          "node0": "0-23"
+        },
+        "raw_outputs": {
+          "/sys/devices/system/node/*/cpulist": "node0: 0-23",
+          "ls /sys/class/infiniband": "ls: cannot access '/sys/class/infiniband': No such file or directory"
+        },
+        "rdma_devices": [],
+        "reps": 10,
+        "size_mib": 256,
+        "tools": {
+          "all_reduce_perf": false,
+          "ibv_devinfo": false,
+          "lstopo": true,
+          "numactl": true,
+          "nvidia-smi": false
+        },
+        "topo_lists_nic": false
+      }
+    ],
+    "manifest_record": [
+      {
+        "commands_run": [
+          "cat /sys/devices/system/node/node*/cpulist   # lstopo / numactl are not installed in the image",
+          "ls /sys/class/infiniband",
+          "python: torch host copy_ 256 MiB, perf_counter, 3 warm-ups + 10 reps"
+        ],
+        "cuda_version": "n/a",
+        "driver_version": "n/a",
+        "gpu_model": "none (CPU fallback)",
+        "nccl_version": "n/a",
+        "os_kernel": "6.18.54.1-microsoft-standard-WSL2",
+        "raw_output_paths": [
+          "lab/l2/results/cpu-fallback/results.json (tables.hardware[0].raw_outputs)"
+        ],
+        "run_count": 10,
+        "warmup_policy": "3 warm-up transfers discarded before timing"
+      }
+    ],
+    "readiness": [
+      {
+        "after": {
+          "host_topology_level": 2,
+          "max_gap": 2,
+          "score": 78.4,
+          "status": "near"
+        },
+        "before": {
+          "host_topology_level": 2,
+          "max_gap": 2,
+          "score": 78.4,
+          "status": "near"
+        },
+        "role": "AI Network Engineer",
+        "seniority": "senior"
+      }
+    ],
+    "scored": [
+      {
+        "artifact": true,
+        "claimed": 2,
+        "effective_level": 2,
+        "flags": [],
+        "measured_on_hardware": false,
+        "type": "lab_l1",
+        "type_cap": 2,
+        "variant": "original lab_l1"
+      },
+      {
+        "artifact": true,
+        "claimed": 2,
+        "effective_level": 1,
+        "flags": [
+          "SIMULATION_CLAIMED_AS_MEASURED"
+        ],
+        "measured_on_hardware": true,
+        "type": "lab_l1",
+        "type_cap": 2,
+        "variant": "mistake: lab_l1 with measured_on_hardware: true"
+      },
+      {
+        "artifact": true,
+        "claimed": 2,
+        "effective_level": 2,
+        "flags": [],
+        "measured_on_hardware": true,
+        "type": "lab_hw",
+        "type_cap": 3,
+        "variant": "converted lab_hw"
+      },
+      {
+        "artifact": false,
+        "claimed": 2,
+        "effective_level": 1,
+        "flags": [
+          "NO_ARTIFACT"
+        ],
+        "measured_on_hardware": true,
+        "type": "lab_hw",
+        "type_cap": 3,
+        "variant": "mistake: lab_hw without artifact"
+      }
+    ]
+  }
+}

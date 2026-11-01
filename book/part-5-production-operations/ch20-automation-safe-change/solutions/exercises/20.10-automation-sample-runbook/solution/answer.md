@@ -41,7 +41,7 @@ pair-test samples, CNP and PFC rates, error counters. Kill switch tested in the 
 | Circuit breaker | > 2 targets or > 10 % fail | Table 20.11 | halt, kill switch on |
 
 The thresholds are validated by the lab decision log: they ignored `orion-n09`'s single 7 % dip, skipped
-`orion-n13` at precheck, and aborted on `orion-n25`/`n29` (−9.7 %, −9.9 %).
+`orion-n13` at precheck, and aborted on `orion-n25`/`n29` (−9.8 %, −9.9 %).
 
 **Abort and rollback.** Controller aborts; on-call confirms within 10 min; flash 28.42.1000 on all changed nodes
 (rehearsed time bound), reset, read back, pair test against baseline; return nodes to service only when within

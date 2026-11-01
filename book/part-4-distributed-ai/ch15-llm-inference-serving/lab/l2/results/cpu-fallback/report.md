@@ -1,6 +1,6 @@
 # Lab 15 L2: prefill vs decode, TTFT/ITL and KV cache memory vs the capacity model
 
-`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-10-31T23:51:59Z.
+`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-11-01T00:59:25Z.
 
 | Environment | Value |
 |---|---|
@@ -25,32 +25,32 @@ Measured **4096 B/token** vs `kv_bytes_per_token` = 2 x 4 x 2 x 64 x 4 = **4096 
 
 | Prompt tokens | Median (ms) | p95 (ms) | IQR (ms) | TFLOP/s | Implied MFU |
 |---|---|---|---|---|---|
-| 64 | 14.84 | 17.23 | 6.25 | 0.17 | n/a |
-| 256 | 32.18 | 44.76 | 15.05 | 0.32 | n/a |
-| 512 | 79.49 | 86.10 | 12.08 | 0.26 | n/a |
+| 64 | 9.50 | 11.45 | 1.13 | 0.26 | n/a |
+| 256 | 28.26 | 35.75 | 7.05 | 0.36 | n/a |
+| 512 | 68.69 | 69.31 | 3.79 | 0.31 | n/a |
 
 ## Decode: memory-bound (batch sweep at fixed context, then context sweep at fixed batch)
 
 | Batch | Context | Step median (ms) | p95 (ms) | tokens/s | Effective GB/s | Lab lower bound (ms) | Implied hbm_efficiency |
 |---|---|---|---|---|---|---|---|
-| 1 | 256 | 2.44 | 9.07 | 410 | 32.4 | 1.32 | 0.54 |
-| 4 | 256 | 2.76 | 3.36 | 1448 | 29.7 | 1.37 | 0.50 |
-| 8 | 256 | 3.16 | 3.74 | 2532 | 27.3 | 1.44 | 0.46 |
-| 16 | 256 | 3.48 | 4.86 | 4602 | 27.2 | 1.58 | 0.45 |
-| 4 | 1024 | 3.68 | 4.96 | 1086 | 25.7 | 1.58 | 0.43 |
-| 4 | 2048 | 4.37 | 5.06 | 916 | 25.5 | 1.86 | 0.43 |
+| 1 | 256 | 1.99 | 3.72 | 503 | 39.7 | 1.32 | 0.66 |
+| 4 | 256 | 2.74 | 3.78 | 1458 | 29.9 | 1.37 | 0.50 |
+| 8 | 256 | 3.40 | 4.29 | 2351 | 25.4 | 1.44 | 0.42 |
+| 16 | 256 | 4.36 | 6.60 | 3666 | 21.7 | 1.58 | 0.36 |
+| 4 | 1024 | 3.42 | 4.32 | 1170 | 27.7 | 1.58 | 0.46 |
+| 4 | 2048 | 3.68 | 4.32 | 1086 | 30.3 | 1.86 | 0.50 |
 
-Fit t = overhead + bytes / B over both sweeps (best-of-n step times): overhead **0.03 ms**, B = **33 GB/s** (lab assumes `step_overhead_s` = 3 ms, `hbm_efficiency` = 0.70).
+Fit t = overhead + bytes / B: **not meaningful in this run** (negative or undefined intercept). Step time was not linear in bytes moved: either the device was shared (time-slicing noise) or the step is compute/launch-bound rather than bandwidth-bound (expected for this small FP32 model on a CPU).
 
 ## Generation: batch 4, prompt 128, 32 output tokens, 5 runs
 
 | Metric | p50 (ms) | p95 (ms) | p99 (ms) | n |
 |---|---|---|---|---|
-| TTFT | 56.12 | 71.11 | - | 5 |
-| ITL | 3.19 | 5.44 | 6.23 | 155 |
-| TPOT (per run) | 3.48 | 3.76 | - | 5 |
+| TTFT | 48.39 | 55.39 | - | 5 |
+| ITL | 2.74 | 4.97 | 6.67 | 155 |
+| TPOT (per run) | 3.32 | 3.37 | - | 5 |
 
-Lab model with its default ILLUSTRATIVE parameters (`hbm_efficiency` 0.70, 3 ms overhead) and this device's nominal DRAM rate: TPOT **4.91 ms** vs measured 3.48 ms.
+Lab model with its default ILLUSTRATIVE parameters (`hbm_efficiency` 0.70, 3 ms overhead) and this device's nominal DRAM rate: TPOT **4.91 ms** vs measured 3.32 ms.
 
 ## What to conclude
 

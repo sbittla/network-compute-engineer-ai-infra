@@ -1,0 +1,335 @@
+{
+  "commit": {
+    "catalog": [
+      {
+        "checksum_failures": [],
+        "expected_shards": 4,
+        "kind": "sharded",
+        "metadata_committed": true,
+        "missing_shards": [],
+        "step": 1000
+      },
+      {
+        "checksum_failures": [],
+        "expected_shards": 4,
+        "kind": "sharded",
+        "metadata_committed": true,
+        "missing_shards": [],
+        "step": 2000
+      },
+      {
+        "checksum_failures": [
+          2
+        ],
+        "expected_shards": 4,
+        "kind": "sharded",
+        "metadata_committed": true,
+        "missing_shards": [],
+        "step": 3000
+      },
+      {
+        "checksum_failures": [],
+        "expected_shards": 4,
+        "kind": "sharded",
+        "metadata_committed": false,
+        "missing_shards": [
+          1,
+          2,
+          3
+        ],
+        "step": 4000
+      }
+    ],
+    "corrupted": "step_3000/shard_02.bin",
+    "killed_step": 4000,
+    "read_GBps": 2.2176320677388865,
+    "selected": {
+      "rejected": {
+        "3000": [
+          "checksum failure on shards [2]"
+        ],
+        "4000": [
+          "metadata not committed",
+          "3 missing shards"
+        ]
+      },
+      "step": 2000
+    },
+    "shard_mib": 32,
+    "shards": 4,
+    "source": "instructor/reference/ftops.py",
+    "write_GBps": [
+      0.1888612877019626,
+      0.2562987960915178,
+      0.3343243978406771
+    ],
+    "writes": [
+      {
+        "bytes": 134217728,
+        "s": 0.7106682879966684,
+        "step": 1000
+      },
+      {
+        "bytes": 134217728,
+        "s": 0.5236767790047452,
+        "step": 2000
+      },
+      {
+        "bytes": 134217728,
+        "s": 0.4014595670159906,
+        "step": 3000
+      }
+    ]
+  },
+  "experiment": {
+    "cpu_fallback": "the resume-validation and checkpoint-commit drills run on the CPU and are gated by the same L1 validate_resume/select_checkpoint; the read-only GPU health part records that no GPU is visible",
+    "evidence": "MEASURED",
+    "id": "capstone-g-l2",
+    "title": "Capstone G L2: real read-only health evidence and a validated checkpoint/resume drill"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "read-only: 3/10 commands available; replay noise 0.00e+00 -> tol 1.0e-05; selected checkpoint 2000"
+  ],
+  "metrics": {
+    "ckpt_read_GBps": 2.218,
+    "ckpt_write_GBps_median": 0.256,
+    "commands_available": 3,
+    "replay_noise_rel": 0.0,
+    "resume_tol": 1e-05,
+    "selected_checkpoint": 2000,
+    "validated_resume_ok": true
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "DCGM on a data-center GPU host"
+      ],
+      "part": "dcgmi discovery -l",
+      "probe": "rc=127: dcgmi: not installed"
+    },
+    {
+      "needs": [
+        "host kernel log (root, not a container)"
+      ],
+      "part": "journalctl -k",
+      "probe": "rc=127: journalctl: not installed"
+    },
+    {
+      "needs": [
+        "host kernel log (root)"
+      ],
+      "part": "dmesg",
+      "probe": "rc=1: dmesg: read kernel buffer failed: Operation not permitted"
+    },
+    {
+      "needs": [
+        "RDMA NIC + iproute2 rdma"
+      ],
+      "part": "rdma link show",
+      "probe": "rc=1: Failed to open NETLINK_RDMA socket"
+    },
+    {
+      "needs": [
+        "a real NIC netdev and ethtool"
+      ],
+      "part": "ethtool -S",
+      "probe": "rc=94: no stats available"
+    },
+    {
+      "needs": [
+        "lldpd on a host cabled to a switch"
+      ],
+      "part": "lldpctl",
+      "probe": "rc=127: lldpctl: not installed"
+    },
+    {
+      "needs": [
+        "chrony on the host"
+      ],
+      "part": "chronyc tracking",
+      "probe": "rc=127: chronyc: not installed"
+    },
+    {
+      "needs": [
+        ">= 2 GPU nodes with RDMA NICs",
+        "lab scheduler",
+        "shared storage"
+      ],
+      "part": "L3 drill: kill a rank, NCCL watchdog timing, link flap, drain + restart on >= 2 RDMA nodes",
+      "probe": "GPUs=1, RDMA devices=none"
+    }
+  ],
+  "notes": [
+    "Resume drill: one process, three restores of the same in-memory checkpoint into freshly initialised models (different init seed), so a missing restore cannot hide behind identical initial weights.",
+    "Commit protocol: shards first (each fsynced), metadata with SHA-256 per shard last, renamed into place; the rename is the commit point. The kill lands after shard 0 is durable.",
+    "Throughput: write = subprocess wall time for shards + metadata (incl. interpreter start); read = all shards of one checkpoint with the page cache dropped per file."
+  ],
+  "read_only": {
+    "commands": {
+      "chronyc tracking": {
+        "available": false,
+        "excerpt": "chronyc: not installed",
+        "rc": 127
+      },
+      "dcgmi discovery -l": {
+        "available": false,
+        "excerpt": "dcgmi: not installed",
+        "rc": 127
+      },
+      "dmesg": {
+        "available": false,
+        "excerpt": "dmesg: read kernel buffer failed: Operation not permitted",
+        "rc": 1
+      },
+      "ethtool -S": {
+        "available": false,
+        "excerpt": "no stats available",
+        "rc": 94
+      },
+      "journalctl -k": {
+        "available": false,
+        "excerpt": "journalctl: not installed",
+        "rc": 127
+      },
+      "lldpctl": {
+        "available": false,
+        "excerpt": "lldpctl: not installed",
+        "rc": 127
+      },
+      "nvidia-smi -q -d ECC": {
+        "available": true,
+        "excerpt": "==============NVSMI LOG==============\n\nTimestamp                                              : Sun Nov  1 00:19:17 2026\nDriver Version                                         : 592.82\nCUDA Version                                           : 13.1\n\nAttached GPUs                                          : 1\nGPU 00000000:01:00.0\n    ECC Mode\n        Current                                        : N/",
+        "rc": 0
+      },
+      "nvidia-smi -q -d ROW_REMAPPER": {
+        "available": true,
+        "excerpt": "==============NVSMI LOG==============\n\nTimestamp                                              : Sun Nov  1 00:19:17 2026\nDriver Version                                         : 592.82\nCUDA Version                                           : 13.1\n\nAttached GPUs                                          : 1\nGPU 00000000:01:00.0\n    Remapped Rows\n        Correctable Error                             ",
+        "rc": 0
+      },
+      "nvidia-smi inventory": {
+        "available": true,
+        "excerpt": "0, GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629, 00000000:01:00.0",
+        "rc": 0
+      },
+      "rdma link show": {
+        "available": false,
+        "excerpt": "Failed to open NETLINK_RDMA socket",
+        "rc": 1
+      }
+    },
+    "ecc_dram_uncorrectable": "N/A",
+    "events": [
+      {
+        "field": "DCGM_FI_DEV_ROW_REMAP_PENDING",
+        "gpu_uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629",
+        "host": "f0533d9d1b4c",
+        "host_ts": "2026-11-01T00:19:17.691Z",
+        "source": "dcgm",
+        "value": 0
+      },
+      {
+        "field": "DCGM_FI_DEV_ROW_REMAP_FAILURE",
+        "gpu_uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629",
+        "host": "f0533d9d1b4c",
+        "host_ts": "2026-11-01T00:19:17.691Z",
+        "source": "dcgm",
+        "value": 0
+      }
+    ],
+    "format_differences": [
+      "nvidia-smi pci.bus_id is '00000000:01:00.0' (8-hex-digit PCI domain); the kernel Xid line prints 'PCI:0000:01:00' (4-digit domain, no function) and the synthetic inventory uses '0000:01:00.0': normalise the domain width and the function suffix in the adapter",
+      "no DCGM here: field values come from nvidia-smi text and are renamed to DCGM_FI_* by the adapter; nvidia-smi reports 'Yes/No' for remap pending/failure, DCGM reports counts",
+      "ECC counters are 'N/A' on this GPU (GeForce, no ECC): the adapter must emit nothing, not 0. A 0 would read as 'checked and clean'",
+      "host_ts here is the container's clock with no chrony offset available; the synthetic data carries per-host offsets from clock_offsets.csv"
+    ],
+    "gpus": [
+      {
+        "bus_id": "00000000:01:00.0",
+        "index": 0,
+        "uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629"
+      }
+    ],
+    "l1": {
+      "available": true,
+      "kinds": [
+        "dcgm"
+      ],
+      "normalized_rows": 2,
+      "positive_control_scores": {
+        "gpu:f0533d9d1b4c:0": {
+          "evidence": [
+            "row remap pending"
+          ],
+          "score": 60
+        }
+      },
+      "scores": {},
+      "source": "instructor/reference/ftops.py"
+    }
+  },
+  "resume": {
+    "batch": 256,
+    "cases": {
+      "data loader not restored": {
+        "continuity_ok": false,
+        "first_step_ok": true,
+        "max_rel_dev": 0.23214121691776288,
+        "no_nan": true,
+        "ok": false,
+        "progressed": true,
+        "sample_idx_ok": false
+      },
+      "optimizer state not restored": {
+        "continuity_ok": false,
+        "first_step_ok": true,
+        "max_rel_dev": 0.039186209948059464,
+        "no_nan": true,
+        "ok": false,
+        "progressed": true,
+        "sample_idx_ok": true
+      },
+      "validated (model + optimizer + data cursor)": {
+        "continuity_ok": true,
+        "first_step_ok": true,
+        "max_rel_dev": 0.0,
+        "no_nan": true,
+        "ok": true,
+        "progressed": true,
+        "sample_idx_ok": true
+      }
+    },
+    "loss_log_head": [
+      {
+        "grad_norm": 0.5305262804031372,
+        "loss": 0.5098550319671631,
+        "sample_idx": 0,
+        "step": 100001
+      },
+      {
+        "grad_norm": 0.5683582425117493,
+        "loss": 0.5219835638999939,
+        "sample_idx": 256,
+        "step": 100002
+      },
+      {
+        "grad_norm": 0.52339768409729,
+        "loss": 0.4986620247364044,
+        "sample_idx": 512,
+        "step": 100003
+      }
+    ],
+    "n_pre": 200,
+    "replay_noise_grad": 0.0,
+    "replay_noise_loss": 0.0,
+    "restored_step": 100100,
+    "source": "instructor/reference/ftops.py",
+    "tol": 1e-05,
+    "width": 1024
+  },
+  "runtime_s": 7.76,
+  "status": "ran"
+}

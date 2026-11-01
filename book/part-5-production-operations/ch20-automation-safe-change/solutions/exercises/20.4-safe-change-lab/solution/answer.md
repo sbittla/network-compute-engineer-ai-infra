@@ -18,7 +18,7 @@ All six `p1.*`, four `p2.*` and three `p3.*` checks PASS. The key lines: `p1.val
 |---|---|---|---|
 | 0 | n01, n05 | proceed | all AC1–AC5 within thresholds |
 | 1 | n09, n13, n17 | proceed | n13 fails precheck (health degraded, flapping in baseline) → skipped, deferred to repair; n09 has one ≈ 7 % dip, median within 5 % |
-| 2 | n21, n25, n29, n02 | **abort** | n25 busbw 39.41 vs 43.67 GB/s (−9.7 %), CNP 986/s vs 200/s; n29 −9.9 %, 1,008/s; AC1 and AC2 |
+| 2 | n21, n25, n29, n02 | **abort** | n25 busbw 39.41 vs 43.67 GB/s (−9.8 %), CNP 986/s vs 200/s; n29 −9.9 %, 1,008/s; AC1 and AC2 |
 
 Rollback (`all_changed`): n01, n02, n05, n09, n17, n21, n25, n29 → firmware 28.42.1000. Waves 3–5 never start.
 

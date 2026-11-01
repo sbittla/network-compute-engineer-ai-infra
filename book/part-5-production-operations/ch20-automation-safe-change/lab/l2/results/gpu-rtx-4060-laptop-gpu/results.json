@@ -1,0 +1,275 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same control / regression / short-bake changes measured on a CPU GEMM and judged by the same gate",
+    "evidence": "MEASURED",
+    "id": "ch20-l2",
+    "title": "Lab 20 L2: a measured canary gate (no-op, injected regression, short bake) through the lab's controller"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "control    baseline median 27.529  post median 27.532 TFLOP/s (-0.0 % drop)",
+    "regression baseline median 27.433  post median 22.899 TFLOP/s (+16.5 % drop)",
+    "short_bake baseline median 27.332  post median 22.847 TFLOP/s (+16.4 % drop)"
+  ],
+  "metrics": {
+    "baseline_cv_median": 0.0016,
+    "baseline_tflops_median": 27.529,
+    "control_drop": -0.0001,
+    "decision_control": "proceed",
+    "decision_regression": "abort",
+    "decision_short_bake": "hold",
+    "injected_extra_passes": 7,
+    "measure_seconds": 33.6,
+    "min_post_samples": 12,
+    "node_health": "ok",
+    "reconcile_actions": 0,
+    "reconcile_second_plan_actions": 0,
+    "reconcile_unreachable": [
+      "l2-this-host",
+      "orion-be-leaf-r0",
+      "orion-be-leaf-r1",
+      "orion-be-leaf-r2",
+      "orion-be-leaf-r3",
+      "orion-be-leaf-r4",
+      "orion-be-leaf-r5",
+      "orion-be-leaf-r6",
+      "orion-be-leaf-r7"
+    ],
+    "reconcile_writes": 0,
+    "regression_drop": 0.1653,
+    "rollout_outcome": "aborted",
+    "rollout_rollback_nodes": [
+      "l2-this-host-control",
+      "l2-this-host-regression"
+    ],
+    "threshold_drop": 0.05
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a lab VM with an RDMA NIC or a soft-RoCE rxe device",
+        "root / CAP_NET_ADMIN",
+        "a real netdev (the harness runs with --network none)"
+      ],
+      "part": "LinuxHost adapter set(): ip link set dev <if> mtu 9000, then a second run planning zero actions",
+      "probe": {
+        "cap_net_admin": false,
+        "euid": 1000,
+        "netdevs": [
+          "lo"
+        ],
+        "rdma_rxe_module": false,
+        "sys_class_infiniband": false,
+        "tools": {
+          "ibv_devinfo": false,
+          "ip": true,
+          "rdma": true
+        }
+      }
+    },
+    {
+      "needs": [
+        ">= 2 multi-GPU nodes with RoCEv2 NICs",
+        "a lab leaf switch with API access",
+        "nccl-tests"
+      ],
+      "part": "L3 canary on >= 2 GPU nodes with RoCEv2 NICs: all_reduce_perf busbw per rail, CNP/PFC counters, Xid events",
+      "probe": "single host"
+    }
+  ],
+  "notes": [
+    "Samples: one sample = back-to-back steps for 0.5 s (4096^3 FP16 GEMM); baseline and post samples interleaved in ABBA order (CPU: best of 3 sub-windows per sample); 12 baseline samples per change; 5 warm-up steps of each variant first.",
+    "Injected regression: 7 extra in-place multiply pass(es) over the GEMM output per step, sized from a timed GEMM and a timed pass to cost ~20 % of the step.",
+    "AC1, the bake rule and the precheck rule are read from lab/data/abort_conditions.json; only the metric name changes (GEMM TFLOP/s instead of busbw).",
+    "Node health for the precheck comes from nvidia-smi (temperature, HW slowdown) on the GPU; drained is true because nothing else is scheduled on this node by the lab."
+  ],
+  "runtime_s": 34.15,
+  "status": "ran",
+  "tables": {
+    "changes": [
+      {
+        "baseline_cv": 0.007206645272736567,
+        "baseline_median": 27.529443908776962,
+        "baseline_n": 12,
+        "baseline_p95": 27.647558972505983,
+        "change": "control",
+        "decision": "proceed",
+        "drop": -0.00011028192068819304,
+        "post_median": 27.5324799087267,
+        "post_n": 12,
+        "reasons": []
+      },
+      {
+        "baseline_cv": 0.0016201785331909288,
+        "baseline_median": 27.432566092725622,
+        "baseline_n": 12,
+        "baseline_p95": 27.489157804482385,
+        "change": "regression",
+        "decision": "abort",
+        "drop": 0.16525822263236659,
+        "post_median": 22.89910897799686,
+        "post_n": 12,
+        "reasons": [
+          "AC1 gemm_tflops median 22.90 vs baseline 27.43 (-16.5% > 5%) on l2-this-host-regression"
+        ]
+      },
+      {
+        "baseline_cv": 0.001645302536493113,
+        "baseline_median": 27.33228720078243,
+        "baseline_n": 12,
+        "baseline_p95": 27.367239647322556,
+        "change": "short_bake",
+        "decision": "hold",
+        "drop": 0.16409475180535857,
+        "post_median": 22.84720231629726,
+        "post_n": 6,
+        "reasons": [
+          "BAKE l2-this-host-short_bake has fewer than 12 post-change samples"
+        ]
+      }
+    ],
+    "reconcile": [
+      {
+        "actions": 0,
+        "actual": null,
+        "audit_records": 0,
+        "blocked": [],
+        "second_plan_actions": 0,
+        "unreachable": [
+          "l2-this-host",
+          "orion-be-leaf-r0",
+          "orion-be-leaf-r1",
+          "orion-be-leaf-r2",
+          "orion-be-leaf-r3",
+          "orion-be-leaf-r4",
+          "orion-be-leaf-r5",
+          "orion-be-leaf-r6",
+          "orion-be-leaf-r7"
+        ],
+        "writes": 0
+      }
+    ],
+    "rollout": [
+      {
+        "deferred_nodes": [],
+        "log": [
+          {
+            "changed_nodes": [
+              "l2-this-host-control"
+            ],
+            "decision": "proceed",
+            "reasons": [],
+            "skipped_nodes": [],
+            "wave": 0
+          },
+          {
+            "changed_nodes": [
+              "l2-this-host-regression"
+            ],
+            "decision": "abort",
+            "reasons": [
+              "AC1 gemm_tflops median 22.90 vs baseline 27.43 (-16.5% > 5%) on l2-this-host-regression"
+            ],
+            "skipped_nodes": [],
+            "wave": 1
+          }
+        ],
+        "not_started_waves": [],
+        "outcome": "aborted",
+        "rollback_nodes": [
+          "l2-this-host-control",
+          "l2-this-host-regression"
+        ]
+      }
+    ],
+    "samples": {
+      "control": {
+        "baseline": [
+          27.936836610087536,
+          27.608910347153156,
+          27.647558972505983,
+          27.571848243549308,
+          27.002745612331413,
+          27.56353029213619,
+          27.515715072526024,
+          27.5043573088561,
+          27.53811766172658,
+          27.495707292772273,
+          27.520770155827346,
+          27.468511425901145
+        ],
+        "post": [
+          27.870972726667496,
+          27.542980524281443,
+          27.67195484357371,
+          27.532290287506868,
+          27.641570318076592,
+          27.49118516793255,
+          27.532669529946528,
+          27.53971624408962,
+          27.49243416692873,
+          27.53181979123773,
+          27.50991009086663,
+          27.48170882755358
+        ]
+      },
+      "regression": {
+        "baseline": [
+          27.536468340342594,
+          27.4770842485666,
+          27.489157804482385,
+          27.392253036607386,
+          27.466671406746382,
+          27.452639568482706,
+          27.429800805580243,
+          27.435331379871,
+          27.403764723709457,
+          27.42229823910653,
+          27.40133018191131,
+          27.375022357328223
+        ],
+        "post": [
+          22.907125190695222,
+          22.92220437172432,
+          22.899678637046573,
+          22.91751038313638,
+          22.883726115994023,
+          22.927186444492023,
+          22.85807489881228,
+          22.8648381361095,
+          22.85206216907804,
+          22.898539318947144,
+          22.853547739083815,
+          22.903220085141054
+        ]
+      },
+      "short_bake": {
+        "baseline": [
+          27.447634802473125,
+          27.26004723133669,
+          27.362649042435272,
+          27.2959574866364,
+          27.315731575544273,
+          27.34241500879851,
+          27.367239647322556,
+          27.34206459899983,
+          27.294320957692115,
+          27.33242254594406,
+          27.332151855620804,
+          27.312409626556853
+        ],
+        "post": [
+          22.857695147883028,
+          22.887456964985493,
+          22.830883833352438,
+          22.84097892479335,
+          22.852311319497254,
+          22.842093313097266
+        ]
+      }
+    }
+  }
+}

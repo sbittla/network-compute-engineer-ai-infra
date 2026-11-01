@@ -1,0 +1,196 @@
+{
+  "experiment": {
+    "cpu_fallback": "A-01 as an FP32 CPU GEMM, A-02 as host memory, the checkpoint write/verify on host tensors, no power reading; the benchmarks.md lint step is identical",
+    "evidence": "MEASURED",
+    "id": "ch23-l2",
+    "title": "Lab 23 L2: node-level bundle assumptions validated on this host, new evidence linted"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "best dense CPU GEMM 0.44 TFLOP/s; checkpoint write 0.69 GB/s, read 2.03 GB/s, verified True"
+  ],
+  "metrics": {
+    "best_cpu_fp32_tflops": 0.4359,
+    "ckpt_bytes": 268435456,
+    "ckpt_read_gbs_median": 2.034,
+    "ckpt_verified": true,
+    "ckpt_write_gbs_median": 0.692,
+    "host_memory_gib": 7.75,
+    "lint_negative_rules": [
+      "EVID-003",
+      "EVID-004"
+    ],
+    "lint_new_findings": 0
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a BMC with DCMI/Redfish read access",
+        "an HX8-class server"
+      ],
+      "part": "A-03 node power: sudo ipmitool dcmi power reading during >= 10 min of burn-in",
+      "probe": {
+        "bmc_device": false,
+        "ibv_devinfo": false,
+        "ipmitool": false,
+        "numa_nodes": [
+          "node0"
+        ],
+        "rdma_devices": [],
+        "topo_has_nic": false
+      }
+    },
+    {
+      "needs": [
+        "RDMA NICs on the GPU host",
+        "rdma-core"
+      ],
+      "part": "A-10 RoCE MTU and NIC firmware: ibv_devinfo active_mtu, fw_ver; GPU-NIC affinity in topo -m",
+      "probe": {
+        "bmc_device": false,
+        "ibv_devinfo": false,
+        "ipmitool": false,
+        "numa_nodes": [
+          "node0"
+        ],
+        "rdma_devices": [],
+        "topo_has_nic": false
+      }
+    },
+    {
+      "needs": [
+        "2+ multi-GPU nodes with RDMA NICs",
+        "nccl-tests built with MPI"
+      ],
+      "part": "L3 B-02 row: 2-node all_reduce_perf busbw with /GDRDMA evidence",
+      "probe": "single host"
+    }
+  ],
+  "notes": [
+    "GEMM: 3 warm-ups, >= 5 timed repetitions per size (CUDA events on the GPU). Checkpoint: 1 warm-up round trip, then >= 5; the last round trip is verified with SHA-256 over every tensor's bytes.",
+    "Checkpoint files go to /tmp inside the container (the image's overlay filesystem on the host's disk).",
+    "The benchmarks.md rows point at lab/l2/results/cpu-fallback/environment.json, the environment manifest this run writes."
+  ],
+  "runtime_s": 8.06,
+  "status": "ran",
+  "tables": {
+    "assumptions": [
+      {
+        "bundle": "989 TFLOP/s [VENDOR-SPEC, 2026-10]",
+        "id": "A-01",
+        "statement": "Dense BF16 tensor peak per GPU",
+        "this_node": "0.436 TFLOP/s FP32 on the CPU (no GPU)",
+        "verdict": "node class differs: validate the ratio achieved/peak, not the number"
+      },
+      {
+        "bundle": "0.4 [ILLUSTRATIVE]",
+        "id": "A-04",
+        "statement": "Model FLOPs utilisation (MFU) for W-TRAIN",
+        "this_node": "not measurable without a GPU",
+        "verdict": "MFU 0.40 must sit below the measured GEMM ceiling; measure end-to-end on the 64-GPU slice (L3)"
+      },
+      {
+        "bundle": "80 GB",
+        "id": "A-02",
+        "statement": "HBM capacity per GPU",
+        "this_node": "no GPU; host memory 7.75 GiB",
+        "verdict": "FAILS acceptance on this node: not the bundle's GPU (exactly what the check is for)"
+      },
+      {
+        "bundle": "10.2 kW",
+        "id": "A-03",
+        "statement": "Node maximum power",
+        "this_node": "not measurable (no GPU, no BMC, no RAPL)",
+        "verdict": "NOT VALIDATED: needs a BMC/PDU reading over >= 10 min of burn-in"
+      },
+      {
+        "bundle": "60 s",
+        "id": "A-08",
+        "statement": "Blocking checkpoint time (synchronous save to the PFS, conservative)",
+        "this_node": "256 MiB state: write 0.69 GB/s, read 2.03 GB/s to local disk, verified=True",
+        "verdict": "local write below the per-node PFS share (2.5 GB/s = 80 GB/s / 32 nodes); A-08 itself needs the 32-node sync save (L3)"
+      },
+      {
+        "bundle": "4096 B",
+        "id": "A-10",
+        "statement": "RoCE path MTU",
+        "this_node": "RDMA devices: none; ibv_devinfo absent",
+        "verdict": "NOT VALIDATED: no RDMA NIC"
+      },
+      {
+        "bundle": "PIX per rail; 2 NUMA nodes (HX8)",
+        "id": "affinity",
+        "statement": "GPU-NIC PCIe affinity and NUMA layout",
+        "this_node": "topo -m lists a NIC: False; NUMA nodes: ['node0']",
+        "verdict": "NOT VALIDATED: no NIC; single NUMA node"
+      }
+    ],
+    "checkpoint": [
+      {
+        "bytes": 268435456,
+        "filesystem": "/tmp",
+        "read_gbs_median": 2.033869639997216,
+        "read_s_median": 0.13198262598598376,
+        "reps": 5,
+        "verified": true,
+        "write_gbs_median": 0.6917200285622348,
+        "write_gbs_min": 0.516353799248726,
+        "write_s_median": 0.38806951500009745
+      }
+    ],
+    "gemm": [
+      {
+        "dtype": "float32",
+        "median_s": 0.0069773870054632425,
+        "n": 1024,
+        "n_reps": 10,
+        "p95_s": 0.009072226996067911,
+        "tflops_at_p95_time": 0.23670964680786352,
+        "tflops_median": 0.3077776317005974
+      },
+      {
+        "dtype": "float32",
+        "median_s": 0.039415460487362,
+        "n": 2048,
+        "n_reps": 10,
+        "p95_s": 0.045379847986623645,
+        "tflops_at_p95_time": 0.3785792581117506,
+        "tflops_median": 0.4358662558187917
+      },
+      {
+        "dtype": "float32",
+        "median_s": 0.1397029515064787,
+        "n": 3072,
+        "n_reps": 10,
+        "p95_s": 0.15146611502859741,
+        "tflops_at_p95_time": 0.3828054775489076,
+        "tflops_median": 0.41503817829726447
+      }
+    ],
+    "lint": [
+      {
+        "module": "solutions/lab/design_lint.py",
+        "negative_control_findings": [
+          {
+            "location": "benchmarks.md:B-90",
+            "message": "physical metric 'Dense FP32 CPU GEMM, best of 3 sizes (median of reps)' MEASURED at L1",
+            "rule": "EVID-004",
+            "severity": "major"
+          },
+          {
+            "location": "benchmarks.md:B-91",
+            "message": "MEASURED with no manifest",
+            "rule": "EVID-003",
+            "severity": "major"
+          }
+        ],
+        "new_findings": [],
+        "rows_added": 2,
+        "rows_markdown": "| B-07 | Dense FP32 CPU GEMM, best of 3 sizes (median of reps) | 0.44 | TFLOP/s | MEASURED | L2 | lab/l2/results/cpu-fallback/environment.json |\n| B-08 | Checkpoint write, 256 MiB, D2H + torch.save + fsync, local disk | 0.69 | GB/s | MEASURED | L2 | lab/l2/results/cpu-fallback/environment.json |\n"
+      }
+    ]
+  }
+}

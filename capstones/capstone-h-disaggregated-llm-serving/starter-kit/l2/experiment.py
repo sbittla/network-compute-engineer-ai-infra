@@ -167,6 +167,20 @@ def measured_ceilings(ctx) -> dict:
             "copy_mib": m // 2 ** 20}
 
 
+def allocatable_bytes(torch, chunk: int = 256 * 2 ** 20) -> int:
+    """Device memory this process can actually allocate now: claim chunks until OOM, then release them."""
+    held = []
+    try:
+        while True:
+            held.append(torch.empty(chunk, dtype=torch.uint8, device="cuda"))
+    except torch.OutOfMemoryError:
+        pass
+    n = len(held) * chunk
+    del held
+    torch.cuda.empty_cache()
+    return n
+
+
 def interleaved(ctx, cases: dict, reps: int, warmup: int = 3) -> dict:
     """Round-robin timing: each repetition times every case once, so slow drifts (clock changes, another
     tenant on the GPU) hit all cases alike instead of biasing whichever case ran during the disturbance."""
@@ -218,8 +232,26 @@ def run(ctx) -> dict:
         batches = [1, 4, 16] if ctx.quick else [1, 2, 4, 8, 16, 32]
         ctx_len = 256
     max_len = max(max(prompts), ctx_len) + 8
-    m = Decoder(torch, device=ctx.device, max_batch=max(batches), max_len=max_len, **cfg)
+    # Ceilings first, then release their buffers: they must not share VRAM with the model and KV cache.
     ceil = measured_ceilings(ctx)
+    mem_notes = []
+    if gpu:
+        torch.cuda.empty_cache()
+        # A desktop GPU shares VRAM with the display and other apps. Under WSL2, cudaMemGetInfo reports memory that
+        # Windows is holding as free, so measure what can really be allocated, then drop the largest batches until
+        # weights + KV + a 1 GiB reserve fit in 90 % of it.
+        free = allocatable_bytes(torch)
+        esz = torch.empty((), dtype=cfg["dtype"]).element_size()
+        weights = (12 * cfg["layers"] * cfg["d"] ** 2 + cfg["vocab"] * cfg["d"]) * esz
+        kv = lambda b: 2 * cfg["layers"] * b * max_len * cfg["d"] * esz   # noqa: E731
+        dropped = []
+        while len(batches) > 3 and weights + kv(max(batches)) + 2 ** 30 > 0.9 * free:
+            dropped.append(batches.pop())
+        if dropped:
+            mem_notes.append(f"Allocatable VRAM at start was {free / 2 ** 30:.2f} GiB (probed; cudaMemGetInfo overstates it under WSL2), so batches {sorted(dropped)} were dropped to fit "
+                             f"the KV cache (weights {weights / 2 ** 30:.2f} GiB + KV {kv(max(batches)) / 2 ** 30:.2f} GiB).")
+            ctx.log(mem_notes[-1])
+    m = Decoder(torch, device=ctx.device, max_batch=max(batches), max_len=max_len, **cfg)
     ctx.log(f"model d={m.d} L={m.L} non-embedding params={m.params_nonembed / 1e6:.0f} M, weights {m.weight_bytes / 1e6:.0f} MB; "
             f"measured GEMM {ceil['gemm_flops'] / 1e12:.2f} TFLOP/s, copy {ceil['copy_bytes_per_s'] / 1e9:.1f} GB/s")
     gen = torch.Generator().manual_seed(1)
@@ -261,7 +293,7 @@ def run(ctx) -> dict:
               "model": {"d": m.d, "layers": m.L, "heads": m.H, "vocab": m.V, "dtype": str(cfg["dtype"]),
                         "params_nonembed": m.params_nonembed, "weight_bytes": m.weight_bytes,
                         "kv_bytes_per_token": m.kv_bytes_per_token},
-              "ceilings": ceil, "fit_measured_ceiling": fit, "probe": kv_path_probe(), "notes": []}
+              "ceilings": ceil, "fit_measured_ceiling": fit, "probe": kv_path_probe(), "notes": list(mem_notes)}
     result["metrics"].update({"mfu_prefill_vs_measured_gemm": round(fit["mfu_prefill"], 3),
                               "hbm_eff_vs_measured_copy": round(fit["hbm_eff"], 3),
                               "step_overhead_ms": round(fit["step_overhead_s"] * 1e3, 3),

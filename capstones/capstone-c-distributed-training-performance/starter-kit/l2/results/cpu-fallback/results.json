@@ -1,0 +1,243 @@
+{
+  "experiment": {
+    "cpu_fallback": "the same ported harness (per-rank matmul + ring all-reduce) on the CPU in fp32, a CPU-operator profile, and a gloo one-rank process group; multi-GPU NCCL and scaling are recorded as not runnable",
+    "evidence": "MEASURED",
+    "id": "capstone-c-l2",
+    "title": "Capstone C L2: the benchmark harness on one GPU, profiled, with NCCL transport evidence"
+  },
+  "harness": {
+    "checksum": -4651.164558499237,
+    "comm_s": [
+      0.004245820047799498,
+      0.004219602036755532,
+      0.003849166037980467,
+      0.008584753959439695,
+      0.004508638987317681,
+      0.0050392019911669195,
+      0.0038155209622345865,
+      0.00382536300458014,
+      0.0044115029741078615,
+      0.0056543099926784635,
+      0.00493669998832047,
+      0.004652562027331442,
+      0.0039883810095489025,
+      0.0035602959687821567,
+      0.003888141014613211,
+      0.005297100986354053,
+      0.004752103995997459,
+      0.004388351982925087,
+      0.005366247030906379,
+      0.0039887879975140095
+    ],
+    "compute_s": [
+      0.024296840012539178,
+      0.030925502011086792,
+      0.033786386949941516,
+      0.025156636955216527,
+      0.027556493994779885,
+      0.026581145997624844,
+      0.029144713014829904,
+      0.02751557802548632,
+      0.02744711301056668,
+      0.02510113501921296,
+      0.03282471501734108,
+      0.029377367987763137,
+      0.028164468007162213,
+      0.0255969520076178,
+      0.030019091966096312,
+      0.028015793999657035,
+      0.02673357102321461,
+      0.028059248987119645,
+      0.028084100980777293,
+      0.028927985986229032
+    ],
+    "config": {
+      "dim": 1024,
+      "dtype": "float32",
+      "grad_elems": 2097152,
+      "n_ranks": 4,
+      "reps": 20,
+      "seed": 0,
+      "tf32": false,
+      "warmup": 3
+    },
+    "max_rel_err_vs_sum": 9.480515217319407e-08,
+    "sent_elems_per_rank": [
+      3145728,
+      3145728,
+      3145728,
+      3145728
+    ],
+    "times_s": [
+      0.028542660060338676,
+      0.035145104047842324,
+      0.03763555298792198,
+      0.03374139091465622,
+      0.032065132982097566,
+      0.031620347988791764,
+      0.03296023397706449,
+      0.03134094103006646,
+      0.03185861598467454,
+      0.030755445011891425,
+      0.03776141500566155,
+      0.03402993001509458,
+      0.032152849016711116,
+      0.029157247976399958,
+      0.03390723298070952,
+      0.03331289498601109,
+      0.03148567501921207,
+      0.03244760097004473,
+      0.03345034801168367,
+      0.03291677398374304
+    ]
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1_crosscheck": {
+    "available": true,
+    "bytes_sent_match": true,
+    "max_abs_diff": 0.0,
+    "sent_ref_bytes": [
+      12016,
+      12016,
+      12008,
+      12008
+    ],
+    "source": "instructor/reference/harness.py"
+  },
+  "log": [
+    "harness 4 ranks, dim 1024, grad 8 MiB/rank: step 32.68 ms (compute 28.04, ring 4.40); 0.31 TFLOP/s, ring traffic 51.5 GB/s",
+    "process group: backend=gloo rc=0 transport=None"
+  ],
+  "metrics": {
+    "comm_fraction": 0.136,
+    "compute_tflops": 0.306,
+    "ring_traffic_gbs": 51.48,
+    "step_cv": 0.07,
+    "step_ms_median": 32.682
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "simulated ranks on one device; one-rank process group for the NCCL log",
+      "needs": [
+        "8-GPU node with NVLink/NVSwitch",
+        "2+ nodes with RDMA NICs"
+      ],
+      "part": "multi-GPU NCCL collectives and weak scaling (8 GPUs per node, then 2+ nodes)",
+      "probe": "torch.cuda.device_count()=0"
+    },
+    {
+      "fallback": "the NCCL log of this host parsed with nccl_transport(): it shows the Socket fallback",
+      "needs": [
+        "RDMA NIC (RoCEv2 or InfiniBand)",
+        "nvidia_peermem or dma-buf",
+        "rdma devices passed into the container"
+      ],
+      "part": "GPUDirect RDMA / IB transport (NCCL 'Using network IB', '/GDRDMA')",
+      "probe": "/sys/class/infiniband=none, /dev/infiniband=False"
+    },
+    {
+      "fallback": "torch.profiler kernel classification",
+      "needs": [
+        "Nsight Systems CLI in the image"
+      ],
+      "part": "Nsight Systems capture (nsys profile)",
+      "probe": "nsys on PATH=False"
+    }
+  ],
+  "notes": [
+    "Harness: 3 warm-up steps, then timed steps; phases timed separately with CUDA events (GPU) or perf_counter (CPU).",
+    "Ranks are simulated on one device: the 'communication' phase is device-memory traffic, not NVLink or network. It is the L1 algorithm, ported, not a measurement of any interconnect.",
+    "TF32 disabled so the GEMM is comparable with the FP32 CUDA-core peak."
+  ],
+  "probes": {
+    "cuda_device_count": 0,
+    "dev_infiniband": false,
+    "nsys": false,
+    "nvidia_smi_topo": "",
+    "rdma_devices": []
+  },
+  "process_group": {
+    "backend": "gloo",
+    "log_excerpt": [],
+    "nccl_available": true,
+    "nccl_version": null,
+    "returncode": 0,
+    "times_s": [
+      0.00012305000564083457,
+      0.00014805601676926017,
+      0.00011497200466692448,
+      0.00015997904120013118,
+      0.00011694896966218948
+    ]
+  },
+  "profile": {
+    "basis": "CPU operator self time (torch.profiler)",
+    "busy_s": 0.09181446999999994,
+    "fractions": {
+      "copy": 0.08156153381923278,
+      "gemm": 0.8810300925333447,
+      "other": 0.0022494057853851617,
+      "reduce_add": 0.03515896786203713
+    },
+    "kernel_trace": true,
+    "steps": 3,
+    "us": {
+      "copy": 7488.5289999999295,
+      "gemm": 80891.31099999996,
+      "other": 206.52800000007224,
+      "reduce_add": 3228.10199999997
+    },
+    "wall_s": 0.09972309600561857
+  },
+  "runtime_s": 2.89,
+  "stats": {
+    "comm_s": {
+      "cv": 0.23575875087473638,
+      "iqr": 0.0009990044782171026,
+      "max": 0.008584753959439695,
+      "mean": 0.0046486275998177005,
+      "median": 0.004399927478516474,
+      "min": 0.0035602959687821567,
+      "n": 20,
+      "p95": 0.005800832191016527,
+      "p99": 0.008027969605755057
+    },
+    "compute_s": {
+      "cv": 0.0866929862559521,
+      "iqr": 0.0025074119912460446,
+      "max": 0.033786386949941516,
+      "mean": 0.02816574204771314,
+      "median": 0.02803752149338834,
+      "min": 0.024296840012539178,
+      "n": 20,
+      "p95": 0.0328727986139711,
+      "p99": 0.03360366928274743
+    },
+    "times_s": {
+      "cv": 0.07013506815769446,
+      "iqr": 0.0021961716847727075,
+      "max": 0.03776141500566155,
+      "mean": 0.03281436964753084,
+      "median": 0.03268218747689389,
+      "min": 0.028542660060338676,
+      "n": 20,
+      "p95": 0.03764184608880896,
+      "p99": 0.03773750122229103
+    }
+  },
+  "stats_source": "instructor/reference/harness.py",
+  "status": "ran",
+  "work": {
+    "bytes_sent_per_rank": [
+      12582912,
+      12582912,
+      12582912,
+      12582912
+    ],
+    "flops_per_step": 8589934592,
+    "ring_traffic_bytes": 226492416.0
+  }
+}

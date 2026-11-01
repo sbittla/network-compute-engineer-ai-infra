@@ -259,15 +259,19 @@ def run(ctx) -> dict:
 
     # --- consistency: is the checkpoint the state at the call, even though training continues during the persist?
     ref_sd = dict(zip(("model", "optim"), get_state_dict(model, opt)))
-    snap_ref = {k: t.detach().clone() for k, t in _flat(ref_sd).items() if hasattr(t, "shape")}
+    # The reference copy lives in host memory: a third full copy of the state on the GPU (live model, reference,
+    # restore target) does not fit a shared 8 GB laptop GPU, and the comparison does not need to run on the device.
+    snap_ref = {k: t.detach().to("cpu", copy=True) for k, t in _flat(ref_sd).items() if hasattr(t, "shape")}
     d = tmp_root / "consistency"
     cons_run = one_async(d, make_writer(d, False))
+    if ctx.is_gpu:
+        torch.cuda.empty_cache()
     m3, o3 = build(torch, dev, width, depth, seed=5)
     train_step_on(torch, m3, o3, x, y)
     s3 = dict(zip(("model", "optim"), get_state_dict(m3, o3)))
     dcp.load(s3, checkpoint_id=str(d))
     loaded = {k: t for k, t in _flat(s3).items() if hasattr(t, "shape")}
-    diff = [k for k, t in loaded.items() if not torch.equal(snap_ref[k].to(t.device), t)]
+    diff = [k for k, t in loaded.items() if not torch.equal(snap_ref[k], t.detach().cpu())]
     diff_data = [k for k in diff if loaded[k].numel() > 1]
     consistency = {"tensors_compared": len(loaded), "tensors_differing_from_call_time_state": len(diff),
                    "data_tensors_differing": len(diff_data), "scalar_tensors_differing": len(diff) - len(diff_data),

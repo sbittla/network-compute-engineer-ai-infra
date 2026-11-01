@@ -1,6 +1,6 @@
 # Lab 4 L2: capture, classify and analyse a real training step (before and after the fixes)
 
-`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-10-31T23:37:28Z.
+`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-11-01T00:53:44Z.
 
 | Environment | Value |
 |---|---|
@@ -23,21 +23,21 @@ MLP of 4 blocks (d = 256, 4d hidden), 2.1 M parameters, 512 tokens per step, FP3
 
 | Variant | n | Median (ms) | p95 (ms) | IQR (ms) | min-max (ms) | Optimizer step alone, median (p95) ms | Kernel launches / step | Host syncs / step |
 |---|---|---|---|---|---|---|---|---|
-| baseline | 10 | 36.54 | 52.37 | 8.37 | 30.76-52.37 | 3.015 (5.000) | 0 | 0 |
-| fixed | 10 | 34.25 | 54.94 | 9.12 | 31.52-54.94 | 3.818 (6.110) | 0 | 0 |
+| baseline | 10 | 121.31 | 248.00 | 71.25 | 69.10-248.00 | 4.728 (11.247) | 0 | 0 |
+| fixed | 10 | 45.40 | 71.71 | 23.67 | 40.75-71.71 | 4.141 (6.110) | 0 | 0 |
 
-Whole-step ratio on the CPU: 1.07x. The GEMMs dominate a CPU step and the device-side fixes have nothing to fix (no H2D copy, `.item()` waits for no device), so this ratio is noise around 1; the optimizer step alone shows why: the foreach AdamW cuts aten dispatches per step (664 -> 587), but on a CPU the update of million-element weights is memory-bound, not dispatch-bound, so it need not be faster. On a GPU each dispatch is a kernel launch, and the same change removes launch-bound gaps.
+Whole-step ratio on the CPU: 2.67x. The GEMMs dominate a CPU step and the device-side fixes have nothing to fix (no H2D copy, `.item()` waits for no device), so this ratio is noise around 1; the optimizer step alone shows why: the foreach AdamW cuts aten dispatches per step (664 -> 587), but on a CPU the update of million-element weights is memory-bound, not dispatch-bound, so it need not be faster. On a GPU each dispatch is a kernel launch, and the same change removes launch-bound gaps.
 
 ## CPU capture: aten self time by category (baseline vs fixed, torch.profiler)
 
 | Category | Baseline (us) | Fixed (us) |
 |---|---|---|
-| gemm | 23884 | 23783 |
-| elementwise | 7559 | 7154 |
-| reduction | 995 | 345 |
-| cast/copy | 726 | 691 |
-| sync | 17 | 94 |
-| optimizer | 0 | 180 |
+| gemm | 41469 | 42194 |
+| elementwise | 13946 | 16948 |
+| cast/copy | 1862 | 1604 |
+| reduction | 1401 | 1123 |
+| sync | 53 | 13 |
+| optimizer | 0 | 1240 |
 
 Lab `analyze()` on the shipped SIMULATED ORION trace: findings EXCESS_SYNC, LAUNCH_BOUND, LOW_OCCUPANCY, PAGEABLE_H2D, STREAM_DEPENDENCY; gaps by cause {'launch_bound': 1200, 'host_sync': 30, 'dependency': 2}.
 

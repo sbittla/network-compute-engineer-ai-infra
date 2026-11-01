@@ -1,0 +1,21 @@
+{
+  "error": "Traceback (most recent call last):\n  File \"/opt/hwlab/run.py\", line 61, in main\n    result = exp.run(ctx)\n             ^^^^^^^^^^^^\n  File \"/work/pkg/starter-kit/l2/experiment.py\", line 239, in run\n    m = Decoder(torch, device=ctx.device, max_batch=max(batches), max_len=max_len, **cfg)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/work/pkg/starter-kit/l2/experiment.py\", line 93, in __init__\n    self.v = torch.zeros_like(self.k)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.01 GiB. GPU 0 has a total capacity of 8.00 GiB of which 4.08 GiB is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 2.80 GiB is allocated by PyTorch, and 27.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
+  "experiment": {
+    "cpu_fallback": "the same random-weight transformer, smaller and fp32, on the CPU; peak FLOP/s and bytes/s are a measured GEMM and memory copy, so the fitted mfu/hbm_eff are relative to measured CPU ceilings; the RDMA KV path is recorded as not runnable",
+    "evidence": "MEASURED",
+    "id": "capstone-h-l2",
+    "title": "Capstone H L2: roofline calibration of prefill and decode on one GPU"
+  },
+  "invariants": {
+    "failures": [
+      "experiment raised an exception"
+    ],
+    "passed": false
+  },
+  "log": [],
+  "metrics": {},
+  "notes": [],
+  "runtime_s": 4.17,
+  "status": "error",
+  "tables": {}
+}

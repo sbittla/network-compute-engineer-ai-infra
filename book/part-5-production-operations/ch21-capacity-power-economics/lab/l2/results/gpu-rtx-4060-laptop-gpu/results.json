@@ -1,0 +1,358 @@
+{
+  "experiment": {
+    "cpu_fallback": "duty-cycle sweep of a CPU GEMM and a host-memory copy (throughput and CPU busy); host power is not readable, so perf/W is not runnable and the lab's power-cap model runs on its own curve",
+    "evidence": "MEASURED",
+    "id": "ch21-l2",
+    "title": "Lab 21 L2: power draw vs throughput across workload intensities, and perf/W"
+  },
+  "invariants": {
+    "failures": [
+      "power fell from 8.56 W at 0 % to 3.94 W at 25 %: power must rise with work at fixed V/f",
+      "perf/W at 100 % duty below 25 % duty: static power should make light duty cycles less efficient"
+    ],
+    "passed": false
+  },
+  "log": [
+    "gemm    0%  0.000 TFLOP/s  8.56 W (p5 1.54, p95 18.56)  SM 225.0 MHz  cap 0.0",
+    "gemm   25%  1.373 TFLOP/s  3.94 W (p5 1.72, p95 6.99)  SM 300.0 MHz  cap 0.0",
+    "gemm   50%  15.068 TFLOP/s  57.01 W (p5 42.16, p95 72.88)  SM 2520.0 MHz  cap 0.706",
+    "gemm   75%  21.258 TFLOP/s  71.4 W (p5 55.61, p95 83.5)  SM 2310.0 MHz  cap 0.768",
+    "gemm  100%  25.783 TFLOP/s  75.65 W (p5 67.94, p95 81.33)  SM 2220.0 MHz  cap 0.296",
+    "copy  100%  213.270 GB/s  52.45 W (p5 51.63, p95 53.18)  SM 2520.0 MHz  cap 0.0",
+    "lab power_cap_tradeoff (solutions/lab/capacity_model.py): best cap 650 W"
+  ],
+  "metrics": {
+    "copy_gbs_100": 213.3,
+    "default_power_limit_w": 80.0,
+    "enforced_power_limit_w": 80.0,
+    "foreign_mem_swing_mib": 0.0,
+    "gemm_ceiling_tflops": 76.3,
+    "gemm_tflops_100": 25.783,
+    "idle_level_util_pct": 0.0,
+    "j_per_tflop_100": 2.934,
+    "l1_best_cap_w": 650,
+    "max_period_swing_w": 30.72,
+    "max_power_limit_w": 120.0,
+    "min_power_limit_w": 5.0,
+    "power_copy_100_w": 52.45,
+    "power_gemm_100_w": 75.65,
+    "power_idle_w": 8.56,
+    "power_model_r2": 0.9718,
+    "power_model_static_w": 6.06,
+    "power_model_w_per_tflops": 2.934,
+    "sm_mhz_copy_100": 2520.0,
+    "sm_mhz_gemm_100": 2220.0,
+    "sw_power_cap_share_gemm_100": 0.296,
+    "tflops_per_w_100": 0.3408,
+    "tflops_per_w_25": 0.3485
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "duty-cycle sweep at the default limit + the lab's modeled cap curve",
+      "needs": [
+        "root on a bare-metal Linux GPU host (dedicated lab system)",
+        "restore the default limit afterwards"
+      ],
+      "part": "power-cap sweep (nvidia-smi -i 0 -pl <W> at each cap, >= 5 runs per cap)",
+      "probe": "euid=1000, WSL2=True; limits read-only: {'power.default_limit': 80.0, 'power.min_limit': 5.0, 'power.max_limit': 120.0, 'enforced.power.limit': 80.0, 'clocks.max.sm': 3105.0}"
+    },
+    {
+      "fallback": "per-period GPU power swing",
+      "needs": [
+        "read-only access to rack PDU and facility telemetry"
+      ],
+      "part": "rack PDU power (L3: peak, p99, compute/communication swing)",
+      "probe": "no PDU on a laptop"
+    }
+  ],
+  "notes": [
+    "Duty cycle in 200 ms periods; each level runs 15 s after a 0.5 s settle (dropped). Power is power.draw.instant sampled every 100 ms; energy = mean sampled power x wall time.",
+    "Levels run from 0 % to 100 %, so the GPU warms through the sweep; temperature is recorded per level.",
+    "The 0 % level follows the warm-up, so the GPU idles in a high performance state (SM clock still up). Deep idle (P8, about 2 W on this laptop) takes seconds to reach: the fitted static term is the price of being ready to work."
+  ],
+  "runtime_s": 95.71,
+  "status": "ran",
+  "tables": {
+    "l1_power_cap": {
+      "best_cap_w": 650,
+      "curve": [
+        {
+          "gpu_power_cap_w": 350,
+          "perf_per_w_rel": 1.4,
+          "rel_throughput": 0.7
+        },
+        {
+          "gpu_power_cap_w": 400,
+          "perf_per_w_rel": 1.3825,
+          "rel_throughput": 0.79
+        },
+        {
+          "gpu_power_cap_w": 450,
+          "perf_per_w_rel": 1.33,
+          "rel_throughput": 0.855
+        },
+        {
+          "gpu_power_cap_w": 500,
+          "perf_per_w_rel": 1.267,
+          "rel_throughput": 0.905
+        },
+        {
+          "gpu_power_cap_w": 550,
+          "perf_per_w_rel": 1.2027,
+          "rel_throughput": 0.945
+        },
+        {
+          "gpu_power_cap_w": 600,
+          "perf_per_w_rel": 1.134,
+          "rel_throughput": 0.972
+        },
+        {
+          "gpu_power_cap_w": 650,
+          "perf_per_w_rel": 1.0662,
+          "rel_throughput": 0.99
+        },
+        {
+          "gpu_power_cap_w": 700,
+          "perf_per_w_rel": 1.0,
+          "rel_throughput": 1.0
+        }
+      ],
+      "model": "solutions/lab/capacity_model.py",
+      "table": [
+        {
+          "cap_w": 350,
+          "cluster_throughput": 33.6,
+          "deployable_nodes": 48,
+          "node_peak_kw": 7.4,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.0946,
+          "unused_budget_kw": 7.3
+        },
+        {
+          "cap_w": 400,
+          "cluster_throughput": 37.92,
+          "deployable_nodes": 48,
+          "node_peak_kw": 7.8,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1013,
+          "unused_budget_kw": 6.1
+        },
+        {
+          "cap_w": 450,
+          "cluster_throughput": 41.04,
+          "deployable_nodes": 48,
+          "node_peak_kw": 8.2,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1043,
+          "unused_budget_kw": 4.9
+        },
+        {
+          "cap_w": 500,
+          "cluster_throughput": 43.44,
+          "deployable_nodes": 48,
+          "node_peak_kw": 8.6,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1052,
+          "unused_budget_kw": 3.7
+        },
+        {
+          "cap_w": 550,
+          "cluster_throughput": 45.36,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.0,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.105,
+          "unused_budget_kw": 2.5
+        },
+        {
+          "cap_w": 600,
+          "cluster_throughput": 46.66,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.4,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1034,
+          "unused_budget_kw": 1.3
+        },
+        {
+          "cap_w": 650,
+          "cluster_throughput": 47.52,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.8,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.101,
+          "unused_budget_kw": 0.1
+        },
+        {
+          "cap_w": 700,
+          "cluster_throughput": 32.0,
+          "deployable_nodes": 32,
+          "node_peak_kw": 10.2,
+          "nodes_per_rack": 2,
+          "racks_needed_for_all": 32,
+          "throughput_per_kw": 0.098,
+          "unused_budget_kw": 9.1
+        }
+      ]
+    },
+    "levels": [
+      {
+        "busy_fraction": 0.0,
+        "calls": 0,
+        "duty_pct": 0,
+        "energy_per_unit_j": null,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 0.0,
+        "power_avg_field_w": 8.79,
+        "power_mean_w": 8.56,
+        "power_p5_w": 1.54,
+        "power_p95_w": 18.56,
+        "rel_throughput": 0.0,
+        "samples": 121,
+        "sm_mhz_median": 225.0,
+        "sw_power_cap_share": 0.0,
+        "swing_w": 17.02,
+        "temp_c_max": 56.0,
+        "throughput": 0.0,
+        "unit": "TFLOP/s",
+        "util_median": 0.0,
+        "wall_s": 15.012,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.39,
+        "calls": 75,
+        "duty_pct": 25,
+        "energy_per_unit_j": 2.8693,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 0.34852,
+        "power_avg_field_w": 4.37,
+        "power_mean_w": 3.94,
+        "power_p5_w": 1.72,
+        "power_p95_w": 6.99,
+        "rel_throughput": 0.0533,
+        "samples": 112,
+        "sm_mhz_median": 300.0,
+        "sw_power_cap_share": 0.0,
+        "swing_w": 5.27,
+        "temp_c_max": 54.0,
+        "throughput": 1.3732,
+        "unit": "TFLOP/s",
+        "util_median": 39.0,
+        "wall_s": 15.013,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.529,
+        "calls": 823,
+        "duty_pct": 50,
+        "energy_per_unit_j": 3.7835,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 0.26431,
+        "power_avg_field_w": 57.53,
+        "power_mean_w": 57.01,
+        "power_p5_w": 42.16,
+        "power_p95_w": 72.88,
+        "rel_throughput": 0.5844,
+        "samples": 109,
+        "sm_mhz_median": 2520.0,
+        "sw_power_cap_share": 0.706,
+        "swing_w": 30.72,
+        "temp_c_max": 78.0,
+        "throughput": 15.0682,
+        "unit": "TFLOP/s",
+        "util_median": 51.0,
+        "wall_s": 15.013,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.775,
+        "calls": 1161,
+        "duty_pct": 75,
+        "energy_per_unit_j": 3.3587,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 0.29773,
+        "power_avg_field_w": 71.54,
+        "power_mean_w": 71.4,
+        "power_p5_w": 55.61,
+        "power_p95_w": 83.5,
+        "rel_throughput": 0.8245,
+        "samples": 125,
+        "sm_mhz_median": 2310.0,
+        "sw_power_cap_share": 0.768,
+        "swing_w": 27.89,
+        "temp_c_max": 88.0,
+        "throughput": 21.2583,
+        "unit": "TFLOP/s",
+        "util_median": 75.0,
+        "wall_s": 15.012,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.999,
+        "calls": 1415,
+        "duty_pct": 100,
+        "energy_per_unit_j": 2.9341,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 0.34083,
+        "power_avg_field_w": 74.97,
+        "power_mean_w": 75.65,
+        "power_p5_w": 67.94,
+        "power_p95_w": 81.33,
+        "rel_throughput": 1.0,
+        "samples": 142,
+        "sm_mhz_median": 2220.0,
+        "sw_power_cap_share": 0.296,
+        "swing_w": 13.39,
+        "temp_c_max": 88.0,
+        "throughput": 25.7834,
+        "unit": "TFLOP/s",
+        "util_median": 97.0,
+        "wall_s": 15.085,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.999,
+        "calls": 5997,
+        "duty_pct": 100,
+        "energy_per_unit_j": 0.2459,
+        "mem_used_max_mib": 739.0,
+        "mem_used_min_mib": 739.0,
+        "perf_per_w": 4.06616,
+        "power_avg_field_w": 52.39,
+        "power_mean_w": 52.45,
+        "power_p5_w": 51.63,
+        "power_p95_w": 53.18,
+        "rel_throughput": null,
+        "samples": 142,
+        "sm_mhz_median": 2520.0,
+        "sw_power_cap_share": 0.0,
+        "swing_w": 1.55,
+        "temp_c_max": 76.0,
+        "throughput": 213.2699,
+        "unit": "GB/s",
+        "util_median": 94.0,
+        "wall_s": 15.096,
+        "workload": "copy"
+      }
+    ],
+    "limits": {
+      "clocks.max.sm": 3105.0,
+      "enforced.power.limit": 80.0,
+      "power.default_limit": 80.0,
+      "power.max_limit": 120.0,
+      "power.min_limit": 5.0
+    }
+  }
+}

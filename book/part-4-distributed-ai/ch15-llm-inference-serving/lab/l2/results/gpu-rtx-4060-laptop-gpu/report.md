@@ -1,6 +1,6 @@
 # Lab 15 L2: prefill vs decode, TTFT/ITL and KV cache memory vs the capacity model
 
-`[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-10-31T23:51:23Z.
+`[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-11-01T00:59:05Z.
 
 | Environment | Value |
 |---|---|
@@ -32,36 +32,36 @@ Capacity model for this GPU (`kv_budget_bytes`, `max_concurrent_sequences`): 8.0
 
 | Prompt tokens | Median (ms) | p95 (ms) | IQR (ms) | TFLOP/s | Implied MFU |
 |---|---|---|---|---|---|
-| 128 | 21.16 | 21.79 | 0.51 | 8.17 | 0.21 |
-| 512 | 62.28 | 63.25 | 1.10 | 11.26 | 0.29 |
-| 1024 | 125.39 | 127.07 | 1.61 | 11.39 | 0.29 |
-| 2048 | 258.49 | 260.51 | 2.11 | 11.45 | 0.28 |
+| 128 | 8.47 | 8.63 | 0.16 | 20.42 | 0.53 |
+| 512 | 25.01 | 25.20 | 1.35 | 28.04 | 0.72 |
+| 1024 | 47.63 | 47.81 | 0.44 | 29.98 | 0.76 |
+| 2048 | 98.87 | 99.96 | 2.18 | 29.93 | 0.73 |
 
 ## Decode: memory-bound (batch sweep at fixed context, then context sweep at fixed batch)
 
 | Batch | Context | Step median (ms) | p95 (ms) | tokens/s | Effective GB/s | Lab lower bound (ms) | Implied hbm_efficiency |
 |---|---|---|---|---|---|---|---|
-| 1 | 512 | 15.85 | 16.98 | 63 | 85.6 | 5.30 | 0.33 |
-| 2 | 512 | 17.62 | 19.25 | 113 | 77.7 | 5.35 | 0.30 |
-| 4 | 512 | 17.72 | 18.31 | 226 | 78.7 | 5.45 | 0.31 |
-| 8 | 512 | 18.15 | 19.94 | 441 | 79.6 | 5.64 | 0.31 |
-| 16 | 512 | 19.92 | 20.26 | 803 | 77.6 | 6.04 | 0.30 |
-| 32 | 512 | 23.92 | 25.03 | 1338 | 73.0 | 6.82 | 0.29 |
-| 8 | 1024 | 19.17 | 19.75 | 417 | 80.6 | 6.04 | 0.31 |
-| 8 | 2048 | 21.85 | 22.39 | 366 | 80.0 | 6.82 | 0.31 |
-| 8 | 4096 | 25.70 | 26.29 | 311 | 83.7 | 8.40 | 0.33 |
+| 1 | 512 | 7.15 | 9.12 | 140 | 189.8 | 5.30 | 0.74 |
+| 2 | 512 | 7.69 | 14.05 | 260 | 178.0 | 5.35 | 0.70 |
+| 4 | 512 | 7.24 | 10.05 | 553 | 192.8 | 5.45 | 0.75 |
+| 8 | 512 | 7.38 | 8.86 | 1084 | 195.8 | 5.64 | 0.76 |
+| 16 | 512 | 7.59 | 12.23 | 2107 | 203.5 | 6.04 | 0.80 |
+| 32 | 512 | 9.02 | 10.46 | 3548 | 193.7 | 6.82 | 0.76 |
+| 8 | 1024 | 7.84 | 11.96 | 1020 | 197.1 | 6.04 | 0.77 |
+| 8 | 2048 | 8.02 | 12.92 | 997 | 217.8 | 6.82 | 0.85 |
+| 8 | 4096 | 9.55 | 11.12 | 838 | 225.2 | 8.40 | 0.88 |
 
-Fit t = overhead + bytes / B over both sweeps (best-of-n step times): overhead **0.34 ms**, B = **84 GB/s** (lab assumes `step_overhead_s` = 3 ms, `hbm_efficiency` = 0.70).
+Fit t = overhead + bytes / B over both sweeps (best-of-n step times): overhead **1.12 ms**, B = **253 GB/s** (lab assumes `step_overhead_s` = 3 ms, `hbm_efficiency` = 0.70).
 
 ## Generation: batch 8, prompt 512, 64 output tokens, 5 runs
 
 | Metric | p50 (ms) | p95 (ms) | p99 (ms) | n |
 |---|---|---|---|---|
-| TTFT | 489.18 | 491.39 | - | 5 |
-| ITL | 18.69 | 20.02 | 24.41 | 315 |
-| TPOT (per run) | 18.80 | 19.22 | - | 5 |
+| TTFT | 183.25 | 185.75 | - | 5 |
+| ITL | 7.71 | 11.35 | 17.25 | 315 |
+| TPOT (per run) | 8.43 | 8.78 | - | 5 |
 
-Lab model with its default ILLUSTRATIVE parameters (`hbm_efficiency` 0.70, 3 ms overhead) and this device's DRAM peak: TPOT **11.10 ms** vs measured 18.80 ms. Prefill of the batch at `prefill_mfu` 0.40: TTFT **360.8 ms** vs measured 489.2 ms.
+Lab model with its default ILLUSTRATIVE parameters (`hbm_efficiency` 0.70, 3 ms overhead) and this device's DRAM peak: TPOT **11.10 ms** vs measured 8.43 ms. Prefill of the batch at `prefill_mfu` 0.40: TTFT **360.8 ms** vs measured 183.2 ms.
 
 Device peaks `[VENDOR-SPEC]`: 38.2 TFLOP/s BF16, 256 GB/s DRAM (BF16 512 FLOP/clk/SM x 24 SMs x 3105 MHz (Ada whitepaper); DRAM 8001 MHz x 2 x bus width (NVIDIA spec)).
 

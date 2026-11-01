@@ -1,5 +1,4 @@
 {
-  "error": "Traceback (most recent call last):\n  File \"/opt/hwlab/run.py\", line 61, in main\n    result = exp.run(ctx)\n             ^^^^^^^^^^^^\n  File \"/work/pkg/lab/l2/experiment.py\", line 266, in run\n    train_step_on(torch, m3, o3, x, y)\n  File \"/work/pkg/lab/l2/experiment.py\", line 134, in train_step_on\n    opt.step()\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/optimizer.py\", line 487, in wrapper\n    out = func(*args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/optimizer.py\", line 91, in _use_grad\n    ret = func(self, *args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/adam.py\", line 213, in step\n    has_complex = self._init_group(\n                  ^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/site-packages/torch/optim/adam.py\", line 157, in _init_group\n    state[\"exp_avg_sq\"] = torch.zeros_like(\n                          ^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 36.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 3.66 GiB is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 3.24 GiB is allocated by PyTorch, and 4.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
   "experiment": {
     "cpu_fallback": "the same DCP save/async_save/load benchmark, interference and restore test with the model in host memory (staging is a host copy, not a PCIe D2H transfer); D2H/PCIe invariants skipped",
     "evidence": "MEASURED",
@@ -8,16 +7,600 @@
   },
   "invariants": {
     "failures": [
-      "experiment raised an exception"
+      "async_save returned faster than a single copy of the state: it did not stage the state; a later in-place update could corrupt the checkpoint"
     ],
     "passed": false
   },
+  "l1_model": {
+    "meas_async_blocking_s": 0.6573836499592289,
+    "meas_async_completion_s": 8.000059184036218,
+    "meas_sync_blocking_s": 6.456308569991961,
+    "pred_async_blocking_s": 193.50937499999998,
+    "pred_async_completion_s": 199.96568356999194,
+    "pred_sync_blocking_s": 6.456308569991961,
+    "source": "solutions/lab/storage_lab.py"
+  },
   "log": [
-    "model 94.4 M params, checkpointed state 1.133 GB on cuda"
+    "model 94.4 M params, checkpointed state 1.133 GB on cuda",
+    "consistency: 20 of 80 tensors in the async checkpoint differ from the call-time state (0 data tensors, 20 scalars, e.g. ['optim.state.0.weight.step', 'optim.state.0.bias.step'])",
+    "snapshot copy p50 193.509 s -> 0.01 GB/s",
+    "save                      rep 0 blocking 6.158 s completion 6.158 s",
+    "save                      rep 1 blocking 7.266 s completion 7.266 s",
+    "save                      rep 2 blocking 6.456 s completion 6.456 s",
+    "save                      rep 3 blocking 6.971 s completion 6.971 s",
+    "save                      rep 4 blocking 5.915 s completion 5.915 s",
+    "save                      rep 5 blocking 6.104 s completion 6.104 s",
+    "async_save                rep 0 blocking 0.702 s completion 6.028 s steps during 27",
+    "async_save                rep 1 blocking 0.817 s completion 8.664 s steps during 41",
+    "async_save                rep 2 blocking 0.657 s completion 8.146 s steps during 41",
+    "async_save                rep 3 blocking 0.715 s completion 8.000 s steps during 40",
+    "async_save                rep 4 blocking 0.657 s completion 7.316 s steps during 35",
+    "async_save                rep 5 blocking 0.631 s completion 5.575 s steps during 27",
+    "async_save+cached_pinned  rep 0 blocking 2.313 s completion 10.849 s steps during 25",
+    "async_save+cached_pinned  rep 1 blocking 0.281 s completion 9.911 s steps during 47",
+    "async_save+cached_pinned  rep 2 blocking 0.192 s completion 9.323 s steps during 50",
+    "async_save+cached_pinned  rep 3 blocking 0.214 s completion 10.642 s steps during 52",
+    "async_save+cached_pinned  rep 4 blocking 0.345 s completion 12.660 s steps during 63",
+    "async_save+cached_pinned  rep 5 blocking 0.389 s completion 9.516 s steps during 49",
+    "restore-test: recorded at save (sync_0): eval loss 0.9990174174308777; first-step loss 0.9990169405937195; tolerance rel 1e-06 (FP32, same kernels and batch), stated before running",
+    "restore-test: wrote manifest.json (2 files) + COMMIT",
+    "restore-test: validator on intact checkpoint: valid",
+    "restore-test: corrupted 4 KiB in the middle of the scratch copy corrupt_copy/__0_0.distcp (original untouched)",
+    "restore-test: validator on corrupted copy: ['CHECKSUM_MISMATCH'] -> rejected",
+    "restore-test: dcp.load accepted the corrupted copy without error: 1 tensor(s) silently differ from the intact copy (state.4.weight.exp_avg); eval loss 0.9990174174308777 - unchanged, because the damage is in optimizer state and only surfaces steps later",
+    "restore-test: restored from the intact copy into a fresh model (seed 123): eval loss 0.9990174174308777 (rel diff 0.0e+00)",
+    "restore-test: first step after restore: loss 0.9990169405937195 vs recorded 0.9990169405937195 (rel diff 0.0e+00) -> PASS"
   ],
-  "metrics": {},
-  "notes": [],
-  "runtime_s": 242.37,
-  "status": "error",
-  "tables": {}
+  "metrics": {
+    "async_aliasing_live_gb": 8e-08,
+    "async_blocking_p50_s": 0.6573836499592289,
+    "async_completion_p50_s": 8.000059184036218,
+    "async_staged_gb": 1.1328308,
+    "async_staged_pinned_gb": 0.0,
+    "cached_blocking_p50_s": 0.2812453599763103,
+    "cached_completion_p50_s": 9.911066341970582,
+    "cached_staged_pinned_gb": 1.13283072,
+    "checkpoint_api": "torch.distributed.checkpoint.save / async_save / load",
+    "consistency": {
+      "data_tensors_differing": 0,
+      "differing_examples": [
+        "optim.state.0.weight.step",
+        "optim.state.0.bias.step",
+        "optim.state.2.weight.step",
+        "optim.state.2.bias.step"
+      ],
+      "scalar_tensors_differing": 20,
+      "steps_during": 382,
+      "tensors_compared": 80,
+      "tensors_differing_from_call_time_state": 20
+    },
+    "interference_frac": 0.0007279439631215912,
+    "interference_frac_cached": 0.0001951268355984137,
+    "n_params": 94402560,
+    "repetitions": 5,
+    "restore_read_GBps": 0.0005041873301751506,
+    "save_blocking_p50_s": 6.456308569991961,
+    "save_write_GBps": 0.17546106846027196,
+    "snapshot_GBps": 0.0058541391082473394,
+    "state_bytes": 1132830800,
+    "state_gb": 1.1328308,
+    "target_filesystem": "/tmp on / (overlay; rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotte)",
+    "torch_251_cache_staged_flag_dropped": true,
+    "torch_version": "2.5.1+cu124"
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "Linux host with local NVMe you may wipe (or a scratch file on it)",
+        "fio",
+        "root for raw-device reads"
+      ],
+      "part": "L2 fio NVMe acceptance (randread 4k QD32, seqwrite 1M QD8, >= 5 runs)",
+      "reason": "fio on PATH: False; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)"
+    },
+    {
+      "needs": [
+        "2+ GPU nodes",
+        "Lustre-class PFS or object store",
+        "maintenance window"
+      ],
+      "part": "L3 shared-PFS checkpoint (aggregate write, commit latency, restore read, time to resume)",
+      "reason": "single host, no parallel file system"
+    }
+  ],
+  "notes": [
+    "State = model.state_dict() + Adam state via torch.distributed.checkpoint.state_dict.get_state_dict (FP32: 4 B weight + 8 B Adam m, v = 12 B/param; the lab's 14 B/param adds a BF16 copy).",
+    "One warm-up then 5 timed repetitions per API; the warm-up row is kept in the table and excluded from the summary. dcp.save uses FileSystemWriter(sync_files=True): completion includes fsync.",
+    "async_save: blocking = call -> return (the staging copy), completion = call -> future resolved. Training steps run back-to-back while the future is pending ('during').",
+    "Peak host staging memory = the bytes of the state dict DCP's stager returned (FileSystemWriter.stage is wrapped to inspect it), split into pinned (page-locked) and pageable, plus the bytes that still alias the live tensors (staged by reference). Process RSS is not used: under WSL2 pinned pages need not appear in it.",
+    "async_save+cached_pinned = FileSystemWriter(cache_staged_state_dict=True), one writer reused for the whole series: DCP stages into pinned host buffers it keeps between saves (memory for speed); the default stages into fresh pageable copies. Finding: in torch 2.5.1 the constructor argument is silently dropped (FileSystemWriter.__init__ does not call BlockingAsyncStager.__init__); the experiment sets the stager attributes directly when it detects this.",
+    "Consistency test: the state is cloned at the async_save call, training continues during the persist, then the checkpoint is loaded and compared tensor by tensor with the clone.",
+    "Restore read: files fsync'd, then evicted with posix_fadvise(DONTNEED); WSL2's virtual disk may still be cached by the Windows host, so read GB/s is an upper bound for the physical drive. Target: /tmp on / (overlay; rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotte).",
+    "Lab model source: solutions/lab/storage_lab.py.",
+    "Not runnable here: L2 fio NVMe acceptance (randread 4k QD32, seqwrite 1M QD8, >= 5 runs) (fio on PATH: False; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)); L3 shared-PFS checkpoint (aggregate write, commit latency, restore read, time to resume) (single host, no parallel file system)."
+  ],
+  "probes": {
+    "fio_on_path": false,
+    "nvme_devices": []
+  },
+  "restore_test": {
+    "corrupt_codes": [
+      "CHECKSUM_MISMATCH"
+    ],
+    "corrupted_file": "__0_0.distcp",
+    "dcp_loaded_corrupt_copy": true,
+    "first_step_rel_diff": 0.0,
+    "intact_codes": [],
+    "log": [
+      "recorded at save (sync_0): eval loss 0.9990174174308777; first-step loss 0.9990169405937195; tolerance rel 1e-06 (FP32, same kernels and batch), stated before running",
+      "wrote manifest.json (2 files) + COMMIT",
+      "validator on intact checkpoint: valid",
+      "corrupted 4 KiB in the middle of the scratch copy corrupt_copy/__0_0.distcp (original untouched)",
+      "validator on corrupted copy: ['CHECKSUM_MISMATCH'] -> rejected",
+      "dcp.load accepted the corrupted copy without error: 1 tensor(s) silently differ from the intact copy (state.4.weight.exp_avg); eval loss 0.9990174174308777 - unchanged, because the damage is in optimizer state and only surfaces steps later",
+      "restored from the intact copy into a fresh model (seed 123): eval loss 0.9990174174308777 (rel diff 0.0e+00)",
+      "first step after restore: loss 0.9990169405937195 vs recorded 0.9990169405937195 (rel diff 0.0e+00) -> PASS"
+    ],
+    "loss_on_corrupt_copy": 0.9990174174308777,
+    "recorded_eval_loss": 0.9990174174308777,
+    "recorded_first_step_loss": 0.9990169405937195,
+    "rel_diff": 0.0,
+    "restored_eval_loss": 0.9990174174308777,
+    "restored_first_step_loss": 0.9990169405937195,
+    "tensors_differing": [
+      "state.4.weight.exp_avg"
+    ],
+    "tolerance": 1e-06,
+    "validator_source": "solutions/lab/storage_lab.py"
+  },
+  "runtime_s": 24885.9,
+  "status": "ran",
+  "summary": {
+    "async_aliasing_live_bytes": {
+      "iqr": 0.0,
+      "max": 80,
+      "median": 80,
+      "min": 80,
+      "n": 5,
+      "p95": 80
+    },
+    "async_blocking_s": {
+      "iqr": 0.12253291998058558,
+      "max": 0.8173844909761101,
+      "median": 0.6573836499592289,
+      "min": 0.6306273420341313,
+      "n": 5,
+      "p95": 0.8173844909761101
+    },
+    "async_completion_s": {
+      "iqr": 1.959207936481107,
+      "max": 8.663866261020303,
+      "median": 8.000059184036218,
+      "min": 5.575399819994345,
+      "n": 5,
+      "p95": 8.663866261020303
+    },
+    "async_staged_bytes": {
+      "iqr": 0.0,
+      "max": 1132830800,
+      "median": 1132830800,
+      "min": 1132830800,
+      "n": 5,
+      "p95": 1132830800
+    },
+    "async_staged_pinned_bytes": {
+      "iqr": 0.0,
+      "max": 0,
+      "median": 0,
+      "min": 0,
+      "n": 5,
+      "p95": 0
+    },
+    "async_step_after_s": {
+      "iqr": 0.004859735461650416,
+      "max": 0.1854778319830075,
+      "median": 0.18186971102841198,
+      "min": 0.17779065150534734,
+      "n": 5,
+      "p95": 0.1854778319830075
+    },
+    "async_step_before_s": {
+      "iqr": 0.006749726002453826,
+      "max": 0.19270886198501103,
+      "median": 0.18211216753115878,
+      "min": 0.1813268355326727,
+      "n": 5,
+      "p95": 0.19270886198501103
+    },
+    "async_step_during_s": {
+      "iqr": 0.004814061016077176,
+      "max": 0.19021465501282364,
+      "median": 0.18224473498412408,
+      "min": 0.1812836760072969,
+      "n": 5,
+      "p95": 0.19021465501282364
+    },
+    "cached_aliasing_live_bytes": {
+      "iqr": 0.0,
+      "max": 0,
+      "median": 0,
+      "min": 0,
+      "n": 5,
+      "p95": 0
+    },
+    "cached_blocking_s": {
+      "iqr": 0.16416124897659756,
+      "max": 0.3894573840079829,
+      "median": 0.2812453599763103,
+      "min": 0.19222365302266553,
+      "n": 5,
+      "p95": 0.3894573840079829
+    },
+    "cached_completion_s": {
+      "iqr": 2.231686583487317,
+      "max": 12.659890481969342,
+      "median": 9.911066341970582,
+      "min": 9.323075585009065,
+      "n": 5,
+      "p95": 12.659890481969342
+    },
+    "cached_staged_bytes": {
+      "iqr": 0.0,
+      "max": 1132830800,
+      "median": 1132830800,
+      "min": 1132830800,
+      "n": 5,
+      "p95": 1132830800
+    },
+    "cached_staged_pinned_bytes": {
+      "iqr": 0.0,
+      "max": 1132830720,
+      "median": 1132830720,
+      "min": 1132830720,
+      "n": 5,
+      "p95": 1132830720
+    },
+    "cached_step_after_s": {
+      "iqr": 0.0013741139991907403,
+      "max": 0.1834993825177662,
+      "median": 0.1824788470112253,
+      "min": 0.18137848051264882,
+      "n": 5,
+      "p95": 0.1834993825177662
+    },
+    "cached_step_before_s": {
+      "iqr": 0.001634855245356448,
+      "max": 0.1844989254605025,
+      "median": 0.18291188246803358,
+      "min": 0.18197831400902942,
+      "n": 5,
+      "p95": 0.1844989254605025
+    },
+    "cached_step_during_s": {
+      "iqr": 0.0007244322478072718,
+      "max": 0.18344797799363732,
+      "median": 0.1829475734848529,
+      "min": 0.1822815254854504,
+      "n": 5,
+      "p95": 0.18344797799363732
+    },
+    "load_s": {
+      "iqr": 71.14345325398608,
+      "max": 2301.3370239349897,
+      "median": 2246.845035964041,
+      "min": 2192.7817009179853,
+      "n": 5,
+      "p95": 2301.3370239349897
+    },
+    "save_blocking_s": {
+      "iqr": 1.1086713109980337,
+      "max": 7.265507707954384,
+      "median": 6.456308569991961,
+      "min": 5.914826712978538,
+      "n": 5,
+      "p95": 7.265507707954384
+    },
+    "snapshot_s": {
+      "iqr": 63.74060156249999,
+      "max": 228.181421875,
+      "median": 193.509375,
+      "min": 125.629390625,
+      "n": 5,
+      "p95": 228.181421875
+    },
+    "step_after_s": {
+      "iqr": 0.004859735461650416,
+      "max": 0.1854778319830075,
+      "median": 0.18186971102841198,
+      "min": 0.17779065150534734,
+      "n": 5,
+      "p95": 0.1854778319830075
+    },
+    "step_before_s": {
+      "iqr": 0.006749726002453826,
+      "max": 0.19270886198501103,
+      "median": 0.18211216753115878,
+      "min": 0.1813268355326727,
+      "n": 5,
+      "p95": 0.19270886198501103
+    },
+    "step_during_s": {
+      "iqr": 0.004814061016077176,
+      "max": 0.19021465501282364,
+      "median": 0.18224473498412408,
+      "min": 0.1812836760072969,
+      "n": 5,
+      "p95": 0.19021465501282364
+    }
+  },
+  "tables": {
+    "loads": [
+      {
+        "load_s": 2347.6279643569724,
+        "page_cache_evicted": true,
+        "rep": 0,
+        "warmup": true
+      },
+      {
+        "load_s": 2246.845035964041,
+        "page_cache_evicted": true,
+        "rep": 1,
+        "warmup": false
+      },
+      {
+        "load_s": 2192.7817009179853,
+        "page_cache_evicted": true,
+        "rep": 2,
+        "warmup": false
+      },
+      {
+        "load_s": 2241.0798810209963,
+        "page_cache_evicted": true,
+        "rep": 3,
+        "warmup": false
+      },
+      {
+        "load_s": 2301.3370239349897,
+        "page_cache_evicted": true,
+        "rep": 4,
+        "warmup": false
+      },
+      {
+        "load_s": 2274.811464511964,
+        "page_cache_evicted": true,
+        "rep": 5,
+        "warmup": false
+      }
+    ],
+    "saves": [
+      {
+        "api": "save",
+        "blocking_s": 6.1577038270188496,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 6.1577038270188496,
+        "rep": 0,
+        "warmup": true
+      },
+      {
+        "api": "save",
+        "blocking_s": 7.265507707954384,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 7.265507707954384,
+        "rep": 1,
+        "warmup": false
+      },
+      {
+        "api": "save",
+        "blocking_s": 6.456308569991961,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 6.456308569991961,
+        "rep": 2,
+        "warmup": false
+      },
+      {
+        "api": "save",
+        "blocking_s": 6.970965031010564,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 6.970965031010564,
+        "rep": 3,
+        "warmup": false
+      },
+      {
+        "api": "save",
+        "blocking_s": 5.914826712978538,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 5.914826712978538,
+        "rep": 4,
+        "warmup": false
+      },
+      {
+        "api": "save",
+        "blocking_s": 6.104303403990343,
+        "bytes_on_disk": 1132956978,
+        "completion_s": 6.104303403990343,
+        "rep": 5,
+        "warmup": false
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.7023325689951889,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 6.027621084998827,
+        "rep": 0,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.1933234329917468,
+        "step_before_p50_s": 0.19128652304061688,
+        "step_during_p50_s": 0.19524720398476347,
+        "steps_during": 27,
+        "warmup": true
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.8173844909761101,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 8.663866261020303,
+        "rep": 1,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.1854778319830075,
+        "step_before_p50_s": 0.19270886198501103,
+        "step_during_p50_s": 0.19021465501282364,
+        "steps_during": 41,
+        "warmup": false
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.6573836499592289,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 8.146265672985464,
+        "rep": 2,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.17779065150534734,
+        "step_before_p50_s": 0.1839185330318287,
+        "step_during_p50_s": 0.1822196029825136,
+        "steps_during": 41,
+        "warmup": false
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.7152682570158504,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 8.000059184036218,
+        "rep": 3,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.18186971102841198,
+        "step_before_p50_s": 0.1813268355326727,
+        "step_during_p50_s": 0.18224473498412408,
+        "steps_during": 40,
+        "warmup": false
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.6569595659966581,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 7.316316241049208,
+        "rep": 4,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.18232412647921592,
+        "step_before_p50_s": 0.18180110747925937,
+        "step_during_p50_s": 0.1812836760072969,
+        "steps_during": 35,
+        "warmup": false
+      },
+      {
+        "api": "async_save",
+        "blocking_s": 0.6306273420341313,
+        "bytes_on_disk": 1132957028,
+        "completion_s": 5.575399819994345,
+        "rep": 5,
+        "staged_aliasing_live_bytes": 80,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 0,
+        "step_after_p50_s": 0.18029183603357524,
+        "step_before_p50_s": 0.18211216753115878,
+        "step_during_p50_s": 0.1829167460091412,
+        "steps_during": 27,
+        "warmup": false
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 2.3125980320037343,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 10.848753910977393,
+        "rep": 0,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.1815855884924531,
+        "step_before_p50_s": 0.1821774965210352,
+        "step_during_p50_s": 0.18354910402558744,
+        "steps_during": 25,
+        "warmup": true
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 0.2812453599763103,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 9.911066341970582,
+        "rep": 1,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.18137848051264882,
+        "step_before_p50_s": 0.18230924048111774,
+        "step_during_p50_s": 0.18344797799363732,
+        "steps_during": 47,
+        "warmup": false
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 0.19222365302266553,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 9.323075585009065,
+        "rep": 2,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.18187635749927722,
+        "step_before_p50_s": 0.18305833952035755,
+        "step_during_p50_s": 0.1822815254854504,
+        "steps_during": 50,
+        "warmup": false
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 0.21427274902816862,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 10.64232125604758,
+        "rep": 3,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.1825036834925413,
+        "step_before_p50_s": 0.18291188246803358,
+        "step_during_p50_s": 0.1829475734848529,
+        "steps_during": 52,
+        "warmup": false
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 0.34536151599604636,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 12.659890481969342,
+        "rep": 4,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.1834993825177662,
+        "step_before_p50_s": 0.1844989254605025,
+        "step_during_p50_s": 0.18275736598297954,
+        "steps_during": 63,
+        "warmup": false
+      },
+      {
+        "api": "async_save+cached_pinned",
+        "blocking_s": 0.3894573840079829,
+        "bytes_on_disk": 1132957042,
+        "completion_s": 9.515762986033224,
+        "rep": 5,
+        "staged_aliasing_live_bytes": 0,
+        "staged_bytes": 1132830800,
+        "staged_pinned_bytes": 1132830720,
+        "step_after_p50_s": 0.1824788470112253,
+        "step_before_p50_s": 0.18197831400902942,
+        "step_during_p50_s": 0.18303977797040716,
+        "steps_during": 49,
+        "warmup": false
+      }
+    ]
+  }
 }

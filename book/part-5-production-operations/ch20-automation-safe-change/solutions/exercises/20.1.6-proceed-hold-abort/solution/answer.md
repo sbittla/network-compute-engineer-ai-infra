@@ -15,7 +15,7 @@ A rollout controller evaluates each wave after its bake and returns one of three
   `p2.bake_insufficient_hold` case). The controller neither proceeds nor rolls back; a human investigates
   the evidence gap first.
 - **Abort**: any pre-declared condition is breached. *Example:* lab wave 2, `orion-n25`: median per-rail busbw
-  39.41 GB/s against a 43.67 GB/s baseline median (−9.7 %, beyond AC1's 5 %), and CNP median 986/s against
+  39.41 GB/s against a 43.67 GB/s baseline median (−9.8 %, beyond AC1's 5 %), and CNP median 986/s against
   200/s (more than 3 × baseline and above the 500/s floor, AC2). The rollout stops and rollback runs at the
   declared scope.
 

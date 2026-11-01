@@ -1,0 +1,710 @@
+{
+  "acceptance_record": {
+    "completed_utc": "2026-11-01T00:17:25Z",
+    "image_completed_utc": "2026-11-01T00:15:50Z",
+    "node": "2f4914ef0dbd",
+    "started_utc": "2026-11-01T00:15:52Z",
+    "tests": {
+      "burn_in_hours": 0.02503,
+      "dcgm_diag_level3": "not-run",
+      "ecc_corrected_volatile": [],
+      "ecc_uncorrected_volatile": [],
+      "gpu_count": 0,
+      "gpu_pcie": [],
+      "gpu_temp_max_c": 0.0,
+      "h2d_GBps_min": 0.0,
+      "nic_link_gbps": [],
+      "nic_pcie": [],
+      "nvlink_p2p_GBps_min": 0.0,
+      "rdma_write_Gbps_min": 0.0,
+      "row_remap_failure": [],
+      "row_remap_pending": [],
+      "storage_read_GBps": 2.519,
+      "xid_events": []
+    }
+  },
+  "bandwidth": {
+    "bytes": 268435456,
+    "host_copy": {
+      "iqr": 0.0008162167796399444,
+      "max": 0.008788733975961804,
+      "mean": 0.007992903498234227,
+      "median": 0.008062829496338964,
+      "min": 0.007019416021648794,
+      "n": 10,
+      "p95": 0.008788733975961804
+    },
+    "host_copy_gbs": {
+      "best": 76.483700402458,
+      "median": 66.58591903050579,
+      "worst": 61.08626264811331
+    }
+  },
+  "burn_in": {
+    "batch_per_window": 168,
+    "cv": 0.09515062173357422,
+    "dtype": "torch.float32",
+    "event_reason_share": {},
+    "first_quarter_tflops": 0.3355143923846886,
+    "gemm_n": 1024,
+    "idle_pcie_gen": null,
+    "idle_power_w": null,
+    "last_quarter_tflops": 0.3825554096935288,
+    "n_samples": 0,
+    "seconds": 90.1000698680291,
+    "telemetry": {
+      "clocks.mem": null,
+      "clocks.sm": null,
+      "pcie.link.gen.current": null,
+      "pcie.link.width.current": null,
+      "power.draw": null,
+      "temperature.gpu": null,
+      "utilization.gpu": null
+    },
+    "tflops": {
+      "max": 0.40948012763416075,
+      "median": 0.3569099621066675,
+      "min": 0.2778902561666247,
+      "n": 87,
+      "p95": 0.40108596610838915
+    },
+    "windows": [
+      {
+        "dur_s": 1.0931351989856921,
+        "t_s": 1.0931465339963324,
+        "tflops": 0.33003900450626894
+      },
+      {
+        "dur_s": 1.298272410989739,
+        "t_s": 2.3922518659965135,
+        "tflops": 0.2778902561666247
+      },
+      {
+        "dur_s": 1.172185134026222,
+        "t_s": 3.5644564020331018,
+        "tflops": 0.30778180203053945
+      },
+      {
+        "dur_s": 1.2230222009820864,
+        "t_s": 4.787500152015127,
+        "tflops": 0.29498831057547115
+      },
+      {
+        "dur_s": 1.1329377990332432,
+        "t_s": 5.920460800000001,
+        "tflops": 0.3184440074043411
+      },
+      {
+        "dur_s": 1.0752959069795907,
+        "t_s": 6.9957790820044465,
+        "tflops": 0.3355143923846886
+      },
+      {
+        "dur_s": 1.0762383599649183,
+        "t_s": 8.072035409044474,
+        "tflops": 0.33522058522032244
+      },
+      {
+        "dur_s": 1.0987369299982674,
+        "t_s": 9.170791699027177,
+        "tflops": 0.32835635447747163
+      },
+      {
+        "dur_s": 0.9420634509879164,
+        "t_s": 10.112875503022224,
+        "tflops": 0.3829649186428607
+      },
+      {
+        "dur_s": 0.8995010629878379,
+        "t_s": 11.012395008001477,
+        "tflops": 0.40108596610838915
+      },
+      {
+        "dur_s": 1.1053961379802786,
+        "t_s": 12.117809735005721,
+        "tflops": 0.32637824619434
+      },
+      {
+        "dur_s": 1.2606441410025582,
+        "t_s": 13.378472030046396,
+        "tflops": 0.2861848487845928
+      },
+      {
+        "dur_s": 1.1264121070271358,
+        "t_s": 14.504902036045678,
+        "tflops": 0.32028886285337904
+      },
+      {
+        "dur_s": 0.9885352099663578,
+        "t_s": 15.493457136035431,
+        "tflops": 0.3649614593660029
+      },
+      {
+        "dur_s": 1.0436237080139108,
+        "t_s": 16.537097352033015,
+        "tflops": 0.34569668175762747
+      },
+      {
+        "dur_s": 0.944570460007526,
+        "t_s": 17.48168757604435,
+        "tflops": 0.38194848149403854
+      },
+      {
+        "dur_s": 0.9452097350149415,
+        "t_s": 18.426914732030127,
+        "tflops": 0.38169015774927134
+      },
+      {
+        "dur_s": 0.9118822520249523,
+        "t_s": 19.338814789021853,
+        "tflops": 0.3956401740058516
+      },
+      {
+        "dur_s": 0.9395855200127698,
+        "t_s": 20.278417248046026,
+        "tflops": 0.38397489656832584
+      },
+      {
+        "dur_s": 0.9675902809831314,
+        "t_s": 21.2460242510424,
+        "tflops": 0.37286159230271315
+      },
+      {
+        "dur_s": 0.9249850029591471,
+        "t_s": 22.171026591036934,
+        "tflops": 0.3900357862125621
+      },
+      {
+        "dur_s": 1.0254637849866413,
+        "t_s": 23.19650715001626,
+        "tflops": 0.3518186191906327
+      },
+      {
+        "dur_s": 1.2839741400093772,
+        "t_s": 24.480498366989195,
+        "tflops": 0.2809848279821003
+      },
+      {
+        "dur_s": 0.9905567289679311,
+        "t_s": 25.471076371031813,
+        "tflops": 0.36421664939866355
+      },
+      {
+        "dur_s": 0.8987159449607134,
+        "t_s": 26.369810905016493,
+        "tflops": 0.40143635470913014
+      },
+      {
+        "dur_s": 0.9140284410095774,
+        "t_s": 27.28385965601774,
+        "tflops": 0.39471118914583064
+      },
+      {
+        "dur_s": 0.8980757999815978,
+        "t_s": 28.18195552303223,
+        "tflops": 0.4017224970001336
+      },
+      {
+        "dur_s": 0.9438203250174411,
+        "t_s": 29.125797979999334,
+        "tflops": 0.3822520487226561
+      },
+      {
+        "dur_s": 1.0019550879951566,
+        "t_s": 30.12777162803104,
+        "tflops": 0.36007327792096
+      },
+      {
+        "dur_s": 1.0085139709990472,
+        "t_s": 31.136304180021398,
+        "tflops": 0.35773153693310694
+      },
+      {
+        "dur_s": 0.9688806650228798,
+        "t_s": 32.10520414903294,
+        "tflops": 0.37236500416228285
+      },
+      {
+        "dur_s": 1.0250741030322388,
+        "t_s": 33.13029889704194,
+        "tflops": 0.35195236305043354
+      },
+      {
+        "dur_s": 1.1410400720196776,
+        "t_s": 34.27135877503315,
+        "tflops": 0.31618280699415985
+      },
+      {
+        "dur_s": 1.2611896070302464,
+        "t_s": 35.53256755799521,
+        "tflops": 0.28606107349197946
+      },
+      {
+        "dur_s": 1.1373173319734633,
+        "t_s": 36.66990999499103,
+        "tflops": 0.3172177568401094
+      },
+      {
+        "dur_s": 1.1009447440155782,
+        "t_s": 37.77087195799686,
+        "tflops": 0.32769787477989454
+      },
+      {
+        "dur_s": 1.1254848610260524,
+        "t_s": 38.89637853001477,
+        "tflops": 0.3205527371866167
+      },
+      {
+        "dur_s": 1.010835480003152,
+        "t_s": 39.90723747800803,
+        "tflops": 0.3569099621066675
+      },
+      {
+        "dur_s": 1.087052277987823,
+        "t_s": 40.99430606001988,
+        "tflops": 0.331885834903739
+      },
+      {
+        "dur_s": 0.9593685230356641,
+        "t_s": 41.9536920679966,
+        "tflops": 0.3760570043745205
+      },
+      {
+        "dur_s": 1.0429456220008433,
+        "t_s": 42.99665987503249,
+        "tflops": 0.3459214413996632
+      },
+      {
+        "dur_s": 0.9896958559984341,
+        "t_s": 43.98637608799618,
+        "tflops": 0.36453345810975163
+      },
+      {
+        "dur_s": 1.0876146830269136,
+        "t_s": 45.0740067519946,
+        "tflops": 0.3317142168952057
+      },
+      {
+        "dur_s": 1.212015915021766,
+        "t_s": 46.28604074602481,
+        "tflops": 0.2976670919849439
+      },
+      {
+        "dur_s": 1.1024655349901877,
+        "t_s": 47.38852278201375,
+        "tflops": 0.32724583346472685
+      },
+      {
+        "dur_s": 0.9435278860037215,
+        "t_s": 48.33206894202158,
+        "tflops": 0.3823705247250922
+      },
+      {
+        "dur_s": 0.9979154779575765,
+        "t_s": 49.3300017050351,
+        "tflops": 0.36153087193556627
+      },
+      {
+        "dur_s": 0.9942511490080506,
+        "t_s": 50.32427133800229,
+        "tflops": 0.3628632999056044
+      },
+      {
+        "dur_s": 1.0505153890117072,
+        "t_s": 51.37480384402443,
+        "tflops": 0.3434288127881765
+      },
+      {
+        "dur_s": 1.0760601059882902,
+        "t_s": 52.45088194904383,
+        "tflops": 0.335276115949536
+      },
+      {
+        "dur_s": 1.136168283992447,
+        "t_s": 53.58706981502473,
+        "tflops": 0.3175385706035061
+      },
+      {
+        "dur_s": 1.082457241951488,
+        "t_s": 54.6695468580001,
+        "tflops": 0.3332946918194934
+      },
+      {
+        "dur_s": 1.0167725019855425,
+        "t_s": 55.6863397390116,
+        "tflops": 0.3548259341784697
+      },
+      {
+        "dur_s": 1.1849266270291992,
+        "t_s": 56.871285249013454,
+        "tflops": 0.3044722302920362
+      },
+      {
+        "dur_s": 1.1824030409916304,
+        "t_s": 58.05370985303307,
+        "tflops": 0.3051220610540985
+      },
+      {
+        "dur_s": 1.0856647380278446,
+        "t_s": 59.13939310301794,
+        "tflops": 0.33231000347249645
+      },
+      {
+        "dur_s": 1.0492808370036073,
+        "t_s": 60.1886899000383,
+        "tflops": 0.3438328807130971
+      },
+      {
+        "dur_s": 0.9517000950290821,
+        "t_s": 61.14040808699792,
+        "tflops": 0.37908712497604125
+      },
+      {
+        "dur_s": 0.9936028930242173,
+        "t_s": 62.13402994500939,
+        "tflops": 0.3631000426799348
+      },
+      {
+        "dur_s": 0.9948968450189568,
+        "t_s": 63.128944336029235,
+        "tflops": 0.3626277987213094
+      },
+      {
+        "dur_s": 1.0435771149932407,
+        "t_s": 64.17253925703699,
+        "tflops": 0.3457121162208859
+      },
+      {
+        "dur_s": 1.0661267640534788,
+        "t_s": 65.23868462903192,
+        "tflops": 0.3383999586431007
+      },
+      {
+        "dur_s": 1.0362772489897907,
+        "t_s": 66.27497899899026,
+        "tflops": 0.34814742214566785
+      },
+      {
+        "dur_s": 0.9649135160143487,
+        "t_s": 67.23991664103232,
+        "tflops": 0.37389594702146867
+      },
+      {
+        "dur_s": 1.2283328149933368,
+        "t_s": 68.46826696803328,
+        "tflops": 0.29371294852686736
+      },
+      {
+        "dur_s": 1.0801247339695692,
+        "t_s": 69.54841104801744,
+        "tflops": 0.3340144351089032
+      },
+      {
+        "dur_s": 0.8843930989969522,
+        "t_s": 70.43282070703572,
+        "tflops": 0.40793766174021595
+      },
+      {
+        "dur_s": 0.927603900025133,
+        "t_s": 71.36045847903006,
+        "tflops": 0.3889346011311777
+      },
+      {
+        "dur_s": 1.055721836979501,
+        "t_s": 72.41619812400313,
+        "tflops": 0.3417351429389873
+      },
+      {
+        "dur_s": 0.9116596480016597,
+        "t_s": 73.32788007002091,
+        "tflops": 0.3957367792408239
+      },
+      {
+        "dur_s": 0.9571124300127849,
+        "t_s": 74.2850104070385,
+        "tflops": 0.37694344107429556
+      },
+      {
+        "dur_s": 0.9398394350428134,
+        "t_s": 75.22486942104297,
+        "tflops": 0.38387115863845955
+      },
+      {
+        "dur_s": 0.9430718889925629,
+        "t_s": 76.16796036902815,
+        "tflops": 0.3825554096935288
+      },
+      {
+        "dur_s": 0.9331072620116174,
+        "t_s": 77.1010856970097,
+        "tflops": 0.3866407084714214
+      },
+      {
+        "dur_s": 0.9655863170046359,
+        "t_s": 78.06668829999398,
+        "tflops": 0.3736354238978594
+      },
+      {
+        "dur_s": 1.2528683730051853,
+        "t_s": 79.31957332603633,
+        "tflops": 0.2879610186013586
+      },
+      {
+        "dur_s": 1.1255181250162423,
+        "t_s": 80.44510951900156,
+        "tflops": 0.3205432634492614
+      },
+      {
+        "dur_s": 0.967553349037189,
+        "t_s": 81.4126867140294,
+        "tflops": 0.3728758245971749
+      },
+      {
+        "dur_s": 0.9402849019970745,
+        "t_s": 82.35299182101153,
+        "tflops": 0.38368929682667874
+      },
+      {
+        "dur_s": 0.9686997759854421,
+        "t_s": 83.32171639002627,
+        "tflops": 0.372434537312644
+      },
+      {
+        "dur_s": 0.979156926041469,
+        "t_s": 84.30089320801198,
+        "tflops": 0.3684570299906355
+      },
+      {
+        "dur_s": 0.9653741589863785,
+        "t_s": 85.26628453301964,
+        "tflops": 0.37371753688000947
+      },
+      {
+        "dur_s": 0.9228669960284606,
+        "t_s": 86.18916830001399,
+        "tflops": 0.3909309298269389
+      },
+      {
+        "dur_s": 0.929010430991184,
+        "t_s": 87.1181960980175,
+        "tflops": 0.3883457503045234
+      },
+      {
+        "dur_s": 0.8810616889968514,
+        "t_s": 87.99927431100514,
+        "tflops": 0.40948012763416075
+      },
+      {
+        "dur_s": 0.9346504500135779,
+        "t_s": 88.93394262704533,
+        "tflops": 0.3860023315227194
+      },
+      {
+        "dur_s": 1.1660966099589132,
+        "t_s": 90.10005526099121,
+        "tflops": 0.3093888188875807
+      }
+    ]
+  },
+  "event_reason_counters_delta_us": {},
+  "experiment": {
+    "cpu_fallback": "sustained FP32 GEMM burn-in on the CPU with throughput stability, host-memory copy bandwidth and a storage read, converted into the acceptance schema and gated by evaluate_acceptance(); GPU telemetry, PCIe and GPU health fields are empty and reported as not collectible",
+    "evidence": "MEASURED",
+    "id": "capstone-e-l2",
+    "title": "Capstone E L2: node burn-in and acceptance evidence through the L1 gate"
+  },
+  "gate": {
+    "available": true,
+    "local": {
+      "failures": [],
+      "node": "2f4914ef0dbd",
+      "passed": true
+    },
+    "orion": {
+      "failures": [
+        "burn_in_duration",
+        "dcgm_diag",
+        "gpu_count",
+        "h2d_bw",
+        "nic_link_speed",
+        "nic_pcie_link",
+        "nvlink_bw",
+        "rdma_bw",
+        "storage_bw"
+      ],
+      "node": "2f4914ef0dbd",
+      "passed": false
+    },
+    "source": "instructor/reference/fleet.py"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "inventory": {
+    "event_reason_counters_us": {},
+    "gpus": [],
+    "probes": {
+      "all_reduce_perf": false,
+      "dcgmi": false,
+      "dmesg_readable": false,
+      "ethtool": true,
+      "fio": false,
+      "ibv_devinfo": false,
+      "ipmitool": false,
+      "net_interfaces": [
+        "lo"
+      ],
+      "nvbandwidth": false,
+      "nvlink": false,
+      "rdma_devices": [],
+      "redfish_bmc": false
+    },
+    "row_remap": {
+      "correctable": [],
+      "failure": [],
+      "pending": [],
+      "uncorrectable": []
+    },
+    "target_temp_c": null
+  },
+  "log": [
+    "burn-in 90 s: 0.36 TFLOP/s median (first/last quarter 0.34/0.38), CV 0.095"
+  ],
+  "metrics": {
+    "burnin_cv": 0.0952,
+    "burnin_tflops_median": 0.357,
+    "local_policy_passed": true,
+    "orion_policy_passed": false,
+    "storage_read_gbs_min": 2.519
+  },
+  "not_gated": {
+    "dcgm_diag": "dcgmi not installed (DCGM absent on this host)",
+    "ecc_uncorrected": "no GPU",
+    "gpu_count": "no GPU: expected_gpus set to 0 for a CPU-only host",
+    "gpu_pcie_link": "no GPU",
+    "h2d_bw": "no GPU",
+    "nic_pcie_link / nic_link_speed": "no backend NIC visible (container network: lo)",
+    "nvlink_bw": "no NVLink on a single PCIe GPU",
+    "rdma_bw": "no RDMA NIC (/sys/class/infiniband absent)",
+    "row_remap": "no GPU",
+    "thermal": "no GPU temperature sensor read",
+    "xid_events": "kernel log not readable in the container (dmesg: Operation not permitted)"
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "DCGM installed, data-center GPU"
+      ],
+      "part": "DCGM level-3 diagnostics (dcgmi diag -r 3)",
+      "probe": "dcgmi on PATH=False"
+    },
+    {
+      "needs": [
+        "2+ NVLink-connected GPUs"
+      ],
+      "part": "nvbandwidth device<->device / NVLink P2P",
+      "probe": "nvbandwidth=False, NVLink in topo=False, GPUs=0"
+    },
+    {
+      "needs": [
+        "8-GPU node"
+      ],
+      "part": "nccl-tests intra-node bus bandwidth (-g 8)",
+      "probe": "all_reduce_perf=False, GPUs=0"
+    },
+    {
+      "needs": [
+        "RDMA NICs",
+        "second node on the same rail"
+      ],
+      "part": "RDMA NIC link speed, PCIe and ib_write_bw (L3)",
+      "probe": "/sys/class/infiniband=none, ibv_devinfo=False"
+    },
+    {
+      "needs": [
+        "BMC with a read-only account"
+      ],
+      "part": "Redfish/IPMI out-of-band inventory",
+      "probe": "BMC_HOST set=False, ipmitool=False"
+    },
+    {
+      "needs": [
+        "host kernel log access (root)"
+      ],
+      "part": "Kernel Xid scan (dmesg | grep -i xid)",
+      "probe": "dmesg readable=False"
+    },
+    {
+      "needs": [
+        "lab provisioning system",
+        "lab Slurm or Kubernetes"
+      ],
+      "part": "provisioning (Ironic/MAAS/Metal3) and scheduler drain/undrain (L3)",
+      "probe": "single container, no lab provisioner"
+    }
+  ],
+  "notes": [
+    "Burn-in windows are ~1 s of back-to-back GEMMs timed with CUDA events (GPU) or perf_counter (CPU); telemetry sampled every 250 ms by nvidia-smi -lms; the first second of load is excluded (clock ramp).",
+    "Burn-in length 90 s (quick mode 8 s): a real acceptance burn-in is >= 12 h (policy burn_in_hours_min 12.0). This run calibrates the tooling, not the node.",
+    "Bandwidth: >= 5 repetitions after 3 warm-ups; the policy gates on the worst repetition (h2d_GBps_min).",
+    "This record is evidence from ONE node: the README asks for calibration on >= 2 known-good nodes before any threshold is trusted."
+  ],
+  "policies": {
+    "local": {
+      "burn_in_hours_min": 0.02478,
+      "dcgm_diag_required": "not-run",
+      "ecc_uncorrected_volatile_max": 0,
+      "evidence_label": "ILLUSTRATIVE thresholds for an H100-class HX8 node; calibrate on your own golden nodes",
+      "expected_gpus": 0,
+      "expected_nics": 0,
+      "gpu_temp_max_c": 85.0,
+      "h2d_GBps_min": 0.0,
+      "nic_link_gbps": 400,
+      "nvlink_p2p_GBps_min": 0.0,
+      "pcie_min_gen": 0,
+      "pcie_min_width": 0,
+      "policy_version": "local-cpu-host-calibration",
+      "rdma_write_Gbps_min": 0.0,
+      "row_remap_failure_max": 0,
+      "row_remap_pending_max": 0,
+      "storage_read_GBps_min": 0.2,
+      "xid_events_max": 0
+    },
+    "orion": {
+      "burn_in_hours_min": 12.0,
+      "dcgm_diag_required": "pass",
+      "ecc_uncorrected_volatile_max": 0,
+      "evidence_label": "ILLUSTRATIVE thresholds for an H100-class HX8 node; calibrate on your own golden nodes",
+      "expected_gpus": 8,
+      "expected_nics": 8,
+      "gpu_temp_max_c": 85.0,
+      "h2d_GBps_min": 45.0,
+      "nic_link_gbps": 400,
+      "nvlink_p2p_GBps_min": 340.0,
+      "pcie_min_gen": 5,
+      "pcie_min_width": 16,
+      "policy_version": "acceptance-2026.10",
+      "rdma_write_Gbps_min": 370.0,
+      "row_remap_failure_max": 0,
+      "row_remap_pending_max": 0,
+      "storage_read_GBps_min": 10.0,
+      "xid_events_max": 0
+    }
+  },
+  "runtime_s": 93.99,
+  "status": "ran",
+  "storage": {
+    "block": "1 MiB",
+    "bytes": 536870912,
+    "fs": "overlay",
+    "gbs": {
+      "max": 2.846152177590871,
+      "median": 2.5903041772560704,
+      "min": 2.5192480911516597,
+      "n": 5,
+      "p95": 2.846152177590871
+    },
+    "note": "cache dropped per read with POSIX_FADV_DONTNEED"
+  }
+}

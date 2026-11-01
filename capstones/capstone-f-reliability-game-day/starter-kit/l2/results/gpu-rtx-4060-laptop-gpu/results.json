@@ -1,0 +1,216 @@
+{
+  "config": {
+    "every": 25,
+    "for_s": 0.25,
+    "poll_s": 0.05,
+    "seed": 7,
+    "threshold_s": 0.5,
+    "total": 110,
+    "width": 1024
+  },
+  "drills": [
+    {
+      "age_at_kill_s": 0.005840778350830078,
+      "ckpt_bytes": 50395507,
+      "detect_s": 0.7731032371520996,
+      "durable_step": 25,
+      "first_step_s": 0.5066604614257812,
+      "init_s": 2.981184244155884,
+      "last_step_before_kill": 43,
+      "launch_s": 0.04132676124572754,
+      "launch_to_first_ckpt_s": 3.924269676208496,
+      "load_s": 0.15959525108337402,
+      "rep": 0,
+      "requeue_to_resume_s": 3.6887667179107666,
+      "restored_step": 25,
+      "resume_s": 4.512440919876099,
+      "silence_to_alert_s": 0.7789440155029297,
+      "step_time_s": 0.02409834861755371,
+      "steps_lost": 18
+    },
+    {
+      "age_at_kill_s": 0.002688169479370117,
+      "ckpt_bytes": 50395507,
+      "detect_s": 0.7870962619781494,
+      "durable_step": 50,
+      "first_step_s": 0.5614182949066162,
+      "init_s": 2.6777942180633545,
+      "last_step_before_kill": 68,
+      "launch_s": 0.023589611053466797,
+      "launch_to_first_ckpt_s": 3.5886833667755127,
+      "load_s": 0.06641459465026855,
+      "rep": 1,
+      "requeue_to_resume_s": 3.329216718673706,
+      "restored_step": 50,
+      "resume_s": 4.166612148284912,
+      "silence_to_alert_s": 0.7897844314575195,
+      "step_time_s": 0.021473779678344726,
+      "steps_lost": 18
+    },
+    {
+      "age_at_kill_s": 0.001558065414428711,
+      "ckpt_bytes": 50395507,
+      "detect_s": 0.7752218246459961,
+      "durable_step": 50,
+      "first_step_s": 0.43558573722839355,
+      "init_s": 2.283308982849121,
+      "last_step_before_kill": 72,
+      "launch_s": 0.022037982940673828,
+      "launch_to_first_ckpt_s": 2.7759993076324463,
+      "load_s": 0.06612443923950195,
+      "rep": 2,
+      "requeue_to_resume_s": 2.8070571422576904,
+      "restored_step": 50,
+      "resume_s": 3.632692337036133,
+      "silence_to_alert_s": 0.7767798900604248,
+      "step_time_s": 0.017760143280029297,
+      "steps_lost": 22
+    },
+    {
+      "age_at_kill_s": 0.010092020034790039,
+      "ckpt_bytes": 50395507,
+      "detect_s": 0.7777800559997559,
+      "durable_step": 75,
+      "first_step_s": 0.235795259475708,
+      "init_s": 2.5113258361816406,
+      "last_step_before_kill": 99,
+      "launch_s": 0.052696943283081055,
+      "launch_to_first_ckpt_s": 2.8443431854248047,
+      "load_s": 0.0658421516418457,
+      "rep": 3,
+      "requeue_to_resume_s": 2.8656601905822754,
+      "restored_step": 75,
+      "resume_s": 3.693824052810669,
+      "silence_to_alert_s": 0.7878720760345459,
+      "step_time_s": 0.01909320831298828,
+      "steps_lost": 24
+    },
+    {
+      "age_at_kill_s": 0.0038614273071289062,
+      "ckpt_bytes": 50395507,
+      "detect_s": 0.7714295387268066,
+      "durable_step": 25,
+      "first_step_s": 0.18898320198059082,
+      "init_s": 2.2114360332489014,
+      "last_step_before_kill": 42,
+      "launch_s": 0.04296374320983887,
+      "launch_to_first_ckpt_s": 3.0281143188476562,
+      "load_s": 0.04263758659362793,
+      "rep": 4,
+      "requeue_to_resume_s": 2.486020565032959,
+      "restored_step": 25,
+      "resume_s": 3.307871103286743,
+      "silence_to_alert_s": 0.7752909660339355,
+      "step_time_s": 0.019786996841430662,
+      "steps_lost": 17
+    }
+  ],
+  "experiment": {
+    "cpu_fallback": "the same SIGKILL/heartbeat/requeue drill with the training process on the CPU; detect_s, resume_s and steps_lost are CPU measurements; the multi-node faults are recorded as not runnable",
+    "evidence": "MEASURED",
+    "id": "capstone-f-l2",
+    "title": "Capstone F L2: contained kill-detect-recover drill with measured detect, resume and steps lost"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "rep 0: killed at step 43, restored 25 (lost 18), detect 0.77 s, resume 4.51 s (launch 0.04 + init 2.98 + load 160 ms)",
+    "rep 1: killed at step 68, restored 50 (lost 18), detect 0.79 s, resume 4.17 s (launch 0.02 + init 2.68 + load 66 ms)",
+    "rep 2: killed at step 72, restored 50 (lost 22), detect 0.78 s, resume 3.63 s (launch 0.02 + init 2.28 + load 66 ms)",
+    "rep 3: killed at step 99, restored 75 (lost 24), detect 0.78 s, resume 3.69 s (launch 0.05 + init 2.51 + load 66 ms)",
+    "rep 4: killed at step 42, restored 25 (lost 17), detect 0.77 s, resume 3.31 s (launch 0.04 + init 2.21 + load 43 ms)"
+  ],
+  "metrics": {
+    "ckpt_mb": 50.4,
+    "detect_s_median": 0.775,
+    "init_s_median": 2.511,
+    "resume_s_median": 3.694,
+    "steps_lost_median": 18
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "dedicated lab node with a rail interface",
+        "root",
+        "a multi-node job using it"
+      ],
+      "part": "backend link down / up (ip link set dev <rail_iface> down)",
+      "probe": "interfaces=['lo'], RDMA=none, uid=1000 (not root)"
+    },
+    {
+      "needs": [
+        "lab BMC",
+        "written authorisation"
+      ],
+      "part": "node loss via BMC (ipmitool chassis power off / Redfish reset)",
+      "probe": "ipmitool=False"
+    },
+    {
+      "needs": [
+        "root (CAP_NET_ADMIN) on a lab client",
+        "network storage"
+      ],
+      "part": "storage slowdown (tc qdisc add ... netem delay 20ms rate 1gbit)",
+      "probe": "tc=True, uid=1000"
+    },
+    {
+      "needs": [
+        "lab Slurm or Kubernetes"
+      ],
+      "part": "scheduler outage (systemctl stop slurmctld) and drain/requeue",
+      "probe": "scontrol=False, kubectl=False"
+    },
+    {
+      "needs": [
+        ">= 2 GPU nodes with RDMA"
+      ],
+      "part": "multi-node DDP with NCCL/process-group timeout",
+      "probe": "GPUs=1"
+    }
+  ],
+  "notes": [
+    "Abort condition: the drill stops if the worker exits on its own or does not resume within 120 s. Rollback: requeue from the last durable checkpoint, verified by the restored step in the new process's heartbeat.",
+    "Blast radius: one child process in a disposable container (--network none); nothing outside it is touched.",
+    "Repetitions: 5 drills, each with a seeded random kill time; medians reported.",
+    "Times are wall clock (time.time) shared by the monitor and the worker heartbeats."
+  ],
+  "prediction": {
+    "detect_s": 0.75,
+    "detect_s_max": 0.8697869968414307,
+    "load_s": 0.03158680742109565,
+    "resume_s": 3.334239404848464,
+    "steps_lost_max": 24,
+    "steps_lost_mean": 12.0
+  },
+  "probes": {
+    "ip": true,
+    "ipmitool": false,
+    "kubectl": false,
+    "net_interfaces": [
+      "lo"
+    ],
+    "rdma_devices": [],
+    "scontrol": false,
+    "systemctl": false,
+    "tc": true,
+    "uid": 1000
+  },
+  "read_bw_Bps": 1595460608.8598468,
+  "rule_l1": {
+    "detects": [
+      "link_down",
+      "node_loss"
+    ],
+    "for_s": 60,
+    "metric": "sim_job_progress_age_seconds",
+    "name": "JobStalled",
+    "op": ">",
+    "severity": "critical",
+    "source": "instructor/reference/gameday.py",
+    "threshold": 120
+  },
+  "runtime_s": 45.97,
+  "status": "ran"
+}

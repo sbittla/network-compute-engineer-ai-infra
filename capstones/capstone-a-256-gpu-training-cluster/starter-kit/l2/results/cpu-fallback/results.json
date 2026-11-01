@@ -1,0 +1,171 @@
+{
+  "cpu_load": {
+    "cv": 0.16931095620366546,
+    "seconds": 60.06075977999717,
+    "tflops": {
+      "max": 0.5436389034737406,
+      "median": 0.37648509943151365,
+      "min": 0.22895178980480405,
+      "n": 1014,
+      "p95": 0.47768680619565795
+    },
+    "windows": 1014
+  },
+  "experiment": {
+    "cpu_fallback": "topology probe plus a sustained CPU GEMM load; CPU package power is not readable in the container (no RAPL powercap), so power is recorded as not runnable and the L1 rack-power check uses the design values",
+    "evidence": "MEASURED",
+    "id": "capstone-a-l2",
+    "title": "Capstone A L2: host topology, GPU/NIC locality and measured GPU power"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1_rack_power": {
+    "available": true,
+    "design": [
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-01",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-02",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-03",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-04",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 34.42,
+        "max_kw": 40.8,
+        "ok_2n_max": false,
+        "ok_2n_sustained": true,
+        "rack": "rack-05",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-06",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-07",
+        "sustained_kw": 34.0
+      },
+      {
+        "feed_usable_kw": 43.7,
+        "max_kw": 40.8,
+        "ok_2n_max": true,
+        "ok_2n_sustained": true,
+        "rack": "rack-08",
+        "sustained_kw": 34.0
+      }
+    ],
+    "design_ratio": 0.8333333333333334,
+    "node_watts_max": 10200,
+    "node_watts_sustained": 8500,
+    "option": "A_rail_1to1",
+    "source": "instructor/reference/cluster_model.py"
+  },
+  "log": [],
+  "metrics": {
+    "cpu_load_cv": 0.1693,
+    "cpu_tflops_median": 0.3765
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "sustained CPU load throughput only; L1 rack power with design values",
+      "needs": [
+        "RAPL powercap exposed to the container, or a BMC/PDU reading"
+      ],
+      "part": "CPU package power",
+      "probe": "/sys/class/powercap/intel-rapl present=False"
+    },
+    {
+      "fallback": "topology matrix recorded as found",
+      "needs": [
+        "HX8-class node with 8 RDMA NICs"
+      ],
+      "part": "GPU<->NIC PCIe affinity (expect PIX between GPU i and NIC i)",
+      "probe": "nvidia-smi topo -m lists 0 GPU(s) and 0 NIC(s); /sys/class/infiniband=none"
+    },
+    {
+      "fallback": "NUMA nodes from /sys/devices/system/node",
+      "needs": [
+        "hwloc installed on the host"
+      ],
+      "part": "lstopo / hwloc PCIe tree",
+      "probe": "lstopo on PATH=True"
+    },
+    {
+      "fallback": "none",
+      "needs": [
+        "BMC with DCMI or Redfish, read-only account"
+      ],
+      "part": "chassis power from the BMC (ipmitool dcmi power reading / Redfish)",
+      "probe": "ipmitool=False, /dev/ipmi*=False"
+    },
+    {
+      "fallback": "single-GPU GEMM load",
+      "needs": [
+        "8 GPUs + nccl-tests"
+      ],
+      "part": "8-GPU all_reduce_perf load and 30-minute chassis power log",
+      "probe": "GPUs=0"
+    }
+  ],
+  "notes": [
+    "Telemetry: nvidia-smi --query-gpu ... -lms 200; the first second of load is excluded (clock ramp); 'sustained' = median of the last 75 % of the load, 'max' = highest 200 ms sample.",
+    "Load duration 60 s (quick mode 8 s). The README asks for >= 30 minutes of chassis power on an HX8 node."
+  ],
+  "runtime_s": 60.6,
+  "status": "ran",
+  "topology": {
+    "cpu_count": 24,
+    "dev_ipmi": false,
+    "enforced_power_limit_w": null,
+    "ibv_devinfo": false,
+    "ipmitool": false,
+    "lstopo": true,
+    "net_interfaces": [
+      "lo"
+    ],
+    "numa_nodes": [
+      "node0"
+    ],
+    "nvidia_smi_topo_m": "",
+    "rapl": false,
+    "rdma_devices": [],
+    "topo_gpus": 0,
+    "topo_nics": 0,
+    "torch_gpus": 0
+  }
+}

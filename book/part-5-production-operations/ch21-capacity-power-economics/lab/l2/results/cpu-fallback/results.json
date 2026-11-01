@@ -1,0 +1,259 @@
+{
+  "experiment": {
+    "cpu_fallback": "duty-cycle sweep of a CPU GEMM and a host-memory copy (throughput and CPU busy); host power is not readable, so perf/W is not runnable and the lab's power-cap model runs on its own curve",
+    "evidence": "MEASURED",
+    "id": "ch21-l2",
+    "title": "Lab 21 L2: power draw vs throughput across workload intensities, and perf/W"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "gemm    0%  0.000 TFLOP/s  cpu_busy 0.05",
+    "gemm   25%  0.068 TFLOP/s  cpu_busy 0.229",
+    "gemm   50%  0.143 TFLOP/s  cpu_busy 0.364",
+    "gemm   75%  0.255 TFLOP/s  cpu_busy 0.489",
+    "gemm  100%  0.384 TFLOP/s  cpu_busy 0.565",
+    "copy  100%  64.171 GB/s  cpu_busy 0.61",
+    "lab power_cap_tradeoff (solutions/lab/capacity_model.py): best cap 650 W"
+  ],
+  "metrics": {
+    "cpu_busy_100": 0.565,
+    "gemm_tflops_100": 0.384,
+    "l1_best_cap_w": 650
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "duty-cycle sweep at the default limit + the lab's modeled cap curve",
+      "needs": [
+        "root on a bare-metal Linux GPU host (dedicated lab system)",
+        "restore the default limit afterwards"
+      ],
+      "part": "power-cap sweep (nvidia-smi -i 0 -pl <W> at each cap, >= 5 runs per cap)",
+      "probe": "euid=1000, WSL2=True; limits read-only: no GPU"
+    },
+    {
+      "fallback": "throughput and CPU busy only",
+      "needs": [
+        "bare-metal Linux with intel-rapl powercap readable"
+      ],
+      "part": "host power (RAPL) for CPU perf/W",
+      "probe": "/sys/class/powercap/intel-rapl present: False"
+    },
+    {
+      "fallback": "per-period GPU power swing",
+      "needs": [
+        "read-only access to rack PDU and facility telemetry"
+      ],
+      "part": "rack PDU power (L3: peak, p99, compute/communication swing)",
+      "probe": "no PDU on a laptop"
+    }
+  ],
+  "notes": [
+    "Duty cycle in 200 ms periods; each level runs 15 s after a 0.5 s settle (dropped). Power is power.draw.instant sampled every 100 ms; energy = mean sampled power x wall time.",
+    "Levels run from 0 % to 100 %, so the GPU warms through the sweep; temperature is recorded per level.",
+    "The 0 % level follows the warm-up, so the GPU idles in a high performance state (SM clock still up). Deep idle (P8, about 2 W on this laptop) takes seconds to reach: the fitted static term is the price of being ready to work."
+  ],
+  "runtime_s": 94.29,
+  "status": "ran",
+  "tables": {
+    "l1_power_cap": {
+      "best_cap_w": 650,
+      "curve": [
+        {
+          "gpu_power_cap_w": 350,
+          "perf_per_w_rel": 1.4,
+          "rel_throughput": 0.7
+        },
+        {
+          "gpu_power_cap_w": 400,
+          "perf_per_w_rel": 1.3825,
+          "rel_throughput": 0.79
+        },
+        {
+          "gpu_power_cap_w": 450,
+          "perf_per_w_rel": 1.33,
+          "rel_throughput": 0.855
+        },
+        {
+          "gpu_power_cap_w": 500,
+          "perf_per_w_rel": 1.267,
+          "rel_throughput": 0.905
+        },
+        {
+          "gpu_power_cap_w": 550,
+          "perf_per_w_rel": 1.2027,
+          "rel_throughput": 0.945
+        },
+        {
+          "gpu_power_cap_w": 600,
+          "perf_per_w_rel": 1.134,
+          "rel_throughput": 0.972
+        },
+        {
+          "gpu_power_cap_w": 650,
+          "perf_per_w_rel": 1.0662,
+          "rel_throughput": 0.99
+        },
+        {
+          "gpu_power_cap_w": 700,
+          "perf_per_w_rel": 1.0,
+          "rel_throughput": 1.0
+        }
+      ],
+      "model": "solutions/lab/capacity_model.py",
+      "table": [
+        {
+          "cap_w": 350,
+          "cluster_throughput": 33.6,
+          "deployable_nodes": 48,
+          "node_peak_kw": 7.4,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.0946,
+          "unused_budget_kw": 7.3
+        },
+        {
+          "cap_w": 400,
+          "cluster_throughput": 37.92,
+          "deployable_nodes": 48,
+          "node_peak_kw": 7.8,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1013,
+          "unused_budget_kw": 6.1
+        },
+        {
+          "cap_w": 450,
+          "cluster_throughput": 41.04,
+          "deployable_nodes": 48,
+          "node_peak_kw": 8.2,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1043,
+          "unused_budget_kw": 4.9
+        },
+        {
+          "cap_w": 500,
+          "cluster_throughput": 43.44,
+          "deployable_nodes": 48,
+          "node_peak_kw": 8.6,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1052,
+          "unused_budget_kw": 3.7
+        },
+        {
+          "cap_w": 550,
+          "cluster_throughput": 45.36,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.0,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.105,
+          "unused_budget_kw": 2.5
+        },
+        {
+          "cap_w": 600,
+          "cluster_throughput": 46.66,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.4,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.1034,
+          "unused_budget_kw": 1.3
+        },
+        {
+          "cap_w": 650,
+          "cluster_throughput": 47.52,
+          "deployable_nodes": 48,
+          "node_peak_kw": 9.8,
+          "nodes_per_rack": 3,
+          "racks_needed_for_all": 22,
+          "throughput_per_kw": 0.101,
+          "unused_budget_kw": 0.1
+        },
+        {
+          "cap_w": 700,
+          "cluster_throughput": 32.0,
+          "deployable_nodes": 32,
+          "node_peak_kw": 10.2,
+          "nodes_per_rack": 2,
+          "racks_needed_for_all": 32,
+          "throughput_per_kw": 0.098,
+          "unused_budget_kw": 9.1
+        }
+      ]
+    },
+    "levels": [
+      {
+        "busy_fraction": 0.0,
+        "calls": 0,
+        "cpu_busy": 0.05,
+        "duty_pct": 0,
+        "rel_throughput": 0.0,
+        "throughput": 0.0,
+        "unit": "TFLOP/s",
+        "wall_s": 15.013,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.269,
+        "calls": 473,
+        "cpu_busy": 0.229,
+        "duty_pct": 25,
+        "rel_throughput": 0.1761,
+        "throughput": 0.0677,
+        "unit": "TFLOP/s",
+        "wall_s": 15.011,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.514,
+        "calls": 998,
+        "cpu_busy": 0.364,
+        "duty_pct": 50,
+        "rel_throughput": 0.3716,
+        "throughput": 0.1428,
+        "unit": "TFLOP/s",
+        "wall_s": 15.011,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.764,
+        "calls": 1782,
+        "cpu_busy": 0.489,
+        "duty_pct": 75,
+        "rel_throughput": 0.6636,
+        "throughput": 0.255,
+        "unit": "TFLOP/s",
+        "wall_s": 15.01,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.999,
+        "calls": 2686,
+        "cpu_busy": 0.565,
+        "duty_pct": 100,
+        "rel_throughput": 1.0,
+        "throughput": 0.3842,
+        "unit": "TFLOP/s",
+        "wall_s": 15.014,
+        "workload": "gemm"
+      },
+      {
+        "busy_fraction": 0.997,
+        "calls": 7212,
+        "cpu_busy": 0.61,
+        "duty_pct": 100,
+        "rel_throughput": null,
+        "throughput": 64.1711,
+        "unit": "GB/s",
+        "wall_s": 15.084,
+        "workload": "copy"
+      }
+    ],
+    "limits": {}
+  }
+}

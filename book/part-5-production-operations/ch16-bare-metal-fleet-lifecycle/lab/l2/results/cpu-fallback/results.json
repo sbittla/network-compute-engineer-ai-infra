@@ -1,0 +1,447 @@
+{
+  "experiment": {
+    "cpu_fallback": "host-RAM write/verify pattern test and a CPU GEMM burn-in with /proc/stat telemetry; the host record (no GPU visible) is evaluated by the lab evaluator, which must FAIL it with GPU_COUNT",
+    "evidence": "MEASURED",
+    "id": "ch16-l2",
+    "title": "Lab 16 L2: single-GPU acceptance and burn-in against the acceptance policy"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "memory pattern test: 1024 MiB x 5 patterns, 0 mismatches",
+    "GEMM 2048^3: 0.40 TFLOP/s (median of 10)",
+    "CPU burn-in 90.6 s: 376.0 GFLOP/s median",
+    "lab evaluator (solutions/lab/fleet_lifecycle.py): applicable verdict FAIL ['GPU_COUNT']"
+  ],
+  "metrics": {
+    "burn_in_s": 90.6,
+    "burn_in_tflops_median": 0.376,
+    "gemm_tflops": 0.397,
+    "memtest_fill_gbs": 5.13,
+    "memtest_mismatches": 0,
+    "verdict_applicable": "FAIL"
+  },
+  "not_runnable_parts": [
+    {
+      "check": "NVLINK_DOWN (18 links per GPU)",
+      "needs": [
+        "NVLink/NVSwitch GPUs (HX8 baseboard)"
+      ],
+      "probe": "nvidia-smi nvlink --status lists 0 links"
+    },
+    {
+      "check": "ECC_DBE / ECC_SBE_ELEVATED",
+      "needs": [
+        "a data-centre GPU with HBM ECC enabled"
+      ],
+      "probe": "no GPU visible"
+    },
+    {
+      "check": "DCGM_DIAG_FAIL (dcgmi diag -r 3)",
+      "needs": [
+        "DCGM host engine + dcgmi (data-centre GPU, root)"
+      ],
+      "probe": "dcgmi on PATH: False"
+    },
+    {
+      "check": "NIC_COUNT / NIC_SPEED / NIC_MTU / RDMA_PAIR_BW_LOW",
+      "needs": [
+        "8 x 400G RDMA NICs + 2 front-end NICs, perftest, a reference node per rail"
+      ],
+      "probe": "/sys/class/infiniband present: False; container runs with --network none"
+    },
+    {
+      "check": "NVME_COUNT / NVME_MEDIA_ERRORS / STORAGE_THROUGHPUT_LOW",
+      "needs": [
+        "root, nvme-cli, fio, dedicated data drives"
+      ],
+      "probe": "/dev/nvme*: none visible; uid 1000"
+    },
+    {
+      "check": "NCCL_BUSBW_LOW / NCCL_ALGO_UNRECORDED",
+      "needs": [
+        ">= 2 GPUs (8 on NVSwitch for NVLS), nccl-tests"
+      ],
+      "probe": "torch.cuda.device_count() = 0"
+    },
+    {
+      "check": "XID_PRESENT (kernel log scan)",
+      "needs": [
+        "kernel log access on the host (root, journalctl -k)"
+      ],
+      "probe": "dmesg rc=1: dmesg: read kernel buffer failed: Operation not permitted"
+    },
+    {
+      "check": "FW_OFF_MATRIX (BIOS/BMC/NIC firmware bundle)",
+      "needs": [
+        "BMC with Redfish FirmwareInventory, a platform compatibility matrix"
+      ],
+      "probe": "no BMC/Redfish endpoint on a laptop"
+    }
+  ],
+  "notes": [
+    "Burn-in is a short scripted soak, not the policy's 24 h burn-in: duration_h in the record is the real duration.",
+    "Telemetry sampled every 250 ms with nvidia-smi -lms (GPU) or /proc/stat (CPU); medians and p95 over the soak.",
+    "GPU evidence runs are serial; another job on the same GPU would show up as dips in the per-window TFLOP/s."
+  ],
+  "runtime_s": 117.57,
+  "status": "ran",
+  "tables": {
+    "burn_in": {
+      "burn_in_s": 90.6,
+      "cpu_mhz": {
+        "iqr": 0.0,
+        "max": 2303.998,
+        "mean": 2303.998,
+        "median": 2303.998,
+        "min": 2303.998,
+        "n": 356,
+        "p95": 2303.998
+      },
+      "cpu_util_pct": {
+        "iqr": 2.739,
+        "max": 74.831,
+        "mean": 57.723,
+        "median": 57.049,
+        "min": 53.465,
+        "n": 356,
+        "p95": 62.852
+      },
+      "samples": 356,
+      "tflops_first_last_ratio": 1.113,
+      "tflops_windows": {
+        "iqr": 0.019,
+        "max": 0.395,
+        "mean": 0.374,
+        "median": 0.376,
+        "min": 0.334,
+        "n": 82,
+        "p95": 0.39
+      }
+    },
+    "burn_in_windows": [
+      {
+        "tflops": 0.334
+      },
+      {
+        "tflops": 0.381
+      },
+      {
+        "tflops": 0.389
+      },
+      {
+        "tflops": 0.387
+      },
+      {
+        "tflops": 0.39
+      },
+      {
+        "tflops": 0.395
+      },
+      {
+        "tflops": 0.368
+      },
+      {
+        "tflops": 0.391
+      },
+      {
+        "tflops": 0.388
+      },
+      {
+        "tflops": 0.387
+      },
+      {
+        "tflops": 0.376
+      },
+      {
+        "tflops": 0.384
+      },
+      {
+        "tflops": 0.367
+      },
+      {
+        "tflops": 0.381
+      },
+      {
+        "tflops": 0.378
+      },
+      {
+        "tflops": 0.386
+      },
+      {
+        "tflops": 0.36
+      },
+      {
+        "tflops": 0.366
+      },
+      {
+        "tflops": 0.38
+      },
+      {
+        "tflops": 0.385
+      },
+      {
+        "tflops": 0.376
+      },
+      {
+        "tflops": 0.383
+      },
+      {
+        "tflops": 0.39
+      },
+      {
+        "tflops": 0.388
+      },
+      {
+        "tflops": 0.378
+      },
+      {
+        "tflops": 0.383
+      },
+      {
+        "tflops": 0.387
+      },
+      {
+        "tflops": 0.386
+      },
+      {
+        "tflops": 0.385
+      },
+      {
+        "tflops": 0.378
+      },
+      {
+        "tflops": 0.388
+      },
+      {
+        "tflops": 0.386
+      },
+      {
+        "tflops": 0.377
+      },
+      {
+        "tflops": 0.376
+      },
+      {
+        "tflops": 0.385
+      },
+      {
+        "tflops": 0.378
+      },
+      {
+        "tflops": 0.39
+      },
+      {
+        "tflops": 0.387
+      },
+      {
+        "tflops": 0.383
+      },
+      {
+        "tflops": 0.381
+      },
+      {
+        "tflops": 0.373
+      },
+      {
+        "tflops": 0.376
+      },
+      {
+        "tflops": 0.392
+      },
+      {
+        "tflops": 0.389
+      },
+      {
+        "tflops": 0.384
+      },
+      {
+        "tflops": 0.38
+      },
+      {
+        "tflops": 0.369
+      },
+      {
+        "tflops": 0.363
+      },
+      {
+        "tflops": 0.372
+      },
+      {
+        "tflops": 0.371
+      },
+      {
+        "tflops": 0.36
+      },
+      {
+        "tflops": 0.354
+      },
+      {
+        "tflops": 0.362
+      },
+      {
+        "tflops": 0.36
+      },
+      {
+        "tflops": 0.366
+      },
+      {
+        "tflops": 0.378
+      },
+      {
+        "tflops": 0.369
+      },
+      {
+        "tflops": 0.374
+      },
+      {
+        "tflops": 0.366
+      },
+      {
+        "tflops": 0.36
+      },
+      {
+        "tflops": 0.364
+      },
+      {
+        "tflops": 0.347
+      },
+      {
+        "tflops": 0.369
+      },
+      {
+        "tflops": 0.369
+      },
+      {
+        "tflops": 0.366
+      },
+      {
+        "tflops": 0.357
+      },
+      {
+        "tflops": 0.338
+      },
+      {
+        "tflops": 0.35
+      },
+      {
+        "tflops": 0.359
+      },
+      {
+        "tflops": 0.355
+      },
+      {
+        "tflops": 0.363
+      },
+      {
+        "tflops": 0.355
+      },
+      {
+        "tflops": 0.367
+      },
+      {
+        "tflops": 0.364
+      },
+      {
+        "tflops": 0.366
+      },
+      {
+        "tflops": 0.372
+      },
+      {
+        "tflops": 0.377
+      },
+      {
+        "tflops": 0.373
+      },
+      {
+        "tflops": 0.377
+      },
+      {
+        "tflops": 0.375
+      },
+      {
+        "tflops": 0.353
+      },
+      {
+        "tflops": 0.372
+      }
+    ],
+    "evaluation": {
+      "applicable_codes": [
+        "GPU_COUNT"
+      ],
+      "applicable_warnings": [],
+      "details": [
+        "GPU_COUNT: 0 GPUs visible, expected 1"
+      ],
+      "model": "solutions/lab/fleet_lifecycle.py",
+      "raw_codes": [
+        "DCGM_DIAG_FAIL",
+        "FW_OFF_MATRIX",
+        "GPU_COUNT",
+        "NCCL_ALGO_UNRECORDED",
+        "NIC_COUNT",
+        "NVME_COUNT",
+        "STORAGE_THROUGHPUT_LOW"
+      ],
+      "raw_warnings": [],
+      "verdict_applicable": "FAIL"
+    },
+    "gemm": {
+      "iqr": 0.0027597432490438223,
+      "median": 0.04323119649779983,
+      "n": 10,
+      "p95": 0.0487527169752866
+    },
+    "inventory": {},
+    "memtest": {
+      "fill_gbs_median": 5.13,
+      "mismatches": 0,
+      "patterns": 5,
+      "size_mib": 1024
+    },
+    "policy_expected_local": {
+      "compute_nic": {
+        "active_mtu": 4096,
+        "count": 8,
+        "mtu": 9000,
+        "pcie_gen": 5,
+        "pcie_width": 16,
+        "speed_mbps": 400000
+      },
+      "frontend_nic": {
+        "count": 2,
+        "mtu": 9000,
+        "speed_mbps": 200000
+      },
+      "gpu_count": 1,
+      "gpu_hbm_total_mib_min": 1,
+      "gpu_pcie": {
+        "gen": 1,
+        "width": 1
+      },
+      "gpu_product": "any GPU",
+      "nvlink_links_per_gpu": 0,
+      "nvme_count": 8
+    },
+    "record": {
+      "acceptance_policy": "acc-2026.10+local-sku",
+      "collected_at": "2026-11-01T01:03:12Z",
+      "dcgm_diag": null,
+      "firmware": {
+        "gpu_driver": null,
+        "gpu_vbios": null,
+        "kernel": "6.18.54.1-microsoft-standard-WSL2"
+      },
+      "gpus": [],
+      "nccl_single_node": null,
+      "nics": [],
+      "node": "7a9d1979cf58",
+      "storage": {},
+      "xid_events": []
+    }
+  }
+}

@@ -1,0 +1,1557 @@
+{
+  "capture_text": "### collected_at=1793491904 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 53079724\n     tx_bytes: 53079724\n     rx_packets: 2435\n     tx_packets: 2435\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491905 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 253573580\n     tx_bytes: 253573580\n     rx_packets: 11627\n     tx_packets: 11627\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491906 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 454067644\n     tx_bytes: 454067644\n     rx_packets: 20823\n     tx_packets: 20823\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491907 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 654413820\n     tx_bytes: 654413820\n     rx_packets: 27175\n     tx_packets: 27175\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491908 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 854418448\n     tx_bytes: 854418448\n     rx_packets: 32000\n     tx_packets: 32000\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491909 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 1054744827\n     tx_bytes: 1054941696\n     rx_packets: 36717\n     tx_packets: 36717\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491910 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 1254939980\n     tx_bytes: 1254939980\n     rx_packets: 41419\n     tx_packets: 41419\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491911 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 1455201916\n     tx_bytes: 1455201916\n     rx_packets: 46151\n     tx_packets: 46151\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491912 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 1655730208\n     tx_bytes: 1655730208\n     rx_packets: 50964\n     tx_packets: 50964\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491913 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 1855990740\n     tx_bytes: 1855990740\n     rx_packets: 55669\n     tx_packets: 55669\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491914 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 2055989388\n     tx_bytes: 2055989388\n     rx_packets: 60379\n     tx_packets: 60379\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491915 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 2256248932\n     tx_bytes: 2256248932\n     rx_packets: 65066\n     tx_packets: 65066\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491916 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 2456510660\n     tx_bytes: 2456510660\n     rx_packets: 69793\n     tx_packets: 69793\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491917 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 2656772388\n     tx_bytes: 2656772388\n     rx_packets: 74521\n     tx_packets: 74521\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491918 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 2857034324\n     tx_bytes: 2857034324\n     rx_packets: 79253\n     tx_packets: 79256\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491919 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 3057889307\n     tx_bytes: 3058086280\n     rx_packets: 84054\n     tx_packets: 84054\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491920 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 3258346708\n     tx_bytes: 3258346708\n     rx_packets: 88757\n     tx_packets: 88757\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491921 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 3458346084\n     tx_bytes: 3458346084\n     rx_packets: 93481\n     tx_packets: 93481\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491922 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 3658871100\n     tx_bytes: 3658871100\n     rx_packets: 98231\n     tx_packets: 98231\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491923 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 3859002430\n     tx_bytes: 3859133816\n     rx_packets: 102984\n     tx_packets: 102985\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491924 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 4059395700\n     tx_bytes: 4059395700\n     rx_packets: 107709\n     tx_packets: 107709\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491925 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 4259655452\n     tx_bytes: 4259655452\n     rx_packets: 112399\n     tx_packets: 112399\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491926 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 4459676356\n     tx_bytes: 4459676356\n     rx_packets: 117537\n     tx_packets: 117544\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491927 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 4660072586\n     tx_bytes: 4660203920\n     rx_packets: 122337\n     tx_packets: 122337\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491928 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 4860467624\n     tx_bytes: 4860467624\n     rx_packets: 127102\n     tx_packets: 127102\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491929 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 5060467624\n     tx_bytes: 5060467624\n     rx_packets: 131838\n     tx_packets: 131838\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491930 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 5260730184\n     tx_bytes: 5260730184\n     rx_packets: 136582\n     tx_packets: 136582\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491931 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 5460991236\n     tx_bytes: 5460991236\n     rx_packets: 141297\n     tx_packets: 141297\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491932 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 5661259360\n     tx_bytes: 5661259360\n     rx_packets: 146148\n     tx_packets: 146148\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491933 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 5861520412\n     tx_bytes: 5861520412\n     rx_packets: 150863\n     tx_packets: 150863\n     rx_dropped: 0\n     tx_dropped: 0\n### collected_at=1793491934 host=b182c08eb134 dev=lo netdev=lo rail=-\n     rx_bytes: 6061781100\n     tx_bytes: 6061781100\n     rx_packets: 155571\n     tx_packets: 155571\n     rx_dropped: 0\n     tx_dropped: 0\n",
+  "experiment": {
+    "cpu_fallback": "the same loopback-interface collector, L1 parse/rate/wrap checks and Prometheus exposition of interface and process counters, without GPU metrics; RDMA NIC counters are recorded as not runnable",
+    "evidence": "MEASURED",
+    "id": "capstone-b-l2",
+    "title": "Capstone B L2: real counter collection, L1 rate pipeline and Prometheus exposition"
+  },
+  "exposition_last": "# HELP node_network_transmit_bytes_total Bytes transmitted (kernel interface counter).\n# TYPE node_network_transmit_bytes_total counter\nnode_network_transmit_bytes_total{device=\"lo\"} 6061781100\n# HELP node_network_receive_bytes_total Bytes received (kernel interface counter).\n# TYPE node_network_receive_bytes_total counter\nnode_network_receive_bytes_total{device=\"lo\"} 6061781100\n# HELP node_network_transmit_packets_total Packets transmitted.\n# TYPE node_network_transmit_packets_total counter\nnode_network_transmit_packets_total{device=\"lo\"} 155571\n# HELP node_network_receive_drop_total Received packets dropped.\n# TYPE node_network_receive_drop_total counter\nnode_network_receive_drop_total{device=\"lo\"} 0\n# HELP process_cpu_seconds_total Collector process CPU time.\n# TYPE process_cpu_seconds_total counter\nprocess_cpu_seconds_total 26.2474\n# HELP gpu_power_watts Board power draw (nvidia-smi power.draw).\n# TYPE gpu_power_watts gauge\ngpu_power_watts{gpu=\"0\"} 60.52\n# HELP gpu_sm_clock_hertz SM clock.\n# TYPE gpu_sm_clock_hertz gauge\ngpu_sm_clock_hertz{gpu=\"0\"} 2520000000\n# HELP gpu_temperature_celsius GPU core temperature.\n# TYPE gpu_temperature_celsius gauge\ngpu_temperature_celsius{gpu=\"0\"} 76.0\n# HELP gpu_utilization_ratio Fraction of time a kernel was running.\n# TYPE gpu_utilization_ratio gauge\ngpu_utilization_ratio{gpu=\"0\"} 0.59\n# HELP gpu_clock_event_reason_active 1 if the clock-event reason is active now.\n# TYPE gpu_clock_event_reason_active gauge\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"idle\"} 0\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"sw_power_cap\"} 0\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"hw_slowdown\"} 0\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"sw_thermal\"} 0\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"hw_thermal\"} 0\ngpu_clock_event_reason_active{gpu=\"0\",reason=\"hw_power_brake\"} 0\n# HELP gpu_clock_event_reason_seconds_total Cumulative time clocks were held by a reason.\n# TYPE gpu_clock_event_reason_seconds_total counter\ngpu_clock_event_reason_seconds_total{gpu=\"0\",reason=\"hw_power_braking\"} 0.0\ngpu_clock_event_reason_seconds_total{gpu=\"0\",reason=\"hw_thermal_slowdown\"} 0.0\ngpu_clock_event_reason_seconds_total{gpu=\"0\",reason=\"sw_power_capping\"} 0.076926\ngpu_clock_event_reason_seconds_total{gpu=\"0\",reason=\"sw_thermal_slowdown\"} 0.0\ngpu_clock_event_reason_seconds_total{gpu=\"0\",reason=\"sync_boost\"} 0.0\n# HELP collector_scrape_duration_seconds Time the collector spent producing this scrape.\n# TYPE collector_scrape_duration_seconds gauge\ncollector_scrape_duration_seconds 0.21077\n",
+  "exposition_problems": [],
+  "gpu_samples": [
+    {
+      "clocks.sm": 2250.0,
+      "clocks_event_reasons.active": 1,
+      "power.draw": 22.0,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 59.0,
+      "utilization.gpu": 42.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 56.74,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 65.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.37,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 68.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.45,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 68.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 59.46,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 72.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.42,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 70.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.58,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 71.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.12,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 72.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.6,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 72.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2445.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.24,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2460.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.47,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.05,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.75,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.6,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 60.38,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 74.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.74,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 74.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.68,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 74.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.4,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 75.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2505.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 59.29,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 75.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.67,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 75.0,
+      "utilization.gpu": 58.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.77,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 76.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.33,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2460.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 59.67,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.73,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2445.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 60.71,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2445.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 59.87,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 72.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.61,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 4,
+      "power.draw": 59.82,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 72.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 59.97,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 73.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.07,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 75.0,
+      "utilization.gpu": 59.0
+    },
+    {
+      "clocks.sm": 2520.0,
+      "clocks_event_reasons.active": 0,
+      "power.draw": 60.52,
+      "power.max_limit": 120.0,
+      "temperature.gpu": 76.0,
+      "utilization.gpu": 59.0
+    }
+  ],
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1": {
+    "adapted_counters": [
+      "rx_bytes",
+      "rx_discards",
+      "tx_bytes",
+      "tx_discards"
+    ],
+    "adapted_rows": 124,
+    "adapter_map": {
+      "rx_bytes": "rx_bytes",
+      "rx_dropped": "rx_discards",
+      "tx_bytes": "tx_bytes",
+      "tx_dropped": "tx_discards"
+    },
+    "available": true,
+    "intervals": [
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200493856,
+        "dt_s": 1.0,
+        "interval": 1,
+        "l1_delta": 200493856.0,
+        "l1_rate_Bps": 200493856.0,
+        "overhead_per_packet": 52.0,
+        "packets": 9192,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200494064,
+        "dt_s": 1.0,
+        "interval": 2,
+        "l1_delta": 200494064.0,
+        "l1_rate_Bps": 200494064.0,
+        "overhead_per_packet": 52.0,
+        "packets": 9196,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200346176,
+        "dt_s": 1.0,
+        "interval": 3,
+        "l1_delta": 200346176.0,
+        "l1_rate_Bps": 200346176.0,
+        "overhead_per_packet": 52.0,
+        "packets": 6352,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 200004628,
+        "dt_s": 1.0,
+        "interval": 4,
+        "l1_delta": 200004628.0,
+        "l1_rate_Bps": 200004628.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4825,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200523248,
+        "dt_s": 1.0,
+        "interval": 5,
+        "l1_delta": 200523248.0,
+        "l1_rate_Bps": 200523248.0,
+        "overhead_per_packet": 51.98897604409582,
+        "packets": 4717,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199998284,
+        "dt_s": 1.0,
+        "interval": 6,
+        "l1_delta": 199998284.0,
+        "l1_rate_Bps": 199998284.0,
+        "overhead_per_packet": 52.011059123777116,
+        "packets": 4702,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261936,
+        "dt_s": 1.0,
+        "interval": 7,
+        "l1_delta": 200261936.0,
+        "l1_rate_Bps": 200261936.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4732,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200528292,
+        "dt_s": 1.0,
+        "interval": 8,
+        "l1_delta": 200528292.0,
+        "l1_rate_Bps": 200528292.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4813,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200260532,
+        "dt_s": 1.0,
+        "interval": 9,
+        "l1_delta": 200260532.0,
+        "l1_rate_Bps": 200260532.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4705,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199998648,
+        "dt_s": 1.0,
+        "interval": 10,
+        "l1_delta": 199998648.0,
+        "l1_rate_Bps": 199998648.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4710,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200259544,
+        "dt_s": 1.0,
+        "interval": 11,
+        "l1_delta": 200259544.0,
+        "l1_rate_Bps": 200259544.0,
+        "overhead_per_packet": -3.9411137187966716,
+        "packets": 4687,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 200261728,
+        "dt_s": 1.0,
+        "interval": 12,
+        "l1_delta": 200261728.0,
+        "l1_rate_Bps": 200261728.0,
+        "overhead_per_packet": 107.46773852337635,
+        "packets": 4727,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261728,
+        "dt_s": 1.0,
+        "interval": 13,
+        "l1_delta": 200261728.0,
+        "l1_rate_Bps": 200261728.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4728,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261936,
+        "dt_s": 1.0,
+        "interval": 14,
+        "l1_delta": 200261936.0,
+        "l1_rate_Bps": 200261936.0,
+        "overhead_per_packet": 51.967053854276664,
+        "packets": 4735,
+        "valid": true
+      },
+      {
+        "app_delta": 200802304,
+        "counter_delta": 201051956,
+        "dt_s": 1.0,
+        "interval": 15,
+        "l1_delta": 201051956.0,
+        "l1_rate_Bps": 201051956.0,
+        "overhead_per_packet": 52.03251354731138,
+        "packets": 4798,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200260428,
+        "dt_s": 1.0,
+        "interval": 16,
+        "l1_delta": 200260428.0,
+        "l1_rate_Bps": 200260428.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4703,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 199999376,
+        "dt_s": 1.0,
+        "interval": 17,
+        "l1_delta": 199999376.0,
+        "l1_rate_Bps": 199999376.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4724,
+        "valid": true
+      },
+      {
+        "app_delta": 200278016,
+        "counter_delta": 200525016,
+        "dt_s": 1.0,
+        "interval": 18,
+        "l1_delta": 200525016.0,
+        "l1_rate_Bps": 200525016.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4750,
+        "valid": true
+      },
+      {
+        "app_delta": 200540160,
+        "counter_delta": 200262716,
+        "dt_s": 1.0,
+        "interval": 19,
+        "l1_delta": 200262716.0,
+        "l1_rate_Bps": 200262716.0,
+        "overhead_per_packet": -58.360117795540596,
+        "packets": 4754,
+        "valid": true
+      },
+      {
+        "app_delta": 199491584,
+        "counter_delta": 200261884,
+        "dt_s": 1.0,
+        "interval": 20,
+        "l1_delta": 200261884.0,
+        "l1_rate_Bps": 200261884.0,
+        "overhead_per_packet": 163.0609652836579,
+        "packets": 4724,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200259752,
+        "dt_s": 1.0,
+        "interval": 21,
+        "l1_delta": 200259752.0,
+        "l1_rate_Bps": 200259752.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4690,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200020904,
+        "dt_s": 1.0,
+        "interval": 22,
+        "l1_delta": 200020904.0,
+        "l1_rate_Bps": 200020904.0,
+        "overhead_per_packet": 0.9780369290573372,
+        "packets": 5145,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200527564,
+        "dt_s": 1.0,
+        "interval": 23,
+        "l1_delta": 200527564.0,
+        "l1_rate_Bps": 200527564.0,
+        "overhead_per_packet": 106.75818902566242,
+        "packets": 4793,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200263704,
+        "dt_s": 1.0,
+        "interval": 24,
+        "l1_delta": 200263704.0,
+        "l1_rate_Bps": 200263704.0,
+        "overhead_per_packet": 52.010912906610706,
+        "packets": 4765,
+        "valid": true
+      },
+      {
+        "app_delta": 199753728,
+        "counter_delta": 200000000,
+        "dt_s": 1.0,
+        "interval": 25,
+        "l1_delta": 200000000.0,
+        "l1_rate_Bps": 200000000.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4736,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200262560,
+        "dt_s": 1.0,
+        "interval": 26,
+        "l1_delta": 200262560.0,
+        "l1_rate_Bps": 200262560.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4744,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261052,
+        "dt_s": 1.0,
+        "interval": 27,
+        "l1_delta": 200261052.0,
+        "l1_rate_Bps": 200261052.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4715,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200268124,
+        "dt_s": 1.0,
+        "interval": 28,
+        "l1_delta": 200268124.0,
+        "l1_rate_Bps": 200268124.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4851,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200261052,
+        "dt_s": 1.0,
+        "interval": 29,
+        "l1_delta": 200261052.0,
+        "l1_rate_Bps": 200261052.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4715,
+        "valid": true
+      },
+      {
+        "app_delta": 200015872,
+        "counter_delta": 200260688,
+        "dt_s": 1.0,
+        "interval": 30,
+        "l1_delta": 200260688.0,
+        "l1_rate_Bps": 200260688.0,
+        "overhead_per_packet": 52.0,
+        "packets": 4708,
+        "valid": true
+      }
+    ],
+    "native_names_present": [
+      "rx_bytes",
+      "rx_dropped",
+      "rx_packets",
+      "tx_bytes",
+      "tx_dropped",
+      "tx_packets"
+    ],
+    "rates_invalid": 0,
+    "source": "instructor/reference/telemetry.py",
+    "stock_counters": [],
+    "stock_rows": 0,
+    "wrap_test": {
+      "deltas_32bit": [
+        200493856,
+        200494064,
+        200346176,
+        200004628,
+        200523248
+      ],
+      "deltas_true": [
+        200493856,
+        200494064,
+        200346176,
+        200004628,
+        200523248
+      ],
+      "n": 30,
+      "offset": 1237536884,
+      "recovered_exact": true,
+      "wraps": 1
+    }
+  },
+  "log": [],
+  "metrics": {
+    "exposition_problems": 0,
+    "header_overhead_B_per_pkt_median": 52.0,
+    "loopback_rate_MBps_median": 200.3,
+    "polls": 31,
+    "scrape_cost_ms_gpu_median": 163.1,
+    "scrape_cost_ms_gpu_p95": 229.7,
+    "scrape_cost_ms_if_median": 0.285
+  },
+  "non_monotonic_counters": [],
+  "not_runnable_parts": [
+    {
+      "fallback": "kernel loopback counters collected in the same native format",
+      "needs": [
+        "host with an mlx5-class RDMA NIC",
+        "root for ethtool/sysfs reads"
+      ],
+      "part": "RDMA NIC hw_counters (np_cnp_sent, rp_cnp_handled, out_of_sequence, ...) and ethtool -S on an mlx5 netdev",
+      "probe": "/sys/class/infiniband=none; interfaces=['lo']; ethtool=True"
+    },
+    {
+      "fallback": "none",
+      "needs": [
+        "vendor NIC tools"
+      ],
+      "part": "PFC/ECN configuration (mlnx_qos) and rdma statistic",
+      "probe": "mlnx_qos=False, rdma=True"
+    },
+    {
+      "fallback": "none",
+      "needs": [
+        "2+ RDMA hosts",
+        "lab switch with PFC/ECN"
+      ],
+      "part": "L3: switch streaming telemetry (gNMI) and incast with ECN disabled",
+      "probe": "gnmic=False, single host"
+    }
+  ],
+  "notes": [
+    "Polls aligned to whole seconds (collected_at is integer epoch seconds, as in the bundle).",
+    "Traffic: one TCP stream over 127.0.0.1, rate-limited to 200 MB/s of application bytes.",
+    "The 32-bit wrap test replays the real tx_bytes series modulo 2^32 with an offset; the wrap is synthetic, the deltas are real."
+  ],
+  "polls": [
+    {
+      "app_sent": 52953088,
+      "collected_at": 1793491904,
+      "gpu": {
+        "clocks.sm": 2250.0,
+        "clocks_event_reasons.active": 1,
+        "power.draw": 22.0,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 59.0,
+        "utilization.gpu": 42.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 53079724,
+      "rx_dropped": 0,
+      "rx_packets": 2435,
+      "tx_bytes": 53079724,
+      "tx_dropped": 0,
+      "tx_packets": 2435
+    },
+    {
+      "app_sent": 252968960,
+      "collected_at": 1793491905,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 56.74,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 65.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 253573580,
+      "rx_dropped": 0,
+      "rx_packets": 11627,
+      "tx_bytes": 253573580,
+      "tx_dropped": 0,
+      "tx_packets": 11627
+    },
+    {
+      "app_sent": 452984832,
+      "collected_at": 1793491906,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.37,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 68.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 454067644,
+      "rx_dropped": 0,
+      "rx_packets": 20823,
+      "tx_bytes": 454067644,
+      "tx_dropped": 0,
+      "tx_packets": 20823
+    },
+    {
+      "app_sent": 653000704,
+      "collected_at": 1793491907,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.45,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 68.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 654413820,
+      "rx_dropped": 0,
+      "rx_packets": 27175,
+      "tx_bytes": 654413820,
+      "tx_dropped": 0,
+      "tx_packets": 27175
+    },
+    {
+      "app_sent": 852754432,
+      "collected_at": 1793491908,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 59.46,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 72.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 854418448,
+      "rx_dropped": 0,
+      "rx_packets": 32000,
+      "tx_bytes": 854418448,
+      "tx_dropped": 0,
+      "tx_packets": 32000
+    },
+    {
+      "app_sent": 1053032448,
+      "collected_at": 1793491909,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.42,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 70.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 1054744827,
+      "rx_dropped": 0,
+      "rx_packets": 36717,
+      "tx_bytes": 1054941696,
+      "tx_dropped": 0,
+      "tx_packets": 36717
+    },
+    {
+      "app_sent": 1252786176,
+      "collected_at": 1793491910,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.58,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 71.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 1254939980,
+      "rx_dropped": 0,
+      "rx_packets": 41419,
+      "tx_bytes": 1254939980,
+      "tx_dropped": 0,
+      "tx_packets": 41419
+    },
+    {
+      "app_sent": 1452802048,
+      "collected_at": 1793491911,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.12,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 72.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 1455201916,
+      "rx_dropped": 0,
+      "rx_packets": 46151,
+      "tx_bytes": 1455201916,
+      "tx_dropped": 0,
+      "tx_packets": 46151
+    },
+    {
+      "app_sent": 1653080064,
+      "collected_at": 1793491912,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.6,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 72.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 1655730208,
+      "rx_dropped": 0,
+      "rx_packets": 50964,
+      "tx_bytes": 1655730208,
+      "tx_dropped": 0,
+      "tx_packets": 50964
+    },
+    {
+      "app_sent": 1853095936,
+      "collected_at": 1793491913,
+      "gpu": {
+        "clocks.sm": 2445.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.24,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 1855990740,
+      "rx_dropped": 0,
+      "rx_packets": 55669,
+      "tx_bytes": 1855990740,
+      "tx_dropped": 0,
+      "tx_packets": 55669
+    },
+    {
+      "app_sent": 2052849664,
+      "collected_at": 1793491914,
+      "gpu": {
+        "clocks.sm": 2460.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.47,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 2055989388,
+      "rx_dropped": 0,
+      "rx_packets": 60379,
+      "tx_bytes": 2055989388,
+      "tx_dropped": 0,
+      "tx_packets": 60379
+    },
+    {
+      "app_sent": 2253127680,
+      "collected_at": 1793491915,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.05,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 2256248932,
+      "rx_dropped": 0,
+      "rx_packets": 65066,
+      "tx_bytes": 2256248932,
+      "tx_dropped": 0,
+      "tx_packets": 65066
+    },
+    {
+      "app_sent": 2452881408,
+      "collected_at": 1793491916,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.75,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 2456510660,
+      "rx_dropped": 0,
+      "rx_packets": 69793,
+      "tx_bytes": 2456510660,
+      "tx_dropped": 0,
+      "tx_packets": 69793
+    },
+    {
+      "app_sent": 2652897280,
+      "collected_at": 1793491917,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.6,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 2656772388,
+      "rx_dropped": 0,
+      "rx_packets": 74521,
+      "tx_bytes": 2656772388,
+      "tx_dropped": 0,
+      "tx_packets": 74521
+    },
+    {
+      "app_sent": 2852913152,
+      "collected_at": 1793491918,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 60.38,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 74.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 2857034324,
+      "rx_dropped": 0,
+      "rx_packets": 79253,
+      "tx_bytes": 2857034324,
+      "tx_dropped": 0,
+      "tx_packets": 79256
+    },
+    {
+      "app_sent": 3053715456,
+      "collected_at": 1793491919,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.74,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 74.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 3057889307,
+      "rx_dropped": 0,
+      "rx_packets": 84054,
+      "tx_bytes": 3058086280,
+      "tx_dropped": 0,
+      "tx_packets": 84054
+    },
+    {
+      "app_sent": 3253731328,
+      "collected_at": 1793491920,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.68,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 74.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 3258346708,
+      "rx_dropped": 0,
+      "rx_packets": 88757,
+      "tx_bytes": 3258346708,
+      "tx_dropped": 0,
+      "tx_packets": 88757
+    },
+    {
+      "app_sent": 3453485056,
+      "collected_at": 1793491921,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.4,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 75.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 3458346084,
+      "rx_dropped": 0,
+      "rx_packets": 93481,
+      "tx_bytes": 3458346084,
+      "tx_dropped": 0,
+      "tx_packets": 93481
+    },
+    {
+      "app_sent": 3653763072,
+      "collected_at": 1793491922,
+      "gpu": {
+        "clocks.sm": 2505.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 59.29,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 75.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 3658871100,
+      "rx_dropped": 0,
+      "rx_packets": 98231,
+      "tx_bytes": 3658871100,
+      "tx_dropped": 0,
+      "tx_packets": 98231
+    },
+    {
+      "app_sent": 3854303232,
+      "collected_at": 1793491923,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.67,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 75.0,
+        "utilization.gpu": 58.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 3859002430,
+      "rx_dropped": 0,
+      "rx_packets": 102984,
+      "tx_bytes": 3859133816,
+      "tx_dropped": 0,
+      "tx_packets": 102985
+    },
+    {
+      "app_sent": 4053794816,
+      "collected_at": 1793491924,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.77,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 76.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 4059395700,
+      "rx_dropped": 0,
+      "rx_packets": 107709,
+      "tx_bytes": 4059395700,
+      "tx_dropped": 0,
+      "tx_packets": 107709
+    },
+    {
+      "app_sent": 4253810688,
+      "collected_at": 1793491925,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.33,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 4259655452,
+      "rx_dropped": 0,
+      "rx_packets": 112399,
+      "tx_bytes": 4259655452,
+      "tx_dropped": 0,
+      "tx_packets": 112399
+    },
+    {
+      "app_sent": 4453826560,
+      "collected_at": 1793491926,
+      "gpu": {
+        "clocks.sm": 2460.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 59.67,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 4459676356,
+      "rx_dropped": 0,
+      "rx_packets": 117537,
+      "tx_bytes": 4459676356,
+      "tx_dropped": 0,
+      "tx_packets": 117544
+    },
+    {
+      "app_sent": 4653842432,
+      "collected_at": 1793491927,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.73,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 4660072586,
+      "rx_dropped": 0,
+      "rx_packets": 122337,
+      "tx_bytes": 4660203920,
+      "tx_dropped": 0,
+      "tx_packets": 122337
+    },
+    {
+      "app_sent": 4853858304,
+      "collected_at": 1793491928,
+      "gpu": {
+        "clocks.sm": 2445.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 60.71,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 4860467624,
+      "rx_dropped": 0,
+      "rx_packets": 127102,
+      "tx_bytes": 4860467624,
+      "tx_dropped": 0,
+      "tx_packets": 127102
+    },
+    {
+      "app_sent": 5053612032,
+      "collected_at": 1793491929,
+      "gpu": {
+        "clocks.sm": 2445.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 59.87,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 72.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 5060467624,
+      "rx_dropped": 0,
+      "rx_packets": 131838,
+      "tx_bytes": 5060467624,
+      "tx_dropped": 0,
+      "tx_packets": 131838
+    },
+    {
+      "app_sent": 5253627904,
+      "collected_at": 1793491930,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.61,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 5260730184,
+      "rx_dropped": 0,
+      "rx_packets": 136582,
+      "tx_bytes": 5260730184,
+      "tx_dropped": 0,
+      "tx_packets": 136582
+    },
+    {
+      "app_sent": 5453643776,
+      "collected_at": 1793491931,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 4,
+        "power.draw": 59.82,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 72.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 5460991236,
+      "rx_dropped": 0,
+      "rx_packets": 141297,
+      "tx_bytes": 5460991236,
+      "tx_dropped": 0,
+      "tx_packets": 141297
+    },
+    {
+      "app_sent": 5653659648,
+      "collected_at": 1793491932,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 59.97,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 73.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 5661259360,
+      "rx_dropped": 0,
+      "rx_packets": 146148,
+      "tx_bytes": 5661259360,
+      "tx_dropped": 0,
+      "tx_packets": 146148
+    },
+    {
+      "app_sent": 5853675520,
+      "collected_at": 1793491933,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.07,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 75.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 5861520412,
+      "rx_dropped": 0,
+      "rx_packets": 150863,
+      "tx_bytes": 5861520412,
+      "tx_dropped": 0,
+      "tx_packets": 150863
+    },
+    {
+      "app_sent": 6053691392,
+      "collected_at": 1793491934,
+      "gpu": {
+        "clocks.sm": 2520.0,
+        "clocks_event_reasons.active": 0,
+        "power.draw": 60.52,
+        "power.max_limit": 120.0,
+        "temperature.gpu": 76.0,
+        "utilization.gpu": 59.0
+      },
+      "reasons": {
+        "hw_power_braking": 0,
+        "hw_thermal_slowdown": 0,
+        "sw_power_capping": 76926,
+        "sw_thermal_slowdown": 0,
+        "sync_boost": 0
+      },
+      "rx_bytes": 6061781100,
+      "rx_dropped": 0,
+      "rx_packets": 155571,
+      "tx_bytes": 6061781100,
+      "tx_dropped": 0,
+      "tx_packets": 155571
+    }
+  ],
+  "probes": {
+    "ethtool": true,
+    "gnmic": false,
+    "hw_counters": [],
+    "mlnx_qos": false,
+    "net_interfaces": [
+      "lo"
+    ],
+    "nvidia_smi": true,
+    "rdma_devices": [],
+    "rdma_tool": true
+  },
+  "reason_rates_s_per_s": {
+    "{gpu=\"0\",reason=\"hw_power_braking\"}": 0.0,
+    "{gpu=\"0\",reason=\"hw_thermal_slowdown\"}": 0.0,
+    "{gpu=\"0\",reason=\"sw_power_capping\"}": 0.0,
+    "{gpu=\"0\",reason=\"sw_thermal_slowdown\"}": 0.0,
+    "{gpu=\"0\",reason=\"sync_boost\"}": 0.0
+  },
+  "runtime_s": 31.14,
+  "scrape_cost": {
+    "gpu_ms": [
+      184.58311504218727,
+      95.14842100907117,
+      229.68724597012624,
+      226.22067498741671,
+      141.66456798557192,
+      108.82317402865738,
+      116.9388520065695,
+      136.13564503611997,
+      191.65715802228078,
+      245.4856819822453,
+      144.92417400470003,
+      167.4641270074062,
+      104.78750901529565,
+      206.23298903228715,
+      182.7075660112314,
+      191.68784900102764,
+      106.48627497721463,
+      196.65946502937004,
+      118.61786397639662,
+      178.1783559708856,
+      92.24318503402174,
+      128.32204101141542,
+      92.38367300713435,
+      238.7444750056602,
+      91.46268101176247,
+      141.27228601137176,
+      163.09789195656776,
+      190.23212703177705,
+      180.22259999997914,
+      98.68305700365454,
+      210.5333450017497
+    ],
+    "if_ms": [
+      0.5042579723522067,
+      0.22366800112649798,
+      0.4982349928468466,
+      0.2408099826425314,
+      0.8004640112631023,
+      0.5309170228429139,
+      0.2768280101008713,
+      0.21828000899404287,
+      0.27549697551876307,
+      0.36266702227294445,
+      0.2055009827017784,
+      0.3689519944600761,
+      0.2849370357580483,
+      0.22395997075363994,
+      0.5060129915364087,
+      0.4482840304262936,
+      0.31228200532495975,
+      0.22038898896425962,
+      0.2949800109490752,
+      2.4730529985390604,
+      0.23103499552235007,
+      0.2095240051858127,
+      0.4702000296674669,
+      1.1674569686874747,
+      0.32996799563989043,
+      0.22708199685439467,
+      0.21164602367207408,
+      0.20689901430159807,
+      0.23549399338662624,
+      0.37088297540321946,
+      0.23649795912206173
+    ]
+  },
+  "seconds": 30,
+  "status": "ran",
+  "stream_rate_target_Bps": 200000000.0
+}

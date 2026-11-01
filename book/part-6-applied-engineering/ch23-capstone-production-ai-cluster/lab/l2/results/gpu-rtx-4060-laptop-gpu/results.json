@@ -1,0 +1,245 @@
+{
+  "experiment": {
+    "cpu_fallback": "A-01 as an FP32 CPU GEMM, A-02 as host memory, the checkpoint write/verify on host tensors, no power reading; the benchmarks.md lint step is identical",
+    "evidence": "MEASURED",
+    "id": "ch23-l2",
+    "title": "Lab 23 L2: node-level bundle assumptions validated on this host, new evidence linted"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "best dense tensor GEMM 28.95 TFLOP/s; checkpoint write 0.31 GB/s, read 0.92 GB/s, verified True"
+  ],
+  "metrics": {
+    "achieved_fraction_of_max_clock_peak": 0.759,
+    "achieved_fraction_of_run_clock_peak": 1.027,
+    "best_tensor_tflops": 28.95,
+    "ckpt_bytes": 268435456,
+    "ckpt_read_gbs_median": 0.922,
+    "ckpt_verified": true,
+    "ckpt_write_gbs_median": 0.305,
+    "driver": "592.82",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_power_limit_w": "80.00",
+    "gpu_power_max_w": 91.87,
+    "gpu_power_median_w": 80.0,
+    "lint_negative_rules": [
+      "EVID-003",
+      "EVID-004"
+    ],
+    "lint_new_findings": 0,
+    "memory_total_mib_cuda": 8187.5,
+    "memory_total_mib_smi": 8188.0,
+    "peak_fp16_tflops_at_max_clock": 38.15,
+    "peak_fp16_tflops_at_run_clock": 28.2,
+    "power_samples": 287
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a BMC with DCMI/Redfish read access",
+        "an HX8-class server"
+      ],
+      "part": "A-03 node power: sudo ipmitool dcmi power reading during >= 10 min of burn-in",
+      "probe": {
+        "bmc_device": false,
+        "ibv_devinfo": false,
+        "ipmitool": false,
+        "numa_nodes": [
+          "node0"
+        ],
+        "rdma_devices": [],
+        "topo_has_nic": false
+      }
+    },
+    {
+      "needs": [
+        "RDMA NICs on the GPU host",
+        "rdma-core"
+      ],
+      "part": "A-10 RoCE MTU and NIC firmware: ibv_devinfo active_mtu, fw_ver; GPU-NIC affinity in topo -m",
+      "probe": {
+        "bmc_device": false,
+        "ibv_devinfo": false,
+        "ipmitool": false,
+        "numa_nodes": [
+          "node0"
+        ],
+        "rdma_devices": [],
+        "topo_has_nic": false
+      }
+    },
+    {
+      "needs": [
+        "2+ multi-GPU nodes with RDMA NICs",
+        "nccl-tests built with MPI"
+      ],
+      "part": "L3 B-02 row: 2-node all_reduce_perf busbw with /GDRDMA evidence",
+      "probe": "single host"
+    }
+  ],
+  "notes": [
+    "GEMM: 3 warm-ups, >= 5 timed repetitions per size (CUDA events on the GPU). Checkpoint: 1 warm-up round trip, then >= 5; the last round trip is verified with SHA-256 over every tensor's bytes.",
+    "Checkpoint files go to /tmp inside the container (the image's overlay filesystem on the host's disk).",
+    "The benchmarks.md rows point at lab/l2/results/gpu-rtx-4060-laptop-gpu/environment.json, the environment manifest this run writes."
+  ],
+  "runtime_s": 41.05,
+  "status": "ran",
+  "tables": {
+    "assumptions": [
+      {
+        "bundle": "989 TFLOP/s [VENDOR-SPEC, 2026-10]",
+        "id": "A-01",
+        "statement": "Dense BF16 tensor peak per GPU",
+        "this_node": "29.0 TFLOP/s measured (dense FP16/BF16 GEMM); this GPU's peak 38.15 at max clock",
+        "verdict": "node class differs: validate the ratio achieved/peak, not the number"
+      },
+      {
+        "bundle": "0.4 [ILLUSTRATIVE]",
+        "id": "A-04",
+        "statement": "Model FLOPs utilisation (MFU) for W-TRAIN",
+        "this_node": "dense GEMM reached 1.027 of the clock-adjusted peak: an upper bound on any model's MFU on this GPU",
+        "verdict": "MFU 0.40 must sit below the measured GEMM ceiling; measure end-to-end on the 64-GPU slice (L3)"
+      },
+      {
+        "bundle": "80 GB",
+        "id": "A-02",
+        "statement": "HBM capacity per GPU",
+        "this_node": "8.0 GiB (nvidia-smi) / 8.00 GiB (CUDA)",
+        "verdict": "FAILS acceptance on this node: not the bundle's GPU (exactly what the check is for)"
+      },
+      {
+        "bundle": "10.2 kW",
+        "id": "A-03",
+        "statement": "Node maximum power",
+        "this_node": "GPU board 80.0 W median / 91.9 W max under GEMM; node power not measurable (no BMC/PDU)",
+        "verdict": "NOT VALIDATED: needs a BMC/PDU reading over >= 10 min of burn-in"
+      },
+      {
+        "bundle": "60 s",
+        "id": "A-08",
+        "statement": "Blocking checkpoint time (synchronous save to the PFS, conservative)",
+        "this_node": "256 MiB state: write 0.31 GB/s, read 0.92 GB/s to local disk, verified=True",
+        "verdict": "local write below the per-node PFS share (2.5 GB/s = 80 GB/s / 32 nodes); A-08 itself needs the 32-node sync save (L3)"
+      },
+      {
+        "bundle": "4096 B",
+        "id": "A-10",
+        "statement": "RoCE path MTU",
+        "this_node": "RDMA devices: none; ibv_devinfo absent",
+        "verdict": "NOT VALIDATED: no RDMA NIC"
+      },
+      {
+        "bundle": "PIX per rail; 2 NUMA nodes (HX8)",
+        "id": "affinity",
+        "statement": "GPU-NIC PCIe affinity and NUMA layout",
+        "this_node": "topo -m lists a NIC: False; NUMA nodes: ['node0']",
+        "verdict": "NOT VALIDATED: no NIC; single NUMA node"
+      }
+    ],
+    "checkpoint": [
+      {
+        "bytes": 268435456,
+        "filesystem": "/tmp",
+        "read_gbs_median": 0.9224750482094565,
+        "read_s_median": 0.29099481500452384,
+        "reps": 5,
+        "verified": true,
+        "write_gbs_median": 0.3054280311130031,
+        "write_gbs_min": 0.28997166207185815,
+        "write_s_median": 0.8788828419637866
+      }
+    ],
+    "gemm": [
+      {
+        "dtype": "float16",
+        "median_s": 0.0006824960112571716,
+        "n": 2048,
+        "n_reps": 10,
+        "p95_s": 0.0007659519910812378,
+        "tflops_at_p95_time": 22.42943341624904,
+        "tflops_median": 25.172116614065374
+      },
+      {
+        "dtype": "float16",
+        "median_s": 0.005195712089538574,
+        "n": 4096,
+        "n_reps": 10,
+        "p95_s": 0.005262335777282715,
+        "tflops_at_p95_time": 26.117480770671886,
+        "tflops_median": 26.452380559871592
+      },
+      {
+        "dtype": "float16",
+        "median_s": 0.0169834566116333,
+        "n": 6144,
+        "n_reps": 10,
+        "p95_s": 0.017072128295898437,
+        "tflops_at_p95_time": 27.17039492254994,
+        "tflops_median": 27.31225324591864
+      },
+      {
+        "dtype": "bfloat16",
+        "median_s": 0.0006128480136394501,
+        "n": 2048,
+        "n_reps": 10,
+        "p95_s": 0.0006922240257263184,
+        "tflops_at_p95_time": 24.818365941537444,
+        "tflops_median": 28.03283816157922
+      },
+      {
+        "dtype": "bfloat16",
+        "median_s": 0.0047467360496521,
+        "n": 4096,
+        "n_reps": 10,
+        "p95_s": 0.005032959938049316,
+        "tflops_at_p95_time": 27.307778159122172,
+        "tflops_median": 28.954412470875276
+      },
+      {
+        "dtype": "bfloat16",
+        "median_s": 0.016140336036682128,
+        "n": 6144,
+        "n_reps": 10,
+        "p95_s": 0.016265216827392577,
+        "tflops_at_p95_time": 28.518308294962907,
+        "tflops_median": 28.738959766004488
+      }
+    ],
+    "lint": [
+      {
+        "module": "solutions/lab/design_lint.py",
+        "negative_control_findings": [
+          {
+            "location": "benchmarks.md:B-90",
+            "message": "physical metric 'Dense FP16/BF16 tensor GEMM, best of 3 sizes (median of reps)' MEASURED at L1",
+            "rule": "EVID-004",
+            "severity": "major"
+          },
+          {
+            "location": "benchmarks.md:B-91",
+            "message": "MEASURED with no manifest",
+            "rule": "EVID-003",
+            "severity": "major"
+          }
+        ],
+        "new_findings": [],
+        "rows_added": 3,
+        "rows_markdown": "| B-07 | Dense FP16/BF16 tensor GEMM, best of 3 sizes (median of reps) | 28.95 | TFLOP/s | MEASURED | L2 | lab/l2/results/gpu-rtx-4060-laptop-gpu/environment.json |\n| B-08 | Checkpoint write, 256 MiB, D2H + torch.save + fsync, local disk | 0.31 | GB/s | MEASURED | L2 | lab/l2/results/gpu-rtx-4060-laptop-gpu/environment.json |\n| B-09 | GPU board power under sustained FP16 GEMM (median, 100 ms samples) | 80.0 | W | MEASURED | L2 | lab/l2/results/gpu-rtx-4060-laptop-gpu/environment.json |\n"
+      }
+    ],
+    "power": [
+      {
+        "power_max_w": 91.87,
+        "power_median_w": 80.0,
+        "power_p99_w": 81.92,
+        "samples": 287,
+        "seconds": 30.0,
+        "sm_mhz_median": 2295.0,
+        "temp_max_c": 79.0
+      }
+    ]
+  }
+}

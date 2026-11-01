@@ -1,0 +1,192 @@
+{
+  "experiment": {
+    "cpu_fallback": "the host half of the topology run (NUMA layout, host memory copy bandwidth, RDMA probe), with the converted item's claim kept at level 2 because no GPU was measured",
+    "evidence": "MEASURED",
+    "id": "ch24-l2",
+    "title": "Lab 24 L2: converting a lab_l1 evidence item into lab_hw evidence (host topology, Chapter 5)"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [],
+  "metrics": {
+    "ceiling_gbs": 15.75,
+    "claimed_after": 3,
+    "competency": "host_topology",
+    "effective_after": 3,
+    "effective_before": 2,
+    "h2d_gbs_median": 12.87,
+    "item": "E08",
+    "link": "Gen4 x8",
+    "manifest_fields_filled": 9,
+    "manifest_fields_required": 9,
+    "readiness_after": 82.4,
+    "readiness_before": 78.4,
+    "run_count": 10
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        ">= 2 GPUs in one host",
+        "nccl-tests built against the installed NCCL"
+      ],
+      "part": "Intra-node nccl-tests all_reduce_perf -b 8 -e 4G -f 2 -g <ngpus> (Chapter 12 evidence)",
+      "probe": {
+        "all_reduce_perf": false,
+        "gpu_count": 1
+      }
+    },
+    {
+      "needs": [
+        "an RDMA NIC on the GPU host"
+      ],
+      "part": "GPU-NIC alignment half of E08 (topo -m GPU-NIC relation, ibdev2netdev)",
+      "probe": {
+        "rdma_devices": [],
+        "topo_lists_nic": false
+      }
+    }
+  ],
+  "notes": [
+    "Item converted: E08 (host_topology). Its artifact points at lab/l2/results/gpu-rtx-4060-laptop-gpu/results.json, the results.json this run writes; raw command output is stored inside it.",
+    "Scoring uses the lab's own effective_level / demonstrated_levels / readiness with as_of = the run date."
+  ],
+  "runtime_s": 0.86,
+  "status": "ran",
+  "tables": {
+    "converted_item_yaml": "- id: E08\n  competency: host_topology\n  type: lab_hw\n  claimed_level: 3\n  artifact: lab/l2/results/gpu-rtx-4060-laptop-gpu/results.json\n  date: '2026-11-01'\n  verifier: ''\n  measured_on_hardware: true\n  summary: 'GPU-to-NIC mapping CSV and aligned/misaligned model. Hardware run on NVIDIA GeForce RTX 4060\n    Laptop GPU: topo -m, PCIe link state, NUMA layout and 10-rep pinned H2D bandwidth [MEASURED]. Not\n    shown: GPU-NIC alignment (no NIC on this host).'\n",
+    "hardware": [
+      {
+        "ceiling_gbs": 15.752,
+        "commands": [
+          "cat /sys/devices/system/node/node*/cpulist   # lstopo / numactl are not installed in the image",
+          "ls /sys/class/infiniband",
+          "nvidia-smi -q | head -40",
+          "nvidia-smi topo -m",
+          "nvidia-smi --query-gpu=name,driver_version,pcie.link.gen.max,pcie.link.width.max,pcie.link.gen.gpucurrent,pcie.link.width.current --format=csv",
+          "python: torch dev.copy_(pinned 256 MiB, non_blocking=True), CUDA events, 3 warm-ups + 10 reps"
+        ],
+        "cuda_driver_api": "13.1",
+        "cuda_runtime": "12.4",
+        "driver_version": "592.82",
+        "gpu_count": 1,
+        "gpu_model": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "h2d_gbs_at_p95_time": 12.797988982596097,
+        "h2d_gbs_median": 12.869594893634018,
+        "kernel": "6.18.54.1-microsoft-standard-WSL2",
+        "label": "gpu-rtx-4060-laptop-gpu",
+        "link": "Gen4 x8",
+        "link_current": "Gen4 x8",
+        "nccl_version": "2.21.5",
+        "numa_nodes": {
+          "node0": "0-23"
+        },
+        "raw_outputs": {
+          "/sys/devices/system/node/*/cpulist": "node0: 0-23",
+          "ls /sys/class/infiniband": "ls: cannot access '/sys/class/infiniband': No such file or directory",
+          "nvidia-smi --query-gpu=name,driver_version,pcie.link.gen.max,pcie.link.width.max,pcie.link.gen.gpucurrent,pcie.link.width.current --format=csv": "name, driver_version, pcie.link.gen.max, pcie.link.width.max, pcie.link.gen.gpucurrent, pcie.link.width.current\nNVIDIA GeForce RTX 4060 Laptop GPU, 592.82, 4, 8, 4, 8",
+          "nvidia-smi -q": "==============NVSMI LOG==============\n\nTimestamp                                              : Sun Nov  1 00:09:20 2026\nDriver Version                                         : 592.82\nCUDA Version                                           : 13.1\n\nAttached GPUs                                          : 1\nGPU 00000000:01:00.0\n    Product Name                                       : NVIDIA GeForce RTX 4060 Laptop GPU\n    Product Brand                                      : GeForce\n    Product Architecture                               : Ada Lovelace\n    Display Mode                                       : Requested functionality has been deprecated\n    Display Attached                                   : No\n    Display Active                                     : Disabled\n    Persistence Mode                                   : Enabled\n    Addressing Mode                                    : N/A\n    MIG Mode\n        Current                                        : N/A\n        Pending                                        : N/A\n    Accounting Mode                                    : Disabled\n    Accounting Mode Buffer Size                        : 4000\n    Driver Model\n        Current                                        : WDDM\n        Pending                                        : WDDM\n    Serial Number                                      : N/A\n    GPU UUID                                           : GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629\n    GPU PDI                                            : 0x1fe5d150f67fa733\n    Minor Number                                       : N/A\n    VBIOS Version                                      : 95.07.28.00.59\n    MultiGPU Board                                     : No\n    Board ID                                           : 0x100\n    Board Part Number                                  : N/A\n    GPU Part Number                                    : 28A0-775-A1\n    FRU Part Number                                    : N/A\n    Platform Info\n        Chassis Serial Number                          : N/A\n        Slot Number                                    : N/A\n        Tray Index                                     : N/A\n        Host ID                                        : N/A\n        Peer Type                                      : N/A",
+          "nvidia-smi topo -m": "\tGPU0\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\nGPU0\t X \t\t\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+        },
+        "rdma_devices": [],
+        "reps": 10,
+        "size_mib": 256,
+        "tools": {
+          "all_reduce_perf": false,
+          "ibv_devinfo": false,
+          "lstopo": true,
+          "numactl": true,
+          "nvidia-smi": true
+        },
+        "topo_lists_nic": false
+      }
+    ],
+    "manifest_record": [
+      {
+        "commands_run": [
+          "cat /sys/devices/system/node/node*/cpulist   # lstopo / numactl are not installed in the image",
+          "ls /sys/class/infiniband",
+          "nvidia-smi -q | head -40",
+          "nvidia-smi topo -m",
+          "nvidia-smi --query-gpu=name,driver_version,pcie.link.gen.max,pcie.link.width.max,pcie.link.gen.gpucurrent,pcie.link.width.current --format=csv",
+          "python: torch dev.copy_(pinned 256 MiB, non_blocking=True), CUDA events, 3 warm-ups + 10 reps"
+        ],
+        "cuda_version": "driver API 13.1, runtime 12.4",
+        "driver_version": "592.82",
+        "gpu_model": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "nccl_version": "2.21.5",
+        "os_kernel": "6.18.54.1-microsoft-standard-WSL2",
+        "raw_output_paths": [
+          "lab/l2/results/gpu-rtx-4060-laptop-gpu/results.json (tables.hardware[0].raw_outputs)"
+        ],
+        "run_count": 10,
+        "warmup_policy": "3 warm-up transfers discarded before timing"
+      }
+    ],
+    "readiness": [
+      {
+        "after": {
+          "host_topology_level": 3,
+          "max_gap": 2,
+          "score": 82.4,
+          "status": "near"
+        },
+        "before": {
+          "host_topology_level": 2,
+          "max_gap": 2,
+          "score": 78.4,
+          "status": "near"
+        },
+        "role": "AI Network Engineer",
+        "seniority": "senior"
+      }
+    ],
+    "scored": [
+      {
+        "artifact": true,
+        "claimed": 2,
+        "effective_level": 2,
+        "flags": [],
+        "measured_on_hardware": false,
+        "type": "lab_l1",
+        "type_cap": 2,
+        "variant": "original lab_l1"
+      },
+      {
+        "artifact": true,
+        "claimed": 3,
+        "effective_level": 1,
+        "flags": [
+          "SIMULATION_CLAIMED_AS_MEASURED"
+        ],
+        "measured_on_hardware": true,
+        "type": "lab_l1",
+        "type_cap": 2,
+        "variant": "mistake: lab_l1 with measured_on_hardware: true"
+      },
+      {
+        "artifact": true,
+        "claimed": 3,
+        "effective_level": 3,
+        "flags": [],
+        "measured_on_hardware": true,
+        "type": "lab_hw",
+        "type_cap": 3,
+        "variant": "converted lab_hw"
+      },
+      {
+        "artifact": false,
+        "claimed": 3,
+        "effective_level": 1,
+        "flags": [
+          "NO_ARTIFACT"
+        ],
+        "measured_on_hardware": true,
+        "type": "lab_hw",
+        "type_cap": 3,
+        "variant": "mistake: lab_hw without artifact"
+      }
+    ]
+  }
+}

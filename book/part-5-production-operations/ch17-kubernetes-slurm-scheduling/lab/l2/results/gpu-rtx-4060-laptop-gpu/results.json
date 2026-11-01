@@ -1,0 +1,224 @@
+{
+  "experiment": {
+    "cpu_fallback": "discovery and the pending-job diagnoser on this host (no GPU found), and the sharing test with two CPU processes pinned to the same two cores",
+    "evidence": "MEASURED",
+    "id": "ch17-l2",
+    "title": "Lab 17 L2: the GPU as a schedulable resource (discovery, diagnoser, time-slicing cost)"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "sharing on cuda: solo 27.530 TFLOP/s, per job when shared 10.772, slowdown 2.56x, aggregate 0.78x"
+  ],
+  "metrics": {
+    "advertised_nvidia_com_gpu": 1,
+    "diagnosis_as_found": [
+      "DEVICE_PLUGIN_NOT_ADVERTISING"
+    ],
+    "gpu_product_label": "NVIDIA-GeForce-RTX-4060-Laptop-GPU",
+    "memory_drop_seen_by_other_job_gib": 0.0,
+    "mig_capable": "false",
+    "nvidia_device_nodes": [],
+    "physical_gpus": 1,
+    "shared_aggregate_vs_solo": 0.783,
+    "shared_fairness_a_over_b": 0.997,
+    "shared_per_job_tflops_median": 10.7721,
+    "shared_slowdown": 2.556,
+    "solo_tflops_median": 27.5298
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "a Linux GPU host where you can run a kubelet or slurmd (root)",
+        "the NVIDIA device plugin / GPU Operator",
+        "/dev/nvidia* device nodes (WSL2 exposes /dev/dxg)",
+        "network for the control plane"
+      ],
+      "part": "kind/k3s + GPU Operator (or single-node Slurm with gres/gpu): allocatable snapshot, taint/quota/selector events reproduced on a lab node",
+      "probe": {
+        "device_nodes": [
+          "/dev/dxg"
+        ],
+        "in_kubernetes_pod": false,
+        "scheduler_tools": {
+          "k3s": false,
+          "kind": false,
+          "kubectl": false,
+          "kubelet": false,
+          "scontrol": false,
+          "sinfo": false,
+          "slurmd": false
+        },
+        "slurm_gres_conf": false
+      }
+    },
+    {
+      "needs": [
+        ">= 2 multi-GPU nodes with RDMA NICs",
+        "Slurm or Kubernetes with gang scheduling"
+      ],
+      "part": "L3: 2-node all_reduce_perf under two placements, gang time-to-start",
+      "probe": "1 GPU(s), one host"
+    }
+  ],
+  "notes": [
+    "Sharing test: two independent worker processes, each a GEMM loop (2048^3, FP16 on the GPU), 2.0 s per measurement; solo and shared measurements interleaved, 8 repetitions each; after 5 warm-up GEMMs.",
+    "Labels follow GPU Feature Discovery's naming (nvidia.com/gpu.product = the product name with spaces as '-')."
+  ],
+  "runtime_s": 40.97,
+  "status": "ran",
+  "tables": {
+    "diagnoser": [
+      {
+        "allocatable": 0,
+        "diagnosis": [
+          "DEVICE_PLUGIN_NOT_ADVERTISING"
+        ],
+        "job": "1 GPU",
+        "module": "solutions/lab/orion_sched.py",
+        "node_state": "as found (no device plugin running)",
+        "physical_gpus": 1
+      },
+      {
+        "allocatable": 1,
+        "diagnosis": [
+          "NONE_FOUND"
+        ],
+        "job": "1 GPU",
+        "module": "solutions/lab/orion_sched.py",
+        "node_state": "with a device plugin advertising",
+        "physical_gpus": 1
+      },
+      {
+        "allocatable": 1,
+        "diagnosis": [
+          "NONE_FOUND"
+        ],
+        "job": "2 GPUs",
+        "module": "solutions/lab/orion_sched.py",
+        "node_state": "with a device plugin advertising",
+        "physical_gpus": 1
+      },
+      {
+        "allocatable": 1,
+        "diagnosis": [
+          "SELECTOR_MISMATCH"
+        ],
+        "job": "1 GPU, selector H100",
+        "module": "solutions/lab/orion_sched.py",
+        "node_state": "with a device plugin advertising",
+        "physical_gpus": 1
+      }
+    ],
+    "discovery": [
+      {
+        "advertised": {
+          "capacity": {
+            "nvidia.com/gpu": 1
+          },
+          "gres_conf": "NodeName=<this-node> Name=gpu Type=geforce-rtx-4060-laptop-gpu File=/dev/nvidia0",
+          "gres_file_exists": false,
+          "labels": {
+            "nvidia.com/gpu.compute.major": "8",
+            "nvidia.com/gpu.compute.minor": "9",
+            "nvidia.com/gpu.count": "1",
+            "nvidia.com/gpu.memory": "8188",
+            "nvidia.com/gpu.product": "NVIDIA-GeForce-RTX-4060-Laptop-GPU",
+            "nvidia.com/mig.capable": "false"
+          }
+        },
+        "device_nodes": [
+          "/dev/dxg"
+        ],
+        "gpus": [
+          {
+            "compute_cap": "8.9",
+            "compute_mode": "Default",
+            "index": 0,
+            "memory_mib": 8188,
+            "mig_mode": "[N/A]",
+            "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+            "uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629"
+          }
+        ],
+        "in_kubernetes_pod": false,
+        "scheduler_tools": {
+          "k3s": false,
+          "kind": false,
+          "kubectl": false,
+          "kubelet": false,
+          "scontrol": false,
+          "sinfo": false,
+          "slurmd": false
+        },
+        "slurm_gres_conf": false
+      }
+    ],
+    "sharing": [
+      {
+        "aggregate_vs_solo": 0.7831367003083403,
+        "cpus": "-",
+        "device": "cuda",
+        "fairness_a_over_b": 0.9972296649334835,
+        "memory": {
+          "a_free_after_b_alloc_gib": 6.873046875,
+          "a_free_before_gib": 6.873046875,
+          "b_alloc_gib": 1.0,
+          "drop_seen_by_a_gib": 0.0,
+          "smi_used_after_mib": 1326.0,
+          "smi_used_before_mib": 302.0,
+          "total_gib": 7.99560546875
+        },
+        "n": 2048,
+        "pair_a": [
+          10.784372074435595,
+          10.85867934603555,
+          10.906237015404015,
+          10.769698236181805,
+          10.744178262723386,
+          10.753878138694326,
+          10.773603777007727,
+          10.766894488179165
+        ],
+        "pair_b": [
+          10.954618144449341,
+          10.860068335065845,
+          10.884850361569196,
+          10.770588130809188,
+          10.83256184630917,
+          10.749001376746563,
+          10.768875283783204,
+          10.7661929522105
+        ],
+        "pair_per_job_median": 10.772095953908458,
+        "pair_sum": [
+          21.738990218884936,
+          21.718747681101398,
+          21.79108737697321,
+          21.54028636699099,
+          21.576740109032556,
+          21.50287951544089,
+          21.54247906079093,
+          21.533087440389664
+        ],
+        "pair_sum_median": 21.559609584911744,
+        "reps": 8,
+        "seconds_per_rep": 2.0,
+        "slowdown": 2.555660154690123,
+        "solo": [
+          27.494051513400805,
+          27.54199398413849,
+          27.584681597422247,
+          27.543642501620344,
+          27.62255847361492,
+          27.515944117361638,
+          27.51763883966659,
+          27.485940011010218
+        ],
+        "solo_median": 27.529816411902537
+      }
+    ]
+  }
+}

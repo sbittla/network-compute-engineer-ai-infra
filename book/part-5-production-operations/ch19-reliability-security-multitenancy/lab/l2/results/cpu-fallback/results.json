@@ -1,0 +1,140 @@
+{
+  "experiment": {
+    "cpu_fallback": "read-only host health queries (CPU, memory, EDAC, kernel-log access) and idle/load/idle phases interpreted through /proc/pressure/cpu stall time; the lab's gpu_actions runs on the (empty) GPU table",
+    "evidence": "MEASURED",
+    "id": "ch19-l2",
+    "title": "Lab 19 L2: read-only GPU health queries and clock-event-reason interpretation"
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "log": [
+    "lab gpu_actions (solutions/lab/incident_toolkit.py): no GPU rows",
+    "idle       cpu_busy=0.047, psi_some_share=0.763",
+    "gemm       cpu_busy=0.565, psi_some_share=0.277",
+    "copy       cpu_busy=0.587, psi_some_share=0.347",
+    "idle_after cpu_busy=0.047, psi_some_share=0.616"
+  ],
+  "metrics": {
+    "gemm_cpu_busy": 0.565,
+    "gemm_psi_some_share": 0.277,
+    "health_decision": "no GPU rows",
+    "idle_cpu_busy": 0.047,
+    "phases": 4
+  },
+  "not_runnable_parts": [
+    {
+      "needs": [
+        "host kernel-log access (root on the host, not in an unprivileged container)"
+      ],
+      "part": "Xid / AER lines in the kernel log (journalctl -k | grep -E 'NVRM: Xid|AER')",
+      "probe": "dmesg rc=1: dmesg: read kernel buffer failed: Operation not permitted; journalctl present: False"
+    },
+    {
+      "needs": [
+        "bare-metal Linux with pciutils and root"
+      ],
+      "part": "PCIe AER capability (lspci -vvv -s <bdf>)",
+      "probe": "lspci rc=0; /sys/bus/pci/devices = ['5582:00:00.0', '61e4:00:00.0', '6294:00:00.0', 'a1c2:00:00.0'] (WSL2 exposes virtual PCI, not the GPU's BDF)"
+    },
+    {
+      "needs": [
+        "DCGM host engine on a data-centre GPU"
+      ],
+      "part": "dcgmi diag -r 2/3",
+      "probe": "dcgmi on PATH: False"
+    },
+    {
+      "needs": [
+        "RDMA HCAs, rdma-core, LLDP neighbours on the backend switches"
+      ],
+      "part": "rank_map NIC columns (hca, hca_bdf, rail, leaf, leaf_port, backend_ip)",
+      "probe": "/sys/class/infiniband present: False; ibdev2netdev: False; lldpctl: False"
+    },
+    {
+      "needs": [
+        "2+ RDMA nodes in a dedicated partition and an authorised port to disable"
+      ],
+      "part": "L3 link-flap trials (3 s / 8 s / 15 s) vs NCCL_IB_TIMEOUT x NCCL_IB_RETRY_CNT",
+      "probe": "torch.cuda.device_count() = 0; no RDMA device"
+    },
+    {
+      "needs": [
+        "a server platform with ECC DIMMs and the EDAC driver"
+      ],
+      "part": "host DRAM ECC (EDAC: /sys/devices/system/edac/mc)",
+      "probe": "EDAC sysfs absent"
+    }
+  ],
+  "notes": [
+    "All health queries are read-only: nothing is reset, reconfigured, or written to the device.",
+    "Clock-event reasons sampled every 200 ms (nvidia-smi -lms); per-reason counters read before and after each phase."
+  ],
+  "runtime_s": 47.48,
+  "status": "ran",
+  "tables": {
+    "gpu_health_row": null,
+    "health": {},
+    "host": {
+      "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+      "cpus": 24,
+      "edac_present": false,
+      "hostname": "a9d0c4e61012",
+      "kernel": "6.18.54.1-microsoft-standard-WSL2",
+      "mem_gib": 7.8,
+      "psi_present": true
+    },
+    "lab_actions": {
+      "decision": "no GPU rows",
+      "model": "solutions/lab/incident_toolkit.py",
+      "rows": []
+    },
+    "phases": [
+      {
+        "action": "none",
+        "cpu_busy": 0.047,
+        "interpretation": "runnable tasks waited for a CPU (PSI is VM-wide: other workloads on the host count)",
+        "phase": "idle",
+        "psi_regressed": false,
+        "psi_some_share": 0.763,
+        "psi_some_stall_s": 3.067,
+        "seconds": 4.02
+      },
+      {
+        "action": "none",
+        "cpu_busy": 0.565,
+        "interpretation": "runnable tasks waited for a CPU (PSI is VM-wide: other workloads on the host count)",
+        "iterations": 950,
+        "phase": "gemm",
+        "psi_regressed": false,
+        "psi_some_share": 0.277,
+        "psi_some_stall_s": 6.919,
+        "seconds": 25.01
+      },
+      {
+        "action": "none",
+        "cpu_busy": 0.587,
+        "interpretation": "runnable tasks waited for a CPU (PSI is VM-wide: other workloads on the host count)",
+        "iterations": 1531,
+        "phase": "copy",
+        "psi_regressed": false,
+        "psi_some_share": 0.347,
+        "psi_some_stall_s": 4.161,
+        "seconds": 12.01
+      },
+      {
+        "action": "none",
+        "cpu_busy": 0.047,
+        "interpretation": "runnable tasks waited for a CPU (PSI is VM-wide: other workloads on the host count)",
+        "phase": "idle_after",
+        "psi_regressed": false,
+        "psi_some_share": 0.616,
+        "psi_some_stall_s": 3.711,
+        "seconds": 6.02
+      }
+    ],
+    "rank_map": [],
+    "topo_m": null
+  }
+}

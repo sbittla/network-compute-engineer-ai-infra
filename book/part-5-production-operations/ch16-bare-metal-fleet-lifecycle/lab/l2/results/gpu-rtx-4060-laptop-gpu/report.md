@@ -1,6 +1,6 @@
 # Lab 16 L2: single-GPU acceptance and burn-in against the acceptance policy
 
-`[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-10-31T23:51:23Z.
+`[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-11-01T00:59:32Z.
 
 | Environment | Value |
 |---|---|
@@ -24,22 +24,22 @@
 
 | Check | Result | Note |
 |---|---|---|
-| Memory write/verify (1536 MiB, 5 patterns) | 0 mismatches | fill 243.25 GB/s |
-| FP16 GEMM 4096³ | 29.36 TFLOP/s | 38 % of the 76.3 TFLOP/s dense FP16 tensor ceiling `[MODELED]` (1024 FLOP/clk/SM x SMs x max SM clock) |
+| Memory write/verify (1536 MiB, 5 patterns) | 0 mismatches | fill 247.45 GB/s |
+| FP16 GEMM 4096³ | 30.25 TFLOP/s | 40 % of the 76.3 TFLOP/s dense FP16 tensor ceiling `[MODELED]` (1024 FLOP/clk/SM x SMs x max SM clock) |
 | PCIe link idle → under load | Gen4 → Gen4 x8 | expected Gen4 x8 under load; a low idle gen is normal power saving (exercise K2) |
 | Row remapper | pending=False, failure=False | read-only `nvidia-smi` query |
 
-## Burn-in (90.7 s soak, 349 telemetry samples)
+## Burn-in (90.2 s soak, 348 telemetry samples)
 
 | Signal | median / p95 / min-max |
 |---|---|
-| Throughput per 1 s window | 11.5 / 27.3 / 8.3-27.6 TFLOP/s |
-| GPU temperature | 80.0 / 82.0 / 73.0-83.0 C |
-| Power draw | 79.9 / 80.1 / 75.1-80.3 W |
-| SM clock | 2295.0 / 2520.0 / 2250.0-2520.0 MHz |
-| GPU utilization | 100.0 / 100.0 / 95.0-100.0 % |
+| Throughput per 1 s window | 27.3 / 27.6 / 26.3-27.8 TFLOP/s |
+| GPU temperature | 80.0 / 81.0 / 72.0-82.0 C |
+| Power draw | 80.0 / 80.1 / 53.2-80.4 W |
+| SM clock | 2280.0 / 2310.0 / 2235.0-2340.0 MHz |
+| GPU utilization | 99.0 / 99.0 / 76.0-100.0 % |
 
-Clock-event reasons seen under load: **SW_POWER_CAP** (share of samples: {'SW_POWER_CAP': 0.911}). Driver counters, seconds accrued during the soak: {'sw_power_cap': 0.344, 'sw_thermal_slowdown': 0.0, 'hw_thermal_slowdown': 0.0, 'hw_power_brake_slowdown': 0.0}. Enforced power limit 80.0 W.
+Clock-event reasons seen under load: **SW_POWER_CAP** (share of samples: {'SW_POWER_CAP': 1.0}). Driver counters, seconds accrued during the soak: {'sw_power_cap': 0.497, 'sw_thermal_slowdown': 0.0, 'hw_thermal_slowdown': 0.0, 'hw_power_brake_slowdown': 0.0}. Enforced power limit 80.0 W.
 
 ## Verdict from the lab evaluator
 

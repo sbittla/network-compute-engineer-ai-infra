@@ -8,35 +8,35 @@
   "generation": {
     "batch": 4,
     "itl": {
-      "iqr": 0.0008783069788478315,
-      "max": 0.006482460012193769,
-      "mean": 0.0034273046714764447,
-      "median": 0.0031918230233713984,
-      "min": 0.0023222710005939007,
+      "iqr": 0.0007056370377540588,
+      "max": 0.009185279021039605,
+      "mean": 0.003029171226080507,
+      "median": 0.0027412690105848014,
+      "min": 0.0019798960420303047,
       "n": 155,
-      "p95": 0.00543600000673905
+      "p95": 0.004967614950146526
     },
-    "itl_p99_s": 0.006234868022147566,
+    "itl_p99_s": 0.006671122973784804,
     "output": 32,
     "prompt": 128,
     "runs": 5,
     "tpot": {
-      "iqr": 0.0004867858867416341,
-      "max": 0.0037605743554811324,
-      "mean": 0.003427304671476445,
-      "median": 0.0034842124197541945,
-      "min": 0.0030692927745891913,
+      "iqr": 0.0007892085817612464,
+      "max": 0.003365217646088211,
+      "mean": 0.003029171226080507,
+      "median": 0.0033195383880557793,
+      "min": 0.002553988710015772,
       "n": 5,
-      "p95": 0.0037605743554811324
+      "p95": 0.003365217646088211
     },
     "ttft": {
-      "iqr": 0.013770837016636506,
-      "max": 0.07111258804798126,
-      "mean": 0.05981373660033569,
-      "median": 0.05611700098961592,
-      "min": 0.05270783096784726,
+      "iqr": 0.00729918249999173,
+      "max": 0.055394337978214025,
+      "mean": 0.04990983159514144,
+      "median": 0.04838847101200372,
+      "min": 0.0461243920144625,
       "n": 5,
-      "p95": 0.07111258804798126
+      "p95": 0.055394337978214025
     }
   },
   "invariants": {
@@ -45,24 +45,24 @@
   },
   "log": [
     "model 19 M params (0.08 GB float32), KV 4096 B/token [MODELED]",
-    "prefill P=64: 14.84 ms, 0.17 TFLOP/s",
-    "prefill P=256: 32.18 ms, 0.32 TFLOP/s",
-    "prefill P=512: 79.49 ms, 0.26 TFLOP/s",
-    "decode B=1 ctx=256: 2.44 ms/step, 410 tok/s, 32.4 GB/s effective",
-    "decode B=4 ctx=256: 2.76 ms/step, 1448 tok/s, 29.7 GB/s effective",
-    "decode B=8 ctx=256: 3.16 ms/step, 2532 tok/s, 27.3 GB/s effective",
-    "decode B=16 ctx=256: 3.48 ms/step, 4602 tok/s, 27.2 GB/s effective",
-    "decode B=4 ctx=1024: 3.68 ms/step, 1086 tok/s, 25.7 GB/s effective",
-    "decode B=4 ctx=2048: 4.37 ms/step, 916 tok/s, 25.5 GB/s effective"
+    "prefill P=64: 9.50 ms, 0.26 TFLOP/s",
+    "prefill P=256: 28.26 ms, 0.36 TFLOP/s",
+    "prefill P=512: 68.69 ms, 0.31 TFLOP/s",
+    "decode B=1 ctx=256: 1.99 ms/step, 503 tok/s, 39.7 GB/s effective",
+    "decode B=4 ctx=256: 2.74 ms/step, 1458 tok/s, 29.9 GB/s effective",
+    "decode B=8 ctx=256: 3.40 ms/step, 2351 tok/s, 25.4 GB/s effective",
+    "decode B=16 ctx=256: 4.36 ms/step, 3666 tok/s, 21.7 GB/s effective",
+    "decode B=4 ctx=1024: 3.42 ms/step, 1170 tok/s, 27.7 GB/s effective",
+    "decode B=4 ctx=2048: 3.68 ms/step, 1086 tok/s, 30.3 GB/s effective"
   ],
   "metrics": {
     "activation_reserve_bytes": null,
-    "decode_fit_GBps": 32.619703537140616,
-    "decode_fit_overhead_s": 2.6877985479190677e-05,
+    "decode_fit_GBps": 22.891725316706882,
+    "decode_fit_overhead_s": -0.0012930029830125582,
     "dtype": "float32",
-    "itl_p50_s": 0.0031918230233713984,
-    "itl_p95_s": 0.00543600000673905,
-    "itl_p99_s": 0.006234868022147566,
+    "itl_p50_s": 0.0027412690105848014,
+    "itl_p95_s": 0.004967614950146526,
+    "itl_p99_s": 0.006671122973784804,
     "kv_bytes_per_token_measured": 4096.0,
     "kv_bytes_per_token_model": 4096,
     "lab_model_source": "solutions/lab/serving_lab.py",
@@ -77,9 +77,9 @@
     },
     "n_params": 19468800,
     "peak_alloc_bytes": null,
-    "tpot_p50_s": 0.0034842124197541945,
-    "ttft_p50_s": 0.05611700098961592,
-    "ttft_p95_s": 0.07111258804798126,
+    "tpot_p50_s": 0.0033195383880557793,
+    "ttft_p50_s": 0.04838847101200372,
+    "ttft_p95_s": 0.055394337978214025,
     "weight_alloc_bytes": null,
     "weight_bytes": 77875200
   },
@@ -91,7 +91,7 @@
     "Not runnable here: the README's L2 serving-engine benchmark (vLLM/SGLang with an open 7-8B model; needs the network to fetch the engine and weights, and > 8 GB for BF16 7B weights + KV) and the L3 disaggregated prefill/decode over RDMA (needs 2+ nodes with RDMA NICs).",
     "CPU fallback: FP32 on host memory; GPU bandwidth and peak invariants were skipped, and efficiencies are expressed against a nominal 60 GB/s DRAM rate [ILLUSTRATIVE]."
   ],
-  "runtime_s": 3.15,
+  "runtime_s": 2.89,
   "status": "ran",
   "tables": {
     "decode": [
@@ -99,114 +99,114 @@
         "batch": 1,
         "bytes_moved": 78923776,
         "context": 256,
-        "eff_GBps": 32.391443279739434,
-        "iqr_s": 0.00043890874076168984,
-        "median_s": 0.002436562499497086,
-        "min_s": 0.0021379940444603562,
+        "eff_GBps": 39.66214221256983,
+        "iqr_s": 0.0004162345139775425,
+        "median_s": 0.0019899019971489906,
+        "min_s": 0.001759688020683825,
         "n": 20,
-        "p95_s": 0.009068412997294217,
+        "p95_s": 0.0037247599684633315,
         "sweep": "batch",
-        "tokens_per_s": 410.41426198031166
+        "tokens_per_s": 502.5373116026511
       },
       {
         "batch": 4,
         "bytes_moved": 82069504,
         "context": 256,
-        "eff_GBps": 29.710730346929484,
-        "iqr_s": 0.0002307259856024757,
-        "median_s": 0.0027622849738691,
-        "min_s": 0.0024782010004855692,
+        "eff_GBps": 29.922614732016505,
+        "iqr_s": 0.0004243375005898997,
+        "median_s": 0.002742725017014891,
+        "min_s": 0.0022483140346594155,
         "n": 20,
-        "p95_s": 0.003358365036547184,
+        "p95_s": 0.003782009007409215,
         "sweep": "batch",
-        "tokens_per_s": 1448.0765155802324
+        "tokens_per_s": 1458.4035859174442
       },
       {
         "batch": 8,
         "bytes_moved": 86263808,
         "context": 256,
-        "eff_GBps": 27.30061736666503,
-        "iqr_s": 0.0002794081956380978,
-        "median_s": 0.0031597749912180007,
-        "min_s": 0.002895134035497904,
+        "eff_GBps": 25.35582370811292,
+        "iqr_s": 0.0011011142341885716,
+        "median_s": 0.003402129979804158,
+        "min_s": 0.0025540890055708587,
         "n": 20,
-        "p95_s": 0.003736396029125899,
+        "p95_s": 0.00429201900260523,
         "sweep": "batch",
-        "tokens_per_s": 2531.8258490666244
+        "tokens_per_s": 2351.468064856392
       },
       {
         "batch": 16,
         "bytes_moved": 94652416,
         "context": 256,
-        "eff_GBps": 27.221451423144554,
-        "iqr_s": 0.0008805409888736904,
-        "median_s": 0.0034771259815897793,
-        "min_s": 0.003199610044248402,
+        "eff_GBps": 21.684596173334796,
+        "iqr_s": 0.0010236547677777708,
+        "median_s": 0.004364960972452536,
+        "min_s": 0.003581842000130564,
         "n": 20,
-        "p95_s": 0.004856792977079749,
+        "p95_s": 0.0065951309516094625,
         "sweep": "batch",
-        "tokens_per_s": 4601.501379217968
+        "tokens_per_s": 3665.5539650816386
       },
       {
         "batch": 4,
         "bytes_moved": 94652416,
         "context": 1024,
-        "eff_GBps": 25.70279092427738,
-        "iqr_s": 0.0013874579890398309,
-        "median_s": 0.003682573471451178,
-        "min_s": 0.003032559994608164,
+        "eff_GBps": 27.677893228024857,
+        "iqr_s": 0.0005168007628526539,
+        "median_s": 0.003419783985009417,
+        "min_s": 0.002825575997121632,
         "n": 20,
-        "p95_s": 0.00496097601717338,
+        "p95_s": 0.0043151029967702925,
         "sweep": "context",
-        "tokens_per_s": 1086.196930220033
+        "tokens_per_s": 1169.6645219504956
       },
       {
         "batch": 4,
         "bytes_moved": 111429632,
         "context": 2048,
-        "eff_GBps": 25.521746944957385,
-        "iqr_s": 0.001268075022380799,
-        "median_s": 0.004366066015791148,
-        "min_s": 0.003217171994037926,
+        "eff_GBps": 30.25597685810258,
+        "iqr_s": 0.00028168829157948494,
+        "median_s": 0.003682896523969248,
+        "min_s": 0.0032108850427903235,
         "n": 20,
-        "p95_s": 0.005055270972661674,
+        "p95_s": 0.004321091983001679,
         "sweep": "context",
-        "tokens_per_s": 916.15655501608
+        "tokens_per_s": 1086.101652318212
       }
     ],
     "prefill": [
       {
         "activation_peak_bytes": null,
         "flops": 2508783616.0,
-        "iqr_s": 0.006246298493351787,
-        "median_s": 0.014840462012216449,
-        "min_s": 0.009534988028462976,
+        "iqr_s": 0.0011259940220043063,
+        "median_s": 0.009496033017057925,
+        "min_s": 0.009359863004647195,
         "n": 5,
-        "p95_s": 0.017227084026671946,
+        "p95_s": 0.011449722049292177,
         "prompt": 64,
-        "tflops": 0.16905023670656658
+        "tflops": 0.26419280677451507
       },
       {
         "activation_peak_bytes": null,
         "flops": 10236461056.0,
-        "iqr_s": 0.015052204515086487,
-        "median_s": 0.03218345396453515,
-        "min_s": 0.023850633995607495,
+        "iqr_s": 0.007054746965877712,
+        "median_s": 0.02825596899492666,
+        "min_s": 0.026731930032838136,
         "n": 5,
-        "p95_s": 0.04476467601489276,
+        "p95_s": 0.035754488955717534,
         "prompt": 256,
-        "tflops": 0.31806595610527577
+        "tflops": 0.3622760577716499
       },
       {
         "activation_peak_bytes": null,
         "flops": 21009793024.0,
-        "iqr_s": 0.01207659297506325,
-        "median_s": 0.07949045498389751,
-        "min_s": 0.07318828499410301,
+        "iqr_s": 0.0037880950258113444,
+        "median_s": 0.0686896379920654,
+        "min_s": 0.06443685997510329,
         "n": 5,
-        "p95_s": 0.08609504997730255,
+        "p95_s": 0.06931487302063033,
         "prompt": 512,
-        "tflops": 0.2643058594677309
+        "tflops": 0.305865537192479
       }
     ]
   }

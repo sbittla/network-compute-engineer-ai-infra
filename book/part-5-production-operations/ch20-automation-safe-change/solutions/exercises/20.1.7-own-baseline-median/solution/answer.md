@@ -18,7 +18,7 @@ min-based check aborts a good change, and repeated false aborts teach operators 
 standard error of a 12-sample median is about 1.25 × 0.25 / √12 ≈ 0.09 GB/s, and of the 6-sample baseline
 median about 1.25 × 0.25 / √6 ≈ 0.13 GB/s. The difference has a standard error of
 √(0.09² + 0.13²) ≈ 0.16 GB/s. A 5 % threshold is 0.05 × 44 = 2.2 GB/s, about 14 standard errors from zero:
-it essentially never fires on noise, yet the −9.7 % regression on `orion-n25` (43.67 → 39.41 GB/s) trips it
+it essentially never fires on noise, yet the −9.8 % regression on `orion-n25` (43.67 → 39.41 GB/s) trips it
 clearly. Hard-fault counters (Xid, link flaps) are the exception: there, any count above zero is
 informative, and a sum or max is right.
 

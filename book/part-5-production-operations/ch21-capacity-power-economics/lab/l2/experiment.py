@@ -224,7 +224,8 @@ def run(ctx) -> dict:
                 fn()
         for kind, duty in levels:
             fn, units, unit = work[kind]
-            duty_cycle(fn, duty, 0.5)            # settle into the new level
+            # settle into the new level; the idle level gets longer so board power decays from the warm-up to true idle
+            duty_cycle(fn, duty, (1.0 if ctx.quick else 3.0) if duty == 0 else 0.5)
             s0 = proc_stat()
             t0 = time.perf_counter()
             calls, wall, busy = duty_cycle(fn, duty, secs)
@@ -311,6 +312,14 @@ def run(ctx) -> dict:
             ctx.log(f"lab power_cap_tradeoff ({model_path}): best cap {model['best_cap_w']} W")
         except NotImplementedError as exc:
             notes.append(f"power_cap_tradeoff is not implemented yet in {model_path} ({exc}); the L1 comparison was skipped.")
+    if ctx.is_gpu:
+        dv = dvfs_downclocked(sorted((r for r in rows if r["workload"] == "gemm"), key=lambda r: r["duty_pct"]))
+        metrics["dvfs_downclocked_duties"] = dv
+        if dv:
+            notes.append(f"DVFS: at {dv} % duty the median SM clock fell below 80 % of the full-load clock (the GPU idled down "
+                         "between bursts), so those levels ran at a different V/f point. The fixed-V/f invariants (power rises "
+                         "with duty; perf/W at 100 % >= 25 %) were not applied to them. Lock clocks (nvidia-smi -lgc, native "
+                         "Linux, root) to test them; the experiment itself never changes system configuration.")
     for r in rows:
         r["throughput"] = round(r["throughput"], 4)
         if r.get("perf_per_w") is not None:
@@ -321,6 +330,12 @@ def run(ctx) -> dict:
 
 
 # ----------------------------------------------------------------------------------------------- check
+def dvfs_downclocked(gemm: list[dict]) -> list[int]:
+    """Busy duty levels whose median SM clock fell below 80 % of the 100 % level's: the GPU changed V/f point."""
+    full = gemm[-1].get("sm_mhz_median") or 0
+    return [r["duty_pct"] for r in gemm[1:-1] if full and (r.get("sm_mhz_median") or full) < 0.8 * full]
+
+
 def check(result: dict, env: dict) -> list[str]:
     m, t = result["metrics"], result["tables"]
     gemm = sorted((r for r in t["levels"] if r["workload"] == "gemm"), key=lambda r: r["duty_pct"])
@@ -349,13 +364,19 @@ def check(result: dict, env: dict) -> list[str]:
                              "enforced limit (nvidia-smi enforced.power.limit): check power.draw units/field")
             if mx and r["power_p95_w"] and r["power_p95_w"] > 1.15 * mx:
                 fails.append(f"{r['workload']} {r['duty_pct']} %: p95 power above the {mx} W maximum limit")
+        # The next two invariants assume a fixed V/f point. Without locked clocks (not settable under WSL2 or without
+        # root), a laptop GPU drops to an idle P-state between short bursts, so light duty runs at a fraction of the
+        # clock and draws less power per unit time than idle-after-load. Hold only clock-matched levels to them.
+        dvfs = dvfs_downclocked(gemm)
         pw = [r["power_mean_w"] for r in gemm]
         for (d0, p0), (d1, p1) in zip(zip(DUTIES, pw), zip(DUTIES[1:], pw[1:])):
+            if d0 in dvfs or d1 in dvfs:
+                continue
             if p1 < p0 - max(3.0, 0.1 * p0):
                 fails.append(f"power fell from {p0} W at {d0} % to {p1} W at {d1} %: power must rise with work at fixed V/f")
         if m["gemm_tflops_100"] > m["gemm_ceiling_tflops"]:
             fails.append(f"{m['gemm_tflops_100']} TFLOP/s above the {m['gemm_ceiling_tflops']} TFLOP/s FP16 tensor ceiling: check timing")
-        if m["tflops_per_w_100"] < m["tflops_per_w_25"]:
+        if 25 not in dvfs and m["tflops_per_w_100"] < m["tflops_per_w_25"]:
             fails.append("perf/W at 100 % duty below 25 % duty: static power should make light duty cycles less efficient")
         if not m["power_idle_w"] < m["power_gemm_100_w"]:
             fails.append("idle power not below full-load power: check the sampler")

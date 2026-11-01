@@ -10,23 +10,23 @@
     "passed": true
   },
   "log": [
-    "baseline step median    36.54 ms  p95    52.37 ms  launches/step 0  syncs/step 0",
-    "fixed    step median    34.25 ms  p95    54.94 ms  launches/step 0  syncs/step 0"
+    "baseline step median   121.31 ms  p95   248.00 ms  launches/step 0  syncs/step 0",
+    "fixed    step median    45.40 ms  p95    71.71 ms  launches/step 0  syncs/step 0"
   ],
   "metrics": {
     "baseline_launches_per_step": 0,
-    "baseline_opt_step_ms": 3.0149,
-    "baseline_step_ms": 36.535,
+    "baseline_opt_step_ms": 4.7276,
+    "baseline_step_ms": 121.306,
     "fixed_launches_per_step": 0,
-    "fixed_opt_step_ms": 3.8176,
-    "fixed_step_ms": 34.252,
-    "speedup": 1.067
+    "fixed_opt_step_ms": 4.1409,
+    "fixed_step_ms": 45.396,
+    "speedup": 2.672
   },
   "notes": [
     "CPU fallback: torch limited to 4 threads; step time = median of >= 5 steps (perf_counter).",
     "The shipped trace is the lab's SIMULATED ORION capture; it is analysed here only to exercise the pipeline in the GPU image."
   ],
-  "runtime_s": 3.39,
+  "runtime_s": 7.11,
   "shipped_trace_analysis": {
     "codes": [
       "EXCESS_SYNC",
@@ -78,21 +78,21 @@
   "tables": {
     "step_time": [
       {
-        "iqr": 0.008373416509130038,
-        "max": 0.05236858403077349,
-        "median": 0.03653514402685687,
-        "min": 0.030760237015783787,
+        "iqr": 0.07124944451788906,
+        "max": 0.24800322903320193,
+        "median": 0.12130606503342278,
+        "min": 0.06910375895677134,
         "n": 10,
-        "p95": 0.05236858403077349,
+        "p95": 0.24800322903320193,
         "variant": "baseline"
       },
       {
-        "iqr": 0.00911587497103028,
-        "max": 0.05494237196398899,
-        "median": 0.03425236151088029,
-        "min": 0.03151962399715558,
+        "iqr": 0.023670348498853855,
+        "max": 0.07171306404052302,
+        "median": 0.045396417495794594,
+        "min": 0.04075146099785343,
         "n": 10,
-        "p95": 0.05494237196398899,
+        "p95": 0.07171306404052302,
         "variant": "fixed"
       }
     ]
@@ -108,22 +108,22 @@
         "tokens": 512
       },
       "optimizer_step_time": {
-        "iqr": 0.0009783502900972962,
-        "max": 0.007078239985276014,
-        "mean": 0.0032125202254974284,
-        "median": 0.0030148874793667346,
-        "min": 0.0021069670328870416,
+        "iqr": 0.004248703975463286,
+        "max": 0.015423065051436424,
+        "mean": 0.0058995916551793925,
+        "median": 0.004727618012111634,
+        "min": 0.00267084501683712,
         "n": 40,
-        "p95": 0.004999727010726929
+        "p95": 0.011247414047829807
       },
       "profiler": {
         "aten_ops": 664,
         "aten_self_cpu_us_by_category": {
-          "cast/copy": 726.3539999999459,
-          "elementwise": 7558.527999999951,
-          "gemm": 23884.219000000005,
-          "reduction": 994.5559999999919,
-          "sync": 17.496000000019876
+          "cast/copy": 1862.3489999999774,
+          "elementwise": 13946.063000000082,
+          "gemm": 41469.175999999985,
+          "reduction": 1401.4589999999894,
+          "sync": 52.88799999998355
         },
         "cudaLaunchKernel": 0,
         "cudaMemcpyAsync": 0,
@@ -131,13 +131,13 @@
         "sync_calls": 0
       },
       "step_time": {
-        "iqr": 0.008373416509130038,
-        "max": 0.05236858403077349,
-        "mean": 0.03808782130945474,
-        "median": 0.03653514402685687,
-        "min": 0.030760237015783787,
+        "iqr": 0.07124944451788906,
+        "max": 0.24800322903320193,
+        "mean": 0.13442087101284414,
+        "median": 0.12130606503342278,
+        "min": 0.06910375895677134,
         "n": 10,
-        "p95": 0.05236858403077349
+        "p95": 0.24800322903320193
       }
     },
     "fixed": {
@@ -150,23 +150,23 @@
         "tokens": 512
       },
       "optimizer_step_time": {
-        "iqr": 0.001079870227840729,
-        "max": 0.0069436850026249886,
-        "mean": 0.004140213249775116,
-        "median": 0.00381757749710232,
-        "min": 0.0031748409965075552,
+        "iqr": 0.0016360737208742648,
+        "max": 0.008954224991612136,
+        "mean": 0.004486293873924296,
+        "median": 0.00414088400430046,
+        "min": 0.0031478669843636453,
         "n": 40,
-        "p95": 0.006109668989665806
+        "p95": 0.006109938025474548
       },
       "profiler": {
         "aten_ops": 587,
         "aten_self_cpu_us_by_category": {
-          "cast/copy": 690.826999999967,
-          "elementwise": 7154.032999999944,
-          "gemm": 23783.317999999992,
-          "optimizer": 179.52900000006412,
-          "reduction": 345.24400000000605,
-          "sync": 94.48200000001088
+          "cast/copy": 1604.0300000000225,
+          "elementwise": 16947.656000000086,
+          "gemm": 42193.829,
+          "optimizer": 1239.5739999999714,
+          "reduction": 1122.6130000000067,
+          "sync": 13.130000000004657
         },
         "cudaLaunchKernel": 0,
         "cudaMemcpyAsync": 0,
@@ -174,13 +174,13 @@
         "sync_calls": 0
       },
       "step_time": {
-        "iqr": 0.00911587497103028,
-        "max": 0.05494237196398899,
-        "mean": 0.037536685401573774,
-        "median": 0.03425236151088029,
-        "min": 0.03151962399715558,
+        "iqr": 0.023670348498853855,
+        "max": 0.07171306404052302,
+        "mean": 0.051293360302224755,
+        "median": 0.045396417495794594,
+        "min": 0.04075146099785343,
         "n": 10,
-        "p95": 0.05494237196398899
+        "p95": 0.07171306404052302
       }
     }
   }

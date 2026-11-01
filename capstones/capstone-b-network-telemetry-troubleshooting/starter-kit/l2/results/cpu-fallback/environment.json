@@ -1,0 +1,16 @@
+{
+  "cpu_count": 24,
+  "cpu_model": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cuda_runtime": "12.4",
+  "cudnn": 90100,
+  "device": "cpu",
+  "gpus": [],
+  "kernel": "6.18.54.1-microsoft-standard-WSL2",
+  "mem_total_gib": 7.8,
+  "os": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python": "3.11.10",
+  "quick": false,
+  "run_utc": "2026-11-01T00:12:18Z",
+  "torch": "2.5.1+cu124",
+  "wsl": true
+}

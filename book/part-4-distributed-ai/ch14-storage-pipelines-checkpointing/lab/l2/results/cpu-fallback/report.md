@@ -1,6 +1,6 @@
 # Lab 14 L2: checkpoint blocking vs completion time, save/restore throughput and restore test
 
-`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-10-31T23:49:58Z.
+`[MEASURED]` on **CPU fallback: 13th Gen Intel(R) Core(TM) i7-13700HX**, 2026-11-01T00:58:23Z.
 
 | Environment | Value |
 |---|---|
@@ -21,12 +21,12 @@ Checkpointed state: **0.202 GB** (16.8 M params, FP32 weights + Adam) on the CPU
 
 | Metric | Median | p95 | Min - max | n |
 |---|---|---|---|---|
-| save: blocking = completion (s) | 0.398 | 0.623 | 0.328 - 0.623 | 5 |
+| save: blocking = completion (s) | 0.424 | 0.574 | 0.309 - 0.574 | 5 |
 | async_save: blocking (s) | 0.003 | 0.003 | 0.002 - 0.003 | 5 |
-| async_save: completion (s) | 0.603 | 0.749 | 0.586 - 0.749 | 5 |
-| async_save: step time before (ms) | 159.98 | 175.89 | 145.23 - 175.89 | 5 |
-| async_save: step time during persist (ms) | 203.41 | 226.76 | 185.52 - 226.76 | 5 |
-| async_save: step time after (ms) | 164.86 | 172.20 | 152.17 - 172.20 | 5 |
+| async_save: completion (s) | 0.562 | 0.883 | 0.410 - 0.883 | 5 |
+| async_save: step time before (ms) | 157.12 | 167.73 | 144.41 - 167.73 | 5 |
+| async_save: step time during persist (ms) | 223.59 | 246.42 | 190.07 - 246.42 | 5 |
+| async_save: step time after (ms) | 158.24 | 169.95 | 144.06 - 169.95 | 5 |
 | async_save: staged host bytes (MB) | 202 | 202 | 202 - 202 | 5 |
 | async_save: of which pinned (MB) | 0 | 0 | 0 - 0 | 5 |
 | async_save: still aliasing live state (MB) | 202 | 202 | 202 - 202 | 5 |
@@ -34,28 +34,28 @@ Checkpointed state: **0.202 GB** (16.8 M params, FP32 weights + Adam) on the CPU
 | cached pinned: completion (s) | n/a | n/a | n/a | 0 |
 | cached pinned: step time during persist (ms) | n/a | n/a | n/a | 0 |
 | cached pinned: pinned host bytes (MB) | n/a | n/a | n/a | 0 |
-| host snapshot copy (s) | 0.011 | 0.011 | 0.010 - 0.011 | 5 |
-| dcp.load after page-cache eviction (s) | 0.178 | 0.198 | 0.160 - 0.198 | 5 |
+| host snapshot copy (s) | 0.011 | 0.012 | 0.011 - 0.012 | 5 |
+| dcp.load after page-cache eviction (s) | 0.151 | 0.174 | 0.148 - 0.174 | 5 |
 
 | Throughput | GB/s |
 |---|---|
-| host copy | 19.13 |
-| save (write + fsync) | 0.51 |
-| restore (dcp.load) | 1.13 |
+| host copy | 18.88 |
+| save (write + fsync) | 0.47 |
+| restore (dcp.load) | 1.33 |
 
-**Consistency:** 76 of 128 tensors in an async checkpoint differ from the state at the call (51 data tensors, 25 scalars, e.g. `optim.state.6.weight.exp_avg_sq, optim.state.6.bias.step`; 3 training steps ran during the persist).
+**Consistency:** 62 of 128 tensors in an async checkpoint differ from the state at the call (43 data tensors, 19 scalars, e.g. `optim.state.10.weight.exp_avg_sq, optim.state.10.bias.exp_avg`; 2 training steps ran during the persist).
 
 **Staging by reference:** 202 MB of the staged state still shares storage with the live tensors. For host-resident state DCP's default async_save does not copy, so optimizer steps taken during the persist can land in the checkpoint (a torn checkpoint); the consistency line shows whether they did. Snapshot explicitly before async_save when the state lives in host memory.
 
-Interference: steps were **+27 %** slower while the persist ran (the lab assumes +3 %, `interference_frac`).
+Interference: steps were **+42 %** slower while the persist ran (the lab assumes +3 %, `interference_frac`).
 
 ## Lab Part A model with this host's measured rates (`async_pfs`, solutions/lab/storage_lab.py)
 
 | Quantity | Predicted | Measured |
 |---|---|---|
-| sync save blocking (s) | 0.398 | 0.398 |
+| sync save blocking (s) | 0.424 | 0.424 |
 | async blocking = snapshot (s) | 0.011 | 0.003 |
-| async completion = snapshot + persist (s) | 0.408 | 0.603 |
+| async completion = snapshot + persist (s) | 0.435 | 0.562 |
 
 Blocking above the predicted snapshot time is DCP's planning, allocation of staging buffers and metadata work: the lab's `snapshot_fixed_s`.
 
