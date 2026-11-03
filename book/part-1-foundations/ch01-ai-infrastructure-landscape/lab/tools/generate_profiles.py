@@ -44,7 +44,7 @@ COLUMNS = [
 
 # (id, name, phase, declared_class, gpus, tflop, hbm, nvlink, net, unit, io_r, io_w, observed, notes)
 BASE_ROWS: list[tuple] = [
-    ("W01", "llm70b-pretrain-step", "train", "compute", 256, 6875, 2100, 1202.6, 9.8, "GB", 0.0005, 0, 17.4,
+    ("W01", "llm70b-pretrain-step", "train", "compute", 256, 6881, 2100, 1202.6, 9.8, "GB", 0.0005, 0, 17.4,
      "W-TRAIN TP8 PP4 DP8; one optimizer step"),
     ("W02", "llm70b-decode-b32", "infer", "memory", 8, 0.56, 20.18, 0.147, 0, "GB", 0, 0, 0.0095,
      "W-INFER TP8 BF16; one decode step, batch 32, mean context 2048"),

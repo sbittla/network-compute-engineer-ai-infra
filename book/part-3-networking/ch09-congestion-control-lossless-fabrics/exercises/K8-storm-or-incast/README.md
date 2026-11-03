@@ -5,7 +5,7 @@ Type: Knowledge check · kind: `written` · 4 points
 ## Prompt
 
 <!-- prompt:start -->
-**K8 ★ L1 — Storm or incast.** Using Table 9.4, list four signals that distinguish a PFC storm source
+**K8 ★ L1 — Storm or incast.** Using Table 9.6, list four signals that distinguish a PFC storm source
 from an incast destination on the switch port facing the device.
 *Evidence required:* four signals with the expected value for each case.
 <!-- prompt:end -->

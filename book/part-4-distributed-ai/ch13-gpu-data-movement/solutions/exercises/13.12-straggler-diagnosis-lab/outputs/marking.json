@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "checker output (10/10 PASS), findings table (cause, ranks, onset, evidence, owner, fix, validation), amplification numbers, and the annotated diagram from 13.9",
+  "evidence_required": "checker output (11/11 PASS), findings table (cause, ranks, onset, evidence, owner, fix, validation), amplification numbers, and the annotated diagram from 13.9",
   "id": "13.12",
   "kind": "lab",
   "lab_checks": [
@@ -13,11 +13,12 @@
     "rail_health:",
     "hot_not_throttled:",
     "amplification:",
-    "symptom_windows:"
+    "symptom_windows:",
+    "missing_samples:"
   ],
   "marking": [
     {
-      "criterion": "Checker output shows 10/10 PASS",
+      "criterion": "Checker output shows 11/11 PASS",
       "points": 4
     },
     {

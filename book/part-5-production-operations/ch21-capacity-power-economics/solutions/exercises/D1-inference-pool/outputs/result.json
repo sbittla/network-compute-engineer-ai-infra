@@ -1,6 +1,6 @@
 {
   "answer": {
-    "borrowed_value_musd_per_year": 1.12,
+    "borrowed_value_musd_per_year": 1.11,
     "idle_gpu_h": 560640,
     "lent_gpu_h": 336384,
     "option1_dedicated_useful_gpu_h": 280320,
@@ -17,7 +17,7 @@
     "peak_rps": 25.0,
     "preemptible_goodput": 0.7,
     "rps_per_replica": 2.5,
-    "usd_per_useful_gpu_h": 4.75
+    "usd_per_useful_gpu_h": 4.725
   },
   "steps": {
     "busy_gpu_h": 280320,
@@ -36,6 +36,6 @@
   },
   "units": {
     "gpu_h": "GPU-hours per year",
-    "value": "USD millions per year at $4.75 per useful GPU-hour"
+    "value": "USD millions per year at $4.725 per useful GPU-hour"
   }
 }

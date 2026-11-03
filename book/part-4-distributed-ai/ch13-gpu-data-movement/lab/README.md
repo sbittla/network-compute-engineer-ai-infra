@@ -38,7 +38,7 @@ mapping, units).
 | `sm_active_pct` | % SM cycles active (DCGM SM-active style) |
 | `sm_clock_mhz`, `gpu_temp_c`, `power_w`, `clocks_event_reason` | GPU clock (MHz), temperature (°C), power (W), active clocks-event reason |
 | `nic_tx_gbps`, `nic_rx_gbps` | NIC rates averaged over the step (Gb/s) |
-| `nic_retx` | Per-step delta of `packet_seq_err` + `local_ack_timeout_err` (sender) + `out_of_sequence` (receiver); see manuscript Table 13.4a |
+| `nic_retx` | Per-step delta of `packet_seq_err` + `local_ack_timeout_err` (sender) + `out_of_sequence` (receiver); see manuscript Table 13.3a |
 
 ## 4. Background
 
@@ -50,7 +50,9 @@ three causes and the `utilization.gpu` trap), 13.9 (the method), 13.13 (worked i
 1. **Per-step statistics (10 pts).** `per_step_stats`: median/max compute, slowest rank, straggler
    ratio, sync overhead, wait, transfer, step time.
 2. **Robust outliers (20 pts).** `robust_z`, `find_stragglers`, `onset_step`, `rank_onset`.
-   *Acceptance:* the persistent stragglers and their onsets match the checker.
+   *Acceptance:* the persistent stragglers and their onsets match the checker, and still match when the
+   checker drops 5 % of the rows and blanks 1 % of `compute_ms` (real telemetry loses samples; use
+   NaN-tolerant medians and do not assume every step has 64 rows).
 3. **Attribution (20 pts).** `attribute_cause`, using clocks/clocks-event reasons, tokens, and
    retransmissions — never compute time itself.
 4. **Rails and decoys (15 pts).** `rail_health` (group by local rank = rail) and `hot_not_throttled`.
@@ -71,7 +73,7 @@ python check.py --impl solution    # reference implementation (instructors)
 
 | Item | Points |
 |---|---|
-| Tasks 1–5 (checker: 10 checks) | 75 |
+| Tasks 1–5 (checker: 11 checks) | 75 |
 | Report: findings table with independent evidence per finding | 10 |
 | Report: annotated data-path diagram (GDR and host-staged variants) | 8 |
 | Report: decoy rejected and misleading metric explained | 4 |
@@ -96,7 +98,8 @@ detector finds it.
 
 **L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` measures the transfer
 paths this chapter models: host→device and device→host bandwidth for pageable and pinned memory over a
-size sweep, against the PCIe ceiling of the link the GPU actually negotiated. It also measures how much of
+size sweep, against the PCIe ceiling of the GPU's maximum-capability link (`pcie.link.gen.max` ×
+`pcie.link.width.max`; an idle link may train down, so the current values are not a ceiling). It also measures how much of
 a copy a second CUDA stream hides behind compute. It probes for an RDMA device and records the GDR-locality
 part as not runnable when there is none.
 

@@ -125,3 +125,45 @@ Iteration 3: **9.50, pass**. One minor finding:
 | R3-01 | Minor | Section 15.3 deviation note; lab README; exercise T1 | The canary on `orion-n29` and the decode replicas on `orion-n05`/`n06` did not say which partition they belong to | Added a clause in all three places: these are nodes of the 8-node Kubernetes inference partition (`REFERENCE_CLUSTER.md` scheduling split), so W-TRAIN is not running at full size at that moment |
 
 The manuscript is 9,997 words. No numbers changed.
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.5, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 9.5, D8 9.5, D9 9.5. Weighted **9.50**. All findings were minor; there were no blockers or majors. The author checked each finding before changing anything.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| N15-01 | §15.10 called the frontend "3:1 oversubscribed" | Now reads "1.5:1 oversubscribed by bandwidth (3:1 by port count; 1:1 as populated on ORION-256)", matching VERIFIED_FACTS |
+| N15-02 | §15.11 and key O5 compared a weight-only intensity with the peak ridge, which would also make k = 2 (768 FLOP/B) compute-bound | Both now compare derated compute time with derated memory time: 28.3 vs 17.2 ms for k = 4, and 17.0 vs 17.2 ms for k = 2. The equivalent check is intensity including KV bytes (≈ 556 and ≈ 333 FLOP/B) against the effective ridge 591 × 0.40/0.70 ≈ 338 FLOP/B. The O5 answer.md is updated too. Verification costs (1.55, 2.67) and speedups are unchanged |
+| N15-03 | T1 placed a Slurm job on n27/n28, which ORION's partition model makes impossible | The prompt now states that Slurm owns n01–n24 and that a partition-definition change was merged three weeks ago. The prompt is synced verbatim to the exercise folder. In the key and answer.md, the root cause is a `training` partition (or reservation) mistakenly extended to n25–n32. The RX on rails 0–3 is explained by rail-aligned rings from full nodes entering through NICs 0–3. The test is `scontrol show partition training`. The mitigation reverts the partition change, and the structural fix enforces node ownership (Chapter 17) with a pre-merge policy check. Marking text in meta.yaml and marking.json is updated |
+| N15-04 | §15.14 had an unexplained compound expression | Now spelled out as ρ = λ_r × t_prefill = 1.7 req/s (baseline arrivals per healthy replica, checked against requests.csv) × (1,444 mean prompt tokens × 88.4 µs + 3 ms) ≈ 0.22, labelled |
+| N15-05 | The "M/D/1 p95 ≈ 3× mean" heuristic was unlabelled | Checked numerically, and the heuristic is **wrong**. Erlang's exact M/D/1 waiting-time distribution, confirmed by a 2M-arrival simulation, gives p95 = 4.3× the mean at ρ = 0.45 and 3.5× at ρ = 0.71. §15.7 now gives the formula and these ratios. Step 6 uses the exact value: 161 ms p95 wait, TTFT p95 ≈ 252 ms, conclusion unchanged. Key D1 now uses the exact percentile, which **changes the design**: P = 12 gives 1.71 s (fail; the old rule passed it at 1.48 s) and P = 13 gives 1.49 s (no margin), so the choice is now **14P + 4D = 18 replicas**, still 10 nodes including the spare. The prefill-loss row now reads ρ 0.60 and 1.49 s, at the SLO edge. The D1 solve.py implements the formula, its assertions are updated, and its outputs are regenerated |
+| N15-06 | MoE / expert-parallel serving was absent | Added a Production note in §15.9: experts on other GPUs and nodes, two latency-bound all-to-alls per MoE layer per decode step, PXN relevance (Chapter 12), and that the KV analysis still applies. It cites the DeepSeek-V3 Technical Report (DeepSeek-AI, 2024), which is also added to Further reading |
+| N15-07 | The HBM unit was implicit | §15.3 now states that 80e9 B is a conservative planning figure, that `nvidia-smi` shows ≈ 79.6 GiB ≈ 85.5e9 B, and that the engine profile gives the real budget |
+| N15-08 | TGI listed as a current engine | Verified against the TGI repository README (2026-11), which says it is "now in maintenance mode". The text now says so, `[VENDOR-SPEC, 2026-10]` |
+| Next-0.5 D2 | Autoscaling cold start | Added a runbook-notes paragraph: 140 GB per node, ≥ 2.8 s at line rate, ≥ 7 s for 8 nodes on 160 GB/s of PFS read, plus engine start-up. Bursts are absorbed by N+1 headroom; NVMe weight cache (Chapter 14) |
+| Next-0.5 D3 | ITL timeline figure | Added Figure 15.2 (ITL with and without 512-token chunked prefill: 103.3 ms vs 4 × 35.3 ms; the prompt finishes at 141 vs 90.6 ms). The disaggregation figure is renumbered 15.3 |
+| Next-0.5 D4 | Analyzer realism gap | `request_metrics` now adds a `valid` column (missing or out-of-order timestamps → NaN latencies), and `itl_values_s` skips empty, non-numeric and negative gaps. New check **B9** runs both on an unseen defective trace. Starter stubs, lab README task 5 and rubric, the L1/DEL lab_checks and "19/19" texts, and the golden check outputs are updated |
+
+Validation: `check.py --impl solution` 19/19; `--impl starter` 19 TODO, exit 1. `validate_labs.py ch15` 1/1 valid. `copyedit_lint.py` 0 findings. `pytest docker/harness/test_package.py --pkg ch15` 98 passed. The manuscript grew from ≈ 10,065 to ≈ 10,550 words (`wc -w`); the new material was partly offset by trimming the Summary, §15.13 and §15.9.
+
+Author re-score, pending independent confirmation: D1 10, D2 10, D3 10, D4 10, D5 10, D6 10, D7 9.5, D8 9.5, D9 9.5. Weighted ≈ **9.93**.
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1 9.5, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 10, D8 9.5, D9 9.5. Weighted **9.525**. There were 5 minor findings, no blockers and no majors.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R15-01 | §15.12 Step 7 said 6:2 "leaves a third" of the TPOT budget | Confirmed (17.1 of 50 ms *uses* a third). Now "uses only about a third of the TPOT budget (17.1 of 50 ms)" |
+| R15-02 | The L2 report cited Section 15.6 for prefill interference | Confirmed. The string is corrected to Section 15.4 in `lab/l2/experiment.py` and in the text line of both committed `report.md` bundles. No measured value was touched |
+| R15-03 | The T1 mechanism (rail-aligned rings landing on NICs 0–3) was unsupported | Confirmed: ranks on GPUs 4–7 get PIX NICs 4–7, and PXN cannot relay through non-job GPUs 0–3. Key and answer.md now state the narrower mechanism. The job's ranks use NICs 0–3 directly, through an `NCCL_IB_HCA` pin or cross-NIC selection. That traffic is host-staged at SYS distance. A whole-node grant is considered and set aside because decode TPOT barely moved. The job's NCCL INFO channel lines (`via NET/IB/<dev>`, presence of `/GDRDMA`) are now the discriminating test |
+| R15-04 | The safety callout used 32 nodes | Confirmed. It now covers the 8 inference nodes: ≈ 1.1 TB (16 FP8 or 8 BF16 replicas) needs ≥ 7 s of the 160 GB/s PFS read even uncontended |
+| R15-05 | Late acronym expansions | NIC is now expanded at its first prose use (§15.1), and the later expansion in Table 15.5 is removed. **Partly rejected:** SM is first used where it is expanded (§15.14), and MTU likewise (Realism boundaries); grep shows no earlier use of either |
+| Next-0.5 D3 | Justify the (1 − ρ) stall factor | Step 5 now explains it: without chunking each iteration either prefills or decodes, so decode fills only 1 − ρ of wall time (a mean-value model) |
+| Next-0.5 D2 | TPOT/ITL p95 | Step 6 adds a Poisson bound. A request's 5.94 s of decode sees Poisson(29.7) prefills, p95 = 39, giving TPOT p95 ≈ 26.6 ms. Since 11 % of gaps hold a prefill, ITL p95 ≈ p99 ≈ 103 ms `[MODELED]` |
+| Next-0.5 D2 | Prefix-cache effect on prefill demand | Step 3: with a 1,024-token cached prefix, t_p ≈ 45.3 ms and demand is 1.81 replica-s/s. The text says to size for the miss case and alert on hit rate |
+| Next-0.5 D4 | Planted telemetry decoy and check | **Not done.** The analyzer classifies from request-level timings and never reads `gpu_busy_pct`, so a decoy check would pass trivially. Testing it properly needs a new telemetry-driven contract plus regenerated data and goldens. The "busy % discriminates nothing" point stays in report task 8 and INSTRUCTOR_NOTES |
+
+To compensate for length, the security-boundary, TP-mismatch, KV-size and validation paragraphs were tightened. The manuscript is ≈ 10,700 words (`wc -w`).
+
+Validation: `check.py --impl solution` 19/19; `--impl starter` 19 TODO, exit 1. `validate_labs.py ch15` 1/1 valid. `copyedit_lint.py` reports 0 findings in ch15 files; its one remaining finding is in ch22. `pytest docker/harness/test_package.py --pkg ch15` 98 passed.

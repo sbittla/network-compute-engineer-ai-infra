@@ -88,9 +88,14 @@ def lost_gpu_hours(job_steps: pd.DataFrame, job_id: str, baseline: float, gpus: 
 def burn_rate(inference: pd.DataFrame, bad_col: str, slo: float, window_min: int) -> pd.Series:
     """Rolling burn rate = (sum bad / sum requests over the trailing window) / (1 - slo).
 
-    Indexed by ts; NaN until a full window is available (min_periods = window_min).
+    Indexed by ts. The window is the last window_min samples (one per minute in this lab). The value
+    is NaN until a full window exists *and* whenever those samples are not contiguous, i.e. they span
+    more than (window_min - 0.5) x the series' median sampling interval. A missed scrape therefore
+    yields "no data", never a number computed over a silently stretched window.
     """
-    # TODO: Rolling sums of the bad column and of requests with min_periods=window_min; divide, then divide by (1 - slo).
+    # TODO: Rolling sums of the bad column and of requests with min_periods=window_min; divide, then divide
+    # by (1 - slo). Mask (NaN) windows whose first-to-last timestamp span exceeds (window_min - 0.5) x the
+    # median sampling interval (Series.diff(window_min - 1) on the timestamps).
     raise NotImplementedError("burn_rate")
 
 

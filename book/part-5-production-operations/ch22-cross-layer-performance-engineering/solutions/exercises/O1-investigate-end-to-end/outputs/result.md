@@ -2,7 +2,7 @@
 
 | Cause | Measurement | Value |
 |---|---|---|
-| TP split | backend tx per node, packed → split (after) | 6.06 → 37.93 GB/s |
+| TP split | backend tx per node, packed → split (after) | 6.06 → 95.93 GB/s |
 | TP split | SM active, packed → split (after) | 0.57 → 0.40 |
 | Capacity tier | data-wait delta, TP-packed (after) | +1.46 s |
 | Capacity tier | CPU iowait hot → capacity (after) | 1.52 → 6.03 % |

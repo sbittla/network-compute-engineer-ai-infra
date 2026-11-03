@@ -21,7 +21,7 @@ If "10 % slow" is read as "takes 10 % longer", throughput is 1 / 1.1 = 0.909, a 
 (23.3 GPU-equivalents): still ≈ 10 %, which is the point.
 
 **Why it matters:** the 255 waiting GPUs still show high `nvidia-smi` utilization because they are inside a
-running NCCL kernel (see K7). At $2.50/GPU-hour `[ILLUSTRATIVE]` a 10 % straggler on ORION wastes
-25.6 × $2.50 = $64 per hour.
+running NCCL kernel (see K7). At $3.00/GPU-hour (Chapter 21) a 10 % straggler on ORION wastes
+25.6 × $3.00 = $76.80 per hour.
 
 **Marking note:** the key gives 2 points; this folder scores it out of 4 (the key's 2 × 2).

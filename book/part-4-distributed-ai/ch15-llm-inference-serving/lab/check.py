@@ -200,6 +200,28 @@ def build_checks(m):
         expect(eb["kv_usage_max_pct"] < 80, "burst episode is not KV-bound (expect < 80 %)")
         expect(eb["waiting_mean"] > 10 * max(base["waiting_mean"], 0.1), "burst waiting queue should dwarf baseline")
 
+    @add("B9 analyzer robustness: missing and out-of-order timestamps")
+    def _():
+        nan = float("nan")
+        bad = pd.DataFrame({
+            "request_id": [0, 1, 2, 3], "tenant": ["chat"] * 4, "replica": ["r0"] * 4,
+            "arrival_s": [0.0, 1.0, 2.0, 3.0], "sched_s": [0.1, 1.1, 2.1, 3.1],
+            "first_token_s": [0.3, nan, 2.4, 3.05], "finish_s": [2.3, 3.0, nan, 4.0],
+            "output_tokens": [101, 50, 50, 50], "preemptions": [0, 0, 0, 0]})
+        out = m.request_metrics(bad)
+        expect("valid" in out.columns, "missing boolean column 'valid'")
+        expect(list(out["valid"].astype(bool)) == [True, False, False, False],
+               f"valid should be [True, False, False, False] (missing first token, missing finish, "
+               f"first token before sched), got {list(out['valid'])}")
+        expect(out.loc[3, ["queue_s", "prefill_s", "ttft_s", "e2e_s", "tpot_s"]].isna().all(),
+               "an out-of-order row must have NaN latencies, not negative ones")
+        p = m.latency_percentiles(out["ttft_s"], (50,))
+        expect(close(p["p50"], 0.3), f"percentiles must ignore invalid rows; p50 TTFT expected 0.3, got {p['p50']}")
+        gaps = pd.DataFrame({"request_id": [0, 1, 2], "itl_ms": ["20.0;;21.0;-5.0;x", nan, ""]})
+        v = np.asarray(m.itl_values_s(gaps))
+        expect(np.allclose(v, [0.020, 0.021]),
+               f"expected [0.020, 0.021] s after dropping empty, non-numeric and negative gaps, got {v}")
+
     # ---------------- Part C ----------------
     @add("C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)")
     def _():

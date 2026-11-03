@@ -15,7 +15,7 @@ marking:
 - criterion: Discriminating tests with both expected outcomes
   points: 3
 - criterion: Root cause split into proven (SW thermal slowdown) and inferred (fan-tray trigger), plus magnitude
-    check 13.5 × 1,980/1,715 ≈ +2.1 s
+    check 13.5 × 1,830/1,585 ≈ +2.1 s
   points: 3
 - criterion: 'Safe change: drain and checkpoint restart with the job owner, Facilities inspects; no clock/power/QoS
     overrides'

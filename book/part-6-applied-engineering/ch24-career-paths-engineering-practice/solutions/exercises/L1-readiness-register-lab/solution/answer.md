@@ -1,6 +1,6 @@
 # L1 — Role-readiness scorer and register validator: instructor solution
 
-Reference: `solutions/lab/career_lab.py`; `python lab/check.py --impl solution` → **11/11 PASS** (golden
+Reference: `solutions/lab/career_lab.py`; `python lab/check.py --impl solution` → **12/12 PASS** (golden
 report in `solutions/lab/outputs/check_solution.txt`). All results `[MODELED]` on synthetic data.
 
 **Expected results.** AI Network Engineer readiness 100.0 / 94.1 / 78.4 / 69.6 % for junior / mid / senior /

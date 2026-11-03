@@ -1,6 +1,6 @@
 # DEL — Inference capacity model and tuning recommendation: worked solution
 
-A model memo outline. The checker must show 18/18. All numbers are `[MODELED]` unless marked.
+A model memo outline. The checker must show 19/19. All numbers are `[MODELED]` unless marked.
 
 **1. Launch layout (40 req/s, 2k prompts, 256 outputs).** Shared pool of **8 × T-tp4-fp8 replicas with
 chunked prefill** on 4 HX8 nodes, plus 1 node for N+1 = **5 nodes** (Section 15.12). ρ_prefill = 40/8 ×

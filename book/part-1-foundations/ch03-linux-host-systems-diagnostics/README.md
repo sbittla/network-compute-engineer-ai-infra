@@ -29,9 +29,10 @@ build a safe, read-only collector and a baseline-driven analyzer for fleet-wide 
 
 ## Prerequisites
 
-Linux command line, Python, and basic IP networking. You should have read [Chapter 1](../ch01-ai-infrastructure-landscape/)
-(workload types, scale-up and scale-out) and [Chapter 2](../ch02-anatomy-of-an-ai-data-center/)
-(the `HX8` node and ORION racks). No CUDA, RDMA or ML background is required.
+Linux command line, Python, and basic IP networking. You should have read
+[Chapter 1](../ch01-ai-infrastructure-landscape/) (workload types, scale-up and scale-out) and
+[Chapter 2](../ch02-anatomy-of-an-ai-data-center/) (the `HX8` node and ORION racks). No CUDA, RDMA
+or ML background is required.
 
 ## Time budget
 

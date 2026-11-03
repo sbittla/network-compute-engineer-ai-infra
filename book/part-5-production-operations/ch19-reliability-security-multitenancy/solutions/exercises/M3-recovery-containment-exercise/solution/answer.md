@@ -1,6 +1,6 @@
 # M3 — Recovery and containment exercise (recovery test plan): reference solution
 
-**Relies on:** Section 19.10 (Table 19.7a), Section 19.9 (isolation layers), Section 19.2 (blast-radius
+**Relies on:** Section 19.10 (Table 19.10), Section 19.9 (isolation layers), Section 19.2 (blast-radius
 control), Chapter 18 SLIs and burn rates. All thresholds `[ILLUSTRATIVE]`. Execution is on a
 **dedicated lab partition only**, never on production or shared systems.
 

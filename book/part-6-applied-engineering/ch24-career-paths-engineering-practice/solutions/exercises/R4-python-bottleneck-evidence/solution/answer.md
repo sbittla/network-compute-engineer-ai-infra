@@ -20,7 +20,7 @@ register only measures one side, in one sample:
 - **Interview-loop evidence.** Whether candidates are actually rejected for Python (loop feedback, a
   hiring manager), as opposed to for fabric or GPU depth.
 - **Vocabulary.** The combined tags signal a scripting *floor* ("Python or Go"), not a scarce specialism;
-  map tags to a controlled vocabulary before counting (Table 24.8a).
+  map tags to a controlled vocabulary before counting (Table 24.9).
 
 **Conclusion.** Frequency in postings is not scarcity. The defensible claim is "Python-level scripting is
 a common entry requirement in this sample", labelled `[OBSERVED, 2026-10-30]` and stale after 2026-11-29.

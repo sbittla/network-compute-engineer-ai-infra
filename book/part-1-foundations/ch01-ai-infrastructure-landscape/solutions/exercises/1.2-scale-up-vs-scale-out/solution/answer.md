@@ -40,13 +40,14 @@ meaningful 0.3–0.9 band, so the classification is credible.
 
 ## 4. Placement change for B
 
-Keep each expert-parallel group inside one node (EP ≤ 8), or use hierarchical all-to-all so that most
-token exchanges ride NVLink and only an aggregated remainder crosses the NIC. If all 30 GB moved to
-NVLink: 30 / 450 = 0.067 s, so B would become compute-bound at 0.404 s. **Limit on ORION:** the NVLink
-domain is 8 GPUs. The experts of a group must fit in 8 × 80 GB = 640 GB of HBM alongside activations
-and optimizer state, and any cross-node data-parallel gradient or expert-replica traffic stays on the
-NIC.
+Keep each expert-parallel group inside one node (EP ≤ 8), or use hierarchical all-to-all so that
+most token exchanges ride NVLink and only an aggregated remainder crosses the NIC. If all 30 GB
+moved to NVLink, on top of the 40 GB already there: (40 + 30) / 450 = 0.156 s, so B would become
+compute-bound at 0.404 s. **Limit on ORION:** the NVLink domain is 8 GPUs. The experts of a group
+must fit in 8 × 80 GB = 640 GB of HBM alongside activations and optimizer state, and any cross-node
+data-parallel gradient or expert-replica traffic stays on the NIC.
 
-**Common wrong answers:** dividing NIC bytes by 400 (forgetting bits to bytes, which gives 0.075 s and the
-wrong verdict for B); calling A communication-bound because "TP is communication"; adding the bounds and
-calling the sum the prediction (the sum assumes no overlap and is an upper reference, not the bound).
+**Common wrong answers:** dividing NIC bytes by 400 (forgetting bits to bytes, which gives 0.075 s
+and the wrong verdict for B); calling A communication-bound because "TP is communication"; adding
+the bounds and calling the sum the prediction (the sum assumes no overlap and is an upper reference,
+not the bound).

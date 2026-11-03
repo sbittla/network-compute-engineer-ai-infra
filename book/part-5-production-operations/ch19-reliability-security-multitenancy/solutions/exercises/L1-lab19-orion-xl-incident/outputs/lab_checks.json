@@ -11,7 +11,7 @@
     "T4 restart plan + rank remap:": "PASS T4 restart plan + rank remap: node_map={'orionxl-n212': 'orionxl-s01', 'orionxl-n389': 'orionxl-s03'} (orionxl-s00 failed acceptance, orionxl-s02 in repair); 16 ranks remapped",
     "T4 retry-loop policy:": "PASS T4 retry-loop policy: repeat offenders={'orionxl-n212'}; restart allowed with offender=False, after exclusion=True",
     "T5 FMEA scorer:": "PASS T5 FMEA scorer: top=F03 RPN 336; issues={'F07': 'DETECTION_INCONSISTENT', 'F11': 'OUT_OF_RANGE'}; action_required=['F03', 'F06', 'F07', 'F12']",
-    "T6 tenant isolation checker:": "PASS T6 tenant isolation checker: 10 violations; missing=[]; unexpected=[]",
+    "T6 tenant isolation checker:": "PASS T6 tenant isolation checker: 11 violations; missing=[]; unexpected=[]",
     "dataset reproducible:": "PASS dataset reproducible: generator reproduces committed data byte-for-byte (1.48 MB)"
   }
 }

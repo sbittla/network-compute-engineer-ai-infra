@@ -21,8 +21,11 @@ This experiment does exactly that for the fictional learner's item **E08** (``ho
    (SIMULATION_CLAIMED_AS_MEASURED) and a ``lab_hw`` item with no artifact (NO_ARTIFACT). Then it
    recomputes the learner's readiness for their target role with the converted item.
 
-The run also states what it does *not* prove: there is no NIC on this host, so the GPU-NIC half of
-E08's claim is still unevidenced. The converted item's summary says so.
+The run also states what it does *not* prove. ``host_topology`` covers GPU/NIC topology and GPUDirect
+RDMA, so level 3 is claimed only when an RDMA device is present. With no NIC the GPU-NIC half is
+unevidenced: the converted item keeps claimed level 2, its summary carries PARTIAL_EVIDENCE, and
+readiness does not change. (Bundles committed before 2026-11-01 claimed level 3 on a NIC-less laptop;
+see lab/README.md.)
 
 CPU fallback: the hardware run is the host half only (NUMA layout, host memory copy bandwidth, the
 RDMA probe); the GPU fields are recorded as absent, and the converted item keeps its claimed level at 2,
@@ -166,15 +169,21 @@ def run(ctx) -> dict:
     ev = yaml.safe_load((data / "learner_evidence.yaml").read_text(encoding="utf-8"))
     mats = yaml.safe_load((data / "competency_matrices.yaml").read_text(encoding="utf-8"))
     original = next(e for e in ev["evidence"] if e["id"] == ITEM_ID)
-    claim = 3 if ctx.is_gpu else 2
+    # host_topology covers GPU/NIC topology and GPUDirect RDMA. Level 3 needs both halves on hardware: a GPU
+    # and an RDMA NIC. Without a NIC the run evidences only the GPU/host half, so the claim stays at 2
+    # (the evidence must cover the competency's scope, not merely exist).
+    full_scope = bool(ctx.is_gpu and hw["rdma_devices"])
+    claim = 3 if full_scope else 2
+    scope_note = ("" if full_scope else
+                  " PARTIAL_EVIDENCE: GPU-NIC alignment and GPUDirect RDMA not shown (no RDMA NIC on this host), so the"
+                  " claim stays at level 2.")
     converted = {**copy.deepcopy(original), "type": "lab_hw", "measured_on_hardware": True, "claimed_level": claim,
                  "artifact": artifact, "date": today.isoformat(),
                  "summary": (original["summary"] + f" Hardware run on {hw['gpu_model'] or 'a CPU-only host'}: topo -m, PCIe link "
-                             f"state, NUMA layout and {hw['reps']}-rep pinned H2D bandwidth [MEASURED]. Not shown: GPU-NIC "
-                             "alignment (no NIC on this host).")}
+                             f"state, NUMA layout and {hw['reps']}-rep pinned H2D bandwidth [MEASURED]." + scope_note)}
     variants = {
         "original lab_l1": original,
-        "mistake: lab_l1 with measured_on_hardware: true": {**original, "measured_on_hardware": True, "claimed_level": claim},
+        "mistake: lab_l1 with measured_on_hardware: true": {**original, "measured_on_hardware": True, "claimed_level": 3},
         "converted lab_hw": converted,
         "mistake: lab_hw without artifact": {**converted, "artifact": ""},
     }
@@ -198,7 +207,7 @@ def run(ctx) -> dict:
         except Exception as exc:  # noqa: BLE001 - starter TODOs
             err = f"{type(exc).__name__}: {exc}"
     metrics = {
-        "item": ITEM_ID, "competency": original["competency"], "claimed_after": claim,
+        "item": ITEM_ID, "competency": original["competency"], "claimed_after": claim, "full_scope": full_scope,
         "effective_before": next((s["effective_level"] for s in scored if s["variant"] == "original lab_l1"), None),
         "effective_after": next((s["effective_level"] for s in scored if s["variant"] == "converted lab_hw"), None),
         "readiness_before": readiness.get("before", {}).get("score"), "readiness_after": readiness.get("after", {}).get("score"),
@@ -287,7 +296,12 @@ def report(result: dict, env: dict) -> str:
                   f"{r['after']['host_topology_level']}."]
     lines += ["", "What to conclude:", "",
               "- Hardware evidence raises the ceiling (lab_l1 caps at 2, lab_hw at 3); it does not raise the level by itself. "
-              "The claim must still be defended, and here the GPU-NIC half of the claim has no evidence because there is no NIC.",
+              "The claim must still be defended.",
+              "- Hardware evidence must cover the competency's scope, not merely exist. host_topology includes GPU-NIC "
+              "alignment and GPUDirect RDMA; " + ("both halves were evidenced here, so level 3 is claimed."
+                                                 if m.get("full_scope") else
+                                                 "with no RDMA NIC on this host that half is unevidenced, so the converted "
+                                                 "item keeps claimed level 2 and readiness does not change."),
               "- The cheap shortcut, setting `measured_on_hardware: true` on a lab_l1 item, is caught and capped at 1, and a "
               "lab_hw item without an artifact is capped at 1 too. The manifest and the raw output are what make it evidence.",
               "- This is a laptop Ada GPU in a WSL2 container. The evidence is honest about that, which is what a reviewer "

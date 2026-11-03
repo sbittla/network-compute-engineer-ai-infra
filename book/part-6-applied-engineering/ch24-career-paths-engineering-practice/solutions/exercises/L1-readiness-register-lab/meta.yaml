@@ -6,7 +6,7 @@ difficulty: 2
 tier: L1
 kind: lab
 points: 100
-evidence_required: '`python check.py` output showing 11/11 PASS; the generated report; a one-page explanation of
+evidence_required: '`python check.py` output showing 12/12 PASS; the generated report; a one-page explanation of
   the flags (rule, why it exists, what the learner should do).'
 marking:
 - criterion: 'Tasks 1–4 (Part A: evidence rules, levels, readiness, gap plan) pass check.py'
@@ -34,3 +34,4 @@ lab_checks:
 - representative_selection
 - validate_register
 - skill_frequency
+- real_register_worked_example

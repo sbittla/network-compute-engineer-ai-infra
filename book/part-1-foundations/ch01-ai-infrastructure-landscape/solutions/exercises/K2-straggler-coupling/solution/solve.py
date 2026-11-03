@@ -23,7 +23,7 @@ def house(line: str) -> str:
 
 GPUS = 256          # ORION W-TRAIN job size
 SPEED = 0.90        # "10 % slow": runs at 90 % of peer speed
-GPU_HOUR_USD = 2.50  # [ILLUSTRATIVE], manuscript Section 1.7
+GPU_HOUR_USD = 3.00  # Chapter 21 TCO per nominal GPU-hour; manuscript Section 1.7
 KEY_LOSS = 0.10     # exercises-key.md K2: loss ~ 10 % of all 256 GPUs
 KEY_GPU_EQ = 25.6
 TOL = 1e-9

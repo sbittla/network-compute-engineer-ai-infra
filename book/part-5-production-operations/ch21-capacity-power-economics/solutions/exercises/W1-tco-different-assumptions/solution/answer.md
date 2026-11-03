@@ -1,9 +1,9 @@
 # W1 — TCO under different assumptions: worked solution
 
-Source: manuscript Section 21.4 (Table 21.1a and the cost ladder). Unchanged inputs come from
+Source: manuscript Section 21.4 (Table 21.3 and the cost ladder). Unchanged inputs come from
 `lab/data/assumptions.yaml` `[ILLUSTRATIVE]`. All results are `[MODELED]` and reproduced by `solve.py`.
 
-Changed inputs: amortization 5 years (was 4); electricity $0.12/kWh (was $0.09); allocation 0.80 (was
+Changed inputs: amortization 5 years (was 4); electricity $0.12/kWh (was $0.08); allocation 0.80 (was
 0.85); goodput 0.90 (was 0.88); PUE 1.25 (canonical, unchanged).
 
 Hardware capex = 32 × ($320k + $85k) + $2.0M storage = $14.96M.
@@ -29,7 +29,7 @@ $/allocated GPU-h = 2.7287 / (0.8496 × 0.80) = 2.7287 / 0.680 = $4.01
 $/useful GPU-h    = 4.0146 / 0.90                             = $4.46
 ```
 
-**Interpretation.** Against the base case ($6.77M; $3.02 nominal and $4.75 useful), the longer
+**Interpretation.** Against the base case ($6.73M; $3.00 nominal and $4.72 useful), the longer
 amortization cuts capex by $0.75M/yr. The 33 % higher electricity price adds only $0.10M, because power
 is a small share. Lower allocation and higher goodput partly offset each other: 0.85 × 0.88 = 0.748 in
 the base case against 0.80 × 0.90 = 0.720 here. Net: nominal −9.6 %, useful −6.1 %. The 5-year

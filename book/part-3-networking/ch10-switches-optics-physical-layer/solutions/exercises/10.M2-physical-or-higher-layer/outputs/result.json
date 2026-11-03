@@ -7,7 +7,8 @@
       "layer": "higher-layer",
       "margin_decades": 3.301,
       "p_uncorr_random_model": 4.16e-65,
-      "pfc_per_s": 1833.3
+      "pfc_per_s": 1833.3,
+      "sym_vs_ber_ratio": 1.01
     },
     "P2": {
       "ber_ratio_7d": 1.11,
@@ -16,7 +17,8 @@
       "layer": "physical",
       "margin_decades": 0.778,
       "p_uncorr_random_model": 7.9e-25,
-      "pfc_per_s": 0.0
+      "pfc_per_s": 0.0,
+      "sym_vs_ber_ratio": 0.98
     },
     "P3": {
       "ber_ratio_7d": 0.95,
@@ -25,7 +27,8 @@
       "layer": "physical-elsewhere",
       "margin_decades": 4.079,
       "p_uncorr_random_model": 1.47e-77,
-      "pfc_per_s": 0.0
+      "pfc_per_s": 0.0,
+      "sym_vs_ber_ratio": 1.0
     },
     "P4": {
       "ber_ratio_7d": 1.07,
@@ -34,7 +37,8 @@
       "layer": "physical",
       "margin_decades": 3.477,
       "p_uncorr_random_model": 6.33e-68,
-      "pfc_per_s": 0.0
+      "pfc_per_s": 0.0,
+      "sym_vs_ber_ratio": 0.98
     },
     "P5": {
       "ber_ratio_7d": 45.0,
@@ -44,7 +48,8 @@
       "layer": "physical",
       "margin_decades": 0.426,
       "p_uncorr_random_model": 2.65e-19,
-      "pfc_per_s": 0.0
+      "pfc_per_s": 0.0,
+      "sym_vs_ber_ratio": 1.0
     },
     "P6": {
       "ber_ratio_7d": 1.0,
@@ -53,7 +58,8 @@
       "layer": "higher-layer",
       "margin_decades": 4.38,
       "p_uncorr_random_model": 2.25e-82,
-      "pfc_per_s": 0.0
+      "pfc_per_s": 0.0,
+      "sym_vs_ber_ratio": 1.02
     }
   },
   "evidence_label": "[MODELED]",
@@ -75,7 +81,7 @@
           -0.9,
           -1.2
         ],
-        "sym": "low",
+        "sym": 31000000.0,
         "uncorr": 0
       },
       "P2": {
@@ -93,7 +99,7 @@
           -1.9,
           -2.0
         ],
-        "sym": "high",
+        "sym": 10000000000.0,
         "uncorr": 340
       },
       "P3": {
@@ -111,7 +117,7 @@
           -0.9,
           -0.8
         ],
-        "sym": "~0",
+        "sym": 5100000.0,
         "uncorr": 0
       },
       "P4": {
@@ -129,7 +135,7 @@
           -1.3,
           -1.6
         ],
-        "sym": "low",
+        "sym": 20000000.0,
         "uncorr": 12
       },
       "P5": {
@@ -147,7 +153,7 @@
           -2.0,
           -2.2
         ],
-        "sym": "high",
+        "sym": 23000000000.0,
         "uncorr": 0
       },
       "P6": {
@@ -165,7 +171,7 @@
           -0.4,
           -0.5
         ],
-        "sym": "~0",
+        "sym": 2600000.0,
         "uncorr": 0
       }
     },

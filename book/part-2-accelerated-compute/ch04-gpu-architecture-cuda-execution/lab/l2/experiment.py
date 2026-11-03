@@ -346,6 +346,11 @@ def capture_gpu(ctx, an, step, dev_json: dict, n_steps: int) -> dict:
         for i in range(n_steps):
             with tracer.range(f"train_step_{i + 1}"):
                 step(tracer.range)
+                # Close the step range only after the GPU drains. Without this, a step with no host sync (the
+                # "fixed" variant) ends its CPU-side range while most of its kernels are still queued, and every
+                # busy/overlap/gap figure is computed on a truncated window (Section 4.10, "NVTX ranges are
+                # CPU-side"). The baseline hid the bug because its per-layer .item() syncs drained the queue.
+                ctx.torch.cuda.synchronize()
     gpu, api, nvtx = tracer.finish()
     pd = an.pd
     with tempfile.TemporaryDirectory() as td:
@@ -483,6 +488,15 @@ def check(result: dict, env: dict) -> list[str]:
             fails.append(f"analyze() on the shipped trace found {result['shipped_trace_analysis']['codes']}, expected {sorted(need)}")
         return fails
     dev = result["device"]
+    # Window sanity: a traced step can be slower than the uninstrumented median (tracer overhead) but never much
+    # shorter. A window below ~90 % of the median step means the range closed before the GPU finished.
+    for name, v in result["variants"].items():
+        med_ns = v["step_time"]["median"] * 1e9
+        for c in v["captures"]:
+            for s in c["analysis"]["steps"]:
+                if s["window_ns"] < 0.9 * med_ns:
+                    fails.append(f"{name} {s['step']}: traced window {s['window_ns'] / 1e6:.1f} ms < 90 % of the measured median "
+                                 f"step {med_ns / 1e6:.1f} ms: the trace range closed before the GPU drained (Section 4.10)")
     if b["profiler"]["sync_calls"] <= f["profiler"]["sync_calls"]:
         fails.append("baseline should make more host syncs per step than the fixed step (the per-layer .item())")
     for name, v in result["variants"].items():

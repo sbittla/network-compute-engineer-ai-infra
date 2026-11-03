@@ -23,5 +23,6 @@ Each exercise has its own folder with the prompt and an `outputs/` folder for yo
 | 14.17 | Evidence missing before production | reflection | ★ | L1 | written | [14.17](14.17-missing-evidence/) |
 | 14.18 | Deliverable: I/O benchmark plan and checkpoint/recovery design | deliverable | ★★★ | L1 (L2/L3 optional) | lab | [14.18](14.18-io-plan-checkpoint-design/) |
 | 14.19 | Checkpoint benchmark and restore test | outline-mandated | ★★ | L2 | written | [14.19](14.19-checkpoint-benchmark-restore/) |
+| 14.20 | Per-directory create limit | worked-problem | ★★ | L1 | computed | [14.20](14.20-per-directory-create-limit/) |
 
-Exercise count: 19
+Exercise count: 20

@@ -6,7 +6,7 @@ difficulty: 2
 tier: L1
 kind: lab
 points: 100
-evidence_required: check.py output showing 13/13 PASS; the two reports; the triage memo
+evidence_required: check.py output showing 14/14 PASS; the two reports; the triage memo
 marking:
 - criterion: 'Tasks 1–2: completeness and capacity arithmetic checks pass'
   points: 20

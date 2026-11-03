@@ -18,7 +18,9 @@ import copy
 import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -79,6 +81,23 @@ def mk_job(gpus: int, pool: str = "train", **kw) -> dict:
 
 
 # ------------------------------------------------------------------------------------------ checks
+DATA_FILES = ("cluster_state.json", "job_queue.json", "pending_cases.json")
+
+
+def check_reproducible(m) -> tuple[bool | None, str]:
+    """Regenerate data/ with the seeded instructor generator and compare byte for byte (SKIP if absent)."""
+    gen = HERE / "tools" / "generate_data.py"
+    if not gen.exists():
+        return None, "generator not shipped (instructor copy only); data integrity not re-checked"
+    with tempfile.TemporaryDirectory() as td:
+        subprocess.run([sys.executable, str(gen), "--out", td], check=True, capture_output=True)
+        for name in DATA_FILES:
+            if (DATA / name).read_bytes() != (Path(td) / name).read_bytes():
+                return False, f"{name} differs from the regenerated copy (seed 17)"
+    size = sum((DATA / n).stat().st_size for n in DATA_FILES)
+    return size < 2_000_000, f"generator reproduces committed data byte-for-byte ({size / 1e3:.0f} kB)"
+
+
 def check_tolerates(m) -> tuple[bool, str]:
     ded = [{"key": "halcyon.ai/dedicated", "value": "search", "effect": "NoSchedule"}]
     cases = [
@@ -254,6 +273,7 @@ def check_diagnoser(m) -> tuple[bool, str]:
 
 
 CHECKS = [
+    ("D0 dataset reproducible", check_reproducible),
     ("T1 tolerates", check_tolerates),
     ("T2 node_filter", check_node_filter),
     ("T3 select_gpus", check_select_gpus),
@@ -279,7 +299,10 @@ def main() -> int:
     for name, fn in CHECKS:
         try:
             ok, msg = fn(mod)
-            status = "PASS" if ok else "FAIL"
+            if ok is None:
+                ok, status = True, "SKIP"
+            else:
+                status = "PASS" if ok else "FAIL"
         except NotImplementedError as exc:
             ok, status, msg = False, "TODO", str(exc) or "not implemented yet"
         except Exception as exc:  # report learner bugs without a traceback

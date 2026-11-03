@@ -1,6 +1,7 @@
 {
   "id": "17-L1",
   "lab_checks": {
+    "D0 dataset reproducible": "PASS  D0 dataset reproducible        generator reproduces committed data byte-for-byte (45 kB)",
     "T1 tolerates": "PASS  T1 tolerates                   7 taint/toleration cases correct (incl. Exists, effect mismatch, PreferNoSchedule)",
     "T2 node_filter": "PASS  T2 node_filter                 10 filter cases correct (order and codes)",
     "T3 select_gpus": "PASS  T3 select_gpus                 7 GPU-selection cases correct (socket best-fit)",

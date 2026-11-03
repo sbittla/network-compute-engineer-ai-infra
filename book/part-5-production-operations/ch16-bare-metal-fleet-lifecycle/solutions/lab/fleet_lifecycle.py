@@ -113,7 +113,8 @@ def evaluate_node(result: dict[str, Any], policy: dict[str, Any], matrix: dict[s
 
     FAIL codes: GPU_COUNT, GPU_PRODUCT, HBM_CAPACITY, PCIE_DEGRADED, NVLINK_DOWN, ECC_DBE,
     HBM_ROW_REMAP_PENDING, HBM_ROW_REMAP_FAILURE, THERMAL_THROTTLE, DCGM_DIAG_FAIL, NIC_COUNT,
-    NIC_LINK_DOWN, NIC_SPEED, NIC_MTU, RDMA_PAIR_BW_LOW, NVME_COUNT, NVME_MEDIA_ERRORS,
+    NIC_LINK_DOWN, NIC_SPEED, NIC_MTU, RDMA_PAIR_BW_LOW, LINK_BER_HIGH, GDR_PATH_FAIL, NVME_COUNT,
+    NVME_MEDIA_ERRORS, NVME_DRIVE_SLOW,
     STORAGE_THROUGHPUT_LOW, NCCL_BUSBW_LOW, NCCL_ALGO_UNRECORDED, FW_OFF_MATRIX, XID_PRESENT.
     WARN codes: ECC_SBE_ELEVATED, FW_DEPRECATED.
 
@@ -188,6 +189,31 @@ def evaluate_node(result: dict[str, Any], policy: dict[str, Any], matrix: dict[s
         bw = n.get("rdma_pair_bw_gbps")
         if bw is None or bw < thr["rdma_pair_bw_min_gbps"]:
             fail("RDMA_PAIR_BW_LOW", f"{n['name']} {bw} Gb/s < {thr['rdma_pair_bw_min_gbps']}")
+        lq = n.get("link_quality")
+        if lq is not None and (lq.get("pre_fec_ber", 0.0) >= thr["link_pre_fec_ber_max"]
+                               or lq.get("fec_hist_max_bin", 0) > thr["link_fec_hist_max_bin"]
+                               or lq.get("fec_uncorrectable", 0) > thr["link_fec_uncorrectable_max"]
+                               or lq.get("link_flaps", 0) > thr["link_flaps_max"]):
+            fail("LINK_BER_HIGH", f"{n['name']} pre-FEC BER {lq.get('pre_fec_ber')}, FEC max bin "
+                                  f"{lq.get('fec_hist_max_bin')}, uncorrectable {lq.get('fec_uncorrectable')}, "
+                                  f"flaps {lq.get('link_flaps')}")
+
+    if compute:
+        gexp, gdr = exp["gdr"], result.get("gdr")
+        if gdr is None:
+            fail("GDR_PATH_FAIL", "no GPUDirect RDMA evidence (peer memory, IOMMU, ACS)")
+        else:
+            if gdr.get("peer_mem") not in gexp["peer_mem_any_of"]:
+                fail("GDR_PATH_FAIL", f"peer-memory provider {gdr.get('peer_mem')!r} not in {gexp['peer_mem_any_of']}")
+            if gdr.get("iommu_mode") not in gexp["iommu_mode_any_of"]:
+                fail("GDR_PATH_FAIL", f"IOMMU mode {gdr.get('iommu_mode')!r} not in {gexp['iommu_mode_any_of']}")
+            if gdr.get("acs_redirect_ports"):
+                fail("GDR_PATH_FAIL", f"ACS redirect enabled on {gdr['acs_redirect_ports']}")
+        for n in compute:
+            gb, hb = n.get("gdr_pair_bw_gbps"), n.get("rdma_pair_bw_gbps")
+            if gb is None or (hb is not None and gb < thr["gdr_to_host_bw_ratio_min"] * hb):
+                fail("GDR_PATH_FAIL", f"{n['name']} GPU-buffer pair test {gb} Gb/s vs host-buffer {hb} Gb/s "
+                                      f"(< {thr['gdr_to_host_bw_ratio_min']:.0%})")
 
     st = result.get("storage", {})
     nvme = st.get("nvme", [])
@@ -195,6 +221,10 @@ def evaluate_node(result: dict[str, Any], policy: dict[str, Any], matrix: dict[s
         fail("NVME_COUNT", f"{len(nvme)} NVMe devices, expected {exp['nvme_count']}")
     if any(d.get("media_errors", 0) > thr["nvme_media_errors_max"] or d.get("critical_warning", 0) for d in nvme):
         fail("NVME_MEDIA_ERRORS", "media errors or critical warning on NVMe")
+    slow = [d.get("slot") for d in nvme
+            if d.get("seq_read_gbs") is not None and d["seq_read_gbs"] < thr["nvme_drive_seq_read_min_gbs"]]
+    if slow:
+        fail("NVME_DRIVE_SLOW", f"slots {slow} below {thr['nvme_drive_seq_read_min_gbs']} GB/s per drive")
     if st.get("fio_seq_read_gbs", 0.0) < thr["fio_seq_read_min_gbs"]:
         fail("STORAGE_THROUGHPUT_LOW", f"{st.get('fio_seq_read_gbs')} GB/s")
 

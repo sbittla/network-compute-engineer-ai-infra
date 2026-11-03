@@ -14,7 +14,7 @@
       "points": 6
     },
     {
-      "criterion": "Safe mitigation touching no shared fabric configuration (exclude decode nodes from the job or reserve inference nodes); structural fix via change control",
+      "criterion": "Safe mitigation touching no shared fabric configuration (exclude decode nodes from the job, revert the partition change); structural fix enforcing node ownership via change control",
       "points": 4
     },
     {

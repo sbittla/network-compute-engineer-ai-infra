@@ -10,7 +10,8 @@ backend next year. Rail-leaf ASICs are 51.2 Tb/s class, deployed either as 64 ×
 (A) keep one radix-64 leaf per rail (64 × 800G cages at 400G) with 48 down / 16 up; (B) two such radix-64
 leaves per rail at 1:1; (C) one 128 × 400G leaf per rail at 1:1. For each, compute leaf and spine counts and port usage,
 oversubscription, backend cable count, and state which traffic crosses the spines. Recommend one
-in an ADR with a revisit trigger. Include rack count and GPU-node power at 45 kW per rack.
+in an ADR with a revisit trigger. Include rack count and GPU-node power at 45 kW planned per rack
+(50 kW limit, 10 % transient margin).
 *Evidence required:* the arithmetic per option; an ADR (context, options, decision, evidence,
 consequences, revisit trigger).
 <!-- prompt:end -->

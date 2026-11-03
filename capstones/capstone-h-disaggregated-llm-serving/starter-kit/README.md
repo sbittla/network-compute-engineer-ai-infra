@@ -93,7 +93,7 @@ for batch 1–256 at fixed context. Fit `mfu_prefill`, `hbm_eff` and `step_overh
 the capacity model with the measured values (≥ 5 repetitions per point, report median and p95).
 
 **L2 — the packaged calibration (one GPU, no model download).** With no network and no weights in the container,
-`l2/experiment.py` builds a randomly initialised decoder (d=2048, 8 layers, fp16) with a KV cache. It measures prefill
+`l2/experiment.py` builds a randomly initialized decoder (d=2048, 8 layers, FP16) with a KV cache. It measures prefill
 latency against prompt length (output 1), and decode step time against batch at a fixed context, interleaving the sizes
 round-robin. It fits `mfu_prefill`, `hbm_eff` and `step_overhead_s` with the L1 formulas (`prefill_time_s` and
 `decode_step_time_s`, `MODEL` re-pointed at the small model, cross-checked against your `serve.py`) against both the
@@ -108,7 +108,7 @@ python scripts/hw_labs.py run capstone-h --device cpu      # CPU fallback       
 python scripts/hw_labs.py test capstone-h                  # quick run now + checks on the committed evidence
 ```
 
-Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback uses a smaller fp32 model, and its constants are relative to a GEMM and a copy measured on the CPU.
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback uses a smaller FP32 model, and its constants are relative to a GEMM and a copy measured on the CPU.
 
 **Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
 show prefill reaching a large fraction of the GEMM ceiling at long prompts, and decode nearly flat in batch at a high

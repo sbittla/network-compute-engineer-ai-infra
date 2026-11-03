@@ -6,11 +6,11 @@ and per-GPU cost. Examples `[MODELED]` from `[ILLUSTRATIVE]` inputs.
 
 | Bottleneck | Mechanism | Quantified ORION / ORION-XL example | Telemetry that reveals it |
 |---|---|---|---|
-| **Energized power** | Delivered GPUs wait for facility power | 2028Q2–Q3: 1,024 installed, 560 energized → 464 stranded ≈ $3.1M per quarter at $3.02/GPU-h | Installed versus energized node counts; PDU/EPMS load against budget; nodes in a "racked, unpowered" lifecycle state |
+| **Energized power** | Delivered GPUs wait for facility power | 2028Q2–Q3: 1,024 installed, 560 energized → 464 stranded ≈ $3.05M per quarter at $3.00/GPU-h | Installed versus energized node counts; PDU/EPMS load against budget; nodes in a "racked, unpowered" lifecycle state |
 | **Cooling** | CDU heat capacity or supply temperature limits nodes or forces caps | Design B with half the CDU capacity: ⌊500 / 11.44⌋ = 43 nodes instead of 62; 2 % of GPUs 10 % slower → whole job ≈ 10 % slower | CDU heat load, supply/return ΔT, pump redundancy; `HW_THERMAL_SLOWDOWN` clock-event reasons per row |
 | **Maintenance reserve** | Rolling firmware/OS work drains nodes | 3 % of ORION-XL = 123 GPUs (16 nodes/day rollout keeps ≈ 3 % out for a month) | Scheduler drain reasons "maintenance"; change calendar |
 | **Repair (failure reserve)** | Failed nodes wait out the MTTR | 5-day MTTR × 0.5 failures/day = 2.5 of 32 nodes = 7.8 %; ORION-XL 40 nodes. Spares outside the partition are *extra* capex | Nodes in `repair` state, age in repair, RMA queue |
-| **Fragmentation** | Gang jobs need whole nodes or leaf groups; free GPUs are scattered | 5 % reserve; Section 21.11: the largest free block was 6 nodes while a 32-node job queued for 4 days | Free-GPU histogram by contiguous block at queue-head wait times; queue wait by job size |
+| **Fragmentation** | Gang jobs need whole nodes; free GPUs are scattered over part-used nodes | 5 % reserve; Section 21.11: 44 GPUs free but only 2 whole nodes while a 4-node job queued for 4 days | Whole-free-node count and free-GPU histogram per node at queue-head wait times; queue wait by job size |
 | **Allocation headroom** | Queues explode near 100 %, so plan ≤ 85 % | 420 demand needs 494.1 usable GPUs | Allocated/usable GPU-hours; queue wait p50/p95 |
 | **Goodput** | Failures and restarts redo work | 512-node job: ≈ 81 % at τ = 19 min; ORION-XL 2,958 allocated → 2,396 effective | Step records, checkpoint/restart logs, lost GPU-hours per incident |
 | **Network oversubscription** | Cross-spine collectives slow at 2:1 | Comm efficiency 1 / (1 + 0.15 × 0.5) = 0.93; checkpoint storms limited by the 1.5:1 frontend | Spine utilization and ECN/PFC counters; exposed-comm fraction from profiles |

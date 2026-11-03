@@ -9,7 +9,8 @@ Worked problem · difficulty ★★★ · tier L1 · kind `computed` · [exercis
 (b) If 32 equal RoCE flows leave a leaf on 32 uplinks with random ECMP hashing, how many uplinks are
 idle on average? Recompute with 4 queue pairs per connection (128 flows of one quarter the size each).
 (c) For W-TRAIN on ORION-256, recompute Young's checkpoint interval and the total overhead if the
-node MTBF halves from the canonical 1,536 h to 768 h (C = 12.25 s, restart 900 s).
+node MTBF halves from the canonical 1,536 h to 768 h (blocking checkpoint
+cost δ = 60 s as in Section 24.6 and Chapter 23, restart 900 s).
 *Evidence required:* every formula with substituted values and units; results labelled `[MODELED]`.
 <!-- prompt:end -->
 

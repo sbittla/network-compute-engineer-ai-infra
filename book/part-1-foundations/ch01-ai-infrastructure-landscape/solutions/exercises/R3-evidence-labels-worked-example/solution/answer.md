@@ -2,7 +2,7 @@
 
 Source: manuscript Section 1.9 Steps 1–7 and Table 1.12.
 
-**`[MODELED]` (derived by formula from stated parameters):** W-TRAIN step FLOP 1.762 × 10¹⁸ and 6.95 s
+**`[MODELED]` (derived by formula from stated parameters):** W-TRAIN step FLOP 1.762 × 10¹⁸ and 6.96 s
 compute bound; TP, DP and PP volumes (1,202.6 GB, 7.66 GB, 2.15 GB) and their bounds; dataset I/O
 16.8 MB per step; W-INFER weights per GPU 17.5 GB; KV sizes (21.47 GB per batch, 2.68 GB per GPU); decode
 6.02 ms and 0.57 ms bounds; prefill 36.2 ms; KV capacity ≈ 670 sequences.

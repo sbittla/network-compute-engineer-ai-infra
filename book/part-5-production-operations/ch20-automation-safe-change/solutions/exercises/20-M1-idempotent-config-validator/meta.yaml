@@ -1,0 +1,24 @@
+id: 20-M1
+title: Idempotent node/network configuration validator
+folder: 20-M1-idempotent-config-validator
+type: outline-mandated
+difficulty: 2
+tier: L1
+kind: computed
+points: 10
+evidence_required: Source code; two consecutive runs showing drift -> fixed -> in sync (second apply plans zero
+  actions); audit lines; L2 manifest fields.
+marking:
+- criterion: Reads state through machine-readable interfaces (ip -j, ethtool -i, ibv_devinfo, sysfs speed)
+  points: 2
+- criterion: Exit codes 0 in sync / 1 drift / 2 cannot determine
+  points: 1
+- criterion: Validates without mutating by default (dry run)
+  points: 2
+- criterion: --apply touches only the IP MTU of backend NICs and the second run is a no-op
+  points: 2
+- criterion: One JSON audit line per check and per action (target, key, before, after, result)
+  points: 2
+- criterion: Missing tool or device reported as cannot-determine, never as in sync
+  points: 1
+lab_checks: []

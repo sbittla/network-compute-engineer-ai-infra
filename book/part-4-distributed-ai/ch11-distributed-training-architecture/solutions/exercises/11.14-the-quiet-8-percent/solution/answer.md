@@ -8,7 +8,8 @@ boundaries ("pp_wait") and in DP collectives — which is why 248 ranks show ≈
 **Ranked hypotheses**
 
 1. **Node-level power/thermal limit on `orion-n13`** — all 8 GPUs equally slow, compute only, TP and DP
-   comm unchanged. Fits everything, including `SW Power Cap: Active`.
+   comm unchanged. Fits everything; `SW Power Cap: Active` is consistent with it but not proof, since peers
+   show it intermittently too.
 2. **Data imbalance** — plausible in principle because all 8 TP ranks of a group process the same
    micro-batches; test it rather than assume.
 3. **Host CPU contention** (kernel-launch starvation after maintenance, e.g. a runaway agent).
@@ -18,7 +19,7 @@ boundaries ("pp_wait") and in DP collectives — which is why 248 ranks show ≈
 
 | Test | Expected if (1) | Result that rejects (1) |
 |---|---|---|
-| `nvidia-smi -q -d PERFORMANCE` on n13 vs a peer | n13: `SW Power Cap: Active`; peer: not active | No clock-event reason active |
+| `nvidia-smi -q -d POWER` and `--query-gpu=clocks.sm,power.limit` on n13 vs a peer | n13: power limit 500 W, sustained SM clock well below the peers' ≈ 1,830 MHz; peer: 700 W, ≈ 1,830 MHz (both may show `SW Power Cap` intermittently, which is routine) | Same limit and clock as peers |
 | `nvidia-smi -q -d POWER` | Power limit lowered (e.g. 500 W vs 700 W default) | Default limit |
 | `nvidia-smi --query-gpu=clocks.sm,power.draw,power.limit,temperature.gpu --format=csv` | SM clocks ≈ 9 % lower, draw pinned at the limit, normal temperature | Same clocks as peers |
 | Per-rank token counts from the data loader | Identical to peers (rejects 2) | n13 ranks process more tokens |

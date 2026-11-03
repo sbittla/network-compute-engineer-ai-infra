@@ -14,11 +14,11 @@ lh-03 (expansion nodes orion-n37 to orion-n40) loses its A side when a 32-node j
 capacity plan for lh-03: 4 HX8 nodes, "41 kW max <= 2 x 32.78 kW available"
 change calendar: 08:00-12:00 UPS-B maintenance (legacy hall) - all B sides de-energized
 lh-03 PDU-A (circuit continuous 32.78 kW = 48 A; PDU electronic overcurrent protection set at 48 A):
-      08:55 load 12.1 kW (4 idle nodes) -> 09:02:10 41.6 kW (~61 A/phase) -> PDU overcurrent trip at 09:02:12
+      08:55 load 12.1 kW (4 idle nodes) -> 09:02:10 40.8 kW (~60 A/phase) -> PDU overcurrent trip at 09:02:12
 job start: 32 nodes ramp from idle to full training power within ~3 s (synchronised first step)
 node BMC: 4 x "PSU input lost" at 09:02:11 ; GPUs at 700 W default limit
-rack lh-04 (3 nodes): peak 30.9 kW on its A circuit, no trip
-main-hall racks (two circuits per side, 65.55 kW): peaks 39-41 kW on side A, no trip
+rack lh-04 (3 nodes): peak 30.6 kW on its A circuit, no trip
+main-hall racks (two circuits per side, 65.55 kW, both feeds up): rack totals 39-41 kW (A + B), ~20 kW per side, no trip
 ```
 
 Walk the diagnostic loop: hypotheses, discriminating evidence, root cause (system, not person), immediate

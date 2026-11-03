@@ -9,11 +9,11 @@ frame rather than deliver corrupted data.
 
 **Why a perfectly healthy link shows FCS errors.** The next hop receives a frame whose FCS fails and
 counts an FCS error on *its* ingress port. That link's own physical layer is clean: pre-FEC BER is
-normal, symbol errors are ≈ 0, FEC-uncorrectable is 0. FCS errors without any uncorrectables and with
+normal, post-FEC symbol errors are 0, FEC-uncorrectable is 0. FCS errors without any uncorrectables and with
 a clean BER are therefore the stomping signature (discriminating question 3 of Section 10.8.1). In a
 cut-through fabric a single bad link can spray FCS errors across many downstream ports.
 
-**Localizing counter.** **FEC-uncorrectable codewords (with elevated symbol errors / pre-FEC BER) on
+**Localizing counter.** **FEC-uncorrectable codewords (with elevated pre-FEC symbol errors / BER) on
 the ingress port of the upstream switch** where the corruption entered. Uncorrectables are produced
 by the PCS of the link that actually corrupted the bits and do not propagate. Some platforms also
 expose a separate "stomped CRC" (or "CRC stomped / forwarded bad") counter that identifies frames

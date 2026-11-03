@@ -29,7 +29,7 @@ def close(a: float, b: float, tol: float) -> bool:
 NODES = 32               # HX8 nodes
 GPUS_PER_NODE = 8
 RAILS = 8                # one rail leaf per rail; leaf r connects NIC r of every node
-RACK_BUDGET_KW = 45.0    # usable per rack
+RACK_BUDGET_KW = 45.0    # planned per rack: 50 kW limit x 0.9 transient margin (A-09)
 NODE_MAX_KW = 10.2       # node maximum power
 LEAF_UPLINKS = 32
 SPINES = 4

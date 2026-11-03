@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """RDMA deployment-readiness validator (Chapter 8 lab) -- REFERENCE SOLUTION.
 
-Parses per-node command captures (ibv_devinfo, rdma link, show_gids, ethtool, ip, dcb, lsmod and the
-site RDMA environment file), compares them with a baseline, and emits a readiness checklist.
+Parses per-node command captures (ibv_devinfo, rdma link, show_gids, ethtool, ip, dcb, lsmod, the
+site RDMA environment file and ``ulimit -l`` in a login shell and a Slurm job step), compares them with
+a baseline, and emits a readiness checklist.
 
 Input format: one text file per node; each command's output follows a header line
 ``### cmd: <command>``. See ``lab/data/inventory/``.
@@ -22,7 +23,7 @@ import yaml
 
 # Check identifiers used in findings (stable; the checker relies on them).
 CHECK_IDS = ("PORT_STATE", "LINK_LAYER", "LINK_SPEED", "FIRMWARE", "DRIVER", "MTU", "GID_INDEX",
-             "QOS_PFC", "QOS_DSCP", "PEERMEM", "ADDRESS_PLAN")
+             "QOS_PFC", "QOS_DSCP", "PEERMEM", "ADDRESS_PLAN", "TRAFFIC_CLASS", "MEMLOCK")
 
 _IB_MTU = {1: 256, 2: 512, 3: 1024, 4: 2048, 5: 4096}
 
@@ -219,7 +220,9 @@ def check_node(inv: NodeInventory, baseline: dict) -> list[Finding]:
     Per device: PORT_STATE, LINK_LAYER, LINK_SPEED, FIRMWARE, DRIVER, MTU (netdev MTU and RDMA
     active_mtu), GID_INDEX (configured index resolves to a RoCE v2 GID carrying the netdev's IPv4
     address), QOS_PFC (PFC enabled on exactly the expected priorities), QOS_DSCP (expected DSCP to
-    priority entries present), ADDRESS_PLAN. Per node (device ``-``): PEERMEM.
+    priority entries present), ADDRESS_PLAN. Per node (device ``-``): PEERMEM, TRAFFIC_CLASS (the
+    env file's traffic-class variable equals the expected ToS byte, e.g. 106 = DSCP 26 << 2 | ECT(0)),
+    MEMLOCK (every ``ulimit -l`` capture -- login shell and Slurm job step -- equals the baseline).
     """
     exp = baseline["expected"]
     host = inv.host
@@ -280,6 +283,15 @@ def check_node(inv: NodeInventory, baseline: dict) -> list[Finding]:
 
     if exp["peer_memory_module"] not in mods:
         add("-", "PEERMEM", f"{exp['peer_memory_module']} not loaded")
+    tc_var = exp["traffic_class_variable"]
+    tc = env.get(tc_var)
+    if tc != str(exp["traffic_class"]):
+        dec = f" (DSCP {int(tc) >> 2}, ECN {int(tc) & 3})" if tc and tc.isdigit() else ""
+        add("-", "TRAFFIC_CLASS", f"{tc_var}={tc}{dec} expected {exp['traffic_class']}")
+    limits = {k: v.strip() for k, v in inv.sections.items() if "ulimit -l" in k}
+    bad = {k: v for k, v in limits.items() if v != str(exp["memlock"])}
+    if not limits or bad:
+        add("-", "MEMLOCK", f"ulimit -l {bad or 'not captured'} expected {exp['memlock']}")
     return findings
 
 

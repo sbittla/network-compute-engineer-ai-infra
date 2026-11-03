@@ -79,7 +79,7 @@ def main() -> None:
         assert abs(got - v) <= tol, (k, got, v)
     assert abs(base["tp_sent_GB"] - 1202.6) <= 0.5 and abs(base["T_scaleup_s"] - 2.67) <= 0.01
     assert abs(base["nic_GB"] - 9.8) <= 0.05 and abs(base["T_nic_s"] - 0.196) <= 0.001
-    assert abs(new["T_compute_s"] - 6.95) <= 0.01
+    assert abs(new["T_compute_s"] - 6.958) <= 0.005
 
     def rnd(d: dict) -> dict:
         return {k: round(v, 4) for k, v in d.items()}

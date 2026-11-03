@@ -13,7 +13,7 @@ per day (Chapter 19), so the slack is used.
 
 **Consequence for gang-scheduled jobs.** A gang job needs all its nodes at once, often whole leaf
 groups. At high average allocation, free capacity exists only as scattered 1–6 node fragments
-(Section 21.11: the head-of-queue 32-node job waited while the largest free block was 6 nodes). A
+(Section 21.11: the head-of-queue 4-node job waited with 44 GPUs free but only 2 whole nodes). A
 large job waits until enough running jobs end *in the same topology block*, which takes far longer
 than the average utilization suggests. Large jobs starve while small jobs backfill, so the cluster
 looks busy and the most important work does not run. The scheduler can drain a block in advance

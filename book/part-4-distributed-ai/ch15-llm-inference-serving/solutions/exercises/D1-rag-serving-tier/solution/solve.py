@@ -3,7 +3,8 @@
 Usage: python solve.py --out DIR
 Inputs: prompt (20 req/s, 8,192 in / 300 out, TTFT p95 <= 1.5 s, TPOT p95 <= 40 ms, T-tp4-fp8, quadratic
 attention term included) and lab/data/configs.yaml (model, GPU, T-tp4-fp8, RDMA/TCP transports).
-Approximation used for p95 TTFT: t_p + 3 × mean M/D/1 wait (stated in answer.md).
+p95 TTFT = t_p + the exact M/D/1 p95 waiting time from Erlang's formula (stated in answer.md); the
+older "t_p + 3 × mean wait" rule of thumb under-states the M/D/1 p95 wait by 15-30 %.
 """
 import argparse
 import json
@@ -15,9 +16,29 @@ import yaml
 DATA = Path(__file__).resolve().parents[4] / "lab" / "data"
 RATE, PROMPT, OUT = 20.0, 8192, 300
 D_MODEL = 64 * 128
-P_SWEEP, D_SWEEP = (11, 12, 13), (3, 4, 5)
-CHOICE_P, CHOICE_D = 13, 4
+P_SWEEP, D_SWEEP = (12, 13, 14), (3, 4, 5)
+CHOICE_P, CHOICE_D = 14, 4
 SHARED_N, CHUNK = 16, 512
+
+
+def md1_wait_cdf(x: float, rho: float) -> float:
+    """P(W <= x * t_s) for an M/D/1 queue (Erlang's formula); x is the wait in units of service time."""
+    total = 0.0
+    for k in range(int(math.floor(x)) + 1):
+        y = rho * (k - x)
+        total += y ** k / math.factorial(k) * math.exp(-y)
+    return (1 - rho) * total
+
+
+def md1_wait_quantile(q: float, rho: float) -> float:
+    """q-quantile of the M/D/1 waiting time, in units of the service time (bisection)."""
+    if q <= 1 - rho:
+        return 0.0
+    lo, hi = 0.0, 100.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if md1_wait_cdf(mid, rho) < q else (lo, mid)
+    return hi
 
 
 def main() -> None:
@@ -42,7 +63,9 @@ def main() -> None:
     for p in P_SWEEP:
         rho = RATE / p * t_p
         wq = rho * t_p / (2 * (1 - rho))
-        prefill[p] = {"rho": round(rho, 3), "ttft_mean_s": round(t_p + wq, 3), "ttft_p95_approx_s": round(t_p + 3 * wq, 2)}
+        prefill[p] = {"rho": round(rho, 3), "ttft_mean_s": round(t_p + wq, 3),
+                      "wait_p95_over_mean": round(md1_wait_quantile(0.95, rho) * t_p / wq, 2),
+                      "ttft_p95_s": round(t_p + md1_wait_quantile(0.95, rho) * t_p, 2)}
     decode = {}
     for d in D_SWEEP:
         r = RATE / d
@@ -76,12 +99,13 @@ def main() -> None:
     lost_seqs = decode[CHOICE_D]["batch"]
     reprefill = lost_seqs * t_p
     rho_minus1 = RATE / (CHOICE_P - 1) * t_p
+    ttft_p95_minus1 = t_p + md1_wait_quantile(0.95, rho_minus1) * t_p
 
     # Key D1 checks (tolerances in the units shown).
     checks = [(t_lin * 1e3, 362.2, 0.1), (t_att * 1e3, 27.8, 0.1), (t_p * 1e3, 390.0, 0.1), (RATE * t_p, 7.80, 0.01),
-              (prefill[11]["ttft_mean_s"], 0.865, 0.001), (prefill[12]["ttft_mean_s"], 0.752, 0.001),
-              (prefill[13]["ttft_mean_s"], 0.682, 0.001), (prefill[11]["ttft_p95_approx_s"], 1.82, 0.01),
-              (prefill[12]["ttft_p95_approx_s"], 1.48, 0.01), (prefill[13]["ttft_p95_approx_s"], 1.27, 0.01),
+              (prefill[12]["ttft_mean_s"], 0.752, 0.001), (prefill[13]["ttft_mean_s"], 0.682, 0.001),
+              (prefill[14]["ttft_mean_s"], 0.635, 0.001), (prefill[12]["ttft_p95_s"], 1.71, 0.01),
+              (prefill[13]["ttft_p95_s"], 1.49, 0.01), (prefill[14]["ttft_p95_s"], 1.35, 0.01),
               (decode[3]["tpot_ms"], 25.1, 0.05), (decode[4]["tpot_ms"], 18.6, 0.05), (decode[5]["tpot_ms"], 16.1, 0.05),
               (decode[3]["batch"], 50.2, 0.05), (decode[4]["batch"], 27.9, 0.05), (decode[5]["batch"], 19.3, 0.05),
               (blocks_seq, 531, 0), (fit_bf16, 75, 0), (fit_fp8, 150, 0), (nodes, 10, 0),
@@ -89,7 +113,8 @@ def main() -> None:
               (tr["rdma"]["util_pct"], 7.9, 0.05), (tr["rdma"]["transfer_ms"], 15.8, 0.05), (tr["tcp"]["util_pct"], 107.4, 0.1),
               (tr["rdma"]["per_layer_ms"], 0.2, 0.01), (prefill_per_layer * 1e3, 4.9, 0.05),
               (rho_s, 0.4875, 0.0001), (ttft_s, 0.575, 0.001), (tpot_s * 1e3, 26.0, 0.1), (itl_s * 1e3, 403, 1),
-              (chunk_ms, 22.6, 0.05), (reprefill, 11, 0.2), (rho_minus1, 0.65, 0.001)]
+              (chunk_ms, 22.6, 0.05), (reprefill, 11, 0.2), (rho_minus1, 0.600, 0.001),
+              (ttft_p95_minus1, 1.49, 0.01)]
     for got, want, tol in checks:
         assert abs(got - want) <= tol, (got, want)
     assert tr["tcp"]["util_pct"] > 100 and tr["rdma"]["per_layer_ms"] < prefill_per_layer * 1e3
@@ -109,12 +134,13 @@ def main() -> None:
                                                 "tpot_ms": round(tpot_s * 1e3, 1), "itl_worst_ms": round(itl_s * 1e3),
                                                 "chunk_512_ms": round(chunk_ms, 1)},
                          "failures": {"decode_loss_seqs": round(lost_seqs), "reprefill_replica_s": round(reprefill, 1),
-                                      "prefill_loss_rho": round(rho_minus1, 3)}},
+                                      "prefill_loss_rho": round(rho_minus1, 3),
+                                      "prefill_loss_ttft_p95_s": round(ttft_p95_minus1, 2)}},
               "units": {"time": "s or ms", "bandwidth": "Gb/s"}, "evidence_label": "[MODELED]"}
     (out / "result.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     lines = ["# D1 sizing `[MODELED]`", "", f"t_p = {t_lin*1e3:.1f} + {t_att*1e3:.1f} = {t_p*1e3:.1f} ms", "",
-             "| P | rho | mean TTFT | ≈ p95 TTFT |", "|---|---|---|---|"]
-    lines += [f"| {p} | {v['rho']} | {v['ttft_mean_s']} s | {v['ttft_p95_approx_s']} s |" for p, v in prefill.items()]
+             "| P | rho | mean TTFT | p95 TTFT (exact M/D/1) |", "|---|---|---|---|"]
+    lines += [f"| {p} | {v['rho']} | {v['ttft_mean_s']} s | {v['ttft_p95_s']} s |" for p, v in prefill.items()]
     lines += ["", "| D | TPOT | B |", "|---|---|---|"]
     lines += [f"| {d} | {v['tpot_ms']} ms | {v['batch']} |" for d, v in decode.items()]
     lines += ["", f"Choice {CHOICE_P}P + {CHOICE_D}D -> {nodes} nodes incl. spare",

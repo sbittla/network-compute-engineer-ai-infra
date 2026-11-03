@@ -1,6 +1,6 @@
 # 12.13 — nccl-tests analysis toolkit (instructor solution)
 
-**Reference run.** `python lab/check.py --impl solution` → `10/10 checks passed`; the captured report
+**Reference run.** `python lab/check.py --impl solution` → `11/11 checks passed`; the captured report
 is `solutions/lab/outputs/check_solution.txt`, and the checks this exercise depends on are listed in
 `outputs/lab_checks.json`. Data `[SIMULATED]`; fits `[MODELED]`.
 

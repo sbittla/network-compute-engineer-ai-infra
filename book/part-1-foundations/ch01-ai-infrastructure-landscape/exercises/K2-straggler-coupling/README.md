@@ -5,8 +5,8 @@
 ## Prompt
 
 <!-- prompt:start -->
-**K2.** Why does one GPU running 10 % slow reduce the throughput of a 256-GPU synchronous training
-job by about 10 %, rather than by 10 %/256?
+**K2.** Why does one GPU running at 90 % of its peers' speed reduce the throughput of a 256-GPU
+synchronous training job by about 10 %, rather than by 10 %/256?
 <!-- prompt:end -->
 
 ## What to submit
@@ -21,4 +21,5 @@ Command to run (from this folder):
 python outputs/solve.py --out outputs/   # optional: if you script the arithmetic
 ```
 
-Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show
+formula, substitution and result with units.

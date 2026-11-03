@@ -176,3 +176,17 @@ show that a checksum-based validator rejects it, restore from the intact copy, a
 first step's loss matches the value recorded at save within a stated tolerance.
 *Evidence required:* environment manifest, a results table with median and spread, and the restore
 test log.
+
+## H. Supplementary worked problem
+
+**14.20 Per-directory create limit** ★★ · L1
+Section 14.14's new trainer image writes 1,025 files per rank from 256 ranks into one checkpoint
+directory. Assume the metadata service sustains ≈ 2,700 creates/s into a single directory (the measured
+per-directory ceiling) and ≈ 30,000 creates/s in aggregate when the creates are spread
+over many directories `[ILLUSTRATIVE]`. Compute the create time per checkpoint (a) in one directory,
+(b) with one subdirectory per rank, and (c) with the old format of 2 files per rank in one directory.
+(d) What is the largest number of files per rank, written into one directory, that keeps the creates
+under 5 % of the asynchronous completion latency L = 18.49 s (Section 14.12)? (e) Which fix would you
+take to the Storage team first, and why?
+*Evidence required:* each formula with values substituted, times in seconds to three significant
+figures, the integer answer to (d), and a one-paragraph recommendation.

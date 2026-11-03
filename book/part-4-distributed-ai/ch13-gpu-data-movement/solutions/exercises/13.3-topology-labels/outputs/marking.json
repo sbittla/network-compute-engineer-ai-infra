@@ -1,25 +1,25 @@
 {
   "difficulty": 1,
-  "evidence_required": "four definitions; answer labelled `[VENDOR-SPEC, YYYY-MM]`",
+  "evidence_required": "five definitions; answer labelled `[VENDOR-SPEC, YYYY-MM]`",
   "id": "13.3",
   "kind": "written",
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "PIX and PXB defined correctly (one switch; multiple switches without a host bridge)",
+      "criterion": "PIX and PXB defined correctly (one switch; several switches without crossing a host bridge)",
       "points": 2
     },
     {
-      "criterion": "PHB and SYS defined correctly (host bridge; inter-socket link)",
+      "criterion": "PHB, NODE and SYS defined correctly (host bridge; across host bridges within one NUMA node; inter-socket link), with GPU 0 <-> NIC 2 on ORION identified as NODE (PHB accepted if justified)",
       "points": 2
     },
     {
-      "criterion": "States NCCL default uses GDR for PIX/PXB, not SYS, labelled [VENDOR-SPEC, 2026-10] with a verify note",
+      "criterion": "States NCCL default uses GDR up to about PXB, so NODE/SYS pairs are host-staged, labelled [VENDOR-SPEC, 2026-10] with a verify note",
       "points": 1
     }
   ],
   "points": 5,
   "tier": "L1",
-  "title": "Topology labels PIX, PXB, PHB, SYS",
+  "title": "Topology labels PIX, PXB, PHB, NODE, SYS",
   "type": "knowledge-check"
 }

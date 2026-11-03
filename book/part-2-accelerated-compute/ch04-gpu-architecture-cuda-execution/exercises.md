@@ -52,15 +52,14 @@ the fraction of HBM bandwidth this kernel can reach at that occupancy `[MODELED]
 (c) Shared memory per block is reduced to 32 KB (32,768 B). Recompute (a) and (b).
 *Evidence required:* every limit computed, limiter named, bandwidth bound with arithmetic.
 
-**4.9** ★★ L1 — *Launch-bound loop and copy cost.* An inference loop issues 400 kernels per iteration
-with an average GPU duration of 6 µs; the CPU spends 10 µs per launch (API + framework). Each iteration
-also needs a 256 MiB input.
-(a) Iteration time and GPU kernel-busy fraction in eager mode.
-(b) Iteration time if the 400 kernels are captured in one CUDA Graph (one replay ≈ 15 µs of CPU, ≈ 1 µs
-between kernels on the GPU).
-(c) Copy time for the input from pageable memory at 12 GB/s versus pinned at 50 GB/s, and the
-critical-path cost of each if the pinned copy is prefetched on a side stream during the previous iteration.
-*Evidence required:* three results with formulas and units; label `[MODELED]`.
+**4.9** ★★ L1 — *Launch-bound loop and copy cost.* An inference loop issues 400 kernels per
+iteration with an average GPU duration of 6 µs; the CPU spends 10 µs per launch (API + framework).
+Each iteration also needs a 256 MiB input. (a) Iteration time and GPU kernel-busy fraction in eager
+mode. (b) Iteration time if the 400 kernels are captured in one CUDA Graph (one replay ≈ 15 µs of
+CPU, ≈ 1 µs between kernels on the GPU). (c) Copy time for the input from pageable memory at 12 GB/s
+versus pinned at 50 GB/s, and the critical-path cost of each if the pinned copy is prefetched on a
+side stream during the previous iteration. *Evidence required:* three results with formulas and
+units; label `[MODELED]`.
 
 ## Hands-on lab
 
@@ -85,12 +84,13 @@ overhead, memory-transfer cost, an occupancy constraint and a memory-bandwidth b
 rows or metrics that prove each.
 *Evidence required:* four findings, each with quoted evidence (row IDs, durations, bytes, metric values).
 
-**4.13** ★★ L1 — *Batch size and data layout.* (a) For a GEMM with output 8,192 × 2,048 tiled 128 × 256 on
-132 SMs, compute tiles, waves and wave efficiency; repeat for output 1,024 × 2,048. (b) A tensor of shape
-[8,192, 4,096] in BF16 is read along dimension 0 by adjacent threads (column access of a row-major
-tensor). Explain the coalescing consequence and two ways to fix it. (c) Explain how halving the batch
-changes GEMM arithmetic intensity and why nvidia-smi would not show the change.
-*Evidence required:* wave arithmetic for both shapes, coalescing explanation, two fixes, intensity argument.
+**4.13** ★★ L1 — *Batch size and data layout.* (a) For a GEMM with output 8,192 × 2,048 tiled 128 ×
+256 on 132 SMs, compute tiles, waves and wave efficiency; repeat for output 1,024 × 2,048. (b) A
+tensor of shape [8,192, 4,096] in BF16 is read along dimension 0 by adjacent threads (column access
+of a row-major tensor). Explain the coalescing consequence and two ways to fix it. (c) Explain how
+halving the batch changes GEMM arithmetic intensity and why nvidia-smi would not show the change.
+*Evidence required:* wave arithmetic for both shapes, coalescing explanation, two fixes, intensity
+argument.
 
 ## Troubleshooting case
 

@@ -65,6 +65,11 @@ python check.py                     # progress on starter/capacity_model.py
 | 5 | Power capping | `power_cap_tradeoff`, `best_cap` | Nodes per rack, cluster throughput, and unused (stranded) rack budget per cap; best cap |
 | 6 | Misleading nominal counts | `misleading_nominal_flags` | Stranded-GPU (installed, not energized), reserve-shortfall, and per-GPU-cost flags |
 
+Lead times in `assumptions.yaml` run from order to *in service*; `onboarding_quarters` (0 here) adds
+dock-to-schedulable time when your quotes are order-to-dock, and `order_deadlines` subtracts both.
+The checker prints `hint:` lines when it recognizes a common mistake (a counted duplicate row, usable
+capacity computed from installed GPUs, a missing transient margin, and others).
+
 ORION-256 TCO inputs for Task 3: 32 nodes at $320k, $85k network per node, $2.0M fixed storage capex
 (`fixed_capex_usd`), staff from `assumptions.yaml`.
 
@@ -123,11 +128,23 @@ python scripts/hw_labs.py run ch21 --device cpu   # throughput vs duty on the CP
 
 Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It runs the
 same sweep with throughput and CPU busy time. Host power is not readable, so perf/W is recorded as not runnable,
-and the lab's modeled cap curve stands in. GPU-only invariants are skipped. **Observed on the reference run:** the
-committed bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show perf/W *falling* as
-duty drops, because static power is paid regardless, while the lab's cap curve shows perf/W rising as the cap
-falls. Full-load GEMM sits at the enforced limit with `SW_POWER_CAP`, and the memory-bound copy does not
-`[MEASURED]`. These are laptop watts. Do not put them into the rack model.
+and the lab's modeled cap curve stands in. GPU-only invariants are skipped.
+
+**Observed on the reference run** `[MEASURED]`, RTX 4060 Laptop GPU under WSL2 (`lab/l2/results/gpu-rtx-4060-laptop-gpu/`;
+invariants pass):
+
+- At clock-matched duty levels perf/W rises with duty: 0.264 TFLOP/J at 50 %, 0.298 at 75 % and 0.341 at 100 %.
+  Static power is paid whether or not work runs.
+- The 25 % level ran at a 300 MHz SM clock (DVFS idled the GPU between bursts), so the report marks light duty
+  inconclusive rather than drawing a duty-cycling conclusion from it. Locking clocks on a dedicated native-Linux
+  lab host (root) would test it.
+- Full-load GEMM drew 75.65 W against the 80 W enforced limit, with `SW_POWER_CAP` in only 30 % of samples at
+  88 °C: temperature, not the power cap, set the clock. The memory-bound copy ran at 2,520 MHz and 52.45 W.
+- The CPU-fallback bundle records throughput and CPU busy time only; host power is not readable there.
+
+The report was re-rendered from its committed `results.json` with the current `experiment.py`; no measured value
+changed, and the original evaluation is kept under `invariants_history`. These are laptop watts. Do not put them
+into the rack model.
 
 **L3 — rack telemetry (read-only).** Pull 1 s (or finest available) rack-PDU power during a
 multi-node training job and compute peak, p99, and the swing between compute and communication phases.

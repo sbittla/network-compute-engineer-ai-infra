@@ -45,9 +45,10 @@ platform supports it, would save cost at this size.
 ## 6. Assumption to verify before ordering
 
 The **10.2 kW node maximum and the 10 % transient margin at 32 A circuits**: the rack design has only
-1.08 kW per side of headroom, so a 4 % error in node power (or a firmware change that raises the GPU
-limit) breaks it. Measure the node's maximum with a burn-in at the BMC before committing (the L2 lab
-extension). Also acceptable: whether the older hall's floor and cooling accept ≈ 31 kW racks.
+1.08 kW per side of headroom, so a ≈ 3 % error in node power (x ≤ 3.2 % from (30.6 × (1 + x) + 0.2) ×
+1.10 ≤ 34.96) (or a firmware change that raises the GPU limit) breaks it. Measure the node's maximum
+with a burn-in at the BMC before committing (the L2 lab extension). Also acceptable: whether the older
+hall's floor and cooling accept ≈ 31 kW racks.
 
 **Common wrong answers:** 4 nodes per rack (sizing on sustained power or forgetting the margin); copying
 ORION's 4 spines; forgetting the unused leaf ports.

@@ -371,7 +371,8 @@ def report(result: dict, env: dict) -> str:
          f"- Input batch {m['batch_mib']} MiB; H2D {fast} {m['bw_fast_gbs']} GB/s, {slow} {m['bw_slow_gbs']} GB/s `[MEASURED]`.",
          f"- Controlled A/B, median step (ms; ≥ 5 reps after 3 warm-ups):", "",
          "| Configuration | median | p95 | IQR | n |", "|---|---|---|---|---|"]
-    for k, v in t["direct_ab"].items():
+    order = ["baseline", "pageable", "small_batch", "both"]          # results.json stores keys sorted
+    for k, v in sorted(t["direct_ab"].items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99):
         L.append(f"| {k} | {v['median'] * 1e3:.2f} | {v['p95'] * 1e3:.2f} | {v['iqr'] * 1e3:.3f} | {v['n']} |")
     L += ["", f"- Natural experiment: {m['jobs']} jobs, per-job {m['per_job_statistic']} step after - before = **{m['delta_ms']:+.2f} ms**. Before-period "
           f"spread σ = {m['before_sigma_ms']:.3f} ms per job {m['per_job_statistic']}, so MDE ≈ 2.8 σ √(2/n) = {m['mde_ms']:.3f} ms (Section 22.6.1).",
@@ -392,6 +393,7 @@ def report(result: dict, env: dict) -> str:
                  f"{f' ± {se:.1f} pp' if se is not None else ''} | {f'{ci[0]:.0f} to {ci[1]:.0f} %' if ci else ''} |")
     L += ["", f"R² = {m['r2']}.", "", "## Corroboration (Table 22.6: statistical, direct, mechanism model)", "",
           "| Factor | OLS (ms) | Direct A/B (ms) | Mechanism model (ms) | Verdict |", "|---|---|---|---|---|"]
+    verdicts: dict[str, str] = {}
     for c in t["corroboration"]:
         ols, d = c["ols_s"] * 1e3, c["direct_ab_s"] * 1e3
         mdl = "" if c["model_s"] is None else f"{c['model_s'] * 1e3:+.2f}"
@@ -401,20 +403,40 @@ def report(result: dict, env: dict) -> str:
         verdict = ("ruled out (no effect)" if c["factor"] == "placebo" and abs(ols) <= 3 * se + 0.5 else
                    "inconclusive: SE too large for this effect" if not precise else
                    "inferred cause, corroborated" if agree and d > 0.5 else "agree (≈ 0)" if agree else "disagree: not understood")
+        verdicts[c["factor"]] = verdict
         L.append(f"| {labels[c['factor']]} | {ols:+.2f} ± {c['se_hc3_s'] * 1e3:.2f} | {d:+.2f} ± {c['direct_se_s'] * 1e3:.2f} | "
                  f"{mdl} | {verdict} |")
+
+    # The narrative follows the verdict column: never claim more than the table supports.
+    def recovery(f: str, ols: float, d: float) -> str:
+        v = verdicts.get(f, "")
+        if v.startswith("inferred cause"):
+            return f"{labels[f]}: recovered and corroborated (OLS {ols:+.2f} vs {d:+.2f} ms direct)"
+        if v.startswith("inconclusive") and ols * d > 0:
+            return (f"{labels[f]}: direction recovered, but OLS {ols:+.2f} ms is {ols / d:.1f}× the {d:+.2f} ms direct A/B; "
+                    "inconclusive at this n")
+        return f"{labels[f]}: not recovered (OLS {ols:+.2f} vs {d:+.2f} ms direct; {v})"
+
+    page_ok = verdicts.get("pageable", "").startswith("inferred cause")
+    mde, shift, delta = m["mde_ms"], m["ols_after_ms"], m["delta_ms"]
     L += ["", "## What to conclude", ""]
-    L += [f"- The lab's estimator, fed real per-job means, recovers both injected regressions within their uncertainty "
-          f"(pageable {m['ols_pageable_ms']:+.2f} vs {m['direct_pageable_ms']:+.2f} ms direct; small batch {m['ols_small_batch_ms']:+.2f} vs "
-          f"{m['direct_small_batch_ms']:+.2f} ms) and gives the placebo {m['ols_placebo_ms']:+.2f} ± {m['se_hc3_placebo_ms']:.2f} ms. "
-          "A factor that happens to coincide with an incident is not its cause.",
-          f"- The data-path effect is also explained by mechanism: {m['batch_mib']} MiB at the slower copy rate costs "
-          f"{m['model_pageable_ms']:+.2f} ms per step, {100 * m['model_pageable_ms'] / m['direct_pageable_ms']:.0f} % of the "
-          f"{m['direct_pageable_ms']:+.2f} ms measured in the A/B. Statistical, direct and mechanism evidence agree, so it is a strong "
-          "inferred cause. The unexplained remainder is the host-side cost a bandwidth number does not capture (staging-buffer "
-          "management, cache effects).",
-          f"- The common-shift term ({m['ols_after_ms']:+.2f} ms) absorbs whatever drifted between the before and after blocks, such as "
-          "temperature or clocks. Compare it with the MDE before calling it real.",
+    L += ["- Recovery of the injected regressions, read from the verdict column: "
+          + "; ".join([recovery("small_batch", m["ols_small_batch_ms"], m["direct_small_batch_ms"]),
+                       recovery("pageable", m["ols_pageable_ms"], m["direct_pageable_ms"])])
+          + f". The placebo gives {m['ols_placebo_ms']:+.2f} ± {m['se_hc3_placebo_ms']:.2f} ms "
+          f"(verdict: {verdicts.get('placebo', '')}). A factor that happens to coincide with an incident is not its cause.",
+          f"- Mechanism: {m['batch_mib']} MiB at the slower copy rate costs {m['model_pageable_ms']:+.2f} ms per step, "
+          f"{100 * m['model_pageable_ms'] / m['direct_pageable_ms']:.0f} % of the {m['direct_pageable_ms']:+.2f} ms measured in the A/B, "
+          + ("so statistical, direct and mechanism evidence agree: a strong inferred cause." if page_ok else
+             "so direct and mechanism evidence agree; the statistical estimate is too noisy to add support, and the cause rests "
+             "on the A/B and the model.")
+          + " The unexplained remainder is host-side cost a bandwidth number does not capture (staging-buffer management, "
+          "cache effects).",
+          (f"- The common shift ({shift:+.2f} ms, {abs(shift) / mde:.0f}× the {mde:.3f} ms MDE, {100 * shift / delta:.0f} % of the "
+           f"{delta:+.2f} ms delta) is large: the before-jobs ran first, so block-order drift (temperature, clocks) dominates it. "
+           "Interleave before and after jobs, or add a drift covariate, before trusting the shares."
+           if abs(shift) > 3 * mde else
+           f"- The common shift ({shift:+.2f} ms) is within 3× the {mde:.3f} ms MDE: no evidence of drift between the blocks."),
           ("- This is a **laptop Ada GPU** on PCIe Gen4 x8, not an HX8 node. The lab's W-TRAIN factors (TP split, GDR host-staging "
            "across nodes, storage tier) need multi-node hardware (L3). This run validates the *method* on regressions whose truth "
            "is known." if gpu else

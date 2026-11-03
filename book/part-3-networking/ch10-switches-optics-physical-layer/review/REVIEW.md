@@ -108,3 +108,41 @@ Re-scores (author): D1–D9 all 9.5 → weighted **9.50**. Manuscript 10,408 wor
 ## Independent review iteration 3 (2026-10-29)
 
 Passed at 9.50. R3-01 (minor): key row for Ethernet21 now says "drain now (host link: coordinate a node drain through the scheduler), then clean/replace", matching the critical runbook action.
+
+## Independent review r1 (2026-11-01)
+
+Independent score **9.35** (D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 9.0, D8 9.5, D9 9.0).
+check.py 13/13 (solution), 1/13 with clean TODOs (starter).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N10-01 | Major | "Symbol errors" defined two incompatible ways | Table 10.6 row split into pre-FEC symbol errors (non-zero, steady) and post-FEC symbol/PCS events such as mlx5 `rx_symbol_err_phy` (zero); caption explains the two meanings. Fig. 10.5 caption, §10.15 evidence and hypothesis 1 ("zero post-FEC symbol errors, pre-FEC BER ≈ 4e-9"), review question 3, key K4, K4 meta/marking/answer updated. M2's column is now numeric pre-FEC symbol errors (≈ BER × 425e9 × 600 s); solve.py asserts the column agrees with BER |
+| N10-02 | Minor | `rx_corrected_bits_phy` vs `corrected_blocks` inconsistent (403 bits/block) | Corrected bits set to 46,718,410 (≈ 1.004 bits per corrected block at this BER, both since the last link-up ≈ 7 h ago); caption states the 150-bit-per-codeword bound and why the histogram window differs |
+| N10-03 | Minor | 160 MB vs Ch 9's 64 MB | §10.2.3 now uses the canonical 64 MB (25.6 Tb/s class): 5.12e8 b / 2.56e13 b/s = 20 µs; 160 MB at 51.2 Tb/s = 25 µs kept as the comparison (same depth in time) |
+| N10-04 | Minor | Netdev naming; awkward PXN sentence | `ens1f3` → `ens4np0` (rail 3), `ens5f0` → `ens6np0` (rail 5), per REFERENCE_CLUSTER; PXN sentence rewritten as suggested |
+| N10-05 | Minor | Ethernet7 BER optimistic | Key notes the planted 2.6e-6 is a four-lane aggregate (lane 2 ≈ 1e-5), plausible for a typical receiver but deliberately optimistic against the worst-case spec; act on Rx power. Data unchanged (digests intact) |
+| N10-06 | Minor | Review questions lack answers | Inline answers added (Q1 7.7e7 CW/h, 3.7 decades; Q2 2.5 dB excess; Q3 upstream uncorrectables) |
+| D2 advice | — | AN/LT and host-side SNR | Paragraph "Host side versus media side" (CMIS VDM per-side SNR/pre-FEC BER, AN/LT on DAC) in §10.7 |
+| D5 advice | — | M2 P3 numeric threshold | Key P3: FCS > 0, uncorrectables = 0, pre-FEC BER < 1e-5 warn threshold |
+| D8 advice | — | Scheduler-coordinated host-link sequence | Runbook row added for host links (Platform drain → empty node → shut port → re-commission) |
+| D4 advice | — | Far-end (NIC) snapshot | Deferred: needs a new generator output and digests; recorded for the next lab revision |
+
+Tests: `check.py --impl solution` 13/13, `--impl starter` 1/13; `validate_labs.py` OK; `copyedit_lint.py` 0
+findings in this chapter; package test suite 86 passed; M2 and K4 outputs regenerated.
+
+## Independent review r2 (2026-11-01)
+
+Independent score **9.50** (all dimensions 9.5). No blocker or major findings.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R10-01 | Rail-leaf ASIC class contradicts itself | §10.2.3 keeps §10.2.1's 51.2 Tb/s-class chip and calls 64 MB the shared, conservative planning figure (a 51.2T part often has more); the time depth is computed against the 25.6 Tb/s in use (20 µs) |
+| R10-02 | Ethernet12 decoy mixes incast and pause-tx signals | Key explains both directions: egress discards/ECN mean incast toward n12; pause tx means the leaf also pauses n12 as a sender (all-to-all). Same reading added to M2 P1. Data unchanged |
+| R10-03 | Two port-naming schemes | Table 10.7 caption bridges front-panel `EthernetNN` and SONiC `Ethernet(8 × (NN − 1))` |
+| R10-04 | M2 column is a bit count | Renamed "Pre-FEC corrected bits" in exercises.md, folder prompt, key, answer and solve.py |
+| R10-05 | §10.13 Step 3 digression | Uplink drain cost moved to a production note after Step 4, with a three-step abort/rollback procedure (D8 advice) |
+| D2 advice | Module firmware, compatibility, thermal | Paragraph added in §10.7 |
+| D7 advice | Link 10.15 to Ch 12 PXN | Cites Section 12.8 and Exercise 12.20 |
+| D4/D5 advice | Far-end snapshot; FEC-histogram exercise | Deferred |
+
+Tests: check.py solution 13/13, starter 1/13; validate_labs OK; copyedit_lint 0; package tests 86 passed.

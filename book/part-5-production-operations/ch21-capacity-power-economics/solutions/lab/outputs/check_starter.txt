@@ -1,4 +1,4 @@
-PASS dataset reproducible: generator reproduces committed data byte-for-byte (sha256 9ea2d847e53d)
+PASS dataset reproducible: generator reproduces committed data byte-for-byte (sha256 3087f4fb0560)
 TODO T1 plan hygiene: implement clean_plan()
 TODO T2 usable fraction + kW per GPU: implement usable_fraction()
 TODO T2 quarterly forecast: implement forecast()

@@ -20,8 +20,9 @@ ways to get the slot. *Evidence required:* definition and two commands/fields.
 GPU↔NIC RDMA traffic. *Evidence required:* five meanings and an ordering with one-line justification.
 
 **5.3** ★ L1 — On `orion-n01`, `NIC1` in `nvidia-smi topo -m` is `mlx5_0` and is the rail-0 NIC. Explain
-why the HCA index does not equal the rail number, and which source is authoritative for the rail.
-*Evidence required:* probe-order explanation; LLDP/cabling database.
+why the nvidia-smi NIC column index (`NIC1`) is not the rail number, why even the HCA name `mlx5_0` is only
+a software label, and which source is authoritative for the rail.
+*Evidence required:* column-order explanation; naming-rule explanation; LLDP/cabling database.
 
 **5.4** ★ L1 — Why does every GPU pair show `NV18` on an HGX H100-class board, and what does that tell you
 about GPU↔NIC locality? *Evidence required:* NVLink/NVSwitch arithmetic and the "nothing" answer.
@@ -47,7 +48,8 @@ two traffic estimates for (c) with assumptions.
 *n* = 256, *R* = 8, α = 0.2 ms and no variance: (a) busbw when every path is PIX (48 GB/s); (b) busbw when
 one node has one NIC at PCIe Gen5 x8 (assume 27 GB/s achievable); (c) busbw when one node lacks GPUDirect RDMA on all
 NICs (18 GB/s cap); (d) explain why (c) is worse than one would guess from "one node out of 32". (This
-exercise deliberately uses a full 32-node, 256-rank W-TRAIN job, unlike the 16-node worked example.)
+exercise models a 256-rank `all_reduce_perf` health check across all 32 nodes, unlike the 16-node worked
+example.)
 *Evidence required:* three results with arithmetic; one-paragraph explanation; label `[MODELED]`.
 
 ## Hands-on lab
@@ -89,10 +91,12 @@ NCCL `/GDRDMA` lines or `ib_write_bw --use_cuda` results, and a verdict.
 
 **5.16** ★★★ L1 — After a rack move, eight ORION nodes were re-cabled. A 64-GPU job's busbw fell from
 ≈ 350 to ≈ 300 GB/s with p99 iteration time up 40 %; one node, `orion-n12`, shows these facts `[ILLUSTRATIVE]`:
-LLDP for `enp153s0np0` → `orion-be-leaf-r5 Ethernet12`, for `enp163s0np0` → `orion-be-leaf-r4 Ethernet12`;
-`nvidia-smi topo -m` golden; the leaf ports' interface counters clean; NCCL log shows all NICs in use with
-`/GDRDMA`; the ORION backend in this pod runs as an **L2 rail VLAN** (not routed /31). Rank hypotheses,
-identify the root cause, explain why the job still runs but slower, give a safe fix and validation.
+LLDP for `enp153s0np0` (the rail-4 NIC, `mlx5_4`) → `orion-be-leaf-r5 Ethernet12`, for `enp163s0np0` (the
+rail-5 NIC, `mlx5_5`) → `orion-be-leaf-r4 Ethernet12`; `nvidia-smi topo -m` golden; the leaf ports'
+interface counters clean; NCCL log shows all NICs in use with `/GDRDMA`. This pod is a declared variation
+from ORION's routed /31 plan: all backend NICs share **one stretched L2 domain** (one VLAN and IP subnet
+spanning all rail leaves, stretched over the spines with EVPN-VXLAN). Rank hypotheses, identify the root cause, explain why the job
+still runs but slower, give a safe fix and validation.
 *Evidence required:* ranked hypotheses with tests, root cause, traffic-path explanation, fix, validation.
 
 ## Design challenge

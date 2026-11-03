@@ -199,10 +199,24 @@ python scripts/hw_labs.py run ch14 --device cpu   # CPU fallback
 The CPU fallback is automatic: with no GPU the model lives in host memory and the same benchmark and
 restore test run. The pinned series and the D2H/PCIe invariants are skipped. The fio NVMe acceptance test
 needs fio and a raw NVMe device, which a Docker Desktop/WSL2 container does not have, so it is recorded as
-not runnable. **Observed on the reference run:** the coordinator's full runs are in
-`lab/l2/results/gpu-rtx-4060-laptop-gpu/` and `lab/l2/results/cpu-fallback/`. The target is a WSL2
-virtual disk, not NVMe or a PFS. Read the shape there: blocking much shorter than completion, interference
-above zero, and the consistency and restore-test lines.
+not runnable.
+
+**Plausibility guards.** A host that pages measures its swap device, not DCP. The experiment therefore
+refuses to run (status `not-runnable`) when available host memory is below 4 × the checkpointed state
+plus 1 GB. It fails its invariants when the GPU D2H snapshot is below 1 GB/s, when `dcp.load` takes more
+than 20 × the synchronous save, or when more than 5 % of the state was swapped out during the run. Host
+memory and swap counters are written to `results.json`.
+
+**Reference runs.** The CPU-fallback bundle, `lab/l2/results/cpu-fallback/`, is the valid reference run
+(0.20 GB state; target a WSL2 virtual disk, not NVMe or a PFS). Read the shape there: blocking much
+shorter than completion, interference above zero (+42 % on the CPU, where the persist competes for the
+same cores), and the consistency and restore-test lines. The GPU
+bundle, `lab/l2/results/gpu-rtx-4060-laptop-gpu/`, is **not** a valid reference run. It failed its
+invariants: a 0.01 GB/s D2H snapshot and a 2,247 s `dcp.load` are physically implausible, most likely
+because of memory pressure on the 7.8 GiB WSL2 host, which had to page while holding about 1.1 GB of pinned
+buffers and several host copies of the 1.13 GB state. It is kept as a record and is pending a rerun on a
+host with enough RAM; its restore-test and async-consistency findings (Adam `step` scalars staged by
+reference; Section 14.10) do not depend on the timings.
 
 **L3 — shared storage (2+ GPU nodes, maintenance window).** On a Lustre-class PFS, record the
 striping of your checkpoint directory (`lfs getstripe <dir>`; set a stripe count and size for a new

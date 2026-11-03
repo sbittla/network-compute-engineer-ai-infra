@@ -115,3 +115,61 @@ Manuscript 10,498 words.
 | ID | Resolution |
 |---|---|
 | R4-01 | Lab README states the sweep ran on all 32 nodes because the 8 inference nodes (orion-n25..n32) were lent to training |
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.0 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 9.5 · D9 9.0 → weighted
+**9.375** (fail: < 9.5, one open major). Findings: 1 major, 11 minor. All verified and resolved below; none rejected.
+
+| ID | Sev | Finding | Resolution |
+|---|---|---|---|
+| N22-01 | major | Dataloader slack model never states prefetch depth; "≈ 1.4 s exposed" wrong at PyTorch's default `prefetch_factor=2` | Verified with a discrete queue simulation (16 s production, 10 % recalls of U(10,18) s, in-order delivery): 1.25 s/step at prefetch 1, 0.39 s at prefetch 2, 0.40 s at prefetch 1 on 26 s TP-split steps. §22.10.4 now states the sweep config `num_workers=1, prefetch_factor=1`, gives 1.4 s as the upper bound and ≈ 1.25 s simulated `[MODELED]`, notes the default prefetch 2 would leave ≈ 0.4 s (cheap first knob), and gives the simulated TP-split value. Fix analysis (4 workers × 2) unchanged. |
+| N22-02 | minor | No sync/straggler term in the step equation or Table 22.2 | Note under Table 22.2: straggler wait lands in `T_comm,exposed` on non-slowest ranks; Table 22.2 is a critical-path budget so it sits in the compute row; ≈ 2.07σ at 32 nodes; pointers to §22.10.5 and §22.12. |
+| N22-03 | minor | Per-rank collective-wait source not named | New Table 22.14 in §22.12: framework timers, PyTorch flight recorder (`TORCH_FR_BUFFER_SIZE`, `TORCH_NCCL_DUMP_ON_TIMEOUT`), NCCL profiler plugin, Nsight Systems on sampled ranks, each with overhead; MegaScale's slow-compute/low-wait detector cited. Old Table 22.14 renumbered 22.15. |
+| N22-04 | minor | Frontend "3:1 oversubscribed" | "3:1 by port count, 1.5:1 by bandwidth". |
+| N22-05 | minor | check.py lacks dataset-reproducibility check | New first check `data_regenerates` (filecmp against a temp regeneration); `SKIP` when `tools/` is absent; summary line counts skips. Lab README §6 documents it. |
+| N22-06 | minor | Third L3 `srun` lacks `--gpus-per-node=8` | Added, plus `NCCL_DEBUG_SUBSYS=INIT,NET`. |
+| N22-07 | minor | T1(d) acceptance on absolute corrected-codeword counts | Key and T1 answer: pre-FEC BER within fleet baseline (< 1e-7) and stable over a 1 h soak, zero uncorrectable/CRC, Rx power inside warning thresholds; corrected codewords as a trend only. T1 evidence block gains "pre-FEC BER ≈ 1e-5 (other ports ≈ 1e-8)" (consistent with 1.9e9 corrected/10 min at ≈ 78 M codewords/s), mirrored in the exercise README. |
+| N22-08 | minor | Backend tx 6 → 38 GB/s not reconciled with the TP model | Verified: every node of a split job holds two split halves (placement shifts ranks by 4), each sending 1.2e12 B per ≈ 26.5 s step → ≈ 91 GB/s extra, so "mean over job-nodes" would not explain 38. Regenerated the metric from the model instead: generator `nic = 96.0 if split` (same RNG draws; only `backend_tx_GBps_mean` changes, +58.0 on the 56 split rows). Now 6.06 → 95.93 GB/s; propagated to Table 22.6, key O1(b), O1/O3/K4/K7/R2 answers, O1 `solve.py` and outputs. |
+| N22-09 | minor | CDU "last rack on the loop" implies series racks | Rephrased: ΔT = P/(ṁ·c_p) across each cold plate; rack-06 at the far end of CDU 3's secondary manifold, lowest differential pressure, lost the most flow. |
+| N22-10 | minor | -ise/-ize mix; overlong line 7 | utilization/utilized/optimized throughout (manuscript, exercises, K2 README, key); line 7 rewrapped. |
+| N22-11 | minor | "tasks 1–9" omits 6b | "tasks 1–9 (including 6b)" in exercises.md and the L1 README (prompt kept in sync). |
+| N22-12 | minor | ECC alert "/h" vs "per job-node" | Jobs run ≈ 1 h (verified from step_log); key, L1/O3 answers and lab README state the per-job-node count equals the alert's per-hour rate. |
+| Next-0.5 (D4) | — | Report should carry hygiene counts | New `hygiene_counts` (solution + starter TODO); `render_report` takes it and prints a `Hygiene:` line; the report check requires 44 / 480 / 0. README tasks 1 and 9 updated. |
+| Next-0.5 (D5) | — | Per-part points for W1/W2/T1/D1 | *Marking* lines added to the key, matching meta.yaml. |
+| Next-0.5 (D8) | — | Plan-B trigger; bimodality threshold | §22.12: plan B (DP = 7, rack-06 excluded) only if slowdown passes ≈ +12.5 % or HW Thermal Slowdown appears; Training Infra lead decides; fresh checkpoint if newest > 1 h old. RB-PERF-03 signal: ≥ 1 node's ranks waiting < 25 % of the median rank's wait. |
+| Next-0.5 (D9) | — | Table 22.13 Prior column | Uniform "Level: reason" form. |
+
+Tests: `python lab/check.py --impl solution` 12/12 (0 skipped); `--impl starter` 1/12, TODO lines, exit 1;
+`python scripts/validate_labs.py ch22` OK (solution, starter, no-generator, docs); package test suite run
+locally (`pytest docker/harness/test_package.py --pkg <ch22>`) 86 passed; committed outputs regenerated with
+`docker/harness/generate_outputs.py` run locally; `python scripts/copyedit_lint.py`: 0 ch22 findings.
+Manuscript 11,006 words (was 10,556).
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.0, D5 9.5, D6 9.0, D7 9.5, D8 9.5, D9 9.5 → weighted **9.28** (below the gate; two major findings). Each finding was verified before it was changed.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R22-01 | Major | The L2 GPU report's narrative over-claimed: pageable was called "recovered" and a "strong inferred cause" while its own verdict was "inconclusive" (OLS 6.02 ± 2.12 vs 2.65 ms direct; common shift 3.02 ms = 16× MDE) | Verified. `experiment.py` now builds the narrative from the verdict column. A factor reads "recovered and corroborated" or "direction recovered, OLS 2.3× the A/B, inconclusive at this n". The mechanism bullet claims three-way agreement only when the statistical verdict corroborates. A common shift above 3× MDE is called block-order drift, with "interleave or add a drift covariate" advice. Both committed `report.md` files were re-rendered from the unchanged `results.json`/`environment.json` through `hwlab` `render()` + `report()`; invariants re-checked and passing. Measurements are byte-identical, and the A/B rows are kept in their original order. The lab README "Observed on the reference run" is rewritten to match. The Table 22.6 cross-reference was checked and is correct |
+| R22-02 | Major | The L3 `srun -N2 --gpus-per-node=4` binds GPUs 0–3 on both nodes, i.e. rail-aligned, not the modeled cross-rail split | Verified. The lab README now uses a `pin_split.sh` wrapper that sets `CUDA_VISIBLE_DEVICES` from `SLURM_NODEID`: GPUs 4–7 on node 0 and 0–3 on node 1 for the cross-rail run, and `SPLIT=aligned` for the control. `NCCL_DEBUG=INFO` is set and the channel lines are grepped to show the NICs used. Predictions: cross-rail ≈ 100 GB/s; aligned control ≈ 170–180 GB/s (four rails, half the ≈ 350 GB/s eight-rail figure); one node ≈ 360 GB/s. All are `[ILLUSTRATIVE]`. §22.10.3 states the same predictions and the falsification condition |
+| R22-03 | Minor | PXN offered for a hop where no communicator rank owns the rail-matched NIC | §22.10.3 reworded: the hop goes cross-rail through the spine or uses a non-local NIC (NODE/SYS, host-staged under the default `NCCL_NET_GDR_LEVEL`); PXN cannot help |
+| R22-04 | Minor | Plan-B trigger mixed step-time and throughput percentages; batch not divisible by 7 | Break-even is 1/0.875 − 1 = +14.3 % before the 64 GPU-h restart, so the trigger is ≈ +15 %, and immediate on any HW Thermal Slowdown (this also covers the D8 abort condition). The global batch becomes 1,022 or 1,029 with the matching LR adjustment |
+| R22-05 | Minor | "DMA-BUF unavailable on R570" read as a property of the driver branch | Scenario reason added: proprietary kernel-module flavour and an RDMA stack built without DMA-BUF. R570 with the open modules, kernel ≥ 5.12 and a capable stack does support DMA-BUF |
+| R22-06 | Minor | Uncorrectables at pre-FEC BER 1e-5 left unexplained | Key and T1 `answer.md`: mean BER is far below the RS(544,514) limit (≈ 2.4e-4); bursty errors from the dirty connector fill the 15-symbol histogram bin, and that tail explains the uncorrectables |
+| R22-07 | Minor | K5 omits the alert coefficient moving | Re-fit confirmed (−0.05 → +0.16 s). Added to the key; the K5 `answer.md` already had it |
+| R22-08 | Minor | 8.40 s illustrative vs ≈ 9.0 s lab effect not bridged | One sentence before §22.10.3: different samples, both inside the 4.7–10.0 s modeled range |
+| R22-09 | Minor | Over-long source lines; awkward PXN expansion | Long prose lines rewrapped. Expansion is "PXN (PCI × NVLink)": the reviewer's "PCIe" spelling was not used because the book's copyedit rule `exp-pxn` follows NCCL's own expansion |
+| D2 advice | — | Per-rank-wait telemetry pitfalls; continuous pipeline | Paragraph added after Table 22.14: cross-host clock skew (compare durations, not timestamps), asynchronous CUDA timing (use CUDA events, aggregate per step), and running the pipeline continuously so that every change window becomes a natural experiment |
+| D7 advice | — | Tie the CDU numbers to Ch 21 | Thermal root cause uses Ch 21's flow formula: a 34 kW rack at 10 K needs ≈ 0.81 kg/s; at half flow the rise is 20 K, so +10 K + 8 K setpoint ≈ +18 K, consistent with the ≈ 20 °C rise |
+| Price canon | — | $0.08/kWh, ≈ $3.00/GPU-h | No energy price or GPU-hour price appears in ch22, so nothing to change |
+| Line endings | — | (found while testing) | The data generator now writes its YAML/log files with `newline="\n"`, so it reproduces byte-identically on Windows as well as in the container. `lab/data` is all LF again; only the r1 `node_metrics.csv` change remains in the diff |
+
+Tests: `check.py --impl solution` 12/12; `--impl starter` 1/12 (graceful); `validate_labs.py ch22` OK including no-generator; `copyedit_lint.py ch22` 0 findings; outputs regenerated with `generate_outputs.py` (0 failures); package test suite run locally: 86 passed. The manuscript grew from 11,006 to ≈ 11,330 words.
+
+## Re-score follow-up (2026-11-01)
+
+Reviewer re-score after r2: **9.78** (pass). N22-01 cleared: the single-node L3 reference command now sets `NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring` for the ≈ 360 GB/s prediction. The README and §22.10.3 now state that with NVLS left on (default 2), an NVLS-capable node reports more than ≈ 400 GB/s. Tests: package suite 86 passed; `validate_labs.py` OK; lint 0 findings.

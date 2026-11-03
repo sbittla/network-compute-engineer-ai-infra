@@ -19,7 +19,8 @@ collectives on the fast path.
 2. The weekly placement audit (`scontrol show job` node lists compared with TP group membership) finds
    any TP group spanning more than one node — the assumption that placement keeps TP local is broken
    (this is exactly the Chapter 22 incident).
-3. A new platform's NVLink-to-NIC bandwidth ratio falls below 4× — the speed argument weakens.
+3. A new platform's NVLink-to-NIC bandwidth ratio falls below 4× — the speed argument weakens. (4× is
+   illustrative: about half of today's 9× = 450 / 50 GB/s, the point to re-model rather than assume.)
 
 Each item is a metric with a threshold or a detectable event; none is "when we feel the model has
 outgrown it".

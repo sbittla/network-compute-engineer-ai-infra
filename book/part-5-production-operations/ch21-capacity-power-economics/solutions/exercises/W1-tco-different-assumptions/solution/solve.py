@@ -2,7 +2,7 @@
 
 python solve.py --out DIR.  Unchanged inputs are read from the package's lab/data/assumptions.yaml
 [ILLUSTRATIVE]; the prompt's changes are named constants below. Results [MODELED].
-Method (manuscript Section 21.4, Table 21.1a): capex/yr + power + space + support + staff; cost per GPU-hour
+Method (manuscript Section 21.4, Table 21.3): capex/yr + power + space + support + staff; cost per GPU-hour
 on each rung: nominal, allocated = nominal × usable fraction × allocation, useful = allocated × goodput.
 """
 import argparse

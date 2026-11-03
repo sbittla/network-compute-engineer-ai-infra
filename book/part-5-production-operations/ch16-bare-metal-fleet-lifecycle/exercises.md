@@ -73,7 +73,7 @@ and why must acceptance reject both anyway?
 **L1 ★★ (L1) — Fleet lifecycle automation.** Complete [lab/README.md](lab/README.md) Tasks 1–5:
 `check_compat`, `evaluate_node`, the lifecycle state machine with audit log, the upgrade-wave
 planner, and the acceptance report.
-*Evidence required:* `python lab/check.py` output showing 33/33 PASS; your `acceptance_report.md`
+*Evidence required:* `python lab/check.py` output showing 37/37 PASS; your `acceptance_report.md`
 listing every non-PASS node with codes, the raw evidence values that triggered them, and the
 remediation; the list of rejected lifecycle events with reason codes.
 
@@ -89,8 +89,8 @@ placed on nodes in rack-04. The nodes passed acceptance three months ago. Eviden
 # nvidia-smi --query-gpu=index,temperature.gpu,clocks.sm,clocks_event_reasons.active --format=csv (orion-n14, 15:10)
 4, 86, 1650 MHz, 0x0000000000000024
 5, 87, 1590 MHz, 0x0000000000000024
-6, 79, 1980 MHz, 0x0000000000000004
-# same query at 03:10: all GPUs 71–76 C, 1980 MHz, 0x0000000000000004
+6, 79, 1830 MHz, 0x0000000000000004
+# same query at 03:10: all GPUs 71–76 C, 1815–1845 MHz, 0x0000000000000004
 # BMC inlet temperature (ipmitool sdr type Temperature), rack-04 nodes:
             03:00   09:00   15:00
 orion-n13   23 C    25 C    31 C

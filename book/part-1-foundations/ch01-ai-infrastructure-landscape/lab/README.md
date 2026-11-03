@@ -60,7 +60,7 @@ storage; `observed_step_s` is wall-clock seconds reported by the workload owner.
 2. **Resource lower bounds** — implement `resource_times(profile, platform)` returning compute, memory,
    scaleup, scale-out, io_read, io_write in seconds. The per-node storage ceiling is
    `min(frontend NICs, PFS aggregate / nodes in the job)`. *Acceptance:* `resource_times_core`,
-   `resource_times_io`, `w01_worked_example` pass; W01 compute ≈ 6.95 s, scaleup ≈ 2.67 s.
+   `resource_times_io`, `w01_worked_example` pass; W01 compute ≈ 6.96 s, scaleup ≈ 2.67 s.
 3. **Classify and flag** — implement `classify(profile, platform)` and `analyze(...)`: dominant
    resource, bound class, lower bound, ceiling fraction, and flags `IMPOSSIBLE`,
    `LATENCY_OR_OVERHEAD`, `MISLABELED`. *Acceptance:* `classification`, `flags` pass.
@@ -124,7 +124,7 @@ rows in this lab's CSV schema and a platform file for *this* GPU: vendor-class p
 FLOP/clock/SM × max clock, DRAM from bus width × data rate, and I/O from the negotiated PCIe link. It
 then runs the reference `normalize_and_validate()` and `classify()` on them unchanged. It also records
 the GPU inventory (`nvidia-smi`, `nvidia-smi topo -m`, torch device properties) and samples clocks,
-power, utilisation and clock-event reasons during each workload. That sampling stands in for DCGM.
+power, utilization and clock-event reasons during each workload. That sampling stands in for DCGM.
 DCGM, Nsight Systems, nccl-tests on 8 GPUs and the L3 RDMA steps are probed and recorded as not
 runnable when the hardware or tools are absent.
 

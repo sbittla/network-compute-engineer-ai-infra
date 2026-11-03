@@ -1,6 +1,6 @@
 # K5 — TP inside the node: worked solution
 
-**Method** (manuscript Section 24.6, "Memory → parallelism"; inputs from Table 24.9). All results are
+**Method** (manuscript Section 24.6, "Memory → parallelism"; inputs from Table 24.10). All results are
 `[MODELED]`; the achieved bandwidths are `[ILLUSTRATIVE]` planning values.
 
 1. **Payload of one TP all-reduce.** With one 4,096-token sequence per micro-batch and hidden size 8,192

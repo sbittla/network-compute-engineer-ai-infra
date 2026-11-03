@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Mechanism 1: data served from the 50 MB L2 (or shared memory), so traffic never reached DRAM",
+      "criterion": "Mechanism 1: part of the data served from the 50 MB L2 (producer output still resident, or output absorbed by L2 write-back), so traffic never reached DRAM; only what fits in L2",
       "points": 1
     },
     {

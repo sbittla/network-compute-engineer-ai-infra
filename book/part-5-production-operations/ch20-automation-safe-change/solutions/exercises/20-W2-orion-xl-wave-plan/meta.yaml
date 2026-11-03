@@ -1,0 +1,20 @@
+id: 20-W2
+title: Wave plan for ORION-XL
+folder: 20-W2-orion-xl-wave-plan
+type: worked-problem
+difficulty: 3
+tier: L1
+kind: computed
+points: 10
+evidence_required: All arithmetic shown; a wave-size list that sums to 512 with the per-wave maximum justified.
+marking:
+- criterion: (a) P(canary of 8 contains an affected node) ~ 0.149 binomial / 0.147 exact; k = 114 for 90 %
+  points: 3
+- criterion: (b) stratified canary detection 1 - 0.2^2 = 0.96
+  points: 2
+- criterion: (c) <= 8 waves summing to 512, each <= 128 (one node per rack), small canary; duration, 25 % peak,
+    5,120 GPU-h
+  points: 3
+- criterion: (d) P after first three waves (32 nodes) ~ 0.476 and the conclusion that size alone is not detection
+  points: 2
+lab_checks: []

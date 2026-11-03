@@ -1,0 +1,15 @@
+id: 20-R3
+title: A finding that passes but fails review
+folder: 20-R3-keyword-checker-limits
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Written answer, at most 150 words, naming specific missing evidence.
+marking:
+- criterion: Identifies a keyword-passing but weak finding
+  points: 2
+- criterion: Improved finding with concrete mechanism, numbers, scope and time bound
+  points: 3
+lab_checks: []

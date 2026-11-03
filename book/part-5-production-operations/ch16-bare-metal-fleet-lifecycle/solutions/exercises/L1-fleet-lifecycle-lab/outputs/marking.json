@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "`python lab/check.py` output showing 33/33 PASS; your `acceptance_report.md` listing every non-PASS node with codes, the raw evidence values that triggered them, and the remediation; the list of rejected lifecycle events with reason codes.",
+  "evidence_required": "`python lab/check.py` output showing 37/37 PASS; your `acceptance_report.md` listing every non-PASS node with codes, the raw evidence values that triggered them, and the remediation; the list of rejected lifecycle events with reason codes.",
   "id": "L1",
   "kind": "lab",
   "lab_checks": [
@@ -19,10 +19,14 @@
     "T2.detects_NVLINK_DOWN",
     "T2.detects_ECC_DBE",
     "T2.detects_RDMA_PAIR_BW_LOW",
+    "T2.detects_LINK_BER_HIGH",
+    "T2.detects_GDR_PATH_FAIL",
+    "T2.detects_NVME_DRIVE_SLOW",
     "T2.detects_NCCL_BUSBW_LOW",
     "T2.detects_NCCL_ALGO_UNRECORDED",
     "T2.detects_NIC_MTU",
     "T2.nccl_floor_follows_algorithm",
+    "T2.gdr_rules",
     "T2.sbe_is_warning_not_failure",
     "T2.fleet_verdict_counts",
     "T2.fleet_digest",

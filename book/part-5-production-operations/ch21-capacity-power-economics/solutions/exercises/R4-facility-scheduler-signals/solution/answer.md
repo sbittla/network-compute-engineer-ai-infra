@@ -1,6 +1,6 @@
 # R4 — Facility to scheduler signals: model answer
 
-Source: manuscript Section 21.8 ("Coordinating workloads with the facility", Table 21.5) and
+Source: manuscript Section 21.8 ("Coordinating workloads with the facility", Table 21.8) and
 Figure 21.2 (telemetry at UPS, busway, PDU and node levels).
 
 **Where the signals come from**
@@ -19,7 +19,7 @@ portal or API. That is a contract item.
 **The integration.** A **power-budget service** reads EPMS, BMS and calendar data, computes the
 remaining budget per rack and row (one side under 2N, minus the transient margin), and publishes it
 as a schedulable resource: Slurm licences or GRES per rack, or a Kubernetes extended resource or
-admission webhook. The scheduler places jobs against it and triggers Table 21.5's actions (stop
+admission webhook. The scheduler places jobs against it and triggers Table 21.8's actions (stop
 placement at 80 %, uniform job caps at 90 %). In the other direction the scheduler publishes planned
 large-job starts and stops (> 500 kW) to Facilities.
 

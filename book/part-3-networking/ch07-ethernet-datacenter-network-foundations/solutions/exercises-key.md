@@ -206,7 +206,7 @@ finding (warn: pause-storm exposure, Chapter 9).
 
 | Evidence (item) | MTU mismatch predicts | Asymmetric routing predicts | Incorrect advertisement predicts | Pack shows |
 |---|---|---|---|---|
-| Size dependence (1, 3) | Large fails, small works | Size-independent | Size-independent | **Size-independent** (1472/default and 8972; 1400 and 8948 MSS fail alike) |
+| Size dependence (1, 3) | Large fails, small works | Size-independent | Size-independent | **Size-independent** (default-size and 8,972 B pings; 1,400 and 8,948 B MSS fail alike) |
 | Flow dependence (2, 3) | 1/N of flows | Flows crossing a stateful/uRPF device | Fraction set by how many spines prefer the bogus path | **31/64 ≈ 50 %**, varies by source |
 | Prefix dependence (1, 2) | Any destination behind the bad link | Any | Only the affected prefix | **Only rail-6 destinations** |
 | Interface counters (5) | Giants on one port | Clean | Clean | **Clean; MTUs match intent** |

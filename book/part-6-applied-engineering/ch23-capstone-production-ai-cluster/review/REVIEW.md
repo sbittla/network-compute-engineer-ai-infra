@@ -129,3 +129,61 @@ Manuscript 10,236 words.
 |---|---|
 | R4-01 | Kestrel failure_domains.yaml redundancy now "none (no spares declared)" (generator; data regenerated) |
 | R4-02 | GPU-count invariant notes a full-size W-TRAIN borrows the 8 inference nodes |
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.0, D7 9.0, D8 9.5, D9 9.5 →
+weighted **9.325** (two majors). All key arithmetic was independently confirmed correct.
+
+| ID | Sev | Finding | Resolution |
+|---|---|---|---|
+| N23-01 | major | Rack budget ignored the Ch 21 10 % transient margin; 45 kW not reconciled with canon | A-09 redefined as the *planned* budget after derating and the transient margin, declared variation: existing row limited to 50 kW continuous per rack per 2N side, 50 × 0.9 = 45 kW. Mirrored in §23.2 problem statement, Table 23.5 invariant 11, the "use maximum power" lesson (canonical 2 × 32.78 kW per side named), Step 1, Step 6 (new margin line), reference design.md, W1/D1 prompts, key and answers. No downstream number changes (4 nodes/rack, 9 racks, 9.0 kW cap). |
+| N23-02 | major | `[MEASURED]` exemplar rows cited manifests that did not exist | Both done: (a) generator now writes `manifests/l3-2node-2026-10-12.yaml` (header: ILLUSTRATIVE example for a fictional cluster) and `manifests/l1-laptop.yaml` (a real timing run: lint CLI wall time, 3 warm-ups, 7 reps, median 0.169 s, i7-13700HX, Python 3.13.14, 2026-11-01); B-06 value 0.4 → 0.17 s. (b) Sentence under Table 23.8 (B-06 row added) says B-02 shows the format of a MEASURED row and its value is `[ILLUSTRATIVE]`, consistent with §23.12; reference design.md says the same. No manifest-resolves rule added (would change the starter contract); README's known-limitations note now says the linter does not check that a cited manifest exists. Kestrel's B-04 now cites a manifest that exists but describes a laptop: the trap is noted in the key. |
+| N23-03 | minor | B-05 "checkpoint overhead" includes rework | Renamed "Checkpoint + rework waste at Young interval (excluding restart R)" in Table 23.8, benchmarks.md (both bundles) and design.md. |
+| N23-04 | minor | "Doubling PFS bandwidth only shortens the 12.25 s floor" was wrong | Step 7 now decomposes δ (24.5 s × 2 = 49 s + ≈ 11 s metadata/barrier) and computes doubling: δ ≈ 35.5 s, τ ≈ 3,500 s, waste 1.01 + 1.01 + 0.52 ≈ 2.5 % vs async 1.28 %. Same error in the W2 key/answer fixed: at M = 24 h doubling gives δ 35.5 s, τ 2,477 s, waste 3.91 % (saves 0.86 points vs 2.65 for async). |
+| N23-05 | minor | `[VENDOR-SPEC]` on a counting convention | Label moved to the 50 GB/s line rate; per-rail convention cited to VERIFIED_FACTS. |
+| N23-06 | minor | check.py did not verify bundle reproducibility | `check_data_regenerates` added (byte compare of all 17 files; SKIP when `tools/` is absent). Starter feedback now counts planted findings found and prints hints for common mistakes (sustained power, cable derivation, spares, NUM-001 exemptions). Checker 14/14 solution, 1/14 + 13 TODO starter. |
+| N23-07 | minor | Table 23.10 not sorted by score | Rows sorted 2.25, 2.00, 1.60, 1.20, 1.20, 0.90. |
+| N23-08 | minor | Frontend "3:1" without bandwidth qualifier | Bundle topology now `claimed_oversubscription: 1.5:1` with `oversubscription_basis` noting 3:1 by port count. |
+| N23-09 | minor | Rail-leaf loss vs PXN not discussed | §23.5: NCCL fixes channels at communicator init, QPs on the dead rail end in `IBV_WC_RETRY_EXC_ERR` (status 12) after `NCCL_IB_TIMEOUT`; recovery is a restart, optionally on 7 rails with `NCCL_IB_HCA=^=mlx5_r` `[VENDOR-SPEC, 2026-10]`. |
+| Next-0.5 (D2) | | Quantified correlated failure | New §23.5 "Correlated failures": 4-node firmware batch, 3 h rollback: wait 832 GPU-h vs DP = 7 restart 224 GPU-h; rollout batch as a failure domain. R3 key references it. |
+| Next-0.5 (D3) | | Template-reading pointer | §23.10 intro maps each step to a reference-bundle file. |
+| Next-0.5 (D5) | | K-question on transient margin | K4 extended (50 kW × 0.9 = 45 kW → 4 nodes); meta 4 → 6 points, answer and key updated. Exercise count unchanged (20). |
+| Next-0.5 (D8) | | Tabletop runnable as written | `lab/tabletop/rail-leaf-evidence-cards.md`: eight timed `[ILLUSTRATIVE]` cards with prompts and close-out, linked from Step 8, the runbook and the README file map. |
+| Polish | | Spelling | "rail-optimised"/"utilisation" in bundle data → -ize. |
+
+Tests: `lab/check.py --impl solution` 14/14; `--impl starter` 1/14, 13 TODO, exit 1;
+`validate_labs.py ch23` OK (no-generator pass); `copyedit_lint.py` 0 findings in ch23; committed
+outputs regenerated with `docker/harness/generate_outputs.py` (computed outputs unchanged); harness
+`test_package.py` 86 passed locally.
+
+Shared-doc note: REFERENCE_CLUSTER could add "planned rack peak ≤ 90 % of one side's continuous
+limit (transient margin, Ch 21)" so capstone and chapter budgets agree.
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1 9.5, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.0, D7 9.5, D8 9.5, D9 9.5, for a weighted **9.45**. One major finding.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R23-01 | Major | Reference B-02 labelled `[MEASURED]`, but its manifest says no run produced it | Verified. Reference B-02 is now `[ILLUSTRATIVE]` (tier L3, manifest kept as a format template) in Table 23.8, the reference `benchmarks.md`, `design.md` and the manifest header, all via `generate_bundles.py`. Kestrel's B-02 stays MEASURED with manifest "-" (the planted EVID-003). B-06 is the bundle's only genuine MEASURED row. Step 1's evidence line is updated |
+| R23-02 | Minor | Two bubble definitions used without comment | ADR-005 and Step 3 name (p − 1)/m as relative to ideal compute. Step 3 adds Chapter 22's (p − 1)/(m + p − 1) = 3/131 and the small-m divergence (m = 8: 37.5 % vs 27.3 %) |
+| R23-03 | Minor | "communication ≈ 1 % of step" overgeneralizes | ADR-003 now reads "backend (DP) communication … TP traffic stays on NVLink" |
+| R23-04 | Minor | A-06 = 40 GB/s vs Chapter 22's 45 GB/s unexplained | Clause added: A-06 deliberately allows for 32-node latency and stragglers, hence 0.12 s vs 0.10 s DP exposure |
+| R23-05 | Minor | Card 4 peer IP was orion-n14's own address | Peer is now 10.100.3.31 (orion-n15), with the addressing rule stated |
+| R23-06 | Minor | Card 8 lost work omits hang and decision time | 175 + 47 (11 min hang) + 64 = ≈ 286 GPU-h, plus ≈ 4.3 GPU-h per decision minute; tied to the close-out gaps |
+| R23-07 | Minor | H3 refuted from one `lspci` | Evidence now loops over every GPU and NIC function on nodeB |
+| R23-08 | Minor | Over-long opening line; double blank line | Opening blockquote rewrapped and tightened; blank line removed |
+| D4 advice | — | EVID-003 cannot see a dangling manifest | `load_bundle` records existing `manifests/*.yaml`; EVID-003 also fires on a cited manifest absent from the bundle (solution; starter TODO documented). New edge case in `check.py`. Planted counts unchanged (20 = 6 blocker + 14 major; reference 0) |
+| D2 advice | — | Post-approval drift; infant mortality | Paragraph added: lint an as-built bundle from inventory, LLDP and PDU data at acceptance and after each change window; first 30 days at M = 24 h (τ ≈ 3,220 s, the W2 case) |
+| D5 advice | — | K3's 4× unjustified; thin R2–R4 anchors | K3 key and answer justify 4× (about half of today's 9×). R2–R4 have marking anchors |
+
+Not done: the bundle-at-a-glance figure (D3 advice), to keep the length near current. The step-by-step bundle-file pointer already covers that mapping.
+
+Tests: `check.py --impl solution` 14/14; `--impl starter` 1/14 (13 TODO); data regenerates byte-identically; `validate_labs.py ch23` OK; `copyedit_lint.py ch23` 0 findings; package suite 86 passed; outputs regenerated with `generate_outputs.py`. The manuscript went from 1,056 to 1,072 lines. ch23 has no electricity or GPU-hour prices, so the canonical-price changes do not apply.
+
+## Re-score follow-up (2026-11-01)
+
+Reviewer re-score after r2: **9.78** (pass). N23-01 cleared: §23.12 now reads "half the ≈ 350+ GB/s expected for ORION-class nodes (reference row B-02, illustrative)"; the word "result" is gone. Tests: package suite 86 passed; `validate_labs.py` OK; lint 0 findings.

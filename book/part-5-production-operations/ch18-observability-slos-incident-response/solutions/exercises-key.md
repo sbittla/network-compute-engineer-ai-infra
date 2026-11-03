@@ -91,10 +91,11 @@ over its whole length; treating "= threshold" as firing.
 
 **W2.**
 (a) Ratio = 17.4 / 19.0 = 0.916; lost fraction = 1 − 0.916 = 0.084 (8.4 %).
-(b) Case A: 6.5 h × 4,096 × 0.0842 = 2,242 GPU-h → $6,730. Case B: (12 + 30) min = 0.7 h; 0.7 × 4,096 ×
-0.0842 = 241 GPU-h → $724. Detection saves ≈ 2,000 GPU-h ≈ $6,000 per incident `[MODELED]`.
+(b) Case A: 6.5 h × 4,096 × 0.0842 = 2,242 GPU-h → $6,726. Case B: (12 + 30) min = 0.7 h; 0.7 × 4,096 ×
+0.0842 = 241 GPU-h → $724 (at ≈ $3.00 per GPU-hour `[MODELED]`, Chapter 21 TCO). Detection saves ≈ 2,000 GPU-h ≈ $6,000 per incident `[MODELED]`.
 (c) 19.0 / 17.4 = 1.092 < 1.10 → the rule does **not** fire. For jobs ≥ 1,024 GPUs a 1.05 threshold is
-defensible: in Lab 18 the step-time noise is ≈ 1.2 % (sd); a 10-minute rolling median over ≈ 34 steps
+defensible: in Lab 18 the step-time noise is ≈ 1.2 % (sd of non-checkpoint steps, 00:00–02:00; a property of the
+bundle, `[SIMULATED]`); a 10-minute rolling median over ≈ 34 steps
 has sd ≈ 1.25 × 1.2 % / √34 ≈ 0.26 %, so 5 % is ≈ 19 sd away. Evidence needed before adopting it: two or
 more weeks of rolling-median ratios per large job (including checkpoint, evaluation, and data-shard
 boundaries) showing a false-positive rate below the page budget, plus a check that legitimate
@@ -184,21 +185,28 @@ Reference values from `solutions/lab/telemetry_analysis.py` `[SIMULATED]`:
 
 | Rank | Hypothesis | Evidence for / against | Verdict |
 |---|---|---|---|
-| 1 | DEP-44 (32k context) made replica 7 run out of GPU memory; crashloop removed 1/8 of capacity; remaining replicas queue | DEP-44 at 19:52 precedes restarts (19:55→20:04) and TTFT rise; `OOMKilled`, exit 137; FB_USED 79.1 of 79.6 GiB; waiting queue 35–48 on surviving replicas; replica 7 series absent | Root cause (pending rollback confirmation) |
+| 1 | DEP-44 doubled vLLM's CPU swap area (`--swap-space` is GiB *per GPU*: 8 × 8 = 64 GiB of pinned host memory, up from 32 GiB), so the rev-44 pod exceeds its 64 GiB container memory limit and is OOM-killed; the rollout stalls with replica 7 down, removing 1/8 of capacity; the other replicas queue | DEP-44 at 19:52 precedes restarts (0 → 4, 19:55→20:04) and the TTFT rise; `OOMKilled`, exit 137 is the kernel cgroup killer acting on *host* memory; working set 63.9 of 64 GiB before each kill; rollout 1 of 8 updated, not Ready; waiting queue 35–48 on surviving replicas; replica 7 series absent | Root cause (pending rollback confirmation) |
 | 2 | Traffic surge | +2.3 % (3,050 → 3,120/min) — far too small to explain a 3× TTFT | Rejected |
-| 3 | GPU hardware fault | No Xid; exit is an OOM kill, a software memory limit | Rejected |
+| 3 | GPU memory (HBM) exhaustion or GPU fault | `FB_USED` 73–74 of 79.6 GiB is vLLM's normal steady state: it pre-allocates `--gpu-memory-utilization` (≈ 0.92) of HBM for weights and KV cache at start-up, so near-full HBM is evidence of nothing, and it is unchanged on all replicas. A CUDA OOM raises `torch.OutOfMemoryError` inside the process and exits with code 1, not 137. No Xid | Rejected |
 | 4 | Fabric / storage | Both normal; TP = 8 serving does not use the backend fabric per request | Rejected |
 
 Why TPOT is flat while TTFT explodes: TTFT includes *queueing* before prefill. With one replica down
 and the others saturated, new requests wait in the scheduler queue (`num_requests_waiting` 35–48), so
 TTFT grows. Requests already running decode at the normal per-token rate, so TPOT is unchanged.
-(Only replica 7 crashed so far, plausibly because it was the first to receive a long enterprise
-prompt; the others are at risk.)
+The other seven replicas are still on rev 43 only because the rolling update waits for the new pod to
+become Ready; anyone who "unsticks" the rollout (raising `maxUnavailable`, forcing it) would take them
+down too.
 
-Mitigation: roll back to rev 43 (change precedes symptom; rollback is the safest fastest action).
-Validation: no new restarts for 30 min; `num_requests_waiting` < 5 on all replicas; TTFT p95 < 0.8 s;
-5 m burn < 1 and the alert resolves. Follow-up: capacity model for 32k context (Chapter 15 KV cache and
-activation memory), CI check of memory headroom per max context, canary with long-prompt test traffic.
+Mitigation: `kubectl rollout undo` to rev 43 (change precedes symptom; rollback is the safest fastest
+action). If 32k context is still wanted, re-ship it with the swap area unchanged or the pod memory
+limit raised, sized from the formula above. Validation: no new restarts for 30 min; working set below
+80 % of the limit; `num_requests_waiting` < 5 on all replicas; TTFT p95 < 0.8 s; 5 m burn < 1 and the
+alert resolves. Follow-up: a deploy-time check that host memory (swap area × TP + process baseline)
+fits the pod limit; a canary that fails on a restart, not only on latency (Chapter 15 covers KV-cache
+sizing; `--swap-space` semantics are `[VENDOR-SPEC, 2026-10]` — verify per vLLM release). The scenario
+states a V0-engine release: in current V1 releases CPU swap for preemption is no longer used and the
+flag may be deprecated or have no effect. The lesson does not depend on the flag: any host-side memory
+increase (a CPU KV-offload buffer, a larger tokenizer cache) gives the same `OOMKilled`/137 signature.
 *Marking:* ranking 3, evidence citations 3, mitigation/validation 2, TTFT/TPOT explanation 2.
 
 ## Design challenge D1 — reference answer
@@ -221,14 +229,16 @@ inference ≈ 0.3 per shift → within 2 per shift `[ILLUSTRATIVE assumptions]`.
 - **R1:** Proven: the timing of the leaf flips, the scope covering both jobs, and recovery on rollback
   (an intervention). Correlated only: the exact ECN → PFC mechanism (no queue-depth telemetry in the
   bundle). Proof would need per-queue watermarks, pause durations, and a controlled re-application on a
-  single leaf in a lab.
+  single leaf in a lab. *Marking (5):* 2 proven items, 1 correlated item, 2 the evidence that would prove it.
 - **R2:** One-minute aggregates cannot show which ports or queues paused, microburst structure, or
   whether pauses formed storms; add per-port per-priority pause duration and queue watermarks at 1–10 s.
+  *Marking (5):* 3 for two blind spots, 2 for telemetry that closes them with a resolution.
 - **R3:** Baseline drift (re-baselining on a slow day), excluding too many steps as "checkpoints", jobs
   changing batch size (step time changes legitimately). Guards: baseline pinned to config hash; audit of
-  exclusions; tokens/s alongside step time.
+  exclusions; tokens/s alongside step time. *Marking (5):* 3 for two failure modes, 2 for matching guards.
 - **R4:** Signs of blamelessness: describes system conditions and decisions in context, no names
   attached to errors, contributing factors rather than a single culprit, action items on systems.
+  *Marking (5):* 1 per sign (max 4), 1 for a rewritten blaming sentence.
 
 ## Outline-mandated exercises
 

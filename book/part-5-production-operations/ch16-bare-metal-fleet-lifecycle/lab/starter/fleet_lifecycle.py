@@ -116,8 +116,19 @@ def evaluate_node(result: dict[str, Any], policy: dict[str, Any], matrix: dict[s
       NIC_MTU               a NIC's mtu != expected mtu for its role, or a compute NIC's
                             active_mtu (RDMA path MTU) != exp.compute_nic.active_mtu
       RDMA_PAIR_BW_LOW      a compute NIC's rdma_pair_bw_gbps missing or < thr.rdma_pair_bw_min_gbps
+      LINK_BER_HIGH         a compute NIC's link_quality (if present) has pre_fec_ber >=
+                            thr.link_pre_fec_ber_max, fec_hist_max_bin > thr.link_fec_hist_max_bin,
+                            fec_uncorrectable > thr.link_fec_uncorrectable_max, or
+                            link_flaps > thr.link_flaps_max (a link can pass the RDMA test at full
+                            speed while running close to the FEC correction limit)
+      GDR_PATH_FAIL         only when compute NICs are present: result["gdr"] missing; or
+                            gdr.peer_mem not in exp.gdr.peer_mem_any_of (DMA-BUF counts: it needs no
+                            nvidia_peermem module); or gdr.iommu_mode not in exp.gdr.iommu_mode_any_of;
+                            or gdr.acs_redirect_ports non-empty; or a compute NIC's gdr_pair_bw_gbps
+                            missing or < thr.gdr_to_host_bw_ratio_min x its rdma_pair_bw_gbps
       NVME_COUNT            len(storage.nvme) != exp.nvme_count
       NVME_MEDIA_ERRORS     any media_errors > thr.nvme_media_errors_max or critical_warning != 0
+      NVME_DRIVE_SLOW       any drive's seq_read_gbs (if present) < thr.nvme_drive_seq_read_min_gbs
       STORAGE_THROUGHPUT_LOW storage.fio_seq_read_gbs < thr.fio_seq_read_min_gbs
       NCCL_ALGO_UNRECORDED  nccl_single_node.algorithm missing, or not a key of
                             thr.nccl_allreduce_busbw_min_gbs (never assume NVLS)

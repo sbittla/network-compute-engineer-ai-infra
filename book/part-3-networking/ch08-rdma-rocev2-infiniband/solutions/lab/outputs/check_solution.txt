@@ -5,9 +5,9 @@ PASS parse_ethtool: driver/firmware/speed parsed
 PASS parse_ip: MTU/state/addresses parsed
 PASS parse_qos_env_lsmod: dcb, env file and lsmod parsed
 PASS no_false_positive_clean_node: orion-n01 passes every check (no false positives)
-PASS readiness_findings: all 16 planted-fault findings detected, no extras
+PASS readiness_findings: all 18 planted-fault findings detected, no extras
 PASS node_verdicts: per-node READY/NOT_READY verdicts correct
-PASS render_report: report rendered (33 lines)
+PASS render_report: report rendered (35 lines)
 PASS parse_perftest: bw/lat tables parsed; plateau and n1/2 computed
 PASS perftest_summary: 32 rows, fleet median plateau 388.6 Gb/s
 PASS perftest_flags: underperforming pair and tail-latency pair flagged

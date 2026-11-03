@@ -1,6 +1,6 @@
 # 13.12 — Cross-layer straggler diagnosis (lab): worked solution
 
-**Checker.** `python lab/check.py` must report **10/10 checks passed**. The reference report
+**Checker.** `python lab/check.py` must report **11/11 checks passed**. The reference report
 (`solutions/lab/outputs/check_solution.txt`) gives `[SIMULATED]`:
 
 ```text
@@ -10,6 +10,7 @@ attribute_cause: rank 37 -> thermal, rank 12 -> data_imbalance
 rail_health: flagged rails=[2], onset=[30.0]
 hot_not_throttled: hot-but-not-throttled=[51]
 amplification: lost 334 GPU-s (17.3 %), ideal step 827 ms vs actual 1004 ms
+missing_samples: 200 rows dropped, 37 NaN: stragglers=[12, 37], onset rank 37 = 20
 symptom_windows: sm_active 58.5 -> 54.7 %, gpu_util 99.7 -> 99.7 %, comm 120 -> 198 ms, burst tx 359 -> 222 Gb/s
 ```
 

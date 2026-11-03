@@ -124,3 +124,51 @@ Manuscript ≈ 10,500 words after trims (§2.11 lab overview reduced to a pointe
 ## Independent review iteration 3 (2026-10-30)
 
 Independent score 9.50 (PASS). The minor findings N3-* raised at this pass are closed: the wording fixes listed in the coordinator's iteration-3 notes are applied, and `python scripts/validate_labs.py` is OK.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Independent reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.0, D7 9.0, D8 9.5, D9 9.0 →
+weighted **9.30** (gate FAIL: one major, ten minors). Every finding was re-verified before editing.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N02-01 | Major | Power-stabilization citation printed with a "not independently verified" hedge. | Verified on arXiv: E. Choukse et al., *Power Stabilization for AI Training Datacenters*, arXiv:2508.14318 (v1 20 Aug 2025). Cited by author, title and arXiv ID in §2.6 and Further reading; hedge removed. |
+| N02-02 | Minor | Healthy-peer clock 1,755 MHz departs from the canonical ≈ 1,830 MHz sustained clock. | Listing 2.1: healthy racks 1,830, rack-04 1,815, rack-06 1,548 MHz; text 1,548 ÷ 1,830 = 0.846 (ratio and 15.4 % loss unchanged); caption names the sustained clock. Ex 2.7 prompt and folder: peers 1,830; key, answer, meta, marking: 1,050 ÷ 1,830 = 0.574 (−43 %), clock-scaled share f ≈ 0.40 (was 0.45; Ex 2.8 answer cross-reference updated). `solve.py` re-run. |
+| N02-03 | Minor | Listing 2.1 caption called the counter "microsecond". | Caption: µs in DCGM 3.x, ns in 4.x, seconds in the 4.7 replacement fields. |
+| N02-04 | Minor | DCGM 4.7 replacement names uncorroborated. | Checked `dcgmlib/dcgm_fields.h` at tag v4.7.0 (absent at v4.6.1): `DCGM_FI_DEV_GPU_POWER_THROTTLE_SECONDS_TOTAL` 1617 and `DCGM_FI_DEV_GPU_THERMAL_THROTTLE_SECONDS_TOTAL` 1618, unit seconds, replacing 240/241 ("time in ns"). §2.6 now gives names, IDs, units and `[VENDOR-SPEC, 2026-10: dcgm_fields.h at tag v4.7.0]`; bitmask field uses the VERIFIED_FACTS name `DCGM_FI_DEV_CLOCKS_EVENT_REASONS`. |
+| N02-05 | Minor | Unlabelled illustrative inputs inside a "[MODELED]" block. | §2.10 envelope now lists 16.0 / 9.0 / 4.0 kW non-GPU racks and $0.08/kWh as `[ILLUSTRATIVE]`; "Every result below is `[MODELED]` from these `[ILLUSTRATIVE]` inputs." |
+| N02-06 | Minor | Claimed REFERENCE_CLUSTER does not fix the cooling method. | §2.7: REFERENCE_CLUSTER specifies a liquid-assisted hall (PUE 1.25) but not the node cooling variant; the chapter's DLC, 75 % capture and kept 10.2 kW node maximum are stated as ORION assumptions `[ILLUSTRATIVE]`. Proposed for REFERENCE_CLUSTER §3 (coordinator). |
+| N02-07 | Minor | SPOF service definition ("28 of 32") unexplained against Table 2.9's per-job blast radius; key arithmetic wrong. | Table 2.9 caption and lab README Task 5 explain service survival (≥ 28 of 32 schedulable, `min_required: 28`) vs per-job effect. Key Ex 2.4 and 2.4 answer: "31 of 32 retained, above the 28-node threshold; a full-scale job still fails". |
+| N02-08 | Minor | Ex 2.2 key: "4 % error breaks the design". | Recomputed (30.6(1 + x) + 0.2) × 1.10 ≤ 34.96 → x ≤ 3.2 %; key and 2.2 answer now say ≈ 3 % with the inequality. |
+| N02-09 | Minor | "Table 2.10a". | Renumbered: hypotheses 2.11, cooling options 2.12, trade-offs 2.13, runbook 2.14; immersion cross-reference → Table 2.12. |
+| N02-10 | Minor | Capture fraction applied to rack totals but described as "of node heat"/"of node AC power". | Defined as "of rack IT load (nodes plus rack auxiliaries)" in §2.7 and the Ex 2.6 prompt and folder; all numbers unchanged (lab already applies it to rack maximum). |
+| N02-11 | Minor | Overlong source lines. | Manuscript, key and touched answers rewrapped to ≤ 108 characters outside tables and code blocks. |
+| D2 advice | — | Quantified generator step-load acceptance. | §2.6: restart step 32 × (10.2 − 2.5) ≈ 246 kW AC = 12 % of a 2.0 MW set with 40 % (800 kW) step acceptance `[ILLUSTRATIVE]`; ORION-XL 3.94 MW > 3.2 MW for a 4 × 2.0 MW plant, so staged in eight ≈ 490 kW groups. |
+| D8 advice | — | Numbered feed-maintenance / demand-response procedure. | Production notes: announce → checkpoint → cap (570 W via DCGM group; node DC ≤ 8.55 kW) → verify go/no-go → execute and watch (power brake = SEV2) → restore 700 W. |
+
+Checks: `python lab/check.py --impl solution` 14/14 PASS; `--impl starter` 1/14 (13 TODO), fails
+gracefully; `python scripts/validate_labs.py ch02` OK; `python scripts/copyedit_lint.py` 0 findings in
+ch02 files. Manuscript grew by ≈ 40 lines (step-load check and procedure).
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 10 ·
+D9 9.5 → **9.525** (pass). 0 blockers, 0 majors, 4 minors. I verified every finding before acting on it, and all four held up.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R02-01 | A fifth node in one rack does not overload the CDU (7 × 30.75 + 38.4 = 253.7 kW < 300 kW) | Figure 2.2 caption and key Ex 2.1 Q1 now say: "the floor rating would be exceeded, and a fifth node in every rack would overload the CDU (8 × 38.4 kW = 307 kW > 300 kW)". The 2.1.1 model answer already said this. |
+| R02-02 | The 86 OOB endpoints were stated as if they were the whole OOB network | §2.4 now reads "This model counts 86 OOB endpoints in the GPU pod". It also names what the count leaves out: support-rack PDUs, frontend spines, control-plane BMCs, and CDU/BMS controllers. The key and the 2.4 model answer carry the same scope note. |
+| R02-03 | Canonical AC node model (4.6 kW + 8·P) was never reconciled | §2.2 now has one sentence after Table 2.2. At a 570 W cap the canonical model gives 9.16 kW and the DC table gives 8.55 ÷ 0.94 = 9.10 kW, a gap below 1 %. It cites REFERENCE_CLUSTER and Chapter 21. |
+| R02-04 | Ex 2.10 key did not compute total IT | The key now gives 588 + 64 network (2 racks at 2 × 16 kW; backend grows from 12 to 24 switches) + 18 storage + 4 management = **674 kW** ≤ 800 kW IT, with 126 kW to spare. That is 842.5 kW of facility load at PUE 1.25, and the key states that 800 kW is an IT limit. This matches the model answer. |
+| D2 advice | The Choukse et al. mitigations were not summarized | §2.6 now names the GPU power floor and ramp-rate limits and the rack- or facility-level energy storage. A worked case with a 500 W floor `[ILLUSTRATIVE]` halves the swing to 8 × 200 ÷ 0.94 ≈ 1.70 kW per node, giving ≈ 54 kW for ORION and ≈ 0.87 MW for ORION-XL. It also states the energy cost. |
+| D6 advice | No property sources in the lab facility data | `generate_inputs.py` now writes a `property_source` field (`ILLUSTRATIVE`, typical PG25 at ≈ 35 °C and air at 20–25 °C, re-verify against the installed fluid). The data was regenerated; only `facility_envelope.yaml` changed, and the byte-reproducibility check passes. |
+| Price | The canonical GPU-hour price changed to ≈ $3.00 (Chapter 21 TCO, $3.02) | The only priced figure in ch02 is the 2.11.2 model answer: ≈ 650 GPU-h × $3.00 ≈ **$1,950** per leaf failure (was $1,600 at $2.50). It now cites Chapter 21. |
+
+Not done: the D4 "false SPOF" distractor in `cluster_design.yaml`. Adding it would change the SPOF set that `check.py` verifies through salted hashes, and that is out of scope for a minor round. It stays an open idea.
+
+Verification: `python lab/check.py --impl solution` → 14/14 PASS. `--impl starter` → 1/14 with no traceback. `python scripts/validate_labs.py ch02` → OK. `python scripts/copyedit_lint.py ch02-anatomy` → 0 findings. The manuscript is 11,334 words.

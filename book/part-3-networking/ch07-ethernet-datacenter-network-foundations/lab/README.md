@@ -17,15 +17,15 @@ This is **Progressive Lab 2 — Fabric design** of the 14-week course (week 4).
 
 > **Realism boundary:** Everything here is `[MODELED]` or static analysis. The lab cannot show real
 > ECMP hash behaviour, queueing, convergence timing, or how a particular NOS interprets "MTU". It
-> proves your *reasoning and tooling*; the L2/L3 extensions (Section 8) are where behaviour is
-> measured.
+> proves your *reasoning and tooling*. The L2 container fabric (Section 8) shows control-plane
+> behaviour in simulation; only the L3 physical fabric produces measurements.
 
 ## 3. Setup
 
 ```bash
 cd book/part-3-networking/ch07-ethernet-datacenter-network-foundations/lab
 python --version                         # 3.10 or newer
-python check.py                          # starter: everything reports TODO, exit code 1
+python check.py                          # starter: T0 PASS (SKIP in the student release), all other checks TODO, exit 1
 ```
 
 No third-party packages are required (the repository `requirements.txt` is a superset).
@@ -123,20 +123,35 @@ any directory.
 
 ### L2 — container fabric (one Linux host)
 
-Build a 2-spine × 4-leaf eBGP fabric with containerlab and FRRouting containers, generated from your
-addressing plan (scale the plan down; keep the conventions). Then, **on that isolated lab only**:
+`l2/orion-mini/` holds a 2-spine × 4-leaf × 2-host eBGP fabric for containerlab and FRRouting
+containers. `render.py` generates the topology (`orion-mini.clab.yml`) and one `frr.conf` per switch
+with the chapter's conventions scaled down: rail leaves `leaf-r0`…`leaf-r3` (AS 65101–65104), spines
+`spine-1`/`spine-2` (AS 65100), one uplink per leaf–spine pair (k = 0, so `leaf-r3` ↔ `spine-1` is
+10.101.1.48/.49 as in Listing 7.1), hosts `n01`/`n02` with one /31 per rail and per-rail policy routing,
+BFD and `timers 3 9`. The files parse and follow containerlab's documented schema, but **they have not
+been deployed in this course's harness** (it cannot run containerlab), so expect to adjust image tags
+or interface details for your containerlab and FRR versions. Leaf `eth1`/`eth2` face n01/n02 and
+`eth3`/`eth4` face spine-1/spine-2. Then, **on that isolated lab only**:
 
 ```bash
+cd lab/l2/orion-mini
+python render.py --check                  # committed files match the renderer (or: python render.py)
 sudo containerlab deploy -t orion-mini.clab.yml
 docker exec -it clab-orion-mini-leaf-r0 vtysh -c "show bgp ipv4 unicast summary"
-docker exec -it clab-orion-mini-leaf-r0 vtysh -c "show ip route 10.100.3.0/24"   # count next hops
+docker exec -it clab-orion-mini-leaf-r0 vtysh -c "show ip route 10.100.3.0/24"   # expect 2 next hops
 docker exec -it clab-orion-mini-leaf-r0 vtysh -c "show bfd peers"
-# Fail one link inside the lab and time reconvergence from a host container:
-docker exec clab-orion-mini-leaf-r0 ip link set eth3 down
-docker exec clab-orion-mini-h0 ping -i 0.01 -c 2000 10.100.3.1 | tail -3   # count lost probes x 10 ms
+# Probe cross-rail (n01 rail 0 -> n02 rail 3, through a spine) while failing leaf-r0's spine-1 uplink:
+docker exec clab-orion-mini-n01 ping -I 10.100.0.3 -i 0.01 -c 2000 10.100.3.5 | tail -3 &
+docker exec clab-orion-mini-leaf-r0 ip link set eth3 down    # lost probes x 10 ms = loss window
 ```
 
-Repeat each failure ≥ 5 times; report median and max loss window, with and without BFD. Re-create
+BusyBox `ping` in the Alpine host image may reject sub-second intervals; install `iputils` in the host
+containers (`apk add iputils`) or use an image that has it.
+
+Repeat each failure ≥ 5 times; report median and max loss window, with and without BFD (remove
+`neighbor … bfd` and rerender). An `ip link set … down` is detected at once by both ends; to see BFD's
+value, block traffic without taking the link down (for example `tc qdisc add dev eth3 root netem loss
+100%`), which only the hold timer or BFD can detect. Re-create
 two planted faults (an ASN collision, `maximum-paths 1`) and capture the evidence they produce
 (`show bgp ipv4 unicast <prefix>`, next-hop counts). Container dataplanes do not model ASIC hashing
 or buffers — label results `[SIMULATED]`.
@@ -154,39 +169,38 @@ firmware, driver version, topology, MTU per tier, RDMA path MTU, ECMP hash field
 BGP timers, failure injected, number of runs, and per-run convergence (ms). Label results
 `[MEASURED]` only with that manifest attached.
 
-### Running the L2 experiment (course harness)
+### Running the ECMP hashing simulation (course harness)
 
-From the repository root:
+The harness experiment is a **software simulation of ECMP hashing**, not a network measurement: it
+touches no network and no switch, and a GPU only makes it run faster. From the repository root:
 
 ```bash
 python scripts/hw_labs.py build ch07
-python scripts/hw_labs.py run ch07 --device gpu   # measure on the GPU -> lab/l2/results/gpu-<model>/
-python scripts/hw_labs.py run ch07 --device cpu   # CPU fallback        -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py run ch07 --device cpu   # the simulation on the CPU -> lab/l2/results/cpu-fallback/
+python scripts/hw_labs.py run ch07 --device gpu   # optional: same simulation, more trials -> results/gpu-<model>/
 python scripts/hw_labs.py test ch07               # quick run now + committed-evidence checks
 ```
 
-The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses the GPU when one is
-visible; without a GPU the CPU fallback runs automatically and its report says which invariants were
-skipped. Add `--quick` for a smoke test (never committed as evidence).
+The experiment is `lab/l2/experiment.py`. With `--device auto` (the default) it uses a GPU when one is
+visible, only to run more trials; the CPU run checks the same invariants. Add `--quick` for a smoke
+test (never committed as evidence).
 
 It probes for the container-fabric prerequisites (containerlab, the Docker socket, CAP_NET_ADMIN, real
 netdevs). It then runs what applies on one host: a vectorised Monte Carlo of per-flow ECMP hashing for
 low-entropy RoCEv2 flows (UDP destination port 4791, one source port per QP) through a real 64-bit hash.
 That reproduces Section 7.6: P(8 flows on 8 distinct links), expected links used, the most-loaded-link
 distribution, polarization with a reused hash seed, and modulo versus resilient rehash after a failure.
-Each figure is checked against its closed form. Results are `[SIMULATED]`; trials per second are
-`[MEASURED]`.
+Each figure is checked against its closed form. The flow-placement results are `[SIMULATED]`; the only
+`[MEASURED]` number is the simulator's own speed (trials per second), which says nothing about a fabric.
 
 Not runnable on the harness: the containerlab 2-spine x 4-leaf FRR fabric and its BFD/reconvergence
 timings. They need a Linux host with containerlab, root and network namespaces, and the harness runs
 unprivileged with `--network none`.
 
-The CPU fallback runs the same Monte Carlo on the CPU with fewer trials; the invariants are identical.
-
 **Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
 (`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX
-4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
-`cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
+4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2. The bundle names record where the simulation ran:
+`gpu-<model>/` ran it on the GPU and `cpu-fallback/` on the CPU; each `report.md` lists what was measured, what was not runnable and why, and
 the invariants it passed. Rerun on your own hardware and compare like with like.
 
 ## 9. Intentionally flawed inputs

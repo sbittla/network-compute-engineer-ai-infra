@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Slowdown 29.9 % computed, clock ratio 0.598, and the synchronous-job explanation of why it is smaller than the clock loss",
+      "criterion": "Slowdown 29.9 % computed, clock ratio 0.574, and the synchronous-job explanation of why it is smaller than the clock loss",
       "points": 3
     },
     {

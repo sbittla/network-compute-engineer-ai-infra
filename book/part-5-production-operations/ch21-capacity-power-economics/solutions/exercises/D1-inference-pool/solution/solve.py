@@ -17,9 +17,9 @@ GPUS_PER_REPLICA = 8           # TP = 8 on one HX8 node
 AVG_LOAD_OF_PEAK = 0.40        # prompt: average load 40 % of peak
 LENDABLE_FRACTION_OF_IDLE = 0.60   # assumption: idle hours beyond a forecast-plus-margin threshold
 PREEMPTIBLE_GOODPUT = 0.70     # assumption: frequent checkpoints, lost work at each reclaim
-USD_PER_USEFUL_GPU_H = 4.75    # Section 21.4 ORION-256 cost per useful GPU-hour
+USD_PER_USEFUL_GPU_H = 4.725    # Section 21.4 ORION-256 cost per useful GPU-hour
 KEY = {"provisioned_gpu_h": 840_960, "idle_gpu_h": 560_640, "lent_gpu_h": 336_384,
-       "useful_borrowed_gpu_h": 235_469, "value_musd": 1.12}
+       "useful_borrowed_gpu_h": 235_469, "value_musd": 1.11}
 TOL_H = 1.0
 TOL_MUSD = 0.005
 
@@ -68,7 +68,7 @@ def main() -> None:
         "answer": {"option1_dedicated_useful_gpu_h": round(busy), "option2_shared_useful_gpu_h": round(busy + useful_borrowed),
                    "provisioned_gpu_h": provisioned, "idle_gpu_h": round(idle), "lent_gpu_h": round(lent),
                    "useful_borrowed_gpu_h": round(useful_borrowed), "borrowed_value_musd_per_year": round(value, 2)},
-        "units": {"gpu_h": "GPU-hours per year", "value": "USD millions per year at $4.75 per useful GPU-hour"},
+        "units": {"gpu_h": "GPU-hours per year", "value": "USD millions per year at $4.725 per useful GPU-hour"},
         "tolerance": {"gpu_h": TOL_H, "value_musd": TOL_MUSD},
     }
     (out / "result.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")

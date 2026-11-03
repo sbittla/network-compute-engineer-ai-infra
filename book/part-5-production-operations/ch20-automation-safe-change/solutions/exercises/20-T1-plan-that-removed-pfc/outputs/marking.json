@@ -1,0 +1,29 @@
+{
+  "difficulty": 3,
+  "evidence_required": "Ranked hypotheses with discriminating tests; root cause tied to specific log lines; fix, validation and guard.",
+  "id": "20-T1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) three ranked hypotheses, each with a discriminating test; inventory truncation first",
+      "points": 5
+    },
+    {
+      "criterion": "(b) root cause: inventory client ignores pagination (items=16 with next= page link)",
+      "points": 3
+    },
+    {
+      "criterion": "(c) consequence on orion-n17-n32 and the Table 20.11 controls that stop it (sanity bound, plan size, cap, dry-run review)",
+      "points": 4
+    },
+    {
+      "criterion": "(d) fix (follow pagination, fail closed), validation (0-action rerun, paginated test), new guard",
+      "points": 3
+    }
+  ],
+  "points": 15,
+  "tier": "L1",
+  "title": "The plan that wanted to remove PFC",
+  "type": "troubleshooting"
+}

@@ -151,16 +151,20 @@ spec, the large real effect decided `improvement` above the A/A floor, the A/A p
 change, and thin GEMMs memory-bound with square GEMMs compute-bound.
 
 One protocol lesson shows only on real hardware. On a power-capped GPU, the sustained SM clock depends on
-the kernel: BF16 tensor-core GEMMs run at a higher clock than FP32 SIMT GEMMs. The lab's rule judges
+the kernel: BF16 Tensor Core GEMMs run at a higher clock than FP32 SIMT GEMMs. The lab's rule judges
 each run against the session-wide peer clock, so it excludes the slower-clocked arm wholesale. The
 experiment therefore decides cross-kernel comparisons with the same rules but against each arm's own
 peer clock. This choice is fixed in the code before any data is collected. The report shows both
 decisions side by side. Same-kernel comparisons (A/A, no-op) use `compare()` exactly as written.
 
 *Observed on the reference run:* `lab/l2/results/gpu-<model>/` and `cpu-fallback/` hold the bundles
-from a laptop RTX 4060 (Ada, 24 SMs, ~38 TFLOP/s BF16 and 256 GB/s at max clocks). They contain the
+from a laptop RTX 4060 (Ada, 24 SMs, 256 GB/s; BF16 peak 38.2 TFLOP/s at the 3,105 MHz maximum clock but
+29.1 TFLOP/s at the 2,370 MHz its BF16 GEMM sustained under the power cap). They contain the
 arm tables with clocks and clock-event reasons, the decisions, and the measured roofline next to the
-manuscript's H100-class roofline (989 TFLOP/s, 3.35 TB/s). It is a laptop GPU, not an H100.
+manuscript's H100-class roofline (989 TFLOP/s, 3.35 TB/s). It is a laptop GPU, not an H100. Its "% of roof"
+column uses the maximum-clock ceiling (the bundle predates the sustained-clock line that `experiment.py`
+now adds to the report), so read the square GEMMs' ≈ 75 % as ≈ 98 % of the peak at the clock they ran at
+(manuscript Section 6.3, "Empirical ceilings").
 
 ## 9. Intentionally flawed inputs
 

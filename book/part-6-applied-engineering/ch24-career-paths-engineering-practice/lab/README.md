@@ -11,18 +11,19 @@ Two small tools that engineers and hiring managers in AI infrastructure actually
    stale or unverifiable, and rejected when it overstates what was measured.
 2. **Job-posting register validator.** Clean a hand-collected register of job postings: enforce
    required fields, normalize and deduplicate, flag stale "active" rows, and compute skill frequencies
-   only over postings that survive. This is the evidence discipline Section 13 of the course outline
+   only over postings that survive. This is the evidence discipline the course outline
+   ([`docs/COURSE_OUTLINE_SOURCE.md`](../../../../docs/COURSE_OUTLINE_SOURCE.md), "Scope note on job-posting coverage")
    requires before anyone claims "we analysed N job postings" (see manuscript Section 24.4).
 
 The register the checker uses (`data/job_register.csv`) is **synthetic**: every employer, job ID, and URL
 is fictional, and URLs use the reserved `example.com` domain. Nothing in it is a statement about any real
 company's hiring.
 
-`data/` also holds a **real** register for comparison: `job_register_2026-10_collected.csv` (50 public
-postings read on 2026-10-30, one row per requisition), `job_register_2026-10.csv` (the same postings
+`data/` also holds a **real** register for comparison: `job_register_2026-10_collected.csv` (54 public
+postings read on 2026-10-30, 4 excluded by the scope screen, 50 recorded, one row per requisition), `job_register_2026-10.csv` (the same postings
 deduplicated to 42 roles) and `register_meta_2026-10.yaml` (sources, scope screen, dedupe rule, counts).
 `check.py` does not read these files. They are stale after 2026-11-29: re-check a posting before you
-cite it. Manuscript Section 24.4 (Table 24.8a) summarizes what the real data changed.
+cite it. Manuscript Section 24.4 (Table 24.9) summarizes what the real data changed.
 
 ## 2. Tier and realism boundary
 
@@ -60,6 +61,7 @@ is the specification.
 | 6 | `row_issues` | Field rules: missing, bad date, future date, non-HTTPS URL, invalid seniority/status, stale active (> 30 days) |
 | 7 | `duplicate_clusters`, `representative` | 61 rows → 51 postings; a key-then-URL chain of three rows merges into one |
 | 8 | `validate_register`, `skill_frequency` | 51 unique / 40 complete / 31 active-and-fresh; top skills match |
+| 8b | `validate_register` on the real 2026-10 register (no new code) | Collected file 50 / 50 / 50 and role file 42 / 42 / 42, no issues (the L1+ worked example below) |
 
 Then produce the report:
 
@@ -176,7 +178,10 @@ with the lab's own `effective_level` / `demonstrated_levels` / `readiness`, alon
 mistakes (`measured_on_hardware: true` on a `lab_l1` item, and `lab_hw` with no artifact).
 
 Not runnable on the harness: intra-node `all_reduce_perf -g <ngpus>` (needs >= 2 GPUs) and the GPU-NIC
-half of E08 (no NIC).
+half of E08 (no NIC). Because `host_topology` covers GPU/NIC topology and GPUDirect RDMA, the experiment
+claims level 3 only when an RDMA device is present; on a NIC-less GPU host the converted item keeps
+claimed level 2, its summary is marked `PARTIAL_EVIDENCE`, and readiness is unchanged. Hardware evidence
+must cover the competency's scope, not merely exist.
 
 The CPU fallback measures the host half only (NUMA, host copy bandwidth, RDMA probe) and keeps the
 converted item's claim at level 2.
@@ -186,6 +191,14 @@ converted item's claim at level 2.
 4060 (Ada, 8 GB, PCIe Gen4 x8) under WSL2, not an H100-class server. `gpu-<model>/` is the GPU run and
 `cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
 the invariants it passed. Rerun on your own hardware and compare like with like.
+
+> **Correction to the committed GPU bundle.** `gpu-rtx-4060-laptop-gpu/report.md` was produced on
+> 2026-11-01, before the scope rule above was added to `experiment.py`. Its measurements (pinned H2D
+> 12.87 GB/s median on a Gen4 x8 link, 10 repetitions) are valid `[MEASURED]` evidence. Its scoring is
+> not: it claims level 3 for E08 and reports readiness 78.4 → 82.4, although the host has no RDMA NIC
+> and the report itself says the GPU-NIC half is unevidenced. Under the current rule that run scores
+> E08 at level 2 and readiness stays at 78.4. The measured values are unedited; an erratum note at the
+> top of that `report.md` says the same. Rerun the experiment to regenerate its scoring section.
 
 ## 9. Intentionally flawed inputs
 

@@ -1,7 +1,7 @@
 # T1 — Lossless discards on one uplink (worked solution)
 
 Evidence `[ILLUSTRATIVE]`; headroom arithmetic `[MODELED]` (`solve.py`). Relies on manuscript Section
-9.4 (headroom formula, Table 9.2, the pitfall "longest links first"), Section 9.5 (watchdog, storms),
+9.4 (headroom formula, Table 9.3, the pitfall "longest links first"), Section 9.5 (watchdog, storms),
 and the K5 reasoning. Conventions: r = 50 B/ns, MTU 9,216 B, t_resp = 1 µs, 5 ns/m.
 
 ## (a) Ranked hypotheses

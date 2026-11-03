@@ -16,7 +16,7 @@ for the optimization you recommend (Exercise O3-c); L3 learners execute the vali
 `T_comm,exposed` and `T_data,exposed`, name one evidence source on ORION that measures each directly.
 *Evidence required:* the equation with all six terms; one named tool or metric per term with its grain.
 
-**K2 ★ (L1).** A dashboard shows 98 % "GPU utilisation" on every GPU of a job whose step time rose 15 %.
+**K2 ★ (L1).** A dashboard shows 98 % "GPU utilization" on every GPU of a job whose step time rose 15 %.
 Explain why this does not show the GPUs are busy computing, and name two better signals.
 *Evidence required:* definition of the utilization metric; two named alternatives and what each measures.
 
@@ -90,7 +90,8 @@ c. A vendor proposes an NCCL setting that "saves 0.15 s per step" at 256 GPUs. R
 ## Hands-on lab
 
 **L1 ★★ (L1) — Attribute a cross-layer regression.** Complete [the Chapter 22 lab](lab/README.md):
-tasks 1–9 in `starter/regression_lab.py`, until `python lab/check.py` reports 11/11 PASS.
+tasks 1–9 (including 6b) in `starter/regression_lab.py`, until `python lab/check.py` reports 11/11 PASS
+(your copy skips the instructor-only data-regeneration check).
 *Evidence required:* checker output; generated `report.md`; a short note listing each data-hygiene rule
 and how many rows or jobs it affected.
 
@@ -109,6 +110,7 @@ DCGM:                          clocks 1,830 MHz, no slowdown reasons, temperatur
 NCCL (2.23+):                  no timeouts; NET channel lines end in /GDRDMA on all nodes
 orion-be-leaf-r3 Ethernet28 (→ orion-n15 NIC3), 10-minute deltas:
     FEC corrected codewords   1.9e9   (other ports: 1–4e6)
+    pre-FEC BER               ≈ 1e-5  (other ports: ≈ 1e-8)
     FEC uncorrectable         312     (other ports: 0)
     in-errors (CRC)           297
 orion-n15: ethtool -S <rail-3 netdev> | grep -E 'rx_crc_errors_phy|rx_symbol_err_phy'

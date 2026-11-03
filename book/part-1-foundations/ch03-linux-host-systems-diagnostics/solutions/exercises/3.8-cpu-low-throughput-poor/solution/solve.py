@@ -2,7 +2,8 @@
 """3.8: quantify the orion-n12 signals from its snapshot.
 
 Usage: python solve.py --out DIR
-Reads lab/data/snapshots/orion-n12.json [SIMULATED]. The 40 % shortfall is from the prompt.
+Reads lab/data/snapshots/orion-n12.json [SIMULATED]. The 40 % shortfall and the peers' ≈ 725 MB/s
+md0 rate are from the prompt; the script checks that they agree (435 / 0.60 ≈ 725 MB/s).
 """
 from __future__ import annotations
 

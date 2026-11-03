@@ -4,7 +4,7 @@
 physical, property"); docs/REFERENCE_CLUSTER.md; key K5. Values `[MODELED]`.
 
 **(a) Rack power failure.** ORION racks hold 4 HX8 nodes (rack-power invariant: 4 × 10.2 kW =
-40.8 kW ≤ 45 kW).
+40.8 kW ≤ 45 kW planned).
 - GPUs lost = 4 nodes × 8 GPUs = **32 GPUs** = 32 / 256 = **12.5 %** of capacity.
 - Jobs affected: only jobs with at least one rank in that rack. A 256-GPU W-TRAIN job is affected (it
   uses every node); a small job placed in other racks is untouched. Containment: dual A/B feeds and

@@ -45,7 +45,7 @@ all times, yet ECN-marked counters increase by 2 million per interval. Explain t
 what you would plot instead.
 *Evidence required:* explanation and the replacement metric.
 
-**K8 ★ L1 — Storm or incast.** Using Table 9.4, list four signals that distinguish a PFC storm source
+**K8 ★ L1 — Storm or incast.** Using Table 9.6, list four signals that distinguish a PFC storm source
 from an incast destination on the switch port facing the device.
 *Evidence required:* four signals with the expected value for each case.
 

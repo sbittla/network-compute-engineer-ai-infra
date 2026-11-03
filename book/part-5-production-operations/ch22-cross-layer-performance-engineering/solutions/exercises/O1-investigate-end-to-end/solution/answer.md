@@ -10,7 +10,7 @@ regression (Section 22.4.5).
 
 | Cause | Direct evidence | Values |
 |---|---|---|
-| TP split (CHG-7790) | `node_metrics.csv`, after period, TP-split vs not: backend tx per node; SM active | 6.06 → 37.93 GB/s; 0.57 → 0.40 |
+| TP split (CHG-7790) | `node_metrics.csv`, after period, TP-split vs not: backend tx per node; SM active | 6.06 → 95.93 GB/s (model: 6 + two boundary hops × 1.20e12 B per ≈ 26.5 s step ≈ 97 GB/s); 0.57 → 0.40 |
 | Capacity tier (CHG-7795) | Step log data wait, TP-packed after-period jobs, capacity minus hot; `node_metrics.csv` CPU iowait hot → capacity; per-job p99 vs p50 | +1.46 s per step; 1.52 % → 6.03 %; p99 18.8 → 35.0 s while p50 18.17 → 18.24 s |
 | R570 driver / GDR (CHG-7781) | `node_metrics.csv` host bounce copy on orion-n17..n32, before → after; `nccl_init_sample.log` channel lines `via NET/IB/0` (no `/GDRDMA`) on orion-n17 vs `/GDRDMA` on orion-n09; empty `lsmod \| grep nvidia_peermem`; inventory `peermem_module_loaded = no` | 0.40 → 9.50 GB/s (other nodes 0.39 → 0.42). Valid only because DMA-BUF is unavailable on these nodes `[VENDOR-SPEC, 2026-10]` |
 | ECC alert on orion-n13 (ruled out) | `node_metrics.csv` SBE per job-node and GPU temperature on orion-n13 | SBE 0.7 → 152; temperature 67.4 → 68.1 °C; model effect −0.05 ± 0.09 s |

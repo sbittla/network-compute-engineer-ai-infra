@@ -108,3 +108,43 @@ Iteration 3 scored **9.40 (fail)** on one major finding:
 | R3-02 | Minor | 14.9 DCP note | Over-long line | Reflowed |
 
 To stay under the cap, Further reading was condensed (Young/Daly merged; SCR, ZeRO and NVMe entries shortened). The manuscript is 9,995 words. Author re-score: all dimensions 9.5, weighted **9.50**.
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.5, D2 9.5, D3 9.5, D4 9.0, D5 9.5, D6 9.0, D7 9.5, D8 9.5, D9 9.5, so the weighted score is **9.38**. There was one major finding. `check.py`: solution 15/15, starter 0/15 (graceful).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N14-01 | Major | The committed GPU L2 bundle (RTX 4060, 7.8 GiB WSL2) failed its invariant: D2H 0.01 GB/s and `dcp.load` 2,247 s. The lab README presented it as the reference run | No measured value was edited. The lab README §8 now names the CPU-fallback bundle as the valid reference. It says the GPU bundle failed its invariants, most likely because of memory pressure on the 7.8 GiB WSL2 host, and is pending a rerun. A banner at the top of the GPU `report.md` says the same. `l2/experiment.py` adds guards: it refuses the run (`not-runnable`) when MemAvailable < 4 × state + 1 GB, and fails invariants when GPU D2H < 1 GB/s, load > 20 × save, or swap-out > 5 % of the state. It records MemAvailable, swap and `pswpout` in `results.json`. Checked offline against the committed bundles: the GPU bundle now fails all three plausibility guards and the CPU bundle passes. The full run was not executed (local torch broken, Docker down). The "negotiated link" label became "maximum-capability link". Key and answer 14.19 now reject paging runs. **Still open:** rerun on a larger host. `docker/hwlab/test_l2.py::test_committed_evidence` fails on this bundle until then |
+| N14-02 | Minor | Synchronous checkpoints per day use 86,400/τ rather than 86,400/(τ+δ) | Verified (0.7 % sync PFS, 0.3 % sync local). §14.11 now states the approximation and its size, and the realism boundary repeats it. The planner and Table 14.8 are unchanged, so no numbers had to propagate. The ranking does not change |
+| N14-03 | Minor | Pipeline 1 mixed medians and means | Recomputed from `io_trace.csv` windows 0–5: 5.65 + 0.71 + 0.21 = 6.57 ms, which gives 152 samples/s per worker, 1,220 for eight workers, 0.20 GB/s and 89 %. The scaling line now reads 12,000 × 6.57 ms ≈ 79 in flight |
+| N14-04 | Minor | "PHB-class" for GPU↔NVMe | Now reads NODE (different host bridges, same NUMA node) or PHB, never PIX/PXB, per the book-wide topology terms |
+| N14-05 | Minor | The 2,700 creates/s plateau had no mechanism | Added the single-directory lock serialization, per-rank subdirectories, DNE `lfs setdirstripe` `[VENDOR-SPEC]`, and a safe-change note to agree the layout with Storage |
+| N14-06 | Minor | No CPU-decode-bound case | Added a §14.7 paragraph: 107 images/s per core needed; 5–8 ms per image `[ILLUSTRATIVE]` means 60–96 of 112 cores; the signature (data wait high, storage idle, workers at 100 % CPU); nvJPEG/DALI `[VENDOR-SPEC]` |
+| N14-07 | Minor | The async-save scalar hazard was not taught | Added a §14.10 Pitfall: DCP stages host-resident Adam `step` scalars by reference (observed on PyTorch 2.5.1). Remedies: copy before handoff, or `fused=True`/`capturable=True`, then test. Labelled VENDOR-SPEC with "verify per version" |
+| N14-08 | Minor | The two-level model ignores PCIe/NVMe contention with the loader | Listed in the realism boundary |
+| Next-0.5 D3 | — | Time-axis figure | Added Figure 14.5 (τ, L, failure inside the persist window) for τ/2 + L |
+| Next-0.5 D5 | — | Per-directory create exercise | Added Exercise 14.20 (computed): 97.2 s / 8.75 s / 0.190 s, and at most 9 files per rank. Includes learner and solution folders, a solve.py with key assertions, generated outputs, and the index count raised to 20 |
+
+None of the findings was rejected. Tests: `check.py` solution 15/15 and starter graceful. `validate_labs.py` reports OK for ch14. `copyedit_lint.py` reports 0 ch14 findings. `docker/harness/test_package.py` run locally on the package: 86 passed.
+
+## Independent review r2 (2026-11-01)
+
+The reviewer scored every dimension (D1–D9) 9.5, so the weighted score is **9.50**. There were no blockers or majors and seven minors. `check.py`: solution 15/15, starter 0/15 (graceful).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R14-01 | Minor | Frontend spine capacity applied the design ratio to the populated hosts (1,067 GB/s) | Verified: the uplinks are fixed at 2 × 16 × 400G = 12.8 Tb/s ≈ 1,600 GB/s, which is 1:1 as populated. §14.3 step 3, the binding sentence and Step 9 (now 480 / 12,800 ≈ 3.75 %) are corrected. The conclusion is unchanged. The figure appeared in no other file |
+| R14-02 | Minor | "Creates serialize on the directory lock" ignores Lustre parallel directory operations | Reworded in §14.14: creates contend on one MDT and on the directory's lock and index; PDO does not spread one directory across MDTs, so the per-directory rate is the practical ceiling. The 14.20 prompt (exercises.md and the learner README) and the answer now call 2,700/s "the measured per-directory ceiling" |
+| R14-03 | Minor | The async_save pitfall carried a VENDOR-SPEC label and no provenance caveat | Relabelled `[MEASURED, lab/l2 bundles, PyTorch 2.5.1; a tensor comparison, unaffected by the GPU run's failed timing invariants; verify for your version]`. Added the CPU-fallback result (202 MB staged by reference, 43 data tensors torn), which means any CPU-resident state is exposed |
+| R14-04 | Minor | The failed GPU report's auto-generated lines contradicted its table | No measured value changed; a script asserts that `metrics` and `summary` are identical before and after. `check()` no longer fires the "did not stage" invariant when the snapshot itself is implausible. When invariants fail, `report()` replaces the conclusions with the list of invariants that tripped. The consistency line now says its step count belongs to the test's own separate save, and new runs record that save's duration. The bundle was re-evaluated from the unchanged `results.json`, and the original invariant list is kept as `invariants_original`. `report.md` was re-rendered with the shared `run.render`. The banner explains the 382 steps (about 70 s of a persist stretched by paging) |
+| R14-05 | Minor | Exercise 14.20 sat between 14.10 and 14.11 | Moved to a new final section, "H. Supplementary worked problem", in exercises.md, the key and the index. No folders were renamed, so the numbering is monotonic |
+| R14-06 | Minor | NCCL and NUMA were expanded after first use | Both are now expanded at first use (the §14.7 decode paragraph and the §14.3 GDS note), and the later expansions are removed |
+| R14-07 | Minor | 2.4 ms should be 2.47 ms | Changed to ≈ 2.5 ms |
+| Next-0.5 D2 | — | Staging tail and object-store archive | Added that one slow drive caps RAID-0 at 8 × 1.5 = 12 GB/s, not 26 GB/s. Added the 980 GB archive as ≈ 14,600 × 64 MiB parts, with S3 part limits `[VENDOR-SPEC]`, prefix fan-out and back-off |
+| Next-0.5 D3 | — | "Which hop binds" table | Added Table 14.1a after the §14.3 walk-through |
+| Next-0.5 D5 | — | Point splits for 14.14–14.17 | The key now gives per-item marks that match each meta.yaml |
+| Next-0.5 D8 | — | Rollback criterion for the §14.14 change | Added. It is stated before the change: revert if the next two checkpoints still take more than 30 s, or if step p50 or host memory rises by more than 2 % |
+| Next-0.5 D4 | — | Rerun the GPU L2 bundle | External gate, still open |
+
+None of the findings was rejected. Tests: `check.py` solution 15/15 and starter graceful. `validate_labs.py ch14` 1/1 valid. `copyedit_lint.py` 0 ch14 findings. Local `docker/harness/test_package.py`: 86 passed. Without code blocks the manuscript is about 9,350 words.

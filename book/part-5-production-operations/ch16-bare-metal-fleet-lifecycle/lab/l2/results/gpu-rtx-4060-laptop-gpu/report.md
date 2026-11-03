@@ -25,7 +25,7 @@
 | Check | Result | Note |
 |---|---|---|
 | Memory write/verify (1536 MiB, 5 patterns) | 0 mismatches | fill 247.45 GB/s |
-| FP16 GEMM 4096³ | 30.25 TFLOP/s | 40 % of the 76.3 TFLOP/s dense FP16 tensor ceiling `[MODELED]` (1024 FLOP/clk/SM x SMs x max SM clock) |
+| FP16 GEMM 4096³ | 30.25 TFLOP/s | 79 % of the 38.2 TFLOP/s dense FP16 tensor ceiling with FP32 accumulate, a reference value `[MODELED from VENDOR-SPEC]` (512 FLOP/clk/SM x SMs x max SM clock). Corrected 2026-11-01 from the FP16-accumulate rate (1024, 76.3 TFLOP/s); the measured value and the invariant result (pass: 30.25 < 38.2) are unchanged |
 | PCIe link idle → under load | Gen4 → Gen4 x8 | expected Gen4 x8 under load; a low idle gen is normal power saving (exercise K2) |
 | Row remapper | pending=False, failure=False | read-only `nvidia-smi` query |
 

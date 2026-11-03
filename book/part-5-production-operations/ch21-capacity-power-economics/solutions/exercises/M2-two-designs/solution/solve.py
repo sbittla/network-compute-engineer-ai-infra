@@ -3,7 +3,7 @@
 python solve.py --out DIR.  Reads the package's lab/data/designs.yaml and assumptions.yaml [ILLUSTRATIVE];
 results [MODELED].  Method (manuscript Sections 21.4-21.5): nodes = min(power fit, cooling fit);
 useful units = nodes × 8 × per-GPU throughput × comm efficiency × usable fraction × 0.85 × 0.88;
-TCO per Table 21.1a with staff scaled by nodes / 32 and each design's PUE.
+TCO per Table 21.3 with staff scaled by nodes / 32 and each design's PUE.
 """
 import argparse
 import json
@@ -14,11 +14,13 @@ import yaml
 DATA = Path(__file__).resolve().parents[4] / "lab" / "data"
 HOURS = 8760
 THROUGHPUT_SWEEP = (1.6, 1.8, 1.86, 2.0, 2.2, 2.4)     # B per-GPU throughput vs A
-PRICE_SWEEP = (0.06, 0.09, 0.12, 0.15, 0.20)           # $/kWh, applied to both designs
-KEY = {"A": {"nodes": 87, "useful": 442.3, "per_musd": 26.53, "per_mw": 395.6},
-       "B": {"nodes": 62, "useful": 644.9, "per_musd": 31.36, "per_mw": 645.0}}
-KEY_B_AT_1_8 = 25.7
+PRICE_SWEEP = (0.06, 0.08, 0.12, 0.15, 0.20)           # $/kWh, applied to both designs
+KEY = {"A": {"nodes": 87, "useful": 442.3, "per_musd": 26.69, "per_mw": 395.6},
+       "B": {"nodes": 62, "useful": 644.9, "per_musd": 31.49, "per_mw": 645.0}}
+KEY_B_AT_1_8 = 25.8
 KEY_BREAK_EVEN = 1.86
+KEY_SLOW_NET_REL = 1.64          # B per-GPU throughput if its network does not scale (2:1)
+KEY_SLOW_NET_PER_MUSD = 25.2     # below A's 26.69
 TOL = 0.06
 
 
@@ -80,11 +82,16 @@ def main() -> None:
                            "b_over_a": round(eb["per_musd"] / ea["per_musd"], 3),
                            "a_power_share": ea["power_share"], "b_power_share": eb["power_share"]})
     assert all(r["b_over_a"] > 1 for r in price_rows), "electricity alone should not flip the ranking"
-    # network does not speed up with compute: exposed comm ~28 % of the step, efficiency 1 / (1 + 0.28 × 0.5)
-    exposed = 0.15 / (0.85 / 2.2 + 0.15)
-    eff_slow_net = 1 / (1 + exposed * 0.5 * (2 - 1))
-    b_slow_net = base["B"]["per_musd"] * eff_slow_net / B["comm_efficiency"]
-    assert abs(b_slow_net - 29.6) <= 0.1
+    # network does not speed up with compute: B's step relative to A's = compute / 2.2 + leaf-local comm
+    # + spine-crossing comm × oversubscription (manuscript Section 21.5, "Two further caveats")
+    f_exp, f_spine, oversub = 0.15, 0.5, 2
+    step_1to1 = (1 - f_exp) / B["rel_throughput_per_gpu"] + f_exp
+    step_2to1 = (1 - f_exp) / B["rel_throughput_per_gpu"] + f_exp * (1 - f_spine) + f_exp * f_spine * oversub
+    rel_slow_net = 1 / step_2to1                  # per-GPU throughput vs A, communication efficiency included
+    b_slow_net = base["B"]["per_musd"] * rel_slow_net / (B["rel_throughput_per_gpu"] * B["comm_efficiency"])
+    assert abs(1 / step_1to1 - KEY_BREAK_EVEN) <= 0.01
+    assert abs(rel_slow_net - KEY_SLOW_NET_REL) <= 0.01
+    assert abs(b_slow_net - KEY_SLOW_NET_PER_MUSD) <= 0.1 and b_slow_net < base["A"]["per_musd"]
 
     sens_lines = ["parameter,value,a_per_musd,b_per_musd,winner"]
     sens_lines += [f"b_rel_throughput,{r['b_rel_throughput']},{r['a_per_musd']},{r['b_per_musd']},{r['winner']}"
@@ -98,8 +105,9 @@ def main() -> None:
                          "base_usd_per_kwh": base_price, "throughput_sweep": list(THROUGHPUT_SWEEP),
                          "price_sweep": list(PRICE_SWEEP)},
               "steps": {"throughput_sensitivity": tp_rows, "price_sensitivity": price_rows,
-                        "slow_network_exposed_fraction": round(exposed, 3),
-                        "slow_network_comm_efficiency": round(eff_slow_net, 3)},
+                        "slow_network_step_vs_a_1to1": round(step_1to1, 3),
+                        "slow_network_step_vs_a_2to1": round(step_2to1, 3),
+                        "slow_network_rel_throughput": round(rel_slow_net, 3)},
               "answer": {"comparison": base, "break_even_b_rel_throughput": round(break_even, 3),
                          "b_per_musd_at_1_8x": b18, "b_per_musd_slow_network": round(b_slow_net, 1)},
               "units": {"useful_units": "HX8-GPU equivalents of useful work", "per_musd": "useful units per $M/yr",
@@ -112,6 +120,8 @@ def main() -> None:
               "per_facility_mw", "usd_per_gpu_year", "usd_per_useful_unit_year", "power_share"):
         md.append(f"| {f} | {base['A'][f]} | {base['B'][f]} |")
     md += ["", f"Break-even: 2.2 × {base['A']['per_musd']} / {base['B']['per_musd']} = **{break_even:.2f}×**", "",
+           f"If B's network does not scale with compute: step at 2:1 = {step_2to1:.3f} of A's -> "
+           f"{rel_slow_net:.2f}× per GPU -> **{b_slow_net:.1f} per $M** (below A's {base['A']['per_musd']})", "",
            "| B per-GPU throughput | B per $M | A per $M | Winner |", "|---|---|---|---|"]
     md += [f"| {r['b_rel_throughput']} | {r['b_per_musd']} | {r['a_per_musd']} | {r['winner']} |" for r in tp_rows]
     md += ["", "| $/kWh | A per $M | B per $M | B / A |", "|---|---|---|---|"]

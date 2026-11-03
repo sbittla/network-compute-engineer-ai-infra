@@ -12,8 +12,11 @@
 | K3 decode attention | BF16 | 8.6 × 10⁹ | 2.15 × 10⁹ | 0.75 ms |
 | K4 reduction | FP32 SIMT | 2.0 × 10¹¹ | 0.4 × 10⁹ | 5.0 ms |
 
-Rank them by optimization opportunity and name the lever for each. *Evidence required:* table with
-intensity, ridge, bound, fraction of roof; ranked list with levers.
+Then take measured roofs of 2.95 TB/s HBM and 700 TFLOP/s dense BF16 `[ILLUSTRATIVE]` (Section 6.3,
+"Empirical ceilings"; FP32 not measured), give K1–K3's fraction of the measured roof too, and say whether
+it changes your ranking. Rank them by optimization opportunity and name the lever for each. *Evidence
+required:* table with intensity, ridge, bound, fraction of vendor roof and of measured roof; ranked list
+with levers.
 <!-- prompt:end -->
 
 ## What to submit

@@ -1,0 +1,12 @@
+# MEASURED: environment manifest for B-06 (design-lint wall time). A real run; re-run on yours.
+lab: ch23-capstone-reference-bundle
+tier: L1
+row: B-06
+date: 2026-11-01
+host: {cpu: Intel Core i7-13700HX, gpu: none used, os: Windows 11 (10.0.26200)}
+software: {python: 3.13.14, pyyaml: 6.0.2}
+command: python solutions/lab/design_lint.py lab/data/bundle_orion_reference
+timing: wall clock of the whole process, including interpreter start-up
+warm_up: 3 runs, discarded
+repetitions: 7 runs
+result: {metric: wall time, unit: s, median: 0.169, min: 0.163, max: 0.193}

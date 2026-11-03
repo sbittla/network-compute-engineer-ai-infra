@@ -25,18 +25,18 @@
       }
     },
     "c_young_768h": {
-      "ckpt_pct": 0.842,
+      "ckpt_pct": 1.863,
       "job_mtbf_s": 86400.0,
       "restart_pct": 1.042,
-      "rework_pct": 0.842,
-      "tau_s": 1454.9,
-      "total_pct": 2.73
+      "rework_pct": 1.863,
+      "tau_s": 3219.9,
+      "total_pct": 4.77
     }
   },
   "evidence_label": "MODELED",
   "id": "WP2",
   "inputs": {
-    "ckpt_s": 12.25,
+    "ckpt_s": 60.0,
     "flows": [
       32,
       128
@@ -51,12 +51,12 @@
   },
   "steps": {
     "canonical_48h": {
-      "ckpt_pct": 0.595,
+      "ckpt_pct": 1.318,
       "job_mtbf_s": 172800.0,
       "restart_pct": 0.521,
-      "rework_pct": 0.595,
-      "tau_s": 2057.6,
-      "total_pct": 1.71
+      "rework_pct": 1.318,
+      "tau_s": 4553.7,
+      "total_pct": 3.16
     }
   },
   "units": {

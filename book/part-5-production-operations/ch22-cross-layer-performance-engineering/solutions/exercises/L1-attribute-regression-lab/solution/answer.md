@@ -3,9 +3,11 @@
 Reference: `solutions/lab/regression_lab.py`; all values `[SIMULATED]` from the committed bundle (seed
 2214). Rubric weights from lab README section 7.
 
-**Checker.** `python lab/check.py --impl solution` prints 11 PASS lines (tasks 1–9 plus 6b, the bootstrap,
-and the failed-job population rule as a separate task-3 check) and `11/11 checks passed`. The exercise
-text previously said "10/10"; it was corrected to 11/11 to match the checker.
+**Checker.** In the instructor copy `python lab/check.py --impl solution` prints 12 PASS lines: the
+data-regeneration check plus 11 task checks (tasks 1–9 plus 6b, the bootstrap, and the failed-job
+population rule as a separate task-3 check), then `12/12 checks passed (solution); 0 skipped`. In the learner copy the
+generator is absent, so the first check is `SKIP` and the line reads `11/11 checks passed (solution); 1 skipped`.
+The `render_report` check also requires the `Hygiene:` line with the counts below.
 
 **Data-hygiene note (the expected content).**
 
@@ -32,7 +34,7 @@ Rows: 9,514 raw − 44 − 480 = **8,990**.
 | Test ranking | T3 3.200, T1 1.800, T2 1.400, T4 1.200, T8 0.250, T6 0.117, T7 0.075; rejected T5, T9 |
 
 **Alert verdict.** orion-n13's ECC alert is ruled out: effect −0.05 ± 0.09 s, within one SE of zero;
-SBE counts are 140–160 per job-node with no DBE or row remap and unchanged temperatures.
+SBE counts are 140–160 per job-node (jobs run ≈ 1 h, so this is the alert's 140–160/h) with no DBE or row remap and unchanged temperatures.
 
 **Deductions to look for.** Non-time-aware driver flag (driver 0.35 s, after 0.93 s, alert −0.47 s);
 additive-only model (alert −0.43 ± 0.14 s, spuriously "significant"; a learner who notices the

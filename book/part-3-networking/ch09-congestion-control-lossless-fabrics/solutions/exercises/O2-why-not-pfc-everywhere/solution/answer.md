@@ -1,8 +1,8 @@
 # O2 — Why not PFC everywhere? (model answer)
 
-Relies on manuscript Section 9.4 (headroom, Table 9.2), Section 9.5 (HOL blocking, propagation, storms,
+Relies on manuscript Section 9.4 (headroom, Table 9.3), Section 9.5 (HOL blocking, propagation, storms,
 watchdog, deadlock), Section 9.6 ("How DCQCN and PFC should interact") and Section 9.8 (counters,
-Table 9.4, Figure 9.10).
+Table 9.6, Figure 9.10).
 
 ## Risks of enabling PFC indiscriminately (any four, each with its mechanism)
 

@@ -240,7 +240,7 @@
   "event": "drain",
   "actor": "health-bot",
   "evidence": {
-   "reason": "Xid 48 (DBE) on GPU3",
+   "reason": "Xid 95 (uncontained ECC) on GPU3",
    "category": "fault"
   }
  },

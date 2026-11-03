@@ -12,9 +12,10 @@ PASS B5 detect queueing collapse under the arrival burst
 PASS B6 detect preemption storm (and do not call it a burst)
 PASS B7 detect the slow replica
 PASS B8 telemetry_evidence corroborates the diagnoses
+PASS B9 analyzer robustness: missing and out-of-order timestamps
 PASS C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)
 PASS C2 md1_wait_s
 PASS C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED]
 PASS C4 speculative decoding expected tokens and speedup
 
-18/18 passed, 0 failed, 0 TODO [impl=solution]
+19/19 passed, 0 failed, 0 TODO [impl=solution]

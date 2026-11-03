@@ -13,12 +13,14 @@ GPU-h/yr**. No borrowed work, and the simplest operation.
 
 **Option 2: shared.** Assumptions, stated:
 - the N+2 headroom (2 replicas, 140,160 GPU-h) is **never** lent, which leaves 420,480 idle GPU-h;
-- training borrows only replicas above a forecast-plus-margin threshold, assumed to be 60 % of idle
-  hours → 0.6 × 560,640 = **336,384 GPU-h lent** (inside the 420,480 limit);
+- training borrows only replicas above a forecast-plus-margin threshold, assumed to be 60 % of *all*
+  idle hours → 0.6 × 560,640 = **336,384 GPU-h lent**, which is 80 % of the 420,480 lendable hours.
+  A learner who takes 60 % of the lendable hours (0.6 × 420,480 = 252,288 GPU-h, 176,602 useful) is
+  marked correct if the base is stated;
 - borrowed work runs at goodput 0.7. It is preemptible, checkpoints often, and loses work at every
   reclaim.
 
-Useful borrowed work = 336,384 × 0.7 = **235,469 GPU-h/yr**, worth ≈ **$1.12M/yr** at $4.75 per
+Useful borrowed work = 336,384 × 0.7 = **235,469 GPU-h/yr**, worth ≈ **$1.11M/yr** at $4.725 per
 useful GPU-hour (Section 21.4). Pool allocation rises from 33 % to 73 %.
 
 | | Dedicated | Shared |

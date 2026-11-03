@@ -16,7 +16,8 @@ loop**, visible as a growing count of failed pods and no running replica.
 - replica sizes that always fit one socket on an HX8 (1, 2, or 4 GPUs) with socket best-fit
   packing, never 3 + 3 + 2;
 - scheduler-visible topology: DRA device attributes, or node labels consumed by affinity;
-- `best-effort` policy during migration (the only policy that admits misaligned pods;
-  `restricted` rejects too).
+- `best-effort` policy during migration (the only *aligning* policy that still admits
+  misaligned pods; `none` admits them too because it does no alignment at all, and `restricted`
+  rejects).
 
 **Common mistake:** claiming `restricted` avoids rejection. Source: Section 17.2.4, Table 17.1.

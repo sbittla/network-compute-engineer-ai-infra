@@ -7,6 +7,7 @@
     "c_extra_s": 1.0737,
     "d_expected_tail_cost_us": 10.74,
     "d_goodput": 0.666,
+    "d_goodput_if_final_ack_equally_lossy": 0.499,
     "e_time_to_retry_exc_err_s": 8.59
   },
   "evidence_label": "[MODELED]",

@@ -98,7 +98,9 @@ count) to back out real kernel efficiency.
 
 **L2 on any single GPU (scripted, with CPU fallback).** `lab/l2/experiment.py` trains a scaled-down
 GPT-style stack (h = 1024, causal SDPA, 4h GELU MLP, BF16 autocast with FP32 Adam) for real and compares it
-with this lab's model. It measures model-state bytes per parameter against the 16 B convention, and the
+with this lab's model. It measures model-state bytes per parameter against the 16 B convention (the experiment's 16 B is FP32
+weights + FP32 gradients + Adam m and v, 4 + 4 + 4 + 4 B; the chapter's 16 B is BF16 weights and gradients
+plus FP32 master, m and v, 2 + 2 + 12 B: same total, different parts), and the
 activation coefficient *c* in s·b·h·*c* per layer, counted exactly with autograd saved-tensor hooks and
 cross-checked against the allocator's peak-memory slope. It compares *c* with 34 (fused attention), with
 34 + 5as/h (attention scores materialized) and with full recomputation. It also records step time p50/p95

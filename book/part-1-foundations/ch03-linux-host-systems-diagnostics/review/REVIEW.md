@@ -145,3 +145,56 @@ not move a job, and the DP overlap window.
 ## Independent review iteration 3 (2026-10-30)
 
 Independent score 9.50 (PASS). The minor findings N3-* raised at this pass are closed: the wording fixes listed in the coordinator's iteration-3 notes are applied, and `python scripts/validate_labs.py` is OK.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 10 ·
+D9 9.0 → weighted **9.50**. Blockers 0, majors 0, minors 6. Each finding was checked against the
+manuscript and the updated topology terms in `docs/REFERENCE_CLUSTER.md` (PIX/PXB/NODE/SYS) before
+it was changed.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N03-06 | Minor | §3.11 Step 6 PXN sentence described the wrong path ("another GPU's NIC"). | Accepted with one correction. Now: NCCL may forward some of GPU 3's traffic over NVLink to GPU 2, which reaches NIC 3 through SW1 *without GPU 3's degraded link*, and send it from there; the data still leaves on rail 3's NIC; use depends on topology detection and version (Chapter 12 link). The reviewer called GPU 2 ↔ NIC 3 "PIX"; under the updated Figure R.1 the two meet only at SW1's upper level, so it is **PXB**, which is still PXN-eligible. Figure 3.1's caption now states the two-level switch complex (PIX for GPU i/NIC i, PXB for GPU 2/NIC 3). |
+| N03-02 | Minor | §3.13 magnitude argument asserted its conclusion (5.8 s host work → 2.6 s exposed). | Added an explicit overlap model: host launch work hides behind at most a window W of GPU execution on the launch-critical path; W ≈ 3.2 s `[ILLUSTRATIVE]`; exposed = max(0, 1.5 × 3.1/0.8 − 3.2) = 5.81 − 3.2 ≈ 2.6 s `[MODELED]`. At 3.1 GHz the 1.5 s fits inside W (no pre-incident cost, consistent with 15.1 + 0.2 + 2.1 = 17.4 s). The text says W is fitted, so the agreement is a consistency check, not proof. |
+| N03-03 | Minor | Key 3.8 used a peer read rate (≈ 725 MB/s) the learner was never given. | Added to the Ex 3.8 prompt in `exercises.md` and `exercises/3.8-*/README.md`: peers read ≈ 725 MB/s from their own `md0` `[ILLUSTRATIVE]`. Key and model answer now say the figure comes from the prompt; `solve.py`'s docstring notes that 435.2 / 0.60 = 725 MB/s agrees with it (its outputs are unchanged). Snapshot left as is. |
+| N03-04 | Minor | Key header pointed to `review/REVIEW.md` for its arithmetic. | Now points to `solutions/exercises/<id>/solution/solve.py` for 3.1, 3.3, 3.4, 3.8, 3.9, 3.10, 3.12 and 3.13 and their `outputs/`. |
+| N03-01 | Minor | Garbled double cross-reference in §3.7. | Now "…at 1024 B ([Chapter 8](…); MTU design in [Chapter 7](…))." |
+| N03-05 | Minor | ≈ 10 source lines over 140 characters; three acronym expansions in the epigraph. | All prose lines in the manuscript, key, README and lab README rewrapped to ≤ 100 characters (only code, diagrams and table rows remain longer). Epigraph made a consistent blockquote with no inline expansions; an **Acronyms** line after the objectives (as in Chapter 1) defines PCIe, NIC, NUMA, RDMA, HBM, NVMe, IRQ, MTU, AER, EDAC, PXN, MFU and SRE, and the duplicated inline expansions were removed. |
+| D2 advice | — | Quantify IRQ-concentration capacity from a measured baseline method. | §3.7 now gives the method (single `iperf3` flow into a receiver pinned with `iperf3 -s -A <cpu>` to the core that services the queue's IRQ, on a lab node) and the consequence: an ≈ 25 Gb/s `[ILLUSTRATIVE]` per-core baseline caps a NIC with all eight queues on that core at ≈ 12.5 % of its 200 Gb/s port. |
+| D7 advice | — | One canonical BDF table shared with Chapter 5. | Not changed; recorded as an open item. Chapter 5's lab captures use different illustrative BDFs (GPU 0–7 at 18/22/38/42/98/a2/b8/c2:00.0) from Figure 3.1 and this lab's snapshots (GPU 0–3 at 18/2a/3a/5d:00.0, …). Aligning them means regenerating all six snapshots and updating `check.py`, the manuscript listings, exercises and keys. Proposed instead: a canonical BDF table in `docs/REFERENCE_CLUSTER.md` that both chapters adopt in a coordinated change. |
+| D4/D6 advice | — | Physical HX8-class collector bundle; measured `mlc` latency. | Not feasible without hardware. Measured results are not fabricated; the open gate stays as stated in the lab README. |
+
+**Verification:** `lab/check.py --impl solution` 21/21 PASS; `--impl starter` 0/21, 21 TODO
+(graceful). `solve.py` for 3.8 re-run: outputs byte-identical apart from line endings (committed
+outputs kept). `scripts/validate_labs.py`: 32/32 labs valid. `scripts/copyedit_lint.py`: 0 findings in
+Chapter 3 files (the two repo-wide findings are in Chapter 14).
+
+**Author re-score:** D1 10 · D2 10 · D3 10 · D4 9.5 · D5 10 · D6 9.5 · D7 9.5 · D8 10 · D9 9.5 →
+weighted ≈ 9.83 (author estimate; an independent re-review decides).
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1–D9 all 9.5 → **9.50** (pass). 0 blockers, 0 majors, 4 minors. Each
+finding was checked first; none was rejected.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R03-01 | "`r = 20` is idle" on a 224-CPU host | Now "light load". |
+| R03-02 | Inline commands hard-wrapped mid-span | Every split code span in the manuscript is rejoined (`pidstat -t -p <pid> 1 5`, `taskset -cp <pid>`, `journalctl -k`, the `dmesg` refusal message, the version-matrix label, and the review-question `nvidia-smi`). The long `nvidia-smi --query-gpu` command moved into a fenced bash block. A scan finds no remaining odd-backtick lines. |
+| R03-03 | memlock, IOMMU/ACS and THP never mentioned | New §3.8 paragraph "Host settings owned by later chapters": `ulimit -l` → Ch 8, `iommu=`/ACS → Ch 5 and 13, THP compaction stalls. It recommends adding them to a production collector as read-only `info` evidence and says the lab collector omits them (lab code unchanged). |
+| R03-04 | Remote-NUMA latency never measured | §3.2 names `mlc --latency_matrix` and a `numactl`-pinned STREAM run. `lab/l2/experiment.py` probes `mlc` and `stream` and records them as not runnable when absent. The lab README says so and notes that the committed bundle predates these probes (measured results not edited). |
+| D1 advice | "Older kernels" md accounting was vague | Now "kernels before roughly 5.14, which added I/O-time accounting to md RAID 0/5 … verify on your distribution kernel" (hedged; not checked against kernel source). |
+| D3 advice | Figure 3.1 legend | A legend sentence now sits above the figure: bus < 0x80 = socket 0; GPU *i* and NIC *i* under one switch. |
+| D5 advice | Gen4 break-even | Key 3.9(c): (88 − 64) ÷ 256 ≈ 0.09 h ≈ 6 min, so a planned stop never pays. The model answer already said this. |
+| D7 advice | IRQ/MTU not linked to RoCE QoS | §3.7 now points to ORION's plan (DSCP 26 → TC 3 lossless, CNP DSCP 48 → TC 6) and to Chapter 9. |
+| D8 advice | No before/after verification in RB-HOST-03 | Step 8 added: rerun the collector and analyzer against the same peer before the node returns to service; on any drift it stays drained. |
+
+Not done: a format-variant snapshot (D4) and a shared BDF table with Chapter 5 (D7, still open).
+
+Verification: `check.py --impl solution` → 21/21; starter → 0/21, 21 TODO; `validate_labs.py` →
+32/32; `copyedit_lint.py ch03-linux` → 0 findings. Manuscript is 11,028 words (was 10,794).

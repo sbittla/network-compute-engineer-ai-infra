@@ -14,14 +14,16 @@ PCIe ceiling per direction: Gen5 x16 = 32 GT/s × 16 lanes × 128/130 / 8 = 63.0
 Achieved at 85 %: 0.85 × 31.5 = **26.8 GB/s**.
 DP all-reduce bytes per GPU per step (Section 16.6): 1.75 × 4.375 GB = 7.66 GB.
 Time = 7.66 / 26.8 = 0.286 s versus 7.66 / 45 = 0.170 s healthy (90 % of 50 GB/s, as in Section 16.6)
-→ **+0.116 s per step = 0.67 %** of 17.4 s if fully exposed `[MODELED]`.
+→ **+0.116 s per step = 0.67 %** of 17.4 s, fully exposed `[MODELED]`: with pipeline parallelism only the
+last micro-batch's backward pass hides the DP all-reduce (≈ 70 ms window, Chapter 11), and the healthy
+0.170 s already exceeds it, so the whole increase lands on the step.
 Wrong methods: using 400 Gb/s (the NIC rate) instead of the PCIe ceiling; treating 31.5 GB/s as
 bidirectional.
 
 **(c) Which is worse, and why reject both.** The throttling GPU costs 11.0 % versus 0.67 %, about
 16× more, because compute sits on the critical path of every step: the whole synchronous job waits
-for the slowest GPU. The NIC's DP all-reduce is small relative to the step and partly overlaps
-with backward compute. Acceptance must still reject both, because it cannot know which job lands on
+for the slowest GPU. The NIC's DP all-reduce is small relative to the step, even though
+none of the increase is hidden. Acceptance must still reject both, because it cannot know which job lands on
 the node next: expert-parallel all-to-all, larger DP, inference KV cache transfer, or checkpoint
 staging through the same PCIe switch put the NIC on *their* critical path. The lesson of Section
 16.6: the cost of a defect depends on the job, so acceptance judges the node against the most

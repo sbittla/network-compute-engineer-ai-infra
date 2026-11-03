@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Sizing: prefill t_p 390 ms with quadratic term, P table (11/12/13), D table (3/4/5), choice 13P + 4D with node count",
+      "criterion": "Sizing: prefill t_p 390 ms with quadratic term, P table (12/13/14) with exact M/D/1 p95, D table (3/4/5), choice 14P + 4D with node count",
       "points": 8
     },
     {

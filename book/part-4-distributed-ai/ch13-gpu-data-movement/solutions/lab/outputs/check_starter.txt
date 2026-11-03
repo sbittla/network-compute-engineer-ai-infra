@@ -8,5 +8,6 @@ TODO rail_health: implement rail_health
 TODO hot_not_throttled: implement hot_not_throttled
 TODO amplification: implement amplification
 TODO symptom_windows: implement symptom_windows
+TODO missing_samples: implement find_stragglers
 
-1/10 checks passed (starter)
+1/11 checks passed (starter)

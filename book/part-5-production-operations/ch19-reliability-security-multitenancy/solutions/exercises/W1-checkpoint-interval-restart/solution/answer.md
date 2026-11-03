@@ -38,7 +38,7 @@ on R, because R is paid once per failure whatever the interval.
 ```text
 Δoverhead = (15 − 5) / 180 = 0.0556
 4,096 GPUs × 24 h × 0.0556 = 5,461 GPU-h/day
-5,461 GPU-h/day × $3/GPU-h ≈ $16,400/day  (≈ $6.0M/year)     [MODELED]
+5,461 GPU-h/day × $3.00/GPU-h ≈ $16,400/day  (≈ $6.0M/year)     [MODELED]
 ```
 
 ## Lesson

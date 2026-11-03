@@ -31,9 +31,9 @@
 
 compute 28.1 ms, copy 5.4 ms, serial 35.9 ms, overlapped 30.2 ms -> 100 % of the copy hidden.
 
-**Not runnable here:** GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 6-11, exercise 13.11): no RDMA device under /sys/class/infiniband on this host. Needs: RDMA NIC (mlx5-class) on the GPU's PCIe switch, perftest built with CUDA, a second node.
+**Not runnable here:** GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 2-3, 5-8 and 11, exercise 13.11): no RDMA device under /sys/class/infiniband on this host. Needs: RDMA NIC (mlx5-class) on the GPU's PCIe switch, perftest built with CUDA, a second node.
 
 _CPU fallback: no PCIe transfer was measured; these are host-memory copies, the staging step a pageable H2D transfer pays on a GPU host._
 
 - Median of >= 5 timed repetitions after 3 warm-ups; CUDA events on the GPU, perf_counter on the CPU.
-- PCIe ceiling = per-lane rate after encoding x max negotiated width from nvidia-smi.
+- PCIe ceiling = per-lane rate after encoding x maximum link generation and width from nvidia-smi (pcie.link.gen.max, pcie.link.width.max): the maximum-capability link, an upper bound; an idle link may train down.

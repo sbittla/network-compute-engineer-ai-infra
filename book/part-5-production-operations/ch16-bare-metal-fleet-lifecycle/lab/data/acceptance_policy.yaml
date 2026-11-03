@@ -21,6 +21,13 @@ expected:
     speed_mbps: 200000
     mtu: 9000
   nvme_count: 8
+  gdr:
+    peer_mem_any_of:
+    - nvidia_peermem
+    - dma_buf
+    iommu_mode_any_of:
+    - pt
+    - 'off'
 thresholds:
   dcgm_diag_min_level: 3
   ecc_dbe_volatile_max: 0
@@ -34,8 +41,14 @@ thresholds:
   - SW_POWER_CAP
   - GPU_IDLE
   rdma_pair_bw_min_gbps: 360.0
+  gdr_to_host_bw_ratio_min: 0.9
+  link_pre_fec_ber_max: 1.0e-06
+  link_fec_hist_max_bin: 8
+  link_fec_uncorrectable_max: 0
+  link_flaps_max: 0
   nccl_allreduce_busbw_min_gbs:
     NVLS: 400.0
     Ring: 330.0
   fio_seq_read_min_gbs: 40.0
+  nvme_drive_seq_read_min_gbs: 5.0
   nvme_media_errors_max: 0

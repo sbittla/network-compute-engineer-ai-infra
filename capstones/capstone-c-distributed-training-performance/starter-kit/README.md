@@ -144,7 +144,7 @@ python scripts/hw_labs.py run capstone-c --device cpu      # CPU fallback       
 python scripts/hw_labs.py test capstone-c                  # quick run now + checks on the committed evidence
 ```
 
-Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the same harness on the CPU (fp32), a CPU-operator profile and a gloo one-rank group.
+Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experiment runs its CPU fallback automatically, and the GPU-only invariants are skipped and named in the report. Each run writes `environment.json`, `results.json` (raw repetitions, invariants) and `report.md`. The CPU fallback runs the same harness on the CPU (FP32), a CPU-operator profile and a gloo one-rank group.
 
 **Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
 show the ported ring matching the L1 numerics exactly, a ring phase bounded by device memory bandwidth (no link involved),

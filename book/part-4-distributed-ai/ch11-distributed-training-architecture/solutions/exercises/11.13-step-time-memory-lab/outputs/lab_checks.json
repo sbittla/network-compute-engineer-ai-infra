@@ -3,7 +3,7 @@
   "lab_checks": {
     "allreduce_time:": "PASS allreduce_time: NVLink 8-GPU 67 MB: 391 us (exp 391); 8-node rail 4.4 GB: 0.170 s (exp 0.170)",
     "bubble_fraction:": "PASS bubble_fraction: bubble(pp=4,m=128)=0.0229 (expect 0.0229); pp=1 must be 0",
-    "comm_volumes_baseline:": "PASS comm_volumes_baseline: TP=1.203 TB (exp 1.203), DP=7.66 GB (exp 7.66), PP=2.15 GB (exp 2.15)",
+    "comm_volumes_baseline:": "PASS comm_volumes_baseline: TP=1.203 TB (exp 1.203), DP=7.66 GB (exp 7.66), PP=2.15 GB (exp 2.15); full recompute re-runs TP collectives x1.50 (exp x1.50)",
     "evaluate_and_recommend:": "PASS evaluate_and_recommend: feasible=8 (exp 8), recommended=D_tp4_pp8_dp8 (exp D_tp4_pp8_dp8)",
     "memory_baseline:": "PASS memory_baseline: states=12.03 GB (exp 12.03), act=11.41 (exp 11.41), total=27.44 (exp 27.44)",
     "memory_traps:": "PASS memory_traps: G=168.5 GB (>80), I=84.6 GB (>80), J=70.4 GB (68..80: fits, violates headroom)",

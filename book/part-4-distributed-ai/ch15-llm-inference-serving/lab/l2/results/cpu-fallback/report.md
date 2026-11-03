@@ -57,7 +57,7 @@ Lab model with its default ILLUSTRATIVE parameters (`hbm_efficiency` 0.70, 3 ms 
 - Prefill time scales with prompt length at high TFLOP/s; decode step time barely moves with batch while tokens/s scales almost linearly: batch is the decode throughput lever, and the KV cache is what limits it.
 - The KV formula is exact; the capacity model's uncertainty is in the reserve and fragmentation, not in bytes per token. Measure the reserve, as done here.
 - The measured hbm_efficiency and overhead replace the lab's ILLUSTRATIVE 0.70 / 3 ms only for this stack (eager PyTorch). Record them in the manifest; do not copy them into configs.yaml as 'validated'.
-- ITL p99 above p50 is launch and scheduling jitter on an unloaded single request stream; under real load the scheduler's prefill interruptions dominate it (Section 15.6).
+- ITL p99 above p50 is launch and scheduling jitter on an unloaded single request stream; under real load the scheduler's prefill interruptions dominate it (Section 15.4).
 
 _CPU fallback: no GPU was used. Bandwidth/peak invariants were skipped; efficiencies are against an ILLUSTRATIVE DRAM figure._
 

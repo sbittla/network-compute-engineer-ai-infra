@@ -336,6 +336,18 @@ def dvfs_downclocked(gemm: list[dict]) -> list[int]:
     return [r["duty_pct"] for r in gemm[1:-1] if full and (r.get("sm_mhz_median") or full) < 0.8 * full]
 
 
+def invariant_scope(result: dict, env: dict) -> str:
+    """Which invariants were not applied, for the report headline (empty when all applied)."""
+    if env.get("device") != "cuda":
+        return "GPU-only invariants skipped: CPU fallback"
+    gemm = sorted((r for r in result["tables"]["levels"] if r["workload"] == "gemm"), key=lambda r: r["duty_pct"])
+    dv = dvfs_downclocked(gemm)
+    if not dv:
+        return ""
+    return (f"fixed-V/f checks skipped at {', '.join(str(d) for d in dv)} % duty: DVFS-shifted, SM clock below 80 % "
+            "of the full-load clock")
+
+
 def check(result: dict, env: dict) -> list[str]:
     m, t = result["metrics"], result["tables"]
     gemm = sorted((r for r in t["levels"] if r["workload"] == "gemm"), key=lambda r: r["duty_pct"])
@@ -350,7 +362,7 @@ def check(result: dict, env: dict) -> list[str]:
     if gemm[-1]["throughput"] <= gemm[1]["throughput"]:
         fails.append("100 % duty is not faster than 25 % duty")
     if t.get("l1_power_cap") and t["l1_power_cap"]["best_cap_w"] != 650:
-        fails.append(f"lab power_cap_tradeoff picks {t['l1_power_cap']['best_cap_w']} W; Table 21.4 says 650 W: check the model")
+        fails.append(f"lab power_cap_tradeoff picks {t['l1_power_cap']['best_cap_w']} W; Table 21.7 says 650 W: check the model")
     if env["device"] == "cuda":
         if m["foreign_mem_swing_mib"] > 256 or (m["idle_level_util_pct"] or 0) > 10:
             fails.append(f"another process used the GPU during the sweep (memory.used moved by {m['foreign_mem_swing_mib']} MiB, "
@@ -424,13 +436,25 @@ def report(result: dict, env: dict) -> str:
             row = tab.get(int(c["gpu_power_cap_w"]), {})
             L.append(f"| {int(c['gpu_power_cap_w'])} | {c['rel_throughput']} | {c['perf_per_w_rel']} | {row.get('nodes_per_rack')} | "
                      f"{row.get('cluster_throughput')} |")
-        L += ["", f"Best cap for the legacy-hall case: **{l1['best_cap_w']} W** (manuscript Table 21.4)."]
+        L += ["", f"Best cap for the legacy-hall case: **{l1['best_cap_w']} W** (manuscript Table 21.7)."]
     L += ["", "## What to conclude", ""]
     if gpu:
-        L += [f"- **Duty-cycling wastes energy; capping saves it.** At 25 % duty the GPU delivers {m['tflops_per_w_25']} TFLOP/J against "
-              f"{m['tflops_per_w_100']} at 100 %: about {m['power_model_static_w']} W of static and idle-clock power is paid whether or not "
-              "work runs. A power cap lowers voltage and frequency instead, and the lab's curve shows perf/W *rising* as the cap falls. "
-              "\"Use less power\" and \"do less work\" are different levers.",
+        # Conclusions are emitted only when the invariant behind them holds (same V/f point, perf/W ordering).
+        gemm = sorted((r for r in t["levels"] if r["workload"] == "gemm"), key=lambda r: r["duty_pct"])
+        dvfs = dvfs_downclocked(gemm)
+        matched = [r for r in gemm[1:] if r["duty_pct"] not in dvfs and r.get("perf_per_w")]
+        if 25 not in dvfs and m["tflops_per_w_100"] >= m["tflops_per_w_25"]:
+            duty_bullet = (f"- **Duty-cycling wastes energy; capping saves it.** At 25 % duty the GPU delivers {m['tflops_per_w_25']} "
+                           f"TFLOP/J against {m['tflops_per_w_100']} at 100 %: about {m['power_model_static_w']} W of static and idle-clock "
+                           "power is paid whether or not work runs. A power cap lowers voltage and frequency instead, and the lab's curve "
+                           "shows perf/W *rising* as the cap falls. \"Use less power\" and \"do less work\" are different levers.")
+        else:
+            duty_bullet = ("- **Inconclusive at light duty.** The fixed-V/f comparison could not be made: at "
+                           f"{', '.join(str(d) for d in (dvfs or [25]))} % duty the GPU ran at a different clock (DVFS idled it down between bursts), so those levels "
+                           "do not test duty-cycling at a fixed V/f point. Clock-matched levels: "
+                           + ", ".join(f"{r['duty_pct']} % -> {r['perf_per_w']} TFLOP/J" for r in matched)
+                           + ". Lock clocks on a dedicated native-Linux lab host to test the light-duty levels.")
+        L += [duty_bullet,
               (f"- **This GPU is already capped.** At 100 % GEMM it draws {m['power_gemm_100_w']} W against an enforced "
                f"{m['enforced_power_limit_w']} W, with `SW_POWER_CAP` in {100 * m['sw_power_cap_share_gemm_100']:.0f} % of samples"
                if m["sw_power_cap_share_gemm_100"] >= 0.5 else
@@ -443,7 +467,7 @@ def report(result: dict, env: dict) -> str:
               f"- **Transients are real at small scale.** Within one 200 ms duty period power swings by up to {m['max_period_swing_w']} W, "
               "which is the per-GPU version of the synchronized swing that drives the transient margin in Section 21.7.",
               "- This is a **laptop Ada GPU** with an 80 W-class limit, not a 700 W H100. Do not put these watts into the lab's rack model. "
-              "Replace `power_cap_curve.csv` only with a cap sweep measured on your own data-centre GPU (not runnable here)."]
+              "Replace `power_cap_curve.csv` only with a cap sweep measured on your own data-center GPU (not runnable here)."]
     else:
         L += ["- _CPU fallback: no GPU was visible and host power is not readable, so perf/W could not be measured. The sweep shows "
               "throughput and CPU busy time rising with duty. The lab's modeled cap curve stands in for the cap sweep. GPU-only "

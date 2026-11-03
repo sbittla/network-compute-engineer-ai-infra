@@ -69,7 +69,8 @@ host kernel logs (Xid), scheduler/node events, the missing rank in the launcher'
 
 No. MFU = 6ND/(GPUs × peak × step time) counts only model FLOPs. Full recompute adds ≈ 2ND of extra
 forward FLOPs, so hardware FLOP/s utilization (HFU) can rise while the step gets longer. In the lab
-model, K (full recompute) takes 22.17 s vs 17.45 s: MFU falls from 39.9 % to 31.4 %. Recompute is
+model, K (full recompute) takes 23.71 s vs 17.45 s (compute × 1.333 and TP collectives × 1.5,
+4.11 → 6.17 s): MFU falls from 39.9 % to 29.3 %. Recompute is
 worth it only if the memory it frees buys a faster layout (e.g., smaller TP or fewer pipeline stages).
 
 ## 11.8 Memory audit (TP 4, PP 4, DP 16, b = 2, ZeRO-1, selective)
@@ -189,7 +190,10 @@ micro-batches, so test it with per-rank token counts; (3) degraded NVLink on nod
 launch — check CPU utilization. Discriminating tests: `nvidia-smi -q -d PERFORMANCE` (clock event
 reasons: `SW Power Cap: Active`), `nvidia-smi -q -d POWER` (power limit, e.g. 500 W vs 700 W default),
 `nvidia-smi --query-gpu=clocks.sm,power.draw,power.limit,temperature.gpu --format=csv` versus a peer
-node; per-rank token counts identical to peers (rejects 2). Root cause: a power limit left in place
+node; per-rank token counts identical to peers (rejects 2). `SW Power Cap: Active` alone proves nothing:
+it is routine under heavy GEMMs on healthy GPUs (the stem says peers show it too). The evidence is the
+enforced limit (500 W vs 700 W) and the sustained SM clock against peers (≈ 1,830 MHz), read from
+`clocks_event_reasons.*` and `clocks.sm` on current drivers. Root cause: a power limit left in place
 by the maintenance procedure on `orion-n13`. Safe fix: checkpoint, drain `orion-n13`, and either wait
 for Fleet (fast if only a power limit) or restart at DP = 7 (224 GPUs, batch/LR adjusted) — ORION-256 has
 no spares, and draining alone does not move a running job; the training job is not the place to change power policy; Fleet
@@ -200,7 +204,11 @@ Loss: 1 − 17.45/18.78 = 7.1 % of 256 GPUs × 24 h = **≈ 435 GPU-h per day**.
 
 ## 11.15 Design challenge: 8k sequences
 
-With `seq_len: 8192`, `global_batch_seqs: 512` in `model_wtrain.yaml` (tool output, `[MODELED]`):
+Edit `lab/data/model_wtrain.yaml`: `seq_len: 8192` and `global_batch_seqs: 512` (512 × 8,192 = 4.19 M
+tokens, as today). Each layout below is a candidate row with b = 1, ZeRO-1, selective recompute. Bubble
+inputs: m = 512 / (DP × b) and bubble = (p − 1)/(m + p − 1), so TP 8/PP 4/DP 8 has m = 64 and 3/67 = 4.5 %;
+PP 2/DP 16 has m = 32 and 1/33 = 3.0 %; TP 4/PP 8/DP 8 has 7/71 = 9.9 %; PP 8/DP 4 has m = 128 and
+7/135 = 5.2 % (tool output, `[MODELED]`):
 
 | Layout (b = 1, ZeRO-1, selective) | Mem stage 0 | Bubble | Step | MFU |
 |---|---|---|---|---|
@@ -220,7 +228,7 @@ FLOPs grow with s and are not in 6ND, so all step times are optimistic by a simi
   (Nsight Systems trace: NCCL kernels concurrent with compute), effective NVLink/rail busbw at the real
   message sizes (nccl-tests, Chapter 12).
 - 11.17: the overlap window for DP is only the last micro-batch's backward (see 11.11 d); stragglers
-  and jitter make the all-reduce wait for the slowest rank; FP32 gradient reduction doubles bytes;
+  and jitter make the all-reduce wait for the slowest rank; FP32 gradient reduction doubles the gradient bytes (the reduce-scatter half under a distributed optimizer);
   congestion from other jobs sharing spines.
 - 11.18: peak (not steady) allocation, fragmentation, longer sequences or batch-size changes later,
   checkpoint/eval code paths with extra buffers; require allocator peak stats over ≥ 200 steps plus

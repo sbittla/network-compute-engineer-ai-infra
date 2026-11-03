@@ -129,6 +129,20 @@ def check_burn_rates(c: Ctx) -> tuple[bool, str]:
     return ok, f"availability burn at 05:16: 5m={v5:.1f} (expect ~40), 1h={v60:.2f} (expect ~5); partial windows NaN={nan_ok}"
 
 
+def check_scrape_gap(c: Ctx) -> tuple[bool, str]:
+    """A missed scrape must yield 'no data', not a burn rate over a silently stretched window."""
+    inf = c.b["inference_slo"]
+    gap = inf[~((inf.ts >= T("05:12")) & (inf.ts <= T("05:14")))].reset_index(drop=True)
+    b5 = c.m.burn_rate(gap, "errors_5xx", 0.999, 5)
+    in_gap = bool(pd.isna(b5.loc[T("05:16")]))
+    after = float(b5.loc[T("05:20")])
+    full = float(c.m.burn_rate(inf, "errors_5xx", 0.999, 5).loc[T("05:20")])
+    ok = in_gap and close(after, full, 1e-9)
+    return ok, (f"3-minute scrape gap 05:12-05:14: 5m burn at 05:16 is "
+                f"{'NaN (no data)' if in_gap else 'a number from a stretched window'}; "
+                f"at 05:20 {after:.1f} = gap-free {full:.1f}")
+
+
 def check_multiwindow(c: Ctx) -> tuple[bool, str]:
     inf = c.b["inference_slo"]
     a = int(c.m.multiwindow_fast_burn(inf, "errors_5xx", 0.999).sum())
@@ -231,6 +245,7 @@ CHECKS: list[tuple[str, Callable[[Ctx], tuple[bool | None, str]]]] = [
     ("T1 regression onset/recovery", check_onsets),
     ("T2 training SLI + lost GPU-hours", check_training_sli_and_loss),
     ("T2 burn rates", check_burn_rates),
+    ("T2 scrape gap", check_scrape_gap),
     ("T2 multiwindow page logic", check_multiwindow),
     ("T3 rule evaluation", check_rule_eval),
     ("T3 noisy + missing alert", check_noisy_and_missing),

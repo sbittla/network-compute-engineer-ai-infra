@@ -1,6 +1,6 @@
 {
   "difficulty": 3,
-  "evidence_required": "the checker at 18/18, every number labelled, and the validation plan with the commands from lab Section 9.",
+  "evidence_required": "the checker at 19/19, every number labelled, and the validation plan with the commands from lab Section 9.",
   "id": "DEL",
   "kind": "lab",
   "lab_checks": [
@@ -18,6 +18,7 @@
     "B6 detect preemption storm (and do not call it a burst)",
     "B7 detect the slow replica",
     "B8 telemetry_evidence corroborates the diagnoses",
+    "B9 analyzer robustness: missing and out-of-order timestamps",
     "C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)",
     "C2 md1_wait_s",
     "C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED]",
@@ -25,7 +26,7 @@
   ],
   "marking": [
     {
-      "criterion": "Completed lab module, checker at 18/18",
+      "criterion": "Completed lab module, checker at 19/19",
       "points": 4
     },
     {

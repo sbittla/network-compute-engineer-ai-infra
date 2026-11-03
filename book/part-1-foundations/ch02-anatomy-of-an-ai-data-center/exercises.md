@@ -146,8 +146,8 @@ diagram; answer to task 4.
 
 The DLC variant of HX8 replaces most fan power with pumps in the CDU. Assume `[ILLUSTRATIVE]`: peak
 fan power falls from 1,350 W to 350 W; all other DC loads and the 94 % PSU efficiency are unchanged;
-the liquid capture fraction becomes 80 % of node AC power; node weight is unchanged (135 kg); the
-non-node rack mass is 280 kg. Use ORION's facility envelope (Section 2.10).
+the liquid capture fraction becomes 80 % of rack IT load (nodes plus rack auxiliaries); node weight
+is unchanged (135 kg); the non-node rack mass is 280 kg. Use ORION's facility envelope (Section 2.10).
 
 1. What is the DLC node's AC maximum? How much does a 4-node rack save?
 2. Does a **fifth** node per rack fit electrically (per side, with 10 % transient margin)?
@@ -171,11 +171,11 @@ far `[ILLUSTRATIVE]`:
 ```text
 DCGM, during the window (per-rack medians)
 rack    sm_clock_mhz  power_w  clock_event_reasons_active
-rack-01  1755          655      none
+rack-01  1830          655      none
 rack-02  1050          330      HW Slowdown, HW Power Brake Slowdown
 rack-03  1050          332      HW Slowdown, HW Power Brake Slowdown
-rack-04  1755          652      none
-rack-05..rack-08 (all)  1755  650-657  none
+rack-04  1830          652      none
+rack-05..rack-08 (all)  1830  650-657  none
 
 Rack PDU feed A, during the window
 rack    feed_A_kw   breaker_events

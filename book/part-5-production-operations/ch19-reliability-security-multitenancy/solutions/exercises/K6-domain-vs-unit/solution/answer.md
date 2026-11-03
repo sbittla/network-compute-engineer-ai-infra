@@ -1,6 +1,6 @@
 # K6 — Domain vs unit: worked solution
 
-**Relies on:** Section 19.6, step 3 ("Choose the smallest defensible failure domain"); Table 19.1; Table 19.5.
+**Relies on:** Section 19.6, step 3 ("Choose the smallest defensible failure domain"); Table 19.1; Table 19.6.
 
 ## Definitions applied to a failed `mlx5_3` link
 
@@ -20,11 +20,13 @@ drain targets the node.
 
 ## When the two coincide
 
-- A job that uses only some GPUs and rails of the node: for example a 4-GPU inference replica on GPUs
-  4–7 (rails 4–7) can keep running. If the scheduler allocates per GPU with NIC affinity, the unit removed
-  shrinks to GPU 3 (and its rail), which matches the fault domain.
-- A fault domain that is itself the node: for example a PSU or motherboard fault. Then fault domain and
-  scheduling unit are both "the node".
+- **The fault domain is itself the node**: a PSU, motherboard, or host-memory fault. Then the fault
+  domain and the scheduling unit are both "the node". This is the clean coinciding case.
+- **The unit shrinks toward the domain** when the workload is not rail-coupled across the whole node.
+  A non-rail-aligned workload, such as a 4-GPU inference replica on GPUs 4–7 (rails 4–7), can keep using
+  the node. If the scheduler allocates per GPU with NIC affinity, the unit removed shrinks to GPU 3 and
+  its rail (one socket-side slice), which nearly matches the one-link fault domain. It is still slightly
+  larger: GPU 3 itself is healthy but unusable without its NIC.
 
 ## Common wrong answers
 

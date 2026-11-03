@@ -6,7 +6,7 @@ Each exercise has its own folder with the prompt and an `outputs/` folder for yo
 |---|---|---|---|---|---|---|
 | 13.1 | NVLink versus NIC bytes per step | knowledge-check | ★ | L1 | computed | [13.1](13.1-nvlink-vs-nic-volume/) |
 | 13.2 | GPUDirect RDMA prerequisites and proof | knowledge-check | ★ | L1 | written | [13.2](13.2-gdr-prerequisites/) |
-| 13.3 | Topology labels PIX, PXB, PHB, SYS | knowledge-check | ★ | L1 | written | [13.3](13.3-topology-labels/) |
+| 13.3 | Topology labels PIX, PXB, PHB, NODE, SYS | knowledge-check | ★ | L1 | written | [13.3](13.3-topology-labels/) |
 | 13.4 | Why utilization.gpu stays near 100 % | knowledge-check | ★★ | L1 | written | [13.4](13.4-gpu-util-misleads/) |
 | 13.5 | Overlap window for the DP reduction | knowledge-check | ★ | L1 | computed | [13.5](13.5-overlap-window/) |
 | 13.6 | Eight NICs retransmitting at the same step | knowledge-check | ★★ | L1 | written | [13.6](13.6-correlated-retransmissions/) |

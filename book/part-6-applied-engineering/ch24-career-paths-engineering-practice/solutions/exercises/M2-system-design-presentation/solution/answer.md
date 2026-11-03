@@ -6,8 +6,8 @@ Scored out of 20 (key): assumptions 3 + arithmetic 5, diagram 3, failure domains
 **What the arithmetic must show (walk-through 1 baseline, Section 24.6, `[MODELED]`).** FLOP/step =
 6 × 70e9 × 4,194,304 = 1.76 × 10¹⁸; GPUs for 20 s at 989 TFLOP/s and 40 % MFU = 222.6 → 256 GPUs, step 17.4 s;
 state 16 B/param → 1.12 TB → TP × PP = 32 (TP = 8 in the node, PP = 4, DP = 8); TP traffic 1.20 TB per GPU per
-step (3.3 s on NVLink vs 30 s on a NIC); DP 7.66 GB per GPU (0.19 s); checkpoint 980 GB / 80 GB/s = 12.25 s,
-Young's τ ≈ 2,058 s; bubble 3/131 = 2.3 %.
+step (3.3 s on NVLink vs 30 s on a NIC); DP 7.66 GB per GPU (0.19 s); checkpoint floor 980 GB / 80 GB/s = 12.25 s,
+blocking δ ≈ 60 s, Young's τ ≈ 4,554 s (≈ 3.2 % waste); bubble 3/131 = 2.3 %.
 
 **The changed constraint must propagate.** Example: sequence length 8,192 doubles the per-micro-batch
 activation to 134 MB and the TP volume per micro-batch; with the global batch held at ≈ 4 M tokens the

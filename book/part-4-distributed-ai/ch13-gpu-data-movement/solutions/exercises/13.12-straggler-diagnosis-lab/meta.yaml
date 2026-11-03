@@ -6,10 +6,10 @@ difficulty: 2
 tier: L1
 kind: lab
 points: 12
-evidence_required: checker output (10/10 PASS), findings table (cause, ranks, onset, evidence, owner,
+evidence_required: checker output (11/11 PASS), findings table (cause, ranks, onset, evidence, owner,
   fix, validation), amplification numbers, and the annotated diagram from 13.9
 marking:
-- criterion: Checker output shows 10/10 PASS
+- criterion: Checker output shows 11/11 PASS
   points: 4
 - criterion: Findings table covers data imbalance (rank 12, onset 0), thermal (rank 37, onset 20), rail
     2 (onset 30) with evidence, owner, fix, validation
@@ -29,3 +29,4 @@ lab_checks:
 - 'hot_not_throttled:'
 - 'amplification:'
 - 'symptom_windows:'
+- 'missing_samples:'

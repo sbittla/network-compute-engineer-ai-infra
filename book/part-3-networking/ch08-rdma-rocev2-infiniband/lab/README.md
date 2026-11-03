@@ -9,9 +9,9 @@ perftest against a known-good peer on every rail, and block admission on any fai
 build the two analysis halves of that pipeline:
 
 1. **`readiness.py`** — parses per-node captures of `ibv_devinfo`, `rdma link`, `show_gids`,
-   `ethtool -i`, `ethtool`, `ip -o link`, `ip -o -4 addr`, `dcb pfc`, `dcb app`, `lsmod`, and the site
-   RDMA environment file for eight ORION nodes (`orion-n01`…`orion-n08`, `rack-01` and `rack-02`), checks them against
-   `data/baseline.yaml`, and emits a READY / NOT_READY checklist report with evidence for every failure.
+   `ethtool -i`, `ethtool`, `ip -o link`, `ip -o -4 addr`, `dcb pfc`, `dcb app`, `lsmod`, the site
+   RDMA environment file, and `ulimit -l` (login shell and Slurm job step) for eight ORION nodes
+   (`orion-n01`…`orion-n08`, `rack-01` and `rack-02`), checks them against `data/baseline.yaml`, and emits a READY / NOT_READY checklist report with evidence for every failure.
 2. **`perftest_analysis.py`** — parses `ib_write_bw -a --report_gbits` and `ib_write_lat -a` results for
    32 node-pair/rail combinations, summarizes bandwidth versus message size (plateau, n½) and latency
    percentiles, flags pairs that underperform the fleet, and correlates flags with a PCIe link-status
@@ -43,7 +43,7 @@ python check.py                                            # progress meter for 
 
 - Manuscript Section 8.2 (verbs, QP state machine), 8.4 (GIDs, DSCP, `NCCL_IB_TC`), 8.7 (MTU at three
   layers and wire efficiency), 8.8 (multi-rail addressing, GPUDirect RDMA mechanism), 8.10 (tools and
-  their output), 8.11 (perftest model, n½, PCIe ceiling), and Table 8.10 (readiness checklist). Lab coverage: the lab automates items 1–10 (item 9: DSCP map only) and 12 and correlates item 13 with perftest results.
+  their output), 8.11 (perftest model, n½, PCIe ceiling), and Table 8.10 (readiness checklist). Lab coverage: the lab automates items 1–12 (item 9: DSCP map only) and 16 (login shell and Slurm job step) and correlates item 13 with perftest results.
 - ORION addressing: node *n*, rail *r* → `10.100.r.(2n+1)/31`; QoS: DSCP 26 → priority 3 (PFC on),
   DSCP 48 → priority 6.
 
@@ -59,7 +59,7 @@ and the `Finding` dataclass are provided.
 | 2 | Implement `check_node` with the check IDs in `CHECK_IDS` | The clean node `orion-n01` produces **zero** findings |
 | 3 | Implement `run_readiness` | Every planted readiness fault found; no extra findings; per-node verdicts correct |
 | 4 | Implement `render_report` (Markdown verdict table + findings table with evidence) | Report contains every host and both verdict kinds |
-| 5 | Implement `parse_bw`, `parse_lat`, `bw_plateau_gbps`, `half_bw_bytes` | 23 BW rows, 16 latency rows; n½ of a healthy pair = 8,192 B |
+| 5 | Implement `parse_bw`, `parse_lat`, `bw_plateau_gbps`, `half_bw_bytes` | 23 BW rows, 16 latency rows (the latency captures are abridged to 2 B–64 KiB; a real `ib_write_lat -a` prints 23 rows up to 8 MiB, so the parser must not assume a row count); n½ of a healthy pair = 8,192 B |
 | 6 | Implement `summarize` (one row per pair/rail; flags vs fleet medians) | 32 rows; fleet median plateau 380–395 Gb/s; exactly the underperforming pair and the tail-latency pair flagged |
 | 7 | Implement `pcie_downgrades` | Exactly one NIC with `LnkSta` below `LnkCap` |
 | 8 | Write `readiness_report.md` and a short diagnosis (≤ 1 page) for each flagged perftest pair: most likely cause, the evidence, and the next discriminating test | Graded by rubric (§7) |
@@ -67,7 +67,9 @@ and the `Finding` dataclass are provided.
 Rules of the checks (also in the docstrings): MTU fails if the netdev MTU ≠ 9000 **or** `active_mtu`
 ≠ 4096; GID_INDEX fails unless the index named by `NCCL_IB_GID_INDEX` resolves, on that device, to a
 `v2` GID whose IPv4 equals the netdev's address; QOS_PFC fails unless PFC is enabled on exactly
-`{3}`; ADDRESS_PLAN uses `10.100.{rail}.{2*node+1}/31`; PEERMEM is a node-level finding (device `-`).
+`{3}`; ADDRESS_PLAN uses `10.100.{rail}.{2*node+1}/31`; PEERMEM, TRAFFIC_CLASS (`NCCL_IB_TC` must
+equal the ToS byte 106) and MEMLOCK (every `ulimit -l` capture must read `unlimited`) are node-level
+findings (device `-`).
 Perftest flags: plateau = median `BW average` over sizes ≥ 1 MiB, flagged if < 0.90 × fleet median;
 tail = median p99.9 over sizes ≤ 4 KiB, flagged if > 3 × fleet median.
 
@@ -134,6 +136,8 @@ checklist*.
   done
   echo "### cmd: lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'"; lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'
   echo "### cmd: cat /etc/halcyon/rdma.env"; cat /etc/halcyon/rdma.env   # or your site's equivalent
+  echo "### cmd: ulimit -l"; bash -lc 'ulimit -l'
+  echo "### cmd: srun -N1 -w $(hostname -s) bash -c 'ulimit -l'"; srun -N1 -w "$(hostname -s)" bash -c 'ulimit -l'
 } > "inventory/$(hostname -s).txt"
 ```
 

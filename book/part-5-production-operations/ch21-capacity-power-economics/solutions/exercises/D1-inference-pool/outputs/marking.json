@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Quantified useful GPU-hours per year for both options with stated assumptions",
+      "criterion": "Quantified useful GPU-hours per year for both options with stated assumptions (lending base stated; 60 % of all idle or of lendable hours both accepted)",
       "points": 4
     },
     {

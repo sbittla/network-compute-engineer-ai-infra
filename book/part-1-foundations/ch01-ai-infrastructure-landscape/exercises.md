@@ -65,8 +65,8 @@ highest-rated and two lowest-rated domains; a gap list with chapter and artifact
 **K1.** Give five properties that distinguish an AI training cluster from a conventional cloud fleet,
 each with an ORION number.
 
-**K2.** Why does one GPU running 10 % slow reduce the throughput of a 256-GPU synchronous training
-job by about 10 %, rather than by 10 %/256?
+**K2.** Why does one GPU running at 90 % of its peers' speed reduce the throughput of a 256-GPU
+synchronous training job by about 10 %, rather than by 10 %/256?
 
 **K3.** Convert: (a) 400 Gb/s to GB/s; (b) NVLink "900 GB/s" for an ORION GPU into a per-direction
 figure; (c) a node's total backend bandwidth into GB/s per direction.
@@ -123,13 +123,13 @@ data-quality note (one line per rejected/flagged row with the root-cause hypothe
 
 ## Troubleshooting case ★★★ · L1
 
-One W-INFER replica (`orion-n23`) shows TPOT p95 of 19 ms while the other eleven replicas show 12 ms
-`[ILLUSTRATIVE]`. Healthy p95 sits above the ≈ 9.5 ms median decode step of Section 1.9 because, under
-continuous batching, some steps also carry prefill chunks of newly admitted requests, and p95 adds
-scheduler jitter. Batch sizes, prompt mix, and model version are identical (the router balances
-evenly). Evidence available so far:
+One W-INFER replica (`orion-n29`) shows TPOT p95 of 19 ms while the other seven replicas of the
+default pool show 12 ms `[ILLUSTRATIVE]`. Healthy p95 sits above the ≈ 9.5 ms median decode step of
+Section 1.9 because, under continuous batching, some steps also carry prefill chunks of newly
+admitted requests, and p95 adds scheduler jitter. Batch sizes, prompt mix, and model version are
+identical (the router balances evenly). Evidence available so far:
 
-| Signal | `orion-n23` | Other replicas (median) |
+| Signal | `orion-n29` | Other replicas (median) |
 |---|---:|---:|
 | `DCGM_FI_PROF_DRAM_ACTIVE` (mean of 8 GPUs) | 0.41 | 0.63 |
 | `DCGM_FI_PROF_PIPE_TENSOR_ACTIVE` | 0.05 | 0.08 |
@@ -153,13 +153,14 @@ is proven versus correlated.
 
 ## Design challenge ★★★ · L1
 
-Halcyon needs inference capacity for W-INFER equivalent to eight `HX8` nodes. Option A: carve eight
-nodes out of ORION's training partition and share them (training jobs may use them when inference
-load is low). Option B: buy a dedicated eight-node inference pool on the frontend network only (no
-backend RDMA NICs). Using the chapter's trade-off criteria, recommend one option. Address: SLO risk,
-utilization and cost (use $2.50/GPU-hour `[ILLUSTRATIVE]`), what the backend fabric is and is not
-needed for in inference, scheduler implications (Slurm vs Kubernetes), failure domains, and what
-evidence would make you change your recommendation.
+Halcyon needs a *second* eight-node W-INFER pool, in addition to ORION's default inference pool
+(`orion-n25`–`n32`). Option A: take eight nodes from ORION's 24-node Slurm training partition
+(leaving 16) and share them (training jobs may use them when inference load is low). Option B: buy a
+dedicated eight-node inference pool on the frontend network only (no backend RDMA NICs). Using the
+chapter's trade-off criteria, recommend one option. Address: SLO risk, utilization and cost (use
+$3.00/GPU-hour, Chapter 21's rate), what the backend fabric is and is not needed for in inference,
+scheduler implications (Slurm vs Kubernetes), failure domains, and what evidence would make you
+change your recommendation.
 
 **Evidence required:** a one-page recommendation with a criteria × option table, at least one
 quantified argument, explicit assumptions, and a "would change my mind if…" section.

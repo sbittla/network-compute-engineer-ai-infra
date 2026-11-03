@@ -10,7 +10,7 @@
       "points": 2
     },
     {
-      "criterion": "Mechanism: per-device health from NVML critical events (e.g. Xid 79, uncorrectable ECC) via ListAndWatch",
+      "criterion": "Mechanism: per-device health from NVML critical events (e.g. uncorrectable ECC Xid 48/95, row-remap failure Xid 64) via ListAndWatch",
       "points": 2
     },
     {

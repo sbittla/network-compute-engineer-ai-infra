@@ -1,7 +1,7 @@
 # W1 — Headroom budget for a spine (worked solution)
 
-All numbers `[MODELED]`. Relies on manuscript Section 9.4 ("The headroom formula", Table 9.1a,
-Table 9.2). Conventions: r = 400 Gb/s = 50 GB/s = **50 B/ns**; v ≈ 2 × 10⁸ m/s → **5 ns/m**; port MTU
+All numbers `[MODELED]`. Relies on manuscript Section 9.4 ("The headroom formula", Table 9.2,
+Table 9.3). Conventions: r = 400 Gb/s = 50 GB/s = **50 B/ns**; v ≈ 2 × 10⁸ m/s → **5 ns/m**; port MTU
 **9,216 B** (the switch MTU, not the 4,096 RDMA path MTU); t_resp = **1 µs**; PFC frame 64 B.
 
 **H = 2 × MTU + 2 × r × (L / v) + r × t_resp + 64 B**

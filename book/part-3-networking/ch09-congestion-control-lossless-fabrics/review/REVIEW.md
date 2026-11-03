@@ -116,3 +116,51 @@ Independent re-review: **9.50 (PASS)**. Four minor findings were raised to prote
 - Manuscript: 10,090 words.
 
 | R9-16 | Minor | §9.12 said "the job restarts on a spare node"; ORION-256 has no spare nodes (VERIFIED_FACTS). | Reworded: the job waits for repair or restarts at DP = 7 (224 GPUs) with a batch/LR adjustment; ≈ 900 s per restart. |
+
+## Independent review r1 (2026-11-01)
+
+Independent score **9.25** (D1 9.0, D2 9.5, D3 9.0, D4 9.5, D5 9.5, D6 9.5, D7 9.0, D8 9.0, D9 9.0).
+check.py 15/15 (solution), 1/15 with clean TODOs (starter).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N09-01 | Major | Aggregate 550 KB/µs excess compared with a per-PG Xoff | §9.7 step 2 now does per-PG accounting: each of 12 ingress PGs fills at ≈ 45.8 KB/µs and reaches an ≈ 83 KB per-PG Xoff after ≈ 1.8 µs; the lab's 1,000 KB is named an *aggregate Xoff-equivalent* (12 × 83 KB), which gives the same time. Same wording in §9.10 step 2, the Table 9.7 bullet, the review answer (≈ 150–200 µs of feedback vs ≈ 2 µs to Xoff), lab README config table, R1 answer |
+| N09-02 | Minor | Runbook "fail a job over to spares" | Replaced with checkpoint + restart without the node at DP = 7 or wait for repair; spares only as a declared variation |
+| N09-03 | Minor | "Kmin well below one BDP" vs a 0.75 × BDP template | "Kmin at or below about one BDP" (key W2(f) already says ≤ 1 BDP) |
+| N09-04 | Minor | Buffer size vs Ch 10 | 64 MB is now the canonical REFERENCE_CLUSTER value; §9.2 says so (25.6 Tb/s-class, shipping range ≈ 64–160 MB). Ch 10 changed to 64 MB. The lab's 4 MB share is explained as the dynamic-threshold grant to one hot queue |
+| N09-05 | Minor | Headroom only as static reservation | Production note after Table 9.3: pooled/oversubscribed headroom, correlated-pause risk, Xon offset hysteresis; summary bullet updated |
+| N09-06 | Minor | Irregular table numbering | Renumbered 9.1–9.10 sequentially; all references updated in manuscript, exercises.md, K8 folder prompt, eight solution answer.md files, D1 solve.py docstring |
+| N09-07 | Minor | 1,128 KB without derivation | §9.7 step 5: 12 × 93,496 B = 1,122 KB, rounded up to 12 × 94 KB = 1,128 KB |
+| N09-08 | Minor | L2 header attributes host TCP measurements to the GPU | Committed evidence not edited (rule: never edit measured bundles). Lab README now states that the bundle header names the detected device only and every value is a host TCP-stack measurement on the i7-13700HX/WSL2. Harness header wording is a shared-script change (listed for the coordinator) |
+| N09-09 | — | Withdrawn | — |
+| N09-10 | Minor | Review-answer convention differs from Ch 10 | Kept inline answers here and adopted the same convention in Ch 10–12 |
+| D4 advice | — | Counter-wrap policy | Lab README Task 1 states the policy: negative delta → NaN (64-bit counters); unwrap a 32-bit counter only if at most one wrap is possible in the interval |
+| D5 advice | — | R4 worked counter-example | Key R4 now uses the spine-2 telemetry gap (300–310 s) inside the pause-propagation episode |
+
+Tests: `check.py --impl solution` 15/15, `--impl starter` 1/15 (exit 1, no traceback); `validate_labs.py` OK
+(solution/starter/no-generator/docs); `copyedit_lint.py` 0 findings in this chapter; package test suite 86 passed;
+exercise outputs regenerated with no diff.
+
+## Independent review r2 (2026-11-01)
+
+Independent score **9.25** (D1 9.0, D2 9.0, D3 9.5, D4 9.0, D5 9.5, D6 9.5, D7 9.5, D8 9.5, D9 9.5).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R09-01 | Major | Lab episode 1 (as-found leaf-r3) showed a 2.7–3.6 MB queue, heavy marking and 400 k CNP/s, refuting §9.10 | The data was wrong, not the chapter: under PFC the egress queue is bounded by Σ(Xoff + headroom) ≈ 12 × (83 + 94) KB ≈ 2.1 MB. Generator fixed with the same RNG draw count, so every other series is byte-identical: root watermark 1,107–1,690 KB, ECN from the leaf's own RED profile (median 0, mean ≈ 19 k/s), sender pause 14–21 k/s per port, sender ingress ≈ 33 Gb/s (conservation), n05 CNPs ≈ 8 k/s mean; marks/pause ≈ 0.09. Episode 2's root (same leaf) corrected the same way. Digests unchanged (labels, roots, storm, victims, QoS). Key table, O1 answer/meta/solve.py asserts/outputs, H1 and K8 answers and the report narrative updated; §9.10 step 2 quotes episode 1 and points to Table 9.7 row A; the bound is stated in §9.7 |
+| R09-02 | Major | No host/switch QoS-class mismatch failure mode | New §9.8 subsection "Is the traffic in the class you think it is?": mismatch matrix with signatures; read-only checks (`mlnx_qos`, `dcb`, RDMA ToS sysfs, `NCCL_IB_TC`, switch DSCP→TC map and per-queue counters); a branch in Figure 9.10; a runbook row |
+| R09-03 | Minor | Two senders into a ring receiver | Clause: several NCCL channels with different ring orders |
+| R09-04 | Minor | ACK timeout not tied to a version | 20 ≈ 4.3 s is the default from NCCL 2.23; 18 ≈ 1.07 s before (§9.1 and the Table 9.7 bullet) |
+| R09-05 | Minor | DCQCN cut time inconsistent | §9.6 and the review answer use ⌈log₂ 12⌉ = 4 cuts ≈ RTT + 3 × 50 µs ≈ 155 µs, noting the rate-reduction monitor period; matches key W2(e) |
+| R09-06 | Minor | Per-PG Xoff equals the 30 m headroom | Kept 83 KB (12 × 83 ≈ 1,000 KB) and stated that the match is a coincidence, with what each quantity is derived from |
+| R09-07 | Minor | L2 is loopback TCP; rename the bundle | Committed bundle not renamed (measured evidence; harness naming). Added a manual veth + RED `ecn` qdisc variant with `tcp_ecn=1` so an L2 run shows marks against backlog |
+| R09-08 | Minor | "One variable" while Kmin and Kmax both change | §9.11 and key O3: the controlled variable is the ECN profile; the garbled "Kmax 1,500 / 6,000" phrasing fixed |
+| R09-09 | Minor | Pmax notation; historical discards | Pmax written as 20 % / 1 %; lab README §5 notes that cumulative counters carry pre-window history |
+| D7/D8 advice | — | Ch 13 link; capture commands; ECN rollback | Production note cites Exercises 13.18 and 12.12; runbook gains a capture-first list and an ECN-change rollback criterion |
+| D5 advice | — | T-style trust-mismatch exercise | Deferred |
+
+Tests: check.py solution 15/15, starter 1/15; validate_labs OK; copyedit_lint 0; package tests 86 passed.
+
+## Post-verification minors (2026-11-03)
+
+Verified scores: ch09 9.60, ch10 9.83, ch11 9.75, ch12 9.78 (all pass). Cleared: N09-01 Figure 9.10 gains a PFC-priority-mismatch question before the headroom/storm leaf, so the mismatch branch is reachable; N09-02 "an NIC" typo fixed.

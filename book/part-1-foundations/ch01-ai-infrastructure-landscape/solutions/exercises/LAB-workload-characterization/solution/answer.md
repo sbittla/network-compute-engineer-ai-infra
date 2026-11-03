@@ -15,7 +15,7 @@ because the generator in `lab/tools/` is stripped; that does not count against t
 - Validation: 4 rows rejected (W13 `MISSING`, second W05 `DUPLICATE`, W15 `NEGATIVE`, W18 `BAD_UNIT`),
   14 clean rows.
 - Normalization: W11's 80 Gb → 10 GB, so its scale-out bound is 0.2 s (fraction 0.81), *not* 1.6 s.
-- Lower bounds: W01 compute 6.95 s and scale-up 2.67 s; the per-node I/O ceiling is
+- Lower bounds: W01 compute 6.96 s and scale-up 2.67 s; the per-node I/O ceiling is
   min(frontend 50 GB/s, PFS aggregate / nodes in the job), for example 80 / 32 = 2.5 GB/s for W06's
   32-node checkpoint write (30.6 GB per node → 12.24 s, the 12.25 s of Section 1.7).
 - Flags: `IMPOSSIBLE` = W12 (fraction 1.62); `LATENCY_OR_OVERHEAD` = W16 (fraction 0.21 < 0.25);

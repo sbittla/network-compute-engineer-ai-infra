@@ -3,8 +3,8 @@
 Worked problem · difficulty ★★ · tier L1 · kind `computed` · [exercise index](../README.md)
 
 <!-- prompt:start -->
-**WP1 ★★ L1 — Readiness for a second role.** Using the sample learner's demonstrated levels (Section
-24.2: observability 1, reliability/security 2, automation 3, scheduling 1, storage/checkpointing 1,
+**WP1 ★★ L1 — Readiness for a second role.** Using the sample learner's demonstrated levels (from the
+lab's `demonstrated_levels` output: observability 1, reliability/security 2, automation 3, scheduling 1, storage/checkpointing 1,
 Linux host 2, communication 3) and the AI Infrastructure SRE / Operations matrix in
 `lab/data/competency_matrices.yaml` at **mid** level:
 (a) compute the readiness score with every term shown; (b) give the status and why; (c) produce the gap

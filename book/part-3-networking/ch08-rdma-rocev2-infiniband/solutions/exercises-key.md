@@ -125,9 +125,12 @@ discarded. Extra time ≈ wasted transmission ≈ 60 × 4,096 × 8 / 392 × 10�
 (c) T_ack = 4.096 µs × 2¹⁸ = 4.096 µs × 262,144 = **1.074 s** extra — ≈ 50,000× the transfer time.
 
 (d) For *isolated* messages (QP idle after each), only a lost final packet (or final ACK) forces a
-timeout. P ≈ p = 10⁻⁵ per message. Expected timeout cost per message = 10⁻⁵ × 1.074 s = **10.7 µs**.
+timeout. Assuming a loss-free ACK path, P ≈ p = 10⁻⁵ per message. Expected timeout cost per message =
+10⁻⁵ × 1.074 s = **10.7 µs**.
 Mid-message losses: 256 × 10⁻⁵ = 0.00256 per message × 5 µs = 0.013 µs (negligible). Goodput ≈
-21.4 / (21.4 + 10.7 + 0.013) ≈ **0.67 → ≈ 67 %**. For **back-to-back** messages the next message's
+21.4 / (21.4 + 10.7 + 0.013) ≈ **0.67 → ≈ 67 %**. If the final ACK crosses an equally lossy path,
+P ≈ 2p: 21.5 µs per message and goodput ≈ 21.4 / (21.4 + 21.5) ≈ **50 %**; accept either answer when
+the assumption is stated. For **back-to-back** messages the next message's
 first packet reveals a lost tail and triggers a NAK, so the timeout exposure is per *burst* (the last
 packet before the QP idles): with bursts of *k* messages the timeout cost is amortized over *k*
 messages (≈ 10.7 / *k* µs each). Lesson: with long timeouts, even a 10⁻⁵ loss rate can cost a third
@@ -203,18 +206,18 @@ Model answer = Manuscript Table 8.10 plus three columns. Key grading points:
 | 7 | Address plan | yes | yes (ADDRESS_PLAN) |
 | 8 | GID index → RoCEv2 + rail IP | yes | yes (GID_INDEX) |
 | 9–10 | DSCP trust + map, PFC priorities | yes | map and PFC yes (QOS_DSCP, QOS_PFC); trust mode no |
-| 11 | `NCCL_IB_TC=106` | yes | no (good extension) |
+| 11 | `NCCL_IB_TC=106` | yes | yes (TRAFFIC_CLASS) |
 | 12 | Peer-memory/DMA-BUF mechanism present (necessary, not sufficient) | yes | yes (PEERMEM) |
 | 13 | PCIe LnkSta = LnkCap | yes | correlation only (perftest part) |
 | 14 | NUMA locality | yes | no |
 | 15 | ACS/IOMMU allow GPU↔NIC peer-to-peer (`lspci -vvv` ACSCtl) | yes | no |
-| 16 | Locked-memory limit `unlimited` (shell, Slurm job, container) | yes | no |
+| 16 | Locked-memory limit `unlimited` (shell, Slurm job, container) | yes | shell and Slurm job step yes (MEMLOCK); container no |
 | 17 | Per-rail policy routing and neighbour resolution (`ip rule`, `ip neigh`) | yes | no |
 | 18 | **Switch side**: port speed, MTU 9216, trust/DSCP→TC, PFC, ECN profile | yes (read config/telemetry) | no — needs switch API/CLI or config-compliance tooling |
 | 19 | Peer validation: pingpong `-m 4096`, perftest per rail, `ib_write_bw --use_cuda` per rail | **no** (loads the fabric; drained nodes only) | analysis only |
 | 20 | Error-counter baseline | yes | no |
 
-Lab coverage (same wording everywhere): the lab automates items 1–10 (item 9: DSCP map only) and 12 and correlates item 13 with perftest results.
+Lab coverage (same wording everywhere): the lab automates items 1–12 (item 9: DSCP map only) and 16 (login shell and Slurm job step) and correlates item 13 with perftest results.
 
 Items not verifiable from host captures: switch-port MTU and QoS (item 18), whether GPUDirect RDMA
 actually works (only item 19's `--use_cuda` run proves it; item 12 alone does not), cabling to the right
@@ -232,15 +235,15 @@ Reference implementation: `solutions/lab/readiness.py`, `solutions/lab/perftest_
 [`lab/PLANTED_FAULTS.md`](lab/PLANTED_FAULTS.md). Reference report summary:
 
 ```text
-Nodes checked: 8; ready: 2; findings: 16
-orion-n01 READY | n02 FIRMWARE | n03 LINK_SPEED, PORT_STATE | n04 QOS_PFC
+Nodes checked: 8; ready: 2; findings: 18
+orion-n01 READY | n02 FIRMWARE | n03 LINK_SPEED, MEMLOCK, PORT_STATE | n04 QOS_PFC, TRAFFIC_CLASS
 n05 GID_INDEX (all 8 devices) | n06 MTU (mlx5_3), PEERMEM | n07 ADDRESS_PLAN (mlx5_2, mlx5_3) | n08 READY
 perftest: n05-n06 rail 5 BW flag (plateau 202.4 Gb/s vs fleet median 388.6) -> orion-n05 mlx5_5 PCIe x8
           n07-n08 rail 2 TAIL flag (p99.9 29.2 us vs fleet median 3.44 us)
 ```
 
 Diagnosis grading (20 pts in the lab rubric): BW pair — PCIe x8 identified with arithmetic (Gen5 x8 ≈
-252 Gb/s raw, ≈ 200–215 Gb/s achievable ⇒ ≈ 202 Gb/s plateau), small-message rate unchanged (not a NIC
+252 Gb/s raw, ≈ 200–220 Gb/s achievable ⇒ ≈ 202 Gb/s plateau), small-message rate unchanged (not a NIC
 pipeline issue), next test (cold-boot LnkSta, AER in `dmesg`, reseat/swap slot). TAIL pair — typical
 latency normal so not path/MTU; hypotheses host jitter vs PFC pauses vs marginal link; next tests named;
 explicit statement that `[SIMULATED]` data cannot discriminate.
@@ -271,7 +274,9 @@ would cause loss under load but not a hard size threshold, and would not increme
 (c) Root cause: the replacement leaf's ports toward `rack-04` carry the default 1,500-byte MTU. Packet-size
 arithmetic (RoCEv2 IP packet = 20 IP + 8 UDP + 12 BTH + [16 RETH on a first/only packet] + payload +
 4 ICRC): a 1,024-byte "only" packet → 1,084 B ≤ 1,500 passes; a 2,048-byte message as one packet →
-2,108 B > 1,500 dropped; any message > 1,024 B is sent in packets of up to 4,096 B → dropped. Hence
+2,108 B > 1,500 dropped; any message > 1,024 B is sent in packets of up to 4,096 B → dropped. (These
+are IP-packet sizes, matching an EOS/NX-OS-style L3 `mtu`; on a platform whose MTU counts the frame,
+add 18 B — 1,102 B and 2,126 B — and the verdicts are the same. MTU semantics are vendor-specific.) Hence
 the perftest sweep stops after the 1,024 row. `ibv_rc_pingpong` passes because its **default path MTU
 is 1,024** (`-m` option), so its 4,096-byte messages travel as four 1,024-byte packets — a trap that
 makes a "connectivity test" look healthy. The drops are tail-of-message and every-packet losses, so
@@ -317,7 +322,10 @@ NCCL algorithm/protocol overheads and synchronization; stragglers from other nod
 config compliance/telemetry; GPUDirect RDMA mechanism loaded but P2P blocked by ACS/IOMMU → GPU-buffer
 perftest (`--use_cuda`) or NCCL test (Chapter 13); firmware matches baseline but the baseline itself is
 outside the vendor matrix for this driver → matrix check; cabled to the wrong leaf port while addresses
-are right → LLDP neighbour check; `NCCL_IB_TC` not checked by the lab.
+are right → LLDP neighbour check; DSCP trust mode (item 9) not automated, so a NIC trusting PCP passes
+the DSCP-map check → `dcb apptrust show`; memlock inside the container (item 16) not captured →
+`ulimit -l` in the container. (Do not credit "`NCCL_IB_TC` is not checked": the lab's TRAFFIC_CLASS
+check covers the env file.)
 
 **8.19** In `[MEASURED]` data with a manifest, "pair X on rail Y has a plateau of 202 Gb/s and a PCIe
 link at x8" becomes an observed fact; the *causal* claim that x8 caused the shortfall becomes strongly

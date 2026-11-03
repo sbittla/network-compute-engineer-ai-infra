@@ -56,6 +56,13 @@ def clean_steps(steps: pd.DataFrame, warmup_steps: int = WARMUP_STEPS) -> pd.Dat
     raise NotImplementedError("clean_steps")
 
 
+def hygiene_counts(steps: pd.DataFrame, jobs: pd.DataFrame, warmup_steps: int = WARMUP_STEPS) -> dict:
+    """What each hygiene rule removed. Keys: rows_raw, duplicates_removed, warmup_removed, rows_clean,
+    jobs_dropped (jobs in jobs.csv with no clean rows)."""
+    # TODO: count rows before and after each rule; the report must state these numbers.
+    raise NotImplementedError("hygiene_counts")
+
+
 def tp_split_jobs(placement: pd.DataFrame) -> set[int]:
     """Return job IDs where at least one tensor-parallel group spans more than one node."""
     # TODO: group placement by (job_id, tp_group) and count distinct nodes; a TP group on >1 node
@@ -147,10 +154,11 @@ def rank_tests(hypotheses: dict) -> tuple[list[dict], list[dict]]:
 
 def render_report(summary: dict, effects: dict, attribution: pd.DataFrame, cross: dict,
                   ranked: list[dict], rejected: list[dict], boot: dict | None = None,
-                  alert_node: str = "orion-n13") -> str:
-    """Markdown before/after report with the three mandatory sections."""
-    # TODO: Markdown with '## Measured facts', '## Inferred causes', '## Remaining uncertainty' (in that
-    #       order), the headline % change, the full term table, the alert verdict, and the ranked tests.
+                  alert_node: str = "orion-n13", hygiene: dict | None = None) -> str:
+    """Markdown before/after report with the three mandatory sections (and the hygiene line if given)."""
+    # TODO: Markdown with a 'Hygiene:' line (what each rule removed, from hygiene_counts), then
+    #       '## Measured facts', '## Inferred causes', '## Remaining uncertainty' (in that order), the
+    #       headline % change, the full term table, the alert verdict, and the ranked tests.
     raise NotImplementedError("render_report")
 
 
@@ -168,7 +176,8 @@ def main() -> int:
     cross = storage_crosscheck(ft, e)
     ranked, rejected = rank_tests(b["hypotheses"])
     ecc_node = b["alerts"].loc[b["alerts"]["alert"] == "NodeGPUCorrectableECCHigh", "target"].iloc[0].split("/")[0]
-    rep = render_report(s, e, att, cross, ranked, rejected, boot, ecc_node)
+    hyg = hygiene_counts(b["steps"], b["jobs"])
+    rep = render_report(s, e, att, cross, ranked, rejected, boot, ecc_node, hyg)
     if args.report:
         args.report.write_text(rep, encoding="utf-8")
     print(rep)

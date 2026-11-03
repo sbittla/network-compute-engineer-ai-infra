@@ -19,7 +19,7 @@ FLOWS = (32, 128)            # 32 equal flows; 4 QPs per connection -> 128
 NODE_MTBF_H = 768            # halved from 1,536 h
 CANON_NODE_MTBF_H = 1536
 JOB_NODES = 32               # ORION-256
-CKPT_S = 12.25               # 980 GB at 80 GB/s
+CKPT_S = 60.0                # blocking cost δ (Ch 23 Step 7; floor 980 GB / 80 GB/s = 12.25 s)
 RESTART_S = 900
 
 def write_outputs(out: Path, payload: dict, md_lines: list[str]) -> None:
@@ -67,9 +67,9 @@ def main() -> None:
                  "host_links": 512, "fabric_links": 512, "total_links": 1024, "switches": 24}
     assert abs(b["flows_32"]["idle_uplinks"] - 11.6) < 0.05        # key: 11.6
     assert abs(b["flows_128"]["idle_uplinks"] - 0.55) < 0.01        # key: 0.55
-    assert abs(c["tau_s"] - 1455) < 1                               # key: 1,455 s
-    assert abs(c["total_pct"] - 2.7) < 0.05                         # key: ~2.7 %
-    assert abs(c0["tau_s"] - 2058) < 1 and abs(c0["total_pct"] - 1.7) < 0.05
+    assert abs(c["tau_s"] - 3220) < 1                               # key: 3,220 s
+    assert abs(c["total_pct"] - 4.77) < 0.01                        # key: 4.77 % (= Ch 23 W2)
+    assert abs(c0["tau_s"] - 4554) < 1 and abs(c0["total_pct"] - 3.16) < 0.01
 
     payload = {"id": "WP2", "evidence_label": "MODELED",
                "inputs": {"nodes": NODES, "rails": RAILS, "radix": RADIX, "uplinks": UPLINKS, "flows": list(FLOWS),

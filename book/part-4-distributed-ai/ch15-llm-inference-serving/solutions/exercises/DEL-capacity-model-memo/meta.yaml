@@ -6,10 +6,10 @@ difficulty: 3
 tier: L1
 kind: lab
 points: 20
-evidence_required: the checker at 18/18, every number labelled, and the validation plan with the commands
+evidence_required: the checker at 19/19, every number labelled, and the validation plan with the commands
   from lab Section 9.
 marking:
-- criterion: Completed lab module, checker at 18/18
+- criterion: Completed lab module, checker at 19/19
   points: 4
 - criterion: Replica layout and pool size for 40 req/s (8 x TP = 4 FP8 with chunked prefill, 5 nodes incl.
     N+1, or a numerically argued alternative)
@@ -38,6 +38,7 @@ lab_checks:
 - B6 detect preemption storm (and do not call it a burst)
 - B7 detect the slow replica
 - B8 telemetry_evidence corroborates the diagnoses
+- 'B9 analyzer robustness: missing and out-of-order timestamps'
 - C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA)
 - C2 md1_wait_s
 - C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED]

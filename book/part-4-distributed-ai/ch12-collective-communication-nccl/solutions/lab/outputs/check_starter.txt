@@ -8,5 +8,6 @@ TODO jitter_cv: implement parse_nccl_log
 TODO analyze_all: implement parse_nccl_log
 TODO detect_anomalies: implement parse_nccl_log
 TODO predict_time_us: implement predict_time_us
+TODO launch_spread: implement parse_nccl_log
 
-0/10 checks passed (starter)
+0/11 checks passed (starter)

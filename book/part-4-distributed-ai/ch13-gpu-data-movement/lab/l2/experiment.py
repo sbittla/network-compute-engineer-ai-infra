@@ -1,7 +1,7 @@
 """Ch 13 L2: host<->GPU copy bandwidth (pinned vs pageable) and copy/compute overlap on a real GPU.
 
-What it teaches (Sections 13.2-13.4): a host-to-device copy is bounded by the PCIe link the GPU
-actually negotiated, pageable memory adds a staging copy, small transfers are latency-bound, and a
+What it teaches (Sections 13.2-13.4): a host-to-device copy is bounded by the GPU's PCIe link (the
+ceiling uses the maximum-capability generation and width, because an idle link may train down), pageable memory adds a staging copy, small transfers are latency-bound, and a
 copy on a second stream can hide behind compute. CPU fallback: the same size sweep measures
 host-memory copy bandwidth (the staging cost pageable transfers pay), and the overlap test uses two
 threads; the GPU-only invariants are skipped and the report says so.
@@ -56,7 +56,7 @@ def run(ctx) -> dict:
     overlap = measure_overlap(ctx)
     ib = sorted(os.listdir("/sys/class/infiniband")) if os.path.isdir("/sys/class/infiniband") else []
     not_runnable_parts = [] if ib else [{
-        "part": "GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 6-11, exercise 13.11)",
+        "part": "GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 2-3, 5-8 and 11, exercise 13.11)",
         "reason": "no RDMA device under /sys/class/infiniband on this host",
         "needs": ["RDMA NIC (mlx5-class) on the GPU's PCIe switch", "perftest built with CUDA", "a second node"],
     }]
@@ -66,7 +66,7 @@ def run(ctx) -> dict:
     return {"metrics": metrics, "tables": {"bandwidth": rows}, "rdma_devices": ib,
             "not_runnable_parts": not_runnable_parts, "notes": [
         "Median of >= 5 timed repetitions after 3 warm-ups; CUDA events on the GPU, perf_counter on the CPU.",
-        "PCIe ceiling = per-lane rate after encoding x max negotiated width from nvidia-smi.",
+        "PCIe ceiling = per-lane rate after encoding x maximum link generation and width from nvidia-smi (pcie.link.gen.max, pcie.link.width.max): the maximum-capability link, an upper bound; an idle link may train down.",
     ]}
 
 
@@ -166,7 +166,7 @@ def report(result: dict, env: dict) -> str:
     for r in result["tables"]["bandwidth"]:
         lines.append(f"| {r['case']} | {r['size_mib']:g} | {r['gbs_median']:.2f} | {r['p95_s'] * 1e3:.3f} | {r['n']} |")
     if ceiling:
-        lines += ["", f"PCIe ceiling from the negotiated link: **{ceiling:.1f} GB/s** per direction `[MODELED]`."]
+        lines += ["", f"PCIe ceiling from the maximum-capability link: **{ceiling:.1f} GB/s** per direction `[MODELED]`."]
     m = result["metrics"]
     lines += ["", "## Copy/compute overlap", "",
               f"compute {m['overlap_compute_s'] * 1e3:.1f} ms, copy {m['overlap_copy_s'] * 1e3:.1f} ms, "

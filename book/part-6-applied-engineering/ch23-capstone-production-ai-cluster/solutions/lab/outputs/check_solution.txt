@@ -1,3 +1,4 @@
+PASS check_data_regenerates     17 committed files byte-identical to a fresh generator run
 PASS check_completeness         3 planted finding(s) found, 0 false positives
 PASS check_capacity             2 planted finding(s) found, 0 false positives
 PASS check_fabric               3 planted finding(s) found, 0 false positives
@@ -7,9 +8,9 @@ PASS check_unlabeled_numbers    2 planted finding(s) found, 0 false positives
 PASS check_cross_refs           1 planted finding(s) found, 0 false positives
 PASS check_failure_domains      2 planted finding(s) found, 0 false positives
 PASS check_slos                 1 planted finding(s) found, 0 false positives
-PASS check_edge_cases           spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file
+PASS check_edge_cases           spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file, dangling manifest
 PASS check_run_lint_flawed      20 findings (6 blocker, 14 major), gate FAIL
 PASS check_run_lint_clean       0 findings, gate PASS
 PASS check_report               report lists every finding and the gate verdict
 
-13/13 passed, 0 TODO, 0 failed (impl=solution) in <t> s
+14/14 passed, 0 skipped, 0 TODO, 0 failed (impl=solution) in <t> s

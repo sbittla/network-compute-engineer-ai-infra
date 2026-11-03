@@ -14,6 +14,7 @@ DCGM:                          clocks 1,830 MHz, no slowdown reasons, temperatur
 NCCL (2.23+):                  no timeouts; NET channel lines end in /GDRDMA on all nodes
 orion-be-leaf-r3 Ethernet28 (→ orion-n15 NIC3), 10-minute deltas:
     FEC corrected codewords   1.9e9   (other ports: 1–4e6)
+    pre-FEC BER               ≈ 1e-5  (other ports: ≈ 1e-8)
     FEC uncorrectable         312     (other ports: 0)
     in-errors (CRC)           297
 orion-n15: ethtool -S <rail-3 netdev> | grep -E 'rx_crc_errors_phy|rx_symbol_err_phy'

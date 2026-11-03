@@ -55,8 +55,12 @@ skills_rule: >
   bonus / "ways to stand out" list. Empty preferred_skills means the posting had no separate list.
 url_rule: >
   url is the employer's ATS posting URL. CoreWeave publishes coreweave.com/careers/job?<id>&... whose identity
-  lives in the query string, which the chapter's normalize_url strips; for CoreWeave rows url is the Greenhouse
-  board URL (it redirects to the employer page) and employer_url keeps the employer's own link.
+  lives in the query string. A strip-all-queries rule would collapse those rows (42 -> 40); the chapter's
+  normalize_url strips only tracking parameters and keeps the rest. For stability, url on CoreWeave rows is the
+  Greenhouse board URL (it redirects to the employer page) and employer_url keeps the employer's own link.
+employer_note: >
+  employer is recorded exactly as each board listed it on 2026-10-30. The xAI Greenhouse board (slug xai)
+  listed its employer as "SpaceXSI"; the manuscript's Table 24.7 uses the brand name xAI for the same employer.
 role_families: [ai_network, gpu_hpc, cluster_platform, performance, sre_ops, hw_vendor, dc_facilities, inference_platform]
 required_fields:
 - employer

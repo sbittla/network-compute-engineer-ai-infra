@@ -1,16 +1,15 @@
 # 17-D1 — ORION-XL block placement rules
 
-**(a) Configuration.** Sixteen blocks of 32 nodes, each block one set of 8 rail leaves (Section
-17.5.6):
+**(a) Configuration.** Sixteen blocks of 32 nodes, each block one set of 8 rail leaves. A block is
+the canonical ORION-XL pod (`p00`–`p15`), so the leaf groups carry the pod names (Section 17.5.6):
 
 ```ini
 # [ILLUSTRATIVE] topology.conf
-SwitchName=blk01 Nodes=orionxl-n[001-032]
-SwitchName=blk02 Nodes=orionxl-n[033-064]
-# ... blk03 - blk16
-SwitchName=pod1 Switches=blk[01-08]
-SwitchName=pod2 Switches=blk[09-16]
-SwitchName=top  Switches=pod[1-2]
+SwitchName=p00 Nodes=orionxl-n[001-032]
+SwitchName=p01 Nodes=orionxl-n[033-064]
+# ... p02 - p14
+SwitchName=p15 Nodes=orionxl-n[481-512]
+SwitchName=core Switches=p[00-15]
 ```
 
 Kubernetes equivalent: Kueue Topology-Aware Scheduling. Label nodes with pod, block, and hostname;
@@ -30,7 +29,9 @@ out and once back, b crossings in total) out of 64 hops.
   **95 %**
 Per-block uplink capacity at 2:1: 32 nodes × 8 rails × 400 Gb/s / 2 = **51.2 Tb/s**. Contiguous
 placement puts only a few node-links of the job on the spine; spread placement puts nearly every
-rail hop there, shared with ≈ 40 other jobs. **Rule:** require ≤ 2 blocks, allow 3 after a timeout,
+rail hop there, shared with ≈ 40 other jobs. These fractions are a ring-only lower bound: at 64
+nodes NCCL may pick Tree or PAT, or run several rings per rail, and a tree crosses block boundaries
+at every level, so real cross-block traffic is higher. **Rule:** require ≤ 2 blocks, allow 3 after a timeout,
 never spread.
 
 **(c) Wait bound.** Waiting *w* hours idles 512 GPUs → 512·*w* GPU-hours. A 3 % step slowdown

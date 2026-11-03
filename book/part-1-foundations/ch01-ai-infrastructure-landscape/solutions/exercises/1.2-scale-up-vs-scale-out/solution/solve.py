@@ -76,10 +76,11 @@ def main() -> None:
                                   "dominant": dom, "ceiling_fraction": round(frac, 3)}
         md.append(f"| {name} | {b['compute']:.6f} | {b['memory']:.6f} | {b['scaleup']:.6f} | "
                   f"{b['scaleout']:.6f} | {dom} | {frac:.2f} |")
-    nvlink_only_b = WORKLOADS["B"]["nic_gb"] / NVLINK_GBPS
-    assert abs(nvlink_only_b - 0.067) < 0.001
+    nvlink_only_b = (WORKLOADS["B"]["nvlink_gb"] + WORKLOADS["B"]["nic_gb"]) / NVLINK_GBPS
+    assert abs(nvlink_only_b - 0.156) < 0.001
     result["answer"]["B_if_all_to_all_on_nvlink_s"] = round(nvlink_only_b, 4)
-    md += ["", f"If B's 30 GB moved to NVLink: 30 / 450 = {nvlink_only_b:.3f} s, so B becomes compute-bound "
+    md += ["", f"If B's 30 GB moved to NVLink (on top of its 40 GB): (40 + 30) / 450 = {nvlink_only_b:.3f} s, "
+           f"so B becomes compute-bound "
            f"at {bounds(WORKLOADS['B'])['compute']:.3f} s."]
     (out / "result.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     (out / "result.md").write_text("\n".join(house(l) for l in md) + "\n", encoding="utf-8")

@@ -21,7 +21,7 @@
 
 ```text
 | id  | bound         | dominant | lower bound | observed  | fraction | flags               |
-| W01 | compute       | compute  | 6.95 s      | 17.30 s   | 0.40     |                     |
+| W01 | compute       | compute  | 6.96 s      | 17.30 s   | 0.40     |                     |
 | W02 | memory        | memory   | 6.02 ms     | 9.69 ms   | 0.62     |                     |
 | W03 | compute       | compute  | 36.30 ms    | 74.59 ms  | 0.49     |                     |
 | W04 | compute       | compute  | 2.78 s      | 3.55 s    | 0.78     |                     |

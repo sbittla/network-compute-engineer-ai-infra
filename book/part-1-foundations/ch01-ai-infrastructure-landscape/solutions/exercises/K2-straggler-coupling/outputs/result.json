@@ -4,7 +4,7 @@
     "loss_if_10pct_longer": 0.0909,
     "naive_wrong_loss": 0.000391,
     "throughput_loss": 0.1,
-    "usd_per_hour_wasted": 64.0
+    "usd_per_hour_wasted": 76.8
   },
   "evidence": "[MODELED]",
   "inputs": {

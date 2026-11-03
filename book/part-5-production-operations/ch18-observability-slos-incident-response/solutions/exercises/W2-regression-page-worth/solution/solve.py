@@ -22,7 +22,7 @@ def close(value: float, key: float, tol: float, what: str) -> None:
     assert abs(value - key) <= tol, f"{what}: computed {value} vs key {key} (tol {tol})"
 
 
-GPUS, BASE_S, SLOW_S, PRICE = 4096, 17.4, 19.0, 3.0
+GPUS, BASE_S, SLOW_S, PRICE = 4096, 17.4, 19.0, 3.0  # $/GPU-hour [MODELED], REFERENCE_CLUSTER canonical (Ch 21 TCO $3.02)
 CASE_H = {"A": 6.0 + 0.5, "B": (12 + 30) / 60}
 THRESHOLD, PROPOSED = 1.10, 1.05
 NOISE_SD, MEDIAN_EFF, WINDOW_S = 0.012, 1.25, 600
@@ -40,7 +40,7 @@ def main(out: Path) -> None:
     close(ratio, 0.916, 0.0005, "throughput ratio")
     close(lost, 0.084, 0.0005, "lost fraction")
     close(gpu_h["A"], 2242, 1.0, "case A GPU-h")
-    close(cost["A"], 6730, 10, "case A cost")
+    close(cost["A"], 6726, 1.0, "case A cost")
     close(gpu_h["B"], 241, 0.5, "case B GPU-h")
     close(cost["B"], 724, 1.0, "case B cost")
     assert step_ratio < THRESHOLD and step_ratio > PROPOSED

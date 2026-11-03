@@ -26,12 +26,12 @@
         "side_kw": 45.1
       },
       "B": {
-        "cdu_fraction": 0.795,
+        "cdu_fraction": 0.783,
         "fits": false,
         "floor": 1326.389,
         "gpu_racks": 13,
-        "it_kw": 682.589,
-        "liquid_kw": 477.271,
+        "it_kw": 673.451,
+        "liquid_kw": 469.961,
         "positions": 18,
         "rack_kw": 45.891,
         "residual_air_kw": 9.178,

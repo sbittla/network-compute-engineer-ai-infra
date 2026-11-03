@@ -1,6 +1,6 @@
 # K1 — DCQCN roles in the 12:1 incast (worked solution)
 
-Relies on manuscript Section 9.6 ("Three roles", Table 9.2a, Figure 9.8) and Section 9.7 (the 12:1
+Relies on manuscript Section 9.6 ("Three roles", Table 9.4, Figure 9.8) and Section 9.7 (the 12:1
 incast: twelve ORION nodes sending to `orion-n05` on rail 3).
 
 | DCQCN role | Device in the 12:1 incast | What it does |

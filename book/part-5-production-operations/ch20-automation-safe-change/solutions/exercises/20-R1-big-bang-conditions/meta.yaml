@@ -1,0 +1,16 @@
+id: 20-R1
+title: When to accept a big bang
+folder: 20-R1-big-bang-conditions
+type: reflection
+difficulty: 1
+tier: L1
+kind: written
+points: 5
+evidence_required: Written answer, at most 150 words, naming specific missing evidence.
+marking:
+- criterion: 'Conditions: reversible in seconds, validated in an identical lab under load, idle fleet, tail cost
+    accepted by owner'
+  points: 3
+- criterion: 'Specific evidence: lab results, rehearsed revert time, idle-fleet confirmation'
+  points: 2
+lab_checks: []

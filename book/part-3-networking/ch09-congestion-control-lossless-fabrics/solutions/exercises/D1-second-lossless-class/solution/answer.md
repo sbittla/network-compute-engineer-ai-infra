@@ -1,6 +1,6 @@
 # D1 — A second lossless class? (model recommendation)
 
-Numbers `[MODELED]` (`solve.py`). Relies on manuscript Section 9.4 (Table 9.2 headroom), Section 9.5
+Numbers `[MODELED]` (`solve.py`). Relies on manuscript Section 9.4 (Table 9.3 headroom), Section 9.5
 (risks of PFC), Section 9.9 (lossy RoCE and newer transports), "Trade-offs and design decisions", and
 docs/REFERENCE_CLUSTER.md (frontend/storage fabric 2 × 200 GbE per node; W-TRAIN checkpoint size).
 

@@ -67,9 +67,13 @@ SAMPLE_FIELDS = ["index", "temperature.gpu", "power.draw", "clocks.sm", "utiliza
 SKU_EXPECTED = {
     "NVIDIA GeForce RTX 4060 Laptop GPU": {"gpu_hbm_total_mib_min": 8000, "gpu_pcie": {"gen": 4, "width": 8}},
 }
-# Dense FP16 tensor-core FLOP per clock per SM with FP16 accumulate (Ada/Hopper whitepapers): an upper bound
-# for any FP16 GEMM. GeForce Ada runs FP32-accumulate (what cuBLAS uses for torch.half) at half that rate.
-FP16_FLOP_PER_CLK_SM = 1024
+# Dense FP16/BF16 tensor-core FLOP per clock per SM with FP32 accumulate, which is what cuBLAS uses for a
+# torch.half matmul [VENDOR-SPEC, 2026-10: NVIDIA architecture whitepapers; same table as Chapter 4].
+# GeForce Ada (8.9) and Ampere (8.6) run FP32 accumulate at half their FP16-accumulate rate, so 512, not 1024.
+# Unknown architectures use the loosest known bound (4096) so the invariant never fails falsely; the report
+# says so. The ceiling is a reference value derived from the spec sheet, never a measurement.
+FP16_FP32ACC_FLOP_PER_CLK_SM = {(8, 6): 512, (8, 9): 512, (8, 0): 2048, (9, 0): 4096}
+FP16_FP32ACC_FALLBACK = 4096
 
 
 # ----------------------------------------------------------------------------------------------- helpers
@@ -430,8 +434,12 @@ def run(ctx) -> dict:
                "burn_in_tflops_median": round(tel["tflops_windows"]["median"], 3) if tput else None}
     if ctx.is_gpu:
         p = torch.cuda.get_device_properties(0)
-        ceiling = FP16_FLOP_PER_CLK_SM * p.multi_processor_count * float(inv["clocks.max.sm"]) * 1e6 / 1e12
-        metrics.update({"gemm_ceiling_tflops": round(ceiling, 1), "sm_count": p.multi_processor_count,
+        cap = (p.major, p.minor)
+        per_sm = FP16_FP32ACC_FLOP_PER_CLK_SM.get(cap, FP16_FP32ACC_FALLBACK)
+        ceiling = per_sm * p.multi_processor_count * float(inv["clocks.max.sm"]) * 1e6 / 1e12
+        metrics.update({"gemm_ceiling_tflops": round(ceiling, 1), "gemm_ceiling_flop_per_clk_sm": per_sm,
+                        "gemm_ceiling_known_arch": cap in FP16_FP32ACC_FLOP_PER_CLK_SM,
+                        "sm_count": p.multi_processor_count,
                         "clocks_max_sm_mhz": inv["clocks.max.sm"], "power_max_limit_w": inv["power.max_limit"],
                         "enforced_power_limit_w": inv["enforced.power.limit"],
                         "temp_margin_to_slowdown_c_idle": inv.get("temperature.gpu.tlimit"),
@@ -460,8 +468,9 @@ def check(result: dict, env: dict) -> list[str]:
     if env["device"] == "cuda":
         bi = t["burn_in"]
         if m["gemm_tflops"] > m["gemm_ceiling_tflops"]:
-            fails.append(f"GEMM {m['gemm_tflops']:.1f} TFLOP/s exceeds the FP16 tensor ceiling {m['gemm_ceiling_tflops']:.1f} "
-                         "(1024 FLOP/clk/SM x SMs x max SM clock): check the timing (missing synchronize?)")
+            fails.append(f"GEMM {m['gemm_tflops']:.1f} TFLOP/s exceeds the FP16 (FP32-accumulate) tensor ceiling "
+                         f"{m['gemm_ceiling_tflops']:.1f} ({m.get('gemm_ceiling_flop_per_clk_sm', '?')} FLOP/clk/SM x SMs x "
+                         "max SM clock): check the timing (missing synchronize?)")
         if bi["samples"] < 0.5 * bi["burn_in_s"]:
             fails.append(f"only {bi['samples']} telemetry samples in {bi['burn_in_s']} s: check that nvidia-smi -lms works")
         pmax = m.get("power_max_limit_w")
@@ -507,7 +516,9 @@ def report(result: dict, env: dict) -> str:
          f"fill {m['memtest_fill_gbs']} GB/s |"]
     if gpu:
         L += [f"| FP16 GEMM 4096³ | {m['gemm_tflops']:.2f} TFLOP/s | {100 * m['gemm_tflops'] / m['gemm_ceiling_tflops']:.0f} % of the "
-              f"{m['gemm_ceiling_tflops']:.1f} TFLOP/s dense FP16 tensor ceiling `[MODELED]` (1024 FLOP/clk/SM x SMs x max SM clock) |",
+              f"{m['gemm_ceiling_tflops']:.1f} TFLOP/s dense FP16 tensor ceiling with FP32 accumulate, a reference value "
+              f"`[MODELED from VENDOR-SPEC]` ({m.get('gemm_ceiling_flop_per_clk_sm', '?')} FLOP/clk/SM x SMs x max SM clock"
+              f"{'' if m.get('gemm_ceiling_known_arch', True) else '; architecture not in the table, loosest bound used'}) |",
               f"| PCIe link idle → under load | Gen{bi['pcie_gen_idle'] or 0:.0f} → Gen{bi['pcie_gen_load_min'] or 0:.0f} x{bi['pcie_width_load_min'] or 0:.0f} | "
               f"expected Gen{t['policy_expected_local']['gpu_pcie']['gen']} x{t['policy_expected_local']['gpu_pcie']['width']} "
               "under load; a low idle gen is normal power saving (exercise K2) |",

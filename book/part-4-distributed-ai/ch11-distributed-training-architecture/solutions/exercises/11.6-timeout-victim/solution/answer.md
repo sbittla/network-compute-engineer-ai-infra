@@ -11,8 +11,8 @@ size mismatch after a code-path divergence).
 
 **Two artifacts that identify the faulty rank.**
 
-1. **NCCL flight-recorder dumps from every rank** (PyTorch's `TORCH_NCCL_TRACE_BUFFER_SIZE`, dumped on
-   timeout): compare the last `SeqNum` and op type per rank; the rank whose sequence number is lowest,
+1. **NCCL flight-recorder dumps from every rank** (PyTorch's `TORCH_FR_BUFFER_SIZE`, legacy
+   `TORCH_NCCL_TRACE_BUFFER_SIZE`; dumped on timeout with `TORCH_NCCL_DUMP_ON_TIMEOUT=1`): compare the last `SeqNum` and op type per rank; the rank whose sequence number is lowest,
    or whose op differs, is the culprit.
 2. **`py-spy dump` stacks of all ranks**, taken before the restart: the healthy ranks sit in the
    collective; the faulty one is somewhere else (data loader, checkpoint I/O, a deadlock) — or absent.

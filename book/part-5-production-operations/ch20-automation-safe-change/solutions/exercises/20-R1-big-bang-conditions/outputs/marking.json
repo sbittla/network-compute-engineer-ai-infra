@@ -1,0 +1,21 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer, at most 150 words, naming specific missing evidence.",
+  "id": "20-R1",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Conditions: reversible in seconds, validated in an identical lab under load, idle fleet, tail cost accepted by owner",
+      "points": 3
+    },
+    {
+      "criterion": "Specific evidence: lab results, rehearsed revert time, idle-fleet confirmation",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "When to accept a big bang",
+  "type": "reflection"
+}

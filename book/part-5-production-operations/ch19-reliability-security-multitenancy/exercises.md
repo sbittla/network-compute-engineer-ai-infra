@@ -5,7 +5,7 @@ host · L3 multi-node RDMA lab partition. Reliability numbers use the Reference 
 ≈ 1,536 node-hours, restart overhead ≈ 15 min `[ILLUSTRATIVE]`. Answers: `solutions/exercises-key.md`.
 
 **Chapter deliverable (course outline):** **risk register** (M1), **isolation model** (M2), and
-**recovery test plan** (M3); plus the Section 20.1 evidence pack from the 512-node incident (M4 / Lab 19):
+**recovery test plan** (M3); plus the course-outline §20.1 evidence pack from the 512-node incident (M4 / Lab 19):
 failure timeline, rank-to-hardware mapping, health decision, checkpoint/restore validation, recovery
 metrics, and postmortem.
 
@@ -23,7 +23,7 @@ metrics, and postmortem.
 
 **K3 ★★ L1 — Reading Xids.** A node logs Xid 13 in one job, Xid 79 the next day, and Xid 94 the week
 after. For each: hardware or application? What do you do with the node?
-*Evidence required:* classification and action per code, citing Table 19.3, with the vendor-document
+*Evidence required:* classification and action per code, citing Table 19.4, with the vendor-document
 caveat.
 
 **K4 ★ L1 — PCIe evidence.** Distinguish correctable, uncorrectable non-fatal, and fatal AER errors.
@@ -48,12 +48,19 @@ one H100-class GPU: memory isolation, fault isolation, performance isolation.
 shared RoCE fabric. Explain how B's job can still slow A's, and two mitigations.
 *Evidence required:* mechanism through shared links/PFC; two mitigations.
 
+**K9 ★★ L1 — Silent data corruption.** Training loss on a 512-node job spikes at step 41,200 and
+recovers slowly; there are no Xids, AER errors, link events, or NCCL warnings. Explain why none of the
+detectors in Tables 19.4–19.5 fired, how you would find the faulty node, and which checkpoint you
+restore.
+*Evidence required:* why SDC evades error-based detectors; two detection methods; the restore choice
+with its reason.
+
 ## Worked problems
 
 **W1 ★★ L1 — Checkpoint interval and restart overhead.**
 (a) For a 32-node ORION job (δ = 1 min blocking checkpoint cost, R = 15 min), compute τ_opt and goodput.
 (b) For a 512-node ORION-XL job at τ = 19 min, compute goodput with R = 15 min and with R = 5 min.
-(c) Convert the difference in (b) into GPU-hours per day and dollars per day at $3/GPU-h.
+(c) Convert the difference in (b) into GPU-hours per day and dollars per day at $3.00/GPU-h `[MODELED]` (≈ the Chapter 21 owned-cluster cost).
 *Evidence required:* Young's formulas with substitutions; results to 3 significant figures.
 
 **W2 ★★★ L1 — Retry budgets and spares.**
@@ -80,6 +87,7 @@ maintenance reboot of orion-n10 yesterday. Evidence `[ILLUSTRATIVE]`:
 ```text
 per-node SM active: 15 nodes 0.57, orion-n10 0.57    (no compute straggler)
 per-node backend NIC TX (Gb/s, 8 NICs summed): 15 nodes 1,050-1,080, orion-n10 985
+per-NIC peak TX during all-reduce bursts (1 s samples): orion-n10 mlx5_2 ≈ 205 Gb/s; its other NICs and all peers' NICs ≈ 370 Gb/s
 orion-n10 rdma statistic: out_of_sequence flat; rp_cnp_handled normal; link_downed 0
 orion-n10 journalctl -k | grep AER: 3,400 "Corrected error ... type=Physical Layer ... RxErr" since boot (others: 0-5)
 orion-n10 lspci -vvv -s 3b:00.0 (mlx5_2):  LnkCap: Speed 32GT/s, Width x16   LnkSta: Speed 32GT/s, Width x8 (downgraded)
@@ -138,7 +146,7 @@ SLIs, injection (dedicated lab partition only), abort criteria, observations, pa
 controls; **and a tabletop run report** — walk the plan with the owning teams, record for each injection
 the expected vs "discovered" behaviour, the gaps found, and the follow-up actions.
 
-**M4 ★★★ L1 — 512-node incident (Section 20.1).** Given the synthetic 512-node training incident with
+**M4 ★★★ L1 — 512-node incident (course-outline §20.1).** Given the synthetic 512-node training incident with
 one flaky HCA, one GPU ECC fault, and an NCCL timeout (Lab 19), correlate logs and telemetry, identify
 the smallest failure domain, quarantine the suspect component, and produce a safe restart plan.
 Distinguish proven cause from correlation. Submit the failure timeline, rank-to-hardware mapping, health

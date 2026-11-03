@@ -1,0 +1,29 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer (2–5 sentences) that names the mechanism, not just the term.",
+  "id": "20-K6",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Proceed: full bake evidence and no condition breached, with a concrete example",
+      "points": 1
+    },
+    {
+      "criterion": "Hold: insufficient evidence (e.g. < 12 samples, telemetry gap), with a concrete example",
+      "points": 1
+    },
+    {
+      "criterion": "Abort: pre-declared condition breached (e.g. median busbw drop > 5 %), with a concrete example",
+      "points": 1
+    },
+    {
+      "criterion": "States that hold is not abort: no rollback, no progress, a human looks",
+      "points": 1
+    }
+  ],
+  "points": 4,
+  "tier": "L1",
+  "title": "Proceed, hold and abort",
+  "type": "knowledge-check"
+}

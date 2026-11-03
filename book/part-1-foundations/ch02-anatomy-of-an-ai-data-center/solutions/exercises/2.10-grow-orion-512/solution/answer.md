@@ -12,7 +12,7 @@ for the row; one more 300 kW CDU (600 kW in total); no structural work (1,200 kg
 | Option | GPU racks | Positions needed | IT max | Liquid / CDU | Floor | Verdict |
 |---|---:|---:|---:|---|---|---|
 | A: air-cooled HX8, 4 per rack | 16 | 21 | ≈ 742 kW | 492 kW / 82 % | 1,139 ✓ | ✗ rack count (21 > 19); tight on power |
-| B: DLC HX8, 5 per rack | 13 | 18 | ≈ 683 kW | 477 kW / 80 % | 1,326 ✗ | ✗ floor (Exercise 2.6) |
+| B: DLC HX8, 5 per rack | 13 | 18 | ≈ 673 kW | 470 kW / 78 % | 1,326 ✗ | ✗ floor (Exercise 2.6) |
 | C: DLC HX8, 4 per rack, support racks consolidated | 16 | 19 | ≈ 674 kW | 470 kW / 78.4 % | 1,139 ✓ | ✓ chosen, no CDU N+1 |
 
 Criteria: fits every hard limit; risk (margin left on power, cooling, floor); feed-loss behaviour;

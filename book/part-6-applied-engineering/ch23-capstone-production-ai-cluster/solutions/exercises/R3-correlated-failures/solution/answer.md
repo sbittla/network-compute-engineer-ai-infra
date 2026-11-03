@@ -1,6 +1,6 @@
 # R3 — Correlated failures and the optimal checkpoint interval (model answer)
 
-**Source:** manuscript Section 23.5 ("The goodput cost of failures"), Section 23.10 Step 7; key R3.
+**Source:** manuscript Section 23.5 ("The goodput cost of failures", "Correlated failures"), Section 23.10 Step 7; key R3.
 
 **Model answer (≈ 130 words).** Young's τ ≈ sqrt(2·δ·M) assumes independent failures at a constant rate.
 On ORION a realistic correlated mechanism is a bad NIC firmware rollout: once deployed to all 32 nodes,

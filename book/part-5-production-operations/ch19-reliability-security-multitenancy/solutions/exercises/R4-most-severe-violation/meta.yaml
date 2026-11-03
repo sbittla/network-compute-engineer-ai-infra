@@ -12,6 +12,6 @@ marking:
   points: 1
 - criterion: 'Reasons from blast radius: cross-tenant data access; cluster-admin covers all Secrets and all nodes'
   points: 1
-- criterion: Cites data/tenants.yaml and Section 19.8 or Table 19.7
+- criterion: Cites data/tenants.yaml and Section 19.8 or Table 19.8
   points: 1
 lab_checks: []

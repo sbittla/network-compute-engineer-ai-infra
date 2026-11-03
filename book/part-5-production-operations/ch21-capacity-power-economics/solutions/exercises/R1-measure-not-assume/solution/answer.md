@@ -18,7 +18,7 @@ Choose inputs by how much they move a *decision*, not by how uncertain they feel
    median step time and mean power. Measure node base power at the PDU/BMC (Redfish) with GPUs idle
    and at each cap. Repeat on several nodes, because the curve varies per GPU.
 3. **Allocation and fragmentation factors (0.85 target, 5 % fragmentation, `assumptions.yaml`).**
-   Allocation 0.85 → 0.75 moves cost per useful GPU-hour by +13 % (Table 21.2), more than any price
+   Allocation 0.85 → 0.75 moves cost per useful GPU-hour by +13 % (Table 21.4), more than any price
    input. *Measure:* a quarter of scheduler accounting, giving allocated GPU-hours over usable GPU-hours,
    plus the free-GPU histogram at the moments the head-of-queue job waits. That histogram measures
    fragmentation directly (Section 21.11).

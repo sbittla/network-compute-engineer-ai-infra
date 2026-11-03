@@ -14,7 +14,7 @@ parallelism (TP 8) keeps its traffic inside the node. `[MODELED]`
 **Method.**
 
 1. NIC bytes = DP + PP = 7.66 GB + 2.15 GB = **9.81 GB** per GPU per step.
-2. Ratio = 1.20 × 10¹² B / 9.81 × 10⁹ B = **122.3** (the manuscript rounds to ≈ 123×; the prompt says
+2. Ratio = 1.20 × 10¹² B / 9.81 × 10⁹ B = **122.3** (the manuscript rounds to ≈ 122×; the prompt says
    "roughly 120×").
 3. Against DP alone: 1.20 × 10¹² / 7.66 × 10⁹ = **156.7** (≈ 157×).
 

@@ -12,8 +12,11 @@ from __future__ import annotations
 
 import argparse
 import copy
+import filecmp
 import importlib.util
+import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 from types import ModuleType
@@ -46,6 +49,38 @@ EXPECTED_FLAWED: dict[str, set[tuple[str, str]]] = {
 }
 
 
+# Diagnostic hints for the commonest mistakes. A hint is printed when that finding is missing
+# (on the flawed bundle) or when a rule fires where it should not (on either bundle).
+HINTS_MISSING: dict[tuple[str, str], str] = {
+    ("POWER-001", "bom.yaml:racks.rack-07"): "use node *max* power (10.2 kW), not sustained 8.5 kW",
+    ("POWER-001", "bom.yaml:racks.rack-08"): "use node *max* power (10.2 kW), not sustained 8.5 kW",
+    ("CABLE-001", "bom.yaml:cables.backend_400g"):
+        "derive cables as leaves x (downlinks + uplinks) from topology.yaml, not from the BOM",
+    ("PORT-002", "topology.yaml:claimed_oversubscription"):
+        "compare parse_ratio(claim) with downlinks / uplinks (tolerance 0.01)",
+    ("GPU-002", "assumptions.yaml:workload.parallelism"):
+        "TP x PP x DP must equal workload.total_gpus",
+    ("EVID-003", "benchmarks.md:B-02"): "treat '-', 'n/a' and '' as a missing manifest",
+    ("XREF-001", "design.md:A-12"): "collect IDs from assumptions, benchmarks, FDs and SLOs",
+    ("COMP-001", "design.md:Failure exercise"): "match '## <Section>' headings exactly",
+}
+HINTS_EXTRA: dict[str, str] = {
+    "GPU-001": "count declared spares: (nodes - spares) x gpus_per_node",
+    "PORT-004": "rail-leaf downlinks are compared with the BOM node count, not with 32",
+    "FD-001": "a SPOF with redundancy 'none' but a real mitigation is not FD-001",
+    "NUM-001": "skip headings and lines that carry an inline label or an A-/B-/FD-/SLO- ID",
+    "EVID-004": "a MEASURED L1 row is legitimate when its unit is not a physical-performance unit",
+    "EVID-002": "'VENDOR-SPEC, YYYY-MM' is a valid label",
+}
+
+
+def hints(got: set, want: set) -> str:
+    """Return ' | hint: ...' for the known mistakes visible in this diff, else ''."""
+    out = [HINTS_MISSING[k] for k in sorted(want - got) if k in HINTS_MISSING]
+    out += [HINTS_EXTRA[r] for r in sorted({r for r, _ in got - want}) if r in HINTS_EXTRA]
+    return (" | hint: " + "; ".join(dict.fromkeys(out))) if out else ""
+
+
 def load_impl(impl: str) -> ModuleType:
     path = (HERE / "starter" / "design_lint.py") if impl == "starter" else (
         HERE.parent / "solutions" / "lab" / "design_lint.py")
@@ -76,9 +111,11 @@ def make_rule_check(name: str) -> Callable[[ModuleType], str]:
         flawed, clean = m.load_bundle(FLAWED), m.load_bundle(CLEAN)
         got = keys(fn(flawed))
         want = EXPECTED_FLAWED[name]
-        assert got == want, f"flawed bundle: {diff_msg(got, want)}"
+        assert got == want, (f"flawed bundle: {len(got & want)} of {len(want)} planted finding(s); "
+                             f"{diff_msg(got, want)}{hints(got, want)}")
         fp = keys(fn(clean))
-        assert not fp, f"false positives on the clean reference bundle: {sorted(fp)}"
+        assert not fp, (f"false positives on the clean reference bundle: {sorted(fp)}"
+                        f"{hints(fp, set())}")
         for f in fn(flawed):
             assert f["severity"] == m.RULES[f["rule"]][0], f"wrong severity on {f}"
             assert f.get("message"), f"empty message on {f}"
@@ -125,7 +162,12 @@ def check_edge_cases(m: ModuleType) -> str:
     b["slos.yaml"] = None
     got = keys(m.check_completeness(b))
     assert ("COMP-001", "slos.yaml") in got, f"missing file not reported: {sorted(got)}"
-    return "spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file"
+
+    b = copy.deepcopy(base)                       # MEASURED row citing a manifest that is not in the bundle
+    b["benchmarks.md"] = b["benchmarks.md"].replace("manifests/l1-laptop.yaml", "manifests/l1-missing.yaml")
+    got = keys(m.check_evidence(b))
+    assert got == {("EVID-003", "benchmarks.md:B-06")}, f"dangling manifest not reported: {sorted(got)}"
+    return "spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file, dangling manifest"
 
 
 def check_run_lint_flawed(m: ModuleType) -> str:
@@ -158,7 +200,30 @@ def check_report(m: ModuleType) -> str:
     return "report lists every finding and the gate verdict"
 
 
-CHECKS: list[Callable[[ModuleType], str]] = [make_rule_check(n) for n in EXPECTED_FLAWED] + [
+class CheckSkipped(Exception):
+    """Raised when a check cannot run in this copy of the lab (reported as SKIP, not FAIL)."""
+
+
+def check_data_regenerates(m: ModuleType) -> str:  # noqa: ARG001 -- independent of the impl
+    """The committed bundles must equal a fresh run of the generator (instructor copy only)."""
+    gen = HERE / "tools" / "generate_bundles.py"
+    if not gen.exists():
+        raise CheckSkipped("generator not shipped in the student release (instructor copy only)")
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run([sys.executable, "-B", str(gen), "--out", tmp], check=True,
+                       capture_output=True)
+        committed = sorted(p.relative_to(DATA) for p in DATA.rglob("*") if p.is_file())
+        fresh = sorted(p.relative_to(tmp) for p in Path(tmp).rglob("*") if p.is_file())
+        differ = [str(r) for r in committed
+                  if not (Path(tmp) / r).exists()
+                  or not filecmp.cmp(DATA / r, Path(tmp) / r, shallow=False)]
+        extra = [str(r) for r in fresh if r not in committed]
+    assert not differ and not extra, f"data/ differs from the generator: {differ + extra}"
+    return f"{len(committed)} committed files byte-identical to a fresh generator run"
+
+
+CHECKS: list[Callable[[ModuleType], str]] = [check_data_regenerates] + [
+    make_rule_check(n) for n in EXPECTED_FLAWED] + [
     check_edge_cases, check_run_lint_flawed, check_run_lint_clean, check_report]
 
 
@@ -173,12 +238,15 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001 -- report, never traceback
         print(f"FAIL import  could not import {args.impl} implementation: {exc!r}")
         return 1
-    passed = todo = failed = 0
+    passed = todo = failed = skipped = 0
     for chk in CHECKS:
         try:
             msg = chk(mod)
             print(f"PASS {chk.__name__:26s} {msg}")
             passed += 1
+        except CheckSkipped as exc:
+            print(f"SKIP {chk.__name__:26s} {exc}")
+            skipped += 1
         except NotImplementedError as exc:
             print(f"TODO {chk.__name__:26s} {exc}")
             todo += 1
@@ -188,9 +256,9 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             print(f"FAIL {chk.__name__:26s} {type(exc).__name__}: {exc}")
             failed += 1
-    print(f"\n{passed}/{len(CHECKS)} passed, {todo} TODO, {failed} failed "
-          f"(impl={args.impl}) in {time.perf_counter() - t0:.2f} s")
-    return 0 if passed == len(CHECKS) else 1
+    print(f"\n{passed}/{len(CHECKS) - skipped} passed, {skipped} skipped, {todo} TODO, "
+          f"{failed} failed (impl={args.impl}) in {time.perf_counter() - t0:.2f} s")
+    return 0 if passed + skipped == len(CHECKS) else 1
 
 
 if __name__ == "__main__":

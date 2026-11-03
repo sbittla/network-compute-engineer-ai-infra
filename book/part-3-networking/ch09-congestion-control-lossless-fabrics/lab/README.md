@@ -60,7 +60,9 @@ Python 3.10 or newer.
 Counter semantics follow switch conventions: on a port, `tx_*` is what *this* port sends toward its
 peer. A non-zero `pfc_tx_p3` means this port asked its peer to stop sending priority 3 (the port's
 ingress was filling); `pfc_rx_p3` means the peer asked this port to stop transmitting. The column
-names are generic; Section 9.8 maps them to real NIC and switch counter families.
+names are generic; Section 9.8 maps them to real NIC and switch counter families. Cumulative counters
+include history from before the 600 s window (for example a few old `discards_tc3` on some ports): only
+deltas inside the window matter, and a constant non-zero value is not a new discard.
 
 > **Pitfall:** the dataset is realistic, so it is not clean. Expect at least one counter that goes
 > *backwards* and at least one device with missing samples.
@@ -72,7 +74,7 @@ Implement the functions marked `TODO` in `starter/congestion_lab.py`. Helpers `l
 
 | # | Function(s) | Acceptance criterion |
 |---|---|---|
-| 1 | `counters_to_rates` | First sample NaN; gaps divided by true elapsed time; a negative delta (counter cleared) yields NaN, never a negative or invented rate. |
+| 1 | `counters_to_rates` | First sample NaN; gaps divided by true elapsed time; a negative delta (counter cleared, or a 32-bit counter wrapped) yields NaN, never a negative or invented rate. Policy: the lab's counters are 64-bit, so a negative delta is treated as a reset. On a real 32-bit counter you may unwrap (delta + 2³²) only if one wrap is possible in the interval (2³² frames at the counter's maximum rate takes longer than the sample period); otherwise keep NaN. |
 | 2 | `detect_episodes` | Hot = TC3 watermark ≥ 1,000 KB, or pause tx/rx ≥ 100 frames/s. Merge hot timestamps ≤ 6 s apart. A port that is merely busy (near line rate, shallow queue, ECN marks, no pause) must **not** produce an episode. |
 | 3 | `classify_episode`, `find_roots` | Each episode labelled `incast`, `pause_propagation`, `pfc_storm`, or `unclassified` using the ordered rules in the docstring. A root is congested at ≥ 90 % of line rate and is *not* itself receiving pause. |
 | 4 | `find_storm_source` | Names the device generating the storm as `node:nic`, confirmed from the NIC's own counters. |
@@ -94,7 +96,7 @@ narrative (which hypothesis you rejected and why), the experiment plan, and the 
 
 | Config | PFC | ECN Kmin / Kmax / Pmax | Meaning |
 |---|---|---|---|
-| `A_as_found` | on (Xoff 1,000 KB, Xon 800 KB) | 1,500 / 6,000 KB / 0.2 | `orion-be-leaf-r3` as found in the snapshot |
+| `A_as_found` | on (aggregate Xoff-equivalent 1,000 KB, Xon 800 KB) | 1,500 / 6,000 KB / 0.2 | `orion-be-leaf-r3` as found in the snapshot |
 | `B_template` | on (same) | 150 / 1,500 KB / 0.2 | the fabric template |
 | `C_lossy` | off | 150 / 1,500 KB / 0.2 | lossy RoCE comparison (best-case selective retransmission after 20 µs; see manuscript Section 9.10) |
 
@@ -190,7 +192,27 @@ switch queue, ECN marking or PFC, so the measurement teaches the method, not fab
 Not runnable on the harness: RDMA NIC PFC/ECN/CNP counters, and the L3 RDMA incast with ECN threshold A/B
 on a lab leaf.
 
-The CPU fallback is identical (the experiment does not use the GPU).
+**Optional ECN-marking variant (manual, not part of the committed evidence).** Loopback has no queue that
+marks, so to see the chapter's mechanism on one Linux host, put the incast on a veth pair with a RED qdisc
+that marks instead of dropping, and turn on ECN for TCP (root, a lab VM only):
+
+```bash
+sudo sysctl -w net.ipv4.tcp_ecn=1
+sudo ip netns add rx && sudo ip link add v0 type veth peer name v1 && sudo ip link set v1 netns rx
+sudo ip addr add 10.9.0.1/24 dev v0 && sudo ip link set v0 up
+sudo ip netns exec rx ip addr add 10.9.0.2/24 dev v1 && sudo ip netns exec rx ip link set v1 up
+sudo tc qdisc add dev v0 root handle 1: tbf rate 1gbit burst 64kb latency 50ms
+sudo tc qdisc add dev v0 parent 1:1 red limit 4mb min 100kb max 1mb avpkt 1500 burst 200 probability 0.2 ecn
+tc -s qdisc show dev v0        # "marked" grows with queue depth; compare runs at N = 1, 2, 4, 8 senders
+```
+
+Record the `marked` and `backlog` values per N alongside FCT: it is the Kmin/Kmax/Pmax profile of
+Section 9.3 in software, not RoCE behaviour.
+
+The CPU fallback is identical (the experiment does not use the GPU). The `gpu-<model>/` report header
+names the GPU only because the harness labels each bundle by the device it detected. Every value in
+both bundles is a `[MEASURED]` host TCP-stack result on the i7-13700HX under WSL2; the GPU is present but
+unused.
 
 **Observed on the reference run.** `lab/l2/results/` holds the committed evidence bundles
 (`environment.json`, `results.json`, `report.md`) from the course's reference host: a laptop GeForce RTX

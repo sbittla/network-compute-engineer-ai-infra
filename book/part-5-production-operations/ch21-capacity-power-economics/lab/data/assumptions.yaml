@@ -10,10 +10,11 @@ reserves:
   fragmentation: 0.05                   # GPUs free but unusable for gang-scheduled jobs (Chapter 17)
 target_allocation: 0.85                 # plan so that demand <= 85 % of usable GPUs (queueing headroom)
 goodput: 0.88                           # useful fraction of allocated GPU time (Chapters 18-19)
-lead_time_quarters: {gpus: 2, network: 1, facility_power: 4}
+lead_time_quarters: {gpus: 2, network: 1, facility_power: 4}      # order -> IN SERVICE (incl. acceptance, burn-in)
+onboarding_quarters: {gpus: 0, network: 0, facility_power: 0}     # extra dock-to-schedulable time; set > 0 if quotes are order-to-dock
 prices:
   amortization_years: 4
-  electricity_usd_per_kwh: 0.09
+  electricity_usd_per_kwh: 0.08
   pue: 1.25                             # canonical ORION hall (liquid-assisted)
   colo_usd_per_kw_month: 130            # on provisioned IT kW
   support_fraction_of_hw_capex: 0.08    # per year

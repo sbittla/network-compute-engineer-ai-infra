@@ -95,13 +95,15 @@ def main() -> None:
 
     # Key (solutions/exercises-key.md, H1/O1 table), tolerances stated per value.
     r = v["incast"]["root leaf-r3 eth1/5"]
-    assert r["tx_gbps"] > 390 and 2900 <= r["q_tc3_max_kb"] <= 3300 and r["pfc_rx_p3_rate"] == 0
-    assert 600e3 <= r["ecn_marked_tc3_rate"] <= 750e3            # ≈ 0.67 M marks/s (median)
-    assert 2500 <= v["incast"]["sender port leaf-r3 eth1/1"]["pfc_tx_p3_rate"] <= 6000
+    # As-found leaf-r3: PFC holds the queue near the 1,000 KB Xoff-equivalent; marks only on peaks.
+    assert r["tx_gbps"] > 390 and 1300 <= r["q_tc3_max_kb"] <= 1550 and r["pfc_rx_p3_rate"] == 0
+    assert r["ecn_marked_tc3_rate"] < 50e3                        # median 0: sporadic marking
+    assert 14000 <= v["incast"]["sender port leaf-r3 eth1/1"]["pfc_tx_p3_rate"] <= 21000
     assert v["incast"]["leaf-r3 uplink eth1/33"]["pfc_tx_p3_rate"] < 100   # no fabric-port pause
-    assert 350e3 <= v["incast"]["orion-n05 mlx5_3 (NP)"]["cnp_sent_rate"] <= 450e3
+    assert v["incast"]["orion-n05 mlx5_3 (NP)"]["cnp_sent_rate"] < 5e3          # little DCQCN feedback
     p = v["pause_propagation"]
     assert p["root leaf-r3 eth1/10"]["tx_gbps"] > 390 and p["root leaf-r3 eth1/10"]["pfc_rx_p3_rate"] == 0
+    assert 1050 <= p["root leaf-r3 eth1/10"]["q_tc3_max_kb"] <= 1700
     assert 6000 <= p["leaf-r3 uplink eth1/33 (to spine-1)"]["pfc_tx_p3_rate"] <= 10000
     sp = p["spine-1 eth1/25 (to leaf-r3)"]
     assert sp["pfc_rx_p3_rate"] > 1000 and sp["ecn_marked_tc3_rate"] > 5e6 and sp["q_tc3_max_kb"] > 1500

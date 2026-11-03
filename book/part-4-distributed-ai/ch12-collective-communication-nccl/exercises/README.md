@@ -23,7 +23,8 @@ One folder per exercise in [../exercises.md](../exercises.md). Each folder holds
 | [12.17](12.17-simulation-blind-spots/) | What the simulated sweep cannot show | Reflection | ★★ | L1 | written |
 | [12.18](12.18-misalignment-in-production/) | Why misalignment costs more in production | Reflection | ★★ | L1 | written |
 | [12.19](12.19-nccl-log-as-evidence/) | Making a nccl-tests log admissible evidence | Reflection | ★ | L1 | written |
+| [12.20](12.20-alltoall-pxn/) | All-to-all and PXN on ORION | Worked problem | ★★ | L1 | computed |
 
 Kinds: `computed` (numeric or algorithmic answer), `lab` (completed by doing the lab), `written` (reasoning, design, reflection).
 
-Exercise count: 19
+Exercise count: 20

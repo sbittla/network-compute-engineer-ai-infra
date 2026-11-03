@@ -1,6 +1,6 @@
 # 4.14 — p99 latency tripled after a release (model answer)
 
-Relies on manuscript Section 4.6 (Table 4.2a: allocator paths that synchronize), Section 4.10 (nsys) and
+Relies on manuscript Section 4.6 (Table 4.3: allocator paths that synchronize), Section 4.10 (nsys) and
 Section 4.14 (troubleshooting method). The capture is `[ILLUSTRATIVE]`.
 
 ## Reading the evidence

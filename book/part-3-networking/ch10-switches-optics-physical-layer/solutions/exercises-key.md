@@ -35,7 +35,7 @@ t = 30/2 = **15** correctable symbols; 544 × 10 = **5,440 bits**.
 If the FCS turns out to be bad, it cannot recall the frame, so it replaces the outgoing FCS with a
 known-bad value ("stomps" it) so the next hop drops it. The next hop then counts an FCS error on a
 link whose own physical layer is perfect. The localizing counter is **FEC-uncorrectable codewords
-(and symbol errors) on the ingress port of the upstream switch** where the corruption entered —
+(with elevated pre-FEC symbol errors / BER) on the ingress port of the upstream switch** where the corruption entered —
 those do not propagate. Some platforms also expose a separate "stomped CRC" counter. Marking:
 mechanism (2), why healthy link shows errors (1), localizing counter + device (2).
 
@@ -124,8 +124,8 @@ Reference: `python lab/check.py --impl solution` → 13/13. Digest of per-port c
 | Port | Planted condition | Expected layer / primary (all findings) | Teaching point |
 |---|---|---|---|
 | Ethernet2 | **Decoy:** counters cleared 240 s before T1 (all T1 counters < T0) | healthy / HEALTHY | Naïve `t1 − t0` gives huge negative deltas; reset-aware delta needed. Rates for that port are underestimated (only 240 s of data) — say so. |
-| Ethernet7 | Dirty MPO end-face: lane 2 Rx −7.8 dBm, others ≈ −1.4 dBm; BER 2.6e-6 stable | physical / RX_POWER_LOW (+LANE_IMBALANCE), critical | −7.8 dBm is below the −5.9 dBm DR4 receiver minimum (policy critical), even though the module's own −9 dBm alarm has not fired; inspect/clean both ends. |
-| Ethernet12 | Congestion: 18,342 discards, 16,000 ECN marks/s, 3,500 PFC pause tx/s; FEC/CRC/DOM clean | higher_layer / CONGESTION, refer | Looks terrible, is not physical: hand to Chapter 9 (incast on node n12's downlink). |
+| Ethernet7 | Dirty MPO end-face: lane 2 Rx −7.8 dBm, others ≈ −1.4 dBm; BER 2.6e-6 stable | physical / RX_POWER_LOW (+LANE_IMBALANCE), critical | −7.8 dBm is below the −5.9 dBm DR4 receiver minimum (policy critical), even though the module's own −9 dBm alarm has not fired; inspect/clean both ends. The planted BER is deliberately optimistic: 2.6e-6 is the port aggregate over four lanes, so lane 2 alone runs at ≈ 4 × 2.6e-6 ≈ 1e-5. That suits a typical receiver with a few dB of margin over the spec, but the −5.9 dBm limit only guarantees ≤ 2.4e-4 for a worst-case receiver, which at −7.8 dBm could already be past the FEC cliff. Act on the Rx power, not on the comfortable BER. |
+| Ethernet12 | Congestion: 18,342 discards, 16,000 ECN marks/s, 3,500 PFC pause tx/s; FEC/CRC/DOM clean | higher_layer / CONGESTION, refer | Looks terrible, is not physical: hand to Chapter 9. Read the directions as Chapter 9 teaches: discards and ECN on Ethernet12's egress mean n12 is an incast destination, and pause *tx* on Ethernet12 means the leaf is also pausing n12's own NIC (its ingress is filling because n12 sends into congested ports, as in an all-to-all). n12 is both a destination and a paused sender. |
 | Ethernet18 | **Decoy:** busy port, BER 6.5e-7, ≈ 1.5 × 10⁸ corrected CW in window, ECN 400/s, PFC 60/s | healthy | Corrected codewords and ECN marks are normal; under policy limits. |
 | Ethernet21 | Pre-FEC BER rising 4.0e-6 → 1.6e-4 (0.18 decades margin), no uncorrectables yet, Rx ≈ −3.4 dBm (above the −4.0 dBm policy warning) | physical / PRE_FEC_BER_HIGH (+RISING), critical (≥ 1e-4 policy) | Trend matters; Table 10.1 says ≈ 1 uncorrectable per 80 days *now*, but the trend crosses the cliff soon. Compare NIC-side Tx/bias (far-end laser) then drain now (host link: coordinate a node drain through the scheduler), then clean/replace. |
 | Ethernet27 | Port MTU left at 1500; 45,210 oversize frames from 9000-byte host frames | higher_layer / OVERSIZE_FRAMES, refer | Configuration (Chapter 7), not optics. |
@@ -225,15 +225,17 @@ acceptance thresholds equal to alert thresholds.
 
 | Port | Layer | Cause | First safe action | Further evidence |
 |---|---|---|---|---|
-| P1 | Higher-layer | Congestion (discards + 1,833 PFC pause/s; FEC/FCS clean; BER stable) | Hand to Chapter 9 congestion workflow | Queue depth, ECN marks, which flows (incast?) |
+| P1 | Higher-layer | Congestion (discards on egress = incast toward the host; 1,833 PFC pause tx/s = the leaf also pauses the host as a sender; FEC/FCS clean; BER stable) | Hand to Chapter 9 congestion workflow | Queue depth, ECN marks, which flows (incast?) |
 | P2 | Physical | Bursty corruption: uncorrectables + FCS at moderate BER, DOM normal → reflection / damaged connector / intermittent cable | Drain; inspect/clean both ends; swap cable, then optic | FEC histogram tail; far-end counters |
-| P3 | Physical *elsewhere* (not this link) | FCS errors without uncorrectables or symbol errors, clean BER → stomped frames from upstream (cut-through) | Do not touch this link; find upstream port with uncorrectables | Upstream switch ingress FEC-uncorrectable counters; stomped-CRC counter if available |
+| P3 | Physical *elsewhere* (not this link) | FCS errors > 0 with uncorrectables = 0 and pre-FEC BER < 1 × 10⁻⁵ (the warn threshold; here 2.0e-8, 4.1 decades of margin, and 5.1 × 10⁶ pre-FEC corrected bits = BER × 425 × 10⁹ × 600, i.e. nothing beyond the normal raw rate) → stomped frames from upstream (cut-through) | Do not touch this link; find upstream port with uncorrectables | Upstream switch ingress FEC-uncorrectable counters; stomped-CRC counter if available |
 | P4 | Physical | Flapping link (5 events); the small FEC/FCS counts are side effects of transitions | Drain; reseat/inspect; check firmware and far end; replace optic if it repeats | Link up/down syslog timestamps, far-end logs, DOM history |
 | P5 | Physical (critical) | One lane at −6.8 dBm, below the −5.9 dBm receiver minimum and 4.7 dB below siblings, + BER up 45× in 7 days → contamination/damage on one MPO fiber, worsening | Drain now (host link: via scheduler); inspect/clean both ends; replace jumper | Far-end per-lane Tx; FEC histogram |
 | P6 | Higher-layer | Giants only → MTU mismatch (port MTU < host frame size) | Compare port vs host MTU (Chapter 7) | Port config, host `ip link` MTU |
 
 Margins: P2 log10(2.4e-4 / 4.0e-5) = log10(6) = **0.78 decades**; P5 log10(2.4e-4 / 9.0e-5) =
-log10(2.67) = **0.43 decades**. P5's lane imbalance: −6.8 vs ≈ −2.1 dBm → 4.7 dB. Marking: 1 point
+log10(2.67) = **0.43 decades**. The pre-FEC corrected-bits column is consistent with each port's BER
+(≈ BER × 425 × 10⁹ b/s × 600 s), so it adds no independent evidence; post-FEC symbol errors would be
+the counter that must be zero. P5's lane imbalance: −6.8 vs ≈ −2.1 dBm → 4.7 dB. Marking: 1 point
 per row, 1 per margin. Common mistakes: calling P1 physical because of "errors"; replacing P3's cable.
 
 **10.M3 — Small fabric estimate (24 nodes).**

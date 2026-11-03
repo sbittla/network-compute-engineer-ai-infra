@@ -290,7 +290,9 @@ def check_isolation(tenants: dict[str, Any], policy: dict[str, Any]) -> set[tupl
     """Return the set of (tenant, code) violations. Codes:
     RBAC_FORBIDDEN_ROLE, SHARED_VRF / SHARED_VNI / SHARED_IB_PKEY / SHARED_FRONTEND_VLAN (both tenants),
     STORAGE_OVERLAP (the tenant whose export contains or equals another tenant's export),
-    GPU_SHARING_NOT_MIG, NO_SCRUB, SECRETS_SCOPE, AUDIT_RETENTION."""
+    GPU_SHARING_NOT_MIG, NO_SCRUB, SECRETS_SCOPE, AUDIT_RETENTION,
+    GPU_INJECTION_BYPASS (PSA level not allowed, a privileged tenant pod, or a pod that sets
+    NVIDIA_VISIBLE_DEVICES without a GPU request: device access outside the device plugin)."""
     ts = tenants["tenants"]
     out: set[tuple[str, str]] = set()
     for t in ts:
@@ -306,6 +308,9 @@ def check_isolation(tenants: dict[str, Any], policy: dict[str, Any]) -> set[tupl
             out.add((t["name"], "SECRETS_SCOPE"))
         if t["audit"]["retention_days"] < policy["min_audit_retention_days"]:
             out.add((t["name"], "AUDIT_RETENTION"))
+        ps = t.get("pod_security", {})
+        if ps.get("psa_enforce") not in policy.get("psa_levels_allowed", [ps.get("psa_enforce")]) or                 (policy.get("forbid_privileged_tenant_pods") and ps.get("privileged_pods")) or                 (policy.get("forbid_gpu_env_without_request") and ps.get("gpu_env_without_request")):
+            out.add((t["name"], "GPU_INJECTION_BYPASS"))
     for field in policy["unique_per_tenant"]:
         seen: dict[str, list[str]] = {}
         for t in ts:

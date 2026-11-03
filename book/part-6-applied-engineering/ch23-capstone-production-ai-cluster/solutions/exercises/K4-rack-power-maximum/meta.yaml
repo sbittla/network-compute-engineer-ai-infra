@@ -5,8 +5,8 @@ type: knowledge-check
 difficulty: 1
 tier: L1
 kind: written
-points: 4
-evidence_required: the reason plus two events
+points: 6
+evidence_required: the reason plus two events; the planned budget and node count with arithmetic
 marking:
 - criterion: 'Reason: the rack budget is a hard electrical limit (breaker/PDU rating) that trips on the worst case,
     not the average'
@@ -15,4 +15,6 @@ marking:
   points: 1
 - criterion: Second, distinct operational event, correctly explained
   points: 1
+- criterion: Planned budget 50 x 0.9 = 45 kW and floor(45 / 10.2) = 4 nodes, arithmetic shown
+  points: 2
 lab_checks: []

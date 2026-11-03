@@ -99,27 +99,40 @@ def main() -> int:
         if L["b"][0] == "nic":
             nic_extra[(L["b"][1], L["b"][2])] = {"cnp_sent": U(0, 50), "cnp_handled": U(0, 50)}
 
-    # --- incast at a leaf egress (Kmin 1500 KB on leaf-r3: watermark 2.6-3.6 MB -> p ~ 0.05-0.09)
+    # --- incast at a leaf egress on the AS-FOUND leaf-r3 (Kmin 1,500 KB above the 1,000 KB aggregate
+    # Xoff-equivalent). PFC holds the egress queue near Xoff plus the pause-response overshoot
+    # (1.0-1.7 MB, cf. the 1,660 KB simulated peak), so the queue only sporadically crosses Kmin:
+    # few marks, few CNPs, and the 12 senders are paused most of the time (pause tx ~14-21 k/s each,
+    # vs ~23.4 k/s for a continuous pause). Lossless conservation: 12 senders x ~33 Gb/s = drain.
+    # The number and order of RNG draws is unchanged, so every other series is byte-identical.
+    def red_marks(q: np.ndarray, u: np.ndarray, kmin: float = 1500.0, kmax: float = 6000.0,
+                  pmax: float = 0.2, pkts_per_s: float = 12e6) -> np.ndarray:
+        """ECN marks/s from the RED profile: zero below Kmin, linear to Pmax at Kmax (u adds +-20 %)."""
+        return np.where(q > kmin, (q - kmin) / (kmax - kmin) * pmax * pkts_per_s * (0.8 + 0.4 * u), 0.0)
+
     e = ep["incast"]
     m = mask("incast")
     L = link(e["leaf"], f"eth1/{e['dst_index'] + 1}")
     L["g"]["a"][m] = U(390, 398, m)
-    L["q"]["a"][m] = U(2600, 3600, m)
-    L["ecn"]["a"][m] = U(0.5e6, 1.0e6, m)
-    nic_extra[(host(e["dst_index"]), "mlx5_3")]["cnp_sent"][m] = U(3.5e5, 4.5e5, m)
+    q_root = U(1050, 1700, m)
+    L["q"]["a"][m] = q_root
+    L["ecn"]["a"][m] = red_marks(q_root, U(0.0, 1.0, m))
+    cnp_u = U(0.0, 1.0, m)
+    nic_extra[(host(e["dst_index"]), "mlx5_3")]["cnp_sent"][m] = np.where(q_root > 1500, 1.0e4 + 3.0e4 * cnp_u, 20 * cnp_u)
     for i in e["sender_indices"]:
         L = link(e["leaf"], f"eth1/{i + 1}")
-        L["g"]["b"][m] = U(70, 110, m)
-        L["p"]["a"][m] = U(2500, 6000, m)
-        nic_extra[(host(i), "mlx5_3")]["cnp_handled"][m] = U(2.0e4, 3.0e4, m)
+        L["g"]["b"][m] = U(31, 35, m)
+        L["p"]["a"][m] = U(14000, 21000, m)
+        nic_extra[(host(i), "mlx5_3")]["cnp_handled"][m] = U(0.0, 3.0e3, m)
 
     # --- cross-rail incast with pause propagation
     e = ep["pause_propagation"]
     m = mask("pause_propagation")
     L = link(e["root_leaf"], f"eth1/{e['dst_index'] + 1}")
     L["g"]["a"][m] = U(390, 398, m)
-    L["q"]["a"][m] = U(2800, 3800, m)
-    L["ecn"]["a"][m] = U(0.6e6, 1.1e6, m)
+    q_root = U(1050, 1700, m)                  # as-found leaf-r3 again: PFC holds the root near Xoff
+    L["q"]["a"][m] = q_root
+    L["ecn"]["a"][m] = red_marks(q_root, U(0.0, 1.0, m))
     nic_extra[(host(e["dst_index"]), "mlx5_3")]["cnp_sent"][m] = U(2.5e5, 3.5e5, m)
     for port in ("eth1/33", "eth1/41"):        # root leaf pauses the spines; spine egress > Kmax
         L = link(e["root_leaf"], port)

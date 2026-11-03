@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer, at most 150 words, naming specific missing evidence.",
+  "id": "20-R4",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Measured step time before/after on the real workload with repetitions, warm-up, one variable",
+      "points": 2
+    },
+    {
+      "criterion": "Counter evidence of the packet-rate reduction (NIC/switch)",
+      "points": 1
+    },
+    {
+      "criterion": "Evidence that the network is on the critical path; 5.9 % is a ceiling, overlap reduces it",
+      "points": 2
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Missing evidence for the RDMA MTU claim",
+  "type": "reflection"
+}

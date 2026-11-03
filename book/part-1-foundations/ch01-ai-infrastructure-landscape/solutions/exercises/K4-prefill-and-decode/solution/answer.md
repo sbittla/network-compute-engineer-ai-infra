@@ -11,8 +11,8 @@ NVLink bound (Step 6). Prefill produces the KV cache and the first output token,
 TP 8) plus the batch's KV cache (2.68 GB per GPU at batch 32 × 2,048 tokens) but performs only 2 FLOPs
 per parameter per sequence. Intensity is ≈ *B* FLOP/B (32 at batch 32, ≈ 28 with the KV cache), about a
 tenth of the 295 FLOP/B machine balance, so decode is **HBM-bandwidth-bound** (6.02 ms bound for a
-9.5 ms observed step) unless the batch is very large, and even then the KV cache caps intensity at
-≈ 209 FLOP/B at this context length. Decode sets TPOT.
+9.5 ms observed step). It stays memory-bound at any batch size at this context length: as *B* grows,
+the KV cache caps intensity at ≈ 209 FLOP/B, still below balance. Decode sets TPOT.
 
 **Common wrong answer:** "decode is compute-bound because it runs a GPU at high utilization": utilization
 counts any running kernel (K7).

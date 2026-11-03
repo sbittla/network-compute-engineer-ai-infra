@@ -6,7 +6,7 @@ difficulty: 2
 tier: L1
 kind: lab
 points: 100
-evidence_required: '`python check.py` output showing `9/9 checks passed`; the two reports per the lab
+evidence_required: '`python check.py` output showing `10/10 checks passed`; the two reports per the lab
   rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or `all_reduce_perf`
   results (≥ 5 repetitions, median and p95).'
 marking:
@@ -18,13 +18,14 @@ marking:
   points: 20
 - criterion: 'Task 6: diagnose_pending 12/12 (T6 pass)'
   points: 15
-- criterion: 'Task 7: placement-report.md — five pending jobs with reasons, fair-share/rail/lifecycle
-    effects, one policy change'
+- criterion: 'Task 7: placement-report.md — five pending jobs with reasons, J01 capacity-blocked after J05
+    (not fair share), rail and lifecycle effects, one policy change'
   points: 10
 - criterion: 'Task 8: pending-guide.md — each code mapped to real kubectl/Slurm commands and a safe fix
     with a ''do not'''
   points: 10
 lab_checks:
+- D0 dataset reproducible
 - T1 tolerates
 - T2 node_filter
 - T3 select_gpus

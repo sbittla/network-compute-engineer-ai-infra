@@ -5,7 +5,7 @@ Type: hands-on-lab · Kind: lab · Points: 100
 <!-- prompt:start -->
 **17-L1** ★★ L1 (L2/L3 extensions) — Complete [Lab 17](../../lab/README.md): implement
 `starter/orion_sched.py` Tasks 1–6 and write `placement-report.md` and `pending-guide.md`.
-*Evidence required:* `python check.py` output showing `9/9 checks passed`; the two reports per the lab
+*Evidence required:* `python check.py` output showing `10/10 checks passed`; the two reports per the lab
 rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or
 `all_reduce_perf` results (≥ 5 repetitions, median and p95).
 <!-- prompt:end -->

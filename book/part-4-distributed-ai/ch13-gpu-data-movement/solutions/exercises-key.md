@@ -6,7 +6,7 @@ Lab data are `[SIMULATED]`; analyses are `[MODELED]` unless stated. Numbers veri
 ## 13.1
 
 TP moves 1.20 TB per GPU per step over NVLink; DP + PP move 7.66 + 2.15 = 9.81 GB over the NIC;
-1.20e12 / 9.81e9 ≈ 123 (≈ 157 vs DP alone). Tensor parallelism's four collectives per layer per
+1.20e12 / 9.81e9 ≈ 122 (≈ 157 vs DP alone). Tensor parallelism's four collectives per layer per
 micro-batch cause it. Accept "≈ 120–160×" with arithmetic.
 
 ## 13.2
@@ -19,10 +19,15 @@ GDR-off difference.
 
 ## 13.3
 
-PIX: through at most one PCIe switch (same switch); PXB: through multiple PCIe switches but not a host
-bridge; PHB: through a PCIe host bridge (CPU root complex); SYS: across the inter-socket link. NCCL's
-default `NCCL_NET_GDR_LEVEL` enables GDR for close paths (PIX/PXB in typical releases) and not across
-SYS `[VENDOR-SPEC, 2026-10]` — accept "PIX and PXB, not SYS" with the label and a "verify" note.
+PIX: through a single PCIe switch; PXB: through several PCIe switches without crossing a host bridge;
+PHB: through a PCIe host bridge (the CPU); NODE: across host bridges within one NUMA node; SYS: across
+the inter-socket link. On ORION, GPU 0 ↔ NIC 2 (SW0 and SW1 on different root ports of socket 0)
+typically reports NODE; accept PHB if the answer states that both root ports sit under one host
+bridge. GPU 0 ↔ NIC 1 (same switch complex) is PXB on a two-level complex, PIX on a single
+switch; GDR is allowed either way. NCCL's default `NCCL_NET_GDR_LEVEL` is about PXB in recent releases, so PIX/PXB pairs use GDR
+and NODE/SYS pairs are host-staged `[VENDOR-SPEC, 2026-10]` — accept "PIX and PXB, not NODE/SYS" with
+the label and a "verify" note. Bonus: PXN can still reach a NODE/SYS NIC with GDR by forwarding over
+NVLink to the GPU that is PIX to it.
 
 ## 13.4
 
@@ -97,18 +102,26 @@ rail 2 flagged, onset 30; decoy [51]; amplification 334 GPU-s (17.3 %) for steps
 
 ## 13.13 One slow node in a TP job
 
-Hypotheses: (1) NVLink/NVSwitch path degraded on `orion-n09` after the reboot — fabric-management
-service not running or links down — so intra-node P2P falls back to PCIe/host paths (fits: TP-only,
-one node, after driver update); (2) NCCL topology misdetected (container/driver mismatch) choosing a
-non-NVLink transport; (3) GPU clocks low (rejected: clocks normal); (4) network (rejected: DP/PP
-normal). Tests: `nvidia-smi nvlink --status` (links inactive or fewer active); `nvidia-smi topo -m`
-(GPU↔GPU shows `NV18` when healthy vs a PCIe label); `systemctl status nvidia-fabricmanager` (or the
-platform's fabric-management service) `[VENDOR-SPEC, 2026-10]`; single-node `all_reduce_perf -g 8` on the
-node vs a peer (busbw ≈ 450 with NVLS assumed vs far lower); NCCL INFO shows non-NVLink P2P/SHM transports. Root
-cause (model): fabric-management service failed to start after the driver update (version mismatch).
-Fix: checkpoint, drain the node (a drain does not move the job), restart without it at reduced DP or wait for repair (ORION-256 has no spares); Fleet aligns service and driver versions under change control,
-reboot, acceptance tests. Validation: links active, single-node busbw within 5 % of fleet median,
-rejoin; job TP time on n09 within 5 % of median.
+Hypotheses: (1) **NVLink degraded on `orion-n09`** after the reboot — one GPU (or more) trained only
+6 of its 18 links, so its NVLink bandwidth is ≈ 1/3 and every TP collective on the node, gated by that
+GPU, takes ≈ 3× longer (fits: TP-only, one node, after a reboot); (2) **the container on n09 started
+without IPC/P2P access** (runtime configuration changed with the driver update), so NCCL falls back to
+the SHM transport through host memory — typically more than 5× slower `[ILLUSTRATIVE]`, so it fits less
+well than (1); (3) GPU clocks low (rejected: clocks and compute normal); (4) network (rejected: DP/PP,
+the inter-node traffic, normal everywhere); (5) Fabric Manager not running (rejected: on NVSwitch
+systems CUDA would report the GPUs as not ready, `cudaErrorSystemNotReady` / "system not yet
+initialized", so the job would have failed at start-up rather than run slowly — Section 13.2). Tests
+`[VENDOR-SPEC, 2026-10]`: `nvidia-smi nvlink --status -i <gpu>` (fewer links at the expected rate on the
+bad GPU); `nvidia-smi topo -m` (`NV6` instead of `NV18` on that GPU's row); `nvidia-smi nvlink -e` and
+DCGM NVLink CRC/replay/recovery fields (counts rising on the bad links); single-node
+`all_reduce_perf -g 8` on n09 vs a healthy peer (healthy: busbw above ≈ 400 GB/s with NVLS, ≈ 360–380 GB/s
+for a plain ring; n09 far lower); `NCCL_DEBUG=INFO` channel lines (`via P2P/CUMEM` when healthy; `via
+SHM` under hypothesis 2). Root cause (model): degraded NVLink on one n09 GPU after the reboot (link
+training failure or a marginal connector/NVSwitch port). Fix: checkpoint, drain the node (a drain does
+not move the job), restart without it at reduced DP or wait for repair (ORION-256 has no spares); Fleet
+reseats or repairs under change control, resets the GPU/node, reruns acceptance. Validation: 18 links
+active, `topo -m` shows `NV18`, NVLink error counters flat, single-node busbw within 5 % of the fleet
+median; after rejoining, job TP time on n09 within 5 % of the median.
 
 ## 13.14 Design (marking guidance)
 
@@ -120,14 +133,16 @@ arrival skew from collective duration minus post-arrival transfer or periodic al
 timestamps; alerts on robust z (≥ 6 in ≥ 25 % of a window), wait fraction > 10 %, rail-grouped
 retransmission ratios; trade-off defended.
 
-## 13.15–13.18 Reflection (guidance)
+## 13.15–13.18 Reflection (3 pts each, 1 pt per bullet element; splits in each exercise's `meta.yaml`)
 
-- 13.15: busy may mean slow (retransmissions, low burst rate), or simply that waiting ended and the
-  burst began; compare burst rate with line rate and transfer time with baseline.
-- 13.16: validate against the *maximum*, not per-rank improvement; fix all stragglers or measure the
-  rank's own compute and wait distribution, not just step time.
-- 13.17: missing samples, clock skew, counter wraps/resets, mixed intervals, interacting causes
-  (throttled GPU slowing TP peers), overlapping collectives.
-- 13.18: cross-socket NIC use, cross-rail placement, NUMA misbinding — idle benchmarks find spare
-  inter-socket/spine capacity; production adds contention and variance, which synchronous training
-  amplifies.
+- 13.15: (1) busy may mean slow (retransmissions, low burst rate); (2) or simply that waiting ended and
+  the burst began; (3) the test: burst rate vs line rate and transfer time vs baseline.
+- 13.16: (1) validate against the *maximum*, not per-rank improvement; (2) fix all stragglers or measure
+  the rank's own compute and wait distribution, not just step time; (3) a concrete criterion, e.g. rank
+  z < 3 and step time within 3 % of the ideal-step model.
+- 13.17: (1) three of: missing samples, clock skew, counter wraps/resets, mixed intervals, interacting
+  causes (throttled GPU slowing TP peers), overlapping collectives; (2) how each complicates diagnosis;
+  (3) one handling technique (NaN-tolerant robust statistics, duration-based skew, delta-with-wrap).
+- 13.18: (1) cross-socket NIC use, cross-rail placement, NUMA misbinding; (2) idle benchmarks find spare
+  inter-socket/spine/DRAM capacity; (3) production adds contention and variance, which synchronous
+  training amplifies.

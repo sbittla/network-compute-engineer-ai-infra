@@ -12,7 +12,7 @@ rails up.
 4. Under best-fit, where does a 6-GPU single-node job go?
 5. Without gang scheduling, two 3-node jobs arrive when exactly four whole nodes are free and are
    scheduled pod by pod, interleaved. How many GPUs are stranded, and what does it cost if it lasts
-   5 h at an `[ILLUSTRATIVE]` $2.50/GPU-hour?
+   5 h at the book's `[MODELED]` $3.00/GPU-hour (Chapter 21 TCO)?
 6. A 128-GPU training job checkpoints every 45 min and takes 15 min (900 s) to restart. What does one
    preemption cost in GPU-hours on average?
 *Evidence required:* every step as formula → substitution → result with units.

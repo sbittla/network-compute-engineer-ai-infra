@@ -1,0 +1,18 @@
+# ILLUSTRATIVE example manifest for a fictional cluster (ORION-256).
+# It shows the fields a MEASURED L3 benchmark row must cite. No run produced these values,
+# so row B-02 is labelled ILLUSTRATIVE; a real 2-node run would make it MEASURED with this manifest.
+lab: ch23-capstone-reference-bundle
+tier: L3
+row: B-02
+date: 2026-10-12
+nodes: [orion-n01, orion-n02]
+node_image_id: orion-hx8-2026.10.1 (both nodes)
+hardware: 8 x H100-SXM-class per node; 8 x 400G RoCEv2 NICs (one per rail), PIX GPU-NIC affinity
+nic_firmware: 28.39.1002 (both nodes)
+software: {driver: 570-series, cuda: 12.x, nccl: 2.2x, nccl_tests: built with MPI=1}
+fabric: {rails: 8, rdma_path_mtu: 4096, isolated: true, note: no other tenant on the rail leaves}
+gdr_evidence: every network channel line ends in /GDRDMA on both nodes
+command: srun -N 2 --ntasks-per-node=8 --gpus-per-node=8 --mpi=pmix all_reduce_perf -b 8G -e 8G -g 1 -w 5 -n 20
+warm_up: 5 iterations per run (-w 5), discarded
+repetitions: 5 runs
+result: {metric: busbw, unit: GB/s, median: 356.1, min: 353.0, max: 359.0}

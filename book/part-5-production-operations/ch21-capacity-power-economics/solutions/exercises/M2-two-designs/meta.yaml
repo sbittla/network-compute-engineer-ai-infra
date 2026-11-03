@@ -8,7 +8,7 @@ kind: computed
 points: 10
 evidence_required: comparison table; sensitivity table; break-even arithmetic.
 marking:
-- criterion: 'Comparison table: A 26.53 / B 31.36 useful units per $M; 396 / 645 per facility MW'
+- criterion: 'Comparison table: A 26.69 / B 31.49 useful units per $M; 396 / 645 per facility MW'
   points: 3
 - criterion: Sensitivity on per-GPU throughput (e.g. 1.8×, 2.0×, 2.2×, 2.4×)
   points: 2

@@ -73,7 +73,7 @@ python check.py                    # progress on starter/incident_toolkit.py
 | 3 | Cause vs correlation | `classify_hypotheses` | Each hypothesis H1–H6 classified proven_cause / real_fault_not_cause / correlation_only / refuted |
 | 4 | Contain and recover | `select_checkpoint`, `recovery_metrics`, `repeat_offenders`, `auto_restart_allowed`, `restart_plan` | Restorable checkpoint; RPO/RTO/lost GPU-hours; retry policy blocks restart until the repeat offender is excluded; healthy spares chosen; ranks remapped with coordinates preserved |
 | 5 | Risk register | `fmea_score` | RPN ranking; data-quality issues detected; action-required set |
-| 6 | Tenant isolation | `check_isolation` | Exactly the policy violations present |
+| 6 | Tenant isolation | `check_isolation` | Exactly the policy violations present, including device access outside the device plugin (`pod_security`, Section 19.9.1) |
 
 For Task 4 assume the job resumes at **04:31:00** with the plan you produce.
 
@@ -138,8 +138,10 @@ Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback
 host-side read-only queries (CPU, memory, EDAC, kernel-log access) and the same phases, read through
 pressure-stall information. GPU-only invariants are skipped. **Observed on the reference run:** the committed
 bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show `GPU_IDLE` at idle,
-`SW_POWER_CAP` at the enforced limit under GEMM (normal, exercise K4), no limiting reason in the memory-bound copy,
+`SW_POWER_CAP` at the enforced limit under GEMM (normal; see Section 19.3, "Thermal and power events", and Chapter 18), no limiting reason in the memory-bound copy,
 and whether the driver's reason counters kept up with the sampled bitmask on that platform `[MEASURED]`.
+The committed GPU `report.md` was generated before a cross-reference fix and still says "exercise K4";
+read that as Section 19.3 (the measured values are unaffected).
 
 **L3 — two RDMA nodes, dedicated partition.** Run `all_reduce_perf` (or a small PyTorch DDP loop) and,
 with authorization, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
@@ -152,5 +154,5 @@ budget computed in Section 19.4 (`[MODELED]` vs `[MEASURED]`).
 
 The dataset contains planted traps (a misleading first reporter, a real-but-unrelated GPU fault, a
 background AER stream, a downstream PFC spike, an unsafe "complete" checkpoint, an unhealthy spare,
-FMEA scoring errors, and several isolation violations). They are documented for instructors in
+FMEA scoring errors, and several isolation violations, one of them a GPU device-injection bypass). They are documented for instructors in
 `../solutions/exercises-key.md`.

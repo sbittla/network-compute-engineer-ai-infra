@@ -1,12 +1,12 @@
 {
   "difficulty": 2,
-  "evidence_required": "every Table 24.12 section present; impact in units with arithmetic; at least one discriminating test; a \"remaining uncertainty\" paragraph; a statement of what was anonymised.",
+  "evidence_required": "every Table 24.14 section present; impact in units with arithmetic; at least one discriminating test; a \"remaining uncertainty\" paragraph; a statement of what was anonymised.",
   "id": "M3",
   "kind": "written",
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "All nine Table 24.12 sections present",
+      "criterion": "All nine Table 24.14 sections present",
       "points": 5
     },
     {

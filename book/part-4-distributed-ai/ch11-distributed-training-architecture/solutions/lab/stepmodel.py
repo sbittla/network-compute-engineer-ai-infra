@@ -140,7 +140,8 @@ def comm_model(model: dict, cluster: dict, cfg: Config) -> dict[str, float]:
     """Per-GPU, per-step communication volumes (bytes sent) and times (s) by parallelism type.
 
     TP (Megatron + sequence parallelism): 4 all-reduce-equivalents per layer per micro-batch
-      (2 forward, 2 backward), payload s*b*h*2 B.
+      (2 forward, 2 backward), payload s*b*h*2 B. Full recompute re-runs the forward pass, and
+      its 2 forward collectives, during backward: 6 per layer per micro-batch (x1.5).
     DP: gradient reduction once per step (ZeRO 0/1/2: one all-reduce-equivalent of 2 B * P_local).
       ZeRO-3/FSDP: per micro-batch an all-gather (fwd), all-gather (bwd), reduce-scatter (grads)
       = 1.5 all-reduce-equivalents per micro-batch.
@@ -162,7 +163,8 @@ def comm_model(model: dict, cluster: dict, cfg: Config) -> dict[str, float]:
     lat_net = cluster["internode_latency_us"] * 1e-6
 
     # Tensor parallel
-    tp_colls = 4 * layers_stage * m if tp > 1 else 0
+    per_layer_colls = 6 if cfg["recompute"] == "full" else 4
+    tp_colls = per_layer_colls * layers_stage * m if tp > 1 else 0
     tp_bytes = tp_colls * 2 * (tp - 1) / tp * sbh2 if tp > 1 else 0.0
     tp_spans = tp > gpn
     tp_lat = (lat_net * 2 if tp_spans else lat_nvl)

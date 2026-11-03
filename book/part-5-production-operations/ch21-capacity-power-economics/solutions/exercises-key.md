@@ -55,8 +55,11 @@ cost. Common mistake: changing allocation in the usable fraction rather than aft
 (b) 550 W is best: it is the lightest cap that fits a third node. Going deeper (350 W) adds no node — a
 fourth needs ≤ 6.75 kW, i.e. a cap ≤ 269 W — and only throws throughput away. (c) With 22 racks: at
 550 W all 64 nodes fit (66 slots) → 64 × 0.945 = 60.5; at 650 W or uncapped only 2 per rack → 44 nodes
-→ 43.6 / 44.0. Recommend 550 W on 22 racks; running all 64 uncapped would need 32 racks.
-*Marking:* table 4, reasoning 3, recommendation 3. Common mistake: using the old 3.6 kW base.
+→ 43.6 / 44.0. Recommend 550 W on 22 racks; running all 64 uncapped would need 32 racks. Caveat: 550 W
+leaves **zero** planned headroom (3 × 9.0 = 27.0 kW); measure the node base first, and if it is ≥ 1 %
+high, 500 W (3 × 8.6 = 25.8 kW, 48 × 0.905 = 43.4 node-eq.) is the safe choice.
+*Marking:* table 4, reasoning 3, recommendation 3. Common mistakes: applying the 10 % margin twice, or
+using 10.2 kW per node regardless of the cap.
 
 ## Hands-on lab — reference results and planted anomalies
 
@@ -68,8 +71,8 @@ fourth needs ≤ 6.75 kW, i.e. a cap ≤ 269 W — and only throws throughput aw
 | Stranded | 464 in 2028Q2–Q3; 232 in 2029Q2 |
 | First shortfall | 2028Q3 (usable 475.8 < required 494.1); also 2029Q4 (870.0 < 964.7) |
 | Order-by for 2028Q3 | GPUs 2028Q1; network 2028Q2; facility power 2027Q3 |
-| ORION-256 TCO | $6.77M/yr (PUE 1.25); $3.02 nominal, $4.18 allocated, $4.75 useful per GPU-h |
-| Designs (1.0 MW hall) | A 87 nodes, 442.3 units, 26.53/$M, 396/MW; B 62 nodes, 644.9 units, 31.36/$M, 645/MW |
+| ORION-256 TCO | $6.73M/yr (PUE 1.25, $0.08/kWh); $3.00 nominal, $4.16 allocated, $4.72 useful per GPU-h |
+| Designs (1.0 MW hall) | A 87 nodes, 442.3 units, 26.69/$M, 396/MW; B 62 nodes, 644.9 units, 31.49/$M, 645/MW |
 | Power cap (legacy racks, 29.5 kW planned) | 700 W: 2/rack, 32.0, 9.1 kW unused per rack, 32 racks for all; 650 W: 3/rack, 47.52 (best); 4/rack would need ≤ 347 W |
 | Flags | STRANDED_GPUS 2028Q2, 2028Q3, 2029Q2; RESERVE_SHORTFALL 2028Q3, 2029Q4; PER_GPU_COST_MISLEADS B |
 
@@ -98,10 +101,11 @@ constraint, and for unlabeled numbers in the memo.
 
 | Hypothesis | Evidence | Verdict |
 |---|---|---|
-| Rack planned against the *sum* of both sides (41 kW ≤ 2 × 32.78) instead of one side; with B down for maintenance the whole rack sat on one 32.78 kW circuit | Capacity-plan line; B de-energized 08:00–12:00; 41.6 kW peak on A | Root cause (condition) |
-| Synchronized job start step | 12.1 → 41.6 kW within ≈ 3 s as all nodes ramp together; 41.6 kW ≈ 61 A per phase, far above the PDU's 48 A electronic overcurrent setting (not enough to trip the 60 A thermal-magnetic breaker in seconds) | Trigger |
-| Faulty breaker | lh-04 (3 nodes) peaked at 30.9 kW on the same kind of circuit and held; main-hall racks have two circuits per side | Not supported (inspect anyway) |
+| Rack planned against the *sum* of both sides (41 kW ≤ 2 × 32.78) instead of one side; with B down for maintenance the whole rack sat on one 32.78 kW circuit | Capacity-plan line; B de-energized 08:00–12:00; 40.8 kW peak on A | Root cause (condition) |
+| Synchronized job start step | 12.1 → 40.8 kW within ≈ 3 s as all nodes ramp together; 40.8 kW ≈ 60 A per phase, far above the PDU's 48 A electronic overcurrent setting (not enough to trip the 60 A thermal-magnetic breaker in seconds) | Trigger |
+| Faulty breaker | lh-04 (3 nodes) peaked at 30.6 kW on the same kind of circuit and held; main-hall racks have two circuits per side and carry ≈ 20 kW per side with both feeds up | Not supported (inspect anyway) |
 | Node fault | All four nodes lost input simultaneously at the trip | Consequence |
+| lh-04 latent violation | 30.6 kW (three uncapped nodes) held, but exceeds its 29.5 kW single-side plan (no transient margin) | Same root cause; cap lh-04 to 650 W now |
 
 Root cause (system): the legacy-hall capacity plan violated the 2N rule — a rack must fit on one side —
 and the maintenance procedure did not check single-side loading before opening B. Immediate mitigation:
@@ -111,15 +115,17 @@ Arithmetic: planned budget per side = 32.78 × 0.9 = 29.5 kW. Four nodes need �
 guardrail is *three nodes per legacy rack at ≤ 650 W* (3 × 9.8 = 29.4 kW), enforced by the capacity plan,
 plus an automated check before any single-side maintenance: "every rack's planned peak ≤ one side's
 budget, else cap/drain first" (owners: Facilities for the signal, Platform for the action).
-*Marking:* hypotheses 3, arithmetic 3, guardrail 3, blameless phrasing 1.
+*Marking:* hypotheses 3, arithmetic 3, guardrail 3, blameless phrasing 1; +1 bonus for spotting lh-04's
+latent violation.
 
 ## Design challenge D1 — reference approach
 
 Dedicated: 96 GPUs × 8,760 h = 840,960 GPU-h/yr; average load 40 % of the 10-replica peak = 4 busy
 replicas of 12 (Section 21.3) → 280,320 busy and 560,640 GPU-h idle. Shared: never lend the N+2 headroom
 (16 GPUs, 140,160 GPU-h; 420,480 idle GPU-h remain beyond it); lend idle replicas beyond a
-forecast-plus-margin threshold — assume 60 % of the idle hours are lendable (≈ 336,000 GPU-h) at goodput
-0.7 for preemptible jobs (frequent checkpoints) → ≈ 235,000 useful GPU-h/yr ≈ $1.12M at $4.75
+forecast-plus-margin threshold — assume 336,384 GPU-h are lent, i.e. 60 % of *all* 560,640 idle hours = 80 %
+of the 420,480 lendable ones (accept either base if the learner states it), at goodput
+0.7 for preemptible jobs (frequent checkpoints) → ≈ 235,000 useful GPU-h/yr ≈ $1.11M at $4.725
 `[MODELED]`. Common mistake: taking 40 % of the whole 96-GPU pool as busy (≈ 505,000 idle), which
 ignores that the N+2 replicas are idle by design. SLO risk: reclaim must
 finish (job checkpoint/kill + model reload) before traffic ramps; keep weights resident or use fast
@@ -146,15 +152,17 @@ Recommend shared with these guardrails if reclaim is measured < 60 s; otherwise 
   (≈ 1,096 needed) — order power by 2028Q2. 2029Q3–Q4 need GPUs *and* power (the 256 retirements leave
   1,024 installed, and 1,248 / 1,424 energized GPUs are needed, above the 1,048 limit) — power by
   2028Q3 / 2028Q4, GPUs by 2029Q1 / 2029Q2. p50 shortfalls: 2028Q3 (−18.3), 2029Q4 (−94.7).
-- **M2:** Table 21.3 plus sensitivity: B per-GPU throughput 1.8× → 25.7 units/$M (< A's 26.53); break-even
-  ≈ 1.86×; if B's network does not scale with compute, efficiency ≈ 0.88 → ≈ 29.6/$M (still ahead). Electricity has small effect on per-$ ranking (≈ 4 % of TCO).
+- **M2:** Table 21.6 plus sensitivity: B per-GPU throughput 1.8× → 25.8 units/$M (< A's 26.69); break-even
+  ≈ 1.86×. If B's network does not scale with compute, B's step at 2:1 is 0.85 / 2.2 + 0.075 + 0.150 =
+  0.611 of A's → 1.64× per GPU → ≈ 516 units ≈ 25.2/$M, *below* A: the advantage depends on NIC scaling.
+  Electricity barely moves the per-$ ranking (≈ 4 % of TCO).
 - **M3:** Expected rows: energized power (464 stranded), cooling (CDU-limited halls), maintenance (3 %),
   repair (7.8 % from the 5-day MTTR; spares outside the partition are extra capex), fragmentation (5 %), allocation headroom (85 %), goodput (81–88 %),
   network oversubscription (0.93 efficiency at 2:1), storage (checkpoint concurrency), onboarding (2–3
   weeks dock-to-schedulable; 95 % first-pass yield), inference pools sized for peak.
 - **M4:** Design-B rack: 8 × 14.3 = 114.4 kW provisioned; 80 % to liquid = 91.5 kW → flow 91.5 / (4.18 ×
   10) = 2.19 kg/s ≈ 131 L/min water; residual air 22.9 kW. Hall 1.0 MW IT → 62 nodes ≈ 8 racks. Guardrails
-  as Table 21.5 adapted (CDU supply temperature, pump redundancy, per-rack budget, feed loss cap). Hand-off
+  as Table 21.8 adapted (CDU supply temperature, pump redundancy, per-rack budget, feed loss cap). Hand-off
   checklist: rack weight and floor loading, coolant quality and filtration, leak detection and isolation
   valves, CDU redundancy mode, supply/return temperatures and ΔT, flow per rack, electrical circuits per
   feed and redundancy mode, metering and telemetry points, commissioning tests, maintenance access and

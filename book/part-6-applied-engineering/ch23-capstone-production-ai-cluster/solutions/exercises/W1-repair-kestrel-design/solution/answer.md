@@ -26,11 +26,14 @@ inputs.
 - Also acceptable: do not cable the spares (32 + 32 = 64, 1:1, 512 cables) and accept recabling at swap
   time, or use a larger-radix leaf. Whatever is chosen, the claimed ratio must match the arithmetic.
 
-## 3. Racks at 45 kW
+## 3. Racks at the 45 kW planned budget
+
+- 45 kW = 50 kW rack limit × 0.9 transient margin (Chapter 21; A-09). Use it as is; do not apply
+  the margin again.
 
 - Nodes per rack = floor(45 / 10.2) = floor(4.41) = **4**. Racks = ceil(34 / 4) = ceil(8.5) = **9**.
 - With only 8 racks: (i) keep the 2 spares outside the GPU row or unracked; (ii) obtain a larger budget
-  from Facilities; (iii) cap node power at 45 / 5 = **9.0 kW** in the two 5-node racks. With the node
+  from Facilities; (iii) cap node power at 45 / 5 = **9.0 kW** in the two 5-node racks (not 50 / 5 = 10.0 kW, which ignores the margin). With the node
   power model 4.6 kW + 8·P ≤ 9.0 kW, the GPU cap is P ≤ (9.0 − 4.6) / 8 = **550 W** versus 700 W, so
   throughput (A-04 MFU) must be re-measured, the cap must be enforced in firmware, not by convention,
   and the change touches A-03/A-04 and needs an ADR.

@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-# Inputs: manuscript Section 24.6 ("Clarify", Table 24.9, "Memory -> parallelism") [MODELED]/[ILLUSTRATIVE]
+# Inputs: manuscript Section 24.6 ("Clarify", Table 24.10, "Memory -> parallelism") [MODELED]/[ILLUSTRATIVE]
 SEQ_TOKENS = 4096            # tokens per sequence (one sequence per micro-batch)
 HIDDEN = 8192                # hidden size
 BYTES_PER_ELEM = 2           # BF16 activations

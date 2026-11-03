@@ -55,9 +55,10 @@ def main() -> int:
 
     def c_factor() -> tuple[bool, str]:
         vals = (na.bus_factor("all_reduce", 8), na.bus_factor("all_gather", 8),
-                na.bus_factor("reduce_scatter", 16), na.bus_factor("broadcast", 64))
-        ok = all(abs(a - b) < 1e-12 for a, b in zip(vals, (1.75, 0.875, 15 / 16, 1.0)))
-        return ok, f"all_reduce(8)={vals[0]}, all_gather(8)={vals[1]}, reduce_scatter(16)={vals[2]:.4f}, broadcast={vals[3]}"
+                na.bus_factor("reduce_scatter", 16), na.bus_factor("broadcast", 64), na.bus_factor("alltoall", 16))
+        ok = all(abs(a - b) < 1e-12 for a, b in zip(vals, (1.75, 0.875, 15 / 16, 1.0, 15 / 16)))
+        return ok, (f"all_reduce(8)={vals[0]}, all_gather(8)={vals[1]}, reduce_scatter(16)={vals[2]:.4f}, "
+                    f"broadcast={vals[3]}, alltoall(16)={vals[4]:.4f}")
 
     def c_parse() -> tuple[bool, str]:
         meta, df = na.parse_nccl_log(text("c2_2node_aligned"))
@@ -120,11 +121,22 @@ def main() -> int:
         exp = 28.0 + 1.875 * 2**30 / 355e9 * 1e6
         return abs(t - exp) < 1e-6 * exp, f"1 GiB on 16 ranks: {t:.0f} us (exp {exp:.0f})"
 
+    def c_spread() -> tuple[bool, str]:
+        vals = []
+        for k in range(1, 6):
+            _, df = na.parse_nccl_log((DATA / "launches" / f"c2_launch{k}.log").read_text(encoding="utf-8"))
+            vals.append(float(na.plateau_busbw(df)))
+        vals.sort()
+        med, lo, hi = vals[2], vals[0], vals[-1]
+        ok = 351.0 <= med <= 354.0 and lo < 335.0 and hi - lo > 20.0
+        return ok, (f"5 launches of c2: median plateau {med:.1f} GB/s, range {lo:.1f}-{hi:.1f} "
+                    f"(one low launch: report median and spread, not the mean)")
+
     checks: list[tuple[str, Callable[[], tuple[bool, str]]]] = [
         ("bus_factor", c_factor), ("parse_nccl_log", c_parse), ("compute_bw", c_bw),
         ("plateau_busbw", c_plateau), ("classify_regions", c_regions), ("fit_alpha_beta", c_fit),
         ("jitter_cv", c_jitter), ("analyze_all", c_summary), ("detect_anomalies", c_detect),
-        ("predict_time_us", c_predict),
+        ("predict_time_us", c_predict), ("launch_spread", c_spread),
     ]
     failed = 0
     for name, fn in checks:

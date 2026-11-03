@@ -67,6 +67,8 @@ design note (lab Task 6) and exercise 7.O2.
 | `lab/tools/` | Dataset generator — instructor copy only (not in the student release) |
 | `lab/starter/fabric_lab.py` | Learner module with TODOs |
 | `lab/check.py` | Automated checker (19 checks) |
+| `lab/l2/orion-mini/` | L2 containerlab topology and FRR configs (`render.py` regenerates them; untested in the course harness) |
+| `lab/l2/experiment.py` | Course-harness ECMP hashing simulation (software only; a GPU just runs more trials) and committed result bundles |
 | [exercises/](exercises/) | One learner folder per exercise (18): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | `solutions/` | Instructor-only: exercise key and reference implementation |
 | `solutions/exercises/` | Instructor-only: per-exercise `meta.yaml` (marking), worked `answer.md`, `solve.py` for computed exercises, generated `outputs/` |

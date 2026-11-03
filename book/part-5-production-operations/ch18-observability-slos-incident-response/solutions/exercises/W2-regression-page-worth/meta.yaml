@@ -10,7 +10,7 @@ evidence_required: Arithmetic for (a)–(b); a justified threshold for (c) with 
 marking:
 - criterion: (a) ratio 0.916, lost fraction 0.084
   points: 2
-- criterion: (b) Case A 2,242 GPU-h ≈ $6,730; Case B 241 GPU-h ≈ $724
+- criterion: (b) Case A 2,242 GPU-h ≈ $6,726; Case B 241 GPU-h ≈ $724
   points: 4
 - criterion: (c) 1.092 < 1.10 so the rule does not fire; proposes a threshold in 1.03–1.07
   points: 1

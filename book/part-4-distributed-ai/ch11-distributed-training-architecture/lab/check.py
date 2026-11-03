@@ -102,10 +102,14 @@ def main() -> int:
 
     def c_comm() -> tuple[bool, str]:
         c = sm.comm_model(model, cluster, BASE)
+        cf = sm.comm_model(model, cluster, {**BASE, "recompute": "full"})
+        ratio = cf["tp_collectives"] / c["tp_collectives"]
         ok = close(c["tp_bytes"], EXP_TP_BYTES) and close(c["dp_bytes"], EXP_DP_BYTES) \
-            and close(c["pp_bytes"], EXP_PP_BYTES) and c["micro_batches"] == 128 and not c["tp_spans_nodes"]
+            and close(c["pp_bytes"], EXP_PP_BYTES) and c["micro_batches"] == 128 and not c["tp_spans_nodes"] \
+            and close(ratio, 1.5, 1e-9)
         return ok, (f"TP={c['tp_bytes']/1e12:.3f} TB (exp {EXP_TP_BYTES/1e12:.3f}), DP={c['dp_bytes']/1e9:.2f} GB "
-                    f"(exp {EXP_DP_BYTES/1e9:.2f}), PP={c['pp_bytes']/1e9:.2f} GB (exp {EXP_PP_BYTES/1e9:.2f})")
+                    f"(exp {EXP_DP_BYTES/1e9:.2f}), PP={c['pp_bytes']/1e9:.2f} GB (exp {EXP_PP_BYTES/1e9:.2f}); "
+                    f"full recompute re-runs TP collectives x{ratio:.2f} (exp x1.50)")
 
     def c_step() -> tuple[bool, str]:
         st = sm.step_time(model, cluster, BASE)

@@ -150,7 +150,7 @@ Without a GPU (`--device auto` on a host with no NVIDIA driver) the same experim
 
 **Observed on the reference run:** the committed bundles in `l2/results/` (`gpu-rtx-4060-laptop-gpu/`, `cpu-fallback/`)
 show detection at threshold + hold + one poll, and steps lost always inside one checkpoint interval. Resume time is
-dominated by process launch and framework/CUDA initialisation rather than by the checkpoint load. A model that counts
+dominated by process launch and framework/CUDA initialization rather than by the checkpoint load. A model that counts
 only bytes / bandwidth underestimates RTO. The seconds are a laptop container's, not ORION's. The decomposition is what
 transfers.
 

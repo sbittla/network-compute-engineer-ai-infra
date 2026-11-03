@@ -17,9 +17,9 @@ on ORION? *Evidence required:* the two volumes from Table 13.1 and the paralleli
 **13.2 ★ L1.** List the four prerequisites for GPUDirect RDMA and explain why installing them does not
 prove it is active. *Evidence required:* four items and one sentence on proof.
 
-**13.3 ★ L1.** What do the topology labels PIX, PXB, PHB, and SYS mean for a GPU↔NIC pair, and which
-of them does NCCL use GPUDirect RDMA for by default? *Evidence required:* four definitions; answer
-labelled `[VENDOR-SPEC, YYYY-MM]`.
+**13.3 ★ L1.** What do the topology labels PIX, PXB, PHB, NODE, and SYS mean for a GPU↔NIC pair,
+which label does ORION's GPU 0 ↔ NIC 2 pair typically show, and which labels does NCCL use GPUDirect
+RDMA for by default? *Evidence required:* five definitions; answer labelled `[VENDOR-SPEC, YYYY-MM]`.
 
 **13.4 ★★ L1.** Explain why `utilization.gpu` stays near 100 % on a rank that is waiting for a
 straggler, and name two better metrics. *Evidence required:* mechanism + two metrics.
@@ -75,7 +75,7 @@ safety note.
 
 **13.12 ★★ L1 — Cross-layer straggler diagnosis (lab).** Complete [lab/README.md](lab/README.md) so
 that `python lab/check.py` passes and write the diagnosis report.
-*Evidence required:* checker output (10/10 PASS), findings table (cause, ranks, onset, evidence,
+*Evidence required:* checker output (11/11 PASS), findings table (cause, ranks, onset, evidence,
 owner, fix, validation), amplification numbers, and the annotated diagram from 13.9.
 
 ## Troubleshooting case

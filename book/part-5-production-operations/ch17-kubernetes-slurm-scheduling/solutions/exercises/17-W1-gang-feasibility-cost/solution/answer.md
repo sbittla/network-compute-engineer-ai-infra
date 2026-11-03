@@ -14,7 +14,7 @@ Free GPUs p01–p12 = `[8, 8, 0, 4, 6, 2, 8, 3, 5, 8, 1, 7]`; p07 is `draining`;
    5–7 GPU jobs (they cannot fit one socket).
 5. **Partial-allocation deadlock without gangs.** Two 3-node jobs scheduled pod by pod, interleaved,
    on 4 free nodes: A gets 2 nodes, B gets 2 nodes, each waits for a third → **all 4 × 8 = 32 GPUs
-   stranded**. Cost = 32 GPUs × 5 h = **160 GPU-hours**; × $2.50 = **$400** `[ILLUSTRATIVE price]`.
+   stranded**. Cost = 32 GPUs × 5 h = **160 GPU-hours**; × $3.00 = **$480** `[MODELED price, Chapter 21 TCO]`.
 6. **Preemption cost.** Expected lost work = half the checkpoint interval plus restart:
    128 × (45/2 min + 15 min) = 128 × (0.375 h + 0.25 h) = 128 × 0.625 h = **80 GPU-hours** per
    preemption `[MODELED]`.

@@ -73,7 +73,7 @@ Baseline window for all tasks: **00:00–02:00 UTC**.
 | # | Task | Functions | Acceptance criterion (checked) |
 |---|---|---|---|
 | 1 | Baselines, onset, recovery | `baseline_step_time`, `step_time_per_minute`, `detect_onset`, `detect_recovery` | Baselines ≈ 17.4 s and ≈ 6.0 s; checkpoint stalls excluded; onset and recovery found for both jobs |
-| 2 | SLIs and burn rates | `training_sli`, `lost_gpu_hours`, `burn_rate`, `multiwindow_fast_burn` | Training SLI ≈ 0.68; lost GPU-hours ≈ 62; 5 m / 1 h burn at 05:16 ≈ 40 / ≈ 5; the 7-minute deploy blip does **not** page; a sustained 3 % outage **does** |
+| 2 | SLIs and burn rates | `training_sli`, `lost_gpu_hours`, `burn_rate`, `multiwindow_fast_burn` | Training SLI ≈ 0.68; lost GPU-hours ≈ 62; 5 m / 1 h burn at 05:16 ≈ 40 / ≈ 5; a 3-minute scrape gap gives "no data" (NaN), not a burn over a stretched window; the 7-minute deploy blip does **not** page; a sustained 3 % outage **does** |
 | 3 | Alert replay | `evaluate_rule`, `classify_alerts`, `goodput_alert` | `GPUTempHigh` fires once on `orion-n08`; exactly one rule is classified noisy; no actionable page fired during the incident; your goodput alert fires by 02:25 and never outside the incident |
 | 4 | Root cause | `fabric_shift`, `correlate_root_cause` | Trigger identified; red herrings rejected with a reason; leaf PFC/ECN shift quantified |
 | 5 | Timeline and postmortem | `build_timeline`, `render_postmortem` | TTD/TTM/TTR computed; template rendered with no holes; missing facts raise |
@@ -149,7 +149,10 @@ host gauges (`/proc/stat`, the training thread's CPU-time rate) and the same job
 (utilization, power, sample staleness) are skipped. **Observed on the reference run:** the committed bundles in
 `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show the SLI collapsing in the degraded
 phase and the fast-burn page firing inside the long window. In the busy-idle phase utilization stays high while
-useful TFLOP/s and power fall, and `GPUUtilLow` does not fire (exercise K1) `[MEASURED]`. DCGM profiling fields
+useful TFLOP/s and power fall, and `GPUUtilLow` does not fire (exercise K1) `[MEASURED]`. Note the
+contrast with Section 18.3: in the degraded phase GPU_UTIL *falls* (to ≈ 64 %) and `GPUUtilLow` fires,
+because a host-side stall leaves no kernel resident. An NCCL wait keeps a kernel resident, so GPU_UTIL
+stays high; the busy-idle phase reproduces that case, not the degraded one. DCGM profiling fields
 (`PROF_SM_ACTIVE`) are not available on a GeForce laptop.
 
 **L3 — multi-node with RDMA and switch access (read-only).**

@@ -12,7 +12,7 @@ evidence_required: >-
 marking:
   - criterion: A clear recommendation with a criteria x option table covering SLO risk, utilization and cost, scheduler and failure domain
     points: 5
-  - criterion: Quantified argument (pool cost 1,401,600 USD/year; at most 560,640 USD/year reclaimable at 60 % inference load) with assumptions stated
+  - criterion: Quantified argument (pool cost 1,681,920 USD/year; at most 672,768 USD/year reclaimable at 60 % inference load) with assumptions stated
     points: 4
   - criterion: Backend fabric need analysed correctly (TP 8 stays in one node; RDMA needed only for multi-node or disaggregated serving)
     points: 3

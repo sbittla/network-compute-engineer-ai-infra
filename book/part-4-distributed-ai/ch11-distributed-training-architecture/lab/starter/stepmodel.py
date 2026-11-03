@@ -98,7 +98,8 @@ def comm_model(model: dict, cluster: dict, cfg: Config) -> dict[str, float]:
     """Per-GPU, per-step communication volumes (bytes sent) and times (s) by parallelism type.
 
     TP (Megatron + sequence parallelism): 4 all-reduce-equivalents per layer per micro-batch
-      (2 forward, 2 backward), payload s*b*h*2 B.
+      (2 forward, 2 backward), payload s*b*h*2 B. Full recompute re-runs the forward pass, and
+      its 2 forward collectives, during backward: 6 per layer per micro-batch (x1.5).
     DP: gradient reduction once per step (ZeRO 0/1/2: one all-reduce-equivalent of 2 B * P_local).
       ZeRO-3/FSDP: per micro-batch an all-gather (fwd), all-gather (bwd), reduce-scatter (grads)
       = 1.5 all-reduce-equivalents per micro-batch.

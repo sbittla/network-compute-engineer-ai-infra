@@ -1,5 +1,5 @@
 workload_id,name,phase,declared_class,gpus,tflop_per_gpu,hbm_gb_per_gpu,nvlink_gb_per_gpu,net_value_per_gpu,net_unit,io_read_gb_per_node,io_write_gb_per_node,observed_step_s,notes
-W01,llm70b-pretrain-step,train,compute,256,6875,2100,1202.6,9.8,GB,0.0005,0,17.301327,W-TRAIN TP8 PP4 DP8; one optimizer step
+W01,llm70b-pretrain-step,train,compute,256,6881,2100,1202.6,9.8,GB,0.0005,0,17.301327,W-TRAIN TP8 PP4 DP8; one optimizer step
 W02,llm70b-decode-b32,infer,memory,8,0.56,20.18,0.147,0,GB,0,0,0.00969,"W-INFER TP8 BF16; one decode step, batch 32, mean context 2048"
 W03,llm70b-prefill-2k,infer,compute,8,35.9,40,9.4,0,GB,0,0,0.07459,W-INFER TP8 BF16; one 2048-token prompt
 W04,llm7b-dp-finetune,train,compute,64,2752,900,6,24.5,GB,0.002,0,3.553291,pure data parallel; 64k tokens/GPU/step

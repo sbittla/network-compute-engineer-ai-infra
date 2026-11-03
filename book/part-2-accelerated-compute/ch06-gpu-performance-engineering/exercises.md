@@ -62,8 +62,11 @@ roofline, and `benchmark_report.md`. *Evidence required:* checker output (all PA
 | K3 decode attention | BF16 | 8.6 × 10⁹ | 2.15 × 10⁹ | 0.75 ms |
 | K4 reduction | FP32 SIMT | 2.0 × 10¹¹ | 0.4 × 10⁹ | 5.0 ms |
 
-Rank them by optimization opportunity and name the lever for each. *Evidence required:* table with
-intensity, ridge, bound, fraction of roof; ranked list with levers.
+Then take measured roofs of 2.95 TB/s HBM and 700 TFLOP/s dense BF16 `[ILLUSTRATIVE]` (Section 6.3,
+"Empirical ceilings"; FP32 not measured), give K1–K3's fraction of the measured roof too, and say whether
+it changes your ranking. Rank them by optimization opportunity and name the lever for each. *Evidence
+required:* table with intensity, ridge, bound, fraction of vendor roof and of measured roof; ranked list
+with levers.
 
 **6.12** ★★ L1 — *Benchmark protocol.* Write a one-page protocol for comparing two NCCL versions'
 all-reduce performance on two ORION nodes, controlling warm-up, repetitions, concurrency, input size,
@@ -72,7 +75,9 @@ protocol with every control and the decision rule; manifest fields.
 
 **6.13** ★★ L1 — *Is the improvement real?* Run medians (ms) for an inference kernel: baseline 12.41,
 12.37, 12.52, 12.44, 12.39, 12.47; candidate 12.10, 12.22, 12.05, 12.31, 12.95, 12.12. The candidate's
-fifth run logged `sw_power_cap` on most iterations. The A/A floor is 0.9 %; the practical threshold is 2 %.
+fifth run logged `sw_power_cap` on most iterations and had a median SM clock of 1,610 MHz; the other eleven
+runs of both arms sat at 1,822–1,830 MHz (peer median 1,826 MHz). The A/A floor is 0.9 %; the practical
+threshold is 2 %.
 Using the lab's `permutation_test` and `bootstrap_ratio_ci` (seed 11, 4,000 replicates), decide with and without the fifth run
 and justify which decision stands. *Evidence required:* medians, relative changes, p-values, bootstrap bands, decisions,
 justification.

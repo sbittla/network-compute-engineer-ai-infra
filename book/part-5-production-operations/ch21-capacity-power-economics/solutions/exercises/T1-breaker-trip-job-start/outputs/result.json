@@ -13,8 +13,8 @@
     "node_base_kw": 4.6,
     "observed_kw": {
       "lh-03 idle 08:55": 12.1,
-      "lh-03 job start 09:02:10": 41.6,
-      "lh-04 peak (3 nodes)": 30.9
+      "lh-03 job start 09:02:10": 40.8,
+      "lh-04 peak (3 nodes)": 30.6
     },
     "pdu_trip_a": 48,
     "planned_claim_kw": 41.0,
@@ -28,8 +28,8 @@
     "four_uncapped_nodes_kw": 40.8,
     "observed_amps": {
       "lh-03 idle 08:55": 17.7,
-      "lh-03 job start 09:02:10": 60.9,
-      "lh-04 peak (3 nodes)": 45.3
+      "lh-03 job start 09:02:10": 59.7,
+      "lh-04 peak (3 nodes)": 44.8
     },
     "plan_assumed_both_sides_kw": 65.56
   },

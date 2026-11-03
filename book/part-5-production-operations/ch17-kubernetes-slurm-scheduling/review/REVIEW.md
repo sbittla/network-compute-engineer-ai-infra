@@ -110,3 +110,65 @@ The manuscript is 9,989 words. `validate_labs.py ch17` is OK: solution pass, sta
 ## Independent review iteration 3 + author fixes (2026-10-29)
 
 Closed: independent scores recorded in the header table; the dimension table is relabelled as a superseded author self-review.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores (independent, before author fixes):
+
+| Dim | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | Weighted |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Score | 9.0 | 9.5 | 9.0 | 9.0 | 9.0 | 9.5 | 9.5 | 9.5 | 9.0 | **9.18 (FAIL)** |
+
+Checker at review time: solution 9/9 (exit 0), starter 0/9 TODO (exit 1).
+
+| ID | Sev | Finding | Resolution |
+|---|---|---|---|
+| N17-01 | Major | §17.9 Step 7, key anomaly 12 and the Task-7 marking line blamed J01's non-start on fair share | Verified: J05 (priority 100) takes n22 + n24 before any priority-50 job, and the counterfactual (J01 before J08) leaves 28 < 32 eligible GPUs with two whole nodes. Step 7 is rewritten as a capacity block with the counterfactual arithmetic; options (a)–(c) kept, (c) now says "raise J01 above J05". Anomaly 12, the Task-7 marking line, the lab README Task-7 wording, and the 17-L1 answer.md/meta.yaml are corrected. |
+| N17-02 | Minor | §17.6 socket rule did not match the simulator's node-first score | §17.6 now states the two-level rule (socket-fit nodes first, node best fit, then tightest socket) and its cost. Table 17.7 row 9 says "Node best fit"; the caption explains why n27's exact socket hole loses to n29. No hashes changed. |
+| N17-03 | Minor | `scontrol` showed `Weight=1` vs `Weight=100` in slurm.conf | Output changed to `Weight=100`. |
+| N17-04 | Minor | Table 17.3 MPS "shared address space risk" | Aligned with Ch19: per-client address space on Volta+, optional memory limit, no bandwidth isolation; fault isolation "None". §17.3.2 now names `CUDA_MPS_ACTIVE_THREAD_PERCENTAGE` / `CUDA_MPS_PINNED_DEVICE_MEM_LIMIT` and says there is no fault or QoS isolation. |
+| N17-05 | Minor | K6 key: `best-effort` "the only policy that admits misaligned pods" | Now "the only *aligning* policy that still admits misaligned pods; `none` admits them too". Key and K6 answer.md. |
+| N17-06 | Minor | ORION-XL `blk`/`pod1` naming clashed with canonical pods | Fragment now uses `p00`–`p15` under `core`, with "block = canonical ORION-XL pod". Figure 17.3 Level 4, the D1 prompt (exercises.md and folder README), the key and the D1 answer.md are updated. |
+| N17-07 | Minor | No generator-reproducibility check; no capacity code | Added `D0 dataset reproducible` (byte-for-byte, SKIP when `tools/` is absent). The checker is now 10 checks; all "9/9" references are updated, and the 17-L1 `lab_checks` include D0. The INSUFFICIENT_CAPACITY code was **not added**: the committed L2 evidence (which cannot be re-run) calls `diagnose_pending`, and a new code would contradict it. Lab README §5.6 and the key now state that `NONE_FOUND` covers plain insufficient capacity. |
+| N17-08 | Minor | K1 key cited Xid 79 although `nvidia-smi -L` still lists 8 GPUs | Now cites uncorrectable ECC (Xid 48/95) or a row-remap failure (Xid 64), with a note on why Xid 79 does not fit. Key, K1 answer.md and meta.yaml. |
+| N17-09 | Minor | Table numbers "17.7a", "17.8a" | Renumbered sequentially: 17.8 hypotheses, 17.9 trade-offs, 17.10 runbook. |
+| D2 advice | — | Backfill reservation mechanics | New paragraph "Backfill and the head-of-queue gang" in §17.5.4 (`bf_window`, `bf_resolution`, time limits), plus a `SchedulerParameters` line in the slurm.conf excerpt. |
+| D6 advice | — | L3 acceptance statistic | Lab README L3 now gives the rule (≥ 5 runs, medians differ by more than the larger IQR and ≥ 3 %, explicit `-w`, a ≈ 350+ GB/s sanity floor, 7/8 for a rail-down node). The realism boundary summarizes it. |
+
+To keep length steady, the vendor note in §17.2.2, a §17.1 sentence, the §17.7 production note and one further-reading item were cut (1,124 → 1,144 lines; 10,050 → 10,410 words).
+
+Tests: `check.py --impl solution` 10/10 (exit 0); `--impl starter` 1/10 (D0 PASS, rest TODO, exit 1); `validate_labs.py ch17` OK (solution pass, starter fails gracefully, no-generator pass); package test suite 86 passed; `copyedit_lint.py` reports 0 findings in ch17. Outputs were regenerated with `docker/harness/generate_outputs.py`; the computed exercise outputs are unchanged. The committed L2 results were not touched. Awaiting independent re-review.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1–D8 9.5, D9 9.0. Weighted **9.48** (just under the gate). 0 blocker, 0 major, 7 minor.
+
+| ID | Sev | Finding | Resolution |
+|---|---|---|---|
+| R17-01 | Minor | The `NONE_FOUND` note broke the key's reference-diagnoses table after P09 | Moved below the P12 row; the table renders whole. |
+| R17-02 | Minor | `topology.conf` listed n01–n32 while `slurm.conf` defines n01–n24 | `topology.conf` now lists `orion-n[01-24]`, with a note that the lifecycle transition for a full W-TRAIN run adds n25–n32 to both files and reconfigures slurmctld (24 training + 8 inference, per REFERENCE_CLUSTER). |
+| R17-03 | Minor | `R-pt-002` undefined in the manuscript; CDI undefined | Step 7 now reads "the running 32-GPU pretraining job on n09–n12 (R-pt-002 in the lab data)"; Figure 17.2 expands CDI (Container Device Interface). |
+| R17-04 | Minor | The gang-deadlock example implied a quiet hold | Added that the workers fail rendezvous and restart in a loop while holding GPUs (`CrashLoopBackOff` / restart counts). |
+| R17-05 | Minor | The D1(b) ring model was not called a lower bound | Key and D1 answer.md now say it is a ring-only lower bound (Tree/PAT and multiple rings cross blocks more). |
+| R17-06 | Minor | "On ORION there are five levels" | Now "Across ORION and ORION-XL there are five levels (ORION itself has the first four)". |
+| R17-07 | Minor | `repair` and `drained` look the same in `sinfo` | Added a sentence after the state list; the sample `sinfo` reason now carries `repair:`. |
+| Price | — | Coordinator correction: canonical ≈ $3.00/GPU-h (Ch21 TCO $3.02, rounded) | §17.1 now cites Chapter 21 (≈ $3.00, $24 per node-hour). §17.4.1: 256 GPU-h × $3.00 = $768. W1 part 5: 160 GPU-h × $3.00 = $480 (exercises.md, folder README, key, answer.md, meta.yaml, solve.py with assert, regenerated outputs). |
+| D2 advice | — | Quantified backfill starvation | One-day-window example added to the backfill paragraph. |
+| D6 advice | — | Inherited figure labels; L2 result in the chapter | 10.2 kW labelled `[VENDOR-SPEC]`; §17.3.2 cites the L2 time-slicing result (2.56× per job, 0.78× aggregate, RTX 4060) `[MEASURED]`. |
+| D7 advice | — | Concrete NCCL symptom for a rail-incomplete node | Added the expected ≈ 306 GB/s vs ≈ 350+ GB/s busbw `[MODELED]` and the missing `mlx5_3` channel. |
+| D8 advice | — | Rollback criterion for the small-job confinement | Added to the §17.11 safe-change step. |
+| D3/D4 advice | — | Monday-snapshot figure; per-task starter self-tests | Deferred: these are optional "to reach 10" items, and adding them would grow the chapter past its length budget. |
+
+To pay for the additions, the §17.6 closing key idea, one sentence in §17.4.1 and one further-reading item were cut (10,643 words).
+
+Tests: `check.py --impl solution` 10/10 (exit 0); `--impl starter` 1/10 (exit 1); `validate_labs.py ch17` OK; package tests 86 passed; `copyedit_lint.py` reports 0 findings in ch17; outputs regenerated (only W1 changed).
+
+### r2 re-score fixes (2026-11-03)
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R17-08 | The $3.00/GPU-hour price was labelled `[ILLUSTRATIVE]` although it is the Chapter 21 TCO | Relabelled `[MODELED]` (Chapter 21 owned-cluster TCO $3.02, rounded) in the manuscript, exercises.md and folder prompts, key, answers, meta.yaml and solve.py comments; outputs regenerated. Tests: check.py solution/starter as before, `validate_labs.py` OK, package tests pass, `copyedit_lint.py` 0 findings. |

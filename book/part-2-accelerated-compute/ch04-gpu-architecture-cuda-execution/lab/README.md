@@ -10,15 +10,17 @@ CSV — the same tables you get from `nsys stats --report cuda_gpu_trace,cuda_ap
 and per-kernel counters — and asked the question every GPU performance engineer is asked weekly:
 **where is the time going, what is each problem worth, and what should we fix first?**
 
-You will build a small, reusable trace-analysis module that computes GPU busy fractions, copy/compute
-overlap, idle gaps attributed to their causes, copy bandwidths, theoretical occupancy and per-kernel
-fraction-of-roof, and then turns them into ranked findings with estimated savings. The capture contains
-several deliberately planted problems; part of the task is not flagging things that only look like problems.
+You will build a small, reusable trace-analysis module that computes GPU busy fractions,
+copy/compute overlap, idle gaps attributed to their causes, copy bandwidths, theoretical occupancy
+and per-kernel fraction-of-roof, and then turns them into ranked findings with estimated savings.
+The capture contains several deliberately planted problems; part of the task is not flagging things
+that only look like problems.
 
 ## 2. Tier and realism boundary
 
-- **L1 (required):** pure Python on a laptop; the data is `[SIMULATED]` by a seeded generator (instructor copy only;
-  seed 4) — a discrete-event model of one CPU launch thread and two CUDA streams.
+- **L1 (required):** pure Python on a laptop; the data is `[SIMULATED]` by a seeded generator
+  (instructor copy only; seed 4) — a discrete-event model of one CPU launch thread and two CUDA
+  streams.
 - **L2 (optional):** capture the same tables from your own GPU job (Section 8).
 
 > **Realism boundary:** The simulated capture has the structure of a real export (correlation IDs,
@@ -48,7 +50,7 @@ Files:
 ## 4. Background you need
 
 - Manuscript Section 4.5 (launch overhead), 4.6 (streams, synchronization, pinned vs pageable),
-  4.7 (occupancy calculation — Table 4.3 is your test oracle), 4.10 (NVTX is CPU-side; correlation IDs),
+  4.7 (occupancy calculation — Table 4.4 is your test oracle), 4.10 (NVTX is CPU-side; correlation IDs),
   4.11 (gap-attribution rule) and 4.12 (worked example — the same data).
 
 ## 5. Tasks
@@ -57,24 +59,27 @@ Implement the functions in `starter/trace_analysis.py` (each has a docstring wit
 
 1. **Interval arithmetic and utilization** — `merge_intervals`, `busy_ns`, `step_windows`,
    `utilization`, `copy_compute_overlap`. *Acceptance:* for `train_step_41`, busy(any) ≈ 89 %,
-   busy(kernel) ≈ 79 %, copy overlap ≈ 13 %. Explain in one sentence why busy(any) is not "efficiency".
-2. **Idle gaps with causes** — `find_gaps`. *Acceptance:* 15 `host_sync` gaps and ≈ 600 `launch_bound`
-   gaps per step, and exactly one `dependency` gap per step (find the API calls that cause it). Identify which source-code construct produces each `host_sync`
-   gap (use the NVTX ranges around them).
+   busy(kernel) ≈ 79 %, copy overlap ≈ 13 %. Explain in one sentence why busy(any) is not
+   "efficiency".
+2. **Idle gaps with causes** — `find_gaps`. *Acceptance:* 15 `host_sync` gaps and ≈ 600
+   `launch_bound` gaps per step, and exactly one `dependency` gap per step (find the API calls that
+   cause it). Identify which source-code construct produces each `host_sync` gap (use the NVTX
+   ranges around them).
 3. **Copies** — `copy_table`. *Acceptance:* four large pageable copies at ≈ 9–12 GB/s, two pinned at
    ≈ 48 GB/s. State why the pinned bandwidth rules out a degraded PCIe link.
-4. **Occupancy** — `theoretical_occupancy`. *Acceptance:* reproduces Table 4.3 and the checker's seven
-   cases, including the limiter and the warp-allocation granularity.
+4. **Occupancy** — `theoretical_occupancy`. *Acceptance:* reproduces Table 4.4 and the checker's
+   seven cases, including the limiter and the warp-allocation granularity.
 5. **Kernel summary** — `kernel_summary`. *Acceptance:* GEMMs compute-bound at ≈ 62 % of roof;
    `layernorm_bwd_fused_kernel` memory-bound at ≈ 22 %.
-6. **Findings** — `analyze` (and the provided `render_report`). *Acceptance:* exactly the five finding
-   codes, `LOW_OCCUPANCY` naming only the kernel that is both low-occupancy *and* far from its roof,
-   savings in ms/step.
-7. **Annotated analysis (written deliverable, `analysis.md`, ≤ 2 pages):** an annotated execution trace
-   for one step — a timeline sketch (ASCII or Mermaid) marking the copy phase, forward, the sync gaps,
-   backward with the side-stream prefetch, and the optimizer comb — plus the ranked findings table, a
-   projected step time with arithmetic, the order in which you would fix things and why, how you would
-   validate each fix, and what in this capture you could *not* conclude without real hardware.
+6. **Findings** — `analyze` (and the provided `render_report`). *Acceptance:* exactly the five
+   finding codes, `LOW_OCCUPANCY` naming only the kernel that is both low-occupancy *and* far from
+   its roof, savings in ms/step.
+7. **Annotated analysis (written deliverable, `analysis.md`, ≤ 2 pages):** an annotated execution
+   trace for one step — a timeline sketch (ASCII or Mermaid) marking the copy phase, forward, the
+   sync gaps, backward with the side-stream prefetch, and the optimizer comb — plus the ranked
+   findings table, a projected step time with arithmetic, the order in which you would fix things
+   and why, how you would validate each fix, and what in this capture you could *not* conclude
+   without real hardware.
 
 ## 6. Running the checker
 
@@ -147,18 +152,29 @@ python scripts/hw_labs.py run ch04 --device gpu   # needs the NVIDIA container r
 python scripts/hw_labs.py run ch04 --device cpu   # the CPU fallback
 ```
 
-The CPU fallback is automatic (`--device auto` without an NVIDIA driver). It captures both variants with
-`torch.profiler` on the CPU, classifies aten self time, and measures the step and optimizer-step times.
-It also runs `analyze()` on the shipped simulated trace. The report says that the GPU-only invariants
-were skipped. On a GPU, the invariants are: the baseline shows `PAGEABLE_H2D` and `EXCESS_SYNC` and the
-fixed step shows neither; there are fewer launches and syncs per step; the fixed step is faster; H2D
-stays below the PCIe link; GEMMs stay below the BF16 peak; and kernels larger than 2× L2 stay below the
+The CPU fallback is automatic (`--device auto` without an NVIDIA driver). It captures both variants
+with `torch.profiler` on the CPU, classifies aten self time, and measures the step and
+optimizer-step times. It also runs `analyze()` on the shipped simulated trace. The report says that
+the GPU-only invariants were skipped. On a GPU, the invariants are: the baseline shows
+`PAGEABLE_H2D` and `EXCESS_SYNC` and the fixed step shows neither; there are fewer launches and
+syncs per step; the fixed step is faster; every traced step window is at least 90 % of the
+uninstrumented median step (the capture synchronizes before closing each step range); H2D stays
+below the PCIe link; GEMMs stay below the BF16 peak; and kernels larger than 2× L2 stay below the
 DRAM bandwidth.
 
 *Observed on the reference run:* `lab/l2/results/gpu-<model>/` and `cpu-fallback/` hold the bundles
-from a laptop RTX 4060 (Ada, 24 SMs). They show the baseline's gaps attributed to their causes, the
-findings disappearing in the fixed step, and the measured speed-up. It is a laptop GPU, not the
-manuscript's H100-class part: the absolute times differ, but the signatures in the timeline are the same.
+from a laptop RTX 4060 (Ada, 24 SMs). They show the baseline's gaps attributed to their causes, fewer
+launches and syncs in the fixed step, and the measured 1.21× speedup (131.15 → 108.28 ms median).
+It is a laptop GPU, not the manuscript's H100-class part: the absolute times differ, but the
+signatures in the timeline are the same.
+
+> **Erratum (2026-11-01):** that GPU bundle's *fixed*-variant trace analysis is invalid and a rerun is
+> pending. The fixed step has no host sync, and the capture closed each step range before the GPU
+> drained, so the traced windows (20.1–24.0 ms) cover ≈ 19 % of the 108.28 ms step. Its busy, overlap,
+> gap and findings figures must not be cited. The per-op tables, step times, launch and sync counts
+> and the baseline analysis stand. `experiment.py` now synchronizes before closing each range and fails
+> a run whose window is below 90 % of the median step. Treat it as a worked instance of the Section 4.10
+> pitfall, "NVTX ranges are CPU-side".
 
 ## 9. Intentionally flawed inputs
 

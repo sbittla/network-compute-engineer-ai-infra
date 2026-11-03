@@ -57,7 +57,7 @@ rails up.
 4. Under best-fit, where does a 6-GPU single-node job go?
 5. Without gang scheduling, two 3-node jobs arrive when exactly four whole nodes are free and are
    scheduled pod by pod, interleaved. How many GPUs are stranded, and what does it cost if it lasts
-   5 h at an `[ILLUSTRATIVE]` $2.50/GPU-hour?
+   5 h at the book's `[MODELED]` $3.00/GPU-hour (Chapter 21 TCO)?
 6. A 128-GPU training job checkpoints every 45 min and takes 15 min (900 s) to restart. What does one
    preemption cost in GPU-hours on average?
 *Evidence required:* every step as formula → substitution → result with units.
@@ -79,7 +79,7 @@ lead proposes raising J01 to priority 100.
 
 **17-L1** ★★ L1 (L2/L3 extensions) — Complete [Lab 17](lab/README.md): implement
 `starter/orion_sched.py` Tasks 1–6 and write `placement-report.md` and `pending-guide.md`.
-*Evidence required:* `python check.py` output showing `9/9 checks passed`; the two reports per the lab
+*Evidence required:* `python check.py` output showing `10/10 checks passed`; the two reports per the lab
 rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or
 `all_reduce_perf` results (≥ 5 repetitions, median and p95).
 
@@ -132,8 +132,8 @@ validation, and one prohibited action with the reason.
 
 ## Design challenge
 
-**17-D1** ★★★ L1 — ORION-XL placement. ORION-XL has 512 HX8 nodes; each block of 32 nodes shares one
-set of 8 rail leaves, and cross-block traffic crosses a spine tier with 2:1 oversubscription
+**17-D1** ★★★ L1 — ORION-XL placement. ORION-XL has 512 HX8 nodes; each block of 32 nodes (a canonical ORION-XL pod,
+`p00`–`p15`) shares one set of 8 rail leaves, and cross-block traffic crosses a spine tier with 2:1 oversubscription
 `[ILLUSTRATIVE]` for this exercise. W-TRAIN is scaled to 64 nodes (512 GPUs). Design the placement
 rules: (a) write the `topology.conf` structure (or the equivalent Kubernetes topology labels);
 (b) decide whether a 64-node job must be confined to 2 blocks, may use 3, or may spread freely, and
@@ -196,4 +196,4 @@ false on ORION and how it changes the rule.
 
 **17-DEL** — *Workload placement policy and scheduling troubleshooting guide.* Submit the policy from
 17-M2 and the guide from 17-M3 as one document, with the lab's `placement-report.md` as an appendix.
-*Evidence required:* the document, the lab checker output (`9/9`), and the replay evidence from 17-M2.
+*Evidence required:* the document, the lab checker output (`10/10`), and the replay evidence from 17-M2.

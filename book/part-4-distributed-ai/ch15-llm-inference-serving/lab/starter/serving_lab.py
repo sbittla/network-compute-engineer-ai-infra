@@ -144,8 +144,14 @@ def request_metrics(df: pd.DataFrame) -> pd.DataFrame:
     queue_s = sched_s - arrival_s; prefill_s = first_token_s - sched_s;
     ttft_s = first_token_s - arrival_s; e2e_s = finish_s - arrival_s;
     tpot_s = (finish_s - first_token_s) / (output_tokens - 1), NaN when output_tokens < 2.
+
+    Real traces have gaps. Add a boolean column ``valid``: False when any of the four timestamps is
+    missing (NaN) or when they are out of order (arrival <= sched <= first_token <= finish fails,
+    e.g. a late-logged or clock-skewed token event). Invalid rows get NaN in all five latency
+    columns, so they drop out of percentiles instead of producing negative latencies.
     """
     # TODO: Add the five columns; use .where(output_tokens >= 2) to get NaN TPOT.
+    # TODO: Add the boolean ``valid`` column and blank the latency columns of invalid rows.
     raise NotImplementedError("TODO: implement request_metrics")
 
 
@@ -156,8 +162,12 @@ def latency_percentiles(values: Iterable[float], ps: tuple[float, ...] = (50, 90
 
 
 def itl_values_s(gaps: pd.DataFrame) -> np.ndarray:
-    """Flatten the sampled inter-token gaps into one array of seconds."""
-    # TODO: Split each non-empty itl_ms string on ";" and convert ms -> s.
+    """Flatten the sampled inter-token gaps into one array of seconds.
+
+    Skip missing rows (NaN or empty strings), empty or non-numeric fields, and negative gaps
+    (a token logged before its predecessor is a timestamp defect, not a latency).
+    """
+    # TODO: Split each non-empty itl_ms string on ";", drop bad fields, and convert ms -> s.
     raise NotImplementedError("TODO: implement itl_values_s")
 
 

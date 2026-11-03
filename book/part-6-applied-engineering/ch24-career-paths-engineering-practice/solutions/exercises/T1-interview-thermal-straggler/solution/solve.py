@@ -9,9 +9,9 @@ from pathlib import Path
 # Prompt values [ILLUSTRATIVE]
 STEP_BEFORE_S = 17.4
 STEP_AFTER_S = 19.5
-SLOW_CLOCK_MHZ = 1715
-PEER_CLOCK_MHZ = 1980        # peers locked at max boost, as the case states
-SUSTAINED_MHZ = 1830         # ORION typical sustained clock (REFERENCE_CLUSTER), for the counterfactual
+SLOW_CLOCK_MHZ = 1585
+PEER_CLOCK_MHZ = 1830        # peers at ORION's typical sustained clock (REFERENCE_CLUSTER), as the case states
+BOOST_MHZ = 1980             # max boost, for the wrong-baseline counterfactual
 # Compute share of the step: Chapter 22 Table 22.2 budget, 13.90 s of 17.90 s [ILLUSTRATIVE]
 CH22_COMPUTE_S, CH22_STEP_S = 13.90, 17.90
 
@@ -38,8 +38,8 @@ def main() -> None:
     predicted = STEP_BEFORE_S + added
     pct_pred = 100 * (predicted / STEP_BEFORE_S - 1)
     pct_obs = 100 * (STEP_AFTER_S / STEP_BEFORE_S - 1)
-    # counterfactual: had peers run at the 1,830 MHz sustained clock
-    added_sustained = compute * (SUSTAINED_MHZ / SLOW_CLOCK_MHZ - 1)
+    # counterfactual: comparing against the max boost instead of the peers' sustained clock
+    added_boost = compute * (BOOST_MHZ / SLOW_CLOCK_MHZ - 1)
     # inconsistent-evidence example from the key: a GPU at 58 % clock
     added_58 = compute * (1 / 0.58 - 1)
 
@@ -48,6 +48,7 @@ def main() -> None:
     assert abs(predicted - 19.5) < 0.05                        # key: 19.5 s
     assert abs(pct_pred - 12) < 0.5 and abs(pct_pred - pct_obs) < 0.5
     assert abs(100 * added_58 / STEP_BEFORE_S - 56) < 1         # key: +56 %
+    assert abs(added_boost - 3.4) < 0.05                       # key: ≈ 3.4 s with the wrong baseline
 
     payload = {"id": "T1", "evidence_label": "MODELED",
                "inputs": {"step_before_s": STEP_BEFORE_S, "step_after_s": STEP_AFTER_S,
@@ -58,7 +59,7 @@ def main() -> None:
                "answer": {"added_s_upper_bound": round(added, 2), "predicted_step_s": round(predicted, 2),
                           "predicted_pct": round(pct_pred, 1), "observed_pct": round(pct_obs, 1),
                           "explains_symptom": abs(pct_pred - pct_obs) < 0.5,
-                          "added_s_if_peers_at_sustained_1830": round(added_sustained, 2),
+                          "added_s_if_compared_to_boost_1980": round(added_boost, 2),
                           "added_s_if_clock_58pct": round(added_58, 2)},
                "units": {"time": "s", "clock": "MHz"}}
     md = ["# T1 — magnitude check `[MODELED]`", "",
@@ -66,7 +67,7 @@ def main() -> None:
           f"- Slowed compute = {compute} × {PEER_CLOCK_MHZ:,} / {SLOW_CLOCK_MHZ:,} = {slowed:.2f} s (+{added:.2f} s)",
           f"- Predicted step {predicted:.2f} s (+{pct_pred:.1f} %) vs observed {STEP_AFTER_S} s (+{pct_obs:.1f} %)",
           f"- Upper bound: memory-bound kernels scale less than the clock ratio",
-          f"- Had peers run at the 1,830 MHz sustained clock, the deficit would add only {added_sustained:.2f} s"]
+          f"- Against the 1,980 MHz boost (wrong baseline) the prediction would be {added_boost:.2f} s"]
     write_outputs(out, payload, md)
 
 

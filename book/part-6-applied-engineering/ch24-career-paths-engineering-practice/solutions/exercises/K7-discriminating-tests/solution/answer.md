@@ -1,18 +1,20 @@
 # K7 — Discriminating tests: model answer
 
-Sources: Section 24.12, Tables 24.14 and 24.14a; the concept is defined in Chapter 22 (Section 22.3.3).
+Sources: Section 24.12, Tables 24.16 and 24.17; the concept is defined in Chapter 22 (Section 22.3.3).
 
 **Definition.** A discriminating test is one whose outcome the competing hypotheses predict *differently*,
 so its result eliminates at least one of them. A test that every hypothesis predicts the same way ("rerun
 `all_reduce_perf`") adds no information.
 
 **The test in Section 24.12.** Read the per-port counters and optic Rx power on the rail-3 leaf ↔ host links:
-FEC corrected/uncorrectable codewords, CRC errors, PFC pause frames on priority 3 and ECN/CNP counts.
+pre-FEC BER, FEC uncorrectable codewords, FCS (CRC) drops, PFC pause frames on priority 3 and ECN/CNP counts.
 
-**Outcome observed → physical-layer degradation.** Errors isolated to one port (`orion-n11`: 18,422
-uncorrectable codewords, 9,870 CRC errors, corrected rate 40× peers), Rx power −9.8 dBm against −1.5 to
-−2.4 dBm on peers (≈ 8 dB low), and PFC pauses low everywhere `[ILLUSTRATIVE]`. This localizes the fault to
-one optic or connector; the `rack-03` cabling audit is the probable but unproven trigger.
+**Outcome observed → physical-layer degradation.** Errors isolated to one port (`orion-n11`: pre-FEC BER
+≈ 1.2e-3 against ≈ 1e-7, ≈ 1.7 × 10⁵ uncorrectable/FCS drops per second, ≈ 1.5 % of frames), Rx power
+−6.8 dBm against −1.5 to −2.4 dBm on peers (≈ 5 dB low and past the ≈ −5.9 dBm DR4 sensitivity), and PFC
+pauses low everywhere `[ILLUSTRATIVE]`. Under go-back-N that loss rate explains the rail-3 goodput:
+371 / (1 + 50 × 0.015) ≈ 212 Gb/s `[MODELED]`. This localizes the fault to one optic or connector; the
+`rack-03` cabling audit is the probable but unproven trigger.
 
 **Outcome that would point the other way → congestion.** PFC pauses and ECN/CNP increases spread across
 *many* rail-3 ports, correlated with load, with clean FEC/CRC and normal Rx power everywhere. That pattern

@@ -9,7 +9,8 @@ identifies the physical GPU for its lifetime, and a **NIC BDF** identifies where
 PCIe tree, which is what locality depends on.
 
 **A failure the index-keyed version hides** (Lab 5, `orion-n17` `[SIMULATED]`): the replacement rail-3 NIC is
-installed in slot 11 on a socket-1 root port. The site udev rule still names it `mlx5_3`, so a CSV keyed
+installed in slot 11 on a socket-1 root port. The post-repair naming step names it `mlx5_3` from its
+asset-database record ("rail-3 NIC"), so a CSV keyed
 "GPU3 → `mlx5_3`" diffs clean against golden. Keyed by BDF, the row shows the NIC moved from `43:00.0` to
 `86:00.0` (NUMA 1, SYS from GPU3), exposing the fault at once.
 

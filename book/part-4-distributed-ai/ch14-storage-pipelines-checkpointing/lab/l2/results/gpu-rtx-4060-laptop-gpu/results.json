@@ -7,6 +7,14 @@
   },
   "invariants": {
     "failures": [
+      "implausible D2H snapshot rate 0.01 GB/s < 1 GB/s: the host is paging (pinned allocation under memory pressure?); this run is not valid evidence - rerun on a host with more RAM",
+      "implausible restore: dcp.load 2246.8 s > 20 x save 6.5 s; the host is paging; this run is not valid evidence"
+    ],
+    "passed": false,
+    "reevaluated": "2026-11-01: the same measurements re-checked with the plausibility guards added after this run; the original list is kept in invariants_original"
+  },
+  "invariants_original": {
+    "failures": [
       "async_save returned faster than a single copy of the state: it did not stage the state; a later in-place update could corrupt the checkpoint"
     ],
     "passed": false

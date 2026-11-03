@@ -51,7 +51,7 @@ Python 3.10+. Edit only `starter/regression_lab.py`.
 | `step_log.csv` | Training-loop logger: `step_time_s`, `data_wait_s` (time the loop blocked on the dataloader) | job × step |
 | `placement.csv` | Rank → node, local GPU, `tp_group`, `pp_stage`, `dp_replica` | job × rank |
 | `node_inventory.csv` | **Current** node state: rack, block, driver branch, peer-memory module loaded | node |
-| `node_metrics.csv` | Per job-node summaries: SM active, backend tx GB/s, CPU iowait, host bounce-copy GB/s, ECC SBE count, GPU temperature | job × node |
+| `node_metrics.csv` | Per job-node summaries: SM active, backend tx GB/s, CPU iowait, host bounce-copy GB/s, ECC SBE count over the job (jobs run ≈ 1 h, so a count per job-node ≈ a rate per hour), GPU temperature | job × node |
 | `alerts.csv` | Alerts around the window | alert |
 | `change_log.yaml` | The changes made in CW-2026-10-12 | change |
 | `hypotheses.yaml` | Candidate discriminating tests: info value, cost, risk, environment | test |
@@ -70,7 +70,7 @@ before computing anything):
 
 | # | Function | Acceptance criterion (checked by `check.py`) |
 |---|---|---|
-| 1 | `clean_steps` | Unique per `(job_id, step)`, no step < 10; the row count matches the reference |
+| 1 | `clean_steps`, `hygiene_counts` | Unique per `(job_id, step)`, no step < 10; the row count matches the reference. `hygiene_counts` reports what each rule removed (raw rows, duplicates, warm-up rows, jobs dropped) |
 | 2 | `tp_split_jobs` | Exactly the set of jobs whose tensor-parallel (TP) groups span more than one node |
 | 3 | `job_factor_table` | 48 rows; five 0/1 factors (`after`, `tp_split`, `driver_new`, `storage_new`, `alert_node`) plus `tp_x_storage = tp_split × storage_new`, with correct exposure counts; every job present with its usable step count |
 | 4 | `regression_summary` | Job-weighted mean and median change, before → after |
@@ -79,7 +79,7 @@ before computing anything):
 | 6b | `bootstrap_shares` | Job-level bootstrap (resample jobs within each period; drop rank-deficient designs): 95 % interval of each share; the common-shift share's interval contains its point estimate |
 | 7 | `storage_crosscheck` | Directly measured data-wait delta (after period, TP-packed jobs, capacity minus hot) agrees with the inferred storage effect |
 | 8 | `rank_tests` | Tests ranked by `info_value / (cost_hours × risk_multiplier)` (low 1, medium 2, high 5); high-risk production tests rejected, not ranked; ties broken by test ID |
-| 9 | `render_report` | Markdown report with `## Measured facts`, `## Inferred causes`, `## Remaining uncertainty`, in that order, naming the headline percentage and the alerted node's verdict |
+| 9 | `render_report` | Markdown report with a `Hygiene:` line stating the `hygiene_counts` numbers, then `## Measured facts`, `## Inferred causes`, `## Remaining uncertainty`, in that order, naming the headline percentage and the alerted node's verdict |
 
 Hints: build the factor flags from the *evidence*, not from the change log's intent. Ask of every join
 "was this attribute true when the job ran?" A factor that looks harmless in a simple before/after
@@ -94,7 +94,9 @@ python check.py --impl solution    # instructor reference: all PASS, exit 0
 python ../../../../scripts/validate_labs.py ch22   # from anywhere inside the repo
 ```
 
-The checker prints one `PASS`/`FAIL`/`TODO` line per check with the value it got and what it expected.
+The checker prints one `PASS`/`FAIL`/`TODO`/`SKIP` line per check with the value it got and what it expected.
+The first check confirms that `data/` matches the seeded generator byte for byte; it reports `SKIP` in the
+learner copy, where the generator is not shipped.
 
 ## 7. Deliverable and grading rubric
 
@@ -154,8 +156,16 @@ python scripts/hw_labs.py run ch22 --device cpu   # same design; data-path facto
 Without a GPU (`--device auto` on a host with no NVIDIA driver) the CPU fallback runs automatically. It uses one
 thread, a strided-gather data-path factor and per-job medians, and skips the GPU-only invariants (PCIe ceiling,
 pinned ≥ pageable). **Observed on the reference run:** the committed bundles in `lab/l2/results/`
-(`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show the estimator recovering both injected effects within their
-uncertainty, the placebo near zero, and the copy mechanism model accounting for the data-path effect `[MEASURED]`.
+(`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) are `[MEASURED]`; read them with their verdict column. On the GPU
+run the small-batch factor is recovered and corroborated (OLS +6.55 ± 1.18 ms vs +5.93 ms direct) and the
+placebo is consistent with zero (−1.33 ± 1.47 ms). The pageable factor's direction is recovered, but its OLS
+estimate (+6.02 ± 2.12 ms) is 2.3× the direct A/B (+2.65 ms) and its verdict is *inconclusive* at this n; the
+cause rests on the A/B and the copy mechanism model (+2.05 ms, 77 % of the A/B). The common shift (+3.02 ms,
+16× the 0.185 ms MDE, a third of the delta) is block-order drift: all before-jobs ran first. Interleave before
+and after jobs, or add a drift covariate, before trusting the shares. The report's conclusion text was
+re-rendered from the committed `results.json` with the corrected generator (measurements unchanged); the CPU
+bundle is read the same way (there both injected factors are corroborated and the common shift, −0.11 ms, is
+within the 0.451 ms MDE).
 The W-TRAIN factors themselves (TP split, cross-node GDR, storage tier) still need the L3 setup below.
 
 **L3 — controlled A/B for placement and GDR** (tests T6 and T7). `srun` launches of `all_reduce_perf`
@@ -163,12 +173,34 @@ need nccl-tests built with MPI support (`make MPI=1 MPI_HOME=<path>`) and a Slur
 MPI (commonly `--mpi=pmix`); without it each task runs as an independent single-rank job.
 
 ```bash
-# TP-packed reference: one 8-rank communicator inside one node's NVLink domain
-srun --mpi=pmix -N1 --ntasks-per-node=8 --gpus-per-node=8 ./build/all_reduce_perf -b 64M -e 1G -f 2 -g 1 -w 20 -n 100
-# TP-split analogue: the same 8 ranks placed 4 + 4 on two nodes, so the ring crosses the backend fabric
-srun --mpi=pmix -N2 --ntasks-per-node=4 --gpus-per-node=4 ./build/all_reduce_perf -b 64M -e 1G -f 2 -g 1 -w 20 -n 100
+# TP-packed reference: one 8-rank communicator inside one node's NVLink domain, ring with NVLS off
+# (predicted ≈ 360 GB/s busbw [ILLUSTRATIVE]; with the default NCCL_NVLS_ENABLE=2 an NVLS-capable node
+# typically reports > 400 GB/s, which is NVLS, not a model failure)
+NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring srun --mpi=pmix -N1 --ntasks-per-node=8 --gpus-per-node=8 \
+  ./build/all_reduce_perf -b 64M -e 1G -f 2 -g 1 -w 20 -n 100
+# TP-split analogue: the same 8 ranks placed 4 + 4 on two nodes. Plain --gpus-per-node=4 binds GPUs 0-3 on
+# BOTH nodes (rail-aligned), which is not the modeled case. Pin the halves with a wrapper instead:
+cat > pin_split.sh <<'SH'
+#!/bin/bash
+# cross-rail split (Section 22.10.3): node 0 keeps GPUs/NICs 4-7, node 1 keeps GPUs/NICs 0-3
+if [ "${SPLIT:-cross}" = cross ] && [ "$SLURM_NODEID" = 0 ]; then
+  export CUDA_VISIBLE_DEVICES=4,5,6,7
+else
+  export CUDA_VISIBLE_DEVICES=0,1,2,3          # SPLIT=aligned: GPUs 0-3 on both nodes (control)
+fi
+exec "$@"
+SH
+chmod +x pin_split.sh
+# cross-rail split; predicted busbw ≈ 100 GB/s at 64 MiB [ILLUSTRATIVE]
+NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=INIT,NET SPLIT=cross srun --mpi=pmix -N2 --ntasks-per-node=4 --gpus-per-node=8 \
+  ./pin_split.sh ./build/all_reduce_perf -b 64M -e 1G -f 2 -g 1 -w 20 -n 100 2>&1 | tee split_cross.log
+# rail-aligned control; predicted ≈ 170-180 GB/s (four rails, half the ≈ 350 GB/s eight-rail figure)
+NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=INIT,NET SPLIT=aligned srun --mpi=pmix -N2 --ntasks-per-node=4 --gpus-per-node=8 \
+  ./pin_split.sh ./build/all_reduce_perf -b 64M -e 1G -f 2 -g 1 -w 20 -n 100 2>&1 | tee split_aligned.log
+grep -E 'via NET/IB/[0-9]+' split_cross.log | sort | uniq -c   # which NICs the channels used
 # GDR effect: one R550 + one R570 node, compare busbw and the 'via NET/IB/x/GDRDMA' lines
-NCCL_DEBUG=INFO srun --mpi=pmix -N2 --ntasks-per-node=8 ./build/all_reduce_perf -b 8 -e 4G -f 2 -g 1 -w 20 -n 100 \
+NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=INIT,NET srun --mpi=pmix -N2 --ntasks-per-node=8 --gpus-per-node=8 \
+  ./build/all_reduce_perf -b 8 -e 4G -f 2 -g 1 -w 20 -n 100 \
   2>&1 | grep -E 'via NET/IB/[0-9]+(/GDRDMA)?'      # '/GDRDMA' suffix = GDR in use
 ```
 

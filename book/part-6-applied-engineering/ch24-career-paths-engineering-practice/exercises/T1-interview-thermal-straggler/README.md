@@ -18,9 +18,9 @@ pipeline send. On `orion-n22`, `nvidia-smi -q -d PERFORMANCE` shows for GPU 5 (a
         SW Thermal Slowdown               : Active
 ```
 
-Its SM clock is 1,715 MHz against 1,980 MHz on peers (peers run application clocks locked at the
-≈ 1,980 MHz maximum boost, not ORION's typical ≈ 1,830 MHz sustained clock); GPU temperature is 89 °C against 64–70 °C on
-peers. The fabric dashboard also shows ECN-marked packets on rail-5 leaf ports rising 3× since
+Its SM clock is 1,585 MHz against ≈ 1,830 MHz on peers (ORION's typical sustained clock under dense
+training; peers show `SW Power Cap` intermittently, which is routine); GPU temperature is 89 °C
+against 64–70 °C on peers. The fabric dashboard also shows ECN-marked packets on rail-5 leaf ports rising 3× since
 yesterday, and the facilities log records a fan-tray replacement in `rack-06` (which holds `orion-n22`) at
 02:10. Walk the diagnostic loop: rank at least three hypotheses by information value, cost and risk;
 name the discriminating test(s); state the root cause and what remains correlation; propose a safe

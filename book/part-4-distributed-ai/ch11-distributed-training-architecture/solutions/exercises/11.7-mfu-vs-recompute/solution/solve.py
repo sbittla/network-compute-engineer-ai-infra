@@ -62,7 +62,8 @@ def comm(model: dict, cluster: dict, cfg: dict) -> dict:
     m = n_micro(model, cfg)
     msg = model["seq_len"] * b * model["hidden"] * model["act_bytes"]
     lat_nvl, lat_net = cluster["nvlink_latency_us"] * 1e-6, cluster["internode_latency_us"] * 1e-6
-    n_tp = 4 * (model["layers"] // pp) * m if tp > 1 else 0
+    # full recompute re-runs the 2 forward TP collectives per layer during backward: 6 instead of 4
+    n_tp = (6 if cfg["recompute"] == "full" else 4) * (model["layers"] // pp) * m if tp > 1 else 0
     tp_bytes = n_tp * 2 * (tp - 1) / tp * msg if tp > 1 else 0.0
     tp_lat = lat_net * 2 if tp > gpn else lat_nvl
     tp_t = n_tp * (allreduce_s(msg, tp, min(tp, gpn), cluster) + tp_lat) if tp > 1 else 0.0
@@ -144,10 +145,10 @@ def solve() -> dict:
 
 
 def check(r: dict) -> None:
-    # Key 11.7: 22.17 s vs 17.45 s; MFU 39.9 % -> 31.4 % (tolerance 0.01 s / 0.1 point).
+    # Key 11.7: 23.71 s vs 17.45 s; MFU 39.9 % -> 29.3 % (tolerance 0.01 s / 0.1 point).
     assert not r["answer"]["mfu_went_up"]
-    assert abs(r["baseline"]["step_s"] - 17.45) < 0.01 and abs(r["full_recompute"]["step_s"] - 22.17) < 0.01
-    assert abs(r["baseline"]["mfu"] - 0.399) < 0.001 and abs(r["full_recompute"]["mfu"] - 0.314) < 0.001
+    assert abs(r["baseline"]["step_s"] - 17.45) < 0.01 and abs(r["full_recompute"]["step_s"] - 23.71) < 0.01
+    assert abs(r["baseline"]["mfu"] - 0.399) < 0.001 and abs(r["full_recompute"]["mfu"] - 0.293) < 0.001
 
 
 def report(r: dict) -> str:

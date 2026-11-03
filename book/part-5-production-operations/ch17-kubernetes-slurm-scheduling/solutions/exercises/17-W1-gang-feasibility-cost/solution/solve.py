@@ -25,7 +25,7 @@ def close(value: float, key: float, tol: float, what: str) -> None:
 FREE = dict(zip([f"p{i:02d}" for i in range(1, 13)], [8, 8, 0, 4, 6, 2, 8, 3, 5, 8, 1, 7]))
 DRAINING = {"p07"}
 GPUS_PER_NODE = 8
-PRICE = 2.50                 # $/GPU-hour [ILLUSTRATIVE]
+PRICE = 3.00                 # $/GPU-hour [MODELED] (Chapter 21 TCO per nominal GPU-hour, rounded)
 STRAND_H = 5.0
 JOB_GPUS, CKPT_MIN, RESTART_MIN = 128, 45.0, 15.0
 
@@ -50,7 +50,7 @@ def main(out: Path) -> None:
     assert whole == ["p01", "p02", "p10"] and largest_gang == 24
     assert reason == "Fragmentation"
     assert best == "p05"
-    assert stranded == 32 and strand_gpu_h == 160 and cost == 400
+    assert stranded == 32 and strand_gpu_h == 160 and cost == 480
     close(lost, 80, 1e-9, "GPU-hours lost per preemption")
 
     result = {"exercise": "17-W1", "evidence_label": "[MODELED]",

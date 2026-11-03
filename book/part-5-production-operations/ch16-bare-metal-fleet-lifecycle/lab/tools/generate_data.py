@@ -86,6 +86,9 @@ POLICY = {
                         "mtu": 9000, "active_mtu": 4096},
         "frontend_nic": {"count": 2, "speed_mbps": 200000, "mtu": 9000},
         "nvme_count": 8,
+        # GPUDirect RDMA path: a peer-memory provider must be present (nvidia_peermem, or the DMA-BUF path,
+        # which needs no peermem module) and the IOMMU mode must match the bundle (passthrough or off).
+        "gdr": {"peer_mem_any_of": ["nvidia_peermem", "dma_buf"], "iommu_mode_any_of": ["pt", "off"]},
     },
     "thresholds": {
         "dcgm_diag_min_level": 3,
@@ -95,11 +98,22 @@ POLICY = {
         "throttle_reasons_fail": ["HW_THERMAL_SLOWDOWN", "SW_THERMAL_SLOWDOWN", "HW_POWER_BRAKE_SLOWDOWN"],
         "throttle_reasons_ignore": ["SW_POWER_CAP", "GPU_IDLE"],
         "rdma_pair_bw_min_gbps": 360.0,
+        # ib_write_bw --use_cuda=<i> (GPU buffers) must reach this fraction of the host-buffer result per rail.
+        "gdr_to_host_bw_ratio_min": 0.90,
+        # Backend link quality during the RDMA soak (Chapter 10, Table 10.8, row 7):
+        # pre-FEC BER below 1e-6, RS-FEC symbol-error histogram empty above bin 8, no
+        # uncorrectable codewords, no link flaps [ILLUSTRATIVE values].
+        "link_pre_fec_ber_max": 1.0e-6,
+        "link_fec_hist_max_bin": 8,
+        "link_fec_uncorrectable_max": 0,
+        "link_flaps_max": 0,
         # Single-node all_reduce_perf busbw floor at 8 GiB, keyed by the NCCL algorithm actually used
         # (from NCCL_DEBUG=INFO). NVLS = NVLink SHARP in-switch reduction; Ring = NVLS disabled or
         # unavailable. Baseline each separately on known-good nodes [ILLUSTRATIVE values].
         "nccl_allreduce_busbw_min_gbs": {"NVLS": 400.0, "Ring": 330.0},
         "fio_seq_read_min_gbs": 40.0,
+        # One fio job per drive: under RAID-0 checkpoint staging the slowest drive paces every stripe.
+        "nvme_drive_seq_read_min_gbs": 5.0,
         "nvme_media_errors_max": 0,
     },
 }
@@ -112,6 +126,7 @@ FW_OFF_NODE, FW_OFF_NIC = 23, 7
 THERMAL_NODE, THERMAL_GPU = 27, 6
 ROWREMAP_NODE, ROWREMAP_GPU = 30, 2
 SBE_WARN_NODE, SBE_WARN_GPU = 7, 1
+GDR_NODE = 22  # BIOS update re-enabled ACS redirect on PCIe switch SW1: rails 2 and 3 lose GPUDirect RDMA
 RING_NODE = 15  # distractor: Ring-algorithm NCCL run at a healthy Ring busbw must PASS
 
 
@@ -177,11 +192,24 @@ def acceptance_for(n: int, rng: random.Random) -> dict:
             "pcie": {"gen": 5, "width": 16},
             "fw": fw["nic_fw"],
             "rdma_pair_bw_gbps": round(rng.uniform(386.0, 394.5), 1),
+            # Deterministic healthy values (no RNG draw, so the other planted data is unchanged).
+            "link_quality": {"pre_fec_ber": float(f"{1.0 + ((n * 8 + r) % 9) * 0.6:.1f}e-08"),
+                             "fec_hist_max_bin": 3 + (n + r) % 4,
+                             "fec_uncorrectable": 0, "link_flaps": 0},
         }
         nics.append(nic)
+    for r, nic in enumerate(nics):  # GPU-buffer pair test: ~98-99 % of host buffers (no RNG draw)
+        nic["gdr_pair_bw_gbps"] = round(nic["rdma_pair_bw_gbps"] - 1.5 - ((n + r) % 5) * 0.4, 1)
+    gdr = {"peer_mem": "nvidia_peermem", "iommu_mode": "pt", "acs_redirect_ports": []}
+    if n == GDR_NODE:
+        # Downstream ports of SW1 above GPU2, NIC2, GPU3, NIC3 have ReqRedir+ CmpltRedir+: P2P detours via the root complex.
+        gdr["acs_redirect_ports"] = ["0000:38:00.0", "0000:38:01.0", "0000:38:02.0", "0000:38:03.0"]
+        nics[2]["gdr_pair_bw_gbps"] = 142.6
+        nics[3]["gdr_pair_bw_gbps"] = 138.9
     if n == NIC_200G_NODE:
         nics[NIC_200G_IDX]["speed_mbps"] = 200000
         nics[NIC_200G_IDX]["rdma_pair_bw_gbps"] = round(rng.uniform(191.0, 196.0), 1)
+        nics[NIC_200G_IDX]["gdr_pair_bw_gbps"] = round(nics[NIC_200G_IDX]["rdma_pair_bw_gbps"] - 1.8, 1)
     if n == FW_OFF_NODE:
         nics[FW_OFF_NIC]["fw"] = "28.42.1000"
     for s in range(2):
@@ -197,6 +225,9 @@ def acceptance_for(n: int, rng: random.Random) -> dict:
             "busbw_gbs": round(rng.uniform(452.0, 478.0), 1)}
     if n == RING_NODE:  # NVLS unavailable on this node's run (NCCL_ALGO=Ring): healthy Ring baseline
         nccl.update(algorithm="Ring", busbw_gbs=round(rng.uniform(366.0, 374.0), 1))
+    fio_total = round(rng.uniform(46.0, 52.0), 1)  # same RNG position as before
+    for d in nvme:  # per-drive fio job (one job per device), deterministic share of the aggregate
+        d["seq_read_gbs"] = round(fio_total / 8 * (0.97 + ((n + d["slot"]) % 7) * 0.01), 2)
     return {
         "node": node_name(n),
         "rack": rack_of(n),
@@ -207,7 +238,8 @@ def acceptance_for(n: int, rng: random.Random) -> dict:
         "gpus": gpus,
         "dcgm_diag": {"level": 3, "result": "Pass", "gpus_tested": n_gpus},
         "nics": nics,
-        "storage": {"nvme": nvme, "fio_seq_read_gbs": round(rng.uniform(46.0, 52.0), 1)},
+        "storage": {"nvme": nvme, "fio_seq_read_gbs": fio_total},
+        "gdr": gdr,
         "nccl_single_node": nccl,
         "xid_events": xids,
     }
@@ -278,7 +310,7 @@ def events() -> list[dict]:
         ("orion-n29", "enable", "fleet-bot", {}),
         ("orion-n31", "pass_acceptance", "acceptance-bot", {"acceptance_verdict": "PASS"}),
         ("orion-n12", "send_to_repair", "oncall-jun", {"ticket": "FLT-4440"}),
-        ("orion-n12", "drain", "health-bot", {"reason": "Xid 48 (DBE) on GPU3", "category": "fault"}),
+        ("orion-n12", "drain", "health-bot", {"reason": "Xid 95 (uncontained ECC) on GPU3", "category": "fault"}),
         ("orion-n12", "cancel_drain", "oncall-jun", {}),
         ("orion-n12", "drain_complete", "fleet-bot", {"running_jobs": 0}),
         ("orion-n12", "send_to_repair", "oncall-jun", {}),

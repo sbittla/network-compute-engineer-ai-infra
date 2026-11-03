@@ -6,7 +6,7 @@ difficulty: 2
 tier: L1
 kind: lab
 points: 100
-evidence_required: Checker output with 14/14 PASS; `postmortem.md`; `dashboard_spec.json`; `slo_spec.md`.
+evidence_required: Checker output with 15/15 PASS; `postmortem.md`; `dashboard_spec.json`; `slo_spec.md`.
 marking:
 - criterion: Tasks 1–2 checker PASS plus explanation of checkpoint exclusion (stall and median/threshold
     effect)
@@ -28,6 +28,7 @@ lab_checks:
 - 'T1 regression onset/recovery:'
 - 'T2 training SLI + lost GPU-hours:'
 - 'T2 burn rates:'
+- 'T2 scrape gap:'
 - 'T2 multiwindow page logic:'
 - 'T3 rule evaluation:'
 - 'T3 noisy + missing alert:'

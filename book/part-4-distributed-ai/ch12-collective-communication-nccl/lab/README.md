@@ -26,7 +26,8 @@ python check.py                     # progress meter for starter/nccl_analysis.p
 ```
 
 Inputs: `data/configs.yaml` (what each run was), `data/c1…c6_*.log` (nccl-tests output),
-`data/nccl_debug_c2_2node_aligned.txt` and `data/nccl_debug_c3_2node_alt_map.txt` (NCCL INFO excerpts).
+`data/nccl_debug_c2_2node_aligned.txt` and `data/nccl_debug_c3_2node_alt_map.txt` (NCCL INFO excerpts),
+`data/launches/c2_launch1…5.log` (five separate launches of the c2 configuration).
 
 ## 4. Background
 
@@ -53,8 +54,11 @@ Manuscript Sections 12.2–12.3 (collectives, alpha-beta), 12.5 (reading nccl-te
    configuration is low.
 6. **Report (25 pts).** The chapter deliverable, ≤ 2 pages: summary table, log-log plot of time vs
    size for at least c1, c2, c5 (matplotlib), scaling verdict, each anomaly with its signature and the
-   evidence you would collect next, and the predicted cost of a 25 MB bucket and of W-TRAIN's DP
-   reduction (Section 12.11).
+   evidence you would collect next, the predicted cost of a 25 MB bucket and of W-TRAIN's DP
+   reduction (Section 12.11), and the c2 plateau reported from the five launches in `data/launches/` as a
+   median with its spread (Section 12.10). One launch is clearly lower: say what you would check before
+   discarding or keeping it (the NCCL INFO channel count at init). *Acceptance (checker `launch_spread`):*
+   median ≈ 352 GB/s, range ≈ 330–357 GB/s.
 
 ## 6. Running the checker
 
@@ -67,7 +71,7 @@ python check.py --impl solution    # reference implementation (instructors)
 
 | Item | Points |
 |---|---|
-| Tasks 1–5 (checker: 10 checks) | 75 |
+| Tasks 1–5 (checker: 11 checks) | 75 |
 | Report: summary table and plot (labelled axes, units, log scales, evidence labels) | 8 |
 | Report: scaling verdict with numbers (plateau and α vs nodes) | 6 |
 | Report: anomalies explained with signature + next evidence (NCCL INFO, counters, pairwise tests) | 8 |

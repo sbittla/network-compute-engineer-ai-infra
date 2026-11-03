@@ -15,7 +15,9 @@ import copy
 import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any, Callable
 
@@ -57,9 +59,34 @@ class Fail(Exception):
     pass
 
 
+class Skip(Exception):
+    pass
+
+
 def need(cond: bool, msg: str) -> None:
     if not cond:
         raise Fail(msg)
+
+
+# ----------------------------------------------------------------------------- dataset
+
+DATA_FILES = ["desired_state.json", "actual_state.json", "rollout.json", "abort_conditions.json",
+              "gap_catalog.json", "review_rubric.json", "unsafe_change_plan.md"]
+
+
+def c_reproducible(m) -> str:
+    gen = HERE / "tools" / "generate_data.py"
+    if not gen.exists():
+        raise Skip("generator not shipped (instructor copy only); data integrity not re-checked")
+    with tempfile.TemporaryDirectory() as td:
+        subprocess.run([sys.executable, str(gen), "--out", td], check=True, capture_output=True)
+        for n in DATA_FILES:
+            a = (DATA / n).read_bytes().replace(b"\r\n", b"\n")
+            b = (Path(td) / n).read_bytes()
+            need(hashlib.sha256(a).digest() == hashlib.sha256(b).digest(), f"{n} differs from regenerated copy")
+    size = sum((DATA / n).stat().st_size for n in DATA_FILES)
+    need(size < 2_000_000, f"data/ is {size/1e6:.2f} MB; limit 2 MB")
+    return f"seed-20 generator reproduces all {len(DATA_FILES)} data files byte-for-byte ({size/1e6:.2f} MB)"
 
 
 # ----------------------------------------------------------------------------- Part 1 checks
@@ -272,6 +299,7 @@ def c_review_evidence(m, impl_dir: Path) -> str:
 
 
 CHECKS: list[tuple[str, Callable, bool]] = [
+    ("p0.dataset_reproducible", c_reproducible, False),
     ("p1.validate_planted_violations", c_validate, False),
     ("p1.validate_clean_and_cnp_rule", c_validate_clean, False),
     ("p1.plan_diff_blocked_unreachable", c_plan, False),
@@ -297,20 +325,24 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001 - report, do not crash
         print(f"FAIL import  could not import {args.impl} module: {exc!r}")
         return 2
-    passed = 0
+    passed = skipped = 0
     for name, fn, needs_dir in CHECKS:
         try:
             msg = fn(mod, impl_dir) if needs_dir else fn(mod)
             print(f"PASS {name}  {msg}")
             passed += 1
+        except Skip as exc:
+            print(f"SKIP {name}  {exc}")
+            skipped += 1
         except NotImplementedError as exc:
             print(f"TODO {name}  not implemented yet ({exc})")
         except Fail as exc:
             print(f"FAIL {name}  {exc}")
         except Exception as exc:  # noqa: BLE001 - learner code may raise anything
             print(f"FAIL {name}  {type(exc).__name__}: {exc}")
-    print(f"\n{passed}/{len(CHECKS)} checks passed ({args.impl})")
-    return 0 if passed == len(CHECKS) else 1
+    tail = f", {skipped} skipped" if skipped else ""
+    print(f"\n{passed}/{len(CHECKS)} checks passed{tail} ({args.impl})")
+    return 0 if passed + skipped == len(CHECKS) else 1
 
 
 if __name__ == "__main__":

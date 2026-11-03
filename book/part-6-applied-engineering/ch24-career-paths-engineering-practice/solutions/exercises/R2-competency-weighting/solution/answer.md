@@ -8,7 +8,7 @@ tenant provisioning* and its interviews as probing *bring-up speed and acceptanc
 there spends much of the job generating and validating configuration for hundreds of new leaves, which is
 automation work. The real register agrees in direction: of the 8 AI-network roles on 2026-10-30, 3 were
 front-end, deployment or network-automation roles asking for Python or Go automation
-`[OBSERVED, 2026-10-30]` (Table 24.8a).
+`[OBSERVED, 2026-10-30]` (Table 24.9).
 
 **Proposed weight and effect.** Raise automation from 1 to 2. For the sample learner at senior (automation
 d = 3, t = 2, fully met), Σw becomes 18 and Σ w·fraction 14.333, so readiness rises from 78.4 % to 79.6 %

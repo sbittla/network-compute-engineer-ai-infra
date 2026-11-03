@@ -44,7 +44,7 @@ def ols(ft, terms):
     return dict(zip(names, map(float, beta))), dict(zip(names, map(float, se))), r2
 
 
-KEY_CORR = {"tx_packed": 6.06, "tx_split": 37.93, "sm_packed": 0.57, "sm_split": 0.40, "iowait_hot": 1.52,
+KEY_CORR = {"tx_packed": 6.06, "tx_split": 95.93, "sm_packed": 0.57, "sm_split": 0.40, "iowait_hot": 1.52,
             "iowait_cap": 6.03, "bounce_before": 0.4, "bounce_after": 9.5, "sbe_before": 0.7, "sbe_after": 152,
             "temp_before": 67.4, "temp_after": 68.1, "dw_delta": 1.46, "p99_hot": 18.8, "p99_cap": 35.0,
             "p50_hot": 18.17, "p50_cap": 18.24}                 # exercises-key.md O1 (b)

@@ -1,12 +1,12 @@
 # W2 — Is a 9 % regression worth a page?
 
-4,096-GPU ORION-XL job; step 17.4 s → 19.0 s; $3 per GPU-hour `[ILLUSTRATIVE price]`. `[MODELED]`
+4,096-GPU ORION-XL job; step 17.4 s → 19.0 s; $3.00 per GPU-hour (canonical; Chapter 21's TCO per nominal GPU-hour). `[MODELED]`
 
 **(a)** Throughput ratio = 17.4 / 19.0 = **0.916**; fraction of GPU time lost = 1 − 0.916 = **0.084**
 (8.4 %).
 
 **(b)** Lost GPU-hours = duration × GPUs × lost fraction.
-- Case A: (6 h + 0.5 h) × 4,096 × 0.0842 = **2,242 GPU-h → ≈ $6,730**.
+- Case A: (6 h + 0.5 h) × 4,096 × 0.0842 = **2,242 GPU-h → ≈ $6,726**.
 - Case B: (12 + 30) min = 0.7 h; 0.7 × 4,096 × 0.0842 = **241 GPU-h → ≈ $724**.
 Detection saves ≈ 2,000 GPU-h ≈ $6,000 per incident.
 

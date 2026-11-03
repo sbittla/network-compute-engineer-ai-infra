@@ -8,8 +8,8 @@ kind: written
 points: 3
 evidence_required: two mechanisms, one counter or experiment each.
 marking:
-- criterion: 'Mechanism 1: data served from the 50 MB L2 (or shared memory), so traffic never reached
-    DRAM'
+- criterion: 'Mechanism 1: part of the data served from the 50 MB L2 (producer output still resident, or
+    output absorbed by L2 write-back), so traffic never reached DRAM; only what fits in L2'
   points: 1
 - criterion: 'Mechanism 2: bytes computed from tensor shapes double-count or assume a layout not used'
   points: 1

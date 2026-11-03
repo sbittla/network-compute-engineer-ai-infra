@@ -40,7 +40,7 @@ PDU telemetry).
 ## Deliverable (course outline)
 
 Capacity model and cost/performance decision memo (M1–M3, Lab 21), plus the capacity/power/cooling model
-and operational guardrails (M4, Section 20.3 / table 8).
+and operational guardrails (M4, course outline §20.3, table 8).
 
 ## File map
 

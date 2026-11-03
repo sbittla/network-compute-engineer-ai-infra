@@ -152,7 +152,8 @@ def check_fmea(c: Ctx) -> tuple[bool, str]:
 
 def check_isolation(c: Ctx) -> tuple[bool, str]:
     got = c.m.check_isolation(c.b["tenants"], c.b["isolation_policy"])
-    exp = {("acme-research", "RBAC_FORBIDDEN_ROLE"), ("acme-research", "SHARED_IB_PKEY"),
+    exp = {("acme-research", "GPU_INJECTION_BYPASS"), ("acme-research", "RBAC_FORBIDDEN_ROLE"),
+           ("acme-research", "SHARED_IB_PKEY"),
            ("borealis", "NO_SCRUB"), ("borealis", "SECRETS_SCOPE"), ("borealis", "SHARED_VNI"),
            ("borealis", "STORAGE_OVERLAP"), ("cobalt-inference", "AUDIT_RETENTION"),
            ("cobalt-inference", "GPU_SHARING_NOT_MIG"), ("cobalt-inference", "SHARED_IB_PKEY"),

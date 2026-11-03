@@ -1,6 +1,6 @@
 # 17-L1 — Lab 17 reference results
 
-**Checker:** `9/9 checks passed (solution)`; 10 of 15 jobs placed; final tenant usage pretrain 112,
+**Checker:** `10/10 checks passed (solution)`; 10 of 15 jobs placed; final tenant usage pretrain 112,
 research 34, finetune 24, inference 42, search 8 (= 220 of 256 GPUs allocated) `[SIMULATED]`.
 
 **Reference schedule** (attempt order): J10 n26 [4–7] · J05 n22 + n24 · J12 n31 · J02 n14 · J03
@@ -8,9 +8,10 @@ QuotaExceeded · J04 InvalidRequest · J08 n13 + n18 · J07 n20 [4–7] · J11 n
 InsufficientCapacity · J15 n29 [2] · J06 Fragmentation · J14 QuotaExceeded · J09 n20 [2,3].
 
 **placement-report.md must explain the five pending jobs:**
-- J01 — InsufficientCapacity: dynamic fair share (pretrain 0.700 after J05) ranked it after
-  research's J08 and inference's J13; J05 and J08 took the four whole rail-complete nodes; fix:
-  head-of-queue gang reservation or wait for R-pt-002 (n09–n12).
+- J01 — InsufficientCapacity: capacity, not fair share. J05 (priority 100) took two of the four
+  whole rail-complete nodes before any priority-50 job; even tried before J08, J01 would see
+  n13 8 + n18 8 + n20 6 + n21 6 = 28 < 32. Fair share only gave the leftover two nodes to J08. Fix:
+  a priority/QOS change above J05, a head-of-queue gang reservation, or wait for R-pt-002 (n09–n12).
 - J03 — QuotaExceeded: research 18 + 32 = 50 > 48; fix: quota borrowing in a cohort or resize.
 - J04 — InvalidRequest: 12 GPUs is > 8 and not a multiple of 8; fix: request 8 or 16.
 - J06 — Fragmentation: exactly 8 eligible free GPUs (n20 2 + n21 6) but no node with 8.

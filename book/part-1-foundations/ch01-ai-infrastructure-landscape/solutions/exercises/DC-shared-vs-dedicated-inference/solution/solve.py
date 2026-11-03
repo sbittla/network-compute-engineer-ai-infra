@@ -2,7 +2,7 @@
 """DC: cost arithmetic for shared vs dedicated W-INFER capacity.
 
 Usage: python solve.py --out DIR
-Inputs: prompt ($2.50/GPU-hour [ILLUSTRATIVE], 8 HX8 nodes); 60 % mean inference load [ILLUSTRATIVE].
+Inputs: prompt ($3.00/GPU-hour, Chapter 21 TCO, 8 HX8 nodes); 60 % mean inference load [ILLUSTRATIVE].
 """
 from __future__ import annotations
 
@@ -23,12 +23,12 @@ def house(line: str) -> str:
 
 NODES = 8
 GPUS_PER_NODE = 8
-USD_PER_GPU_HOUR = 2.50
+USD_PER_GPU_HOUR = 3.00
 HOURS_PER_YEAR = 8760
 INFER_LOAD = 0.60
 NICS_PER_NODE = 8
 TOKENS_PER_NODE = 3370       # BF16 TP 8 decode, Section 1.9
-KEY = {"pool_usd_year": 1_401_600, "reclaimable_usd_year": 560_640, "backend_ports_saved": 64}
+KEY = {"pool_usd_year": 1_681_920, "reclaimable_usd_year": 672_768, "backend_ports_saved": 64}
 
 
 def main() -> None:

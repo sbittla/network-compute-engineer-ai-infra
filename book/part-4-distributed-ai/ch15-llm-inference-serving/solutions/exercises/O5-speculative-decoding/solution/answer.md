@@ -22,7 +22,9 @@ efficiency. Its compute is B(k + 1) tokens × 2 × 70e9 FLOP / (4 × 1,979e12 ×
 44.2 µs. Then v_k = (max(compute, 17.19 ms) + 3 ms) / 20.19 ms:
 
 - k = 2: 384 tokens → 16.98 ms, still below 17.19 ms (memory-bound), so **v = 1.00**.
-- k = 4: 640 tokens → 28.30 ms (intensity 1,280 FLOP/B > FP8 ridge 591), so v = 31.30 / 20.19 = **1.55**.
+- k = 4: 640 tokens → 28.30 ms of compute, above the 17.19 ms of HBM time (compute-bound), so v = 31.30 / 20.19 = **1.55**.
+  Equivalently, intensity including KV bytes ≈ 556 FLOP/B > effective ridge 591 × 0.40/0.70 ≈ 338 FLOP/B
+  (a weight-only intensity against the peak ridge would wrongly call k = 2 compute-bound).
 - k = 8: 1,152 tokens → 50.93 ms, so v = 53.93 / 20.19 = **2.67**.
 
 **Speedup at B = 128:** S = E / (0.05k + v_k).

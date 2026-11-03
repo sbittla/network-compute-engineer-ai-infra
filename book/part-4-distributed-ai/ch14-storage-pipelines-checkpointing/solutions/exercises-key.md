@@ -251,7 +251,14 @@ at 256 writers, snapshot time and staging memory on HX8, interference on step ti
 rate (incl. read amplification), time-to-resume components, real M and hard fraction, validator run
 time on 980 GB.
 
-*Marking:* specific, measurable answers; deduct for generic "test it more".
+*Marking (5 points each; deduct for generic "test it more"):*
+14.14: 2 for the first input with a specific measurement (tool, procedure, repetitions), 2 for the
+second, 1 for the third.
+14.15: 2 for four real PFS behaviours, 2 for a direction (better or worse tail) on each, 1 for a
+mechanism-level reason on each.
+14.16: 2 for the first constraint with its detecting metric, 2 for the second constraint with its
+metric, 1 for stating that the constraint, not Young, then sets τ.
+14.17: 2 for the modeled list (sizes, intervals, sensitivities), 3 for a specific must-measure list.
 
 ## 14.18 Deliverable (rubric, 30 points)
 
@@ -270,4 +277,29 @@ fraction of `save`; completion time ≥ `save` time; measurable step-time increa
 pinned host memory ≈ state size (× 2 if double-buffered). Restore test must show the validator
 rejecting the corrupted copy and the first-step loss matching the recorded loss within the stated
 tolerance (e.g. relative 1e-3 for BF16). *Marking:* 5 manifest + method (warm-up, reps), 5 results
-table with spread, 5 restore test. Reject results without repetition or without a manifest.
+table with spread, 5 restore test. Reject results without repetition or without a manifest, and
+reject a run that fails plausibility: a D2H snapshot below 1 GB/s, a restore more than 20 × slower than
+the save, or swap activity during the run means the host was paging (check free RAM ≥ 4 × state first).
+
+## 14.20 Per-directory create limit (supplementary, 8 points)
+
+All values `[MODELED]` from the `[ILLUSTRATIVE]` rates in the prompt. Files per checkpoint
+N = 256 × F.
+
+- (a) One directory, F = 1,025: N = 262,400; t = 262,400 / 2,700 = **97.2 s**, which matches the
+  ≈ 96 s completion observed in Section 14.14.
+- (b) One subdirectory per rank: each directory receives 1,025 creates, which takes 1,025 / 2,700 =
+  0.38 s at the per-directory limit, but the aggregate limit binds:
+  t = max(262,400 / 30,000, 1,025 / 2,700) = max(8.75, 0.38) = **8.75 s**.
+- (c) Old format, F = 2: N = 512; t = 512 / 2,700 = **0.190 s**.
+- (d) Budget 0.05 × 18.49 = 0.9245 s → N ≤ 0.9245 × 2,700 = 2,496 creates → F ≤ 2,496 / 256 = 9.75,
+  so at most **9 files per rank**.
+- (e) Fix the file count first (back to a few files per rank): it removes the load instead of
+  moving it, needs no change on the shared file system, and (c) is 46× faster than (b).
+  Per-rank subdirectories or a striped directory (Lustre DNE) are the fallback when a format truly
+  needs many files, and must be agreed with the Storage team. Even (b) still takes 8.75 s and runs the
+  whole metadata service at its aggregate limit for one job, which every other tenant feels.
+
+*Marking:* 2 for (a) with the link to Section 14.14, 2 for (b) including the aggregate cap (1 if
+the per-directory time alone is given), 1 for (c), 1 for (d) with floor rounding, 2 for (e). Common
+mistake: answering (b) with 0.38 s, which ignores that the metadata service has an aggregate limit.

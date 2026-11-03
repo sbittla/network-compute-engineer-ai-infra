@@ -6,7 +6,8 @@ Worked problem · difficulty ★★ · tier L1 · kind `computed` · [exercise i
 **W1 ★★ L1 — Repairing the Kestrel design.** Team Kestrel's bundle lists 34 HX8 nodes, 8 GPUs per
 node, `total_gpus: 256`, no declared spares, workload parallelism TP = 8, PP = 4, DP = 16, rail
 leaves of radix 64 with 34 downlinks and 32 uplinks (8 per spine, 4 spines), a claimed "1:1"
-subscription, 512 backend cables, and 8 GPU racks with a usable budget of 45 kW each. The team says
+subscription, 512 backend cables, and 8 GPU racks with a planned budget of 45 kW each (a 50 kW rack
+limit less Chapter 21's 10 % transient margin). The team says
 two nodes are spares that must stay cabled to the backend so a failed node can be swapped without
 recabling.
 
@@ -15,7 +16,7 @@ recabling.
    uses an equal number of uplinks to each spine, and fits radix 64. State the resulting
    oversubscription with and without the spares active, the spine port usage, and the backend cable
    count.
-3. How many racks does a 34-node design need at 45 kW per rack? What are the options if the row has
+3. How many racks does a 34-node design need at the 45 kW planned budget? What are the options if the row has
    only 8 racks?
 
 *Evidence required:* every formula with substituted values; final numbers with units.

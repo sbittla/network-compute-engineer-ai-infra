@@ -74,6 +74,10 @@ def main() -> int:
     elif result["status"] == "error":
         failures = ["experiment raised an exception"]
     result["invariants"] = {"passed": not failures, "failures": failures}
+    if result["status"] == "ran" and hasattr(exp, "invariant_scope"):
+        scope = exp.invariant_scope(result, env)   # optional: which invariants were not applicable, and why
+        if scope:
+            result["invariants"]["scope"] = scope
 
     out = Path(args.out) if args.out else pkg / ("starter-kit" if (pkg / "starter-kit").is_dir() else "lab") / "l2" / "results"
     folder = out / (hwlab.label_for(env) + ("-quick" if args.quick else ""))
@@ -112,7 +116,8 @@ def render(meta: dict, env: dict, result: dict, body: str) -> str:
         lines += [f"**Why:** {result['reason']}", f"**Needs:** {', '.join(result['needs'])}",
                   f"**Fallback used instead:** {result['fallback']}"]
     inv = result.get("invariants", {})
-    lines += [f"**Invariants:** {'all passed' if inv.get('passed') else 'FAILED: ' + '; '.join(inv.get('failures', []))}", ""]
+    scope = f" ({inv['scope']})" if inv.get("scope") else ""
+    lines += [f"**Invariants:** {'all passed' if inv.get('passed') else 'FAILED: ' + '; '.join(inv.get('failures', []))}{scope}", ""]
     if body:
         lines += [body.strip(), ""]
     for note in result.get("notes", []):

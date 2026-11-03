@@ -17,7 +17,7 @@
       "p10": 2,
       "p12": 1
     },
-    "5_cost_usd": 400.0,
+    "5_cost_usd": 480.0,
     "5_gpu_hours": 160.0,
     "5_stranded_gpus": 32,
     "6_gpu_hours_per_preemption": 80.0
@@ -44,7 +44,7 @@
       "p12": 7
     },
     "job_gpus": 128,
-    "price_per_gpu_h": 2.5,
+    "price_per_gpu_h": 3.0,
     "restart_min": 15.0
   },
   "units": {

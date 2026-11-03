@@ -8,11 +8,14 @@ Workload: 20 req/s, 8,192-token prompts, 300-token outputs. SLOs TTFT p95 ≤ 1.
 362.2 ms. Attention 2 × 80 × 8,192² × 8,192 / 3.166e15 = 27.8 ms. **t_p = 390.0 ms**. Demand = 20 ×
 0.390 = **7.80 replica-s/s**.
 
-| P | ρ | Mean TTFT | ≈ p95 TTFT (t_p + 3 W_q) |
+| P | ρ | Mean TTFT | p95 TTFT (t_p + exact M/D/1 p95 wait) |
 |---|---|---|---|
-| 11 | 0.709 | 0.865 s | ≈ 1.82 s ✗ |
-| 12 | 0.650 | 0.752 s | ≈ 1.48 s (borderline) |
-| 13 | 0.600 | 0.682 s | ≈ 1.27 s ✓ |
+| 12 | 0.650 | 0.752 s | 1.71 s ✗ |
+| 13 | 0.600 | 0.682 s | 1.49 s (no margin) |
+| 14 | 0.557 | 0.635 s | 1.35 s ✓ |
+
+The p95 wait uses Erlang's M/D/1 waiting-time formula (manuscript Section 15.7): 3.6–3.9× the mean wait
+at these loads. A "t_p + 3 W_q" shortcut under-states it and would wrongly pass P = 12 (1.48 s).
 
 **Decode** (average context 8,192 + 150 = 8,342; c = 0.2914 ms per sequence; B = (20/D) × 300 × TPOT).
 Each sequence ends at 8,492 tokens = 531 blocks, so 75 fit per replica with BF16 KV or 150 with FP8 KV.
@@ -23,8 +26,8 @@ Each sequence ends at 8,492 tokens = 531 blocks, so 75 fit per replica with BF16
 | 4 | 18.6 ms | 27.9 |
 | 5 | 16.1 ms | 19.3 |
 
-**Choice: 13P + 4D = 17 replicas** (D = 4 leaves headroom under 40 ms p95), 8.5 → 9 HX8 nodes plus 1
-spare = **10 nodes**.
+**Choice: 14P + 4D = 18 replicas** (D = 4 leaves headroom under 40 ms p95), 9 HX8 nodes plus 1 spare =
+**10 nodes**.
 
 **Network budget.** KV per request = 8,192 × 327,680 = 2.684 GB. Aggregate = 20 × 2.684e9 × 8 =
 **429.5 Gb/s**, 107.4 Gb/s per decode replica. **RDMA** (4 × 400G at 85 % = 1,360 Gb/s): **7.9 %**
@@ -42,7 +45,7 @@ dedicated inference rails) with ECN. FP8 KV would halve demand to 215 Gb/s.
 | Failure | Effect | Behaviour |
 |---|---|---|
 | Decode replica dies | ≈ 28 sequences lose KV | re-prefill at ≈ 0.39 s each (+11 replica-s on prefill), gated by admission control |
-| Prefill replica dies | ρ on the other 12 → 0.65 | p95 ≈ 1.48 s, still within SLO |
+| Prefill replica dies | ρ on the other 13 → 0.60 | p95 ≈ 1.49 s, at the SLO edge; the spare node's 2 replicas restore margin |
 | KV transfer timeout | one request stalls | retry once, then local prefill on the decode replica |
 
 **L2/L3 measurements before committing** `[MEASURED]` targets: HBM efficiency and step overhead at

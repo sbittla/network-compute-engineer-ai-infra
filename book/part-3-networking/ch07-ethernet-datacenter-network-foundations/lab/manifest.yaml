@@ -22,7 +22,7 @@ checks: 19
 extensions:
   - tier: L2
     requires: "One Linux host with containerlab + FRR images (or any NOS container you are licensed for)"
-    purpose: "Build a 2-spine/4-leaf eBGP fabric from the generated plan; observe ECMP, BFD and convergence"
+    purpose: "Deploy l2/orion-mini (2 spines, 4 leaves, 2 hosts; rendered by render.py, untested in the harness); observe ECMP, BFD and convergence [SIMULATED]"
     record: [containerlab_version, nos_image_and_version, frr_version, topology_file_hash, bfd_timers,
              bgp_timers, mtu_per_interface, failure_injected, convergence_ms_runs, run_count]
   - tier: L3

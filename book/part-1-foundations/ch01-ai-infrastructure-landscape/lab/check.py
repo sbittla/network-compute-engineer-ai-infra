@@ -136,8 +136,8 @@ def check_w01_worked_example(m: ModuleType) -> tuple[bool, str]:
     clean, _ = m.normalize_and_validate(m.load_csv(PROFILES))
     w01 = next(p for p in clean if p["workload_id"] == "W01")
     t = m.resource_times(w01, m.load_platform(PLATFORM))
-    if not (close(t["compute"], 6875 / 989) and close(t["scaleup"], 1202.6 / 450) and close(t["scaleout"], 9.8 / 50)):
-        return False, f"W01 compute {t['compute']:.3f} s (want 6.951), scaleup {t['scaleup']:.3f} s (want 2.672)"
+    if not (close(t["compute"], 6881 / 989) and close(t["scaleup"], 1202.6 / 450) and close(t["scaleout"], 9.8 / 50)):
+        return False, f"W01 compute {t['compute']:.3f} s (want 6.958), scaleup {t['scaleup']:.3f} s (want 2.672)"
     return True, "W01 (W-TRAIN) lower bounds match the Section 1.9 worked example"
 
 

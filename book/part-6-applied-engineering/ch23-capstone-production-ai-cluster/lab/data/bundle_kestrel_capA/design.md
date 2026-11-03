@@ -14,7 +14,7 @@ and we assume the storage tier sustains the dataloader read rate (A-12).
 
 We deploy 34 HX8 nodes (two extra for headroom) giving 256 training GPUs plus spare capacity.
 TP=8 stays inside the NVLink domain; PP=4 and DP cross nodes.
-The backend is a rail-optimised RoCEv2 leaf-spine with 8 rail leaves and 4 spines (topology.yaml).
+The backend is a rail-optimized RoCEv2 leaf-spine with 8 rail leaves and 4 spines (topology.yaml).
 Each rail leaf carries 400 Gb/s per port and the fabric is non-blocking.
 Racks rack-01..rack-06 hold 4 nodes and rack-07..rack-08 hold 5 nodes; each node draws up to 10.2 kW [VENDOR-SPEC, 2026-10].
 Rack power fits comfortably inside the facility envelope (A-09).

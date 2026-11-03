@@ -20,8 +20,9 @@ decision to keep TP = 8 inside the NVLink domain.
 *Evidence required:* a trigger that is observable (a metric or event), not an opinion.
 
 **K4 ★ L1.** Why must a rack power budget use maximum rather than sustained node power? Name two
-operational events that drive a rack toward its maximum.
-*Evidence required:* the reason plus two events.
+operational events that drive a rack toward its maximum. Then apply Chapter 21's 10 % transient
+margin to a 50 kW rack limit: what is the planned budget, and how many HX8 nodes fit?
+*Evidence required:* the reason plus two events; the planned budget and node count with arithmetic.
 
 **K5 ★★ L1.** On ORION, compare the blast radius of (a) a rack power failure and (b) a rail-leaf
 failure, in GPUs lost and in jobs affected. Explain why they differ.
@@ -45,7 +46,8 @@ offline" not one?
 **W1 ★★ L1 — Repairing the Kestrel design.** Team Kestrel's bundle lists 34 HX8 nodes, 8 GPUs per
 node, `total_gpus: 256`, no declared spares, workload parallelism TP = 8, PP = 4, DP = 16, rail
 leaves of radix 64 with 34 downlinks and 32 uplinks (8 per spine, 4 spines), a claimed "1:1"
-subscription, 512 backend cables, and 8 GPU racks with a usable budget of 45 kW each. The team says
+subscription, 512 backend cables, and 8 GPU racks with a planned budget of 45 kW each (a 50 kW rack
+limit less Chapter 21's 10 % transient margin). The team says
 two nodes are spares that must stay cabled to the backend so a failed node can be swapped without
 recabling.
 
@@ -54,7 +56,7 @@ recabling.
    uses an equal number of uplinks to each spine, and fits radix 64. State the resulting
    oversubscription with and without the spares active, the spine port usage, and the backend cable
    count.
-3. How many racks does a 34-node design need at 45 kW per rack? What are the options if the row has
+3. How many racks does a 34-node design need at the 45 kW planned budget? What are the options if the row has
    only 8 racks?
 
 *Evidence required:* every formula with substituted values; final numbers with units.
@@ -77,7 +79,7 @@ failures M = 24 h `[ILLUSTRATIVE]` (node MTBF halved to 768 h).
 **L1 ★★ L1 — Design-review linter.** Complete [lab/README.md](lab/README.md) Tasks 1–8: implement
 `design_lint.py`, pass `python check.py`, produce `kestrel_lint.md`, write the triage memo, and lint
 your own capstone bundle.
-*Evidence required:* `check.py` output showing 13/13 PASS; the two reports; the triage memo.
+*Evidence required:* `check.py` output showing 14/14 PASS; the two reports; the triage memo.
 
 ## D. Troubleshooting case
 
@@ -105,7 +107,8 @@ backend next year. Rail-leaf ASICs are 51.2 Tb/s class, deployed either as 64 ×
 (A) keep one radix-64 leaf per rail (64 × 800G cages at 400G) with 48 down / 16 up; (B) two such radix-64
 leaves per rail at 1:1; (C) one 128 × 400G leaf per rail at 1:1. For each, compute leaf and spine counts and port usage,
 oversubscription, backend cable count, and state which traffic crosses the spines. Recommend one
-in an ADR with a revisit trigger. Include rack count and GPU-node power at 45 kW per rack.
+in an ADR with a revisit trigger. Include rack count and GPU-node power at 45 kW planned per rack
+(50 kW limit, 10 % transient margin).
 *Evidence required:* the arithmetic per option; an ADR (context, options, decision, evidence,
 consequences, revisit trigger).
 

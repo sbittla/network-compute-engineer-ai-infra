@@ -1,10 +1,10 @@
 # 7.T — Half the flows to rail 6 fail after a template push (worked solution)
 
 The evidence pack is `[ILLUSTRATIVE]`; the flow-fraction arithmetic is `[MODELED]`. Relies on
-manuscript Section 7.12 (diagnostic loop, Table 7.9 checklist), Section 7.5 (eBGP best path,
+manuscript Section 7.12 (diagnostic loop, Table 7.10 checklist), Section 7.5 (eBGP best path,
 multipath) and Section 7.6 (per-flow ECMP).
 
-## (a) Evidence checklist (Table 7.9 format)
+## (a) Evidence checklist (Table 7.10 format)
 
 | Evidence (pack item) | MTU mismatch predicts | Asymmetric routing predicts | Incorrect advertisement predicts | Pack shows |
 |---|---|---|---|---|

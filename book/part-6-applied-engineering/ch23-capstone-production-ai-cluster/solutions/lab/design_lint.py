@@ -100,9 +100,11 @@ def load_bundle(path: str | Path) -> dict[str, Any]:
     """Load a bundle directory. YAML files become dicts; Markdown files stay strings.
 
     Missing files are stored as ``None`` so that completeness checks can report them.
+    ``bundle["manifests"]`` lists the manifest paths that exist (``manifests/<name>``), so EVID-003
+    can tell a cited manifest from a dangling one.
     """
     root = Path(path)
-    bundle: dict[str, Any] = {}
+    bundle: dict[str, Any] = {"manifests": sorted(f"manifests/{m.name}" for m in (root / "manifests").glob("*.yaml"))}
     for name in BUNDLE_FILES:
         p = root / name
         if not p.exists():
@@ -253,7 +255,8 @@ def check_power(bundle: dict[str, Any]) -> list[dict[str, str]]:
 def check_evidence(bundle: dict[str, Any]) -> list[dict[str, str]]:
     """EVID-001..004 over benchmarks.md. Location: ``benchmarks.md:<row id>``.
 
-    One finding per row (the first rule that fires, in order 001, 002, 003, 004).
+    One finding per row (the first rule that fires, in order 001, 002, 003, 004). EVID-003 also fires
+    when the bundle was loaded from disk (``"manifests"`` key present) and the cited path does not exist.
     """
     out: list[dict[str, str]] = []
     for row in parse_markdown_table(bundle.get("benchmarks.md") or ""):
@@ -266,6 +269,8 @@ def check_evidence(bundle: dict[str, Any]) -> list[dict[str, str]]:
             out.append(make_finding("EVID-002", loc, f"label '{label}' not in vocabulary"))
         elif label == "MEASURED" and manifest in ("", "-", "n/a"):
             out.append(make_finding("EVID-003", loc, "MEASURED with no manifest"))
+        elif label == "MEASURED" and "manifests" in bundle and manifest not in bundle["manifests"]:
+            out.append(make_finding("EVID-003", loc, f"cited manifest '{manifest}' is not in the bundle"))
         elif label == "MEASURED" and tier == "L1" and row.get("unit", "").strip() in PHYSICAL_UNITS:
             out.append(make_finding("EVID-004", loc,
                                     f"physical metric '{row.get('metric')}' MEASURED at L1"))

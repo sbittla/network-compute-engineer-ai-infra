@@ -4,7 +4,7 @@
     "check_capacity": "PASS check_capacity             2 planted finding(s) found, 0 false positives",
     "check_completeness": "PASS check_completeness         3 planted finding(s) found, 0 false positives",
     "check_cross_refs": "PASS check_cross_refs           1 planted finding(s) found, 0 false positives",
-    "check_edge_cases": "PASS check_edge_cases           spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file",
+    "check_edge_cases": "PASS check_edge_cases           spares, GPU-003, 3:1 fabric, PORT-003/004, power boundary, missing file, dangling manifest",
     "check_evidence": "PASS check_evidence             4 planted finding(s) found, 0 false positives",
     "check_fabric": "PASS check_fabric               3 planted finding(s) found, 0 false positives",
     "check_failure_domains": "PASS check_failure_domains      2 planted finding(s) found, 0 false positives",

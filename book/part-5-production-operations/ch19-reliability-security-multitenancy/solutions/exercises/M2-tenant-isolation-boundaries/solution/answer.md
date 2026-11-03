@@ -1,6 +1,6 @@
 # M2 — Tenant isolation boundaries (isolation model): reference solution
 
-**Relies on:** Section 19.8 (security foundations), Section 19.9 (Table 19.7, Figure 19.5); lab
+**Relies on:** Section 19.8 (security foundations), Section 19.9 (Table 19.8, Figure 19.5); lab
 `data/tenants.yaml`, `data/isolation_policy.yaml`, and `check_isolation()` (lab Task 6). Configuration is
 `[ILLUSTRATIVE]`.
 
@@ -16,6 +16,7 @@ Tenants: **acme-research** (training), **borealis** (training), **cobalt-inferen
 | GPU allocation | Whole GPU for training; MIG only if sharing across tenants; reset/scrub on release | whole, scrub | whole, scrub | whole (or MIG if consolidated), scrub | Time-slicing across tenants; residue in HBM |
 | Secrets | Vault path ending in the tenant name; runtime injection | `kv/tenants/acme-research/` | `kv/tenants/borealis/` | `kv/tenants/cobalt-inference/` | Non-tenant prefix (`kv/tenants/`) = read-all |
 | Audit | Central append-only SIEM; retention ≥ 365 days | 400 d | 400 d | 400 d | Short retention destroys the proof of isolation |
+| Device access (Section 19.9.1) | PSA `baseline`/`restricted`; toolkit refuses `NVIDIA_VISIBLE_DEVICES` from unprivileged pods (volume-mount or CDI injection) | baseline, no findings | restricted | restricted | A pod that names GPUs in an env var, or runs privileged, bypasses the device plugin |
 
 **Reachability is not performance.** VRF/VNI/P_Key separation stops cross-tenant addressing, but the
 two training tenants still share spines and buffers (K8). For performance isolation, place acme and
@@ -33,6 +34,9 @@ gpu_cross_tenant_sharing_requires: mig
 scrub_on_release_required: true
 secrets_prefix_must_end_with_tenant_name: true
 storage_exports_must_not_overlap_other_tenants: true
+psa_levels_allowed: [restricted, baseline]
+forbid_privileged_tenant_pods: true
+forbid_gpu_env_without_request: true
 ```
 
 ## Tenant configuration (corrected)
@@ -51,6 +55,7 @@ tenants:
       exports: [{path: /lustre/projects/acme, mode: rw}]
       encryption_key_id: kms/acme-01
     gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: true}
+    pod_security: {psa_enforce: baseline, privileged_pods: [], gpu_env_without_request: []}
     secrets: {backend: vault, path_prefix: kv/tenants/acme-research/}
     audit: {sink: siem-central, retention_days: 400}
   - name: borealis
@@ -64,6 +69,7 @@ tenants:
       exports: [{path: /lustre/projects/borealis, mode: rw}]
       encryption_key_id: kms/borealis-01
     gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: true}
+    pod_security: {psa_enforce: restricted, privileged_pods: [], gpu_env_without_request: []}
     secrets: {backend: vault, path_prefix: kv/tenants/borealis/}
     audit: {sink: siem-central, retention_days: 400}
   - name: cobalt-inference
@@ -77,6 +83,7 @@ tenants:
       exports: [{path: /lustre/projects/cobalt, mode: rw}]
       encryption_key_id: kms/cobalt-01
     gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: true}
+    pod_security: {psa_enforce: restricted, privileged_pods: [], gpu_env_without_request: []}
     secrets: {backend: vault, path_prefix: kv/tenants/cobalt-inference/}
     audit: {sink: siem-central, retention_days: 400}
 ```
@@ -86,10 +93,10 @@ tenants:
 ```text
 >>> check_isolation(yaml.safe_load(open("tenants.yaml")), yaml.safe_load(open("isolation_policy.yaml")))
 set()                                    # zero violations on the corrected config
->>> check_isolation(<lab data/tenants.yaml>, policy)   # the planted config: 10 violations
+>>> check_isolation(<lab data/tenants.yaml>, policy)   # the planted config: 11 violations
 ```
 
-## The 10 planted violations and their remediation
+## The 11 planted violations and their remediation
 
 | Tenant | Code | Remediation |
 |---|---|---|
@@ -101,7 +108,8 @@ set()                                    # zero violations on the corrected conf
 | borealis | NO_SCRUB | Enable reset/scrub on release; validate in the lifecycle (Chapter 16) |
 | borealis | SECRETS_SCOPE | Narrow the prefix to `kv/tenants/borealis/`; rotate any secret readable under `kv/tenants/` |
 | cobalt-inference | AUDIT_RETENTION | Raise retention from 30 to ≥ 365 days |
+| acme-research | GPU_INJECTION_BYPASS | Pod `acme-dev/notebook-7` sets `NVIDIA_VISIBLE_DEVICES=all` with no `nvidia.com/gpu` request. `baseline` PSA does not catch an env var, so the fix is on the node: set the toolkit to ignore the env var from unprivileged containers (volume-mount or CDI device lists only), delete the pod, and check which GPUs it touched |
 
-Two of these (the `cluster-admin` binding and the parent-path export) are data-exposure violations,
+Three of these (the `cluster-admin` binding, the parent-path export, and the env-var GPU injection) are exposure violations,
 so they are also security incidents: rotate the credentials and review the access logs, not just fix
 the configuration.

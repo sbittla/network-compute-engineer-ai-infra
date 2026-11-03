@@ -141,7 +141,10 @@ column 3.
 ## 12.13 Lab
 
 See `solutions/lab/README.md`. Expected labels: c3 `low_plateau_steady`, c6 `low_plateau_jittery`,
-others `ok`.
+others `ok`. Five c2 launches (`data/launches/`): plateaus 355.1, 352.2, 356.9, 329.7 and 351.6 GB/s →
+report **median 352.2 GB/s, IQR 351.6–355.1, range 329.7–356.9** `[SIMULATED]`. The mean (349.1) is pulled
+down by launch 4; a full-marks report keeps it, flags it as a possible channel-count change at init, and
+asks for that launch's NCCL INFO before deciding.
 
 ## 12.14 Latency doubled, bandwidth fine
 
@@ -183,3 +186,19 @@ weigh coverage against time and fabric impact.
 - 12.19: environment manifest (versions, firmware, topology, `NCCL_*` variables), node list, repeated
   launches with spread, warm-up/iteration counts, a baseline for comparison, and confirmation that the
   fabric was otherwise idle (or what else ran).
+
+## 12.20 All-to-all and PXN (n = 16, S = 1 GiB, 45 GB/s per NIC)
+
+(a) chunk S/16 = **67.1 MB**; intra-node 7 chunks = **469.8 MB**; same-rail 1 chunk = **67.1 MB**;
+cross-rail 7 chunks = **469.8 MB**; total 15/16 × S = 1,006.6 MB. (b) PXN on: each NIC carries one chunk
+from each of 8 local GPUs, S/2 = 536.9 MB per direction; T = 536.9 MB / 45 GB/s = **11.93 ms**,
+algbw = S/T = **90.0 GB/s**, busbw = 90.0 × 15/16 = **84.4 GB/s**. (c) PXN off: each NIC carries its own
+GPU's 8 remote chunks, again 536.9 MB, so the same 11.93 ms / 84.4 GB/s on an idle 1:1 fabric; spine
+share = 7/15 = **46.7 %** of bytes sent (7/8 of inter-node bytes) with PXN off, **0 %** with PXN on.
+(d) 32 nodes, n = 256: T = 31/32 × S / 45 GB/s = **23.12 ms**, algbw 46.5, busbw = 46.5 × 255/256 =
+**46.3 GB/s**; spine share 217/255 = **85.1 %** with PXN off, 0 % with PXN on (every rail leaf reaches
+all 32 nodes). (e) Per-NIC bytes are equal, and idle non-blocking spines absorb the cross-rail bytes, so
+the benchmark hides the setting; in production those bytes share spines and ECMP hashes with other
+jobs, and the all-to-all runs at its slowest flow. Marking: 2 / 2 / 1 / 2 / 1. Common mistakes: using
+8 × 45 GB/s as a rank's ceiling; dropping the (n − 1)/n factor; counting the same-rail chunk as a spine
+crossing.

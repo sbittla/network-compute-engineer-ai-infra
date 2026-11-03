@@ -20,13 +20,13 @@ pipeline sends in bursts that mark ECN); ECN rising on ports unrelated to `orion
 own investigation.
 
 **Magnitude check.** Compute is ≈ 13.90 / 17.90 = 77.7 % of the step (Chapter 22, Table 22.2), so
-≈ 13.5 s of 17.4 s. Scaling with SM clock against peers locked at 1,980 MHz: 13.5 × 1,980 / 1,715 =
+≈ 13.5 s of 17.4 s. Scaling with SM clock against peers at the ≈ 1,830 MHz sustained clock: 13.5 × 1,830 / 1,585 =
 13.5 × 1.155 = 15.6 s, **+2.1 s → 19.5 s (+12 %)**, matching the symptom. Treat +2.1 s as an upper bound:
-memory-bound kernels slow less than the clock ratio. Note the baseline choice: had the peers run at ORION's
-typical ≈ 1,830 MHz sustained clock, the same 1,715 MHz would add only ≈ 0.9 s; always say which peer clock
-you compared against.
+memory-bound kernels slow less than the clock ratio. Note the baseline choice: comparing against the
+1,980 MHz maximum boost instead of the peers' sustained clock would predict ≈ 3.4 s and overstate the effect;
+always say which peer clock you compared against.
 
-**Root cause.** *Proven:* GPU 5 is in SW thermal slowdown (event reason active, 89 °C, 1,715 / 1,980 = 87 %
+**Root cause.** *Proven:* GPU 5 is in SW thermal slowdown (event reason active, 89 °C, 1,585 / 1,830 = 87 %
 of peer clock); its TP group waits for it and its ranks gate the pipeline. *Inferred (correlation):* the
 fan-tray replacement caused the airflow deficit; Facilities must confirm.
 

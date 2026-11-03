@@ -1,6 +1,6 @@
 # 4.5 — What nvidia-smi `utilization.gpu` measures (model answer)
 
-Relies on manuscript Section 4.9 and Table 4.3a.
+Relies on manuscript Section 4.9 and Table 4.5.
 
 **Definition.** `utilization.gpu` (NVML GPU utilization) is the percent of time over the past sample period
 during which **one or more kernels was executing** on the GPU. It is a duty cycle: it says nothing about

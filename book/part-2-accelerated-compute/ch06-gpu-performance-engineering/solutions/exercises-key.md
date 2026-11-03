@@ -15,7 +15,9 @@ FP8: 1,979 / 3.35 = **591 FLOP/B**; FP32 SIMT: 67 / 3.35 = **20 FLOP/B**. *(3 pt
 **6.2** Elementwise: a few FLOPs per 2–6 bytes → *I* ≈ 0.3–2 ≪ 295; time is set by bytes, so GB/s vs
 3.35 TB/s is the meaningful figure. Large GEMM: *I* in the thousands ≫ 295; time set by FLOPs. *(2 pts.)*
 
-**6.3** (1) Data resident in the 50 MB L2 (or served from shared memory), so traffic did not reach DRAM —
+**6.3** (1) Data served on chip: part of the working set still in the 50 MB L2 (two ≈ 25 MB partitions)
+from the producer kernel, or output absorbed by L2 write-back before the timer stopped, so traffic did not
+reach DRAM; plausible only for the part that fits in L2 —
 check `dram__bytes_read.sum`/`dram__bytes_write.sum` and `lts__t_bytes` (L2) in Nsight Compute, or rerun
 with an input larger than L2. (2) Bytes computed from tensor shapes double-count or assume a layout not
 used — compare computed bytes with the DRAM counters. Either way the value exceeds the 3.35 TB/s roof and
@@ -92,7 +94,7 @@ Roofline: compute — GEMM 8192³ (70 %), flash-attn (55 %), FP32 stencil (85 % 
 | T4b | Routine `sw_power_cap` events on ≈ 3 % of iterations in every arm | all files | Excludes runs for a routine event, or judges clocks against the 1,980 MHz max boost | Keep: below the 5 % event-share rule and clocks match peers |
 | T5 | Occasional host hiccups (≈ 2 % of iterations, +0–15 %) | all files | Treated as a signal or trimmed ad hoc | Keep; medians are robust; they are real behaviour |
 | T6 | FP32 SIMT kernel judged against the BF16 roof | `kernels.csv` | "5.8 % — terrible" | Use the FP32 ceiling: 85 % |
-| T7 | L2-resident kernel with shape-derived bytes (5.03 TB/s) | `kernels.csv` | "Fastest kernel" | Flag as anomaly; measure DRAM bytes |
+| T7 | "L2-resident" bias add with shape-derived bytes (100.7 MB in 20 µs = 5.03 TB/s; 100 MB cannot fit the 50 MB L2, so the shape count overstates DRAM traffic) | `kernels.csv` | "Fastest kernel" | Flag as anomaly; measure DRAM bytes |
 | T8 | Near-ridge GEMM with small *K* at 28.5 % | `kernels.csv` | Ignored because "compute-bound GEMMs are fine" | Investigate tiles/wave quantization/library |
 
 *Common mistakes:* bootstrapping iterations instead of runs; judging throttling against max boost;
@@ -114,7 +116,11 @@ table with justified exclusions (6), roofline actions (4), conclusion and limita
 | K3 | 8.6 × 10⁹ / 2.15 × 10⁹ = 4.0 | 295 | memory | 2.15 × 10⁹ / 0.75 ms = 2.87 TB/s | **85.6 %** |
 | K4 | 2.0 × 10¹¹ / 0.4 × 10⁹ = 500 | 20 (FP32) | compute | 2.0 × 10¹¹ / 5.0 ms = 40 TFLOP/s | **59.7 %** of FP32 |
 
-*(10 pts: 1.5 per row, 4 for the ranking with levers.)*
+Measured roofs (2.95 TB/s, 700 TFLOP/s BF16 `[ILLUSTRATIVE]`): K1 2.67 / 2.95 = **90.4 %**; K2 594.6 / 700 =
+**84.9 %** (time at measured roof 6.29 ms, so headroom 1.11 ms rather than 2.95 ms); K3 2.87 / 2.95 =
+**97.2 %**; K4 not measured. The ranking is unchanged; K1 and K3 are effectively at the roof.
+
+*(10 pts: 1.5 per row, 2 for the measured-roof fractions, 2 for the ranking with levers.)*
 
 Ranking by opportunity: K4 (59.7 % of a roof that is itself 15× below tensor peak — can it use TF32/BF16
 Tensor Cores?), K2 (60 %: tile config/library, FP8 if accuracy allows), K1 (near roof — fuse with neighbours
@@ -135,12 +141,13 @@ Candidate all six: 12.05, 12.10, 12.12, 12.22, 12.31, 12.95 → **12.17** → 12
 bootstrap band [−2.97 %, +1.65 %]; exact permutation *p* (6 + 6, C(12, 6) = 924 splits) = **0.36** → *not
 significant*. Without run 5: 12.05, 12.10, 12.12, 12.22, 12.31 → **12.12** → **−2.45 %**; band
 [−3.16 %, −0.85 %]; *p* (6 + 5, C(11, 5) = 462 splits) = 1/462 = **0.002**; |−2.45 %| ≥ max(0.9 %, 2 %) →
-**improvement**. The second decision stands *only if* the exclusion rule (for example "throttling or
-power-cap events on > 5 % of iterations, or clock < 95 % of peers") was part of the pre-registered
-protocol and is applied to both arms (check the baseline's telemetry too); excluding a run only because it
-hurts the candidate is p-hacking. Note also that `sw_power_cap` is often routine; check whether the fifth
-run's clock was actually below its peers. Recommend rerunning it, and with an effect this close to the 2 %
-threshold, collecting ≥ 10 runs per arm. *(10 pts: medians 2, changes 2, tests 3, decisions and justification 3.)*
+**improvement**. The exclusion is justified by the **clock**, not by the event: `sw_power_cap` alone is
+routine, but run 5's median clock is 1,610 / 1,826 = 88 % of the peer median, below the 95 % rule. Both arms
+run the same kernel family at the same clock (the other eleven runs at 1,822–1,830 MHz), so a session-wide
+peer clock is valid here. The second decision stands *only if* that rule was part of the pre-registered
+protocol and is applied to both arms (the baseline's runs pass it); excluding a run only because it hurts the
+candidate is p-hacking. Recommend rerunning it, and with an effect this close to the 2 % threshold,
+collecting ≥ 10 runs per arm. *(10 pts: medians 2, changes 2, tests 3, decisions and justification 3.)*
 
 ## Troubleshooting case (6.14)
 
@@ -160,11 +167,14 @@ Amdahl 3, experiment 3.)*
 
 Budget: 16 GPU-hours = e.g. two dedicated nodes × 8 GPUs × 1 h. Workloads: (i) microbenchmark suite
 (GEMM BF16/FP8 at 3 shapes, LayerNorm, attention) on 2 GPUs per node — 20 min; (ii) single-node
-`all_reduce_perf` 8 GPUs — 10 min; (iii) end-to-end W-TRAIN-proxy on one node (TP = 8), 6 × 3-minute runs —
-30 min. Node selection: rotate through nodes nightly but compare each night against the *same node's*
-history (stratify by node), plus a fixed reference node for cross-night drift. Clock policy: production
+`all_reduce_perf` 8 GPUs — 10 min; (iii) end-to-end W-TRAIN-proxy (TP = 8), 12 × 2-minute runs per node
+(2 arms × 6 runs = 24 min) plus 6 min setup — 30 min. Total 60 min × 16 GPUs = 16 GPU-h. Node selection:
+one node rotates through the fleet and runs the A/B, compared also against the *same node's* history
+(stratify by node); the other is a fixed reference node that runs the 6 + 6 A/A pair for that night's floor
+and cross-night drift. Clock policy: production
 clocks with telemetry; exclude runs with limiters; separate weekly locked-clock code benchmarks. Samples:
-≥ 6 runs per arm, interleaved, each a fresh process; A/A pair each night (budgeted inside (iii)). Decision:
+6 runs per arm end to end, interleaved, each a fresh process (minimum exact *p* = 2/924); A/A pair each night
+on the reference node (budgeted inside (iii)). Decision:
 block promotion if the exact permutation test gives p < 0.05 and regression > max(A/A floor, 2 %); warn between floor and 2 %. Keeping floor < 1 %:
 dedicated nodes, persistence mode, warm-up ≥ 10 iterations, pinned containers, interleaving. Rejected
 alternative: running the gate on whichever production nodes are free — cheaper but confounds node, power

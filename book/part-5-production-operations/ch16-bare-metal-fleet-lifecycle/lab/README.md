@@ -42,7 +42,7 @@ python check.py                          # progress meter on starter/fleet_lifec
 - Canary, waves, per-rack caps, lower bound on wave count: Section 16.8.
 
 Data files in `data/` (committed; the generator that produced them is an instructor copy only and is
-not part of the student release). The six nodes that fail build-out acceptance in
+not part of the student release). The seven nodes that fail build-out acceptance in
 `acceptance_results.json` were repaired and re-accepted before the ops week, which is why
 `inventory.json` lists them as `schedulable` and the planner may place them in waves.
 
@@ -64,7 +64,10 @@ NICs' firmware). *Accept:* checks `T1.*` pass.
 
 **Task 2 — `evaluate_node` (35 pts).** Apply the policy. Every threshold comes from the policy file —
 no hard-coded numbers. Watch for behaviours that look like faults but are not (they are described in
-Section 16.5). *Accept:* `T2.*` pass; fleet verdict counts and digest match the reference.
+Section 16.5). One rule, `LINK_BER_HIGH`, judges each compute NIC's `link_quality` block (pre-FEC
+BER, FEC histogram, uncorrectable codewords, flaps): a link can pass the RDMA test at full speed while
+running near the FEC limit. `GDR_PATH_FAIL` judges the GPUDirect RDMA evidence (`gdr` block and each NIC's
+GPU-buffer pair result) and `NVME_DRIVE_SLOW` judges each drive separately. *Accept:* `T2.*` pass; fleet verdict counts and digest match the reference.
 
 **Task 3 — lifecycle state machine (25 pts).** `transition_table`, `apply_event`, `replay`. Every
 event — applied or rejected — appends exactly one audit record; rejected events never change state;
@@ -122,12 +125,13 @@ nvidia-smi nvlink --status
 systemctl is-active nvidia-fabricmanager            # NVSwitch systems only
 dcgmi diag -r 3 -j > dcgm_r3.json
 nvidia-smi --query-gpu=index,temperature.gpu,power.draw,clocks.sm,clocks_event_reasons.active --format=csv -l 60 > burnin.csv   # during burn-in
-NCCL_ALGO=NVLS NCCL_DEBUG=INFO ./build/all_reduce_perf -b 8 -e 8G -f 2 -g <num_gpus> 2>&1 | tee nccl_nvls.log
+NCCL_ALGO=NVLS NCCL_DEBUG=INFO ./build/all_reduce_perf -b 8 -e 8G -f 2 -g <num_gpus> -w 5 -n 20 2>&1 | tee nccl_nvls.log
 #   confirm in the INFO init log that NVLS initialised; repeat >= 5 times; record median and min/max busbw at 8 GiB
-NCCL_ALGO=Ring NCCL_DEBUG=INFO ./build/all_reduce_perf -b 8 -e 8G -f 2 -g <num_gpus> 2>&1 | tee nccl_ring.log
+NCCL_ALGO=Ring NCCL_DEBUG=INFO ./build/all_reduce_perf -b 8 -e 8G -f 2 -g <num_gpus> -w 5 -n 20 2>&1 | tee nccl_ring.log
 #   Ring baseline, same repetitions; record nccl_version and "algorithm" ("NVLS" or "Ring") in the JSON for each run
 sudo nvme list; sudo nvme smart-log /dev/nvme0
-sudo fio --name=seqread --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --runtime=60 --time_based --filename=/dev/nvme0n1
+sudo fio --readonly --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --runtime=60 --time_based \
+  $(for i in 0 1 2 3 4 5 6 7; do echo "--name=nvme$i --filename=/dev/nvme${i}n1"; done)   # one job per drive
 sudo dmesg -T | grep -i xid
 ```
 
@@ -165,7 +169,26 @@ ibv_devinfo -d <rdma_dev> | grep -E 'fw_ver|state|active_mtu|link_layer'
 show_gids <rdma_dev>        # pick the RoCEv2 GID index (vendor tool; or inspect /sys/class/infiniband/<dev>/ports/1/gids)
 # reference node on the same rail (server; flags must match the client): ib_write_bw -d <dev> -x <gid_idx> -F --report_gbits -s 65536 -D 10 -q 4
 ib_write_bw -d <dev> -x <gid_idx> -F --report_gbits -s 65536 -D 10 -q 4 <reference_node_ip>
+#   one warm-up run, then 5 timed runs; record the median and min/max (Table 16.4)
+ethtool -S <netdev> | grep -iE 'fec|symbol|err'   # before and after the soak; field names vary by driver
+# leaf side: FEC histogram, pre-FEC BER and link-flap count for the same port (Chapter 10)
 ```
+
+GPUDirect RDMA path per rail (Chapter 13 Table 13.5, rows 2–7):
+
+```bash
+lsmod | grep nvidia_peermem                  # or confirm the DMA-BUF path (no module needed)
+cat /proc/cmdline                             # IOMMU mode, e.g. iommu=pt
+sudo lspci -vvv -s <switch-port-BDF> | grep -i ACSCtl   # expect ReqRedir- CmpltRedir-
+ib_write_bw -d <dev> -x <gid_idx> -F --report_gbits -s 65536 -D 10 -q 4 --use_cuda=<gpu> <reference_node_ip>
+ib_write_bw -d <dev> -x <gid_idx> -F --report_gbits -s 65536 -D 10 -q 4 --use_cuda=<gpu> --use_cuda_dmabuf <reference_node_ip>
+```
+
+Record `gdr` (`peer_mem`, `iommu_mode`, `acs_redirect_ports`) and each NIC's `gdr_pair_bw_gbps`. After a group
+of nodes passes, a two-node `NCCL_DEBUG=INFO` nccl-tests run must show every inter-node channel line ending in `/GDRDMA`.
+
+Fill each compute NIC's `link_quality` object (`pre_fec_ber`, `fec_hist_max_bin`, `fec_uncorrectable`,
+`link_flaps`) from those readings so `evaluate_node` can apply `LINK_BER_HIGH`.
 
 Also read the firmware inventory out-of-band (`curl .../redfish/v1/UpdateService/FirmwareInventory`)
 and compare with in-band versions. Record everything listed under `extensions` in `manifest.yaml`

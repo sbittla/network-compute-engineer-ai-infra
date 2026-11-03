@@ -275,7 +275,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.3
    },
    {
     "name": "rdma1",
@@ -291,7 +298,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.4
+    "rdma_pair_bw_gbps": 393.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.1
    },
    {
     "name": "rdma2",
@@ -307,7 +321,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.7
    },
    {
     "name": "rdma3",
@@ -323,7 +344,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.8
+    "rdma_pair_bw_gbps": 390.8,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.7
    },
    {
     "name": "rdma4",
@@ -339,7 +367,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.1
+    "rdma_pair_bw_gbps": 390.1,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.6
    },
    {
     "name": "rdma5",
@@ -355,7 +390,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.1
+    "rdma_pair_bw_gbps": 387.1,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.2
    },
    {
     "name": "rdma6",
@@ -371,7 +413,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.8
+    "rdma_pair_bw_gbps": 388.8,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.5
    },
    {
     "name": "rdma7",
@@ -387,7 +436,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.5
+    "rdma_pair_bw_gbps": 394.5,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.8
    },
    {
     "name": "fe0",
@@ -421,59 +477,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.78
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.84
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.9
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.96
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.02
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.08
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.72
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.78
     }
    ],
    "fio_seq_read_gbs": 47.2
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -767,7 +836,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.5
+    "rdma_pair_bw_gbps": 392.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.2
    },
    {
     "name": "rdma1",
@@ -783,7 +859,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.5
+    "rdma_pair_bw_gbps": 393.5,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "rdma2",
@@ -799,7 +882,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.9
+    "rdma_pair_bw_gbps": 393.9,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "rdma3",
@@ -815,7 +905,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.7
+    "rdma_pair_bw_gbps": 390.7,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.2
    },
    {
     "name": "rdma4",
@@ -831,7 +928,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.8
+    "rdma_pair_bw_gbps": 388.8,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.9
    },
    {
     "name": "rdma5",
@@ -847,7 +951,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.9
+    "rdma_pair_bw_gbps": 392.9,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.6
    },
    {
     "name": "rdma6",
@@ -863,7 +974,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.5
+    "rdma_pair_bw_gbps": 388.5,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.8
    },
    {
     "name": "rdma7",
@@ -879,7 +997,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.5
+    "rdma_pair_bw_gbps": 392.5,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "fe0",
@@ -913,59 +1038,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.04
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.1
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.16
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.22
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.28
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.92
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.98
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.04
     }
    ],
    "fio_seq_read_gbs": 48.8
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -1257,7 +1395,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.6
+    "rdma_pair_bw_gbps": 388.6,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.9
    },
    {
     "name": "rdma1",
@@ -1273,7 +1418,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.2
+    "rdma_pair_bw_gbps": 394.2,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.1
    },
    {
     "name": "rdma2",
@@ -1289,7 +1441,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.1
+    "rdma_pair_bw_gbps": 389.1,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.6
    },
    {
     "name": "rdma3",
@@ -1305,7 +1464,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.9
+    "rdma_pair_bw_gbps": 389.9,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.0
    },
    {
     "name": "rdma4",
@@ -1321,7 +1487,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.2
+    "rdma_pair_bw_gbps": 390.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.9
    },
    {
     "name": "rdma5",
@@ -1337,7 +1510,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.5
+    "rdma_pair_bw_gbps": 394.5,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.8
    },
    {
     "name": "rdma6",
@@ -1353,7 +1533,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.6
    },
    {
     "name": "rdma7",
@@ -1369,7 +1556,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.0
+    "rdma_pair_bw_gbps": 388.0,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.5
    },
    {
     "name": "fe0",
@@ -1403,59 +1597,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.23
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.93
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.99
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.05
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.11
     }
    ],
    "fio_seq_read_gbs": 48.9
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -1720,7 +1927,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.1
+    "rdma_pair_bw_gbps": 390.1,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.0
    },
    {
     "name": "rdma1",
@@ -1736,7 +1950,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.5
    },
    {
     "name": "rdma2",
@@ -1752,7 +1973,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma3",
@@ -1768,7 +1996,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.3
+    "rdma_pair_bw_gbps": 392.3,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.0
    },
    {
     "name": "rdma4",
@@ -1784,7 +2019,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.7
+    "rdma_pair_bw_gbps": 392.7,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.0
    },
    {
     "name": "rdma5",
@@ -1800,7 +2042,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.9
+    "rdma_pair_bw_gbps": 389.9,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.8
    },
    {
     "name": "rdma6",
@@ -1816,7 +2065,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.4
+    "rdma_pair_bw_gbps": 393.4,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.9
    },
    {
     "name": "rdma7",
@@ -1832,7 +2088,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.3
    },
    {
     "name": "fe0",
@@ -1866,59 +2129,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.88
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.94
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.0
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.65
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.71
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.77
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.83
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.88
     }
    ],
    "fio_seq_read_gbs": 46.6
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -2214,7 +2490,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.2
    },
    {
     "name": "rdma1",
@@ -2230,7 +2513,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.2
+    "rdma_pair_bw_gbps": 393.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma2",
@@ -2246,7 +2536,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.2
+    "rdma_pair_bw_gbps": 393.2,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.9
    },
    {
     "name": "rdma3",
@@ -2262,7 +2559,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.5
+    "rdma_pair_bw_gbps": 386.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.8
    },
    {
     "name": "rdma4",
@@ -2278,7 +2582,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.1
+    "rdma_pair_bw_gbps": 394.1,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.0
    },
    {
     "name": "rdma5",
@@ -2294,7 +2605,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma6",
@@ -2310,7 +2628,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.9
+    "rdma_pair_bw_gbps": 386.9,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.0
    },
    {
     "name": "rdma7",
@@ -2326,7 +2651,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.2
+    "rdma_pair_bw_gbps": 394.2,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.9
    },
    {
     "name": "fe0",
@@ -2360,59 +2692,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.63
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.7
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.37
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.43
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.5
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.57
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.63
     }
    ],
    "fio_seq_read_gbs": 52.0
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -2702,7 +3047,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.7
+    "rdma_pair_bw_gbps": 391.7,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.8
    },
    {
     "name": "rdma1",
@@ -2718,7 +3070,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.0
+    "rdma_pair_bw_gbps": 389.0,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.7
    },
    {
     "name": "rdma2",
@@ -2734,7 +3093,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.6
+    "rdma_pair_bw_gbps": 391.6,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.9
    },
    {
     "name": "rdma3",
@@ -2750,7 +3116,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma4",
@@ -2766,7 +3139,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.2
+    "rdma_pair_bw_gbps": 394.2,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.7
    },
    {
     "name": "rdma5",
@@ -2782,7 +3162,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.8
+    "rdma_pair_bw_gbps": 389.8,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.9
    },
    {
     "name": "rdma6",
@@ -2798,7 +3185,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.0
+    "rdma_pair_bw_gbps": 392.0,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma7",
@@ -2814,7 +3208,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.8
+    "rdma_pair_bw_gbps": 392.8,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.1
    },
    {
     "name": "fe0",
@@ -2848,59 +3249,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.36
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.99
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.05
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.36
     }
    ],
    "fio_seq_read_gbs": 49.4
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -3192,7 +3606,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.0
+    "rdma_pair_bw_gbps": 387.0,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.7
    },
    {
     "name": "rdma1",
@@ -3208,7 +3629,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.7
+    "rdma_pair_bw_gbps": 387.7,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.0
    },
    {
     "name": "rdma2",
@@ -3224,7 +3652,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.6
    },
    {
     "name": "rdma3",
@@ -3240,7 +3675,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.5
    },
    {
     "name": "rdma4",
@@ -3256,7 +3698,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.8
+    "rdma_pair_bw_gbps": 391.8,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma5",
@@ -3272,7 +3721,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.9
+    "rdma_pair_bw_gbps": 392.9,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.6
    },
    {
     "name": "rdma6",
@@ -3288,7 +3744,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.1
+    "rdma_pair_bw_gbps": 393.1,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.4
    },
    {
     "name": "rdma7",
@@ -3304,7 +3767,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.9
+    "rdma_pair_bw_gbps": 393.9,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "fe0",
@@ -3338,59 +3808,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.36
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.43
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.49
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.55
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.17
     }
    ],
    "fio_seq_read_gbs": 50.9
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -3682,7 +4165,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.2
+    "rdma_pair_bw_gbps": 393.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.5
    },
    {
     "name": "rdma1",
@@ -3698,7 +4188,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.0
+    "rdma_pair_bw_gbps": 387.0,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.9
    },
    {
     "name": "rdma2",
@@ -3714,7 +4211,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.4
+    "rdma_pair_bw_gbps": 392.4,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.9
    },
    {
     "name": "rdma3",
@@ -3730,7 +4234,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.0
+    "rdma_pair_bw_gbps": 387.0,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.1
    },
    {
     "name": "rdma4",
@@ -3746,7 +4257,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.1
+    "rdma_pair_bw_gbps": 394.1,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.8
    },
    {
     "name": "rdma5",
@@ -3762,7 +4280,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.1
+    "rdma_pair_bw_gbps": 392.1,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "rdma6",
@@ -3778,7 +4303,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.9
    },
    {
     "name": "rdma7",
@@ -3794,7 +4326,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.8
+    "rdma_pair_bw_gbps": 387.8,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.3
    },
    {
     "name": "fe0",
@@ -3828,59 +4367,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.36
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.43
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.49
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     }
    ],
    "fio_seq_read_gbs": 50.4
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -4168,7 +4720,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.9
    },
    {
     "name": "rdma1",
@@ -4184,7 +4743,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.2
+    "rdma_pair_bw_gbps": 387.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.7
    },
    {
     "name": "rdma2",
@@ -4200,7 +4766,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.4
+    "rdma_pair_bw_gbps": 387.4,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.5
    },
    {
     "name": "rdma3",
@@ -4216,7 +4789,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.9
+    "rdma_pair_bw_gbps": 391.9,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma4",
@@ -4232,7 +4812,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.5
    },
    {
     "name": "rdma5",
@@ -4248,7 +4835,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.7
+    "rdma_pair_bw_gbps": 387.7,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.6
    },
    {
     "name": "rdma6",
@@ -4264,7 +4858,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.4
+    "rdma_pair_bw_gbps": 386.4,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.9
    },
    {
     "name": "rdma7",
@@ -4280,7 +4881,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.0
+    "rdma_pair_bw_gbps": 387.0,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.1
    },
    {
     "name": "fe0",
@@ -4314,59 +4922,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.04
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.1
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.16
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.22
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.28
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.92
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.98
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.04
     }
    ],
    "fio_seq_read_gbs": 48.8
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -4654,7 +5275,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.6
+    "rdma_pair_bw_gbps": 386.6,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.1
    },
    {
     "name": "rdma1",
@@ -4670,7 +5298,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.2
+    "rdma_pair_bw_gbps": 394.2,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.3
    },
    {
     "name": "rdma2",
@@ -4686,7 +5321,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.7
    },
    {
     "name": "rdma3",
@@ -4702,7 +5344,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.8
    },
    {
     "name": "rdma4",
@@ -4718,7 +5367,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.9
+    "rdma_pair_bw_gbps": 390.9,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.8
    },
    {
     "name": "rdma5",
@@ -4734,7 +5390,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.6
+    "rdma_pair_bw_gbps": 393.6,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.1
    },
    {
     "name": "rdma6",
@@ -4750,7 +5413,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.5
+    "rdma_pair_bw_gbps": 389.5,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.6
    },
    {
     "name": "rdma7",
@@ -4766,7 +5436,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.5
+    "rdma_pair_bw_gbps": 388.5,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.2
    },
    {
     "name": "fe0",
@@ -4800,59 +5477,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.95
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.01
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.07
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.13
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.77
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.83
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.89
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.95
     }
    ],
    "fio_seq_read_gbs": 47.6
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -5142,7 +5832,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.3
+    "rdma_pair_bw_gbps": 390.3,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.4
    },
    {
     "name": "rdma1",
@@ -5158,7 +5855,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.6
+    "rdma_pair_bw_gbps": 393.6,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma2",
@@ -5174,7 +5878,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.9
+    "rdma_pair_bw_gbps": 389.9,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.2
    },
    {
     "name": "rdma3",
@@ -5190,7 +5901,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.1
    },
    {
     "name": "rdma4",
@@ -5206,7 +5924,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.8
+    "rdma_pair_bw_gbps": 391.8,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.3
    },
    {
     "name": "rdma5",
@@ -5222,7 +5947,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.3
+    "rdma_pair_bw_gbps": 394.3,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.4
    },
    {
     "name": "rdma6",
@@ -5238,7 +5970,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.5
+    "rdma_pair_bw_gbps": 389.5,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.2
    },
    {
     "name": "rdma7",
@@ -5254,7 +5993,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.6
+    "rdma_pair_bw_gbps": 393.6,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.9
    },
    {
     "name": "fe0",
@@ -5288,59 +6034,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.96
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.02
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.08
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.72
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.78
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.84
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.9
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.96
     }
    ],
    "fio_seq_read_gbs": 47.2
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -5626,7 +6385,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.6
+    "rdma_pair_bw_gbps": 390.6,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.3
    },
    {
     "name": "rdma1",
@@ -5642,7 +6408,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.5
+    "rdma_pair_bw_gbps": 386.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.8
    },
    {
     "name": "rdma2",
@@ -5658,7 +6431,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.7
+    "rdma_pair_bw_gbps": 393.7,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.6
    },
    {
     "name": "rdma3",
@@ -5674,7 +6454,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.1
+    "rdma_pair_bw_gbps": 391.1,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma4",
@@ -5690,7 +6477,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.4
+    "rdma_pair_bw_gbps": 393.4,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.5
    },
    {
     "name": "rdma5",
@@ -5706,7 +6500,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.2
    },
    {
     "name": "rdma6",
@@ -5722,7 +6523,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.7
+    "rdma_pair_bw_gbps": 391.7,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.0
    },
    {
     "name": "rdma7",
@@ -5738,7 +6546,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.9
+    "rdma_pair_bw_gbps": 387.9,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.8
    },
    {
     "name": "fe0",
@@ -5772,59 +6587,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.52
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.58
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.2
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.26
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.32
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.39
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.45
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.52
     }
    ],
    "fio_seq_read_gbs": 51.1
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -6116,7 +6944,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.2
+    "rdma_pair_bw_gbps": 388.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.5
    },
    {
     "name": "rdma1",
@@ -6132,7 +6967,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.8
+    "rdma_pair_bw_gbps": 389.8,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.7
    },
    {
     "name": "rdma2",
@@ -6148,7 +6990,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.7
+    "rdma_pair_bw_gbps": 393.7,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.2
    },
    {
     "name": "rdma3",
@@ -6164,7 +7013,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.0
+    "rdma_pair_bw_gbps": 392.0,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.1
    },
    {
     "name": "rdma4",
@@ -6180,7 +7036,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.6
+    "rdma_pair_bw_gbps": 389.6,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.3
    },
    {
     "name": "rdma5",
@@ -6196,7 +7059,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.9
+    "rdma_pair_bw_gbps": 393.9,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.2
    },
    {
     "name": "rdma6",
@@ -6212,7 +7082,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.3
+    "rdma_pair_bw_gbps": 387.3,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.2
    },
    {
     "name": "rdma7",
@@ -6228,7 +7105,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.3
+    "rdma_pair_bw_gbps": 390.3,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.8
    },
    {
     "name": "fe0",
@@ -6262,59 +7146,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.58
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.2
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.26
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.32
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.39
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.45
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.52
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.58
     }
    ],
    "fio_seq_read_gbs": 51.1
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -6610,7 +7507,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.0
+    "rdma_pair_bw_gbps": 388.0,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.9
    },
    {
     "name": "rdma1",
@@ -6626,7 +7530,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.2
+    "rdma_pair_bw_gbps": 386.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.7
    },
    {
     "name": "rdma2",
@@ -6642,7 +7553,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.9
+    "rdma_pair_bw_gbps": 392.9,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.0
    },
    {
     "name": "rdma3",
@@ -6658,7 +7576,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.6
+    "rdma_pair_bw_gbps": 387.6,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.3
    },
    {
     "name": "rdma4",
@@ -6674,7 +7599,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.5
    },
    {
     "name": "rdma5",
@@ -6690,7 +7622,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.9
+    "rdma_pair_bw_gbps": 386.9,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.8
    },
    {
     "name": "rdma6",
@@ -6706,7 +7645,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.6
+    "rdma_pair_bw_gbps": 390.6,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.1
    },
    {
     "name": "rdma7",
@@ -6722,7 +7668,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.9
+    "rdma_pair_bw_gbps": 390.9,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.0
    },
    {
     "name": "fe0",
@@ -6756,59 +7709,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.89
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.95
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.01
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.08
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.14
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.2
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.26
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.89
     }
    ],
    "fio_seq_read_gbs": 48.6
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -7094,7 +8060,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.2
+    "rdma_pair_bw_gbps": 388.2,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.7
    },
    {
     "name": "rdma1",
@@ -7110,7 +8083,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.2
+    "rdma_pair_bw_gbps": 392.2,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.3
    },
    {
     "name": "rdma2",
@@ -7126,7 +8106,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.5
+    "rdma_pair_bw_gbps": 389.5,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.2
    },
    {
     "name": "rdma3",
@@ -7142,7 +8129,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.3
    },
    {
     "name": "rdma4",
@@ -7158,7 +8152,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.5
+    "rdma_pair_bw_gbps": 387.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.4
    },
    {
     "name": "rdma5",
@@ -7174,7 +8175,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.2
+    "rdma_pair_bw_gbps": 390.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.7
    },
    {
     "name": "rdma6",
@@ -7190,7 +8198,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.4
+    "rdma_pair_bw_gbps": 389.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.5
    },
    {
     "name": "rdma7",
@@ -7206,7 +8221,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.4
+    "rdma_pair_bw_gbps": 386.4,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.1
    },
    {
     "name": "fe0",
@@ -7240,59 +8262,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.36
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.43
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.49
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.55
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.24
     }
    ],
    "fio_seq_read_gbs": 50.9
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -7586,7 +8621,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.7
+    "rdma_pair_bw_gbps": 392.7,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "rdma1",
@@ -7602,7 +8644,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.4
    },
    {
     "name": "rdma2",
@@ -7618,7 +8667,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.0
+    "rdma_pair_bw_gbps": 392.0,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.3
    },
    {
     "name": "rdma3",
@@ -7634,7 +8690,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma4",
@@ -7650,7 +8713,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.2
+    "rdma_pair_bw_gbps": 388.2,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.7
    },
    {
     "name": "rdma5",
@@ -7666,7 +8736,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.1
+    "rdma_pair_bw_gbps": 391.1,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.2
    },
    {
     "name": "rdma6",
@@ -7682,7 +8759,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.0
+    "rdma_pair_bw_gbps": 391.0,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.7
    },
    {
     "name": "rdma7",
@@ -7698,7 +8782,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.7
    },
    {
     "name": "fe0",
@@ -7732,59 +8823,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.26
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.33
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.39
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.45
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.51
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.14
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.2
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.26
     }
    ],
    "fio_seq_read_gbs": 50.6
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -8068,7 +9172,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.5
+    "rdma_pair_bw_gbps": 387.5,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.2
    },
    {
     "name": "rdma1",
@@ -8084,7 +9195,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.9
+    "rdma_pair_bw_gbps": 388.9,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.2
    },
    {
     "name": "rdma2",
@@ -8100,7 +9218,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma3",
@@ -8116,7 +9241,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.2
    },
    {
     "name": "rdma4",
@@ -8132,7 +9264,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.8
+    "rdma_pair_bw_gbps": 392.8,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.9
    },
    {
     "name": "rdma5",
@@ -8148,7 +9287,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.3
+    "rdma_pair_bw_gbps": 394.3,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.0
    },
    {
     "name": "rdma6",
@@ -8164,7 +9310,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.9
+    "rdma_pair_bw_gbps": 393.9,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.2
    },
    {
     "name": "rdma7",
@@ -8180,7 +9333,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.9
+    "rdma_pair_bw_gbps": 393.9,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "fe0",
@@ -8214,59 +9374,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.99
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.05
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.81
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.87
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.93
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.99
     }
    ],
    "fio_seq_read_gbs": 47.9
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -8558,7 +9731,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.4
+    "rdma_pair_bw_gbps": 393.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.7
    },
    {
     "name": "rdma1",
@@ -8574,7 +9754,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.7
+    "rdma_pair_bw_gbps": 386.7,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.6
    },
    {
     "name": "rdma2",
@@ -8590,7 +9777,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.0
+    "rdma_pair_bw_gbps": 394.0,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.5
    },
    {
     "name": "rdma3",
@@ -8606,7 +9800,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.3
+    "rdma_pair_bw_gbps": 387.3,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.4
    },
    {
     "name": "rdma4",
@@ -8622,7 +9823,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.6
+    "rdma_pair_bw_gbps": 392.6,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.3
    },
    {
     "name": "rdma5",
@@ -8638,7 +9846,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.8
+    "rdma_pair_bw_gbps": 389.8,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.1
    },
    {
     "name": "rdma6",
@@ -8654,7 +9869,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.8
+    "rdma_pair_bw_gbps": 392.8,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma7",
@@ -8670,7 +9892,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.6
+    "rdma_pair_bw_gbps": 390.6,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.1
    },
    {
     "name": "fe0",
@@ -8704,59 +9933,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.02
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.08
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.14
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.78
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.84
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.9
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.96
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.02
     }
    ],
    "fio_seq_read_gbs": 47.7
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -9046,7 +10288,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.9
+    "rdma_pair_bw_gbps": 386.9,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.8
    },
    {
     "name": "rdma1",
@@ -9062,7 +10311,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.5
    },
    {
     "name": "rdma2",
@@ -9078,7 +10334,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.3
+    "rdma_pair_bw_gbps": 392.3,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.4
    },
    {
     "name": "rdma3",
@@ -9094,7 +10357,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.9
    },
    {
     "name": "rdma4",
@@ -9110,7 +10380,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.1
+    "rdma_pair_bw_gbps": 392.1,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "rdma5",
@@ -9126,7 +10403,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 192.3
+    "rdma_pair_bw_gbps": 192.3,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 190.5
    },
    {
     "name": "rdma6",
@@ -9142,7 +10426,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.7
+    "rdma_pair_bw_gbps": 390.7,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.2
    },
    {
     "name": "rdma7",
@@ -9158,7 +10449,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.2
+    "rdma_pair_bw_gbps": 392.2,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.3
    },
    {
     "name": "fe0",
@@ -9192,59 +10490,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.48
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.54
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.16
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.22
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.29
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.35
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.41
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.48
     }
    ],
    "fio_seq_read_gbs": 50.8
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -9532,7 +10843,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.0
+    "rdma_pair_bw_gbps": 392.0,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.5
    },
    {
     "name": "rdma1",
@@ -9548,7 +10866,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.0
+    "rdma_pair_bw_gbps": 387.0,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.1
    },
    {
     "name": "rdma2",
@@ -9564,7 +10889,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.7
+    "rdma_pair_bw_gbps": 392.7,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.4
    },
    {
     "name": "rdma3",
@@ -9580,7 +10912,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.8
    },
    {
     "name": "rdma4",
@@ -9596,7 +10935,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma5",
@@ -9612,7 +10958,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.1
+    "rdma_pair_bw_gbps": 391.1,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma6",
@@ -9628,7 +10981,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.3
+    "rdma_pair_bw_gbps": 389.3,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.4
    },
    {
     "name": "rdma7",
@@ -9644,7 +11004,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.4
+    "rdma_pair_bw_gbps": 391.4,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.1
    },
    {
     "name": "fe0",
@@ -9678,59 +11045,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.32
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.95
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.01
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.08
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.14
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.2
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.26
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.32
     }
    ],
    "fio_seq_read_gbs": 49.1
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -10014,7 +11394,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.3
+    "rdma_pair_bw_gbps": 391.3,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "rdma1",
@@ -10030,7 +11417,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.2
+    "rdma_pair_bw_gbps": 392.2,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma2",
@@ -10046,7 +11440,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.1
+    "rdma_pair_bw_gbps": 389.1,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.4
    },
    {
     "name": "rdma3",
@@ -10062,7 +11463,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.1
+    "rdma_pair_bw_gbps": 389.1,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.0
    },
    {
     "name": "rdma4",
@@ -10078,7 +11486,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.3
+    "rdma_pair_bw_gbps": 386.3,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.8
    },
    {
     "name": "rdma5",
@@ -10094,7 +11509,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.6
+    "rdma_pair_bw_gbps": 393.6,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.7
    },
    {
     "name": "rdma6",
@@ -10110,7 +11532,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.0
+    "rdma_pair_bw_gbps": 388.0,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.7
    },
    {
     "name": "rdma7",
@@ -10126,7 +11555,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.5
    },
    {
     "name": "fe0",
@@ -10160,59 +11596,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.16
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.22
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.29
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.35
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.41
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.48
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.54
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.16
     }
    ],
    "fio_seq_read_gbs": 50.8
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -10508,7 +11957,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.2
+    "rdma_pair_bw_gbps": 392.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma1",
@@ -10524,7 +11980,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.0
+    "rdma_pair_bw_gbps": 386.0,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.3
    },
    {
     "name": "rdma2",
@@ -10540,7 +12003,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.3
+    "rdma_pair_bw_gbps": 393.3,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 142.6
    },
    {
     "name": "rdma3",
@@ -10556,7 +12026,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.7
+    "rdma_pair_bw_gbps": 387.7,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 138.9
    },
    {
     "name": "rdma4",
@@ -10572,7 +12049,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma5",
@@ -10588,7 +12072,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.9
+    "rdma_pair_bw_gbps": 386.9,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.6
    },
    {
     "name": "rdma6",
@@ -10604,7 +12095,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.3
+    "rdma_pair_bw_gbps": 386.3,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.6
    },
    {
     "name": "rdma7",
@@ -10620,7 +12118,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.8
+    "rdma_pair_bw_gbps": 391.8,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.7
    },
    {
     "name": "fe0",
@@ -10654,59 +12159,77 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.31
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.37
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.44
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.5
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.57
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.63
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.31
     }
    ],
    "fio_seq_read_gbs": 51.5
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": [
+    "0000:38:00.0",
+    "0000:38:01.0",
+    "0000:38:02.0",
+    "0000:38:03.0"
+   ]
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -10994,7 +12517,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.1
+    "rdma_pair_bw_gbps": 390.1,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.4
    },
    {
     "name": "rdma1",
@@ -11010,7 +12540,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.2
+    "rdma_pair_bw_gbps": 390.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.1
    },
    {
     "name": "rdma2",
@@ -11026,7 +12563,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma3",
@@ -11042,7 +12586,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.3
    },
    {
     "name": "rdma4",
@@ -11058,7 +12609,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.4
+    "rdma_pair_bw_gbps": 387.4,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.1
    },
    {
     "name": "rdma5",
@@ -11074,7 +12632,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.3
+    "rdma_pair_bw_gbps": 393.3,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.6
    },
    {
     "name": "rdma6",
@@ -11090,7 +12655,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.2
+    "rdma_pair_bw_gbps": 386.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.1
    },
    {
     "name": "rdma7",
@@ -11106,7 +12678,14 @@
      "width": 16
     },
     "fw": "28.42.1000",
-    "rdma_pair_bw_gbps": 387.1
+    "rdma_pair_bw_gbps": 387.1,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.6
    },
    {
     "name": "fe0",
@@ -11140,59 +12719,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.19
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.25
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.31
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.38
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.44
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.06
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.12
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.19
     }
    ],
    "fio_seq_read_gbs": 50.0
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -11480,7 +13072,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.2
+    "rdma_pair_bw_gbps": 386.2,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.1
    },
    {
     "name": "rdma1",
@@ -11496,7 +13095,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.4
+    "rdma_pair_bw_gbps": 389.4,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.9
    },
    {
     "name": "rdma2",
@@ -11512,7 +13118,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.0
+    "rdma_pair_bw_gbps": 389.0,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.1
    },
    {
     "name": "rdma3",
@@ -11528,7 +13141,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.5
+    "rdma_pair_bw_gbps": 393.5,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.2
    },
    {
     "name": "rdma4",
@@ -11544,7 +13164,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.8
+    "rdma_pair_bw_gbps": 388.8,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.1
    },
    {
     "name": "rdma5",
@@ -11560,7 +13187,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.6
+    "rdma_pair_bw_gbps": 389.6,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.5
    },
    {
     "name": "rdma6",
@@ -11576,7 +13210,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma7",
@@ -11592,7 +13233,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.6
+    "rdma_pair_bw_gbps": 386.6,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.7
    },
    {
     "name": "fe0",
@@ -11626,59 +13274,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.36
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.43
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.49
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.24
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     }
    ],
    "fio_seq_read_gbs": 50.4
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -11968,7 +13629,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.1
+    "rdma_pair_bw_gbps": 389.1,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.6
    },
    {
     "name": "rdma1",
@@ -11984,7 +13652,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.5
    },
    {
     "name": "rdma2",
@@ -12000,7 +13675,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.3
+    "rdma_pair_bw_gbps": 392.3,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.0
    },
    {
     "name": "rdma3",
@@ -12016,7 +13698,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.6
+    "rdma_pair_bw_gbps": 391.6,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.9
    },
    {
     "name": "rdma4",
@@ -12032,7 +13721,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.1
+    "rdma_pair_bw_gbps": 386.1,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.0
    },
    {
     "name": "rdma5",
@@ -12048,7 +13744,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.5
    },
    {
     "name": "rdma6",
@@ -12064,7 +13767,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.1
+    "rdma_pair_bw_gbps": 392.1,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.2
    },
    {
     "name": "rdma7",
@@ -12080,7 +13790,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.4
+    "rdma_pair_bw_gbps": 388.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.1
    },
    {
     "name": "fe0",
@@ -12114,59 +13831,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.54
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.6
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.67
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.28
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.35
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.41
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.47
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.54
     }
    ],
    "fio_seq_read_gbs": 51.8
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -12458,7 +14188,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.4
+    "rdma_pair_bw_gbps": 394.4,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.5
    },
    {
     "name": "rdma1",
@@ -12474,7 +14211,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.5
+    "rdma_pair_bw_gbps": 392.5,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.2
    },
    {
     "name": "rdma2",
@@ -12490,7 +14234,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.8
+    "rdma_pair_bw_gbps": 392.8,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.1
    },
    {
     "name": "rdma3",
@@ -12506,7 +14257,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.8
+    "rdma_pair_bw_gbps": 389.8,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.7
    },
    {
     "name": "rdma4",
@@ -12522,7 +14280,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.8
+    "rdma_pair_bw_gbps": 390.8,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.3
    },
    {
     "name": "rdma5",
@@ -12538,7 +14303,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.7
+    "rdma_pair_bw_gbps": 391.7,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.8
    },
    {
     "name": "rdma6",
@@ -12554,7 +14326,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.6
+    "rdma_pair_bw_gbps": 388.6,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.3
    },
    {
     "name": "rdma7",
@@ -12570,7 +14349,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.2
+    "rdma_pair_bw_gbps": 388.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.5
    },
    {
     "name": "fe0",
@@ -12604,59 +14390,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.92
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.97
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.63
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.68
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.74
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.8
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.86
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.92
     }
    ],
    "fio_seq_read_gbs": 46.4
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -12953,7 +14752,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.8
+    "rdma_pair_bw_gbps": 386.8,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.5
    },
    {
     "name": "rdma1",
@@ -12969,7 +14775,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.6
+    "rdma_pair_bw_gbps": 392.6,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma2",
@@ -12985,7 +14798,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.1
+    "rdma_pair_bw_gbps": 388.1,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.0
    },
    {
     "name": "rdma3",
@@ -13001,7 +14821,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.6
+    "rdma_pair_bw_gbps": 393.6,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.1
    },
    {
     "name": "rdma4",
@@ -13017,7 +14844,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.8
+    "rdma_pair_bw_gbps": 388.8,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.9
    },
    {
     "name": "rdma5",
@@ -13033,7 +14867,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.9
    },
    {
     "name": "rdma6",
@@ -13049,7 +14890,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.2
+    "rdma_pair_bw_gbps": 392.2,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.5
    },
    {
     "name": "rdma7",
@@ -13065,7 +14913,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.1
+    "rdma_pair_bw_gbps": 391.1,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.0
    },
    {
     "name": "fe0",
@@ -13099,59 +14954,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.21
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.84
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.9
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.96
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.03
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.09
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.15
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.21
     }
    ],
    "fio_seq_read_gbs": 48.2
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -13441,7 +15309,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.2
+    "rdma_pair_bw_gbps": 394.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.5
    },
    {
     "name": "rdma1",
@@ -13457,7 +15332,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.6
+    "rdma_pair_bw_gbps": 389.6,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.5
    },
    {
     "name": "rdma2",
@@ -13473,7 +15355,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.9
+    "rdma_pair_bw_gbps": 390.9,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "rdma3",
@@ -13489,7 +15378,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.6
+    "rdma_pair_bw_gbps": 387.6,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.7
    },
    {
     "name": "rdma4",
@@ -13505,7 +15401,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.1
+    "rdma_pair_bw_gbps": 386.1,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.8
    },
    {
     "name": "rdma5",
@@ -13521,7 +15424,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.4
+    "rdma_pair_bw_gbps": 393.4,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.7
    },
    {
     "name": "rdma6",
@@ -13537,7 +15447,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.0
+    "rdma_pair_bw_gbps": 393.0,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.9
    },
    {
     "name": "rdma7",
@@ -13553,7 +15470,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.3
+    "rdma_pair_bw_gbps": 388.3,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.8
    },
    {
     "name": "fe0",
@@ -13587,59 +15511,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.93
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.99
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.05
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.11
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.17
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.23
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.3
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.93
     }
    ],
    "fio_seq_read_gbs": 48.9
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -13925,7 +15862,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.3
+    "rdma_pair_bw_gbps": 394.3,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.2
    },
    {
     "name": "rdma1",
@@ -13941,7 +15885,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.4
+    "rdma_pair_bw_gbps": 392.4,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.9
    },
    {
     "name": "rdma2",
@@ -13957,7 +15908,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.8
+    "rdma_pair_bw_gbps": 387.8,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.9
    },
    {
     "name": "rdma3",
@@ -13973,7 +15931,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 394.5
+    "rdma_pair_bw_gbps": 394.5,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 392.2
    },
    {
     "name": "rdma4",
@@ -13989,7 +15954,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.4
+    "rdma_pair_bw_gbps": 388.4,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.7
    },
    {
     "name": "rdma5",
@@ -14005,7 +15977,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.1
    },
    {
     "name": "rdma6",
@@ -14021,7 +16000,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 387.3
+    "rdma_pair_bw_gbps": 387.3,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.8
    },
    {
     "name": "rdma7",
@@ -14037,7 +16023,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.3
+    "rdma_pair_bw_gbps": 386.3,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 384.4
    },
    {
     "name": "fe0",
@@ -14071,59 +16064,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.06
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.13
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.19
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.25
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.31
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.37
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.0
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.06
     }
    ],
    "fio_seq_read_gbs": 49.5
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -14417,7 +16423,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.8
+    "rdma_pair_bw_gbps": 391.8,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.3
    },
    {
     "name": "rdma1",
@@ -14433,7 +16446,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.5
+    "rdma_pair_bw_gbps": 391.5,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.6
    },
    {
     "name": "rdma2",
@@ -14449,7 +16469,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.4
+    "rdma_pair_bw_gbps": 391.4,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.1
    },
    {
     "name": "rdma3",
@@ -14465,7 +16492,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.4
+    "rdma_pair_bw_gbps": 386.4,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.7
    },
    {
     "name": "rdma4",
@@ -14481,7 +16515,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.2
+    "rdma_pair_bw_gbps": 390.2,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.1
    },
    {
     "name": "rdma5",
@@ -14497,7 +16538,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.2
+    "rdma_pair_bw_gbps": 389.2,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.7
    },
    {
     "name": "rdma6",
@@ -14513,7 +16561,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.3
+    "rdma_pair_bw_gbps": 391.3,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.4
    },
    {
     "name": "rdma7",
@@ -14529,7 +16584,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.7
+    "rdma_pair_bw_gbps": 393.7,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.4
    },
    {
     "name": "fe0",
@@ -14563,59 +16625,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.94
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.0
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.06
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.12
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.18
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.82
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.88
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.94
     }
    ],
    "fio_seq_read_gbs": 48.0
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -14899,7 +16974,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.9
+    "rdma_pair_bw_gbps": 386.9,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.0
    },
    {
     "name": "rdma1",
@@ -14915,7 +16997,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.4
+    "rdma_pair_bw_gbps": 392.4,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.1
    },
    {
     "name": "rdma2",
@@ -14931,7 +17020,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.1
+    "rdma_pair_bw_gbps": 391.1,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.4
    },
    {
     "name": "rdma3",
@@ -14947,7 +17043,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.8
+    "rdma_pair_bw_gbps": 393.8,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.7
    },
    {
     "name": "rdma4",
@@ -14963,7 +17066,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.8
+    "rdma_pair_bw_gbps": 392.8,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma5",
@@ -14979,7 +17089,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 390.4
+    "rdma_pair_bw_gbps": 390.4,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.5
    },
    {
     "name": "rdma6",
@@ -14995,7 +17112,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.0
+    "rdma_pair_bw_gbps": 392.0,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.7
    },
    {
     "name": "rdma7",
@@ -15011,7 +17135,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 388.6
+    "rdma_pair_bw_gbps": 388.6,
+    "link_quality": {
+     "pre_fec_ber": 2.8e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 385.9
    },
    {
     "name": "fe0",
@@ -15045,59 +17176,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.89
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.95
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.01
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.06
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.71
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.77
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 5.83
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 5.89
     }
    ],
    "fio_seq_read_gbs": 47.1
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",
@@ -15387,7 +17531,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 391.2
+    "rdma_pair_bw_gbps": 391.2,
+    "link_quality": {
+     "pre_fec_ber": 3.4e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 388.9
    },
    {
     "name": "rdma1",
@@ -15403,7 +17554,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 386.2
+    "rdma_pair_bw_gbps": 386.2,
+    "link_quality": {
+     "pre_fec_ber": 4e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 383.5
    },
    {
     "name": "rdma2",
@@ -15419,7 +17577,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.5
+    "rdma_pair_bw_gbps": 393.5,
+    "link_quality": {
+     "pre_fec_ber": 4.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.4
    },
    {
     "name": "rdma3",
@@ -15435,7 +17600,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.3
+    "rdma_pair_bw_gbps": 392.3,
+    "link_quality": {
+     "pre_fec_ber": 5.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 390.8
    },
    {
     "name": "rdma4",
@@ -15451,7 +17623,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 393.2
+    "rdma_pair_bw_gbps": 393.2,
+    "link_quality": {
+     "pre_fec_ber": 5.8e-08,
+     "fec_hist_max_bin": 3,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 391.3
    },
    {
     "name": "rdma5",
@@ -15467,7 +17646,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.5
+    "rdma_pair_bw_gbps": 389.5,
+    "link_quality": {
+     "pre_fec_ber": 1e-08,
+     "fec_hist_max_bin": 4,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 387.2
    },
    {
     "name": "rdma6",
@@ -15483,7 +17669,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 389.3
+    "rdma_pair_bw_gbps": 389.3,
+    "link_quality": {
+     "pre_fec_ber": 1.6e-08,
+     "fec_hist_max_bin": 5,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 386.6
    },
    {
     "name": "rdma7",
@@ -15499,7 +17692,14 @@
      "width": 16
     },
     "fw": "28.41.1000",
-    "rdma_pair_bw_gbps": 392.1
+    "rdma_pair_bw_gbps": 392.1,
+    "link_quality": {
+     "pre_fec_ber": 2.2e-08,
+     "fec_hist_max_bin": 6,
+     "fec_uncorrectable": 0,
+     "link_flaps": 0
+    },
+    "gdr_pair_bw_gbps": 389.0
    },
    {
     "name": "fe0",
@@ -15533,59 +17733,72 @@
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.25
     },
     {
      "slot": 1,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.31
     },
     {
      "slot": 2,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.37
     },
     {
      "slot": 3,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.0
     },
     {
      "slot": 4,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.06
     },
     {
      "slot": 5,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.13
     },
     {
      "slot": 6,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 1
+     "percentage_used": 1,
+     "seq_read_gbs": 6.19
     },
     {
      "slot": 7,
      "capacity_tb": 3.84,
      "media_errors": 0,
      "critical_warning": 0,
-     "percentage_used": 0
+     "percentage_used": 0,
+     "seq_read_gbs": 6.25
     }
    ],
    "fio_seq_read_gbs": 49.5
+  },
+  "gdr": {
+   "peer_mem": "nvidia_peermem",
+   "iommu_mode": "pt",
+   "acs_redirect_ports": []
   },
   "nccl_single_node": {
    "test": "all_reduce_perf",

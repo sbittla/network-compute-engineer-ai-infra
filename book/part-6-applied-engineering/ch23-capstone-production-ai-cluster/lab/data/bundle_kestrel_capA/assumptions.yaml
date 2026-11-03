@@ -22,7 +22,7 @@ assumptions:
   owner: Facilities
   validation: Measure PDU draw during burn-in (Chapter 16 acceptance)
 - id: A-04
-  statement: Model FLOPs utilisation (MFU) for W-TRAIN
+  statement: Model FLOPs utilization (MFU) for W-TRAIN
   value: 0.4
   unit: ratio
   label: ILLUSTRATIVE
@@ -57,7 +57,8 @@ assumptions:
   owner: Training Infra
   validation: Time the sync save on 32 nodes, then validate async save to NVMe, L2/L3
 - id: A-09
-  statement: Usable rack power budget (after PDU derating)
+  statement: 'Planned rack power budget after PDU derating and the Chapter 21 10 % transient margin (declared
+    variation: an existing row limited to 50 kW continuous per rack per 2N side; 50 x 0.9 = 45)'
   value: 45
   unit: kW
   label: ILLUSTRATIVE

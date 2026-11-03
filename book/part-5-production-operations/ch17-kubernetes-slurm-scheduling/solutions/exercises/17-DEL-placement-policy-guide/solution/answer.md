@@ -20,7 +20,7 @@ priority) → node state → device plugin / MIG → placement constraints → t
 quoted.
 
 **Appendix.** The lab `placement-report.md` (five pending jobs with reasons and the fair-share, rail,
-and lifecycle effects) and the checker output `9/9 checks passed`.
+and lifecycle effects) and the checker output `10/10 checks passed`.
 
 **Distinction:** replay evidence for at least two policy changes, and an L2 reproduction of at least
 two pending causes with the real event text (`FailedScheduling` messages, `squeue %R`).

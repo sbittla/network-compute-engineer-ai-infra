@@ -136,6 +136,24 @@ def write_all(out: Path) -> None:
         yaml.safe_dump({"collective": "all_reduce", "dtype": "float", "configs": meta}, fh, sort_keys=False)
     (out / "nccl_debug_c2_2node_aligned.txt").write_text(DEBUG_ALIGNED, encoding="utf-8", newline="\n")
     (out / "nccl_debug_c3_2node_alt_map.txt").write_text(DEBUG_ALT, encoding="utf-8", newline="\n")
+    write_launches(out / "launches")
+
+
+# Five separate launches of the c2 configuration (same nodes, same command) for spread reporting.
+# Launch 4 picked fewer channels at init (a bimodal outcome real sweeps show), so its plateau is lower.
+# Uses its own generator so that every file above stays byte-identical.
+LAUNCH_BUSBW = [355.0, 353.0, 356.0, 331.0, 354.0]
+
+
+def write_launches(out: Path) -> None:
+    """Write c2_launch1..5.log into ``out`` (nccl-tests format, 2 x HX8)."""
+    out.mkdir(parents=True, exist_ok=True)
+    rng = np.random.default_rng(SEED + 100)
+    for k, bw in enumerate(LAUNCH_BUSBW, start=1):
+        t_oop = times_us(rng, 16, 28.0, bw, 0.03, 0.008)
+        t_ip = times_us(rng, 16, 28.0, bw, 0.03, 0.008)
+        text = render(f"c2_launch{k}", 2, t_oop, t_ip, rng)
+        (out / f"c2_launch{k}.log").write_text(text, encoding="utf-8", newline="\n")
 
 
 def main() -> None:

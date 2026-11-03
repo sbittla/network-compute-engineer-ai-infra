@@ -1,6 +1,6 @@
 # 4.12 — Four bottleneck classes from the Lab 4 capture (model answer)
 
-Relies on manuscript Section 4.11 (Table 4.4, five pathologies), Section 4.7 (occupancy) and Section 4.12.
+Relies on manuscript Section 4.11 (Table 4.6, five pathologies), Section 4.7 (occupancy) and Section 4.12.
 Evidence is computed by `solve.py` directly from `lab/data/` for `train_step_41`; the trace is
 `[SIMULATED]`, occupancy and roof fractions are `[MODELED]`. Equivalent evidence from a real CUDA sample on
 an L2 host (for example `bandwidthTest` pageable vs pinned) is accepted if quoted with values.

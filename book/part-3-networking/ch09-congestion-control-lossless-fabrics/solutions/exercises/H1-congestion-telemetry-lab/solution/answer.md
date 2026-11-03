@@ -23,8 +23,9 @@ Per-episode evidence is worked in O1, the experiment plan in O3.
 
 **Diagnosis, ranked per episode, with discriminating evidence** (values that would differ under the
 competing label; see O1):
-- *Incast:* eth1/5 at line rate with a deep queue, heavy ECN and no pause rx; pause only on the first
-  hop. Contributing cause: `ECN_KMIN_HIGH` (Kmin 1,500 KB = 7.5 × the 200 KB same-rail BDP, a
+- *Incast:* eth1/5 at line rate, queue held near the 1,000 KB Xoff-equivalent (≈ 1,430 KB median), ECN
+  marks only on peaks (median 0), senders paused ≈ 17–19 k frames/s each, no pause rx; pause only on the
+  first hop. Contributing cause: `ECN_KMIN_HIGH` (Kmin 1,500 KB = 7.5 × the 200 KB same-rail BDP, a
   template value × 10). Marks start after Xoff, so the leaf runs on pause.
 - *Propagation:* root eth1/10. Leaf-r3 uplinks pause the spines, the spines pause leaf-r4, and leaf-r4
   pauses its rail-4 NICs. Worsened by `CNP_CLASS_MISMATCH` on leaf-r4 (feedback stuck behind pauses).

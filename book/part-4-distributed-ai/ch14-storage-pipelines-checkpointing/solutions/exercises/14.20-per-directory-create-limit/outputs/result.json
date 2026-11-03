@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "a_one_dir_s": 97.2,
+    "b_per_rank_dirs_s": 8.75,
+    "c_old_format_s": 0.19,
+    "d_max_files_per_rank": 9
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "aggregate_creates_per_s": 30000.0,
+    "async_completion_s": 18.49,
+    "budget_fraction": 0.05,
+    "files_per_rank_new": 1025,
+    "files_per_rank_old": 2,
+    "per_directory_creates_per_s": 2700.0,
+    "ranks": 256
+  },
+  "steps": {
+    "b_aggregate_s": 8.747,
+    "b_per_directory_s": 0.38,
+    "budget_s": 0.9245,
+    "files_new": 262400,
+    "max_creates_in_budget": 2496.2,
+    "max_files_per_rank_exact": 9.751
+  },
+  "units": {
+    "files": "count",
+    "time": "s"
+  }
+}

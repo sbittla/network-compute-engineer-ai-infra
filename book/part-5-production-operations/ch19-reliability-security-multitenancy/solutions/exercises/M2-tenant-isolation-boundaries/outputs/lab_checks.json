@@ -1,6 +1,6 @@
 {
   "id": "M2",
   "lab_checks": {
-    "T6 tenant isolation checker:": "PASS T6 tenant isolation checker: 10 violations; missing=[]; unexpected=[]"
+    "T6 tenant isolation checker:": "PASS T6 tenant isolation checker: 11 violations; missing=[]; unexpected=[]"
   }
 }

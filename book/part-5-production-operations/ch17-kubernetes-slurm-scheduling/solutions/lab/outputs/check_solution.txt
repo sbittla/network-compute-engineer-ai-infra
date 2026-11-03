@@ -1,3 +1,4 @@
+PASS  D0 dataset reproducible        generator reproduces committed data byte-for-byte (45 kB)
 PASS  T1 tolerates                   7 taint/toleration cases correct (incl. Exists, effect mismatch, PreferNoSchedule)
 PASS  T2 node_filter                 10 filter cases correct (order and codes)
 PASS  T3 select_gpus                 7 GPU-selection cases correct (socket best-fit)
@@ -8,4 +9,4 @@ PASS  T5 schedule exact match        all 15 placements/pending reasons match the
 PASS  T5 schedule order/fairness     attempt order and final tenant usage match
 PASS  T6 diagnose_pending            all 12 pending-job evidence bundles diagnosed correctly
 
-9/9 checks passed (solution)
+10/10 checks passed (solution)

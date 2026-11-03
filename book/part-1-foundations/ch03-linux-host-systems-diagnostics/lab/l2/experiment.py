@@ -235,8 +235,13 @@ def run(ctx) -> dict:
             ("ethtool", "ethtool -i/-S per interface", "ethtool and real NICs", "none: no rail/frontend NICs on this host"),
             ("iostat", "iostat -x / mpstat -P ALL", "sysstat in the image", "vmstat 1 5 (run queue, blocked tasks, iowait)"),
             ("lstopo-no-graphics", "lstopo-no-graphics --of console", "hwloc in the image",
-             "lscpu NUMA lines and nvidia-smi topo -m")):
-        sec = {"lspci": "lspci", "iostat": "iostat", "ethtool": None, "lstopo-no-graphics": None}[tool]
+             "lscpu NUMA lines and nvidia-smi topo -m"),
+            ("mlc", "mlc --latency_matrix (local vs remote NUMA latency)", "Intel Memory Latency Checker in the image",
+             "numactl-pinned STREAM (next row); otherwise the [ILLUSTRATIVE] 1.5-2x ratio stays unmeasured"),
+            ("stream", "numactl --cpunodebind=0 --membind=1 stream (remote-NUMA bandwidth)", "numactl and a STREAM build",
+             "none: remote-NUMA bandwidth is not measured on this host")):
+        sec = {"lspci": "lspci", "iostat": "iostat", "ethtool": None, "lstopo-no-graphics": None,
+               "mlc": None, "stream": None}[tool]
         st = loaded["sections"].get(sec, {}).get("status") if sec else ("missing" if not col.shutil.which(tool, path=col.SAFE_PATH) else "ok")
         if st in ("missing", None):
             not_runnable.append({"part": part, "probe": f"{tool}: {st or 'not in plan (no interfaces)'}", "needs": [need],

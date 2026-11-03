@@ -8,7 +8,7 @@
 **12.13 ★★ L1 — nccl-tests analysis toolkit (lab).** Complete [lab/README.md](../../lab/README.md) tasks 1–6
 so that `python lab/check.py` passes. Optional: run `lab/optional/gloo_allreduce.py` on your laptop if
 PyTorch is installed and parse your own output.
-*Evidence required:* checker output (10/10 PASS), summary table, anomaly labels with explanations,
+*Evidence required:* checker output (11/11 PASS), summary table, anomaly labels with explanations,
 and (optional) your gloo log labelled `[MEASURED]` with the environment.
 <!-- prompt:end -->
 
@@ -16,7 +16,7 @@ and (optional) your gloo log labelled `[MEASURED]` with the environment.
 
 Put your deliverables in `outputs/` in this folder:
 
-- `outputs/check.txt`: checker output showing `10/10 checks passed`
+- `outputs/check.txt`: checker output showing `11/11 checks passed`
 - `outputs/summary.md`: the six-row summary table and the anomaly labels with explanations
 - `outputs/gloo.log`: optional: your own gloo run, labelled `[MEASURED]` with the environment
 

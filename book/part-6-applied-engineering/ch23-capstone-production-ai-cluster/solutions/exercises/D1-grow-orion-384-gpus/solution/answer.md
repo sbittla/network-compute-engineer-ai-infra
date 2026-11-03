@@ -17,7 +17,7 @@ is for in a rail-optimized fabric"), Section 23.5; docs/REFERENCE_CLUSTER.md; ke
 - B: uplinks 16 × 24 = 384 → 384 / 64 = 6 spines; 24 / 6 = 4 per spine per leaf. Cables 384 + 384.
 - C: uplinks 8 × 48 = 384 → 6 spines; 48 / 6 = 8 per spine per leaf. A 51.2 Tb/s ASIC at 400 Gb/s gives
   51,200 / 400 = 128 ports, so C is feasible in principle; verify the SKU and NIC interoperability.
-- Racks: 48 / 4 = **12** (4 × 10.2 = 40.8 kW ≤ 45 kW each). GPU-node power 48 × 10.2 = **489.6 kW** maximum.
+- Racks: 48 / 4 = **12** (4 × 10.2 = 40.8 kW ≤ 45 kW planned each, i.e. 50 kW less the 10 % transient margin). GPU-node power 48 × 10.2 = **489.6 kW** maximum.
 
 ## ADR-012 (example): backend fabric for ORION-384
 

@@ -165,6 +165,11 @@ def request_metrics(df: pd.DataFrame) -> pd.DataFrame:
     queue_s = sched_s - arrival_s; prefill_s = first_token_s - sched_s;
     ttft_s = first_token_s - arrival_s; e2e_s = finish_s - arrival_s;
     tpot_s = (finish_s - first_token_s) / (output_tokens - 1), NaN when output_tokens < 2.
+
+    Real traces have gaps. Add a boolean column ``valid``: False when any of the four timestamps is
+    missing (NaN) or when they are out of order (arrival <= sched <= first_token <= finish fails,
+    e.g. a late-logged or clock-skewed token event). Invalid rows get NaN in all five latency
+    columns, so they drop out of percentiles instead of producing negative latencies.
     """
     out = df.copy()
     out["queue_s"] = out["sched_s"] - out["arrival_s"]
@@ -173,6 +178,11 @@ def request_metrics(df: pd.DataFrame) -> pd.DataFrame:
     out["e2e_s"] = out["finish_s"] - out["arrival_s"]
     denom = (out["output_tokens"] - 1).where(out["output_tokens"] >= 2)
     out["tpot_s"] = (out["finish_s"] - out["first_token_s"]) / denom
+    ts = out[["arrival_s", "sched_s", "first_token_s", "finish_s"]]
+    ordered = ((ts["sched_s"] >= ts["arrival_s"]) & (ts["first_token_s"] >= ts["sched_s"])
+               & (ts["finish_s"] >= ts["first_token_s"]))
+    out["valid"] = ts.notna().all(axis=1) & ordered
+    out.loc[~out["valid"], ["queue_s", "prefill_s", "ttft_s", "e2e_s", "tpot_s"]] = np.nan
     return out
 
 
@@ -184,9 +194,23 @@ def latency_percentiles(values: Iterable[float], ps: tuple[float, ...] = (50, 90
 
 
 def itl_values_s(gaps: pd.DataFrame) -> np.ndarray:
-    """Flatten the sampled inter-token gaps into one array of seconds."""
-    vals = [float(x) for s in gaps["itl_ms"] if s for x in s.split(";")]
-    return np.asarray(vals) / 1000.0
+    """Flatten the sampled inter-token gaps into one array of seconds.
+
+    Skip missing rows (NaN or empty strings), empty or non-numeric fields, and negative gaps
+    (a token logged before its predecessor is a timestamp defect, not a latency).
+    """
+    vals = []
+    for s in gaps["itl_ms"]:
+        if not isinstance(s, str) or not s:
+            continue
+        for x in s.split(";"):
+            try:
+                v = float(x)
+            except ValueError:
+                continue
+            if np.isfinite(v) and v >= 0:
+                vals.append(v)
+    return np.asarray(vals, dtype=float) / 1000.0
 
 
 def slo_report(metrics: pd.DataFrame, slos: dict, duration_s: float) -> dict:

@@ -1,6 +1,6 @@
 # 4.8 — Occupancy and bytes in flight (model answer)
 
-Relies on manuscript Section 4.7 ("The calculation", Table 4.3) and Section 4.3 (Little's law). Device
+Relies on manuscript Section 4.7 ("The calculation", Table 4.4) and Section 4.3 (Little's law). Device
 limits from Table 4.1 / `lab/data/device.json`; all results `[MODELED]`. `solve.py` implements the same
 rules and asserts every number below.
 

@@ -76,11 +76,11 @@ of 508 in (a); confusing node-hours with GPU-hours.
 **11.0 %**. GPU-equivalents = 256 × 0.110 = **28.1 GPUs**.
 (b) Gen5 x16 = 32 GT/s × 16 × 128/130 / 8 = 63.0 GB/s per direction; x8 = **31.5 GB/s**, which is
 below the NIC's 50 GB/s line rate, so PCIe becomes the bottleneck. At 85 %: 26.8 GB/s.
-Time = 7.66 / 26.8 = 0.286 s versus 0.170 s healthy → **+0.116 s per step = 0.67 %** of 17.4 s (if
-fully exposed).
+Time = 7.66 / 26.8 = 0.286 s versus 0.170 s healthy → **+0.116 s per step = 0.67 %** of 17.4 s (fully exposed: the healthy 0.170 s already exceeds the ≈ 70 ms overlap window of Chapter 11,
+so the whole increase lands on the step).
 (c) The throttling GPU is ≈ 16× worse for *this* job because it sits on the compute critical path of
-every step; the NIC costs < 1 % because the DP all-reduce is small relative to the step and can
-overlap. Acceptance must still reject both: other jobs (expert-parallel all-to-all, larger DP,
+every step; the NIC costs < 1 % because the DP all-reduce is small relative to the step, even
+though all of it is exposed. Acceptance must still reject both: other jobs (expert-parallel all-to-all, larger DP,
 inference KV transfer, checkpoint staging through the same PCIe switch) put the NIC on their
 critical path, and acceptance cannot know which job will land on the node.
 [a 6, b 6, c 3.] *Common mistakes:* applying 0.85 to the whole step; using 400 Gb/s instead of the
@@ -90,15 +90,17 @@ PCIe ceiling in (b); treating 31.5 GB/s as bidirectional.
 
 ## C. Hands-on lab (graded by the lab rubric in lab/README.md; 100 points)
 
-Expected `check.py` result: 33/33 PASS. Expected acceptance report and lifecycle outcomes: see
+Expected `check.py` result: 37/37 PASS (24 PASS / 1 WARN / 7 FAIL nodes). Expected acceptance report and lifecycle outcomes: see
 [lab/PLANTED_FAULTS.md](lab/PLANTED_FAULTS.md).
 
 ---
 
 ## D. Troubleshooting case T1 (20 points)
 
-1. **Decode.** `0x24 = 0x20 | 0x04` → SW Thermal Slowdown + SW Power Cap. `0x4` alone (night) is
-   normal power capping. [3]
+1. **Decode.** `0x24 = 0x20 | 0x04` → SW Thermal Slowdown + SW Power Cap. `0x4` alone (night, and
+   GPU 6 in the afternoon) is normal power capping at the sustained clock of ≈ 1,815–1,845 MHz.
+   Judge the throttled GPUs against that peer sustained clock, not the 1,980 MHz max boost: GPUs 4
+   and 5 run 1 − 1,650/1,830 ≈ 10 % and 1 − 1,590/1,830 ≈ 13 % below their peers. [3]
 2. **Hypotheses ranked:**
    H1 *Rack-level airflow/cooling problem in rack-04* — all four rack-04 nodes show inlet 31–32 °C at
    15:00 versus 24–25 °C in neighbouring racks; FAC-2210 removed a containment panel two weeks ago;
@@ -155,12 +157,15 @@ Xids, or NCCL busbw below the node baseline by > 3 %, and automatically demote i
 **M1 (20 points).** Reference answer is Table 16.4 plus Figure 16.3 ordering. A full-mark answer
 has ≥ 12 checks in fail-fast order: inventory diff → firmware matrix → PCIe topology/width →
 GPU discovery/HBM → ECC and row remap (DCGM `-r 1`) → NVLink/fabric state → NIC link, speed, MTU →
-RDMA pair tests per rail → storage SMART + fio → DCGM `-r 3` → burn-in (12–48 h, thermals and
+RDMA pair tests per rail (median of repeated runs) with link quality (pre-FEC BER, FEC histogram,
+flaps) → GPUDirect RDMA path (GPU-buffer perftest per rail, peer memory or DMA-BUF, ACS, IOMMU) →
+storage SMART + per-drive fio → DCGM `-r 3` → burn-in (12–48 h, thermals and
 throttle reasons logged) → single-node NCCL. Each with tool, measure, threshold labelled
 ILLUSTRATIVE or derived from a measured baseline, FAIL/WARN class (WARN: SBE counts, deprecated
 bundle), duration, and a total (≈ 25 h with 24 h burn-in). Must record policy version and raw
 outputs. [Coverage 8, ordering 4, thresholds and classes 5, duration/policy version 3.]
-*Common mistakes:* RDMA host-loopback instead of same-rail pair tests; judging PCIe speed at idle;
+*Common mistakes:* RDMA host-loopback instead of same-rail pair tests; host-buffer RDMA only (no
+GPUDirect RDMA check); treating a loaded `nvidia_peermem` as proof of GDR; an aggregate-only fio test; judging PCIe speed at idle;
 no single-node NCCL; no WARN class.
 
 **M2 (25 points).** (a) Extended matrix couplings: fabric manager = driver version exactly; CUDA

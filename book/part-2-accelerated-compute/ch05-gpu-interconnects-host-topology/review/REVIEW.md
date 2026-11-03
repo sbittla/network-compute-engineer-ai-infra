@@ -100,3 +100,63 @@ and determinism and re-checked the arithmetic. Findings and the author's fixes:
 
 After these fixes: solution checks pass, starter fails gracefully, `python scripts/validate_labs.py ch04 ch05
 ch06` is OK on all columns, and manuscripts stay under 11,000 words. The next independent score is pending.
+
+## Independent review r1 (2026-11-01)
+
+Independent reviewer scores (before author fixes): D1 9.5, D2 9.0, D3 9.5, D4 9.5, D5 9.0, D6 9.5, D7 9.5,
+D8 9.5, D9 9.0 — weighted **9.35** (gate fail; two majors). The reviewer reproduced every number and ran
+`check.py` (solution 11/11, starter 0/11 graceful). Each finding was re-verified by the author before any change.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N05-01 | Minor | §5.12 symptom says 64-GPU job, hypothesis-table caption says 128-GPU. | Verified; Table 5.5a caption now "slow 64-GPU job". |
+| N05-02 | Major | Host-side PCIe/NVLink failure modes missing (AER, MPS/MRRS/Relaxed Ordering, BAR1, NVLink counters, Fabric Manager, retraining under load). | New Table 5.9 "Host-side PCIe and NVLink failure signatures" in the runbook section (signal → command → healthy → failing → action; thresholds `[ILLUSTRATIVE]`, commands `[VENDOR-SPEC, 2026-10 — verify]`): correctable/uncorrectable AER via sysfs `aer_dev_*` and kernel log, link retraining sampled under load, `nvidia-smi -q` replay counters, DevCtl `RlxdOrd`/`MaxPayload`/`MaxReadReq`, BAR1 via `nvidia-smi -q -d MEMORY`, `nvidia-smi nvlink -e` and DCGM NVLink CRC/replay/recovery fields, Fabric Manager state. Table 5.8 gains PCIe-error and device-control rows; PCIe-link and NVLink rows extended (read under load, error counters). Forward pointer from §5.2; hypothesis H5 added to Table 5.5a; summary bullet extended. Filler cut elsewhere (prerequisites, lab overview, realism boundary, Step 5) to hold length (≈ 10,250 words). Table numbered 5.9 so that 5.1–5.8 keep their numbers. |
+| N05-03 | Major | Ex 5.16 "L2 rail VLAN" premise implausible; key's PXN clause hand-wavy. | Verified. Prompt now states a declared variation: one stretched L2 domain (one VLAN and subnet spanning all rail leaves through the spines) and names the NICs (`mlx5_4`/`mlx5_5`). Key and model answer: NCCL cannot see the cabling error and still pairs GPU4 with `mlx5_4`; rail-4 and rail-5 flows to n12 cross the spines (extra hop, hash collisions → tail). PXN clause deleted. Exercise folder prompt, meta.yaml marking and marking.json regenerated. |
+| N05-04 | Minor | `ib_write_bw` without `-s` cannot print an 8 MiB row. | Verified; added `-s 8388608`. |
+| N05-05 | Minor | Ex 5.3 wording conflicts with data (on n01 the HCA name does match the rail). | Verified; reworded as suggested (column index ≠ rail; `mlx5_0` is a software label; authoritative source). Evidence line, folder prompt, meta.yaml, marking.json, key (with marking) and model answer updated. |
+| N05-06 | Minor | udev-naming premise for n17's `mlx5_3` unexplained. | Verified. §5.6.1 now says ORION's naming step writes the udev rule from the rail recorded for each card's MAC in the asset database; §5.10 Step 2 says the technician recorded the card as "rail-3 NIC", so it was named `mlx5_3` regardless of slot. Key 5.20 and the 5.3/5.20 model answers aligned. |
+| N05-07 | Minor | Mid-sentence acronym expansions, over-long lines. | NIC, HCA, LLDP, RDMA defined in the opening callout; BDF, NUMA, IOMMU, ACS, NCCL in the objectives; DMA at first use in §5.1. Removed the later expansions (§5.1, §5.4, §5.5) and rewrapped. |
+| N05-08 | Minor | Table 5.5 CV could be read as run-to-run variance. | Caption now defines median/p99/CV over 200 modeled iterations of one run (iteration-level, independent samples, not Chapter 6's run-to-run variance); column renamed "CV (iteration-level)". |
+| N05-09 | Minor | +9 % step vs −41 % busbw needs the overlap assumption. | Added: data-parallel job without pipeline stages overlaps most of its all-reduce; 0.09 / (350/205 − 1) ≈ 13 % of the step was exposed communication `[MODELED]` (consistent with the VERIFIED_FACTS overlap rule, which applies to PP jobs). |
+| N05-10 | Minor | Slurm alternative only in prose; `--bind-to numa` semantics. | Lab README L3 block: comment on what `--bind-to numa` does, explicit `srun -N 2 --ntasks-per-node=8 --gpus-per-task=1 --cpu-bind=map_ldom:0,0,0,0,1,1,1,1 ./hca_wrap.sh …` line. |
+| D3 next-0.5 | — | PXN paragraph dense. | Split into lead + three bullets: the rule → the n17 example → when it helps. |
+| D4 next-0.5 | — | Add an lstopo-vs-nvidia-smi disagreement capture. | Not done this round: it changes lab data, generator and checker counts; Exercise 5.21 and §5.6.2 keep the report item. Candidate for the next lab revision. |
+| D9 | — | Ad-hoc numbers 5.2a / 5.5a. | Partly rejected: renumbering 5.3–5.8 would break references in committed L2 evidence (`lab/l2/results/*/report.md` cites "Table 5.3"), `experiment.py`, and the concise edition. Kept the two lettered sub-tables; the new table is 5.9. |
+| Netdev naming | — | Cross-chapter netdev names differ (shared-docs note). | Raw lab data keep PCI-path names; §5.6.2 now maps them once to the canonical `ens<i+1>np0` alternative name (rail 0 = `mlx5_0` / `enp25s0np0` / `ens1np0`; rail 3 = `mlx5_3` / `ens4np0`) `[ILLUSTRATIVE]`. |
+
+Verified after fixes: `python lab/check.py --impl solution` 11/11 PASS; `--impl starter` 0/11 with TODO lines
+(graceful, exit 1); `python scripts/validate_labs.py ch05` OK on all columns; `python scripts/copyedit_lint.py`
+0 findings in ch05 files; package harness (`docker/harness/test_package.py`, run locally) 90/90 passed, incl.
+prompt sync and regenerated marking.json. Author re-score: D2 9.5, D5 9.5, D9 9.5, others unchanged →
+weighted ≈ 9.5. An independent re-review is pending.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 9.5, D8 10.0, D9 9.0 →
+weighted **9.40** (gate fail; one major). Findings: 0 blocker, 1 major, 11 minor. Each finding was checked
+before it was changed.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R05-01 | Major | The worked example models a 128-rank all-reduce for a TP = 8, PP = 2, DP = 8 job that has none. | Step 1 now observes the job's DP all-reduce time (≈ 2.1×) and step time (+18 %, `[ILLUSTRATIVE]`; with PP only the last micro-batch hides DP, so 0.16 × 1.1 ≈ 18 %). Step 4 opens with "Which collective?": 16 concurrent 8-rank rings (8 GPU indices × 2 stages), one rail each, ring factor 2 × 7/8 = 1.75. With a 1 GiB shard: healthy 39.1 ms, n02's stage 55.9 ms, n17's GPU3 ring (PXB shared, 22.5 GB/s) 83.5 ms, which is 2.13×, the observed ratio. The lab model is now named as what it is, the fleet's 128-rank `all_reduce_perf` check of the same 16 nodes; the same slowest path gates it, so the ratio is the same (5.549 → 11.837 ms = 2.13×). §5.9 Structure, the Table 5.5 caption, the S3 bullet, Table 5.7's column, the summary and the chapter README are updated, with Ch 11/12 cross-references. Exercise 5.9 now models a 256-rank health check, not a "W-TRAIN job" (prompt and folder README). The lab, its data and the checker are unchanged, so every committed lab number still holds. |
+| R05-02 | Minor | "NIC *i*±1" is wrong for odd GPUs. | "the other NIC of its pair (NIC *i* XOR 1, e.g. GPU0↔NIC1, GPU1↔NIC0)". |
+| R05-03 | Minor | `srun --gpus-per-task=1` hides peer GPUs and NCCL falls back to SHM. | §5.7 and the lab README now use `--gpus-per-node=8 --gpu-bind=none`, with a pitfall comment to check intra-node channels for `P2P/CUMEM`/`P2P/IPC` rather than SHM. |
+| R05-04 | Minor | Key 5.19 says time correlation raises p99. | Rewritten in the key, the answer and meta.yaml: long-run p99 is unchanged if the marginals are. What changes is clustering, run-to-run variance, how representative a short benchmark is, and the need for windowed statistics. |
+| R05-05 | Minor | "PCI bus order" for NIC columns is stated as a rule. | §5.6.1, key 5.3, the 5.3 answer and meta.yaml now say the lab captures (and commonly) follow PCI enumeration order, labelled `[VENDOR-SPEC, 2026-10 — verify]`; read the NIC Legend. |
+| R05-06 | Minor | Restart cost (GPU-h) compared with a bandwidth fraction. | Step 5: 18 % longer steps waste 0.18 / 1.18 ≈ 15 % of 128 GPUs ≈ 19.5 GPU-h per hour `[MODELED]`; the 32 GPU-h restart pays back in ≈ 1.6 h. |
+| R05-07 | Minor | 5.16's mechanism depends on how L2 is stretched. | The prompt says EVPN-VXLAN, and the key explains ECMP hashing on the underlay. The key, the answer and meta.yaml accept an STP/MLAG answer if it is stated (no per-flow hashing; blocked or pinned paths concentrate flows). |
+| R05-08 | Minor | The capture script reads ACSCtl only on the parent bridge. | `capture_topology.sh` now walks every bridge from each GPU/NIC to its root port and prints each one once, in the same line format (`bash -n` clean; walk logic tested on a sample sysfs path). Table 5.3 row 5 says so. |
+| R05-09 | Minor | GPUs on a shared NIC draw independent samples. | Listed under "What the model ignores". The model is unchanged, so committed scenario numbers stay valid. |
+| R05-10 | Minor | Step 1 and §5.12 observed numbers have no label. | `[ILLUSTRATIVE]` inline at first use (Step 1 rewritten; §5.12 symptom). |
+| R05-11 | Minor | Acronyms missing expansions. | AER, BAR1 (Base Address Register window), GDR (now first used with a forward pointer), TLP, DLLP, HBM, OFED/DOCA-host and UPI are now expanded. |
+| R05-12 | Minor | Lettered table numbers. | "Table 5.5a" is now 5.6, and 5.6–5.9 shift to 5.7–5.10, with every in-text reference updated. "Table 5.2a" is now an uncaptioned column table introduced by its sentence. Fully renumbering it would push the GDR checklist off 5.3, and Table 5.3 is cited inside the committed `[MEASURED]` L2 bundle, which must not be edited. No file outside the manuscript cited the shifted numbers. |
+| D7 advice | — | Link capstones to files. | Capstone A and G links now point to their README files. |
+| D3 advice | — | Split the dense S3/S4 bullet. | Split into "S3" and "S4 vs S3". |
+| Length | — | — | Trimmed §5.1 and §5.11. Manuscript 10,629 words (r1: 10,245). |
+
+Verification: `check.py --impl solution` 11/11; `--impl starter` 0/11 (TODOs, no traceback);
+`validate_labs.py ch05` OK on all columns; `copyedit_lint.py` 0 findings; package harness 90 passed.
+Outputs were regenerated with `generate_outputs.py`. Only the marking.json files for 5.3, 5.16 and 5.19
+changed. The concise edition was not edited.

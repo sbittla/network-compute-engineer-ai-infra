@@ -23,12 +23,12 @@ def house(line: str) -> str:
     return line.replace("scaleout", "scale-out").replace("scaleup", "scale-up")
 
 STEP_BEFORE, STEP_DURING = 17.4, 22.6
-CLOCK_PEER, CLOCK_BRAKED = 1755, 1050
+CLOCK_PEER, CLOCK_BRAKED = 1830, 1050  # peers at the canonical sustained clock
 FEED_A_KW = {"rack-01": 34.0, "rack-02": 24.1, "rack-03": 24.3, "rack-04": 33.8}
 PSU_KW, PSU_EFF, SUSTAINED_AC_KW, DC_PEAK_KW = 3.0, 0.94, 8.5, 9.59
 NODES_PER_RACK, AUX_KW = 4, 0.2
 PSUS_ON_A = {"braked": 2, "normal": 3}
-KEY = {"slowdown": 0.299, "clock_ratio": 0.598, "dc_available_braked": 6.0, "dc_need": 7.99,
+KEY = {"slowdown": 0.299, "clock_ratio": 0.574, "dc_available_braked": 6.0, "dc_need": 7.99,
        "rack_ac_max_braked": 25.5}
 
 
@@ -56,7 +56,7 @@ def main() -> None:
     assert dc_braked < dc_need <= dc_normal < DC_PEAK_KW
     assert all(FEED_A_KW[r] <= rack_ac_max_braked for r in ("rack-02", "rack-03"))
     assert ans["peer_node_dc_kw"] <= dc_normal
-    assert 0.40 <= f <= 0.50
+    assert 0.35 <= f <= 0.45
     result = {"evidence": "[MODELED] from [ILLUSTRATIVE] evidence",
               "answer": {k: round(v, 4) for k, v in ans.items()},
               "units": {"power": "kW", "slowdown": "fraction"}}

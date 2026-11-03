@@ -65,7 +65,7 @@ alert condition.
 17.4 s to 19.0 s because of a fabric problem.
 (a) Compute the throughput ratio and the fraction of GPU time lost.
 (b) Case A: nobody notices for 6 h; mitigation takes another 30 min. Case B: an alert detects it in
-12 min; mitigation takes 30 min. Compute lost GPU-hours and cost at $3 per GPU-hour for each.
+12 min; mitigation takes 30 min. Compute lost GPU-hours and cost at $3.00 per GPU-hour for each.
 (c) Would ORION's `TrainingThroughputFastBurn` rule (threshold 1.10 × baseline) fire? If not, propose
 a threshold for jobs above 1,024 GPUs and state the evidence you would need that it will not be noisy.
 *Evidence required:* arithmetic for (a)–(b); a justified threshold for (c) with a noise argument.
@@ -75,7 +75,7 @@ a threshold for jobs above 1,024 GPUs and state the evidence you would need that
 **L1 ★★ L1 — Lab 18: telemetry-bundle forensics** ([lab/README.md](lab/README.md)). Implement every
 function in `lab/starter/telemetry_analysis.py`, pass `python check.py`, and submit the deliverables
 of the lab README Section 8.
-*Evidence required:* checker output with 14/14 PASS; `postmortem.md`; `dashboard_spec.json`;
+*Evidence required:* checker output with 15/15 PASS; `postmortem.md`; `dashboard_spec.json`;
 `slo_spec.md`.
 
 ## Troubleshooting case
@@ -87,10 +87,13 @@ one replica per HX8 node). Evidence `[ILLUSTRATIVE]`:
 20:00  TTFT p95 0.62 s → 20:04 1.9 s;  TPOT p95 flat at 38 ms;  5xx rate 0.01 % (normal)
 20:00  request rate 3,050/min → 20:04 3,120/min (normal evening growth)
 vllm:num_requests_waiting   replicas 0-6: 0-2 → 20:04: 35-48      replica 7: series absent since 19:58
-kube_pod_container_status_restarts_total{pod="chat-70b-7"}  3 → 6 between 19:55 and 20:04
+kube_pod_container_status_restarts_total{pod="chat-70b-7"}  0 → 4 between 19:55 and 20:04
 kubectl describe pod chat-70b-7:  Last State: Terminated  Reason: OOMKilled  Exit Code: 137
-DCGM_FI_DEV_FB_USED replica 7 (before restart): 79.1 GiB of 79.6 GiB
-events: 19:52 DEP-44 "chat-70b: raise max context length to 32k for enterprise tier" (rev 44)
+container_memory_working_set_bytes{pod="chat-70b-7"} (before each kill): 63.9 GiB of 64 GiB limit
+DCGM_FI_DEV_FB_USED replicas 0-7: 73-74 GiB of 79.6 GiB per GPU (unchanged since 19:00)
+kubectl rollout status deploy/chat-70b:  rev 44: 1 of 8 updated (chat-70b-7), not Ready
+events: 19:52 DEP-44 "chat-70b: max context 32k for enterprise tier; --swap-space 4 → 8 GiB" (rev 44)
+service: vLLM release running the V0 engine (--swap-space = CPU swap GiB per GPU)
 fabric: normal; storage: normal; GPU Xid: none
 ```
 

@@ -1,8 +1,10 @@
 # T1 — The afternoon slowdown in rack-04
 
 **1. Decode.** `0x24 = 0x20 | 0x04` → SW Thermal Slowdown + SW Power Cap (GPUs 4 and 5 at 86–87 °C,
-1,590–1,650 MHz). `0x4` alone (GPU 6 at 15:10, all GPUs at 03:10, 1,980 MHz) is normal power capping
-under load.
+1,590–1,650 MHz). `0x4` alone (GPU 6 at 15:10 at 1,830 MHz; all GPUs at 03:10 at 1,815–1,845 MHz) is
+normal power capping under load: a power-capped GPU sits at its sustained clock, below the
+1,980 MHz max boost. Judge throttling against the peers' sustained clock (≈ 1,830 MHz), not max
+boost: GPUs 4 and 5 are 1 − 1,650/1,830 ≈ 10 % and 1 − 1,590/1,830 ≈ 13 % below their peers.
 
 **2–3. Ranked hypotheses and discriminating tests**
 

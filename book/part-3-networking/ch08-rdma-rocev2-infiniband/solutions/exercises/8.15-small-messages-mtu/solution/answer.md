@@ -46,6 +46,9 @@ payload + 4 (ICRC):
 | 2,048 B | 1 | 2,048 + 60 = **2,108 B** | dropped |
 | ≥ 4,096 B | ⌈m / 4,096⌉ | 4,156 B (first), 4,140 B (middle) | dropped |
 
+These are IP-packet sizes, matching an EOS/NX-OS-style L3 `mtu`. Where the switch MTU counts the frame,
+add 18 B (1,102 B and 2,126 B); the verdicts do not change. MTU semantics are vendor-specific.
+
 So the perftest sweep prints every row **up to `#bytes 1024`** and then stops: every packet of the
 2,048 row is dropped as a giant at the leaf ingress. No ACK ever returns, so the requester retries
 (retry_cnt + 1) × T_ack and fails with **`IBV_WC_RETRY_EXC_ERR`**. NCCL's first large all-reduce

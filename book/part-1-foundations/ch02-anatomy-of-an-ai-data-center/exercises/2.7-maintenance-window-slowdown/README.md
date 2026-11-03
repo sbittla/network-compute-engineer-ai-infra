@@ -12,11 +12,11 @@ far `[ILLUSTRATIVE]`:
 ```text
 DCGM, during the window (per-rack medians)
 rack    sm_clock_mhz  power_w  clock_event_reasons_active
-rack-01  1755          655      none
+rack-01  1830          655      none
 rack-02  1050          330      HW Slowdown, HW Power Brake Slowdown
 rack-03  1050          332      HW Slowdown, HW Power Brake Slowdown
-rack-04  1755          652      none
-rack-05..rack-08 (all)  1755  650-657  none
+rack-04  1830          652      none
+rack-05..rack-08 (all)  1830  650-657  none
 
 Rack PDU feed A, during the window
 rack    feed_A_kw   breaker_events

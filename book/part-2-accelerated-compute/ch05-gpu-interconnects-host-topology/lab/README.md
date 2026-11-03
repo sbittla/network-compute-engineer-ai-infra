@@ -125,6 +125,13 @@ mpirun -np 16 -N 8 --bind-to numa $COMMON -x MISALIGN=0 ./hca_wrap.sh \
        ./build/all_reduce_perf -b 8 -e 8G -f 2 -g 1 -w 20 -n 100 | tee aligned_run1.log
 mpirun -np 16 -N 8 --bind-to numa $COMMON -x MISALIGN=1 ./hca_wrap.sh \
        ./build/all_reduce_perf -b 8 -e 8G -f 2 -g 1 -w 20 -n 100 | tee misaligned_run1.log
+# --bind-to numa keeps each rank on its socket's cores; it does not pin one core set per GPU.
+# Slurm equivalent (ranks 0-3 on NUMA 0, 4-7 on NUMA 1; export the same NCCL variables first):
+#   MISALIGN=0 srun -N 2 --ntasks-per-node=8 --gpus-per-node=8 --gpu-bind=none \
+#        --cpu-bind=map_ldom:0,0,0,0,1,1,1,1 \
+#        ./hca_wrap.sh ./build/all_reduce_perf -b 8 -e 8G -f 2 -g 1 -w 20 -n 100
+# Keep all 8 GPUs visible to every rank: --gpus-per-task=1 with device cgroups hides the peers, and
+# intra-node channels can fall back from P2P/CUMEM or P2P/IPC to SHM. Check the intra-node channel lines.
 # Prove the path: which NIC each rank used, and whether channels say /GDRDMA (GDR) or not (host-staged).
 grep -E 'NET/IB : Using|via NET/IB' aligned_run1.log misaligned_run1.log | head -40
 ```
@@ -136,8 +143,8 @@ so record it.
 
 Repeat each configuration ≥ 5 times (separate launches), record busbw median and spread at 1 GiB and
 8 GiB, plus the out-of-place time column for tail analysis; record the manifest fields listed under
-`extensions` in `manifest.yaml`. (Option names for `mpirun` differ between MPI implementations; with Slurm
-use `srun --ntasks-per-node=8 --cpu-bind=...` instead.) Compare measured busbw with Table 5.5 and
+`extensions` in `manifest.yaml`. (Option names for `mpirun` differ between MPI implementations; the commented
+`srun` line is the Slurm form.) Compare measured busbw with Table 5.5 and
 recalibrate `path_model.yaml`; label everything `[MEASURED]` with the manifest attached (include
 `NCCL_NET_GDR_LEVEL`, `NCCL_PXN_DISABLE`, the per-rank HCA table and the `/GDRDMA` evidence lines).
 

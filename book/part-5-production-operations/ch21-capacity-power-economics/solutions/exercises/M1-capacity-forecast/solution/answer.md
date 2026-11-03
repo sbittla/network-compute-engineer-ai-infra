@@ -1,6 +1,6 @@
 # M1 — Capacity forecast: worked solution
 
-Sources: manuscript Sections 21.2, 21.3 (Table 21.1 lead times) and 21.9 (Table 21.6); lab Tasks 1–2;
+Sources: manuscript Sections 21.2, 21.3 (Table 21.2 lead times) and 21.9 (Table 21.9); lab Tasks 1–2;
 `lab/data/quarterly_plan.csv` and `assumptions.yaml` `[ILLUSTRATIVE]`. Results `[MODELED]`;
 `solve.py` writes the full quarterly tables `forecast_p50.csv` and `forecast_p90.csv`.
 
@@ -27,7 +27,7 @@ network 2028Q2 and facility power 2027Q3, but only power fixes it.
 **Where the scenarios diverge.** p50 has two isolated shortfalls. p90 is short in 4 of the last 6
 quarters, and the 2028Q3 gap is 7.7× larger (−141.9 vs −18.3). Closing p90's 2028Q3 gap needs 728
 energized GPUs, so the full phase 2 must be energized by then, not just one quarter earlier. The
-in-quarter 550 W cap mitigation of Section 21.9 (≈ 507 effective usable) covers p50 but not p90's
+in-quarter 550 W cap mitigation of Section 21.9 (≈ 501 effective usable) covers p50 but not p90's
 617.6.
 
 **Recommendation (decision rule from Section 21.3).** Commit facility power for p90: energize phase

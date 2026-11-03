@@ -15,4 +15,5 @@ backend:
 frontend:
   ports_per_node: 2
   speed_gbps: 200
-  claimed_oversubscription: '3:1'
+  claimed_oversubscription: 1.5:1
+  oversubscription_basis: 'bandwidth (48 x 200G down : 16 x 400G up); 3:1 by port count'

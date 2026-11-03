@@ -1,7 +1,7 @@
 # M4 — Capacity/power/cooling model and guardrails: reference answer
 
 Sources: manuscript Sections 21.5 (Design B), 21.6 (power chain, 2N), 21.7 (heat removal, transient
-headroom) and 21.8 (Table 21.5); `lab/data/designs.yaml`. Inputs `[ILLUSTRATIVE]`. Rack power figures
+headroom) and 21.8 (Table 21.8); `lab/data/designs.yaml`. Inputs `[ILLUSTRATIVE]`. Rack power figures
 are tied to *this* Design-B reference (8 nodes × 14.3 kW), not to any vendor rack
 `[VENDOR-SPEC, 2026-10]`. Results `[MODELED]`; `solve.py` reproduces the arithmetic.
 

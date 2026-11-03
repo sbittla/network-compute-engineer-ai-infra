@@ -3,7 +3,7 @@
 Usage: python solve.py --out DIR
 
 Prompt: rail leaf = 32 host ports at 30 m + 32 spine ports at 100 m; spine = 64 ports at 100 m (ORION
-leaf-spine runs). H per (port, priority) from manuscript Section 9.4 / Table 9.2. [MODELED]
+leaf-spine runs). H per (port, priority) from manuscript Section 9.4 / Table 9.3. [MODELED]
 """
 from __future__ import annotations
 

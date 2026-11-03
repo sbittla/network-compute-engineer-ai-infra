@@ -9,6 +9,6 @@ PASS T4 checkpoint selection + RPO/RTO: checkpoint=ckpt-0084 (ckpt-0085 lacks co
 PASS T4 retry-loop policy: repeat offenders={'orionxl-n212'}; restart allowed with offender=False, after exclusion=True
 PASS T4 restart plan + rank remap: node_map={'orionxl-n212': 'orionxl-s01', 'orionxl-n389': 'orionxl-s03'} (orionxl-s00 failed acceptance, orionxl-s02 in repair); 16 ranks remapped
 PASS T5 FMEA scorer: top=F03 RPN 336; issues={'F07': 'DETECTION_INCONSISTENT', 'F11': 'OUT_OF_RANGE'}; action_required=['F03', 'F06', 'F07', 'F12']
-PASS T6 tenant isolation checker: 10 violations; missing=[]; unexpected=[]
+PASS T6 tenant isolation checker: 11 violations; missing=[]; unexpected=[]
 
 12/12 checks passed (solution)

@@ -6,7 +6,7 @@ All numbers verified twice. Values are `[MODELED]` from stated inputs unless lab
 
 **K1.** (1) *Workload* → a reviewer can recompute FLOPs, memory, communication. (2) *Numeric
 objective* (e.g. finish 2 × 10¹² tokens in 120 days, goodput ≥ 0.90) → required throughput and
-margin can be checked. (3) *Constraints* (45 kW per rack, 8 racks, budget) → rack count and power
+margin can be checked. (3) *Constraints* (45 kW planned per rack after the transient margin, 8 racks, budget) → rack count and power
 invariants. (4) *Scope boundary* → reviewers know which subsystems are not their concern and which
 interfaces must be specified. (5) *Evidence tier* → which numbers may be `[MEASURED]`.
 *Marking:* 1 mark per element with a consequence; no credit for "requirements" without a number.
@@ -20,12 +20,19 @@ falsified, so reviewers cannot tell a belief from a measured value; "TBD" is the
 would reopen it. Example: "Reopen if the per-GPU memory at TP = 8, PP = 4 exceeds 80 GB for a
 planned model, or if the scheduler can place a TP group across nodes (detected by a placement audit
 of `scontrol show job` node lists), or if NVLink-to-NIC bandwidth ratio falls below 4× on a new
-platform." *Marking:* full credit requires a metric or event.
+platform." The 4× is an illustrative threshold: today's ratio is 9× (450 / 50 GB/s per direction),
+and halving it is the point at which the TP-across-nodes cost should be re-modeled rather than assumed.
+*Marking:* full credit requires a metric or event; any numeric threshold must come with a reason.
 
 **K4.** A rack budget is a hard electrical limit (breaker, PDU rating after derating); exceeding it
 trips the circuit regardless of average draw. Events: synchronized step-start power spikes across
 all GPUs, burn-in or acceptance stress tests, firmware or driver changes that alter power capping,
-a failed PDU feed concentrating load on the other feed.
+a failed PDU feed concentrating load on the other feed. Transient margin (Chapter 21): planned
+budget = 50 × 0.9 = 45 kW; nodes = floor(45 / 10.2) = floor(4.41) = 4 (40.8 kW).
+*Marking:* reason 2, two events 1 each, budget and node count 2. *Common mistake:* applying the
+margin to sustained power, or fitting nodes against the 50 kW limit and then "adding" the margin.
+(At 50 kW the count is still 4, but a power-cap calculation would then use 10.0 kW per node, not
+9.0 kW.)
 
 **K5.** (a) Rack power failure: 4 nodes × 8 = 32 GPUs (12.5 % of 256); only jobs with ranks in that
 rack are affected. (b) Rail-leaf failure: 0 GPUs lost, but NIC *r* of every one of the 32 nodes
@@ -64,10 +71,12 @@ simulator does not capture. *Common mistake:* labelling (d) MEASURED because "we
    - Accept also: do not cable spares to the backend (32 + 32 = 64, 1:1, 512 cables) at the cost of
      recabling during a swap; or use larger leaves. Any answer must state the claimed ratio
      consistently.
-3. Max nodes per rack = floor(45 / 10.2) = floor(4.41) = 4. Racks = ceil(34 / 4) = ceil(8.5) = 9.
+3. The 45 kW is already the planned budget (50 kW limit × 0.9 transient margin, A-09). Max nodes
+   per rack = floor(45 / 10.2) = floor(4.41) = 4. Racks = ceil(34 / 4) = ceil(8.5) = 9.
    With only 8 racks: (i) keep the 2 spares outside the GPU row or hold them unracked; (ii) obtain a
    larger rack budget from Facilities; (iii) enforce a node power cap ≤ 45 / 5 = 9.0 kW in the two
-   5-node racks, which must be validated for throughput impact (MFU may drop) and enforced in
+   5-node racks (not 50 / 5 = 10.0 kW: the cap must respect the planned budget, not the raw limit),
+   which must be validated for throughput impact (MFU may drop) and enforced in
    firmware, not by convention. Option (iii) changes A-03 and A-04 and needs an ADR.
 *Marking:* 4 / 6 / 4 marks for parts 1/2/3. *Common mistakes:* using sustained power (8.5 kW, giving
 5 per rack); choosing 30 uplinks (not divisible by 4 spines); forgetting the cable count.
@@ -82,9 +91,11 @@ simulator does not capture. *Common mistake:* labelling (d) MEASURED because "we
 4. Reduce δ by validating asynchronous checkpointing: with δ = 5 s, τ = sqrt(2 × 5 × 86,400) =
    929.5 s; δ/τ = τ/(2M) = 0.538 % each → 1.08 % + R/M 1.042 % = 2.12 % total, saving ≈ 2.65 points
    of goodput (96.00 / 0.9288 = 103.36 days, ≈ 3.0 days shorter). Reducing R (faster requeue,
-   pre-staged images; spare nodes only as an explicit variation, since ORION has none) is a strong second: at 900 s it is a fixed 1.04 % here, half of the remaining
-   waste once δ is small. Increasing storage bandwidth only shrinks the 12.25 s floor inside δ and is
-   the weakest lever. (Canonical M = 48 h for comparison: 3.16 % waste, Section 23.10.)
+   pre-staged images; spare nodes only as an explicit variation, since ORION has none) attacks the
+   fixed R/M = 1.04 %, half of the remaining waste once δ is small. Doubling storage bandwidth halves
+   only the bandwidth-bound 49 s of δ (δ ≈ 35.5 s): τ = 2,477 s, waste 1.43 + 1.43 + 1.04 = 3.91 %,
+   saving 0.86 points, about a third of the async gain. (Canonical M = 48 h for comparison: 3.16 %
+   waste, Section 23.10.)
 *Marking:* 3/2/2/3. *Common mistake:* using M in hours with δ in seconds.
 
 ## C. Lab (instructor notes)
@@ -124,7 +135,9 @@ Counts: 6 blocker (COMP-001, GPU-001, GPU-002, PORT-001, POWER-001 × 2), 14 maj
 - `design.md` L28 contains "356 GB/s busbw (B-02) … 328 GB/s (B-04)": numbers attributed by ID; not NUM-001
   (the B-04 problem is caught by EVID-004 instead).
 - `design.md` L19 "10.2 kW `[VENDOR-SPEC, 2026-10]`" is labelled; L20 relies on A-09.
-- `B-06` (linter runtime, MEASURED, L1, unit s) is a legitimate laptop measurement.
+- `B-06` (linter wall time, MEASURED, L1, unit s) is a legitimate laptop measurement; its manifest
+  `manifests/l1-laptop.yaml` exists. The same manifest is cited by B-04, which is the trap: a
+  manifest that exists but describes a laptop cannot support an 8-node busbw claim (EVID-004).
 - The reference bundle must produce zero findings; any finding there is a false positive.
 
 ### Triage memo: expected classification
@@ -170,7 +183,8 @@ arithmetic), so present them as one finding with three symptoms. Minimal fixes: 
 Arithmetic: B uplinks 16 × 24 = 384 → 384 / 64 = 6 spines, 24 / 6 = 4 per spine per leaf, spine
 ports 16 × 4 = 64. C uplinks 8 × 48 = 384 → 6 spines, 8 per spine per leaf, 8 × 8 = 64. A 51.2 Tb/s
 ASIC at 400 Gb/s gives 51,200 / 400 = 128 ports, so C is feasible in principle; verify SKU and NIC
-interoperability. Racks: 48 / 4 = 12; GPU-node power 48 × 10.2 = 489.6 kW max.
+interoperability. Racks: 48 / 4 = 12 (4 × 10.2 = 40.8 kW ≤ the 45 kW planned budget, which already
+includes the 10 % transient margin on a 50 kW limit); GPU-node power 48 × 10.2 = 489.6 kW max.
 
 Recommended answer: **C** if a qualified 128-port leaf is available: rails stay single-hop for
 W-TRAIN and cross-rail KV transfer gets 1:1. Otherwise **A** now (cheapest, 512 cables, no effect on
@@ -185,14 +199,19 @@ tied to the inference roadmap. *Marking:* arithmetic 10, ADR quality 6, recommen
   single-node save timing at L2. Reward answers that state the decision that changes.
 - **R2** Linter-blind errors: a consistent but wrong design (e.g. TP across nodes, lossless config
   that will cause pause storms, wrong workload model). Caught by layer reviewers with the checklist
-  and the "what would make this fail?" question.
-- **R3** Correlated failures: a bad firmware rollout affecting many NICs at once; rack power or
-  cooling-loop events; infant mortality in a new batch. Clustered failures shorten effective M in
+  and the "what would make this fail?" question. *Anchors:* full marks for two blind-spot classes,
+  each with the reviewer or test that catches it; half marks for examples without a catching mechanism.
+- **R3** Correlated failures: a bad firmware rollout affecting many NICs at once (Section 23.5
+  works one: 4 nodes down for 3 h costs 832 GPU-h if the job waits, 224 GPU-h if it restarts at
+  DP = 7); rack power or cooling-loop events; infant mortality in a new batch. Clustered failures shorten effective M in
   bursts; a fixed interval tuned to the long-run average is too long during bursts, so adaptive
-  intervals or burst-triggered checkpoints help.
+  intervals or burst-triggered checkpoints help. *Anchors:* full marks need one correlated mode
+  priced in GPU-hours and one mitigation that changes the checkpoint or restart policy.
 - **R4** Hardware validation at L3 at target scale; facilities sign-off; vendor-spec re-verification
   dated; security review; acceptance tests passing on every node; an executed (not tabletop)
-  failure exercise; on-call ownership and runbooks reviewed.
+  failure exercise; on-call ownership and runbooks reviewed. *Anchors:* full marks name at least four
+  items, each with its evidence (a manifest, a sign-off, a test report), and keep tabletop results
+  labelled `[ILLUSTRATIVE]`.
 
 ## G. Outline-mandated exercises
 

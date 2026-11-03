@@ -13,7 +13,8 @@
     "jitter_cv:",
     "analyze_all:",
     "detect_anomalies:",
-    "predict_time_us:"
+    "predict_time_us:",
+    "launch_spread:"
   ],
   "marking": [
     {

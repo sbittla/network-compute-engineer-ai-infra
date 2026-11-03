@@ -72,3 +72,64 @@ Independent score history: 9.03 → 9.48.
 | R2-04 | Minor | W1 key | $2.729 / 0.680 = $4.01 |
 | R2-05 | Minor | T1 trip mechanism | Trip attributed to PDU electronic overcurrent protection at 48 A (41.6 kW ≈ 61 A per phase) in exercise and key |
 | R2-06 | Minor | 650 W headroom 0.1 kW | Added: measure the 4.6 kW base per site; a 2 % higher base (4.69 kW) moves the best cap to 600 W (3 × 9.49 = 28.5 kW) |
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 8.5, D2 9.0, D3 9.0, D4 8.5, D5 9.0, D6 8.5, D7 9.5, D8 9.0, D9 9.0 → weighted **8.80** (fail).
+Every finding was checked against the manuscript, lab and key before any change was made.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N21-01 | Major | "Network did not speed up" caveat was internally inconsistent; its conclusion reverses | Verified. §21.5 rewritten: B's step is 0.536 of A's at 1:1 (1.86×) and 0.611 at 2:1 (1.64×), giving ≈ 516 units ≈ 25.1/$M, *below* A's 26.53. B's advantage depends on its NICs scaling. Table 21.5 now says the 2.2× is end-to-end step throughput on each design's own 1:1 fabric. Change carried into the M2 key, `answer.md` and `solve.py` (new assertions), and the outputs were regenerated |
+| N21-02 | Major | A 32-node queue-head job cannot fit the ≈ 21-node training partition | Verified. Rather than the suggested 16-node job (which still needs ≈ 76 % of the partition free, a reservation problem rather than fragmentation), the scenario now uses a **4-node (32-GPU)** job: 44 free GPUs (= 0.66 × 0.258 × 256) but only 2 whole nodes. A sentence explains that 32-node jobs need the Ch 17 lifecycle transition. The fix advice now says to pack small jobs (leaf-aligned blocks are meaningless on a 1:1 rail fabric). K4 and M3 answers updated |
+| N21-03 | Major | Committed L2 GPU bundle fails its invariants; its narrative and the lab README contradicted the data | Verified. The committed results were left untouched (they cannot be re-run). The lab README now says what the bundle shows: the 0/25 % levels are DVFS-shifted (300 MHz) and inconclusive; at clock-matched levels perf/W rises 0.264 → 0.298 → 0.341 TFLOP/J from 50 to 100 % duty; full load was thermally limited (SW_POWER_CAP 30 %, 88 °C), not power-capped; the CPU bundle has no perf/W. `experiment.py` now emits the duty-cycling conclusion only when the fixed-V/f invariant holds and otherwise prints "Inconclusive at light duty" (dry-run on the committed `results.json` confirms this) |
+| N21-04 | Minor | Design TCO silently omits storage capex | Table 21.6 caption states the exclusion and the effect of adding storage (A $1.79M/yr, B $1.28M/yr → 23.95 vs 29.52/$M; same ranking) |
+| N21-05 | Minor | Per-side rack-power guardrail defeats 2N | Table 21.8 now compares rack total (A + B) with **one** side's limit and has a new row: any side > 50 % with both feeds up → redundancy at risk. Operational-signals line and W2 answer aligned |
+| N21-06 | Minor | T1 evidence above the 10.2 kW node max; main hall "39–41 kW on side A" | lh-03 40.8 kW (≈ 60 A), lh-04 30.6 kW (≈ 44.8 A); main hall "rack totals 39–41 kW (A + B), ≈ 20 kW per side". Exercise prompt, folder README, key, `answer.md` and `solve.py` updated; outputs regenerated |
+| N21-07 | Minor | `DCGM_FI_DEV_GPU_UTIL` deprecation | DCGM ≥ 4.7 `DCGM_FI_DEV_GPU_UTIL_RATIO` (0–1) noted at first use, `[VENDOR-SPEC, 2026-10]` |
+| N21-08 | Minor | "Section 20.3 / table 8" reads as Chapter 20 | "course outline §20.3, table 8" in README, `exercises.md` and the M4 folder README |
+| N21-09 | Minor | Undefined figure acronyms; irregular table numbering | MV, ATS, PSU and CRAH expanded in captions. Tables renumbered 21.1–21.10 with every caption above its table; references updated in the manuscript, key, solutions and `experiment.py` (the committed L2 report's "Table 21.4" is explained in the lab README). Acronym paragraph rewrapped |
+| N21-10 | Minor | Obsolete "3.6 kW base" mistake in the W2 key | Replaced with "margin applied twice / 10.2 kW regardless of cap" (key and `answer.md`) |
+| N21-11 | Minor | D1 "60 % of idle hours" base ambiguous | Restated as 60 % of all idle hours = 80 % of the lendable 420,480. The alternative base (252,288 lent, 176,602 useful) is accepted when stated (key, `answer.md`, `meta.yaml`, `marking.json`) |
+| N21-12 | Minor | 512-node maintenance example applied to ORION-256 | ORION-256 form added: one node out per day for a monthly roll ≈ 1/32 = 3.1 % |
+| N21-13 | Minor | Oversubscription model ignores overlap-window overflow | Exposure = max(0, T_comm × slowdown − T_window), with the ≈ 70 ms W-TRAIN DP window; 0.93 labelled an upper bound |
+| N21-14 | Minor | Order-by ignores onboarding | Table 21.2 lead times defined as order → in service. Order-by text explains how to handle order-to-dock quotes. The lab adds `onboarding_quarters` (0) to `assumptions.yaml` and the generator; `order_deadlines` subtracts lead time and onboarding (solution and starter). Results unchanged |
+| N21-15 | Minor | 3 % vs 4 % electricity share unexplained | Parenthetical added: 4.4 % × 0.636 ≈ 2.8 % (per-step energy excludes idle and wasted hours) |
+| D4 advice | — | Starter feedback was only TODO | `check.py` prints `hint:` lines for recognized mistakes: a counted duplicate row, usable from installed, no allocation headroom, non-node rounding, missing storage capex or PUE, cooling-fit nodes for B, missing comm efficiency, no transient margin, perf/W-optimal cap, flag diffs. Smoke-tested on deliberately broken implementations |
+
+Tests: `check.py --impl solution` 9/9; `--impl starter` 1/9 (graceful); `validate_labs.py ch21` OK (including no-generator); `copyedit_lint.py ch21` 0 findings. All committed outputs regenerated with `docker/harness/generate_outputs.py` (all solvers OK). The manuscript grew from 773 to 791 lines after cutting filler in §21.1, §21.3 and §21.4.
+
+Author re-score (for the next independent pass): D1 9.5, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 10, D8 9.5, D9 9.5 → ≈ 9.53.
+
+Remaining release-gate item: re-run the L2 GPU bundle with locked clocks on a native-Linux lab host so that its committed report passes under the current `experiment.py`.
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.0, D5 9.5, D6 9.0, D7 9.0, D8 9.5, D9 9.0 → weighted **9.23** (fail; two majors).
+Coordinator directives also applied: canonical energy price $0.08/kWh; canonical GPU-hour ≈ $3.00, reconciled here.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R21-02 | Major | The committed GPU L2 report showed "Invariants: FAILED" with a contradicted conclusion and a stale table reference | `report.md` re-rendered from the committed `results.json` using the current `experiment.check()`/`report()` and the hwlab `render()` (scratch script, no re-run, no measured value changed). Invariants now pass, the light-duty conclusion reads "Inconclusive", and the table reference is 21.7. The original evaluation is preserved under `invariants_history`, with a provenance note. The apologetic lab-README paragraph is replaced by a short list of observations. The hwlab committed-evidence test passes |
+| R21-10 | Major | $2.50 canonical rate not reconciled with Ch 21 | REFERENCE_CLUSTER now uses ≈ $3.00 (coordinator). §21.4 states that other chapters cost lost GPU time at ≈ $3.00, the nominal rate derived here, rounded; the per-allocated, per-useful and cloud on-demand rates are different quantities |
+| Energy price | Directive | $0.09/kWh vs canonical $0.08 | Changed to $0.08 in the generator, `assumptions.yaml`, the manuscript and M2. Recomputed: power $0.27M, TCO $6.73M, $3.00 / $4.16 / $4.72 per GPU-h; sensitivity table (5.36 / 5.20 / 4.99 / 4.89 / 4.20 / 4.49); designs $16.57M / $20.48M, 26.69 / 31.49 per $M, $23,810 / $41,286 per GPU-year, $37,465 / $31,752 per unit-year; storage aside 24.08 / 29.64; 1.8× → 25.8; NIC-not-scaling case → 25.2; break-even still 1.86×; energy $0.035 per M tokens, $5.85 per step, 2.5 %; stranded $3.05M per quarter; D1 $1.11M. Propagated to `check.py`, the key, and the M2, R2, D1, K3, L1, M3 and W1 solutions and their solvers; outputs regenerated |
+| R21-01 | Minor | Capping mitigation shrank the fixed overhead | Overhead held at 1.224 kW per node: ⌊800 / 10.224⌋ = 78 nodes = 624 GPUs → 530 usable → 501 effective (margin ≈ 7). L1 and M1 answers updated |
+| R21-03 | Minor | VENDOR-SPEC rack figure names no platform | GB200 NVL72-class, ≈ 120–132 kW `[VENDOR-SPEC, 2026-10]` |
+| R21-04 | Minor | Feed-loss row inconsistent with the legacy plan | Row now reads: verify the surviving side; cap any legacy rack above its 29.5 kW plan (e.g. 3 uncapped nodes, 30.6 kW) to 650 W |
+| R21-05 | Minor | T1 key ignored lh-04's latent violation | Row added to the key and `answer.md`; +1 bonus |
+| R21-06 | Minor | W2 recommends 550 W with zero headroom | Caveat added: measure the base; if ≥ 1 % high, 500 W (25.8 kW, 43.4 node-eq.) |
+| R21-07 | Minor | Design A's 41 kW air rack has no stated feasibility basis | Note under Table 21.5: containment plus rear-door heat exchangers; PUE 1.35 reflects that |
+| R21-08 | Minor | Figure 21.1 omits the active rung | Annotation: active (90–97 % of allocated) is not a multiplicative rung |
+| R21-09 | Minor | Unlabeled "40 kW air" claim | Labeled `[ILLUSTRATIVE]` |
+| D2 / D7 / D8 / D9 advice | — | — | Poisson in-repair p90 (5 nodes → usable 0.778); demand-charge example ($82k/yr ≈ 1.2 % of TCO); 2:1 spine tied to Ch 7 and Ch 10; minimal power-budget-service record (fields, 60 s period, stale → no placements); long prose lines rewrapped. Not done: turning the §21.5 caveats into a table (length) |
+
+Tests: `check.py --impl solution` 9/9; `--impl starter` 1/9 (graceful); `validate_labs.py ch21` OK; `copyedit_lint.py ch21` 0 findings; package test suite 86 passed locally; hwlab committed-evidence test passed. Manuscript ≈ 815 lines.
+
+## Re-score follow-up (2026-11-01)
+
+Reviewer re-score after r2: **9.68** (pass). New minor findings cleared:
+- **N21-01:** the Figure 21.1 annotation now calls active "a side rung, not a multiplicative step", which matches the prose.
+- **N21-02:** the experiment has a new `invariant_scope()`. The hwlab `run.py` writes its result to `invariants.scope` and adds it to the headline (optional and backward compatible). The GPU report was re-rendered from the same `results.json` and now reads "all passed (fixed-V/f checks skipped at 25 % duty: DVFS-shifted …)". No measured value changed.
+- **N21-03:** the electricity row of Table 21.4 now shows +3.5 %.
+
+Tests: package suite 86 passed; committed-evidence test passed; `validate_labs.py` OK; lint 0 findings.

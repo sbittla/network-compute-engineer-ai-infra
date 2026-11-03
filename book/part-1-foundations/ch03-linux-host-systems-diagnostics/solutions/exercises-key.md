@@ -1,7 +1,8 @@
 # Chapter 3 — Answer Key (INSTRUCTOR ONLY)
 
-All arithmetic was checked twice: once by hand, and once with a Python one-liner whose output is
-reproduced in `review/REVIEW.md`. The marks given here are guidance. Award partial credit for correct
+All arithmetic was checked twice: once by hand, and once by the per-exercise scripts in
+`solutions/exercises/<id>/solution/solve.py` (3.1, 3.3, 3.4, 3.8, 3.9, 3.10, 3.12 and 3.13), whose
+outputs are in each folder's `outputs/`. The marks given here are guidance. Award partial credit for correct
 reasoning that is not fully finished.
 
 ---
@@ -67,8 +68,9 @@ per-mapping detail.
 
 ### 3.7 — Safe collection
 Any four, each with an example:
-1. **Default-deny allowlist of exact read-only forms** (not a deny-list): refuses `ethtool -s rail0 speed 200000`,
-   `ip link set`, `dmesg -c`, `nvidia-smi --power-limit=300`, `nvidia-smi -mig 1`, because none is a listed form.
+1. **Default-deny allowlist of exact read-only forms** (not a deny-list): refuses
+   `ethtool -s rail0 speed 200000`, `ip link set`, `dmesg -c`,
+   `nvidia-smi --power-limit=300`, `nvidia-smi -mig 1`, because none is a listed form.
 2. **No shell, argv only**: a hostname or interface name cannot inject `; rm -rf`.
 3. **Timeouts**: a hung `lspci` on a wedged device cannot hang the collector.
 4. **Never escalates**: no `sudo`; `dmesg` denied → record it and fall back to `journalctl -k`.
@@ -102,7 +104,7 @@ Raw lines to quote, for example:
 
 | Rank | Hypothesis | How well it explains ≈ 40 % | Discriminating test (L2, on the live host) | Confirming result |
 |---|---|---|---|---|
-| 1 | **Slow RAID 0 member `nvme3n1` gates `md0`**, so loader workers block and the GPUs starve | **Fully.** md0 delivers 830 × 512 KiB = 435 MB/s. A loader that needed ≈ 725 MB/s (peers' rate) gets 435 / 725 = 60 %, which is the observed 40 % shortfall. GPU utilization ≈ 58 % agrees. | `nvme smart-log /dev/nvme3` (temperature, `critical_warning`, media errors); kernel log for nvme timeouts or resets; per-member latency with a read-only `fio --readonly` job on the drained node; PSI `io` | nvme3 thermal throttling or media errors; per-member latency ≫ siblings |
+| 1 | **Slow RAID 0 member `nvme3n1` gates `md0`**, so loader workers block and the GPUs starve | **Fully.** md0 delivers 830 × 512 KiB = 435 MB/s. A loader that needs the peers' ≈ 725 MB/s (given in the prompt) gets 435 / 725 = 60 %, which is the observed 40 % shortfall. GPU utilization ≈ 58 % agrees. | `nvme smart-log /dev/nvme3` (temperature, `critical_warning`, media errors); kernel log for nvme timeouts or resets; per-member latency with a read-only `fio --readonly` job on the drained node; PSI `io` | nvme3 thermal throttling or media errors; per-member latency ≫ siblings |
 | 2 | **IRQ/softirq concentration on CPU0** (rail0 and fe0 queues) | **Partially.** It caps kernel-path traffic (frontend PFS reads, checkpoint uploads, IP on rail0) and slows any thread scheduled on CPU0. W-MM reads come from local NVMe, so it is not the main limiter. | `/proc/softirqs` NET_RX delta per CPU; `cat /proc/irq/<n>/smp_affinity_list`; `systemctl is-active irqbalance`; `sar -n DEV 1` on fe0 during a PFS read | NET_RX grows only on CPU0; fe0 throughput plateaus with CPU0 at 100 % |
 | 3 | **NUMA-remote memory for the loader** (98.9 % remote) | **Partially.** It slows decode and copy work and adds cross-socket traffic, but the workers are *blocked*, not busy, so it cannot be primary. | `perf stat -e cycles,instructions` IPC vs a peer's loader; how the job was launched (wrapper, `numactl` args) | IPC clearly lower than the peer's |
 | 4 | **PCIe/GPU constraint** | **No.** All links are Gen5 x16 under load, and GPU utilization is low because the GPUs are waiting. | `nvidia-smi` link query under load; GPU timeline shows data-wait gaps | Gaps are before data arrives, not during compute |
@@ -111,16 +113,16 @@ Raw lines to quote, for example:
 **4. Root cause and remediation order.** The primary cause is the `nvme3n1` latency (48.6 ms, about
 230× its siblings), inherited by every 512 KiB `md0` read. The contributing factors are the IRQ
 concentration on CPU0, which looks like the result of a stopped `irqbalance` or a bad affinity
-profile, and the loader's remote memory placement. Order: (1) drain the node (this stops new placement only; ORION-256 has no spare). W-MM is a single-node (8-GPU) job, so the ≈ 40 % loss is
-node-local: 0.40 × 8 ≈ 3.2 GPU-h per hour. Stopping that job at its next checkpoint costs only
-8 × 0.25 h = 2 GPU-h plus 8 × T_repair, so stop it, repair, and restart. If W-MM were instead one
+profile, and the loader's remote memory placement. Order: (1) drain the node (this stops new
+placement only; ORION-256 has no spare). W-MM is a single-node (8-GPU) job, so the ≈ 40 % loss is
+node-local: 0.40 × 8 ≈ 3.2 GPU-h per hour. Stopping that job at its next checkpoint costs only 8 ×
+0.25 h = 2 GPU-h plus 8 × T_repair, so stop it, repair, and restart. If W-MM were instead one
 synchronous 256-GPU job, the same slowdown would cost ≈ 0.40 × 256 ≈ 102 GPU-h per hour and would
-justify a planned stop of the whole job. Fleet
-replaces or reseats `nvme3`, or temporarily rebuilds the cache without it or bypasses it to the PFS.
-(2) Platform restores the IRQ affinity profile or `irqbalance` through config management. (3) Training
-Infra fixes the launcher so that loader CPUs and memory are on the same node (`--cpunodebind` with a
-matching `--membind`, or first-touch from bound threads). Each change is made on the drained node
-through the change process.
+justify a planned stop of the whole job. Fleet replaces or reseats `nvme3`, or temporarily rebuilds
+the cache without it or bypasses it to the PFS. (2) Platform restores the IRQ affinity profile or
+`irqbalance` through config management. (3) Training Infra fixes the launcher so that loader CPUs
+and memory are on the same node (`--cpunodebind` with a matching `--membind`, or first-touch from
+bound threads). Each change is made on the drained node through the change process.
 
 **5. Validation.** Run on the repaired node with a fixed W-MM configuration: 50 warm-up steps, then
 300 measured steps, repeated 3 times. Report median and p95 samples/s per run, with the min–max spread,
@@ -155,7 +157,8 @@ Lost fraction = 0.126 ÷ (17.4 + 0.126) = 0.0072, so 256 × 24 × 0.0072 ≈ **4
 (c) The loss is 44 ÷ 24 ≈ 1.8 GPU-h per hour. Shrinking to DP = 7 costs 32 GPU-h per hour plus
 restarts, and a planned stop costs at least 64 GPU-h plus 256 × T_repair. Waiting for the next
 unplanned restart costs ≈ 48 h × 1.8 ≈ 88 GPU-h. **Keep running** and repair at the next restart,
-watching for escalation (an AER storm or uncorrected errors force a stop). The Gen3 x8 case of Section 3.11
+watching for escalation (an AER storm or uncorrected errors force a stop). The break-even repair time
+is (88 − 64) ÷ 256 ≈ 0.09 h ≈ 6 min, so a planned stop never pays for a real repair. The Gen3 x8 case of Section 3.11
 costs ≈ 339 GPU-h/day (14.1 per hour), about 8× worse. There too shrinking loses (14.1 < 32), but
 waiting ≈ 677 GPU-h justifies a planned stop for repairs shorter than ≈ 2.4 h.
 *Common mistake:* assuming a spare node exists, or that draining moves the job.
@@ -224,8 +227,10 @@ There are 14 distinct (host, check, severity) keys at critical/warning. These ar
 
 ### Common lab mistakes
 
-- Counting all four AER lines per event, which gives 148 "events" on orion-n07 and turns orion-n01's noise into a warning.
-- Including the since-boot `vmstat` row, which drops orion-n12's mean `b` to 12.2: still a warning, but the parser check fails.
+- Counting all four AER lines per event, which gives 148 "events" on orion-n07 and turns orion-n01's
+  noise into a warning.
+- Including the since-boot `vmstat` row, which drops orion-n12's mean `b` to 12.2: still a warning,
+  but the parser check fails.
 - Using the first `iostat` report, which hides `nvme3n1` entirely.
 - Stopping at `md0`. Its `IO_SATURATION` finding is correct, but an array's `%util` comes from md
   accounting (0 on older kernels or with statistics off), and the actionable subject is the member
@@ -256,27 +261,25 @@ recovered via `journalctl -k` with group membership, and that `nvme` and `turbos
 
 ## Design challenge — 3.13 (marking guide)
 
-A strong answer contains the following.
-(a) Continuous: node exporter and DCGM exporter at 10–30 s intervals for utilization, temperature,
-ECC, Xid and NIC counters (Chapter 18). On demand: the collector, triggered by straggler detection,
-any critical finding, node acceptance and RMA return.
+A strong answer contains the following. (a) Continuous: node exporter and DCGM exporter at 10–30 s
+intervals for utilization, temperature, ECC, Xid and NIC counters (Chapter 18). On demand: the
+collector, triggered by straggler detection, any critical finding, node acceptance and RMA return.
 (b) Unprivileged collection on live nodes, using sysfs and journal group membership. Root collection
-only on drained nodes or through an audited privileged agent, with every run logged.
-(c) Auto-drain at the next checkpoint only for unambiguous, high-cost findings: `PCIE_WIDTH_DEGRADED`,
+only on drained nodes or through an audited privileged agent, with every run logged. (c) Auto-drain
+at the next checkpoint only for unambiguous, high-cost findings: `PCIE_WIDTH_DEGRADED`,
 `PCIE_AER_UNCORRECTED`, `MEM_ECC_UNCORRECTED`, critical Xids, `LINK_SPEED_DEGRADED` and
 `INVENTORY_MISMATCH`. Page a human for rate-based or contextual findings (CE trends,
-`IRQ_CONCENTRATION`, NUMA placement). The rationale should be stated in GPU-hours: a false drain costs
-one node, about 8 GPUs × time to return, whereas a missed straggler costs a share of the whole job.
-(d) Snapshot volume: the supplied snapshots are ≈ 76–156 KB of JSON each (74–152 KiB), ≈ 141 KB typical, so one sweep
-is 512 × 140 KB ≈ **72 MB**. Daily sweeps come to ≈ 26 GB/year before compression, and text compresses
-roughly 5–10×. Retention is tied to incident review (for example 90 days hot, 1 year compressed).
-(e) The baseline lives in Git, changes by pull request with review from Fleet and SRE, and is rolled
-out in canary fashion (analyze a sample of nodes with the new thresholds in shadow mode before
-enforcing), as in Chapter 20.
-Rejected alternatives might include "run everything as root continuously" (blast radius, audit) and
-"alert on every corrected error" (alert fatigue).
-*Marking (15):* decision table 5, arithmetic 2, auto-drain rationale 4, rejected alternatives 2, change
-control 2.
+`IRQ_CONCENTRATION`, NUMA placement). The rationale should be stated in GPU-hours: a false drain
+costs one node, about 8 GPUs × time to return, whereas a missed straggler costs a share of the whole
+job. (d) Snapshot volume: the supplied snapshots are ≈ 76–156 KB of JSON each (74–152 KiB), ≈ 141 KB
+typical, so one sweep is 512 × 140 KB ≈ **72 MB**. Daily sweeps come to ≈ 26 GB/year before
+compression, and text compresses roughly 5–10×. Retention is tied to incident review (for example 90
+days hot, 1 year compressed). (e) The baseline lives in Git, changes by pull request with review
+from Fleet and SRE, and is rolled out in canary fashion (analyze a sample of nodes with the new
+thresholds in shadow mode before enforcing), as in Chapter 20. Rejected alternatives might include
+"run everything as root continuously" (blast radius, audit) and "alert on every corrected error"
+(alert fatigue). *Marking (15):* decision table 5, arithmetic 2, auto-drain rationale 4, rejected
+alternatives 2, change control 2.
 
 ---
 

@@ -10,7 +10,7 @@ evidence_required: >-
   Slowdown arithmetic; ranked hypothesis table; evidence plan with commands; root-cause arithmetic; fix
   and validation plan; one acceptance-checklist line.
 marking:
-  - criterion: Slowdown 29.9 % computed, clock ratio 0.598, and the synchronous-job explanation of why it is smaller than the clock loss
+  - criterion: Slowdown 29.9 % computed, clock ratio 0.574, and the synchronous-job explanation of why it is smaller than the clock loss
     points: 3
   - criterion: At least three hypotheses ranked with reasons (PSU cording first, failed PSUs, BMC power policy, PDU fault), thermal rejected
     points: 5

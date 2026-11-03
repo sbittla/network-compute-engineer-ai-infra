@@ -108,3 +108,57 @@ and determinism and re-checked the arithmetic. Findings and the author's fixes:
 
 After these fixes: solution checks pass, starter fails gracefully, `python scripts/validate_labs.py ch04 ch05
 ch06` is OK on all columns, and manuscripts stay under 11,000 words. The next independent score is pending.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 9.5 ·
+D9 9.0 → **9.48** (below gate). 0 blockers, 0 majors, 6 minors. Every finding was re-verified before
+it was applied; none was rejected.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| N04-01 | Peak-clock basis not reconciled in Table 4.1 | The FP32 row now shows 132 × 128 × 2 × 1.98 GHz = 66.9 TFLOP/s. The tensor row shows 132 SMs × 4,096 FLOP/clk (= 528 × 1,024) × ≈ 1.83 GHz = 989 TFLOP/s, and the "verify" hedge is gone. A new caption note says the two peaks use different clocks, warns that rescaling to 1.98 GHz gives ≈ 1,070, and says MFU always uses 989 (in line with the REFERENCE_CLUSTER peak-clock note). |
+| N04-02 | "Two warp groups" for a 384-thread GEMM | Verified: 384 / 128 = 3. The text now reads "three warp groups per block (384 threads ÷ 128; one TMA producer, two MMA consumers)". |
+| N04-03 | Non-sequential table numbers; captions above tables | Renumbered 4.1–4.15 in sequence (4.2a→4.3, 4.3→4.4, 4.3a→4.5, 4.4→4.6, 4.4a–d→4.7–4.10, 4.5→4.11, 4.5a→4.12, 4.6–4.8→4.13–4.15). Every reference in the manuscript, key, lab README and nine model answers was updated. All captions now sit below their tables, as in Chapters 1–3. |
+| N04-04 | CUDA Graph example omitted the training caveats | The example is now labelled an inference region with `torch.set_grad_enabled(False)`. A new paragraph covers `torch.cuda.make_graphed_callables`, whole-step capture with static input/target tensors, and the graph's private memory pool. |
+| N04-05 | One label covered both 55 GB/s and 3,350 GB/s | Now "≈ 55 GB/s achievable per direction `[ILLUSTRATIVE]` versus ≈ 3,350 GB/s `[VENDOR-SPEC, 2026-10]`". |
+| N04-06 | Overlong lines; trailing space on the profiler line | Prose rewrapped to ≈ 100 characters in the manuscript, exercises.md, key and lab README (tables and code untouched). The trailing space and over-long comment on the profiler line are fixed. |
+| D7 advice | Single-GPU findings not related to an 8-GPU HX8 | New paragraph after the realism boundary. Two GPUs share each PCIe switch complex; with one Gen5 x16 uplink `[ILLUSTRATIVE]`, Table 4.9's 48 GB/s pinned rate falls to ≈ 25 GB/s each, and the 67 MB distillation copy goes from 1.39 to ≈ 2.7 ms `[MODELED]`. NCCL kernels hold SMs during collectives. |
+| D8 advice | No ncu permission note | New Safety callout covers `NVreg_RestrictProfilingToAdminUsers`, `ERR_NVGPUCTRPERM`, why the parameter must not be changed on shared nodes (driver reload, opens counters to all users), and the fact that the nsys CUDA trace does not need counters. |
+
+Not done: an achieved-occupancy row from a real ncu capture (D4) and an L2 launch-latency exercise
+(D5). Both need hardware, and committed L2 bundles were not edited.
+
+Verification: `python lab/check.py --impl solution` → 11/11 PASS; `--impl starter` → 0/11, 11 TODO,
+no traceback; `python scripts/copyedit_lint.py ch04-gpu` → 0 findings. The manuscript is 11,400 words
+(was 11,088).
+
+Author re-score (pending independent re-review): D1 10 · D2 10 · D3 10 · D4 9.5 · D5 9.5 · D6 10 ·
+D7 10 · D8 10 · D9 9.5 → 9.85.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.0 · D5 9.5 · D6 9.5 · D7 9.5 · D8 9.5 ·
+D9 9.5 → **9.425** (fails the gate). 1 major, 4 minors. All were re-verified and applied.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R04-01 (major) | The committed L2 GPU bundle's *fixed* variant was traced with windows of 20.1–24.0 ms against a 108.28 ms median step. The CPU-side range closed before the GPU drained. | Confirmed from results.json: windows 24.0/20.5/20.5/20.3/20.1/23.1 ms, while the kernel table holds ≈ 113 ms of GPU time per step. The baseline windows (133–237 ms vs a 131.15 ms median) pass. Changes: (a) `capture_gpu()` now calls `torch.cuda.synchronize()` before closing each step range, and `check()` fails any run whose traced window is below 90 % of the uninstrumented median step. (b) The bundle's report.md has an erratum banner and an "Invalid" note on the fixed section. Measured values are untouched; the report says which figures stand (per-op tables, step times, counts, the 1.21× speedup, the baseline analysis) and which do not (fixed busy/overlap/gaps/findings), with a caveat on the baseline's post-`.item()` optimizer tail. (c) The lab README §8 now has the invariant, an erratum, and an "Observed" paragraph that no longer claims "findings disappearing". The 4.10 model answer does not credit fixed-variant window figures. §4.10 has a new Pitfall citing the incident. A rerun is pending: Docker is down and the GPU was not used. |
+| R04-02 | Copy time of 10.12 ms vs 10.09 ms in Table 4.9 | Text now says "10.12 ms (Table 4.9's 10.09 ms plus thirteen 4-byte D2H `.item()` copies, 0.03 ms)". |
+| R04-03 | The arithmetic mask was not NaN-safe | The fix now uses `torch.where(mask, per_token_loss, 0)` / `mask.sum().clamp_min(1)`, with a sentence explaining that NaN × 0 = NaN. |
+| R04-04 | Key 4.3 listed `torch.cuda.synchronize()` as implicit | Removed from the key and the 4.3 model answer and marked explicit (no credit). `empty_cache()` is kept. |
+| R04-05 | The `nvidia-smi -q -d PERFORMANCE` field order was wrong | Now follows the Chapter 2 driver order (HW Thermal and HW Power Brake nested under HW Slowdown, Sync Boost, then SW Thermal), with "…" marking omitted lines. |
+| D1 advice | L2 bandwidth was stated as "≈ 10 TB/s class" | Table 4.2 now reads "≈ 5–10 TB/s (varies widely by measurement)". |
+| D2 advice | No ncu clock-control note | Added: by default ncu locks clocks to base (`--clock-control base`); use `--clock-control none` to compare against production. |
+| D7 advice | 4.14 was not tied to cluster cost | Added: on W-TRAIN, 0.28 × 256 ≈ 72 GPU-equivalents ≈ $215/h at $3.00/GPU-hour (Chapter 21) `[MODELED]`. |
+| D8 advice | Safe single-rank profiling was a single sentence | Runbook step 3 is now ordered sub-steps (a)–(e): owner agreement and the NCCL timeout, `--capture-range` plus a bounded `--duration`, trace-only capture, abort margin, and a post-capture check. |
+
+Not done: a scaled timeline figure (D3) and achieved occupancy from a CUPTI-capable host (D4 → 10).
+
+Verification: `lab/check.py` solution 11/11, starter 0/11 (graceful); `experiment.py` parses (it
+cannot be run here: Docker is down and the GPU must not be used); `copyedit_lint.py` 0 findings
+book-wide.

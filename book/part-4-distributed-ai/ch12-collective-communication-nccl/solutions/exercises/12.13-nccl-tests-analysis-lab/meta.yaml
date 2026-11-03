@@ -30,3 +30,4 @@ lab_checks:
 - 'analyze_all:'
 - 'detect_anomalies:'
 - 'predict_time_us:'
+- 'launch_spread:'

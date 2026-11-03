@@ -96,7 +96,10 @@ The loaders are already written for you.
 **Part B — serving-trace analyzer (45 points)**
 
 5. `request_metrics`, `latency_percentiles`, `itl_values_s`. Report TTFT, TPOT, ITL and e2e
-   p50/p95/p99 for the whole trace and for the first 230 s (the healthy baseline).
+   p50/p95/p99 for the whole trace and for the first 230 s (the healthy baseline). Real traces
+   lose events: flag rows with a missing or out-of-order timestamp as invalid and keep them out
+   of the percentiles, and skip empty or negative token gaps. *Accept:* B9 runs your functions on
+   a small defective trace the shipped data does not contain.
 6. `slo_report`. Report SLO attainment, goodput (SLO-meeting requests/s) and throughput for the
    whole trace and for the baseline.
 7. `windowed`, `detect_issues`. Find every anomaly and classify it as `queueing_collapse`,
@@ -135,7 +138,7 @@ containing:
 | Part A checks A1–A6 pass | 20 |
 | Configuration recommendation, latency vs throughput, with the numbers that justify it and one risk of each choice | 10 |
 | Part B checks B1–B4 pass, with the percentile/SLO table for full trace vs baseline | 15 |
-| Part B checks B5–B8 pass | 15 |
+| Part B checks B5–B9 pass | 15 |
 | Diagnosis narrative: for each anomaly, the symptom, the discriminating evidence, the root-cause hypothesis, and one safe mitigation | 15 |
 | Part C checks C1–C4 pass | 10 |
 | Disaggregation recommendation for the 40 req/s workload, transport choice, and what to measure at L2/L3 to confirm it; every number labelled MODELED/SIMULATED | 15 |

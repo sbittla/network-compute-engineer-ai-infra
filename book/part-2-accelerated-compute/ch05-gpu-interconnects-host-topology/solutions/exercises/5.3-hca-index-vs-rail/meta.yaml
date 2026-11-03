@@ -6,12 +6,13 @@ difficulty: 1
 tier: L1
 kind: written
 points: 3
-evidence_required: probe-order explanation; LLDP/cabling database.
+evidence_required: column-order explanation; naming-rule explanation; LLDP/cabling database.
 marking:
-- criterion: nvidia-smi numbers NIC columns in PCI bus order (frontend mlx5_8 at bus 0d is NIC0)
+- criterion: In the capture the NIC columns follow PCI enumeration order (frontend mlx5_8 at bus 0d is NIC0); read
+    the NIC Legend rather than assume an order
   points: 1
-- criterion: RDMA device names come from kernel/udev naming rules; neither a column index nor a name says
-    where a cable goes
+- criterion: RDMA device names are software labels from kernel/udev naming rules (ORION names from the asset
+    database record); neither a column index nor a name says where a cable goes
   points: 1
 - criterion: 'Authoritative source: LLDP neighbour (orion-be-leaf-rR) cross-checked against the cabling
     database'

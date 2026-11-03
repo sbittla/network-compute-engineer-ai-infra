@@ -48,8 +48,9 @@ def main() -> None:
     for name, (cool, per) in OPTIONS.items():
         racks = math.ceil(NODES / per)
         rack_kw = per * NODE_KW[cool] + AUX_KW
-        it = racks * rack_kw + sum(SUPPORT.values())
-        liquid = racks * CAPTURE[cool] * rack_kw
+        load = NODES * NODE_KW[cool] + racks * AUX_KW   # price the 64 nodes actually installed (B's last rack holds 4)
+        it = load + sum(SUPPORT.values())
+        liquid = CAPTURE[cool] * load
         floor = (per * NODE_KG + NON_NODE_KG) / st["rack_footprint_m2"]
         r = {"gpu_racks": racks, "positions": racks + SUPPORT_RACKS[name], "rack_kw": rack_kw,
              "side_kw": rack_kw * (1 + el["transient_margin"]), "it_kw": it, "liquid_kw": liquid,

@@ -67,3 +67,62 @@ Independent score 9.38 (one major). validate_labs: all columns OK.
 | R2-02 | Minor | Job on n21–n28 overlaps inference nodes n25–n32 | Moved to training nodes `orion-n17`–`n24` (generator, data, manuscript, lab/instructor READMEs, manifest); rank 12 → `orion-n18`, 37 → `orion-n21`, 51 → `orion-n23`; checks unchanged and passing |
 | R2-03 | Minor | Stale "regardless of what Chapter 11 assumed" | "Chapter 11's step model uses this window (≈ 98 ms exposed)" |
 | R2-04 | Minor | `ib_write_lat` reports half the RTT | Reworded: ≈ 2 µs one way is what `ib_write_lat` prints (half the ≈ 4 µs round trip) |
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.0 · D2 9.0 · D3 9.5 · D4 9.5 · D5 9.0 · D6 9.5 · D7 9.5 · D8 9.5 · D9 9.5 → **9.28**
+(2 major, 8 minor). check.py at review time: solution 10/10, starter 1/10 graceful.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N13-01 | Major | Key 13.13 root cause (Fabric Manager down, job runs 3× slow) contradicts NVSwitch behaviour and §13.2 | Verified (CUDA returns "system not yet initialized" without Fabric Manager, so the job fails at start). Key, `answer.md` and `meta.yaml` marking rewritten: primary cause degraded NVLink on one n09 GPU (6 of 18 links, `NV6` vs `NV18`, ≈ 3× TP time); secondary container without IPC/P2P → `via SHM`; Fabric Manager kept as a rejected hypothesis with the reason; tests add `nvlink -e`/DCGM NVLink error fields; busbw expectation uses the book threshold (> ≈ 400 GB/s ⇒ NVLS, ring ≈ 360–380). §13.2 now says a job "does not start, rather than running slowly". `marking.json` regenerated |
+| N13-02 | Major | PXN absent; rule 1 and Table 13.2 incomplete | New §13.3 paragraph "PXN: the third policy" consistent with VERIFIED_FACTS (mechanism, ≤ PXB eligibility separate from `NCCL_NET_GDR_LEVEL`, `NCCL_PXN_DISABLE`/`NCCL_P2P_PXN_LEVEL`, `(proxyRank)` channel line, Chapter 12 cross-ref); Table 13.2 PXN row; rule 1 amended; Table 13.5 row 11 (check `(proxyRank)` lines for cross-rail traffic); Summary bullet. Key 13.9's PXN marks are now taught |
+| N13-03 | Minor | Latency components sum to 2.4–3.0 µs, text says ≈ 2 µs | Components trimmed and the sum shown explicitly: 1.83–2.33 µs ≈ 2 µs, consistent with `ib_write_lat` RTT/2 |
+| N13-04 | Minor | Fig 13.1 fallback shown as cross-socket PCIe P2P | Relabelled as NCCL SHM transport through pinned host DRAM (`via SHM`); caption explains `NCCL_P2P_LEVEL` gating |
+| N13-05 | Minor | "≈ 123×" from rounded inputs | "≈ 122× (1.20 TB / 9.81 GB = 122.3)" in §13.1, Summary, key 13.1, 13.1 answer; solver assertion moved to 122 ± 1.0 (outputs unchanged, re-run) |
+| N13-06 | Minor | Ex 13.3 omits NODE | Prompt (exercises.md + folder README, kept verbatim), title, index, meta marking, answer and key now cover five labels; GPU 0 ↔ NIC 2 = NODE (PHB accepted if justified); default GDR ≈ PXB so NODE/SYS host-staged. §13.3 now defines all five labels with the book-wide definitions |
+| N13-07 | Minor | No NVLink error telemetry | §13.2 adds `nvidia-smi nvlink -e` and DCGM NVLink CRC/replay/recovery fields `[VENDOR-SPEC, 2026-10]`; Table 13.3 intra-node row extended; runbook row "NVLink error rate rising → Fleet, drain at checkpoint" |
+| N13-08 | Minor | L2 report: wrong Table 13.5 rows; "negotiated" link is really max capability | `experiment.py` now cites "rows 2-3, 5-8 and 11" and labels the ceiling "maximum-capability link" (kept max: an idle laptop link trains down, so current values are not a ceiling). The same text-only strings were corrected in both committed bundles; no measured value was touched. Lab README wording aligned |
+| N13-09 | Minor | Unlabelled comparative figures | `[ILLUSTRATIVE]` on "5–10×", "order of magnitude slower" and "several µs more per message" |
+| N13-10 | Minor | Receive-only GDR state not taught | §13.11 paragraph: `NCCL_NET_GDR_READ` gates the send side; `/GDRDMA` on `[receive]` lines only; uplink load halves to 15.3 GB per direction (≥ 0.28 s), DRAM 61.3 GB per socket `[MODELED]` |
+| Next-0.5 D4 | — | Checker case for missing rows | New check `missing_samples`: drops 5 % of rows and blanks 1 % of `compute_ms` (seed 13); requires stragglers [12, 37] and rank-37 onset 20–22. Lab README Task 2 acceptance, 11-check counts (README, exercise 13.12 prompt/meta/answer, `lab_checks.json`) and golden reports updated; realism boundary notes it |
+| Next-0.5 D9 | — | Table 13.4a appears before Table 13.4 | Renumbered to Table 13.3a (manuscript, lab README) |
+| Flight recorder | — | `TORCH_FR_BUFFER_SIZE` default stated flatly as 2,000 | Checked PyTorch main `FlightRecorder.hpp`: `getCvarInt({"TORCH_FR_BUFFER_SIZE", "TORCH_NCCL_TRACE_BUFFER_SIZE"}, 2000)`. Text now says the default is version-dependent (2,000 in current source; some older releases 0 = off) and to set it explicitly |
+
+Rejected: none. Tests after the fixes: `check.py --impl solution` 11/11 PASS; `--impl starter` 1/11 PASS,
+graceful; `validate_labs.py ch13` OK (no-generator pass); package harness (`test_package.py`, run locally)
+78 passed; `copyedit_lint.py` 0 findings in ch13.
+
+Shared-doc follow-up (not edited here): REFERENCE_CLUSTER Figure R.1 calls GPU0↔NIC2 "PXB/PHB-class";
+under the book-wide definitions it is NODE (PHB only if both root ports share one host bridge), never PXB.
+
+Author re-score: D1 9.5 · D2 9.5 · D3 9.5 · D4 10 · D5 9.5 · D6 10 · D7 9.5 · D8 9.5 · D9 9.5 → 9.63.
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 9.5 · D9 9.0 → **9.475**
+(0 major, 6 minor). check.py at review time: solution 11/11, starter 1/11 graceful.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R13-01 | Minor | Rule 1 says any other NIC is `NODE`, but the sibling NIC in the same switch complex is `PXB` | Verified against VERIFIED_FACTS (PXB = several switches, no host bridge; GDR allowed at default). §13.3 now explains the sibling pair (PIX on a single switch, PXB on a two-level HGX-class complex); rule 1 distinguishes sibling `PXB` (GDR kept, two extra switch hops), other complex `NODE`, cross-socket `SYS`; Figure 13.2 caption says GPU3/NIC3 are omitted and SW1 is drawn as one switch. Ex 13.3 answer and key give GPU 0 ↔ NIC 1 as the PXB example |
+| R13-02 | Minor | `ethtool -S eth2` non-canonical | `ethtool -S ens3np0` (NIC 2, rail i ↔ ens{i+1}np0) `[ILLUSTRATIVE]` |
+| R13-03 | Minor | `[MODELED]` on a qualitative table | Table 13.7 caption: `[ILLUSTRATIVE]` qualitative comparison; quantified in Section 13.11 |
+| R13-04 | Minor | Acronyms expanded after first use; PCIe never expanded | Acronym table (30 entries, Chapter 16 format) placed before the learning objectives; the scattered later expansions removed |
+| R13-05 | Minor | 13.9 s unexplained | "13.92 s / 128 × 2/3 ≈ 72 ms (13.92 s of compute per GPU per step, Chapter 11, Section 11.10 Step 1; 128 micro-batches = 1,024 / DP 8; backward ≈ 2/3)" |
+| R13-06 | Minor | No own end-to-end step diagram | New Figure 13.4: one W-TRAIN step on one GPU (compute 13.92 s; TP 1.20 TB, 4.11 s, 3.08 s exposed; PP 2.15 GB, 0.055/0.028 s; bubble 0.33 s; DP 7.66 GB, 0.170 s, 72 ms hidden, 0.098 s exposed; sum 17.45 s), all from Chapter 11 §11.10 `[MODELED]` |
+| Next-0.5 D2 | — | PCIe AER signature; NVLink degradation in per-rank data | New §13.3 paragraph on GPU↔NIC link degradation (`LnkSta` vs `LnkCap`, AER `CESta` bits, `aer_dev_correctable`/`nonfatal`/`fatal`, dmesg) `[VENDOR-SPEC, 2026-10]`; §13.9 step 5 describes the node-wide TP-phase signature (Ex 13.13) |
+| Next-0.5 D5 | — | Point splits for 13.15–13.18 | Key now lists the 3 × 1-pt elements per item, matching each `meta.yaml` |
+| Next-0.5 D8 | — | Abort criterion for the Fabric rollback | Table 13.6a: abort and restore last known-good if rail-2 retransmissions are not near baseline within 10 min or another rail's counters rise; escalate to change review |
+| Next-0.5 D4 | — | Machine-checked findings file | Not done in this round: it changes the lab contract and the 25-pt report rubric; recorded as a candidate for the next lab revision |
+
+Rejected: none. Tests: `check.py` solution 11/11, starter 1/11 graceful; `validate_labs.py ch13` OK;
+package harness 78 passed; `copyedit_lint.py` 0 findings in ch13. Manuscript 9,375 words (target
+7,000–10,000).
+
+Shared-doc follow-up: REFERENCE_CLUSTER Figure R.1 should say whether each "PCIe SWn" is one switch or
+a two-level complex (it decides PIX vs PXB for GPU 2k ↔ NIC 2k+1), and its caption's "PXB/PHB-class"
+for GPU0↔NIC2 should read NODE.
+
+Author re-score (estimate; independent re-review pending): D1 9.5 · D2 10 · D3 9.5 · D4 9.5 · D5 10 ·
+D6 10 · D7 10 · D8 10 · D9 9.5 → 9.73.

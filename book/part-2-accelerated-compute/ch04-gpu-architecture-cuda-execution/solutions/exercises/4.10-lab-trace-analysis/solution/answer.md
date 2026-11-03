@@ -1,8 +1,9 @@
 # 4.10 — Lab 4: trace analysis of a training step (reference results)
 
-Graded with the Lab 4 rubric (lab README Section 7, 100 points); the checks listed in `meta.yaml` must PASS
-in `solutions/lab/outputs/check_solution.txt`. Reference implementation: `solutions/lab/trace_analysis.py`.
-Relies on manuscript Sections 4.5–4.7, 4.10, 4.11 (Table 4.4) and 4.12 (worked example, Table 4.5).
+Graded with the Lab 4 rubric (lab README Section 7, 100 points); the checks listed in `meta.yaml`
+must PASS in `solutions/lab/outputs/check_solution.txt`. Reference implementation:
+`solutions/lab/trace_analysis.py`. Relies on manuscript Sections 4.5–4.7, 4.10, 4.11 (Table 4.6) and
+4.12 (worked example, Table 4.11).
 
 ## Reference metrics `[SIMULATED]` (solution module, default parameters)
 
@@ -29,17 +30,18 @@ a degraded PCIe link (a Gen5 x16 link at reduced width or speed would slow the p
 | 5 | STREAM_DEPENDENCY | 0.31 | `cudaEventRecord` / `cudaStreamWaitEvent` / 310 µs `cudaLaunchHostFunc` on stream 13 before forward layer 6 | Move the monitoring callback off the critical path |
 | | **Total** | **20.47** | | |
 
-The worked example (Table 4.5) uses step 41 and also counts removed kernel time (hook reductions, tiny
-optimizer kernels): 8.77 + 5.30 + 5.55 + 2.43 + 0.31 = 22.36 ms, projecting 85.57 − 22.36 = **63.2 ms**
-(1.35×). On the tool's basis the projection is 85.57 − 20.47 ≈ **65.1 ms**. Accept 63–65 ms when the basis is
-stated. Savings are upper bounds and interact (for example, removing the pageable copy also removes its two
-`host_sync` gaps), so they must be validated one change at a time.
+The worked example (Table 4.11) uses step 41 and also counts removed kernel time (hook reductions,
+tiny optimizer kernels): 8.77 + 5.30 + 5.55 + 2.43 + 0.31 = 22.36 ms, projecting 85.57 −
+22.36 = **63.2 ms** (1.35×). On the tool's basis the projection is 85.57 − 20.47 ≈ **65.1 ms**. Accept 63–65
+ms when the basis is stated. Savings are upper bounds and interact (for example, removing the
+pageable copy also removes its two `host_sync` gaps), so they must be validated one change at a
+time.
 
-**Not problems (distractors):** the four GEMM families (18.75 % occupancy) and both flash-attention kernels
-(6.25 %, 12.5 %) run at 45–62 % of the BF16 roof: low occupancy *by design*. The pinned 64 MiB side-stream
-prefetch is good practice. The NVTX `log_loss` range (≈ 17.6 ms) is the CPU waiting in `loss.item()`; its
-GPU idle is only ≈ 0.17 ms. The per-step `cudaDeviceSynchronize` is trailing idle (≈ 0.07 ms), excluded by
-design.
+**Not problems (distractors):** the four GEMM families (18.75 % occupancy) and both flash-attention
+kernels (6.25 %, 12.5 %) run at 45–62 % of the BF16 roof: low occupancy *by design*. The pinned 64
+MiB side-stream prefetch is good practice. The NVTX `log_loss` range (≈ 17.6 ms) is the CPU waiting
+in `loss.item()`; its GPU idle is only ≈ 0.17 ms. The per-step `cudaDeviceSynchronize` is trailing
+idle (≈ 0.07 ms), excluded by design.
 
 ## `analysis.md` marking guide (Task 7, 20 points)
 
@@ -54,15 +56,19 @@ duration; reporting occupancy without the limiter; flagging the GEMMs.
 
 ## Hardware run
 
-`python scripts/hw_labs.py run ch04 --device gpu` is the lab's L2 extension, scripted. It captures a real
-training step twice: a baseline with a pageable batch, a per-layer `.item()` hook and a per-parameter
-AdamW, and a fixed step with a pinned side-stream prefetch, no hook and the fused AdamW. Each capture is
-exported in this lab's schema and analysed with the reference `analyze()`. The baseline must show
-`PAGEABLE_H2D` and `EXCESS_SYNC` and the fixed step must not. The uninstrumented step times (median of
-≥ 5) and the launch and sync counts per step give the before/after the extension asks for, using the
-Chapter 6 protocol. Under WSL2, CUPTI delivers no GPU activity to `torch.profiler`, so the GPU intervals
-come from a CUDA-event tracer around each op. Occupancy (and so `LOW_OCCUPANCY`) is recorded as not
-runnable there. Credit an `analysis.md` that uses the L2 report for "an annotated execution trace" if it
-labels the numbers `[MEASURED]` and names the tracer's limits. The tracer adds host time per op, so the
-launch-bound gaps are upper bounds. The CPU fallback (`--device cpu`) profiles both variants on the CPU,
-classifies aten time, and runs `analyze()` on the shipped simulated trace.
+`python scripts/hw_labs.py run ch04 --device gpu` is the lab's L2 extension, scripted. It captures a
+real training step twice: a baseline with a pageable batch, a per-layer `.item()` hook and a
+per-parameter AdamW, and a fixed step with a pinned side-stream prefetch, no hook and the fused
+AdamW. Each capture is exported in this lab's schema and analysed with the reference `analyze()`.
+The baseline must show `PAGEABLE_H2D` and `EXCESS_SYNC` and the fixed step must not. The
+uninstrumented step times (median of ≥ 5) and the launch and sync counts per step give the
+before/after the extension asks for, using the Chapter 6 protocol. Do not credit window-derived
+figures (busy, overlap, gaps, findings) quoted from the committed bundle's *fixed* variant: its
+windows were truncated (erratum in the lab README Section 8). Credit a learner who spots that the
+window is shorter than the measured step. Under WSL2, CUPTI delivers no GPU activity to
+`torch.profiler`, so the GPU intervals come from a CUDA-event tracer around each op. Occupancy (and
+so `LOW_OCCUPANCY`) is recorded as not runnable there. Credit an `analysis.md` that uses the L2
+report for "an annotated execution trace" if it labels the numbers `[MEASURED]` and names the
+tracer's limits. The tracer adds host time per op, so the launch-bound gaps are upper bounds. The
+CPU fallback (`--device cpu`) profiles both variants on the CPU, classifies aten time, and runs
+`analyze()` on the shipped simulated trace.

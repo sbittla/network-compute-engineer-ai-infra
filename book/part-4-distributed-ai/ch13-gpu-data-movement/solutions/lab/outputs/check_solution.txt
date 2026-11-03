@@ -8,5 +8,6 @@ PASS rail_health: flagged rails=[2], onset=[30.0]
 PASS hot_not_throttled: hot-but-not-throttled=[51]
 PASS amplification: lost 334 GPU-s (17.3 %), ideal step 827 ms vs actual 1004 ms
 PASS symptom_windows: sm_active 58.5 -> 54.7 %, gpu_util 99.7 -> 99.7 %, comm 120 -> 198 ms, burst tx 359 -> 222 Gb/s
+PASS missing_samples: 200 rows dropped, 37 NaN: stragglers=[12, 37], onset rank 37 = 20 (expect [12, 37], 20-22)
 
-10/10 checks passed (solution)
+11/11 checks passed (solution)

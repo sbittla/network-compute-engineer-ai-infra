@@ -450,7 +450,7 @@ def report(result: dict, env: dict) -> str:
               "- The measured hbm_efficiency and overhead replace the lab's ILLUSTRATIVE 0.70 / 3 ms only for this stack "
               "(eager PyTorch). Record them in the manifest; do not copy them into configs.yaml as 'validated'.",
               "- ITL p99 above p50 is launch and scheduling jitter on an unloaded single request stream; under real "
-              "load the scheduler's prefill interruptions dominate it (Section 15.6)."]
+              "load the scheduler's prefill interruptions dominate it (Section 15.4)."]
     if gpu:
         lines += ["", "_Laptop RTX 4060 (8 GB GDDR6, ~256 GB/s), not an H100 (80 GB HBM3, 3.35 TB/s): ratios and shapes "
                   "transfer, absolute latencies do not._"]

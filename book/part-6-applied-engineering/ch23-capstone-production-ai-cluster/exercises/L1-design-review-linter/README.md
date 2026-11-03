@@ -6,7 +6,7 @@ Hands-on lab · difficulty ★★ · tier L1 · kind `lab` · [exercise index](.
 **L1 ★★ L1 — Design-review linter.** Complete [lab/README.md](../../lab/README.md) Tasks 1–8: implement
 `design_lint.py`, pass `python check.py`, produce `kestrel_lint.md`, write the triage memo, and lint
 your own capstone bundle.
-*Evidence required:* `check.py` output showing 13/13 PASS; the two reports; the triage memo.
+*Evidence required:* `check.py` output showing 14/14 PASS; the two reports; the triage memo.
 <!-- prompt:end -->
 
 ## What to submit

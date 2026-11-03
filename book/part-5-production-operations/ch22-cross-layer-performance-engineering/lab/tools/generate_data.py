@@ -127,7 +127,7 @@ def main() -> int:
                 mean_step = mean_compute + ((0.25 if split else 1.45) if sto_new else 0.06)
                 for n in nodes:
                     sm = 0.62 * BASE_COMPUTE_S / mean_step + rng.normal(0, 0.01)
-                    nic = (38.0 if split else 6.0) + rng.normal(0, 0.5)
+                    nic = (96.0 if split else 6.0) + rng.normal(0, 0.5)  # split: 6 + 2 boundary hops x 1.2e12 B / ~26.5 s
                     iow = (6.0 if sto_new else 1.5) + rng.normal(0, 0.3)
                     host_copy = (9.5 if (after and n in DRIVER_NEW_NODES) else 0.4) + rng.normal(0, 0.1)
                     sbe = int(140 + rng.integers(0, 20)) if (after and n == ALERT_NODE) else int(rng.integers(0, 2))
@@ -156,9 +156,9 @@ def main() -> int:
         ["BackendLinkFlap", "orion-be-leaf-r3:Ethernet12", "2026-10-09T03:40:00Z", "2026-10-09T03:41:00Z", "info",
          "single flap, before change window; port clean since"],
     ])
-    (out / "change_log.yaml").write_text(CHANGE_LOG, encoding="utf-8")
-    (out / "hypotheses.yaml").write_text(HYPOTHESES, encoding="utf-8")
-    (out / "nccl_init_sample.log").write_text(NCCL_LOG, encoding="utf-8")
+    (out / "change_log.yaml").write_text(CHANGE_LOG, encoding="utf-8", newline="\n")
+    (out / "hypotheses.yaml").write_text(HYPOTHESES, encoding="utf-8", newline="\n")
+    (out / "nccl_init_sample.log").write_text(NCCL_LOG, encoding="utf-8", newline="\n")
     print(f"wrote bundle to {out}")
     return 0
 

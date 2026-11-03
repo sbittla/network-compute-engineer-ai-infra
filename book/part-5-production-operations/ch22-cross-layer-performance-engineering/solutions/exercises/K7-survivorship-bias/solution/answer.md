@@ -8,7 +8,7 @@ Table 22.9).
 
 **Why placement regressions are hit hardest.** A job whose TP group is split across nodes moves its TP
 all-reduces from NVLink onto the backend NICs. That makes it the slowest job *and* the one that drives
-the most fabric traffic (lab: backend tx per node 6 → 38 GB/s `[SIMULATED]`), with many more
+the most fabric traffic (lab: backend tx per node 6 → 96 GB/s `[SIMULATED]`), with many more
 latency-sensitive collectives per step. It is therefore the job most likely to hit an NCCL collective
 timeout and fail. The cause of the slowdown is also the cause of the failure, so filtering on
 `status == COMPLETED` selects *against* the cause.

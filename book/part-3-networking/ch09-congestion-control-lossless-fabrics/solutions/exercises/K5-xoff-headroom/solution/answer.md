@@ -1,7 +1,7 @@
 # K5 — Xoff threshold versus headroom (worked solution)
 
 Relies on manuscript Section 9.4 ("Xoff, Xon, and why headroom exists", "The headroom formula",
-Table 9.2, and the pitfall box).
+Table 9.3, and the pitfall box).
 
 ## Definitions
 

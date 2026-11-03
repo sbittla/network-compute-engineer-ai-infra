@@ -63,7 +63,8 @@ presentation, and a prioritized next-step backlog.
 | [exercises.md](exercises.md) | Standard exercise set plus outline-mandated exercises |
 | [lab/README.md](lab/README.md) | Lab guide: design-review linter |
 | `lab/manifest.yaml` | Environment manifest |
-| `lab/data/` | Two design bundles: `bundle_orion_reference/` (consistent), `bundle_kestrel_capA/` (flawed) |
+| `lab/data/` | Two design bundles: `bundle_orion_reference/` (consistent), `bundle_kestrel_capA/` (flawed), each with the environment manifests its MEASURED rows cite |
+| [lab/tabletop/rail-leaf-evidence-cards.md](lab/tabletop/rail-leaf-evidence-cards.md) | Eight evidence cards for the rail-leaf failure tabletop (Section 23.8) |
 | `lab/tools/generate_bundles.py` | Deterministic generator for `data/` (seed 23) — instructor copy only, removed from the student release |
 | `lab/starter/design_lint.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python check.py [--impl starter\|solution]` |

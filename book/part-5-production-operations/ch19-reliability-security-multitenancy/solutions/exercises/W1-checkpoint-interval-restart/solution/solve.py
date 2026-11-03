@@ -4,7 +4,7 @@
 
 overhead ≈ δ/τ + (τ/2 + R)/M ; τ_opt ≈ sqrt(2·δ·M) ; goodput = 1 − overhead.
 Inputs: prompt values plus the Reference Cluster canon (node MTBF 1,536 node-h, R = 15 min,
-$3/GPU-h illustrative). Young's model is valid only while τ ≪ M; both cases satisfy that.
+$3.00/GPU-h, [MODELED] from the Chapter 21 TCO). Young's model is valid only while τ ≪ M; both cases satisfy that.
 """
 from __future__ import annotations
 
@@ -19,11 +19,11 @@ R_CANON_MIN = 15.0       # REFERENCE_CLUSTER.md restart overhead
 R_FAST_MIN = 5.0         # prompt (b)
 TAU_XL_MIN = 19.0        # prompt (b)
 GPUS_PER_NODE = 8
-PRICE_PER_GPU_H = 3.0    # prompt (c), [ILLUSTRATIVE]
+PRICE_PER_GPU_H = 3.00   # prompt (c), [MODELED] (Ch 21 TCO per nominal GPU-hour, rounded)
 
 # solutions/exercises-key.md, W1
 KEY = {"a_tau_opt_min": 75.9, "a_goodput": 0.968, "b_goodput_r15": 0.811, "b_goodput_r5": 0.867,
-       "c_gpu_h_per_day": 5461.0, "c_usd_per_day": 16400.0}
+       "c_gpu_h_per_day": 5461.0, "c_usd_per_day": 16380.0}
 REL_TOL = 0.005          # 3 significant figures
 
 
@@ -93,7 +93,7 @@ def main() -> None:
           f"→ goodput {(1 - ov_a) * 100:.1f} %",
           f"(b) M = {m_b:.0f} min, τ = 19: R = 15 → {ov_15:.4f} → {(1 - ov_15) * 100:.1f} %; R = 5 → {ov_5:.4f} → "
           f"{(1 - ov_5) * 100:.1f} % (τ_opt = {tau_opt_b:.1f} min either way)",
-          f"(c) {diff:.4f} × {gpus:,} GPUs × 24 h = {gpu_h_day:,.0f} GPU-h/day × $3 = ${usd_day:,.0f}/day"]
+          f"(c) {diff:.4f} × {gpus:,} GPUs × 24 h = {gpu_h_day:,.0f} GPU-h/day × $3.00 = ${usd_day:,.0f}/day"]
     (out / "result.md").write_text("\n".join(md) + "\n", encoding="utf-8")
 
 

@@ -23,14 +23,18 @@ some uplinks receive 7–8, and a synchronous collective is paced by the most lo
 (`NCCL_IB_QPS_PER_CONNECTION` exists, default 1, `[VENDOR-SPEC, 2026-10]`.)
 
 **(c) Young's interval at node MTBF 768 h.** Job MTBF M = 768 node-h / 32 nodes = 24 h = 86,400 s.
-τ = √(2 × 12.25 s × 86,400 s) = √2,116,800 s² ≈ **1,455 s ≈ 24.3 min**.
-- Checkpoint overhead 12.25 / 1,455 = 0.84 %
-- Expected rework (τ/2)/M = 727.5 / 86,400 = 0.84 %
+Blocking checkpoint cost δ = 60 s (Section 24.6; Chapter 23 Step 7: the 12.25 s write floor ÷ 50 %
+efficiency × 2 for contention + ≈ 11 s metadata and barrier).
+τ = √(2 × 60 s × 86,400 s) = √10,368,000 s² ≈ **3,220 s ≈ 54 min**.
+- Checkpoint overhead 60 / 3,220 = 1.86 %
+- Expected rework (τ/2)/M = 1,610 / 86,400 = 1.86 %
 - Restart 900 / 86,400 = 1.04 %
-- Total ≈ **2.7 %** of cluster time, versus ≈ 1.7 % at the canonical 48 h (0.60 + 0.60 + 0.52 %).
-τ shrinks only by √2 (2,058 s → 1,455 s) while the restart term doubles, so restart cost becomes the
-largest single term.
+- Total ≈ **4.77 %** of cluster time, versus ≈ 3.16 % at the canonical 48 h (1.32 + 1.32 + 0.52 %); the
+  same 4.77 % as Chapter 23's W2, a useful cross-check.
+τ shrinks only by √2 (4,554 s → 3,220 s) while the restart term doubles. With the 12.25 s floor the
+answer would be τ = 1,455 s and 2.7 %: accept it only when labelled a lower bound.
 
 **Common wrong answers.** Giving the leaf 64 uplinks (the non-blocking leaf has 32); counting idle *flows*
-instead of idle uplinks; using node MTBF (768 h) directly in Young's formula instead of job MTBF; mixing
+instead of idle uplinks; using node MTBF (768 h) directly in Young's formula instead of job MTBF; using the 12.25 s floor as δ
+unlabelled; mixing
 hours and seconds. `solve.py` asserts every number above.

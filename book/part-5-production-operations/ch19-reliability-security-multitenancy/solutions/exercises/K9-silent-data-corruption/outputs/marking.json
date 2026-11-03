@@ -1,0 +1,25 @@
+{
+  "difficulty": 2,
+  "evidence_required": "why SDC evades error-based detectors; two detection methods; the restore choice with its reason",
+  "id": "K9",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Evasion: SDC raises no ECC/Xid/AER/link event and the collective completes, so error- and timeout-based detectors see nothing",
+      "points": 2
+    },
+    {
+      "criterion": "Two detection methods (loss/grad-norm anomaly rule, cross-replica parameter checksum, golden-batch replay on suspect vs known-good node with bisection, dcgmi diag -r 3/4 or vendor SDC screen)",
+      "points": 2
+    },
+    {
+      "criterion": "Restores the newest checkpoint before the anomaly onset, not the newest checkpoint, because later checkpoints may hold corrupted weights",
+      "points": 1
+    }
+  ],
+  "points": 5,
+  "tier": "L1",
+  "title": "Silent data corruption",
+  "type": "knowledge-check"
+}

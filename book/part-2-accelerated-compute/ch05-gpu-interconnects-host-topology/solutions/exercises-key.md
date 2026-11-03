@@ -20,11 +20,15 @@ bridges within a NUMA node; SYS: PCIe plus the SMP interconnect between NUMA nod
 PXB < PHB < NODE < SYS, because each step adds bridges/root-complex/inter-socket traversal, lowering
 achievable P2P bandwidth and raising variance; at SYS, GDR may be refused (`NCCL_NET_GDR_LEVEL`).
 
-**5.3** nvidia-smi numbers NIC *columns* in PCI bus order (frontend NIC at bus `0d` → `NIC0`), while RDMA
-device names are assigned by the kernel/udev (ORION pins `mlx5_i` to rail *i* by naming rules). Neither a
-column index nor a device name is evidence of where a cable goes. Authoritative for the rail: the LLDP
-neighbour (`orion-be-leaf-rR`) cross-checked against the cabling database.
-*Common mistake:* "NIC1 = rail 1".
+**5.3** In the lab capture the NIC *columns* follow PCI enumeration order (frontend NIC at bus `0d` →
+`NIC0`), so `NIC1` is the second NIC by bus number, not rail 1; the ordering is not documented, so read the
+NIC Legend rather than assume it. RDMA device names are a separate namespace assigned by the kernel
+and udev; ORION's naming step writes a rule from the rail the asset database records for each card, so
+`mlx5_0` = rail 0 on `orion-n01` only because the record and the cabling agree. Neither a column index nor
+a device name is evidence of where a cable goes. Authoritative for the rail: the LLDP neighbour
+(`orion-be-leaf-rR`) cross-checked against the cabling database.
+*Marking:* column order (1), name is a software label (1), LLDP + cabling database (1).
+*Common mistake:* "NIC1 = rail 1", or "`mlx5_0` proves rail 0".
 
 **5.4** 18 NVLink4 links × 25 GB/s = 450 GB/s per direction per GPU, spread across four NVSwitch chips,
 so every GPU pair is one switch hop at full bandwidth → `NV18` everywhere. It says nothing about GPU↔NIC
@@ -158,11 +162,15 @@ kernel versions". Deduct if the verdict relies on the distance-check log line al
 Hypotheses: (1) swapped cables on `orion-n12` rails 4/5 — LLDP shows exactly that; (2) optics/FEC errors
 — ruled out by clean counters; (3) GDR disabled — ruled out by `/GDRDMA`; (4) PCIe link degradation —
 check `LnkSta` (clean in the case). Root cause: patch-panel swap during the rack move. Why it still runs:
-on an L2 rail VLAN design (unlike ORION's routed /31 plan, where the swap would break IP adjacency and NCCL
-connections on those NICs), the NIC on GPU4 now sits in rail 5's VLAN and still reaches peers; same-rail
-traffic from GPU4 on other nodes to GPU4 on n12 must cross between rails via the spines (or via NVLink
-PXN forwarding inside the node, depending on NCCL version/config), adding a hop, sharing spine capacity,
-and producing the tail increase. Fix: drain at checkpoint, swap the two patch cords per the cabling plan,
+in the declared stretched-L2 variation every backend NIC is in one VLAN and subnet that spans all rail
+leaves over an EVPN-VXLAN overlay on the spines, so `mlx5_4`, now plugged into `orion-be-leaf-r5`, still reaches every peer by
+MAC learning. (On ORION's routed /31 plan the swap would break IP adjacency and those NCCL connections
+would fail outright.) NCCL cannot see a cabling error: PCIe topology is unchanged, so it still pairs GPU4
+with `mlx5_4`. Rail-4 traffic from GPU4 on the other nodes to n12 now goes leaf-r4 → spine → leaf-r5, and
+rail-5 traffic to n12's GPU5 crosses the spines the other way. Both rails' flows to n12 add a hop and
+share spine links; the VXLAN underlay hashes them by ECMP, and collisions with other flows create the tail.
+(Accept an STP/MLAG-stretched answer if stated: there is no per-flow hashing, and the blocked or pinned
+spine paths concentrate both rails' flows onto fewer links.) Fix: drain at checkpoint, swap the two patch cords per the cabling plan,
 update/verify LLDP. Validation: LLDP shows `orion-be-leaf-r4`/`-r5` for the correct netdevs; mapping diff
 clean; 2-node and 8-node nccl-tests within the fleet floor; p99 iteration time back to baseline over ≥ 5
 runs. *Marking:* hypotheses/tests (3), root cause (2), path explanation (3), fix/validation (2).
@@ -185,14 +193,18 @@ recommendation with rejected alternative (4).
 Table 5.5. Measured requires L3 nccl-tests with manifests and ≥ 5 runs per configuration, then
 recalibrating the parameters.
 
-**5.19** Correlated slowness makes consecutive iterations slow together: p99 over a run rises (whole
-stretches at the slow rate), and run-to-run variance grows. The forced-aligned SYS path suffers most; the
-"nearest" shared-NIC policy, being deterministic, suffers less — strengthening the conclusion that neither
-replaces repair.
+**5.19** If each path's marginal distribution and the independence between paths are unchanged, the
+long-run per-iteration distribution of the slowest path, and so its p99, is unchanged. Correlation in time
+clusters the slow iterations into long slow stretches. That raises run-to-run variance, lets a short
+(5-run) benchmark miss or over-weight a slow episode, and calls for windowed statistics (for example a
+per-minute p99) rather than per-iteration ones. The forced-aligned SYS path, with the highest CV, has the
+longest slow stretches; the "nearest" shared-NIC policy is nearly deterministic and barely changes. The
+conclusion that nearest beats forced alignment stands, and neither replaces repair.
 
 **5.20** GPU index and HCA name are software labels that change with `CUDA_VISIBLE_DEVICES`, device-ordering
 settings, udev naming rules or a card replacement; UUID and BDF identify the physical device and its
-enumeration point. Example: after a NIC swap, a udev rule names the new card `mlx5_3` regardless of slot;
+enumeration point. Example: after a NIC swap, the naming step names the new card `mlx5_3` from its
+asset-database record ("rail-3 NIC"), regardless of slot;
 an index-keyed diff shows "no change" while the BDF moved from `43:00.0` to `86:00.0` (orion-n17).
 
 **5.21** Platform features the simple tree model does not capture (extra bridges, retimers, multi-level

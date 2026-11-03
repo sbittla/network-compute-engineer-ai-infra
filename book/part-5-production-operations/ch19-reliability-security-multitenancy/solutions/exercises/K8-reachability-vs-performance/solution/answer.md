@@ -1,6 +1,6 @@
 # K8 — Reachability vs performance: worked solution
 
-**Relies on:** Section 19.9 (Table 19.7 "Backend RoCE fabric" row and the paragraph after Figure 19.5);
+**Relies on:** Section 19.9 (Table 19.8 "Backend RoCE fabric" row and the paragraph after Figure 19.5);
 Chapter 9 (PFC, ECN, head-of-line blocking).
 
 ## Mechanism

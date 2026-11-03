@@ -16,13 +16,20 @@ docs/REFERENCE_CLUSTER.md (backend rails). Case facts `[ILLUSTRATIVE]`.
 
 ## Why the job still runs, but slower
 
-On an **L2 rail VLAN** design, the rail-4 NIC (serving GPU4) now sits in rail 5's VLAN and still reaches
-peers: there is no per-link IP adjacency to break. (On ORION's routed /31 plan, the swap would break IP
-adjacency and NCCL connections on those NICs would fail outright.) But NCCL's rail-aligned rings assume GPU4
-on every node talks through rail 4: traffic from GPU4 on other nodes to GPU4 on n12 now has to leave rail 4 and
-cross to rail 5 through the spines (or be forwarded over NVLink by PXN, depending on NCCL version and
-configuration). That adds a hop, shares spine capacity with other jobs' traffic and creates congestion
-hot-spots, which shows up as lower busbw (≈ 350 → ≈ 300 GB/s) and a larger tail (p99 iteration +40 %).
+In this pod all backend NICs share **one stretched L2 domain**: one VLAN and IP subnet spanning every rail
+leaf, stretched over the spines with EVPN-VXLAN. The rail-4 NIC (`mlx5_4`, serving GPU4) is now plugged into `orion-be-leaf-r5`, yet it
+still reaches every peer: the switches learn its MAC on the new port and there is no per-link IP adjacency to
+break. (On ORION's routed /31 plan the swap would break IP adjacency and NCCL connections on those NICs would
+fail outright.)
+
+NCCL cannot see a cabling error. The PCIe topology is unchanged, so it still pairs GPU4 with `mlx5_4` and
+builds rail-aligned rings. Traffic from GPU4 on the other nodes leaves on their rail-4 NICs into
+`orion-be-leaf-r4` and must now cross a spine to reach n12's `mlx5_4` on `orion-be-leaf-r5`; rail-5 traffic to
+n12's GPU5 crosses the spines the other way. Both rails' flows to n12 take an extra hop and share spine links
+with other traffic; the VXLAN underlay spreads them by ECMP hashing, and collisions create hot spots.
+(If the domain were stretched with STP/MLAG instead, there would be no per-flow hashing: blocked or pinned
+spine paths would concentrate both rails' flows onto fewer links, with the same symptom.) That shows up as lower busbw (≈ 350 → ≈ 300 GB/s)
+and a larger tail (p99 iteration +40 %).
 
 ## Safe fix
 

@@ -9,7 +9,7 @@ because it generates something a reviewer can *recompute or check*, not because 
 |---|---|---|---|
 | 1 | **Workload** — what runs, at what scale | W-TRAIN: 70 B dense model, 256 GPUs, TP = 8, PP = 4, DP = 8 | FLOPs per step (6·N·tokens), memory per GPU (16 B/param ÷ 32 = 35 GB) and DP/PP traffic can be re-derived |
 | 2 | **Numeric objective** | 2 × 10¹² tokens in 120 calendar days, goodput ≥ 0.90 over 30 days | Required tokens/s, and the margin between the 96-day ideal and the 120-day budget, can be checked against the MFU assumption |
-| 3 | **Constraints** | Existing 8-rack row, 45 kW usable per rack, budget, schedule | Rack-power invariant (nodes per rack × 10.2 kW max ≤ 45 kW) and rack count can be checked (Table 23.5, invariant 11) |
+| 3 | **Constraints** | Existing 8-rack row, 50 kW per rack (45 kW planned after the 10 % transient margin), budget, schedule | Rack-power invariant (nodes per rack × 10.2 kW max ≤ 45 kW) and rack count can be checked (Table 23.5, invariant 11) |
 | 4 | **Scope boundary** | Frontend network and object store are existing services, out of scope | Reviewers know which subsystems they need not review and which *interfaces* (e.g. checkpoint write bandwidth from the PFS) must still be specified |
 | 5 | **Evidence tier** | L1 models plus one 2-node L3 measurement | Which numbers may legitimately carry `[MEASURED]`; any 32-node fabric number labelled measured is then a defect (the linter's EVID-004) |
 

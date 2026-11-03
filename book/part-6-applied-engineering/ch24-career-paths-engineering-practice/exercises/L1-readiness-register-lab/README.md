@@ -6,7 +6,7 @@ Hands-on lab · difficulty ★★ · tier L1 · kind `lab` · [exercise index](.
 **L1 ★★ L1 — Role-readiness scorer and register validator.** Complete
 [lab/README.md](../../lab/README.md) Tasks 1–8, produce `readiness_report.md`, and explain every evidence
 flag raised for the sample learner.
-*Evidence required:* `python check.py` output showing 11/11 PASS; the generated report; a one-page
+*Evidence required:* `python check.py` output showing 12/12 PASS; the generated report; a one-page
 explanation of the flags (rule, why it exists, what the learner should do).
 <!-- prompt:end -->
 

@@ -1,6 +1,6 @@
 # K7 — Sharing a GPU across tenants: worked solution
 
-**Relies on:** Section 19.9, Table 19.7 and the GPU-sharing paragraph; MIG behaviour `[VENDOR-SPEC, 2026-10]`.
+**Relies on:** Section 19.9, Table 19.8 and the GPU-sharing paragraph; MIG behaviour `[VENDOR-SPEC, 2026-10]`.
 
 | Mode (two tenants, one H100-class GPU) | Memory isolation | Fault isolation | Performance isolation |
 |---|---|---|---|

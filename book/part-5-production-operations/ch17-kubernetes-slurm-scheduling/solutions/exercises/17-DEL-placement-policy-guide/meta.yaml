@@ -6,7 +6,7 @@ difficulty: 3
 tier: L1
 kind: written
 points: 100
-evidence_required: The document, the lab checker output (`9/9`), and the replay evidence from 17-M2.
+evidence_required: The document, the lab checker output (`10/10`), and the replay evidence from 17-M2.
 marking:
 - criterion: 'Policy (17-M2): all nine elements specified consistently'
   points: 30
@@ -17,6 +17,6 @@ marking:
   points: 35
 - criterion: Applied diagnoses (P03, P11) with quoted evidence lines
   points: 10
-- criterion: 'Appendix: placement-report.md and checker output 9/9'
+- criterion: 'Appendix: placement-report.md and checker output 10/10'
   points: 10
 lab_checks: []

@@ -8,7 +8,7 @@ The two numbers: pause exposure 862.8 / 113.6 ≈ **7.6×** lower with the templ
 incast completion 1,256.8 / 960.0 ≈ **1.31×** (≈ 31 %) longer.
 
 **Trust the direction and rough size of the pause-exposure reduction more.** It follows from a robust,
-hardware-independent mechanism. With Kmin 150 KB, marking starts well below the 1,000 KB Xoff, so CNPs
+hardware-independent mechanism. With Kmin 150 KB, marking starts well below the 1,000 KB aggregate Xoff-equivalent, so CNPs
 cut sender rates before PFC engages. With Kmin 1,500 KB (A), marks begin only *after* Xoff, so PFC
 carries the whole incast and the model shows 0 CNPs. Any real switch with those thresholds behaves the
 same way qualitatively. The exact 7.6× depends on timers and buffer behaviour and will differ.

@@ -4,8 +4,8 @@ Source: manuscript Sections 21.2 ("Energized power"), 21.3 ("Capacity onboarding
 
 **Definition.** Stranded capacity is installed, paid-for capacity that cannot be used to run work.
 It costs amortization, support and space every hour but never appears in allocated GPU-hours. In the
-lab, 464 GPUs delivered in 2028Q2 wait for facility phase 2. At $3.02 per nominal GPU-hour that is
-464 × 2,190 h × $3.02 ≈ $3.1M per quarter `[MODELED]` (Section 21.9, Step 6).
+lab, 464 GPUs delivered in 2028Q2 wait for facility phase 2. At $3.00 per nominal GPU-hour that is
+464 × 2,190 h × $3.00 ≈ $3.05M per quarter `[MODELED]` (Section 21.9, Step 6).
 
 Two causes other than missing facility power, each with the telemetry that reveals it (any two of
 these earn full marks):

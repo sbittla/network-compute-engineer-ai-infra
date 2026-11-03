@@ -6,7 +6,7 @@ Type: hands-on-lab · Kind: lab · Points: 100
 **L1 ★★ L1 — Lab 18: telemetry-bundle forensics** ([lab/README.md](../../lab/README.md)). Implement every
 function in `lab/starter/telemetry_analysis.py`, pass `python check.py`, and submit the deliverables
 of the lab README Section 8.
-*Evidence required:* checker output with 14/14 PASS; `postmortem.md`; `dashboard_spec.json`;
+*Evidence required:* checker output with 15/15 PASS; `postmortem.md`; `dashboard_spec.json`;
 `slo_spec.md`.
 <!-- prompt:end -->
 

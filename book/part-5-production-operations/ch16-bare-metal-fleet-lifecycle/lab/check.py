@@ -25,9 +25,83 @@ DATA = HERE / "data"
 IMPLS = {"starter": HERE / "starter" / "fleet_lifecycle.py",
          "solution": HERE.parent / "solutions" / "lab" / "fleet_lifecycle.py"}
 
-DIGEST_ACCEPTANCE = "d3f2cf5a04a138add20f384290d24d3c7d649368e808590056124bf6afabac92"
+DIGEST_ACCEPTANCE = "c5e747ac2e53025315d40fb1f6c9107f00843d3e9bb7b89b0ba0772bde435cf9"
 DIGEST_AUDIT = "d10c6e62ed09fea2706fea054232b2d0f91a64c58391d077d66d0a3506bc2587"
 DIGEST_FINAL = "ffe10e738ac3d395a8daa99286cd24a18a0321684536846d3e52f3d60641cac9"
+# Per-item short hashes for diff-style feedback: a mismatch names *which* node or audit record differs,
+# without printing the expected codes.
+NODE_HASHES = {
+    "orion-n01": "1e5748a724ab",
+    "orion-n02": "18946d3e5f10",
+    "orion-n03": "4f71c52ccd4a",
+    "orion-n04": "be908acb2545",
+    "orion-n05": "fee59ac2d30d",
+    "orion-n06": "4a7691c7ad36",
+    "orion-n07": "42a801d3c81c",
+    "orion-n08": "8ba009de2529",
+    "orion-n09": "6247f4629a6b",
+    "orion-n10": "8e047b29648e",
+    "orion-n11": "3c50fecd768f",
+    "orion-n12": "ce4afcddfc9f",
+    "orion-n13": "6e968c44f0cc",
+    "orion-n14": "2a9d2a598293",
+    "orion-n15": "c6aba1bb2ffc",
+    "orion-n16": "fb78d70041a0",
+    "orion-n17": "ed090394ded9",
+    "orion-n18": "d1cf1e354951",
+    "orion-n19": "70d58ce1c294",
+    "orion-n20": "f894aca627bc",
+    "orion-n21": "4888b0d6e9f9",
+    "orion-n22": "58b7316fb096",
+    "orion-n23": "7bb001765743",
+    "orion-n24": "cf35830f4360",
+    "orion-n25": "151c2c7637d8",
+    "orion-n26": "74a33669346a",
+    "orion-n27": "6cfadeee7b54",
+    "orion-n28": "6125c4b744d6",
+    "orion-n29": "e47755eb4293",
+    "orion-n30": "2c6bcf91c7da",
+    "orion-n31": "51468ff4ce9e",
+    "orion-n32": "bcd40909834f"
+}
+AUDIT_HASHES = {
+    1: "46716492b089",
+    2: "1f053abe9e1d",
+    3: "fce20805343a",
+    4: "302dd058001c",
+    5: "71b3140768f7",
+    6: "74fe924f2885",
+    7: "f021f6b7f6ba",
+    8: "055b6b5522d7",
+    9: "817343385286",
+    10: "4c0d41216274",
+    11: "116f485e1341",
+    12: "c169dfc0c1ba",
+    13: "409c23ab0c2a",
+    14: "087b9638d575",
+    15: "951f02bd4e41",
+    16: "79a589b25f85",
+    17: "284ab81c9e0c",
+    18: "4b07680b816a",
+    19: "f44ae17db0df",
+    20: "5b9d845b151f",
+    21: "d10964a1c671",
+    22: "d588efb2ad35",
+    23: "488efdcab4d8",
+    24: "005bd7639389",
+    25: "ee69536c1397",
+    26: "86cb44acf253",
+    27: "0762e70eadef",
+    28: "43db8bfaf6e5",
+    29: "4e484c04dc47",
+    30: "cce04a58b092",
+    31: "5495ca38a650",
+    32: "12516630fb66",
+    33: "05ccecbf9d08",
+    34: "dedc9c2a323b",
+    35: "3e29de6299b3",
+    36: "1298ebb2938f"
+}
 TARGET = "B-2026.10"
 
 
@@ -136,6 +210,9 @@ def main() -> int:
         "NVLINK_DOWN": lambda n: n["gpus"][0].__setitem__("nvlink_links_up", 17),
         "ECC_DBE": lambda n: n["gpus"][4]["ecc"].__setitem__("dbe_volatile", 1),
         "RDMA_PAIR_BW_LOW": lambda n: n["nics"][6].__setitem__("rdma_pair_bw_gbps", 300.0),
+        "LINK_BER_HIGH": lambda n: n["nics"][1]["link_quality"].__setitem__("pre_fec_ber", 3.2e-6),
+        "GDR_PATH_FAIL": lambda n: n["gdr"].__setitem__("acs_redirect_ports", ["0000:38:00.0"]),
+        "NVME_DRIVE_SLOW": lambda n: n["storage"]["nvme"][2].__setitem__("seq_read_gbs", 1.6),
         "NCCL_BUSBW_LOW": lambda n: n["nccl_single_node"].__setitem__("busbw_gbs", 310.0),
         "NCCL_ALGO_UNRECORDED": lambda n: n["nccl_single_node"].pop("algorithm"),
         "NIC_MTU": lambda n: n["nics"][2].__setitem__("active_mtu", 1024),
@@ -158,6 +235,17 @@ def main() -> int:
         r = ev(lambda n: n["nccl_single_node"].update(algorithm="NVLS", busbw_gbs=350.0))
         expect(r["codes"] == ["NCCL_BUSBW_LOW"], f"350 GB/s with NVLS is below the NVLS baseline; got {r['codes']}")
 
+    @check("T2.gdr_rules")
+    def _():
+        r = ev(lambda n: n["gdr"].__setitem__("peer_mem", "dma_buf"))
+        expect(r["verdict"] == "PASS", f"DMA-BUF provides GPUDirect RDMA without nvidia_peermem; got {r['codes']}")
+        r = ev(lambda n: n["gdr"].__setitem__("peer_mem", None))
+        expect(r["codes"] == ["GDR_PATH_FAIL"], f"no peer-memory provider must fail; got {r['codes']}")
+        def slow_gdr(n):
+            n["nics"][4]["gdr_pair_bw_gbps"] = round(0.8 * n["nics"][4]["rdma_pair_bw_gbps"], 1)
+        r = ev(slow_gdr)
+        expect(r["codes"] == ["GDR_PATH_FAIL"], f"GPU-buffer BW at 80 % of host-buffer BW must fail; got {r['codes']}")
+
     @check("T2.sbe_is_warning_not_failure")
     def _():
         r = ev(lambda n: n["gpus"][3]["ecc"].__setitem__("sbe_volatile", 25))
@@ -168,13 +256,16 @@ def main() -> int:
         out = m.evaluate_fleet(results, policy, matrix)
         counts = {k: sum(1 for r in out if r["verdict"] == k) for k in ("PASS", "WARN", "FAIL")}
         expect(len(out) == 32, f"{len(out)} results")
-        expect(counts == {"PASS": 25, "WARN": 1, "FAIL": 6}, f"verdict counts {counts}")
+        expect(counts == {"PASS": 24, "WARN": 1, "FAIL": 7}, f"verdict counts {counts}")
 
     @check("T2.fleet_digest")
     def _():
         out = m.evaluate_fleet(results, policy, matrix)
         got = sha([[r["node"], r["verdict"], r["codes"], r["warnings"]] for r in out])
-        expect(got == DIGEST_ACCEPTANCE, "per-node codes differ from reference (counts may match, codes do not)")
+        diff = [r["node"] for r in out
+                if sha([r["node"], r["verdict"], r["codes"], r["warnings"]])[:12] != NODE_HASHES.get(r["node"])]
+        expect(got == DIGEST_ACCEPTANCE, f"verdict/codes/warnings differ from the reference on {diff or 'node order'}; "
+                                         "inspect those nodes with report.py")
 
     # ---------------- Task 3: lifecycle state machine ----------------
     @check("T3.transition_table_shape")
@@ -218,7 +309,9 @@ def main() -> int:
         rej = [a for a in audit if a["result"] == "rejected"]
         expect(len(rej) == 13, f"{len(rej)} rejected events, expected 13")
         got = sha([[a["seq"], a["result"], a["reason_code"], a["to_state"]] for a in audit])
-        expect(got == DIGEST_AUDIT, "audit log (seq, result, reason_code, to_state) differs from reference")
+        diff = [a["seq"] for a in audit
+                if sha([a["seq"], a["result"], a["reason_code"], a["to_state"]])[:12] != AUDIT_HASHES.get(a["seq"])]
+        expect(got == DIGEST_AUDIT, f"audit (result, reason_code, to_state) differs from the reference at seq {diff}")
 
     @check("T3.replay_final_states")
     def _():

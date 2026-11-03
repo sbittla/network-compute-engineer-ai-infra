@@ -13,10 +13,10 @@ Hygiene: 44 replayed rows removed (job 41105); 480 warm-up rows removed (steps 0
 - Mean 17.38 → 21.42 s (+4.04 s, +23.2 %); median 17.42 → 19.70 s (+13.1 %); step-weighted +22.3 %.
 - Exposure: 7 TP-split jobs; 12 on R570 nodes after the window; 14 capacity-tier; 6 on orion-n13 after
   the alert start; 3 TP-split capacity-tier.
-- Backend tx per node 6.06 GB/s (packed) vs 37.93 GB/s (split); SM active 0.57 vs 0.40.
+- Backend tx per node 6.06 GB/s (packed) vs 95.93 GB/s (split); SM active 0.57 vs 0.40.
 - Data wait, TP-packed jobs: capacity minus hot +1.46 s per step; iowait 1.52 % vs 6.03 %.
 - Host bounce copy on orion-n17..n32: 0.40 GB/s before, 9.50 GB/s after; NET channel lines lack /GDRDMA.
-- orion-n13: SBE 140–160 per job-node, no DBE, no row remap; temperature 67.4 vs 68.1 °C.
+- orion-n13: SBE 140–160 per job-node (≈ 1 h jobs, i.e. the alert's 140–160/h), no DBE, no row remap; temperature 67.4 vs 68.1 °C.
 
 ## Inferred causes (share of +4.04 s; ± classical SE)
 | Cause | Effect (s/step) | Share |

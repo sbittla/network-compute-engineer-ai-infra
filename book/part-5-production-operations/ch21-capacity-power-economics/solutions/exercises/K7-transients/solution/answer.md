@@ -1,6 +1,6 @@
 # K7 — Transients: worked solution
 
-Source: manuscript Section 21.7 ("Transient headroom") and Table 21.5. Inputs `[ILLUSTRATIVE]`;
+Source: manuscript Section 21.7 ("Transient headroom") and Table 21.8. Inputs `[ILLUSTRATIVE]`;
 result `[MODELED]`.
 
 **Arithmetic.** In a synchronous job every GPU enters its compute phase and its
@@ -21,7 +21,7 @@ data-center-wide fluctuations of tens of megawatts from one large job.
 | Mitigation | Mechanism | Owner |
 |---|---|---|
 | Power caps on every node of the job | Lowers the high end of the swing and the peak the feeds see | Platform |
-| Staged job start/stop ramps (ramp over ≥ 60 s for steps > 500 kW, Table 21.5) | Turns an instantaneous step into a slope that UPS and generators can follow | Training Infra |
+| Staged job start/stop ramps (ramp over ≥ 60 s for steps > 500 kW, Table 21.8) | Turns an instantaneous step into a slope that UPS and generators can follow | Training Infra |
 | Facility agreement on maximum step change; UPS/generator sizing and utility notification | Makes the site's absorbable step explicit and designs to it | Facilities |
 | 10 % transient margin in rack planning | Keeps planned peaks below breaker and PDU limits during swings | Platform + Facilities |
 

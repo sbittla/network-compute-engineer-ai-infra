@@ -18,7 +18,7 @@
       "points": 3
     },
     {
-      "criterion": "Decisions (not significant vs improvement) and justification: exclusion stands only if pre-registered and applied to both arms",
+      "criterion": "Decisions (not significant vs improvement) and justification: exclusion rests on the clock (1,610 / 1,826 = 88 % < 95 %), not on sw_power_cap, and stands only if pre-registered and applied to both arms",
       "points": 3
     }
   ],

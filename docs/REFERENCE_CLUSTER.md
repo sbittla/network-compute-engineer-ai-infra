@@ -13,9 +13,9 @@ so explicitly.
 |---|---|---|
 | CPUs | 2 sockets × 56 cores (112 cores, 224 threads) | 2 NUMA nodes (one per socket, NPS1) |
 | System memory | 2 TiB DDR5 (1 TiB per socket) | |
-| GPUs | 8 × H100-SXM-class, 80 GB HBM3 each (640 GB/node) | `[VENDOR-SPEC, 2026-10]` class values |
+| GPUs | 8 × H100-SXM-class, 80 GB HBM3 each (640 GB/node) | `[VENDOR-SPEC, 2026-10]` class values. "80 GB" is the marketing size; `nvidia-smi` reports 81,559 MiB total (≈ 79.6 GiB usable by applications). Calculations use 80 × 10⁹ B unless they model an allocator, in which case they say so |
 | GPU HBM bandwidth | ≈ 3.35 TB/s per GPU | `[VENDOR-SPEC, 2026-10]` |
-| GPU dense BF16 tensor peak | ≈ 989 TFLOP/s per GPU (≈ 1,979 dense FP8) | Dense (no sparsity) `[VENDOR-SPEC, 2026-10]` |
+| GPU dense BF16 tensor peak | ≈ 989 TFLOP/s per GPU (≈ 1,979 dense FP8) | Dense (no sparsity) `[VENDOR-SPEC, 2026-10]`. The datasheet peak corresponds to ≈ 1.83 GHz (132 SMs × 4,096 dense BF16 FLOP/clk/SM); do not rescale it to the 1,980 MHz max boost |
 | GPU TDP | 700 W | |
 | GPU SM clock | Max boost ≈ 1,980 MHz `[VENDOR-SPEC, 2026-10]`; typical sustained under dense training ≈ 1,830 MHz `[ILLUSTRATIVE]` | When comparing a throttled GPU with its peers, use the peers' *sustained* clock and say which one you used |
 | Scale-up | NVLink 4th gen via 4 NVSwitch chips: 18 links/GPU, 900 GB/s total bidirectional (450 GB/s per direction) per GPU | All-to-all within node |
@@ -39,9 +39,12 @@ so explicitly.
   Sockets connected by the inter-socket link (UPI/xGMI-class).
 ```
 
-*Figure R.1 — HX8 host topology. GPU i and NIC i share a PCIe switch: the "PIX" relationship in
-`nvidia-smi topo -m` terms. GPU0↔NIC2 crosses root ports on the same socket ("PXB"/"PHB"-class);
-GPU0↔NIC4 crosses the inter-socket link ("SYS").*
+*Figure R.1 — HX8 host topology. Each PCIe switch complex (SW0–SW3) has two switch levels. GPU i and
+NIC i share a leaf switch: the "PIX" relationship in `nvidia-smi topo -m` terms. GPU0↔NIC1 meet only
+at SW0's upper level, so the path crosses several switches without a host bridge ("PXB"). GPU0↔NIC2
+crosses host bridges within one NUMA node ("NODE"). GPU0↔NIC4 crosses the inter-socket link ("SYS").
+Terms: PIX = one PCIe switch; PXB = several switches, no host bridge; PHB = through a PCIe host bridge
+(CPU); NODE = between host bridges in one NUMA node; SYS = across the inter-socket link.*
 
 ## 2. Cluster: `ORION-256`
 
@@ -65,7 +68,7 @@ GPU0↔NIC4 crosses the inter-socket link ("SYS").*
 | Backend rail leaf | `orion-be-leaf-rR` (R = rail 0–7) | `orion-be-leaf-r3` |
 | Backend spine | `orion-be-spine-S` (S = 1–4) | `orion-be-spine-2` |
 | Frontend leaf / spine | `orion-fe-leaf-NN`, `orion-fe-spine-S` | `orion-fe-leaf-01` |
-| Compute NIC / rail | NIC *i* ↔ GPU *i* ↔ rail *i* (0–7); Linux RDMA device `mlx5_i` `[ILLUSTRATIVE]` | `mlx5_3` |
+| Compute NIC / rail | NIC *i* ↔ GPU *i* ↔ rail *i* (0–7); Linux RDMA device `mlx5_i`, netdev `ens{i+1}np0` `[ILLUSTRATIVE]`. Raw topology data may show PCI-path names (e.g. `enp25s0np0`); map them to the canonical name once | `mlx5_3` / `ens4np0` |
 
 ### Addressing and routing plan (used in Chapters 7–10)
 
@@ -78,6 +81,7 @@ GPU0↔NIC4 crosses the inter-socket link ("SYS").*
 | OOB | `172.16.0.0/16` |
 | BGP ASNs (backend) | Spines share AS 65100; each rail leaf unique AS 65101–65108 (RFC 7938-style eBGP). |
 | MTU | Switch ports 9216; host IP MTU 9000; RDMA path MTU 4096 |
+| Rail-leaf packet buffer `[ILLUSTRATIVE]` | ≈ 64 MB shared buffer per rail leaf (25.6 Tb/s-class ASIC). Shipping ASICs of this class range ≈ 64–160 MB; a chapter using another value must label it a variation |
 | Backend RTT `[ILLUSTRATIVE]` | ≈ 4 µs same-rail (host → leaf → host); ≈ 5 µs cross-rail via a spine. Use 5 µs as the worst case in PFC headroom sizing. At 400 Gb/s the bandwidth-delay product is ≈ 200 KB same-rail and ≈ 250 KB cross-rail. |
 | RoCE QoS `[ILLUSTRATIVE]` | RoCE data DSCP 26 → traffic class 3, lossless (PFC on priority 3) with ECN marking; CNP DSCP 48 → TC 6 strict priority; all other traffic lossy |
 
@@ -139,6 +143,11 @@ vary widely.
 | Node power model | 10.2 kW max = **4.6 kW base** (CPUs, memory, NICs, NVMe, fans, PSU loss) + 8 × 700 W GPU. Under a GPU cap *P*: node ≈ 4.6 kW + 8·*P* | Ch 2, Ch 21 |
 | Sustained training node power | ≈ 8.5 kW | Ch 2 |
 | Rack circuits | 415 V 3-phase 60 A, power factor 0.95, NEC 80 % → **32.78 kW per circuit**; 2 circuits per side → **65.55 kW per side** (2N A/B feeds) | Ch 2 |
+| Cooling variant | GPU racks are direct liquid cooled (DLC): ≈ 75 % of rack IT load goes to liquid (PG25, 30 °C supply, ΔT 10 K, ≈ 46.4 L/min per rack) and ≈ 10.25 kW per rack stays on air. One 300 kW CDU serves the 8 GPU racks (≈ 82 % loaded; N, not N+1) | Ch 2 |
+| Pod IT maximum | GPU racks 8 × 41.0 kW + network 2 × 16.0 + storage 2 × 9.0 + management 4.0 = **382 kW** IT (≈ 477.5 kW facility at PUE 1.25). The 326 kW figure is the GPU nodes alone | Ch 2, Ch 21 |
+| Energy price | **$0.08 per kWh** | Ch 2, Ch 21 |
+| Planned rack peak | Plan each rack's peak IT load at ≤ 90 % of one side's continuous limit (10 % transient margin for synchronized GPU power swings). With 65.55 kW per side, that is ≤ 59 kW per rack | Ch 21, Ch 23 |
+| GPU-hour cost | **$3.00 per GPU-hour**: Chapter 21's owned-cluster TCO per nominal GPU-hour ($6.73M/yr ÷ 2,242,560 GPU-h at $0.08/kWh) `[MODELED]`. Use it to cost lost or wasted GPU time. Per allocated ($4.16) or useful ($4.72) GPU-hour and cloud on-demand prices are different quantities and must be named as such | Ch 1, Ch 17–19, Ch 21, Ch 24 |
 | PUE | **1.25** (liquid-assisted hall). Any other value must be labelled as a variation | Ch 2, Ch 21 |
 | Facility power for the 32 GPU nodes | IT ≈ 326 kW max for the nodes alone. Facility = IT × PUE | Ch 2, Ch 21 |
 

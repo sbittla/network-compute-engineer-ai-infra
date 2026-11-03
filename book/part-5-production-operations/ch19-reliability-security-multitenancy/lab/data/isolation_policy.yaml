@@ -6,3 +6,6 @@ gpu_cross_tenant_sharing_requires: mig
 scrub_on_release_required: true
 secrets_prefix_must_end_with_tenant_name: true
 storage_exports_must_not_overlap_other_tenants: true
+psa_levels_allowed: [restricted, baseline]
+forbid_privileged_tenant_pods: true
+forbid_gpu_env_without_request: true

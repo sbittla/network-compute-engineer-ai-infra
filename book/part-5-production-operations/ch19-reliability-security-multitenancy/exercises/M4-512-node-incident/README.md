@@ -1,11 +1,11 @@
-# M4 — 512-node incident (Section 20.1) (★★★, L1)
+# M4 — 512-node incident (course-outline §20.1) (★★★, L1)
 
 Type: Outline-mandated · Kind: `lab` · Points: 30
 
 ## Prompt
 
 <!-- prompt:start -->
-**M4 ★★★ L1 — 512-node incident (Section 20.1).** Given the synthetic 512-node training incident with
+**M4 ★★★ L1 — 512-node incident (course-outline §20.1).** Given the synthetic 512-node training incident with
 one flaky HCA, one GPU ECC fault, and an NCCL timeout (Lab 19), correlate logs and telemetry, identify
 the smallest failure domain, quarantine the suspect component, and produce a safe restart plan.
 Distinguish proven cause from correlation. Submit the failure timeline, rank-to-hardware mapping, health

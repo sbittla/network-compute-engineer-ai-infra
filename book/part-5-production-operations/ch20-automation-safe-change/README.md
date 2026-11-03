@@ -50,7 +50,7 @@ lab fabric).
 
 ## Deliverable
 
-**Automation sample and safe-change runbook** (Exercise 20.10), built from Lab 20 Parts 1–2 and
+**Automation sample and safe-change runbook** (Exercise 20-DEL), built from Lab 20 Parts 1–2 and
 the runbook excerpt in the manuscript.
 
 ## File map

@@ -5,10 +5,13 @@
 `ListAndWatch` gRPC stream. The kubelet derives `allocatable` from the *healthy* devices; the
 scheduler only ever reads `allocatable`.
 
-**Mechanism.** The plugin watches NVML for critical events on each GPU, for example Xid 79 ("GPU
-has fallen off the bus") or an uncorrectable ECC error, and marks that device `Unhealthy`. It then
+**Mechanism.** The plugin watches NVML for critical events on each GPU, for example an uncorrectable
+ECC error (Xid 48, or Xid 95 for an uncontained one) or a row-remap failure (Xid 64), and marks that
+device `Unhealthy`. It then
 reports 7 healthy devices; the kubelet sets `allocatable nvidia.com/gpu: 7` while `capacity` stays
-8, and `nvidia-smi -L` may still list 8 GPUs because the device is still enumerated.
+8, and `nvidia-smi -L` still lists 8 GPUs because the device is still enumerated. (A GPU that has
+fallen off the bus, Xid 79, is not a good fit for this prompt: it usually disappears from
+`nvidia-smi -L` or makes it error.)
 
 **Scheduler outcome.** An 8-GPU pod is never bound to this node: the filter reports
 `Insufficient nvidia.com/gpu`, even though the node is `Ready`. Smaller pods can still use the 7

@@ -16,19 +16,19 @@ Thresholds are `[ILLUSTRATIVE]`. "Automated in lab" means Lab 8's `check_node` c
 | 8 | GID index | env file, `show_gids` / sysfs | Index is `RoCE v2` and holds the rail IP on every NIC | yes | yes (GID_INDEX) |
 | 9 | DSCP trust and map | `dcb apptrust show dev <if>`, `dcb app show dev <if> dscp-prio` | Trust DSCP; 26 → prio 3, 48 → prio 6 | yes | map yes (QOS_DSCP); trust no |
 | 10 | PFC priorities | `dcb pfc show dev <if> prio-pfc` | Priority 3 only | yes | yes (QOS_PFC) |
-| 11 | Traffic-class marking | site env file | `NCCL_IB_TC=106` | yes | no (good extension) |
+| 11 | Traffic-class marking | site env file | `NCCL_IB_TC=106` | yes | yes (TRAFFIC_CLASS) |
 | 12 | GPUDirect RDMA mechanism present | `lsmod` (`nvidia_peermem`) or DMA-BUF support | Present. Necessary, not sufficient | yes | yes (PEERMEM) |
 | 13 | NIC PCIe link | `lspci -vv -s <bdf>` | `LnkSta` = `LnkCap` (32GT/s, x16) | yes | correlation only (perftest) |
 | 14 | NUMA locality | `/sys/class/net/<if>/device/numa_node`, `nvidia-smi topo -m` | NIC *r* PIX to GPU *r* | yes | no |
 | 15 | PCIe peer-to-peer allowed | `lspci -vvv` ACSCtl on the switch ports above GPU *r* / NIC *r* | ACS redirect off (or approved IOMMU passthrough) | yes | no |
-| 16 | Locked-memory limit | `ulimit -l` in a shell, in `srun bash -c 'ulimit -l'`, in the container | `unlimited` everywhere | yes | no |
+| 16 | Locked-memory limit | `ulimit -l` in a shell, in `srun bash -c 'ulimit -l'`, in the container | `unlimited` everywhere | yes | shell and Slurm job step yes (MEMLOCK); container no |
 | 17 | Per-rail routing and neighbours | `ip rule show`, `ip route show table <rail>`, `ip neigh show dev <if>` | One rule/table per rail; leaf gateway resolved | yes | no |
 | 18 | **Switch side** | switch CLI/API or config-compliance tool | 400G up, MTU 9216, trust DSCP, 26 → TC 3 lossless + ECN, 48 → TC 6, PFC prio 3 | yes (read config) | no |
 | 19 | Peer validation | `ibv_rc_pingpong -m 4096`, `ib_write_bw -a`, `ib_write_lat -a`, `ib_write_bw --use_cuda=<gpu>` per rail to a known-good peer | Completes; plateau ≥ 95 % of 392 Gb/s; p99 within baseline | **no** (loads the fabric; drained nodes only) | analysis only |
 | 20 | Error-counter baseline | `rdma statistic`, `ethtool -S` | Recorded; no transport errors during item 19 | yes | no |
 
-Lab coverage: the lab automates items 1–10 (item 9: DSCP map only) and 12, and correlates item 13 with
-perftest results.
+Lab coverage: the lab automates items 1–12 (item 9: DSCP map only) and 16 (login shell and Slurm job
+step), and correlates item 13 with perftest results.
 
 ## Items host captures cannot verify, and how to get the evidence
 

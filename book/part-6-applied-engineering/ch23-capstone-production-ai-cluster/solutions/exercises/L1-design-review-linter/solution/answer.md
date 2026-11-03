@@ -2,7 +2,7 @@
 
 **Source:** lab/README.md Tasks 1–8; manuscript Sections 23.4–23.7 and 23.11; key Section C.
 Reference implementation: `solutions/lab/design_lint.py`; `python lab/check.py --impl solution` →
-**13/13 PASS** (outputs in `solutions/lab/outputs/check_solution.txt`). Evidence class: the linter
+**14/14 PASS** (outputs in `solutions/lab/outputs/check_solution.txt`). Evidence class: the linter
 runtime on a laptop is `[MEASURED]`; everything it checks is `[MODELED]` arithmetic over the bundle.
 
 ## Expected linter results

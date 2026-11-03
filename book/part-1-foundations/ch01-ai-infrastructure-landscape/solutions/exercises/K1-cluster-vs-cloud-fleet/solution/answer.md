@@ -16,8 +16,8 @@ from `[ILLUSTRATIVE]` parameters.
 5. **Failure semantics.** One node fault stops the whole job: MTBF_job = MTBF_node / n = 1,536 h / 32 =
    **48 h** for ORION. In a cloud fleet a node failure removes 1/n of capacity.
 
-Also accepted: goodput economics (1 % of ORION's goodput ≈ $56,000 per year at $2.50/GPU-hour
-`[ILLUSTRATIVE]`).
+Also accepted: goodput economics (1 % of ORION's goodput ≈ $67,000 per year at $3.00/GPU-hour,
+Chapter 21's TCO rate `[MODELED]`).
 
 **Marking note:** the key gives 2 points; this folder scores it out of 4 (the key's 2 points × 2) so
 that half credit (correct idea without numbers) is an integer.

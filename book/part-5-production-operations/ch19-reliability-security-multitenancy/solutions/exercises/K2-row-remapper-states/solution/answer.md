@@ -1,6 +1,6 @@
 # K2 — Row-remapper states: worked solution
 
-**Relies on:** Section 19.3 ("ECC, row remapping, and page retirement", Table 19.2a) and the lab's
+**Relies on:** Section 19.3 ("ECC, row remapping, and page retirement", Table 19.3) and the lab's
 `gpu_actions()`. Behaviour is `[VENDOR-SPEC, 2026-10]`: check NVIDIA's current *GPU Memory Error
 Management* document for your GPU generation and driver branch.
 

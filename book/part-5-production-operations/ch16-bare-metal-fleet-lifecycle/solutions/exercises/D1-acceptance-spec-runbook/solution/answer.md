@@ -11,8 +11,8 @@ A full-mark document assembles the earlier exercises into one operational specif
    `acceptance_results.json` per check, and every code with its meaning and remediation:
    `GPU_COUNT`, `GPU_PRODUCT`, `HBM_CAPACITY`, `PCIE_DEGRADED`, `NVLINK_DOWN`, `ECC_DBE`,
    `HBM_ROW_REMAP_PENDING`, `HBM_ROW_REMAP_FAILURE`, `ECC_SBE_ELEVATED` (WARN), `DCGM_DIAG_FAIL`,
-   `THERMAL_THROTTLE`, `NIC_LINK_DOWN`, `NIC_SPEED`, `NIC_COUNT`, `NIC_MTU`, `RDMA_PAIR_BW_LOW`,
-   `NVME_COUNT`, `NVME_MEDIA_ERRORS`, `STORAGE_THROUGHPUT_LOW`, `NCCL_BUSBW_LOW`,
+   `THERMAL_THROTTLE`, `NIC_LINK_DOWN`, `NIC_SPEED`, `NIC_COUNT`, `NIC_MTU`, `RDMA_PAIR_BW_LOW`, `LINK_BER_HIGH`,
+   `GDR_PATH_FAIL`, `NVME_COUNT`, `NVME_MEDIA_ERRORS`, `NVME_DRIVE_SLOW`, `STORAGE_THROUGHPUT_LOW`, `NCCL_BUSBW_LOW`,
    `NCCL_ALGO_UNRECORDED`, `XID_PRESENT`, `FW_OFF_MATRIX`, `FW_DEPRECATED` (WARN).
 3. **State machine (from M3)** with the 13-transition table, guards, forbidden transitions and
    reasons, and the audit-record schema (`seq, ts, node, event, actor, from_state, to_state, result,
@@ -31,8 +31,8 @@ A full-mark document assembles the earlier exercises into one operational specif
    needs L2/L3 evidence (burn-in physics, real failure signatures over time, BMC activation
    behaviour, end-to-end path MTU), and that thresholds and version strings are teaching values.
 
-**Appendix:** the lab `acceptance_report.md` (25 PASS / 1 WARN / 6 FAIL with raw values and
-remediation) and the checker output (33/33).
+**Appendix:** the lab `acceptance_report.md` (24 PASS / 1 WARN / 7 FAIL with raw values and
+remediation) and the checker output (37/37).
 
 **Grading notes.** Deduct under criterion 4 if numbers are asserted rather than derived, and under
 criterion 5 if any runbook path skips evidence preservation or re-acceptance.

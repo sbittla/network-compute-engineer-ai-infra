@@ -10,9 +10,12 @@ no network; runs in a few seconds. Expected values come from the seeded bundle i
 from __future__ import annotations
 
 import argparse
+import filecmp
 import importlib.util
 import math
+import subprocess
 import sys
+import tempfile
 import traceback
 from pathlib import Path
 
@@ -32,6 +35,14 @@ EXPECTED_SHARES = {"tp_split": (64.6, 3.0), "storage_new": (20.0, 3.0), "driver_
                    "tp_x_storage": (-4.1, 2.0)}
 EXPECTED_RANK = ["T3", "T1", "T2", "T4", "T8", "T6", "T7"]
 EXPECTED_REJECTED = {"T5", "T9"}
+
+
+DATA_FILES = ("alerts.csv", "change_log.yaml", "hypotheses.yaml", "jobs.csv", "node_inventory.csv",
+              "node_metrics.csv", "nccl_init_sample.log", "placement.csv", "step_log.csv")
+
+
+class Skip(Exception):
+    """A check that cannot run in this copy of the lab (reported as SKIP, not FAIL)."""
 
 
 def load(impl: str):
@@ -77,6 +88,18 @@ class Ctx:
 
 def near(x: float, target: float, tol: float) -> bool:
     return x is not None and not math.isnan(x) and abs(x - target) <= tol
+
+
+def c_data(ctx):
+    gen = HERE / "tools" / "generate_data.py"
+    if not gen.exists():
+        raise Skip("generator not shipped in the student release (instructor copy only)")
+    with tempfile.TemporaryDirectory() as tmp:
+        proc = subprocess.run([sys.executable, str(gen), "--out", tmp], capture_output=True, text=True, timeout=60)
+        if proc.returncode != 0:
+            return False, f"generator failed: {proc.stderr.strip()[-200:]}"
+        diff = [f for f in DATA_FILES if not filecmp.cmp(DATA / f, Path(tmp) / f, shallow=False)]
+    return not diff, "data/ is byte-identical to the generator output" if not diff else f"differs from generator: {diff}"
 
 
 def c_clean(ctx):
@@ -157,15 +180,25 @@ def c_rank(ctx):
 
 def c_report(ctx):
     ranked, rejected = ctx.get("rank")
+    b = ctx.get("bundle")
+    hyg = ctx.m.hygiene_counts(b["steps"], b["jobs"])
+    want_hyg = {"rows_raw": 9514, "duplicates_removed": 44, "warmup_removed": 480, "rows_clean": EXPECTED_CLEAN_ROWS,
+                "jobs_dropped": 0}
+    bad_hyg = {k: (hyg.get(k), v) for k, v in want_hyg.items() if hyg.get(k) != v}
+    if bad_hyg:
+        return False, f"hygiene_counts (got, expected): {bad_hyg}"
     rep = ctx.m.render_report(ctx.get("summary"), ctx.get("effects"), ctx.get("attr"), ctx.get("cross"), ranked, rejected,
-                              ctx.get("boot"), "orion-n13")
-    need = ["## Measured facts", "## Inferred causes", "## Remaining uncertainty", "23.2", "orion-n13", "-4.0"]
+                              ctx.get("boot"), "orion-n13", hyg)
+    need = ["Hygiene:", "44", "480", "## Measured facts", "## Inferred causes", "## Remaining uncertainty", "23.2",
+            "orion-n13", "-4.0"]
     missing = [n for n in need if n not in rep]
     order_ok = not missing and rep.index("## Measured facts") < rep.index("## Inferred causes") < rep.index("## Remaining uncertainty")
-    return order_ok, "report sections present and ordered" if order_ok else f"missing or misordered: {missing}"
+    return order_ok, ("report has hygiene counts (44 duplicates, 480 warm-up rows, 0 jobs dropped) and ordered sections"
+                      if order_ok else f"missing or misordered: {missing}")
 
 
 CHECKS = [
+    ("data_regenerates: bundle matches generator", c_data),
     ("clean_steps: dedupe + warm-up", c_clean),
     ("tp_split_jobs: TP groups spanning nodes", c_tp),
     ("job_factor_table: time-aware factor flags", c_factors),
@@ -190,19 +223,22 @@ def main() -> int:
         print(f"FAIL import {IMPLS[args.impl]}: {exc!r}")
         return 2
     ctx = Ctx(mod)
-    passed = 0
+    passed = skipped = 0
     for name, fn in CHECKS:
         try:
             ok, msg = fn(ctx)
             print(f"{'PASS' if ok else 'FAIL'} {name} - {msg}")
             passed += bool(ok)
+        except Skip as exc:
+            print(f"SKIP {name} - {exc}")
+            skipped += 1
         except NotImplementedError as exc:
             print(f"TODO {name} - not implemented ({exc})")
         except Exception as exc:  # noqa: BLE001
             last = traceback.extract_tb(exc.__traceback__)[-1]
             print(f"FAIL {name} - {type(exc).__name__}: {exc} (at {Path(last.filename).name}:{last.lineno})")
-    print(f"\n{passed}/{len(CHECKS)} checks passed ({args.impl})")
-    return 0 if passed == len(CHECKS) else 1
+    print(f"\n{passed}/{len(CHECKS) - skipped} checks passed ({args.impl}); {skipped} skipped")
+    return 0 if passed + skipped == len(CHECKS) else 1
 
 
 if __name__ == "__main__":

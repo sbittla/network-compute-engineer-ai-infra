@@ -6,6 +6,63 @@ Independent-review history and finding → resolution tables are in each package
 
 **Status (2026-10-30): all 24 chapters, the capstone program (README + RUBRIC) and capstones A–H pass the internal gate at 9.50, with no open blocker/major/minor findings. `python scripts/validate_labs.py` → 32/32 labs valid (solution, starter, no-generator, docs).** Since then (2026-10-31): G4 vendor-claim verification, G6 machine-assisted copyedit and G7 job-market refresh done; every lab runs in its own container and `python scripts/docker_labs.py ci` passes 32/32 packages (2,144 tests, 480 exercise folders with solutions and generated outputs). Remaining external gates: see [RELEASE_GATES.md](RELEASE_GATES.md).
 
+## Independent re-review (2026-11-01 to 2026-11-03)
+
+The chapters were re-scored by new reviewers who did not see the earlier scores or reviews. Round 1
+(r1) found every chapter at or near the gate, with a book mean of **9.35**. Each chapter was then
+revised. A second set of fresh reviewers (r2) scored the revised chapters, and the authors fixed
+every r2 finding. The r2 reviewer then verified those fixes and re-scored. Finding → resolution
+tables are in each package's `review/REVIEW.md` ("Independent review r1" / "r2").
+
+**Result:** all 24 chapters pass the gate with no open blocker or major findings. The book mean is
+**9.77** (range 9.55–9.93).
+
+| Chapter | r1 (fresh reviewer) | After r2 fixes (verified) |
+|---|---|---|
+| ch01 | 9.45 | **9.90** |
+| ch02 | 9.30 | **9.875** |
+| ch03 | 9.50 | **9.85** |
+| ch04 | 9.48 | **9.775** |
+| ch05 | 9.35 | **9.55** |
+| ch06 | 9.40 | **9.55** |
+| ch07 | 9.38 | **9.68** |
+| ch08 | 9.48 | **9.68** |
+| ch09 | 9.25 | **9.60** |
+| ch10 | 9.35 | **9.83** |
+| ch11 | 9.38 | **9.75** |
+| ch12 | 9.40 | **9.78** |
+| ch13 | 9.28 | **9.80** |
+| ch14 | 9.38 | **9.80** |
+| ch15 | 9.50 | **9.80** |
+| ch16 | 9.53 | **9.875** |
+| ch17 | 9.18 | **9.78** |
+| ch18 | 9.33 | **9.93** |
+| ch19 | 9.40 | **9.78** |
+| ch20 | 9.40 | **9.85** |
+| ch21 | 8.80 | **9.68** |
+| ch22 | 9.375 | **9.78** |
+| ch23 | 9.325 | **9.78** |
+| ch24 | 9.225 | **9.75** |
+
+Caveats:
+
+- The final scores come from the same r2 reviewer verifying fixes to its own findings. That
+  reviewer never edited the text, but some generosity is likely.
+- The capstones were not re-reviewed in this pass.
+- These are internal editorial scores. Gates G1 (L2/L3 hardware), G2, G3, G5 and the human
+  copyedit are still open (RELEASE_GATES.md).
+- Three committed L2 GPU bundles carry errata and need a hardware rerun: ch04 (truncated trace
+  window), ch14 (failed invariants under memory pressure) and ch24 (level scoring).
+- Shared-fact changes from this pass are in REFERENCE_CLUSTER.md and VERIFIED_FACTS.md:
+  - $3.00 per GPU-hour (Ch 21 TCO) and $0.08/kWh
+  - 64 MB rail-leaf buffer
+  - netdev naming
+  - nvidia-smi topology terms
+  - one NVLS threshold
+  - DLC cooling, pod IT and rack-peak rules
+  - verified DCGM 4.7 field IDs and NCCL WARN formats
+- `concise/` has not been re-synced with these changes.
+
 | Package | Independent score history | Status | Open next step |
 |---|---|---|---|
 | ch01 landscape | 9.05 → 9.50 → **9.50** | **PASS** | closed |

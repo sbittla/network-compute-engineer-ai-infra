@@ -1,0 +1,26 @@
+id: '12.20'
+title: All-to-all and PXN on ORION
+folder: 12.20-alltoall-pxn
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: formula → substitution → result for (a)–(d), and two sentences for (e).
+marking:
+- criterion: (a) chunk S/16 = 67.1 MB; intra-node 7 chunks = 469.8 MB, same-rail 1 chunk = 67.1 MB, cross-rail
+    7 chunks = 469.8 MB (1,006.6 MB sent)
+  points: 2
+- criterion: (b) every NIC carries S/2 = 536.9 MB per direction; T = 536.9 MB / 45 GB/s = 11.93 ms; algbw 90.0 GB/s;
+    busbw = 90.0 × 15/16 = 84.4 GB/s
+  points: 2
+- criterion: (c) same time and busbw with PXN off on an idle 1:1 fabric; spine share 7/15 = 46.7 % with PXN off,
+    0 % with PXN on
+  points: 1
+- criterion: '(d) 32 nodes, n = 256, T = 31/32 × S / 45 GB/s = 23.12 ms, busbw 46.3 GB/s; spine share 217/255
+    = 85.1 % with PXN off, 0 % with PXN on'
+  points: 2
+- criterion: (e) idle non-blocking spines absorb the cross-rail bytes; in production they are shared and hashed,
+    and the all-to-all runs at its slowest flow
+  points: 1
+lab_checks: []

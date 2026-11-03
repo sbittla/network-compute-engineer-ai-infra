@@ -10,7 +10,8 @@ Two capstone design bundles are written under ``lab/data/``:
   documented only in ``solutions/``.
 
 Each bundle contains seven files: ``design.md``, ``assumptions.yaml``, ``bom.yaml``,
-``topology.yaml``, ``failure_domains.yaml``, ``slos.yaml`` and ``benchmarks.md``.
+``topology.yaml``, ``failure_domains.yaml``, ``slos.yaml`` and ``benchmarks.md``, plus the
+environment manifests its MEASURED rows cite under ``manifests/``.
 
 All values are [ILLUSTRATIVE] H100-class approximations from docs/REFERENCE_CLUSTER.md.
 
@@ -43,7 +44,7 @@ def reference_assumptions() -> dict:
          "Training Infra", "Confirm with nvidia-smi --query-gpu=memory.total on acceptance"),
         ("A-03", "Node maximum power", 10.2, "kW", "VENDOR-SPEC, 2026-10",
          "Facilities", "Measure PDU draw during burn-in (Chapter 16 acceptance)"),
-        ("A-04", "Model FLOPs utilisation (MFU) for W-TRAIN", 0.40, "ratio", "ILLUSTRATIVE",
+        ("A-04", "Model FLOPs utilization (MFU) for W-TRAIN", 0.40, "ratio", "ILLUSTRATIVE",
          "Training Infra", "Measure on a 64-GPU slice before full-scale launch"),
         ("A-05", "Parallel file system aggregate write bandwidth", 80, "GB/s", "ILLUSTRATIVE",
          "Platform", "IOR-style write test from 32 clients at acceptance"),
@@ -53,7 +54,9 @@ def reference_assumptions() -> dict:
          "ILLUSTRATIVE", "SRE", "Compute from 90 days of incident and Xid history"),
         ("A-08", "Blocking checkpoint time (synchronous save to the PFS, conservative)", 60, "s", "MODELED",
          "Training Infra", "Time the sync save on 32 nodes, then validate async save to NVMe, L2/L3"),
-        ("A-09", "Usable rack power budget (after PDU derating)", 45, "kW", "ILLUSTRATIVE",
+        ("A-09", "Planned rack power budget after PDU derating and the Chapter 21 10 % transient "
+         "margin (declared variation: an existing row limited to 50 kW continuous per rack per "
+         "2N side; 50 x 0.9 = 45)", 45, "kW", "ILLUSTRATIVE",
          "Facilities", "Facilities sign-off against the as-built PDU one-line"),
         ("A-10", "RoCE path MTU", 4096, "B", "ILLUSTRATIVE",
          "Fabric", "Check active_mtu with ibv_devinfo on every NIC at acceptance"),
@@ -92,7 +95,9 @@ def reference_topology() -> dict:
             "spine": {"count": 4, "radix": 64},
             "claimed_oversubscription": "1:1",
         },
-        "frontend": {"ports_per_node": 2, "speed_gbps": 200, "claimed_oversubscription": "3:1"},
+        "frontend": {"ports_per_node": 2, "speed_gbps": 200, "claimed_oversubscription": "1.5:1",
+                     "oversubscription_basis": "bandwidth (48 x 200G down : 16 x 400G up); "
+                                               "3:1 by port count"},
     }
 
 
@@ -158,19 +163,59 @@ def benchmark_rows(rng: random.Random) -> list[dict]:
         {"id": "B-01", "metric": "W-TRAIN step time at 40 % MFU", "value": "17.4", "unit": "s",
          "label": "MODELED", "tier": "L1", "manifest": "model: 6*N*tokens / (256*989e12*0.40)"},
         {"id": "B-02", "metric": "all_reduce_perf busbw, 8 GiB, 2 nodes x 8 GPUs, 8 rails (median of 5; per rail = busbw/8)",
-         "value": f"{busbw:.1f}", "unit": "GB/s", "label": "MEASURED", "tier": "L3",
-         "manifest": "manifests/l3-2node-2026-10-12.yaml"},
+         "value": f"{busbw:.1f}", "unit": "GB/s", "label": "ILLUSTRATIVE", "tier": "L3",
+         "manifest": "manifests/l3-2node-2026-10-12.yaml"},     # format template; no run produced the value
         {"id": "B-03", "metric": "Checkpoint write, 980 GB at 80 GB/s", "value": "12.3", "unit": "s",
          "label": "MODELED", "tier": "L1", "manifest": "model: 980 GB / 80 GB/s"},
         {"id": "B-04", "metric": "DP gradient all-reduce per step (4.375 GB/GPU, ring)",
          "value": "0.19", "unit": "s", "label": "MODELED", "tier": "L1",
          "manifest": "model: 2*(7/8)*4.375 GB / 40 GB/s per rail"},
-        {"id": "B-05", "metric": "Checkpoint overhead at Young/Daly interval", "value": "2.6",
+        {"id": "B-05", "metric": "Checkpoint + rework waste at Young interval (excl. restart R)",
+         "value": "2.6",
          "unit": "%", "label": "MODELED", "tier": "L1",
          "manifest": "model: delta/tau + tau/(2M), delta=60 s, M=48 h"},
-        {"id": "B-06", "metric": "Design-lint runtime on this bundle", "value": "0.4", "unit": "s",
+        {"id": "B-06", "metric": "Design-lint CLI wall time on this bundle (median of 7)", "value": "0.17",
+         "unit": "s",
          "label": "MEASURED", "tier": "L1", "manifest": "manifests/l1-laptop.yaml"},
     ]
+
+
+def manifest_l3_2node(busbw: float) -> str:
+    """Example L3 manifest cited by B-02. ORION is fictional, so this file is ILLUSTRATIVE."""
+    return f"""# ILLUSTRATIVE example manifest for a fictional cluster (ORION-256).
+# It shows the fields a MEASURED L3 benchmark row must cite. No run produced these values,
+# so row B-02 is labelled ILLUSTRATIVE; a real 2-node run would make it MEASURED with this manifest.
+lab: ch23-capstone-reference-bundle
+tier: L3
+row: B-02
+date: 2026-10-12
+nodes: [orion-n01, orion-n02]
+node_image_id: orion-hx8-2026.10.1 (both nodes)
+hardware: 8 x H100-SXM-class per node; 8 x 400G RoCEv2 NICs (one per rail), PIX GPU-NIC affinity
+nic_firmware: 28.39.1002 (both nodes)
+software: {{driver: 570-series, cuda: 12.x, nccl: 2.2x, nccl_tests: built with MPI=1}}
+fabric: {{rails: 8, rdma_path_mtu: 4096, isolated: true, note: no other tenant on the rail leaves}}
+gdr_evidence: every network channel line ends in /GDRDMA on both nodes
+command: srun -N 2 --ntasks-per-node=8 --gpus-per-node=8 --mpi=pmix all_reduce_perf -b 8G -e 8G -g 1 -w 5 -n 20
+warm_up: 5 iterations per run (-w 5), discarded
+repetitions: 5 runs
+result: {{metric: busbw, unit: GB/s, median: {busbw:.1f}, min: 353.0, max: 359.0}}
+"""
+
+
+MANIFEST_L1_LAPTOP = """# MEASURED: environment manifest for B-06 (design-lint wall time). A real run; re-run on yours.
+lab: ch23-capstone-reference-bundle
+tier: L1
+row: B-06
+date: 2026-11-01
+host: {cpu: Intel Core i7-13700HX, gpu: none used, os: Windows 11 (10.0.26200)}
+software: {python: 3.13.14, pyyaml: 6.0.2}
+command: python solutions/lab/design_lint.py lab/data/bundle_orion_reference
+timing: wall clock of the whole process, including interpreter start-up
+warm_up: 3 runs, discarded
+repetitions: 7 runs
+result: {metric: wall time, unit: s, median: 0.169, min: 0.163, max: 0.193}
+"""
 
 
 def render_benchmarks(rows: list[dict], title: str) -> str:
@@ -200,10 +245,10 @@ job MTBF (A-07) and blocking checkpoint time (A-08).
 ## Architecture
 
 32 HX8 nodes give 256 GPUs; TP=8 stays inside each NVLink domain, PP=4 and DP=8 cross nodes.
-The backend is a rail-optimised RoCEv2 leaf-spine: 8 rail leaves of radix 64 with 32 downlinks and
+The backend is a rail-optimized RoCEv2 leaf-spine: 8 rail leaves of radix 64 with 32 downlinks and
 32 uplinks each, and 4 spines, for 1:1 subscription (see topology.yaml).
 Each GPU node draws up to 10.2 kW [VENDOR-SPEC, 2026-10] so a 4-node rack needs 40.8 kW [MODELED]
-against the 45 kW budget (A-09).
+against the 45 kW planned budget (A-09: 50 kW rack limit less the 10 % transient margin).
 
 ## Failure domains
 
@@ -212,8 +257,9 @@ Rack power (FD-06) is mitigated by spreading DP replicas across racks.
 
 ## Benchmark evidence
 
-The two-node all-reduce run (B-02) is the only physical measurement; everything else is modeled.
-Checkpoint overhead at the Young/Daly interval is about 2.6 % [MODELED] (B-05).
+B-02 is the only fabric benchmark row; everything else is modeled. ORION is fictional and no run
+produced B-02, so it is labelled ILLUSTRATIVE; a real 2-node run would make it MEASURED with its manifest.
+Checkpoint plus rework waste at the Young interval is about 2.6 % [MODELED] (B-05), excluding restart.
 
 ## Failure exercise
 
@@ -250,7 +296,7 @@ and we assume the storage tier sustains the dataloader read rate (A-12).
 
 We deploy 34 HX8 nodes (two extra for headroom) giving 256 training GPUs plus spare capacity.
 TP=8 stays inside the NVLink domain; PP=4 and DP cross nodes.
-The backend is a rail-optimised RoCEv2 leaf-spine with 8 rail leaves and 4 spines (topology.yaml).
+The backend is a rail-optimized RoCEv2 leaf-spine with 8 rail leaves and 4 spines (topology.yaml).
 Each rail leaf carries 400 Gb/s per port and the fabric is non-blocking.
 Racks rack-01..rack-06 hold 4 nodes and rack-07..rack-08 hold 5 nodes; each node draws up to 10.2 kW [VENDOR-SPEC, 2026-10].
 Rack power fits comfortably inside the facility envelope (A-09).
@@ -319,7 +365,7 @@ def kestrel_bundle(rng: random.Random) -> dict[str, object]:
 
     rows = benchmark_rows(rng)
     by_id = {r["id"]: r for r in rows}
-    by_id["B-02"]["manifest"] = "-"                     # planted: MEASURED without manifest
+    by_id["B-02"].update({"label": "MEASURED", "manifest": "-"})   # planted: MEASURED without manifest
     by_id["B-03"]["label"] = ""                         # planted: missing label
     by_id["B-04"].update({"metric": "all_reduce_perf busbw, 8 GiB, 8 nodes x 8 GPUs",
                           "value": "328.0", "unit": "GB/s", "label": "MEASURED",
@@ -333,10 +379,13 @@ def kestrel_bundle(rng: random.Random) -> dict[str, object]:
         "failure_domains.yaml": fd,
         "slos.yaml": slos,
         "benchmarks.md": render_benchmarks(rows, "Team Kestrel"),
+        "manifests/l1-laptop.yaml": MANIFEST_L1_LAPTOP,
     }
 
 
 def reference_bundle(rng: random.Random) -> dict[str, object]:
+    rows = benchmark_rows(rng)
+    busbw = float(next(r["value"] for r in rows if r["id"] == "B-02"))
     return {
         "design.md": REFERENCE_DESIGN,
         "assumptions.yaml": reference_assumptions(),
@@ -344,7 +393,9 @@ def reference_bundle(rng: random.Random) -> dict[str, object]:
         "topology.yaml": reference_topology(),
         "failure_domains.yaml": reference_failure_domains(),
         "slos.yaml": reference_slos(),
-        "benchmarks.md": render_benchmarks(benchmark_rows(rng), "ORION-256 reference"),
+        "benchmarks.md": render_benchmarks(rows, "ORION-256 reference"),
+        "manifests/l3-2node-2026-10-12.yaml": manifest_l3_2node(busbw),
+        "manifests/l1-laptop.yaml": MANIFEST_L1_LAPTOP,
     }
 
 
@@ -353,6 +404,7 @@ def write_bundle(files: dict[str, object], out: Path) -> None:
     for name, content in files.items():
         text = content if isinstance(content, str) else yaml.safe_dump(
             content, sort_keys=False, allow_unicode=True, width=100)
+        (out / name).parent.mkdir(parents=True, exist_ok=True)
         (out / name).write_text(text, encoding="utf-8", newline="\n")
 
 

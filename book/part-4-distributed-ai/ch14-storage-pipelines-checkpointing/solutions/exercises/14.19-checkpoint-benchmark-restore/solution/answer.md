@@ -26,6 +26,11 @@ depend on hardware. Reject any submission without repetitions or a manifest.
 
 Report median and spread (min–max or IQR) for each cell.
 
+**Plausibility check before accepting the numbers.** Confirm free host RAM ≥ 4 × the state before the run, and
+reject a run whose D2H snapshot is below 1 GB/s, whose restore is more than 20 × slower than the save, or that
+swapped during the run. Such a host measures its swap device, not DCP; `lab/l2/experiment.py` applies these
+guards, and the first committed RTX 4060 bundle fails them.
+
 **Restore test log.**
 
 1. Copy the checkpoint to a scratch directory. Corrupt one data file in the copy only (overwrite 4 KiB in

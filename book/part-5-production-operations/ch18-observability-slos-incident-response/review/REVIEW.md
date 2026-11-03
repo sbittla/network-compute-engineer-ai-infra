@@ -74,3 +74,63 @@ Independent score history: 9.23 → 9.50.
 | R2-01 | Minor | Availability SLO (≥ 25 nodes) used ≈ 85 % of budget on repair alone | ≥ 24 of 32 nodes, P(≤ 8) = 0.9989; arithmetic shown; key M1 updated |
 | R2-02 | Minor | Join needs `Hostname` on `slurm_gpu_job_info` | Example label added; prolog-writes-Hostname or relabel `instance` stated |
 | R2-03 | Minor | `state=resume` does not change partitions | Node must already be in the training partition (`slurm.conf` / `scontrol update PartitionName=…`) |
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.0, D6 9.5, D7 9.5, D8 9.5, D9 9.0 → **9.33** (fail).
+Checker at review time: solution 14/14, starter 1/14.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N18-01 | Major | T1: `OOMKilled`/137 is a host-memory cgroup kill, but the key cited `FB_USED` 79.1/79.6 GiB (normal vLLM pre-allocation) as corroboration | Option (a): DEP-44 now also raises `--swap-space` 4 → 8 GiB/GPU (× TP 8 = 64 GiB pinned host memory vs a 64 GiB pod limit); evidence adds `container_memory_working_set_bytes` 63.9/64 GiB and a stalled rollout (1 of 8 updated); `FB_USED` 73–74 GiB on all replicas is kept as a distractor and the key explains why it is normal (≈ 0.92 × 79.6) and that a CUDA OOM exits 1, not 137. exercises.md, folder README (prompt sync), key, answer.md, meta.yaml and marking.json updated |
+| N18-02 | Minor | GPU_UTIL_RATIO attributed to DCGM 4.6 | Caption: 4.6 = profiling renames; 4.7 = `GPU_UTIL` (203) → `GPU_UTIL_RATIO` (1613) |
+| N18-03 | Minor | Flight recorder used only the legacy env var | `TORCH_FR_BUFFER_SIZE` (legacy `TORCH_NCCL_TRACE_BUFFER_SIZE`), `TORCH_NCCL_DUMP_ON_TIMEOUT=1`, `TORCH_FR_DUMP_TEMP_FILE` |
+| N18-04 | Minor | Garbled red-herring sentence in §18.12 Step 8 | Split: CRAH/n08 (clocks never throttled); Grafana CHG-4468 monitoring-only |
+| N18-05 | Minor | "≈ 30× larger" at ORION-XL | ≈ 21× (4,096 / 192 GPUs) |
+| N18-06 | Minor | Summary "10–17 min" | ≈ 13–17 min |
+| N18-07 | Minor | $3/GPU-hour vs book's $2.50 | Canonical $2.50 `[ILLUSTRATIVE]` everywhere: §18.1 92 GPU-h ≈ $230; §18.12 62.4 GPU-h ≈ $156; W2 $5,605 / $604, saving ≈ $5,000 (prompt, key, answer, meta, solve.py re-run). False claim "Chapter 21 derives ORION's figure" replaced |
+| N18-08 | Minor | §18.14 hot handover (`kubectl drain` then `scontrol … resume`) | Replaced with an `[ILLUSTRATIVE]` lifecycle-controller pool move; controller drains, validates and issues the Slurm RESUME (Sections 17.5.5, 17.7) |
+| N18-09 | Minor | 30-min peak 9.8 vs hand 9.5 | "(request-weighted, from the data; ≈ 9.5 by hand)" |
+| D2 advice | — | Telemetry-pipeline failures as first-class alerts | New §18.8 subsection "Alerting on the telemetry pipeline itself": `up`, `absent_over_time`, join-breakage count, `resets()`, gNMI staleness |
+| D4 advice | — | Exercise a missing-scrape case | New check "T2 scrape gap": `burn_rate()` must return NaN across a 3-minute gap (contiguity mask), equal values after it; solution/starter updated; checker now 15/15 (solution), 1/15 (starter); L1 lab_checks and golden outputs regenerated |
+| D9 advice | — | Very long acronym paragraph | Regrouped into a four-line list by layer |
+
+Validation: `check.py --impl solution` 15/15 exit 0; `--impl starter` 1/15 exit 1 (graceful TODO);
+`validate_labs.py ch18` OK (all four columns); package test suite 86 passed; `copyedit_lint.py` 0 findings
+for ch18. L2 committed results untouched (the contiguity-masked `burn_rate` gives identical values on
+contiguous scrapes).
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Reviewer scores (independent, after the r1 fixes):
+
+| Dim | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | Weighted |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Score | 9.5 | 9.5 | 9.5 | 9.5 | 9.5 | 9.5 | 9.5 | 9.5 | 9.0 | **9.48 (FAIL)** |
+
+0 blocker, 0 major, 7 minor. Checker at review time: solution 15/15, starter 1/15.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| Price (coordinator) | Canonical price corrected to ≈ $3.00/GPU-h | Every $2.50 is now $3.00 `[ILLUSTRATIVE]`, cited as rounded from Chapter 21's owned-cluster TCO of $3.02 per nominal GPU-hour `[MODELED]`. Recomputed: §18.1 92 GPU-h ≈ $276; §18.12 62.4 GPU-h ≈ $187; W2 2,242 GPU-h ≈ $6,726 and 241 GPU-h ≈ $724, saving ≈ $6,000. Updated in the manuscript, exercises.md, the W2 folder README, key, answer.md, meta.yaml and solve.py; outputs regenerated. |
+| R18-01 | Per-token "TPOT" SLI conflated with ITL | Table 18.4 now counts requests whose TPOT (per-request mean) ≤ 50 ms over successful requests, with ITL p99 tracked beside it. The M1 answer is updated to match. |
+| R18-02 | §18.14 said n25 is defined in `train`, contradicting Ch17 | Replaced with the REFERENCE_CLUSTER model: 24 training (n01–n24) + 8 inference (n25–n32). Lending a node, like the full W-TRAIN run, is a lifecycle transition, and joining `train` is part of it (Section 17.7). The text no longer claims a particular partition definition. |
+| R18-03 | Epigraph said 128 GPUs, §18.1 computes 256 | Epigraph now reads "A 256-GPU training job". |
+| R18-04 | Runbook SEV2 criterion differed from Table 18.8 | Runbook now declares SEV2 on the Table 18.8 criteria and quotes them. |
+| R18-05 | CRAH, LLDP, PSU, WRED, XOFF undefined | Added to the acronym block. |
+| R18-06 | L2 degraded phase lowers GPU_UTIL, apparently contradicting §18.3 | Lab README now explains it: a host-side stall leaves no kernel resident, so GPU_UTIL falls (64 % in the committed run); an NCCL wait keeps one resident, and the busy-idle phase reproduces that case. Measured results are untouched. |
+| R18-07 | `--swap-space` is a V0 concept | T1 evidence (exercises.md and folder README) now states a V0-engine release. Key and answer.md explain that the lesson is version-neutral, because any host-memory increase gives the same OOMKilled/137 signature. |
+| D2 advice | Profiling multiplexing and profiler conflicts | New paragraph after Table 18.10: counter multiplexing, the Nsight conflict (`dcgmi profile --pause`/`--resume`), and 1 s collection bounded to the job's nodes and a window. |
+| D3 advice | Time-series sketch of INC-2291 | New Figure 18.3: an event timeline with step time, leaf PFC, changes and alerts. CHG-4468 at 01:30 and FAC-0912 at 01:40 are checked against `events.jsonl`. |
+| D5 advice | R1–R4 point allocations | Five-point marking added to each. |
+| D6 advice | Sources for the power split and the 1.2 % noise | The power split is labelled as teaching values for the bundle. The 1.2 % is labelled `[SIMULATED]`, a bundle property; recomputed from `job_steps.csv` as 1.27 % for trn-70b and 1.20 % for ft-13b. |
+
+Tests: `check.py --impl solution` 15/15 (exit 0); `--impl starter` 1/15 (exit 1); `validate_labs.py ch18` OK; package test suite 86 passed; `copyedit_lint.py` reports 0 findings in ch18. Manuscript is 1,079 lines (was 1,050). Awaiting independent re-review.
+
+### r2 re-score fixes (2026-11-03)
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R18-08 | The $3.00/GPU-hour price was labelled `[ILLUSTRATIVE]` although it is the Chapter 21 TCO | Relabelled `[MODELED]` (Chapter 21 owned-cluster TCO $3.02, rounded) in the manuscript, exercises.md and folder prompts, key, answers, meta.yaml and solve.py comments; outputs regenerated. Tests: check.py solution/starter as before, `validate_labs.py` OK, package tests pass, `copyedit_lint.py` 0 findings. |

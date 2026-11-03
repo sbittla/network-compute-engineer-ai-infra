@@ -13,6 +13,6 @@ marking:
 - criterion: 'Way 2: masks software faults (collective mismatch, Section 19.13) by hardware churn, or floods repair
     queues'
   points: 1
-- criterion: Cites a section or data file (Section 19.13, spares.csv, Table 19.8)
+- criterion: Cites a section or data file (Section 19.13, spares.csv, Table 19.12)
   points: 1
 lab_checks: []

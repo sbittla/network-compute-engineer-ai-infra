@@ -14,7 +14,7 @@
       "points": 4
     },
     {
-      "criterion": "(c) M = 86,400 s, τ ≈ 1,455 s, overheads 0.84 + 0.84 + 1.04 ≈ 2.7 %",
+      "criterion": "(c) M = 86,400 s, δ = 60 s, τ ≈ 3,220 s, overheads 1.86 + 1.86 + 1.04 ≈ 4.77 %",
       "points": 3
     },
     {

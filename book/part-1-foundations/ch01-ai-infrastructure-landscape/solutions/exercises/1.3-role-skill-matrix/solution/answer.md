@@ -40,7 +40,7 @@ Engineer**; each learner's column is their own.
   reversible. **Low:** GPU architecture (1) and L2/L3 (1), because they consume those signals rather
   than design those systems.
 
-Check against the chapter: every role is ≥ 2 on observability, every role has a 3 somewhere, and none
+Check against the chapter: every role is ≥ 2 on observability and on automation/safe change, every role has a 3 somewhere, and none
 is 3 everywhere.
 
 ## Gap list (cells where Me ≤ target − 2)

@@ -15,6 +15,9 @@ cooling:
   design_delta_t_k: 10
   air_cp_kj_per_kg_k: 1.006
   air_density_kg_per_m3: 1.2
+  property_source: 'ILLUSTRATIVE: rounded typical supplier values for 25 % propylene
+    glycol near a 35 C mean loop temperature, and dry air at 20-25 C, sea level; re-verify
+    against the installed fluid''s data sheet'
   air_delta_t_k: 15
   cdu_count: 1
   cdu_capacity_kw: 300

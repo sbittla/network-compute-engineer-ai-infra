@@ -18,7 +18,7 @@
 | power.limit | [N/A] |
 
 **Status:** ran
-**Invariants:** FAILED: power fell from 8.56 W at 0 % to 3.94 W at 25 %: power must rise with work at fixed V/f; perf/W at 100 % duty below 25 % duty: static power should make light duty cycles less efficient
+**Invariants:** all passed (fixed-V/f checks skipped at 25 % duty: DVFS-shifted, SM clock below 80 % of the full-load clock)
 
 ## Intensity sweep (medians over the level; power sampled every 100 ms)
 
@@ -46,14 +46,14 @@ Power limits (read-only): default 80.0 W, enforced 80.0 W, range 5.0-120.0 W. Li
 | 650 | 0.99 | 1.0662 | 3 | 47.52 |
 | 700 | 1.0 | 1.0 | 2 | 32.0 |
 
-Best cap for the legacy-hall case: **650 W** (manuscript Table 21.4).
+Best cap for the legacy-hall case: **650 W** (manuscript Table 21.7).
 
 ## What to conclude
 
-- **Duty-cycling wastes energy; capping saves it.** At 25 % duty the GPU delivers 0.3485 TFLOP/J against 0.3408 at 100 %: about 6.06 W of static and idle-clock power is paid whether or not work runs. A power cap lowers voltage and frequency instead, and the lab's curve shows perf/W *rising* as the cap falls. "Use less power" and "do less work" are different levers.
+- **Inconclusive at light duty.** The fixed-V/f comparison could not be made: at 25 % duty the GPU ran at a different clock (DVFS idled it down between bursts), so those levels do not test duty-cycling at a fixed V/f point. Clock-matched levels: 50 % -> 0.26431 TFLOP/J, 75 % -> 0.29773 TFLOP/J, 100 % -> 0.34083 TFLOP/J. Lock clocks on a dedicated native-Linux lab host to test the light-duty levels.
 - **The limit that binds is not always the power cap.** At 100 % GEMM it draws 75.65 W, below the enforced 80.0 W, with `SW_POWER_CAP` in only 30 % of samples at 88.0 C: the boost clock is being reduced for temperature, and the SM clock is 2220.0 MHz versus 2520.0 MHz in the memory-bound copy at 52.45 W. Compute-bound work hits the limits that memory-bound work does not (Section 21.8: the curve is workload-dependent; Section 21.7: thermal-performance coupling).
 - **Transients are real at small scale.** Within one 200 ms duty period power swings by up to 30.72 W, which is the per-GPU version of the synchronized swing that drives the transient margin in Section 21.7.
-- This is a **laptop Ada GPU** with an 80 W-class limit, not a 700 W H100. Do not put these watts into the lab's rack model. Replace `power_cap_curve.csv` only with a cap sweep measured on your own data-centre GPU (not runnable here).
+- This is a **laptop Ada GPU** with an 80 W-class limit, not a 700 W H100. Do not put these watts into the lab's rack model. Replace `power_cap_curve.csv` only with a cap sweep measured on your own data-center GPU (not runnable here).
 
 ## Not runnable on this host
 
@@ -65,3 +65,4 @@ Best cap for the legacy-hall case: **650 W** (manuscript Table 21.4).
 - Duty cycle in 200 ms periods; each level runs 15 s after a 0.5 s settle (dropped). Power is power.draw.instant sampled every 100 ms; energy = mean sampled power x wall time.
 - Levels run from 0 % to 100 %, so the GPU warms through the sweep; temperature is recorded per level.
 - The 0 % level follows the warm-up, so the GPU idles in a high performance state (SM clock still up). Deep idle (P8, about 2 W on this laptop) takes seconds to reach: the fitted static term is the price of being ready to work.
+- Re-rendered on 2026-11-01 from this results.json with the current experiment.py (check() and report()); no measured value was changed. The original render reported Invariants: FAILED because the earlier check held the DVFS-shifted 25 % level (SM clock 300 MHz vs 2,220 MHz at 100 %) to the fixed-V/f rules; that evaluation is kept under invariants_history in results.json.

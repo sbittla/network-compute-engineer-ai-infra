@@ -1,7 +1,7 @@
 # R3 — Over-aggressive auto-quarantine: guidance and model answer
 
 **Relies on:** Section 19.13 (the hang with no hardware fault); Section 19.6 (smallest *defensible*
-domain); Section 19.7 (spares, retry policy); Table 19.8 (quarantine policy trade-off); lab
+domain); Section 19.7 (spares, retry policy); Table 19.12 (quarantine policy trade-off); lab
 `data/spares.csv`.
 
 ## Two ways it reduces reliability (any two, with mechanism)
@@ -10,7 +10,7 @@ domain); Section 19.7 (spares, retry policy); Table 19.8 (quarantine policy trad
    timed out first" drains innocent nodes. The first reporter is arbitrary (rank 817 in the lab; rank 0
    on orion-n01 in Section 19.13). Every false drain removes a node that a fixed-size synchronous job
    needs. On ORION, with no spares, the 24-node job pended at 23 nodes until on-call borrowed inference
-   node orion-n25. On ORION-XL, `spares.csv` shows only four of eight pool nodes `ready`, so a few false
+   node orion-n25. On ORION-XL, `spares.csv` shows only five of eight pool nodes `ready`, so a few false
    positives exhaust the pool. Restarts then wait, which raises RTO for *real* failures. The blast-radius
    variant, quarantining a leaf for one bad port, removes 31 healthy nodes' rail at once.
 2. **It masks software faults with hardware churn.** In Section 19.13 the hang was a collective mismatch

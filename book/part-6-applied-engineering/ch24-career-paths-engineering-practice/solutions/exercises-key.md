@@ -47,7 +47,9 @@ detected before job impact (measured as a reduction in job-impacting optics inci
 required skills, preferred skills, active/archived status. Example pairs: job ID + employer → prevents
 counting cross-listed postings multiple times; date checked → prevents describing a closed market as
 current; required vs preferred skills → prevents overstating the hiring bar; URL (canonicalised) →
-catches re-posts under new IDs; seniority vocabulary → keeps level breakdowns valid.
+catches cross-listed copies of the same requisition (a re-post under a new ID usually has a new URL and
+needs a role key: employer + title minus location qualifier); seniority vocabulary → keeps level
+breakdowns valid.
 *Marking (5 pts):* 2 for the complete list; 1 per correct pair.
 *Common mistakes:* omitting `date checked` or `status`; conflating required and preferred skills.
 
@@ -124,19 +126,21 @@ More flows spread load far better, though the per-uplink load is still uneven (m
 quarter size; some uplinks get 7–8), so the collective is still paced by the most loaded uplink.
 
 (c) M = 768 node-hours / 32 nodes = 24 h = 86,400 s.
-τ = √(2 × 12.25 s × 86,400 s) = √2,116,800 s² = **1,455 s ≈ 24.3 min**.
-Checkpoint overhead 12.25 / 1,455 = 0.84 %; expected rework (τ/2)/M = 727.5 / 86,400 = 0.84 %; restart
-900 / 86,400 = 1.04 %; total ≈ **2.7 %** (versus ≈ 1.7 % at the canonical 48 h: 0.60 + 0.60 + 0.52 %).
-Note τ shrinks only by √2 (2,058 s → 1,455 s) while the restart term doubles.
+τ = √(2 × 60 s × 86,400 s) = √10,368,000 s² = **3,220 s ≈ 54 min**.
+Checkpoint overhead 60 / 3,220 = 1.86 %; expected rework (τ/2)/M = 1,610 / 86,400 = 1.86 %; restart
+900 / 86,400 = 1.04 %; total ≈ **4.77 %** (versus ≈ 3.16 % at the canonical 48 h: 1.32 + 1.32 + 0.52 %;
+the same 4.77 % as Chapter 23's W2). τ shrinks only by √2 (4,554 s → 3,220 s) while every term grows.
+Accept the 12.25 s floor (τ = 1,455 s, 2.7 %) only if the learner labels it a lower bound.
 *Marking (12 pts):* (a) 4, (b) 4, (c) 4. Full arithmetic required for credit.
 *Common mistakes:* forgetting that the two-tier non-blocking leaf has 32 uplinks, not 64; computing
-idle *flows* instead of idle uplinks; using node MTBF instead of job MTBF in Young's formula.
+idle *flows* instead of idle uplinks; using node MTBF instead of job MTBF in Young's formula; using the
+12.25 s bandwidth floor as δ without saying it is a lower bound.
 
 ---
 
 ## C. Lab answer key
 
-`python lab/check.py --impl solution` → 11/11 PASS. The reference report (`solutions/lab/career_lab.py`)
+`python lab/check.py --impl solution` → 12/12 PASS. The reference report (`solutions/lab/career_lab.py`)
 prints AI Network Engineer readiness 100.0 / 94.1 / 78.4 / 69.6 (junior → staff) and the register
 summary "rows: 61; unique postings: 51; complete: 40; active and fresh: 31".
 
@@ -210,16 +214,19 @@ bursts that mark ECN. That mechanism is plausible but unproven — accept answer
 name the test (ECN rate per port before and after the node is excluded). If ECN were rising on rail-5
 ports unrelated to `orion-n22`, H2 needs its own investigation.
 
-**Magnitude check.** If compute is ≈ 13.5 s of the 17.4 s step (≈ 78 %, as in Chapter 22's budget) and
-scales with SM clock (peers boost-locked at 1,980 MHz, as the case states), the slowed node's compute
-becomes 13.5 × 1,980 / 1,715 = 13.5 × 1.155 = 15.6 s, i.e. +2.1 s → 19.5 s (+12 %), matching the symptom.
+**Magnitude check.** If compute is ≈ 13.5 s of the 17.4 s step (Chapter 22's 77.7 % compute share, 13.90 of 17.90 s in
+Table 22.2, applied to the 17.4 s modeled step) and
+scales with SM clock (peers at the ≈ 1,830 MHz sustained clock, as the case states), the slowed node's
+compute becomes 13.5 × 1,830 / 1,585 = 13.5 × 1.155 = 15.6 s, i.e. +2.1 s → 19.5 s (+12 %), matching the symptom.
 Treat +2.1 s as an upper bound: memory-bound kernels slow less than the clock ratio, so the real
-thermal penalty is somewhat smaller and a small residual may remain for other causes. (A GPU at 58 % clock would instead add
+thermal penalty is somewhat smaller and a small residual may remain for other causes. Comparing against
+the 1,980 MHz boost instead would predict 13.5 × (1,980/1,585 − 1) ≈ 3.4 s and overstate it: say which
+peer clock you used. (A GPU at 58 % clock would instead add
 13.5 × 0.72 ≈ 9.8 s, +56 % — a learner who finds a mismatch of that kind should say the evidence is
 inconsistent.)
 
 **Root cause.** *Proven:* GPU 5 on `orion-n22` is in software thermal slowdown (event reason active, 89 °C,
-SM clock 1,715 / 1,980 = 87 % of peers), its TP group waits for it, and its ranks gate the pipeline. *Inferred:* the 02:10 fan-tray
+SM clock 1,585 / 1,830 = 87 % of peers), its TP group waits for it, and its ranks gate the pipeline. *Inferred:* the 02:10 fan-tray
 replacement caused the airflow deficit — correlated in time, to be confirmed by Facilities' inspection.
 
 **Safe change.** Agree with the job owner to restart from the latest checkpoint without `orion-n22`
@@ -271,7 +278,7 @@ rehearsal within 18–22 min (2). A changed constraint must propagate through th
 sequence length 8,192 doubles per-micro-batch activations to 134 MB and TP volume per micro-batch;
 memory must be re-checked).
 
-**M3** — 15 pts: all Table 24.12 sections (5); impact with units and arithmetic (3); a genuinely
+**M3** — 15 pts: all Table 24.14 sections (5); impact with units and arithmetic (3); a genuinely
 discriminating test (3); remaining uncertainty (2); anonymisation statement (2). Deduct heavily for
 unlabelled numbers or confidential detail.
 
@@ -287,10 +294,14 @@ presentation (M2).
 the artifacts; matrix mismatch with the target employer's ladder corrected by mapping onto a published
 ladder or asking an engineer at that level; evidence older than the current technology generation.
 **R2** Any argument grounded in Table 24.7's problems (e.g., neocloud AI-network roles weighting
-automation higher because bring-up speed dominates).
+automation higher because bring-up speed dominates). *Marking anchor:* full credit names a specific
+employer type, the competency whose weight changes, the direction, and the evidence (a posting pattern
+or ladder) that would confirm it; half credit for a direction without evidence.
 **R3** The line is whether the number came from *your* environment with a manifest and repetitions
 (skill in measurement) or from a model or supplied data (skill in reasoning). Both are valuable; only the
-first supports a measurement claim.
+first supports a measurement claim. *Marking anchor:* full credit classifies at least two of the
+learner's own artifacts on each side of the line and names the manifest field that decides it; half
+credit for a correct definition with no example.
 **R4** A dated, deduplicated register over a defined window, and a longer window than one day (the
 October 2026 register is a one-day purposive sample with no hyperscaler); segmentation by role and level;
 the ratio of postings to qualified applicants (not observable from postings); interview-loop data. Frequency

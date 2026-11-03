@@ -13,10 +13,14 @@ TODO T2.detects_HBM_ROW_REMAP_PENDING: evaluate_node not implemented
 TODO T2.detects_NVLINK_DOWN: evaluate_node not implemented
 TODO T2.detects_ECC_DBE: evaluate_node not implemented
 TODO T2.detects_RDMA_PAIR_BW_LOW: evaluate_node not implemented
+TODO T2.detects_LINK_BER_HIGH: evaluate_node not implemented
+TODO T2.detects_GDR_PATH_FAIL: evaluate_node not implemented
+TODO T2.detects_NVME_DRIVE_SLOW: evaluate_node not implemented
 TODO T2.detects_NCCL_BUSBW_LOW: evaluate_node not implemented
 TODO T2.detects_NCCL_ALGO_UNRECORDED: evaluate_node not implemented
 TODO T2.detects_NIC_MTU: evaluate_node not implemented
 TODO T2.nccl_floor_follows_algorithm: evaluate_node not implemented
+TODO T2.gdr_rules: evaluate_node not implemented
 TODO T2.sbe_is_warning_not_failure: evaluate_node not implemented
 TODO T2.fleet_verdict_counts: evaluate_node not implemented
 TODO T2.fleet_digest: evaluate_node not implemented
@@ -32,4 +36,4 @@ TODO T4.canary_and_wave_limits: plan_upgrade_waves not implemented
 TODO T4.minimal_wave_count: plan_upgrade_waves not implemented
 TODO T4.deterministic: plan_upgrade_waves not implemented
 
-0/33 checks passed (starter) in <t> s
+0/37 checks passed (starter) in <t> s

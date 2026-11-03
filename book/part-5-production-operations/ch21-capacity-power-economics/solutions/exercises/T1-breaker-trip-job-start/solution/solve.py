@@ -18,9 +18,9 @@ MARGIN = 0.10
 BASE_KW = 4.6
 GPUS_PER_NODE = 8
 CURVE_MIN_CAP_W = 350          # lowest cap in lab/data/power_cap_curve.csv (rel. throughput 0.70)
-OBSERVED_KW = {"lh-03 idle 08:55": 12.1, "lh-03 job start 09:02:10": 41.6, "lh-04 peak (3 nodes)": 30.9}
+OBSERVED_KW = {"lh-03 idle 08:55": 12.1, "lh-03 job start 09:02:10": 40.8, "lh-04 peak (3 nodes)": 30.6}
 PLANNED_CLAIM_KW = 41.0        # capacity plan: "41 kW max <= 2 × 32.78 kW"
-KEY = {"budget_kw": 29.5, "cap_for_four_w": 347, "three_at_650_kw": 29.4, "job_start_amps": 61}
+KEY = {"budget_kw": 29.5, "cap_for_four_w": 347, "three_at_650_kw": 29.4, "job_start_amps": 60}
 TOL = 0.5
 
 

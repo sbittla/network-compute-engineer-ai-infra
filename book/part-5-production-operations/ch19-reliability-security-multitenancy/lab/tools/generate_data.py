@@ -295,6 +295,8 @@ TENANTS = """\
 # network.vrf / network.vni: Ethernet isolation (frontend and RoCE backend; VXLAN/EVPN VNI per tenant).
 # network.ib_pkey: InfiniBand partition key, used only for tenants placed on the IB-fabric variant;
 #   the subnet manager assigns it and IB switches enforce it on ingress when partition enforcement is on.
+# pod_security: Pod Security Admission level enforced on the tenant's namespaces, plus the admission-audit
+#   findings for pods that request privileged mode or set NVIDIA_VISIBLE_DEVICES without a GPU request.
 tenants:
   - name: acme-research
     idp_group: grp-acme
@@ -308,6 +310,7 @@ tenants:
       exports: [{path: /lustre/projects/acme, mode: rw}]
       encryption_key_id: kms/acme-01
     gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: true}
+    pod_security: {psa_enforce: baseline, privileged_pods: [], gpu_env_without_request: ["acme-dev/notebook-7"]}
     secrets: {backend: vault, path_prefix: kv/tenants/acme-research/}
     audit: {sink: siem-central, retention_days: 400}
   - name: borealis
@@ -321,6 +324,7 @@ tenants:
       exports: [{path: /lustre/projects, mode: ro}]
       encryption_key_id: kms/borealis-01
     gpu: {allocation_mode: whole, shared_with: [], scrub_on_release: false}
+    pod_security: {psa_enforce: restricted, privileged_pods: [], gpu_env_without_request: []}
     secrets: {backend: vault, path_prefix: kv/tenants/}
     audit: {sink: siem-central, retention_days: 400}
   - name: cobalt-inference
@@ -334,6 +338,7 @@ tenants:
       exports: [{path: /lustre/projects/cobalt, mode: rw}]
       encryption_key_id: kms/cobalt-01
     gpu: {allocation_mode: timeslice, shared_with: [borealis], scrub_on_release: true}
+    pod_security: {psa_enforce: restricted, privileged_pods: [], gpu_env_without_request: []}
     secrets: {backend: vault, path_prefix: kv/tenants/cobalt-inference/}
     audit: {sink: siem-central, retention_days: 30}
 """
@@ -347,6 +352,9 @@ gpu_cross_tenant_sharing_requires: mig
 scrub_on_release_required: true
 secrets_prefix_must_end_with_tenant_name: true
 storage_exports_must_not_overlap_other_tenants: true
+psa_levels_allowed: [restricted, baseline]
+forbid_privileged_tenant_pods: true
+forbid_gpu_env_without_request: true
 """
 
 

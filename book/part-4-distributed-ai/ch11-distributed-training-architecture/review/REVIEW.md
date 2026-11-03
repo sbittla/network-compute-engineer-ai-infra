@@ -71,3 +71,46 @@ Independent score 9.48 (minor findings only). validate_labs: all columns OK.
 | R2-03 | R definition said "swap node" | "detect, drain, reschedule (after repair, or at DP = 7) …" |
 | R2-04 | Table 11.2 DP row "Low (overlapped)"; realism text | "Medium — ≈ 98 of 170 ms exposed (window-limited)"; realism boundary now "fixed TP/PP overlap fractions and a fixed DP window" |
 | R2-05 | 32-node run vs 24 + 8 split | Prerequisites note: a full-size W-TRAIN run borrows inference nodes `orion-n25`–`n32` |
+
+## Independent review r1 (2026-11-01)
+
+Independent score **9.375** (D1 9.0, D2 9.5, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 9.5, D8 9.5, D9 9.0).
+check.py 10/10 (solution), 0/10 with clean TODOs (starter).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N11-01 | Minor | Full-recompute activation 16.8 MB | Verified: 2 × 4096 × 1 × 8192 / 8 = 8,388,608 B ≈ 8.4 MB; fixed with the substitution shown |
+| N11-02 | Minor | Legacy flight-recorder variable | `TORCH_FR_BUFFER_SIZE` (legacy `TORCH_NCCL_TRACE_BUFFER_SIZE`, 0 disables), `TORCH_FR_DUMP_TEMP_FILE`, `TORCH_NCCL_DUMP_ON_TIMEOUT=1`, per VERIFIED_FACTS; 11.6 answer updated |
+| N11-03 | Minor | 17.45 s "= 17.39 s + 0.06 s DP" | Replaced: 17.45 s is 39.9 % MFU, within 0.4 % of the canonical 17.4 s / 40 % |
+| N11-04 | Minor | NCCL line implied a cross-rail TP hop | Ring `0 1 2 3 7 6 5 4`, `3[3] -> 7[3] [send] via NET/IB/3/GDRDMA`; added that TP's inter-node phase stays rail-local on NICs 0–3 |
+| N11-05 | Minor | Recompute model omitted re-run TP collectives | Implemented: `comm_model` counts 6 instead of 4 TP collectives per layer per micro-batch under full recompute (solution; starter docstring); check `comm_volumes_baseline` asserts ×1.5. Candidate K: TP 4.11 → 6.17 s, step 22.17 → 23.71 s, MFU 31.4 → 29.3 %. Propagated to Table 11.4 (new row), key 11.7, 11.7 solve/answer/meta/outputs, 11.13 answer, solutions/lab README; recommendation unchanged (D) |
+| N11-06 | Minor | Review questions lack answers | Inline answers added (Q1 (t − 1) identity, Q2 m = 8, bubble 7/15 ≈ 47 %, Q3 lowest sequence number) |
+| D1/VERIFIED_FACTS | — | Checkpoint waste R term | Added that R/MTBF does not depend on τ and so leaves τ_opt unchanged |
+| D2 advice | — | FP32 DP reduction; EP drop rate | FP32 reduce-scatter half doubles: 11.5 GB, 0.26 s, ≈ 0.18 s exposed; capacity-factor token-drop rate as the observable |
+| D5 advice | — | 11.15 not reproducible | Key gives the yaml edits and the m / bubble inputs for every row |
+| D6 advice | — | L2 16 B decomposition | Lab README explains 4 + 4 + 4 + 4 (experiment) vs 2 + 2 + 12 (chapter). Committed L2 bundle not edited |
+| D8 advice | — | Flight-recorder gate before restart | Figure 11.6 gains a Collecting state (dumps, py-spy, NCCL logs) before Isolating; caption and R definition updated |
+
+Tests: `check.py --impl solution` 10/10, `--impl starter` 0/10; `validate_labs.py` OK; `copyedit_lint.py` 0
+findings in this chapter; package test suite 86 passed; golden check output, 11.13 lab_checks and 11.7
+outputs regenerated.
+
+## Independent review r2 (2026-11-01)
+
+Independent score **9.50** (all dimensions 9.5). No blocker or major findings.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R11-01 | Layout D depends on an unstated hierarchical-DP model | New "Step 7a — What changes for D": DP 0.0146 + 0.0729 = 0.0876 s, exposed 0.015 s; PP 0.103 s, exposed 0.052 s; TP 1.77 s, exposed 1.33 s; step 16.07 s (checked against the lab model). The flat one-GPU-per-node formula would give ≈ 16.15 s. Row F's 9.4 s explained as hierarchical too; §11.3 notes DP is hierarchical whenever TP < 8 |
+| R11-02 | `SW Power Cap` as the discriminating clue | 11.14 stem (and folder prompt) says peers show it intermittently; key and answer make the enforced limit and the sustained clock against ≈ 1,830 MHz the evidence |
+| R11-03 | 11.14 moves to ORION-XL silently | Sentence: 64 nodes span pods p00/p01, so DP/PP cross pod spines but are < 1 % of the step; resubmit inside one pod |
+| R11-04 | No numerical-failure mode | "Numerical failures" paragraph in §11.11: signature, `dcgmi diag -r 3`, deterministic replay, two validated checkpoint generations |
+| R11-05 | TP = 4 cost wording | "at fixed PP; layout D restores the per-GPU weight count by doubling PP" |
+| R11-06 | Lab traps are configuration-only | Deferred: a per-rank timing CSV task needs a new dataset and checks |
+| D6/D8 advice | Run count; exact commands | 11.14 validation reports three 200-step runs with spread; runbook row gives the dump path and an `srun … py-spy dump` loop |
+
+Tests: check.py solution 10/10, starter 0/10; validate_labs OK; copyedit_lint 0; package tests 86 passed.
+
+## Post-verification minors (2026-11-03)
+
+Verified scores: ch09 9.60, ch10 9.83, ch11 9.75, ch12 9.78 (all pass). Cleared: N11-01 SDC signature now uses weight/optimizer-state checksums disagreeing across DP replicas, not local gradient norms.

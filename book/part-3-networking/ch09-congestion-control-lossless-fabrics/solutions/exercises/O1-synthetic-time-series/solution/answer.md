@@ -2,7 +2,7 @@
 
 All values are medians over each episode, computed as **rates** from the lab's cumulative counters,
 `[SIMULATED / SYNTHETIC data]`. `solve.py` computes them independently of the lab code; its
-`episode_values.csv` holds every quoted number. Relies on manuscript Section 9.8 (Table 9.4 signatures,
+`episode_values.csv` holds every quoted number. Relies on manuscript Section 9.8 (Table 9.6 signatures,
 Figure 9.10 decision tree, "Reading counters correctly") and lab README Tasks 1–3.
 
 **Rate handling that matters:** the first sample of each series is NaN. The counter reset on
@@ -18,17 +18,17 @@ Episodes (hot = TC 3 watermark ≥ 1,000 KB or pause tx/rx ≥ 100/s, merged acr
 | Discriminating value | Value | Why it discriminates |
 |---|---|---|
 | eth1/5 egress | **393.6 Gb/s** (line rate) | A storm would show ≈ 0 Gb/s toward the device |
-| eth1/5 TC 3 watermark | **3,179 KB**, above that leaf's 1,500 KB Kmin | Deep queue at one egress |
-| eth1/5 ECN marks | **≈ 0.67 M marks/s** | Heavy marking; a storm port marks ≈ 0 |
+| eth1/5 TC 3 watermark | **≈ 1,426 KB** median (1,107–1,690 KB) | Held near the 1,000 KB aggregate Xoff-equivalent by PFC; peaks cross the 1,500 KB Kmin |
+| eth1/5 ECN marks | **median 0** (IQR 0–27 k/s) | Sporadic: Kmin sits above Xoff, so marking starts only on overshoot peaks. On a template leaf this would be heavy marking |
 | eth1/5 pause rx | **0 /s** | Not paused by its peer, so it is the root, not a branch |
-| Sender ports (12 of them) pause tx | ≈ 3,770–5,070 /s (eth1/1: 5,073 /s); fabric ports 0 /s | Pause stays at the first hop: no propagation |
-| `orion-n05 mlx5_3` `cnp_sent` | ≈ 382,000 /s | The NP is reacting: DCQCN feedback is flowing |
+| Sender ports (12 of them) pause tx | ≈ 16,500–19,100 /s port medians (eth1/1: 19,145 /s); fabric ports 0 /s | Pause stays at the first hop: no propagation; senders paused most of the time |
+| `orion-n05 mlx5_3` `cnp_sent` | median ≈ 11 /s (mean ≈ 8,000 /s) | Little DCQCN feedback: the incast is handled by PFC (marks/pause ≈ 0.09) |
 
 ## Episode 2 (250–318 s): **pause propagation**, root `orion-be-leaf-r3:eth1/10` (toward `orion-n10`)
 
 | Discriminating value | Value | Why it discriminates |
 |---|---|---|
-| eth1/10 egress, watermark, pause rx | 394.1 Gb/s, 3,298 KB, **0 /s** | Congested and not paused: the root |
+| eth1/10 egress, watermark, pause rx | 394.1 Gb/s, 1,374 KB (PFC-held), **0 /s** | Congested and not paused: the root |
 | leaf-r3 uplinks pause tx to spines | **≈ 7,970 /s** (eth1/33), ≈ 8,080 /s (eth1/41) | Pause on switch↔switch links means the tree has spread |
 | Spine ports toward leaf-r3 | queue ≈ 2,360–2,490 KB, **≈ 5.9–6.0 M marks/s**, *receiving* ≈ 8,000 pause/s | Deep *and* paused, so branches, not roots |
 | leaf-r4 uplinks to spines | queue ≈ 1,840–1,880 KB, pause rx ≈ 4,780–5,020 /s | The next branch upstream |

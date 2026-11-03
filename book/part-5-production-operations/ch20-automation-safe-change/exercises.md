@@ -10,32 +10,32 @@ grading. Values are ORION `[ILLUSTRATIVE]` unless stated otherwise
 
 ---
 
-## 20.1 Knowledge check (★, L1)
+## Knowledge checks — 20-K1 to 20-K8 (★, L1)
 
 Answer each in 2–5 sentences.
 
-1. Define *idempotent* and give one ORION operation that is naturally idempotent and one that is
+**20-K1.** Define *idempotent* and give one ORION operation that is naturally idempotent and one that is
    not. For the second, explain how you would make it safe to retry.
-2. What is the difference between a *level-triggered* and an *edge-triggered* controller? Why does
+**20-K2.** What is the difference between a *level-triggered* and an *edge-triggered* controller? Why does
    the difference matter after the controller has been down for a day?
-3. In Terraform/OpenTofu terms, what are *state*, *plan*, and *drift*? Which plan action should make
+**20-K3.** In Terraform/OpenTofu terms, what are *state*, *plan*, and *drift*? Which plan action should make
    a fabric reviewer stop and ask questions, and why?
-4. Name the five validation layers of Section 20.5 and give one ORION defect that only layer 3
+**20-K4.** Name the five validation layers of Section 20.5 and give one ORION defect that only layer 3
    (cross-object policy) can catch.
-5. List the four OpenGitOps principles. What does GitOps do to a hand-applied break-glass fix, and
+**20-K5.** List the four OpenGitOps principles. What does GitOps do to a hand-applied break-glass fix, and
    how should a team handle break-glass under GitOps?
-6. Distinguish *proceed*, *hold*, and *abort* in a rollout controller. Give a concrete condition
+**20-K6.** Distinguish *proceed*, *hold*, and *abort* in a rollout controller. Give a concrete condition
    that produces each.
-7. Why should a rollout controller compare each node's median against *that node's own* baseline
+**20-K7.** Why should a rollout controller compare each node's median against *that node's own* baseline
    median, rather than against a fleet-wide threshold or a per-sample minimum?
-8. Name five fleet-automation safety controls from Table 20.11 and the specific failure each
+**20-K8.** Name five fleet-automation safety controls from Table 20.11 and the specific failure each
    prevents.
 
 **Evidence required:** written answers; each answer names the mechanism, not just the term.
 
 ---
 
-## 20.2 Worked problem A — MTU budget for an IPv6, VLAN-tagged variant (★★, L1)
+## 20-W1 Worked problem A — MTU budget for an IPv6, VLAN-tagged variant (★★, L1)
 
 A second cluster reuses ORION's design with three differences: the backend underlay is **IPv6**,
 host ports are **802.1Q-tagged**, and the leaves' configured port MTU is **9,100 B**. The vendor
@@ -57,7 +57,7 @@ two rules.
 
 ---
 
-## 20.3 Worked problem B — Wave plan for ORION-XL (★★★, L1)
+## 20-W2 Worked problem B — Wave plan for ORION-XL (★★★, L1)
 
 ORION-XL has 512 HX8 nodes in 128 racks (4 nodes per rack). You are rolling out a NIC firmware
 bundle. Constraints: at most one node per rack per wave; each wave costs 75 min (apply + verify +
@@ -80,7 +80,7 @@ maximum justified.
 
 ---
 
-## 20.4 Hands-on lab — Safe-change automation (★★, L1; L2/L3 extensions)
+## 20-L1 Hands-on lab — Safe-change automation (★★, L1; L2/L3 extensions)
 
 Complete [Lab 20](lab/README.md), Parts 1–3. Then answer:
 
@@ -90,13 +90,13 @@ b. Explain the two wave-1 situations that would make a naive controller abort, a
    choice in your controller that prevents each.
 c. Justify `rollback_scope: all_changed` for this rollout, or argue for failing-wave-only.
 
-**Evidence required:** `python check.py` output with all 13 checks PASS; the decision log from
+**Evidence required:** `python check.py` output with all checks PASS; the decision log from
 `run_rollout`; written answers a–c (≤ 1 page). L2/L3: a filled-in copy of `lab/manifest.yaml` with
 the extension fields.
 
 ---
 
-## 20.5 Outline exercise — Idempotent node/network configuration validator (★★, L1 → L2)
+## 20-M1 Outline exercise — Idempotent node/network configuration validator (★★, L1 → L2)
 
 Write an idempotent script, or an IaC/configuration-management example, that **validates** an
 ORION node's backend network configuration against desired state and reports drift without
@@ -118,7 +118,7 @@ apply plans zero actions); the audit lines; for L2, the manifest fields from the
 
 ---
 
-## 20.6 Outline exercise — Design a canary rollout for the leaf QoS profile (★★★, L1)
+## 20-M2 Outline exercise — Design a canary rollout for the leaf QoS profile (★★★, L1)
 
 Design the rollout of a new RoCE QoS profile to ORION's 8 rail leaves (`orion-be-leaf-r0`–`orion-be-leaf-r7`). The
 new profile tightens ECN marking thresholds on TC 3. Produce:
@@ -135,7 +135,7 @@ new profile tightens ECN marking thresholds on TC 3. Produce:
 
 ---
 
-## 20.7 Outline exercise — Review a deliberately unsafe change plan (★★, L1)
+## 20-M3 Outline exercise — Review a deliberately unsafe change plan (★★, L1)
 
 Review `lab/data/unsafe_change_plan.md` (this is Lab Part 3). Identify missing validation,
 blast-radius controls, and rollback mechanisms, recording them as structured findings in
@@ -146,7 +146,7 @@ pages) that addresses every finding, with wave plan, abort conditions, and rollb
 
 ---
 
-## 20.8 Troubleshooting case — The plan that wanted to remove PFC (★★★, L1)
+## 20-T1 Troubleshooting case — The plan that wanted to remove PFC (★★★, L1)
 
 At 02:10 the nightly fabric reconciler posts this dry-run plan for review (it normally plans 0–3
 actions):
@@ -182,7 +182,7 @@ lines; fix, validation, and guard.
 
 ---
 
-## 20.9 Design challenge — Drift policy and break-glass for the ORION fabric (★★★, L1)
+## 20-D1 Design challenge — Drift policy and break-glass for the ORION fabric (★★★, L1)
 
 Platform and Fabric disagree. Fabric wants the GitOps controller to **auto-revert** any drift on
 leaf QoS and MTU within 5 minutes. Platform wants **alert-only**, because on-call engineers
@@ -196,12 +196,12 @@ procedure, and two scenario walk-throughs showing the policy's behaviour.
 
 ---
 
-## 20.10 Chapter deliverable — Automation sample and safe-change runbook (★★★, L1)
+## 20-DEL Chapter deliverable — Automation sample and safe-change runbook (★★★, L1)
 
 Submit:
 
 1. **Automation sample**: your completed Lab 20 Parts 1–2 (the reconciler and rollout controller)
-   or your Exercise 20.5 validator, with a README explaining its safety defaults: dry run, cap,
+   or your Exercise 20-M1 validator, with a README explaining its safety defaults: dry run, cap,
    audit, and kill-switch hook.
 2. **Safe-change runbook** for one ORION change type of your choice (NIC firmware, leaf QoS, or host
    MTU), following the structure of the runbook excerpt in the manuscript: before / during / after,
@@ -209,19 +209,19 @@ Submit:
    contents.
 
 **Evidence required:** both artifacts; the runbook cites the lab's decision log or your Exercise
-20.6 design as its threshold source.
+20-M2 design as its threshold source.
 
 ---
 
-## 20.11 Reflection / review (★, L1)
+## Reflection / review — 20-R1 to 20-R4 (★, L1)
 
-1. The Section 20.11 expected-loss comparison found a big-bang change *cheaper* in expected GPU-hours.
+**20-R1.** The Section 20.11 expected-loss comparison found a big-bang change *cheaper* in expected GPU-hours.
    Under what conditions would you accept the big bang, and what evidence would you need?
-2. The Part 2 controller saw synthetic metrics. List three things real telemetry would do that the
+**20-R2.** The Part 2 controller saw synthetic metrics. List three things real telemetry would do that the
    lab data does not, and how each could fool your controller.
-3. Your Part 3 score is keyword-based. Identify one of your findings that would pass the checker
+**20-R3.** Your Part 3 score is keyword-based. Identify one of your findings that would pass the checker
    but that a senior reviewer might still reject, and improve it.
-4. What evidence is still missing before you could claim that raising RDMA MTU to 4,096 improves
+**20-R4.** What evidence is still missing before you could claim that raising RDMA MTU to 4,096 improves
    ORION's training step time?
 
 **Evidence required:** written answers, ≤ 150 words each, naming specific missing evidence.

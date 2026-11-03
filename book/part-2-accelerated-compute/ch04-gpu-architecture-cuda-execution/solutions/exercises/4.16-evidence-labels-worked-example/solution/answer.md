@@ -1,6 +1,6 @@
 # 4.16 — Evidence labels in the worked example (model answer)
 
-Relies on manuscript Section 4.12 (worked example, Table 4.5) and the book's evidence-label rules.
+Relies on manuscript Section 4.12 (worked example, Table 4.11) and the book's evidence-label rules.
 
 **`[SIMULATED]`:** everything read from the seeded Lab 4 capture: the 85.57 ms step window, busy fractions
 (88.8 % any, 78.6 % kernel), gap counts and totals (15 `host_sync` = 4.91 ms, 600 `launch_bound` = 4.02 ms,

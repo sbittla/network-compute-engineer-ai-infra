@@ -1,0 +1,26 @@
+id: 20-M2
+title: Canary rollout design for the leaf QoS profile
+folder: 20-M2-leaf-qos-canary-design
+type: outline-mandated
+difficulty: 3
+tier: L1
+kind: written
+points: 20
+evidence_required: A 1-2 page design under the six headings; every threshold labelled [ILLUSTRATIVE] or derived
+  from a stated baseline; explicit reasoning about rail independence.
+marking:
+- criterion: 'Prechecks: per-leaf and fabric-wide, exact signals, baselines and staged rollback config'
+  points: 3
+- criterion: 'Wave plan: one leaf canary, growth, bake >= 60 min under real load justified from Table 20.8'
+  points: 3
+- criterion: Success criteria per rail vs own baseline median, with expected direction of ECN marks
+  points: 3
+- criterion: At least four abort conditions with statistic, threshold and floor; hold for telemetry gaps
+  points: 3
+- criterion: 'Rollback: mechanism, scope, rehearsal evidence, time bound'
+  points: 3
+- criterion: Audit evidence per leaf and per wave and where it is stored
+  points: 3
+- criterion: Rail-independence reasoning (one leaf = one rail of every node; never two in the canary)
+  points: 2
+lab_checks: []

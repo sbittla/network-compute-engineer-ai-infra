@@ -21,9 +21,9 @@ def main() -> None:
     nic = DP_BYTES + PP_BYTES
     ratio = TP_BYTES / nic
     ratio_dp = TP_BYTES / DP_BYTES
-    # Key (solutions/exercises-key.md 13.1): 9.81 GB, ratio ≈ 123 (≈ 157 vs DP alone); tolerance 1.5x.
+    # Key (solutions/exercises-key.md 13.1): 9.81 GB, ratio ≈ 122 (≈ 157 vs DP alone); tolerance 1.0.
     assert abs(nic - 9.81e9) < 1e6
-    assert abs(ratio - 123) < 1.5, ratio
+    assert abs(ratio - 122) < 1.0, ratio
     assert abs(ratio_dp - 157) < 1.0, ratio_dp
 
     result = {

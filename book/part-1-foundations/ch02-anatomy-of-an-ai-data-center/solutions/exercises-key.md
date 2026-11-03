@@ -8,10 +8,12 @@ within ±1 % of rounding unless a marking note says otherwise.
 
 ## Exercise 2.1 — Knowledge check
 
-1. **Power-limited rack.** Four HX8 nodes use 32U of a 48U rack but draw 4 × 10.2 + 0.2 = 41.0 kW.
-   48U − 32U − 3U (switch and cassettes) leaves 13U, so a fifth 8U node fits physically, but it
-   would take the rack to 5 × 10.2 + 0.2 = 51.2 kW, needing 56.3 kW per side with margin — beyond
-   ORION's per-rack coolant, CDU, and floor design even though 65.55 kW per side is available. *Marking:* full credit needs both a space and a power number.
+1. **Power-limited rack.** Four HX8 nodes use 32U of a 48U rack but draw 4 × 10.2 + 0.2 = 41.0 kW. 48U −
+   32U − 3U (switch and cassettes) leaves 13U, so a fifth 8U node fits physically, but it would take the
+   rack to 5 × 10.2 + 0.2 = 51.2 kW, needing 56.3 kW per side with margin. That exceeds the floor
+   rating, and a fifth node in every rack would overload the CDU (8 × 38.4 kW = 307 kW > 300 kW), even
+   though 65.55 kW per side is available. *Marking:* full credit
+   needs both a space and a power number.
 2. **Three networks.** Backend: distributed jobs hang or fail (collectives cannot complete);
    frontend/storage: jobs stall on dataset reads and checkpoints, inference is unreachable; OOB:
    running work continues, but remote power control, console, and BMC telemetry are lost.
@@ -64,9 +66,9 @@ used: leaves 8 × 32 = 256 (of 512 → **256 unused leaf ports**), spines 2 × 6
 **5. Frontend and OOB.** Frontend: 16 × 2 = **32** ports at 200 Gb/s. OOB: 16 BMCs + 10 backend
 switches + 2 frontend leaves + 4 storage servers + 6 racks × 4 PDUs (24) = **56** ports.
 
-**6. Assumption to verify.** Best answers: the 10.2 kW node maximum and transient margin at 32 A
-(the rack has only 1.08 kW of headroom — a 4 % error in node power breaks the design); or that the
-older hall's floor and cooling can take 31 kW racks.
+**6. Assumption to verify.** Best answers: the 10.2 kW node maximum and transient margin at 32 A (the
+rack has only 1.08 kW of headroom — a ≈ 3 % error in node power breaks the design: (30.6 × (1 + x) +
+0.2) × 1.10 ≤ 34.96 gives x ≤ 3.2 %); or that the older hall's floor and cooling can take 31 kW racks.
 
 *Marking (20 pts):* nodes/rack with arithmetic 5; racks and RU 2; switches and links 5; transceivers
 2; bisection 2; frontend/OOB 2; assumption 2. *Common mistakes:* using 4 nodes per rack (sizing on
@@ -138,7 +140,7 @@ input: PSU ratings are DC. Deduct marks for an AC-vs-DC comparison even though t
 BOM: 32 nodes, 256 GPUs, 8 GPU racks, 256U of nodes (32U per rack), 8 leaves + 4 spines = 12 backend
 switches, 256 host links + 256 leaf–spine links = 512, 768 switch ports, 1,024 single-port
 transceivers or 384 twin-port switch modules, 64 frontend ports, 2 frontend leaves, 32 GPU-rack PDUs,
-86 OOB ports, 13 racks.
+86 OOB ports (GPU-pod scope of the model), 13 racks.
 
 Power/cooling: rack 41.0 kW max, 45.1 kW design, 43.13 kVA per circuit, 65.55 kW usable per side,
 20.45 kW headroom; liquid 30.75 kW, air 10.25 kW; 0.7885 kg/s = 46.38 L/min; 1,199 CFM residual,
@@ -164,9 +166,10 @@ GPU; checkpoint 980 GB, ≥ 12.25 s; 1,906,176 allocated GPU-hours.
 The key teaching point is that **`ups-A` and `busway-A` are SPOFs in a 2N electrical design** solely
 because two dual-homed switches are both single-corded to the same feed. Learners who list only the
 "singleton" groups (CDU, MDS, scheduler, OOB) have not run the propagation correctly. Non-SPOFs worth
-discussing: any single spine (3 of 4 suffice in the model, at reduced bisection), any single chiller
-(2 of 3), any GPU-rack PDU (2N), any single node (28 of 32 retained), `busway-B`/`ups-B` (everything
-on B also has A, except nothing that depends *only* on B).
+discussing: any single spine (3 of 4 suffice in the model, at reduced bisection), any single chiller (2
+of 3), any GPU-rack PDU (2N), any single node (31 of 32 retained, above the 28-node `min_required`
+threshold of the training service; a full-scale *job* still fails, Table 2.9), `busway-B`/`ups-B`
+(everything on B also has A, except nothing that depends *only* on B).
 
 *Marking (100, per lab/README.md):* Task 1 30 (2 pts per finding detected = 18 via `check.py`, 12 for
 consequence sentences); Task 2 15 (9 checker, 6 table and optics assumptions); Task 3 20 (12 checker, 8
@@ -230,10 +233,10 @@ applying the 94 % efficiency to the 1,000 W saving twice or applying the capture
 
 ## Exercise 2.7 — The maintenance-window slowdown
 
-1. Slowdown 22.6 ÷ 17.4 = 1.299 → **+29.9 %**. Clocks on rack-02/03 fell to 1,050 ÷ 1,755 = 0.598 of
-   normal (−40 %). The job is synchronous, so all 256 GPUs wait for the 64 braking GPUs every step;
-   the slowdown is smaller than the clock loss because communication and other non-compute time do not
-   scale with SM clock.
+1. Slowdown 22.6 ÷ 17.4 = 1.299 → **+29.9 %**. Clocks on rack-02/03 fell to 1,050 ÷ 1,830 = 0.574 of the
+   peers' sustained clock (−43 %). The job is synchronous, so all 256 GPUs wait for the 64 braking GPUs
+   every step; the slowdown is smaller than the clock loss because communication and other non-compute
+   time do not scale with SM clock.
 2. Ranked hypotheses: **H1 (high)** — PSU cording or PSU population differs on rack-02/03 nodes so that
    feed A alone cannot supply them (the per-rack feed-A power of ≈ 24 kW vs ≈ 34 kW elsewhere and the
    *power brake* reason point here); **H2 (medium)** — failed or missing PSUs on those nodes, so fewer
@@ -251,18 +254,18 @@ applying the 94 % efficiency to the 1,000 W saving twice or applying the capture
    - BMC power-limit settings: `ipmitool dcmi power get_limit`; firmware inventory via Redfish
      `UpdateService/FirmwareInventory` → H3.
    - PDU event log and per-phase current for rack-02/03 feed A → H4.
-4. With 2 PSUs on feed A: 2 × 3.0 = **6.0 kW** available vs a sustained DC need of about
-   8.5 kW × 0.94 = **7.99 kW** → the platform asserts power brake. Other racks: 3 × 3.0 = 9.0 kW ≥
-   7.99 kW → no brake at sustained load (they would still brake at the 9.59 kW peak). Consistency
-   check: braked nodes are held at or below the 6.0 kW of DC the two feed-A PSUs deliver (8 GPUs ×
-   330 W ≈ 2.6 kW plus non-GPU load). At the AC input that is ≤ 6.0 ÷ 0.94 ≈ 6.4 kW per node, or
-   ≤ 25.5 kW per rack, consistent with the 24.1 kW measured on feed A (the brake undershoots the PSU
-   limit). Compare DC with DC and AC with AC; PSU ratings are DC output. **Fix:** drain the 8 nodes (`scontrol update NodeName=orion-n[05-12] State=DRAIN
-   Reason="PSU cording 2A/4B"`), have Fleet re-cord to 3/3 under the rack's change procedure, return
-   to service. **Validate without a maintenance window:** PDU per-outlet readings show each node's load
-   split ≈ 50/50 across A and B; `sdr type "Power Supply"` shows six healthy PSUs; the outlet map in
-   the inventory matches the standard. A true single-feed test only in a Facilities-run commissioning
-   window.
+4. With 2 PSUs on feed A: 2 × 3.0 = **6.0 kW** available vs a sustained DC need of about 8.5 kW × 0.94 =
+   **7.99 kW** → the platform asserts power brake. Other racks: 3 × 3.0 = 9.0 kW ≥ 7.99 kW → no brake at
+   sustained load (they would still brake at the 9.59 kW peak). Consistency check: braked nodes are held
+   at or below the 6.0 kW of DC the two feed-A PSUs deliver (8 GPUs × 330 W ≈ 2.6 kW plus non-GPU load).
+   At the AC input that is ≤ 6.0 ÷ 0.94 ≈ 6.4 kW per node, or ≤ 25.5 kW per rack, consistent with the
+   24.1 kW measured on feed A (the brake undershoots the PSU limit). Compare DC with DC and AC with AC;
+   PSU ratings are DC output. **Fix:** drain the 8 nodes (`scontrol update NodeName=orion-n[05-12]
+   State=DRAIN Reason="PSU cording 2A/4B"`), have Fleet re-cord to 3/3 under the rack's change
+   procedure, return to service. **Validate without a maintenance window:** PDU per-outlet readings show
+   each node's load split ≈ 50/50 across A and B; `sdr type "Power Supply"` shows six healthy PSUs; the
+   outlet map in the inventory matches the standard. A true single-feed test only in a Facilities-run
+   commissioning window.
 5. Acceptance-checklist line: "PSU cording verified 3 A / 3 B against PDU outlet map; per-feed load
    share 45–55 % at idle and under burn-in; recorded in inventory."
 
@@ -360,8 +363,10 @@ Constraints: 32 extra nodes, ≤ 6 extra racks, ≤ 800 kW IT, one extra 300 kW 
   positions by moving management into the network racks and consolidating storage into one rack
   (16 GPU + 2 network + 1 storage = 19 racks = 13 + 6); CDU: liquid 16 × 0.80 × 36.75 = 470.4 kW
   across two 300 kW CDUs (78.4 % each, **no N+1**) — state that N+1 needs a third CDU and is the next
-  request to Facilities. Total IT ≈ 588 + network/storage/management (grows with the fabric) — show it
-  stays under 800 kW.
+  request to Facilities. Total IT: 588 kW GPU racks + 64 kW network (2 racks at twice today's
+  16 kW each, since the backend grows from 12 to 24 switches `[ILLUSTRATIVE]`) + 18 kW storage (all
+  8 servers kept) + 4 kW management = **674 kW**, inside the 800 kW IT limit with 126 kW to spare. At
+  PUE 1.25 the facility load is 842.5 kW; the 800 kW limit in the prompt is an IT limit.
 - **Fabric:** 64 nodes × 8 rails = 512 host links; rail leaves of 64 ports at 1:1 serve 32 nodes each,
   so 16 leaves (2 per rail) with 32 uplinks each = 512 leaf uplinks; 8 spines of 64 ports (each leaf 4
   uplinks to each spine) — 24 backend switches, 1,024 backend links, 2,048 link ends. Accept a

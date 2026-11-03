@@ -145,8 +145,17 @@ Grade with the rubric in `lab/README.md` Section 8. For the report, require that
 
 **Ranked hypotheses.**
 
-1. **The fine-tuning job shares the decode nodes' NICs or rail ports in the lossless class.**
-   *For:* onset aligned to the 14:00–15:30 job. RX per decode node (sum of its four KV rails)
+1. **The fine-tuning job landed on the decode nodes and shares their rail NICs in the lossless
+   class.** In ORION's partition model Slurm cannot place work on n25–n32, so this requires a
+   partition defect: the recent change most likely extended the Slurm `training` partition (or a
+   reservation) to n25–n32, and the job took the idle GPUs 4–7 of `orion-n27`/`orion-n28`. By
+   default NCCL would give those ranks their PIX NICs 4–7, and PXN cannot relay through GPUs 0–3
+   because they are not ranks of the job. Traffic on rails 0–3 therefore means the job's ranks use
+   NICs 0–3 directly, for example because its environment pins `NCCL_IB_HCA` to `mlx5_0`–`mlx5_3`
+   (a leftover 4-GPU config) or permits cross-NIC selection (`NCCL_CROSS_NIC`). Those NICs are SYS
+   from GPUs 4–7, so the traffic is host-staged. (Slurm granting the whole node, blind to the
+   Kubernetes pods, would also explain it, but GPU sharing would then raise decode TPOT, which
+   barely moved.) *For:* onset aligned to the 14:00–15:30 job. RX per decode node (sum of its four KV rails)
    rose from 108 to 330 Gb/s. KV demand is about 107 Gb/s per decode replica (about 27 Gb/s per
    rail), so about 220 Gb/s of extra traffic is arriving at those nodes. ECN marks rose about 800× and PFC pauses appeared. *Against:* not yet proven
    that the job runs there.
@@ -162,27 +171,32 @@ Grade with the rubric in `lab/README.md` Section 8. For the report, require that
 **Discriminating tests.**
 
 * `squeue -j <jobid> -o %N` or `scontrol show job <jobid>` for the fine-tune job, to get its
-  node list. Intersect it with the decode nodes `orion-n27` and `orion-n28` (inference partition, rack-07) (for example, the job
-  may have been placed on their idle GPUs 4–7). If they overlap, hypothesis 1 is confirmed.
+  node list. Intersect it with the decode nodes `orion-n27` and `orion-n28` (inference partition, rack-07).
+  Then `scontrol show partition training` and the merged change: if `Nodes=` now covers n25–n32, the
+  partition definition is the defect. An overlap confirms hypothesis 1.
 * On a decode node during the window, read per-priority NIC counters, for example
   `ethtool -S <iface> | grep -E 'prio3_(bytes|pause)'` on mlx5-class NICs (counter names are
   driver-specific; verify). This shows whether TC 3 bytes and pauses rise on the KV rails.
 * Leaf telemetry: per-port ECN and PFC counters across all rail leaves. If only decode-facing
   ports are hot, the cause is local (hypothesis 1). If spine uplinks are hot fabric-wide, it is
   hypothesis 2.
-* NCCL debug output of the job (`NCCL_DEBUG=INFO` in the *job's* environment, a job-owner change)
-  shows which NICs its ranks use.
+* The job's NCCL INFO output (`NCCL_DEBUG=INFO` in the *job's* environment, a job-owner change):
+  the channel lines (`Channel 00/0 : … via NET/IB/<dev>`) show which NIC each channel of the ranks
+  on n27/n28 uses, and the absence of `/GDRDMA` confirms host staging. `NET/IB/0`–`3` there
+  confirms the mechanism; `NET/IB/4`–`7` would send you back to the allocation.
 
 **Still needed:** the job's node list, its NCCL NIC selection, and port counters on non-decode
 ports for comparison.
 
 **Mitigation (safe, reversible).** Ask Platform to exclude the decode nodes from the fine-tune
-job's eligible nodes for the next run, by job-level exclusion or a Slurm reservation for the
-inference nodes. Do not drain nodes running other jobs without the owners' agreement, and do not
+job's next run (job-level `--exclude`), then revert the partition change so that `training` again
+covers only n01–n24, after the running job reaches a checkpoint. Do not drain nodes running other jobs without the owners' agreement, and do not
 modify switch QoS during the incident.
 
-**Structural fix (through change control, Chapter 20).** Use separate node pools or partitions
-for inference and training. If links must be shared, give KV its own traffic class with ECN and
+**Structural fix (through change control, Chapter 20).** ORION already has separate partitions;
+the fix is to enforce node ownership (Chapter 17): each node belongs to exactly one scheduler, and a
+pre-merge policy check rejects any Slurm partition that includes n25–n32 outside a declared
+lifecycle transition. If links must be shared, give KV its own traffic class with ECN and
 a guaranteed bandwidth share (Chapter 9), and admit inference-pool nodes only to the inference
 scheduler.
 
@@ -205,11 +219,14 @@ attention term 2 × 80 × 8,192² × 8,192 ÷ 3.166e15 = 27.8 ms; total **t_p = 
 
 **Prefill pool:**
 
-| P | ρ | Mean TTFT | Approx. p95 TTFT (t_p + 3 × W_q) |
+| P | ρ | Mean TTFT | p95 TTFT (t_p + exact M/D/1 p95 wait) |
 |---|---|---|---|
-| 11 | 0.709 | 0.865 s | ≈ 1.82 s ✗ |
-| 12 | 0.650 | 0.752 s | ≈ 1.48 s (borderline) |
-| 13 | 0.600 | 0.682 s | ≈ 1.27 s ✓ |
+| 12 | 0.650 | 0.752 s | 1.71 s ✗ |
+| 13 | 0.600 | 0.682 s | 1.49 s (no margin) |
+| 14 | 0.557 | 0.635 s | 1.35 s ✓ |
+
+The p95 wait comes from Erlang's M/D/1 waiting-time formula (Section 15.7); it is 3.6–3.9× the mean
+wait here. The "t_p + 3 × W_q" shortcut under-states it and would wrongly pass P = 12 (1.48 s).
 
 **Decode pool** (average context 8,192 + 150 = 8,342 tokens): at end of generation each
 sequence holds 8,492 tokens = 531 blocks, so 75 sequences fit per replica in BF16 KV, or 150 in
@@ -221,7 +238,7 @@ FP8 KV.
 | 4 | 18.6 ms | 27.9 |
 | 5 | 16.1 ms | 19.3 |
 
-Choose **13P + 4D = 17 replicas**: 8.5 nodes, rounded up to 9 HX8, plus 1 spare, for 10 nodes.
+Choose **14P + 4D = 18 replicas**: 9 HX8, plus 1 spare, for 10 nodes.
 
 **Network:** KV per request = 8,192 × 327,680 = 2.684 GB. Aggregate = 20 × 2.684e9 × 8 =
 **429.5 Gb/s**, and 107.4 Gb/s per decode replica. Over RDMA that is 7.9 % of 1,360 Gb/s
@@ -238,8 +255,8 @@ near the 40 ms SLO. Disaggregation buys headroom on TPOT.
 
 **Failure table:** losing a decode replica drops the KV of about 28 sequences. They are
 re-prefilled at about 0.4 s each on the prefill pool (an extra 11 replica-seconds of load),
-gated by admission control. Losing a prefill replica raises ρ on the other 12 to 0.65, which is
-still within SLO. A KV transfer timeout is retried once, then the request falls back to local
+gated by admission control. Losing a prefill replica raises ρ on the other 13 to 0.60, so TTFT p95
+reaches 1.49 s, at the SLO edge; the spare node's two replicas restore the margin. A KV transfer timeout is retried once, then the request falls back to local
 prefill.
 
 **L2/L3 measurements:** HBM efficiency and step overhead at B ≈ 28 with an 8k context; actual
@@ -336,7 +353,10 @@ B(k + 1) tokens × 2 × 70e9 FLOP ÷ (4 × 1,979e12 × 0.40) = B(k + 1) × 44.2 
 v_k = (max(compute, 17.19 ms) + 3 ms) ÷ 20.19 ms:
 
 * k = 2: 384 tokens → 16.98 ms compute, still below 17.19 ms (memory-bound), so v = 1.00.
-* k = 4: 640 tokens → 28.30 ms (intensity 2 × 640 = 1,280 FLOP/B > 591), so v = 31.30 ÷ 20.19 = 1.55.
+* k = 4: 640 tokens → 28.30 ms of compute, above the 17.19 ms of HBM time (compute-bound), so v = 31.30 ÷ 20.19 = 1.55.
+  Equivalently, the intensity including KV bytes, 8.96e13 FLOP ÷ 161.3e9 B ≈ 556 FLOP/B, exceeds the
+  effective ridge 591 × 0.40/0.70 ≈ 338 FLOP/B. Comparing a weight-only intensity with the peak ridge
+  would call k = 2 (768 FLOP/B) compute-bound too, which is wrong.
 * k = 8: 1,152 tokens → 50.93 ms, so v = 53.93 ÷ 20.19 = 2.67.
 
 Speedup at B = 128, E ÷ (0.05k + v_k):

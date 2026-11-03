@@ -17,7 +17,7 @@ One folder per exercise in [../exercises.md](../exercises.md). Each folder holds
 | WP1 | Re-partitioning W-TRAIN | worked-problem | ★★ | L1 | computed | [WP1](WP1-repartition-w-train/) |
 | WP2 | FP8 serving on half a node | worked-problem | ★★★ | L1 | computed | [WP2](WP2-fp8-half-node-serving/) |
 | LAB | Workload-characterization lab | hands-on-lab | ★★ | L1 | lab | [LAB](LAB-workload-characterization/) |
-| TS | Slow inference replica orion-n23 | troubleshooting | ★★★ | L1 | computed | [TS](TS-slow-replica-n23/) |
+| TS | Slow inference replica orion-n29 | troubleshooting | ★★★ | L1 | computed | [TS](TS-slow-replica-n29/) |
 | DC | Shared versus dedicated inference capacity | design-challenge | ★★★ | L1 | computed | [DC](DC-shared-vs-dedicated-inference/) |
 | R1 | What the ceiling model cannot capture | reflection | ★ | L1 | written | [R1](R1-ceiling-model-limits/) |
 | R2 | A dated job-posting register | reflection | ★★ | L1 | written | [R2](R2-job-posting-register/) |

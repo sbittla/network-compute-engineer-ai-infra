@@ -53,9 +53,9 @@ R² = 0.9966.
 
 ## What to conclude
 
-- The lab's estimator, fed real per-job means, recovers both injected regressions within their uncertainty (pageable +6.73 vs +6.67 ms direct; small batch +10.32 vs +8.90 ms) and gives the placebo +0.06 ± 0.15 ms. A factor that happens to coincide with an incident is not its cause.
-- The data-path effect is also explained by mechanism: 4.0 MiB at the slower copy rate costs +3.60 ms per step, 54 % of the +6.67 ms measured in the A/B. Statistical, direct and mechanism evidence agree, so it is a strong inferred cause. The unexplained remainder is the host-side cost a bandwidth number does not capture (staging-buffer management, cache effects).
-- The common-shift term (-0.11 ms) absorbs whatever drifted between the before and after blocks, such as temperature or clocks. Compare it with the MDE before calling it real.
+- Recovery of the injected regressions, read from the verdict column: micro-batches + grad accumulation (injected): recovered and corroborated (OLS +10.32 vs +8.90 ms direct); strided fp64 input gather (injected): recovered and corroborated (OLS +6.73 vs +6.67 ms direct). The placebo gives +0.06 ± 0.15 ms (verdict: ruled out (no effect)). A factor that happens to coincide with an incident is not its cause.
+- Mechanism: 4.0 MiB at the slower copy rate costs +3.60 ms per step, 54 % of the +6.67 ms measured in the A/B, so statistical, direct and mechanism evidence agree: a strong inferred cause. The unexplained remainder is host-side cost a bandwidth number does not capture (staging-buffer management, cache effects).
+- The common shift (-0.11 ms) is within 3× the 0.451 ms MDE: no evidence of drift between the blocks.
 - _CPU fallback: no GPU was visible, so the data-path factor is a strided gather on the host rather than a pageable PCIe copy. The design, estimator and corroboration are identical. GPU-only invariants (PCIe ceiling, pinned >= pageable) were skipped._
 
 - 16 before-jobs, then 32 after-jobs (8 per pageable x small_batch cell, order shuffled, placebo on a random half); 50 steps per job, the first 5 dropped as warm-up.

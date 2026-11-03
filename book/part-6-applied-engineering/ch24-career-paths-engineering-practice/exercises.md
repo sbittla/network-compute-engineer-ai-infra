@@ -47,8 +47,8 @@ qualification were dropped.
 
 ## B. Worked problems
 
-**WP1 ★★ L1 — Readiness for a second role.** Using the sample learner's demonstrated levels (Section
-24.2: observability 1, reliability/security 2, automation 3, scheduling 1, storage/checkpointing 1,
+**WP1 ★★ L1 — Readiness for a second role.** Using the sample learner's demonstrated levels (from the
+lab's `demonstrated_levels` output: observability 1, reliability/security 2, automation 3, scheduling 1, storage/checkpointing 1,
 Linux host 2, communication 3) and the AI Infrastructure SRE / Operations matrix in
 `lab/data/competency_matrices.yaml` at **mid** level:
 (a) compute the readiness score with every term shown; (b) give the status and why; (c) produce the gap
@@ -62,7 +62,8 @@ priorities; the recomputed score and status.
 (b) If 32 equal RoCE flows leave a leaf on 32 uplinks with random ECMP hashing, how many uplinks are
 idle on average? Recompute with 4 queue pairs per connection (128 flows of one quarter the size each).
 (c) For W-TRAIN on ORION-256, recompute Young's checkpoint interval and the total overhead if the
-node MTBF halves from the canonical 1,536 h to 768 h (C = 12.25 s, restart 900 s).
+node MTBF halves from the canonical 1,536 h to 768 h (blocking checkpoint
+cost δ = 60 s as in Section 24.6 and Chapter 23, restart 900 s).
 *Evidence required:* every formula with substituted values and units; results labelled `[MODELED]`.
 
 ## C. Hands-on lab
@@ -70,7 +71,7 @@ node MTBF halves from the canonical 1,536 h to 768 h (C = 12.25 s, restart 900 s
 **L1 ★★ L1 — Role-readiness scorer and register validator.** Complete
 [lab/README.md](lab/README.md) Tasks 1–8, produce `readiness_report.md`, and explain every evidence
 flag raised for the sample learner.
-*Evidence required:* `python check.py` output showing 11/11 PASS; the generated report; a one-page
+*Evidence required:* `python check.py` output showing 12/12 PASS; the generated report; a one-page
 explanation of the flags (rule, why it exists, what the learner should do).
 
 ## D. Troubleshooting case
@@ -90,9 +91,9 @@ pipeline send. On `orion-n22`, `nvidia-smi -q -d PERFORMANCE` shows for GPU 5 (a
         SW Thermal Slowdown               : Active
 ```
 
-Its SM clock is 1,715 MHz against 1,980 MHz on peers (peers run application clocks locked at the
-≈ 1,980 MHz maximum boost, not ORION's typical ≈ 1,830 MHz sustained clock); GPU temperature is 89 °C against 64–70 °C on
-peers. The fabric dashboard also shows ECN-marked packets on rail-5 leaf ports rising 3× since
+Its SM clock is 1,585 MHz against ≈ 1,830 MHz on peers (ORION's typical sustained clock under dense
+training; peers show `SW Power Cap` intermittently, which is routine); GPU temperature is 89 °C
+against 64–70 °C on peers. The fabric dashboard also shows ECN-marked packets on rail-5 leaf ports rising 3× since
 yesterday, and the facilities log records a fan-tray replacement in `rack-06` (which holds `orion-n22`) at
 02:10. Walk the diagnostic loop: rank at least three hypotheses by information value, cost and risk;
 name the discriminating test(s); state the root cause and what remains correlation; propose a safe
@@ -129,9 +130,9 @@ diagram; failure-domain table; day-one validation plan; answers to two follow-up
 rehearsal time.
 
 **M3 ★★ L1 — Case study** *(course outline, Chapter 24 exercise 3)*. Write a concise (≤ 800 words)
-incident or performance case study using Table 24.12's structure. Use a real case anonymised onto
+incident or performance case study using Table 24.14's structure. Use a real case anonymised onto
 ORION, or a capstone result.
-*Evidence required:* every Table 24.12 section present; impact in units with arithmetic; at least one
+*Evidence required:* every Table 24.14 section present; impact in units with arithmetic; at least one
 discriminating test; a "remaining uncertainty" paragraph; a statement of what was anonymised.
 
 **Deliverable** *(course outline)*: **role-readiness matrix** (M1), **portfolio narrative** (≤ 1 page,
@@ -149,7 +150,7 @@ you are targeting? Argue for a different weight using the problems in Table 24.7
 evidence of skill, and which only as evidence of reasoning? Where is the line?
 
 **R4 ★★ L1.** The synthetic register suggests "python" is the most common required skill, and the real
-October 2026 register (Section 24.4, Table 24.8a) agrees: Python is in 23 of 42 required lists. What
+October 2026 register (Section 24.4, Table 24.9) agrees: Python is in 23 of 42 required lists. What
 would you need, beyond a dated register, before concluding that Python skill is a hiring bottleneck for
 your target role?
 

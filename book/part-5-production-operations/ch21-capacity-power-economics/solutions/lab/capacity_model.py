@@ -89,8 +89,10 @@ def first_shortfall(fc: pd.DataFrame) -> str | None:
 
 
 def order_deadlines(quarter: str, a: dict[str, Any]) -> dict[str, str]:
-    """Latest quarter by which each resource must be ordered to be in service by `quarter`."""
-    return {k: quarter_add(quarter, -v) for k, v in a["lead_time_quarters"].items()}
+    """Latest quarter by which each resource must be ordered to be in service by `quarter`:
+    quarter - lead_time_quarters - onboarding_quarters (onboarding defaults to 0 when absent)."""
+    onboard = a.get("onboarding_quarters") or {}
+    return {k: quarter_add(quarter, -(v + onboard.get(k, 0))) for k, v in a["lead_time_quarters"].items()}
 
 
 # --------------------------------------------------------------------------- Task 3: TCO

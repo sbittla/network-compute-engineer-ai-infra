@@ -46,13 +46,13 @@
 | h2d_pinned | 1024 | 12.71 | 85.936 | 10 |
 | d2h_pinned | 1024 | 12.99 | 84.693 | 10 |
 
-PCIe ceiling from the negotiated link: **15.8 GB/s** per direction `[MODELED]`.
+PCIe ceiling from the maximum-capability link: **15.8 GB/s** per direction `[MODELED]`.
 
 ## Copy/compute overlap
 
 compute 156.7 ms, copy 21.7 ms, serial 174.0 ms, overlapped 159.5 ms -> 67 % of the copy hidden.
 
-**Not runnable here:** GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 6-11, exercise 13.11): no RDMA device under /sys/class/infiniband on this host. Needs: RDMA NIC (mlx5-class) on the GPU's PCIe switch, perftest built with CUDA, a second node.
+**Not runnable here:** GPU<->NIC GPUDirect RDMA locality (Table 13.5 rows 2-3, 5-8 and 11, exercise 13.11): no RDMA device under /sys/class/infiniband on this host. Needs: RDMA NIC (mlx5-class) on the GPU's PCIe switch, perftest built with CUDA, a second node.
 
 - Median of >= 5 timed repetitions after 3 warm-ups; CUDA events on the GPU, perf_counter on the CPU.
-- PCIe ceiling = per-lane rate after encoding x max negotiated width from nvidia-smi.
+- PCIe ceiling = per-lane rate after encoding x maximum link generation and width from nvidia-smi (pcie.link.gen.max, pcie.link.width.max): the maximum-capability link, an upper bound; an idle link may train down.

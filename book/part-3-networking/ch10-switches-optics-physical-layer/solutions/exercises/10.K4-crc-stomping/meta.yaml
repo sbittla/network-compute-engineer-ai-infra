@@ -11,9 +11,9 @@ marking:
 - criterion: 'Mechanism: a cut-through switch forwards before it has the FCS, so it replaces the FCS with
     a known-bad value'
   points: 2
-- criterion: Why the healthy downstream link reports FCS errors without uncorrectables or symbol errors
+- criterion: Why the healthy downstream link reports FCS errors without uncorrectables or post-FEC symbol errors
   points: 1
-- criterion: 'Localizing counter: FEC-uncorrectable (and symbol errors) on the ingress port of the upstream
+- criterion: 'Localizing counter: FEC-uncorrectable (with elevated pre-FEC symbol errors) on the ingress port of the upstream
     switch; stomped-CRC counter if exposed'
   points: 2
 lab_checks: []

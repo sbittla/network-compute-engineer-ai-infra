@@ -1,6 +1,6 @@
 # R3 — Missing TCO costs: model answer
 
-Sources: manuscript Section 21.4 (Table 21.1a, "Build versus rent") and `lab/data/assumptions.yaml`
+Sources: manuscript Section 21.4 (Table 21.3, "Build versus rent") and `lab/data/assumptions.yaml`
 (the `prices` block).
 
 The lab's TCO has five lines: capex amortization, energy, colocation space, support, and staff.

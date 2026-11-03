@@ -1,5 +1,13 @@
 # Lab 24 L2: converting a lab_l1 evidence item into lab_hw evidence (host topology, Chapter 5)
 
+> **ERRATUM (2026-11-01, added after the run; measured values below are unchanged).** The scoring section
+> of this report is wrong. It credits E08 (host_topology: GPU/NIC topology, GPUDirect RDMA) at level 3
+> and reports readiness 78.4 → 82.4, but this host has **no RDMA device**, and the report itself says the
+> GPU-NIC half is unevidenced. The current `experiment.py` keeps such an item at level 2 (flag
+> PARTIAL_EVIDENCE), so the correct result is **Effective 2, readiness unchanged at 78.4**. The pinned
+> H2D measurement (12.87 GB/s median, Gen4 x8, 10 repetitions) remains valid `[MEASURED]` evidence. The
+> report cannot be re-rendered without a rerun, because the levels are stored by the run itself.
+
 `[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-11-01T00:09:20Z.
 
 | Environment | Value |

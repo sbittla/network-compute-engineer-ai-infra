@@ -1,6 +1,6 @@
 # 4.19 — Why "fix the most interesting finding first" is a bad rule (model answer)
 
-Relies on manuscript Section 4.12 (Table 4.5) and the chapter's trade-offs section.
+Relies on manuscript Section 4.12 (Table 4.11) and the chapter's trade-offs section.
 
 Interest correlates with novelty and technical depth, not with how much time a finding costs. In the
 worked example the most interesting finding is the register-limited `layernorm_bwd_fused_kernel`

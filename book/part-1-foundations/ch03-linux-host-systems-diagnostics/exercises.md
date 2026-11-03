@@ -59,8 +59,9 @@ each, give a concrete example of a command or argument it would refuse or handle
 Snapshot `lab/data/snapshots/orion-n12.json` comes from a node running *W-MM*, an image–text
 fine-tuning job. This is a variation on ORION's reference workloads: its training shards are read
 from the node-local NVMe array `md0`, and each W-MM job runs on a single node (8 GPUs), so a slow node
-slows only its own job. Samples per second on this node are about 40 % below its peers,
-and the operator's note says "CPU utilisation is low".
+slows only its own job. Samples per second on this node are about 40 % below its peers, which read
+≈ 725 MB/s from their own `md0` in the same W-MM configuration `[ILLUSTRATIVE]`. The operator's note
+says "CPU utilization is low".
 
 1. From the snapshot alone, list every abnormal signal with its evidence: the section and the value.
 2. Form **at least four hypotheses** that involve memory locality, I/O wait, interrupts, PCIe

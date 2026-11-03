@@ -20,7 +20,7 @@ from turning one bad change into a fleet-wide outage:
    review every week.
 
 The deliverable for the chapter, an **automation sample and a safe-change runbook**, is built from
-Parts 1–2 (the automation sample) and Part 3 plus Exercise 20.10 (the runbook).
+Parts 1–2 (the automation sample) and Part 3 plus Exercise 20-DEL (the runbook).
 
 ## 2. Tier and realism boundary
 
@@ -53,7 +53,7 @@ Python 3.10 or later. You edit `starter/safe_change.py` and `starter/findings.ya
 
 | Topic | Manuscript section |
 |---|---|
-| Desired state, reconciliation, idempotency | Section 20.3, Section 20.4 |
+| Desired state, reconciliation, idempotency | Sections 20.3 and 20.4 |
 | Schema and policy-as-code validation, MTU budget | Section 20.5 |
 | Canary, waves, bake time, abort conditions | Section 20.7 |
 | Rollback and rollback scope | Section 20.8 |
@@ -102,10 +102,11 @@ python check.py                    # your starter: TODO / FAIL / PASS per check,
 python check.py --impl solution    # instructors only (needs ../solutions/)
 ```
 
-The checker runs 13 checks (6 for Part 1, 4 for Part 2, 3 for Part 3) in well under a second. The
-Part 3 checks score coverage of the real gaps (at least 13 of them), false positives (at most 1),
-and evidence quality: valid line citations, and a fix that names a concrete control. The keyword
-check is a progress meter, not a substitute for instructor review of your reasoning.
+The checker runs 14 checks (a dataset-integrity check, 6 for Part 1, 4 for Part 2, 3 for Part 3) in
+about a second. The dataset check reports `SKIP` in the learner release, which ships without the
+generator. The Part 3 checks score coverage of the real gaps (at least 13 of them), false positives
+(at most 1), and evidence quality: valid line citations, and a fix that names a concrete control.
+The keyword check is a progress meter, not a substitute for instructor review of your reasoning.
 
 ## 7. Deliverable and grading rubric (100 points)
 
@@ -117,7 +118,7 @@ check is a progress meter, not a substitute for instructor review of your reason
 | Part 2: rollback set and justification of `rollback_scope: all_changed` vs failing wave only | 5 |
 | Part 3: findings coverage and precision (checker) | 15 |
 | Part 3: quality of fixes (specific numbers, ORION context) — instructor-graded | 10 |
-| Safe-change runbook (Exercise 20.10) built from your lab outputs | 15 |
+| Safe-change runbook (Exercise 20-DEL) built from your lab outputs | 15 |
 
 ## 8. Extensions (L2/L3)
 
@@ -190,7 +191,7 @@ state, the lab's `compute_plan` classifies this host as unreachable (no backend 
 proves a dry run writes nothing. The main measurement is a real canary gate. Measured GEMM-throughput
 samples stand in for per-rail busbw and go through the lab's `evaluate_wave` / `run_rollout` with abort
 condition AC1 and the bake rule from `abort_conditions.json`. Three changes are measured, with baseline
-and post samples interleaved: a no-op (must *proceed*), an injected ≈ 20 % regression (must *abort* on
+and post samples interleaved: a no-op (must *proceed*), an injected ≈ 15–20 % regression (16.5 % on the reference run; must *abort* on
 AC1) and the regression with half the bake samples (must *hold*).
 
 Not runnable on the harness: the MTU-changing reconciler run and the L3 two-node canary.

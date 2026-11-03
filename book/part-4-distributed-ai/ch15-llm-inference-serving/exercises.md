@@ -76,7 +76,7 @@ justification.
 
 **L1. ★★ L1 — Lab 15: capacity model, serving-trace analyzer, disaggregation model.** Complete
 [lab/README.md](lab/README.md) Tasks 1–10.
-*Evidence required:* `python check.py` output with 18/18 PASS, and the two-page report described
+*Evidence required:* `python check.py` output with 19/19 PASS, and the two-page report described
 in lab Section 8.
 
 ---
@@ -100,7 +100,8 @@ normal. You have the following evidence `[ILLUSTRATIVE]`:
 | Inference request rate | 39 req/s | 41 req/s |
 
 The Slurm calendar shows a recurring 64-GPU fine-tuning job from 14:00 to 15:30. You do not know
-which nodes it runs on.
+which nodes it runs on. Under ORION's partition model (Chapter 17) Slurm owns only `orion-n01`–`n24`,
+but Platform's change log shows a Slurm partition-definition change merged three weeks ago.
 (a) Walk the diagnostic loop: list ranked hypotheses, the discriminating test for each, and the
 evidence you would still need. (b) Propose a safe immediate mitigation and a structural fix.
 (c) State how you would validate the fix.
@@ -200,5 +201,5 @@ ORION. The memo must cover: the chosen replica layout and pool size for the 40 r
 latency and throughput tiers, a disaggregation decision with network budget, phase-specific SLOs
 and alert thresholds, and a validation plan listing the L2/L3 measurements and the manifest fields
 to record.
-*Evidence required:* the checker at 18/18, every number labelled, and the validation plan with
+*Evidence required:* the checker at 19/19, every number labelled, and the validation plan with
 the commands from lab Section 9.

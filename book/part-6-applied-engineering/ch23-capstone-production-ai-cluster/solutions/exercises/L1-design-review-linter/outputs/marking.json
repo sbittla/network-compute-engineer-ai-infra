@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "check.py output showing 13/13 PASS; the two reports; the triage memo",
+  "evidence_required": "check.py output showing 14/14 PASS; the two reports; the triage memo",
   "id": "L1",
   "kind": "lab",
   "lab_checks": [

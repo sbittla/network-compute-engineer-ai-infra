@@ -90,7 +90,7 @@ def decode_reasons(text: str) -> str:
 
 
 def gpu_ceilings(env: dict) -> dict:
-    """Vendor-class ceilings for GPU 0 at its max SM clock, with the derivation recorded."""
+    """Vendor-class ceilings for GPU 0 at its max SM clock (report() adds peaks at sustained clocks)."""
     g = (env.get("gpus") or [{}])[0]
     cap = tuple(int(x) for x in env.get("gpu0", {}).get("capability", "0.0").split("."))
     sms = env.get("gpu0", {}).get("sm_count")
@@ -559,6 +559,18 @@ def report(result: dict, env: dict) -> str:
         L += [f"Ceilings `[MODELED]` at clocks.max.sm = {c['max_sm_mhz']:.0f} MHz: BF16 tensor {pk['bf16_tensor'] / 1e12:.1f}, "
               f"TF32 {pk['tf32_tensor'] / 1e12:.1f}, FP32 {pk['fp32_simt'] / 1e12:.1f} TFLOP/s; DRAM "
               f"{(c['dram_bytes_per_s'] or 0) / 1e9:.0f} GB/s ({c.get('bus_bits')}-bit). Source: {c['source']}.", ""]
+        # A peak is SMs x FLOP/clock x clock: also give it at each arm's observed sustained clock, because under a
+        # power cap the GPU rarely holds clocks.max.sm and the "% of peak" otherwise measures the clock, not the code.
+        by_arm = {a["arm"]: a for a in result["tables"]["arms"]}
+        parts = []
+        for arm, prec in (("fast", "bf16_tensor"), ("alt", "tf32_tensor"), ("base", "fp32_simt")):
+            a = by_arm.get(arm)
+            if a and a.get("sm_clock_median_mhz") and c.get("max_sm_mhz"):
+                peak = pk[prec] * a["sm_clock_median_mhz"] / c["max_sm_mhz"]
+                parts.append(f"{a['label']} {peak / 1e12:.1f} TFLOP/s at {a['sm_clock_median_mhz']:.0f} MHz "
+                             f"(arm achieved {a['tflops_median'] * 1e12 / peak * 100:.0f} %)")
+        if parts:
+            L += ["Peaks at each arm's sustained SM clock `[MODELED]`: " + "; ".join(parts) + ".", ""]
     L += ["| Kernel | AI (FLOP/B) | Median (us) | p95 (us) | Achieved TFLOP/s | Achieved GB/s | Ridge | Bound | % of roof |",
           "|---|---|---|---|---|---|---|---|---|"]
     for r in result["tables"]["roofline"]:

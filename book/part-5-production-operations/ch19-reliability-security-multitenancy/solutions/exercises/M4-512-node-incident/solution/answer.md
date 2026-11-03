@@ -68,7 +68,7 @@ Attempt 1: RPO = 01:12:44 − 01:00:00 = 12.73 min; RTO = 01:52:10 − 01:12:44 
            lost = 4,096 × 52.17 min / 60 = 3,561.2 GPU-h
 Attempt 2: RPO = 03:41:02 − 03:10:00 = 31.03 min; RTO = 04:31:00 − 03:41:02 = 49.97 min;
            lost = 4,096 × 81 min / 60 = 5,529.6 GPU-h
-Total ≈ 9,091 GPU-h ≈ $27,300 at $3/GPU-h
+Total ≈ 9,091 GPU-h ≈ $27,300 at $3.00/GPU-h
 ```
 
 ## 6. Postmortem (Chapter 18 template, blameless)

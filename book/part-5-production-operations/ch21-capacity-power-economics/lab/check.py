@@ -45,6 +45,12 @@ def close(x: float, y: float, rel: float = 0.005) -> bool:
     return math.isclose(x, y, rel_tol=rel)
 
 
+def hint(msg: str, hints: list[str]) -> str:
+    """Append diagnostic hints (common mistakes recognized from the wrong values) to a FAIL message."""
+    sep = "\n      hint: "
+    return msg + ("" if not hints else sep + sep.join(hints))
+
+
 class Ctx:
     def __init__(self, m: ModuleType) -> None:
         self.m = m
@@ -90,8 +96,19 @@ def check_forecast(c: Ctx) -> tuple[bool, str]:
           and close(float(r.loc["2028Q3", "usable"]), 475.8, 0.002) and close(float(r.loc["2028Q3", "required"]), 494.1, 0.002)
           and r.loc["2028Q3", "status"] == "SHORTFALL" and int(r.loc["2029Q3", "installed"]) == 1024
           and r.loc["2029Q4", "status"] == "SHORTFALL")
-    return ok, (f"2028Q2 energized/stranded={r.loc['2028Q2', 'energized']}/{r.loc['2028Q2', 'stranded']}; "
-                f"2028Q3 usable {r.loc['2028Q3', 'usable']} vs required {r.loc['2028Q3', 'required']} -> {r.loc['2028Q3', 'status']}")
+    msg = (f"2028Q2 energized/stranded={r.loc['2028Q2', 'energized']}/{r.loc['2028Q2', 'stranded']}; "
+           f"2028Q3 usable {r.loc['2028Q3', 'usable']} vs required {r.loc['2028Q3', 'required']} -> {r.loc['2028Q3', 'status']}")
+    hints = []
+    if not ok:
+        if fc.quarter.duplicated().any() or 768 in set(fc.loc[fc.quarter == "2027Q3", "installed"].astype(int)):
+            hints.append("2027Q3 installed is 768, not 512: the exact duplicate 2027Q3 row was counted (call clean_plan first)")
+        if close(float(r.loc["2028Q3", "usable"]), 1024 * 0.849623, 0.002):
+            hints.append("2028Q3 usable is computed from installed GPUs: use energized = min(installed, energizable)")
+        if close(float(r.loc["2028Q3", "required"]), 420, 0.002):
+            hints.append("required equals demand: divide by target_allocation (0.85) for queueing headroom")
+        if int(r.loc["2028Q2", "energizable"]) % 8:
+            hints.append("energizable GPUs must be rounded down to whole 8-GPU nodes")
+    return ok, hint(msg, hints)
 
 
 def check_shortfall(c: Ctx) -> tuple[bool, str]:
@@ -99,25 +116,45 @@ def check_shortfall(c: Ctx) -> tuple[bool, str]:
     q = c.m.first_shortfall(fc)
     d = c.m.order_deadlines(q, c.a)
     ok = q == "2028Q3" and d == {"gpus": "2028Q1", "network": "2028Q2", "facility_power": "2027Q3"}
-    return ok, f"first shortfall={q}; order-by={d}"
+    hints = []
+    if q != "2028Q3":
+        hints.append("the first shortfall is power-caused (2028Q3: 1,024 installed, 560 energized); compare usable with required")
+    elif d.get("facility_power") == "2028Q3" or d.get("gpus") == "2028Q3":
+        hints.append("order-by = shortfall quarter - lead time - onboarding (quarter_add with a negative count)")
+    return ok, hint(f"first shortfall={q}; order-by={d}", hints)
 
 
 def check_tco(c: Ctx) -> tuple[bool, str]:
     t = c.m.tco(32, ORION, c.a, fixed_capex_usd=2_000_000)
-    ok = (close(t["total"], 6_767_309, 0.001) and close(t["usd_per_nominal_gpu_h"], 3.018, 0.002)
-          and close(t["usd_per_allocated_gpu_h"], 4.179, 0.002) and close(t["usd_per_useful_gpu_h"], 4.748, 0.002))
-    return ok, (f"ORION-256 TCO ${t['total']/1e6:.2f}M/yr; $/GPU-h nominal {t['usd_per_nominal_gpu_h']:.2f}, "
-                f"allocated {t['usd_per_allocated_gpu_h']:.2f}, useful {t['usd_per_useful_gpu_h']:.2f} (expect 3.02/4.18/4.75)")
+    ok = (close(t["total"], 6_733_951, 0.001) and close(t["usd_per_nominal_gpu_h"], 3.003, 0.002)
+          and close(t["usd_per_allocated_gpu_h"], 4.158, 0.002) and close(t["usd_per_useful_gpu_h"], 4.725, 0.002))
+    msg = (f"ORION-256 TCO ${t['total']/1e6:.2f}M/yr; $/GPU-h nominal {t['usd_per_nominal_gpu_h']:.2f}, "
+           f"allocated {t['usd_per_allocated_gpu_h']:.2f}, useful {t['usd_per_useful_gpu_h']:.2f} (expect 3.00/4.16/4.72)")
+    hints = []
+    if not ok:
+        if close(t["total"], 6_733_951 - 2_000_000 * (1 / 4 + 0.08), 0.002):
+            hints.append("total is $0.66M low: add fixed_capex_usd (storage) to both amortized capex and support")
+        if close(t["total"], 6_733_951 - 304.64 * 0.25 * 8760 * 0.08, 0.002):
+            hints.append("power cost is missing PUE (facility kW = IT kW x 1.25)")
+        if close(t["usd_per_allocated_gpu_h"], 3.003 / 0.85, 0.003):
+            hints.append("allocated $/GPU-h divides by allocation only: divide by usable fraction x allocation")
+    return ok, hint(msg, hints)
 
 
 def check_designs(c: Ctx) -> tuple[bool, str]:
     d = c.m.compare_designs(c.b["designs"], c.a).set_index("design")
     A, B = d.loc["A-air-H100class"], d.loc["B-liquid-nextgen"]
     ok = (int(A.nodes) == 87 and int(B.nodes) == 62 and close(float(B.useful_units), 644.9, 0.002)
-          and close(float(A.useful_per_musd), 26.53, 0.003) and close(float(B.useful_per_musd), 31.36, 0.003)
+          and close(float(A.useful_per_musd), 26.69, 0.003) and close(float(B.useful_per_musd), 31.49, 0.003)
           and close(float(B.useful_per_facility_mw), 645.0, 0.003))
-    return ok, (f"A {int(A.nodes)} nodes, {A.useful_per_musd}/$M, {A.useful_per_facility_mw}/MW; "
-                f"B {int(B.nodes)} nodes, {B.useful_per_musd}/$M, {B.useful_per_facility_mw}/MW")
+    msg = (f"A {int(A.nodes)} nodes, {A.useful_per_musd}/$M, {A.useful_per_facility_mw}/MW; "
+           f"B {int(B.nodes)} nodes, {B.useful_per_musd}/$M, {B.useful_per_facility_mw}/MW")
+    hints = []
+    if int(B.nodes) == 87:
+        hints.append("B got 87 nodes (the cooling fit): B is power-bound, nodes = min(power fit 62, cooling fit 87)")
+    if int(B.nodes) == 62 and close(float(B.useful_units), 644.9 / 0.93, 0.003):
+        hints.append("B's useful units omit comm_efficiency (0.93 for the 2:1 spine)")
+    return ok, hint(msg, hints)
 
 
 def check_power_cap(c: Ctx) -> tuple[bool, str]:
@@ -127,8 +164,14 @@ def check_power_cap(c: Ctx) -> tuple[bool, str]:
           and close(float(t.loc[650, "cluster_throughput"]), 47.52) and close(float(t.loc[700, "cluster_throughput"]), 32.0)
           and int(t.loc[700, "racks_needed_for_all"]) == 32 and close(float(t.loc[700, "unused_budget_kw"]), 9.1, 0.01)
           and best == 650)
-    return ok, (f"700 W: {t.loc[700, 'nodes_per_rack']}/rack, throughput {t.loc[700, 'cluster_throughput']}; "
-                f"650 W: {t.loc[650, 'nodes_per_rack']}/rack, throughput {t.loc[650, 'cluster_throughput']}; best cap {best} W")
+    msg = (f"700 W: {t.loc[700, 'nodes_per_rack']}/rack, throughput {t.loc[700, 'cluster_throughput']}; "
+           f"650 W: {t.loc[650, 'nodes_per_rack']}/rack, throughput {t.loc[650, 'cluster_throughput']}; best cap {best} W")
+    hints = []
+    if int(t.loc[700, "nodes_per_rack"]) == 3:
+        hints.append("3 uncapped nodes per rack ignores the transient margin: budget = 32.78 kW x (1 - 0.10) = 29.5 kW")
+    if best != 650 and best in (350, 400, 450, 500):
+        hints.append(f"best cap {best} W maximises throughput per kW; rack slots bind, so pick the highest cluster throughput")
+    return ok, hint(msg, hints)
 
 
 def check_flags(c: Ctx) -> tuple[bool, str]:
@@ -136,7 +179,8 @@ def check_flags(c: Ctx) -> tuple[bool, str]:
     f = c.m.misleading_nominal_flags(fc, c.m.compare_designs(c.b["designs"], c.a))
     exp = {"STRANDED_GPUS": ["2028Q2", "2028Q3", "2029Q2"], "RESERVE_SHORTFALL": ["2028Q3", "2029Q4"],
            "PER_GPU_COST_MISLEADS": ["B-liquid-nextgen"]}
-    return f == exp, f"{f}"
+    hints = [f"{k}: expected {v}, got {f.get(k)}" for k, v in exp.items() if f.get(k) != v]
+    return f == exp, hint(f"{f}", hints if f != exp else [])
 
 
 CHECKS: list[tuple[str, Callable[[Ctx], tuple[bool | None, str]]]] = [

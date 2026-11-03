@@ -22,12 +22,13 @@ reproduces and asserts every value `[MODELED]`.
 **Decisions and justification (3 points).** With all runs: *p* = 0.36 → **not significant**. Without run 5:
 *p* = 0.002 and |−2.45 %| ≥ max(0.9 %, 2 %) → **improvement**.
 
-The second decision stands **only if** the exclusion rule (for example "throttling or power-cap events on > 5 %
-of iterations, or median clock < 95 % of peers") was part of the pre-registered protocol and is applied to
-*both* arms; check the baseline runs' telemetry with the same rule. Excluding a run only because it hurts the
-candidate is p-hacking. Note also that `sw_power_cap` is often routine: the right test is whether run 5's
-clock was actually below its peers, not merely that the event was logged. With the effect this close to the 2 %
+The exclusion rests on the **clock**, not on the event: `sw_power_cap` alone is routine (Section 6.5), but
+run 5's median clock is 1,610 / 1,826 = 88 % of the peer median, below the 95 % rule. The other eleven runs
+of both arms sit at 1,822–1,830 MHz, so the change does not move the clock and a session-wide peer clock is
+valid. The second decision stands **only if** that rule was part of the pre-registered protocol and is applied
+to *both* arms (the baseline's runs pass it). Excluding a run only because it hurts the candidate is
+p-hacking. With the effect this close to the 2 %
 threshold, the defensible recommendation is to rerun that run and collect ≥ 10 runs per arm before shipping.
 
 **Common wrong answers.** Taking the mean (12.46 ms for the candidate, pulled up by run 5) instead of the median; permutation tests on iterations;
-declaring an improvement from −2.05 % alone; excluding run 5 without stating the rule.
+declaring an improvement from −2.05 % alone; excluding run 5 without stating the rule, or because `sw_power_cap` was logged.

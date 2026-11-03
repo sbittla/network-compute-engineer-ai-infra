@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "table with intensity, ridge, bound, fraction of roof; ranked list with levers.",
+  "evidence_required": "table with intensity, ridge, bound, fraction of vendor roof and of measured roof; ranked list with levers.",
   "id": "6.11",
   "kind": "computed",
   "lab_checks": [],
@@ -14,8 +14,12 @@
       "points": 3
     },
     {
+      "criterion": "Fractions of the measured roofs: K1 90.4 %, K2 84.9 %, K3 97.2 % (K4 not measured); ranking unchanged, K2 tuning headroom 1.11 ms rather than 2.95 ms",
+      "points": 2
+    },
+    {
       "criterion": "Ranking by opportunity with the right lever per bound (K4 tensor cores/TF32-BF16, K2 tiles/library/FP8, K1 fusion, K3 fewer bytes)",
-      "points": 4
+      "points": 2
     }
   ],
   "points": 10,

@@ -10,11 +10,12 @@ simulator output.
 ## Knowledge checks
 
 **17-K1.** The NVIDIA device plugin marked one GPU `Unhealthy` (it watches NVML for critical events
-such as Xid 79 "fallen off the bus" or uncorrectable ECC) and reports 7 healthy devices to the
+such as an uncorrectable ECC error, Xid 48 or Xid 95, or a row-remap failure, Xid 64) and reports 7 healthy devices to the
 kubelet through `ListAndWatch`; the kubelet sets `allocatable` to 7. The scheduler trusts
 `allocatable`, so an 8-GPU pod is never placed there (`Insufficient nvidia.com/gpu`) even though
-the node is `Ready` and `nvidia-smi` lists eight GPUs. Correct follow-up: Chapter 16 repair flow,
-not a plugin restart.
+the node is `Ready` and `nvidia-smi` lists eight GPUs. A GPU that has fallen off the bus (Xid 79) is a poor
+example here: it usually vanishes from `nvidia-smi -L` or errors there, which contradicts the prompt.
+Correct follow-up: Chapter 16 repair flow, not a plugin restart.
 *Marking:* 2 pts component (device plugin → kubelet allocatable), 2 pts mechanism (per-device
 health), 1 pt outcome. *Common mistake:* blaming the scheduler or a quota.
 
@@ -51,8 +52,9 @@ phase `Failed` with reason `TopologyAffinityError` — it is not retried in plac
 (Deployment/Job) owns it, a replacement pod is created and the scheduler, seeing free counts, can bind
 it to the same node again, producing a reject/recreate loop. Mitigations: replica sizes that always
 fit one socket (1/2/4 GPUs on HX8); scheduler-visible topology (DRA device attributes, or node labels
-consumed by affinity); or `best-effort` during migration (the only policy that admits misaligned
-pods — `restricted` rejects too).
+consumed by affinity); or `best-effort` during migration (the only *aligning* policy that still admits
+misaligned pods; `none` admits them too because it does no alignment at all, and `restricted`
+rejects).
 *Marking:* 2 pts "decision after binding, on the kubelet", 2 pts Failed/`TopologyAffinityError` +
 controller loop, 1 pt a valid mitigation. *Common mistake:* claiming `restricted` avoids rejection.
 
@@ -70,7 +72,7 @@ controller loop, 1 pt a valid mitigation. *Common mistake:* claiming `restricted
 4. Candidates with ≥ 6 free: p01 (8), p02 (8), p05 (6), p10 (8), p12 (7). Free left after placement:
    2, 2, 0, 2, 1 → best fit **p05** (0 left). For 5–7 GPUs socket alignment is not a criterion.
 5. Interleaved: A gets 2 nodes, B gets 2 nodes; each waits for a third → **all 4 × 8 = 32 GPUs
-   stranded**. Cost = 32 GPUs × 5 h = 160 GPU-hours; 160 × $2.50 = **$400** `[ILLUSTRATIVE price]`.
+   stranded**. Cost = 32 GPUs × 5 h = 160 GPU-hours; 160 × $3.00 = **$480** `[MODELED price, Chapter 21 TCO]`.
 6. Lost = GPUs × (interval/2 + restart) = 128 × (45/2 min + 15 min) = 128 × (0.375 h + 0.25 h) =
    128 × 0.625 h = **80 GPU-hours** per preemption `[MODELED]`.
 *Marking:* 1 pt per part except part 5 (2 pts) and part 6 (2 pts). *Common mistakes:* including the
@@ -111,7 +113,8 @@ verification. *Common mistake:* assuming J05 still runs first because it is "urg
 ## Hands-on lab (17-L1)
 
 ### Expected checker output (solution)
-`9/9 checks passed (solution)`; 10 of 15 jobs placed; final tenant usage pretrain 112, research 34,
+`10/10 checks passed (solution)` (the first check, dataset reproducibility, reports SKIP in the
+student release because the generator is stripped); 10 of 15 jobs placed; final tenant usage pretrain 112, research 34,
 finetune 24, inference 42, search 8 (= 220 of 256 GPUs allocated).
 
 ### Reference schedule `[SIMULATED]`
@@ -149,6 +152,9 @@ finetune 24, inference 42, search 8 (= 220 of 256 GPUs allocated).
 | P11 | UNTOLERATED_TAINT | Gang of 2; second whole-free node is dedicated; eligible 8 + 4 = 12 < 16 |
 | P12 | NODE_DRAINED | Cordoned node also carries the `unschedulable` taint; first-failing order reports NODE_DRAINED, not UNTOLERATED_TAINT |
 
+`NONE_FOUND` also covers plain insufficient capacity (eligible free < requested, no blocking node):
+the L2 report's 2-GPU job on a 1-GPU node returns it by design (lab README Section 5.6).
+
 ### Planted anomalies and traps (do not distribute)
 Cluster snapshot (`cluster_state.json`):
 1. **orion-n14** — `health: degraded`, rail 3 down, label `halcyon.ai/rails-complete=false`; *not*
@@ -174,9 +180,13 @@ Job queue (`job_queue.json`):
 10. **J14** (priority 10) exceeds inference quota after higher-priority inference jobs (42 + 8 = 50).
 11. **J06** (priority 10, 8 GPUs) sees exactly 8 eligible free GPUs (n20 2 + n21 6) → Fragmentation,
     not InsufficientCapacity.
-12. **J01** is starved by dynamic fair share (earliest priority-50 submission at t = 108 s — J06 at
-    t = 42 s is earlier but priority 10; pretrain share highest) → the
-    discussion in manuscript Section 17.9 Step 7 and 17-W2.
+12. **J01** (earliest priority-50 submission at t = 108 s; J06 at t = 42 s is earlier but priority 10)
+    is blocked by **capacity after J05's priority-100 placement**, not by fair share. J05 takes n22 +
+    n24, leaving two whole rail-complete nodes; even if J01 were tried before J08, eligible training
+    capacity is n13 8 + n18 8 + n20 6 + n21 6 = 28 < 32. Fair share only decides J08 vs J01 for the
+    two leftover nodes, which J01 cannot use anyway. Only a priority/QOS change above J05 (17-W2) or a
+    reservation starts J01 → manuscript Section 17.9 Step 7. A report that blames fair share loses the
+    marks for this point.
 13. **J09** priority 5 ensures it is attempted after J06, so J06 sees the fragments.
 
 Evidence bundles (`pending_cases.json`): file order is shuffled; P07 quota boundary; P09 control;
@@ -191,8 +201,8 @@ dynamic shares (order hash: J07 before J11, J13 before J01); mutating state when
 gang); not stripping Slurm state suffixes; reporting UNTOLERATED_TAINT for a cordoned node (P12).
 
 ### Marking guidance for Tasks 7–8 (20 points)
-- `placement-report.md` (10): all five pending jobs with correct reason (5); identifies fair-share
-  effect on J01, rail effect on J02/n14, lifecycle effect of n19/n23 (3); one concrete policy change
+- `placement-report.md` (10): all five pending jobs with correct reason (5); identifies that J01 is
+  capacity-blocked after J05 (fair share is not the cause; it decides J08's fate), rail effect on J02/n14, lifecycle effect of n19/n23 (3); one concrete policy change
   with expected effect (2).
 - `pending-guide.md` (10): each of the 7 codes mapped to a real command — e.g. QUOTA →
   `kubectl get resourcequota` + `FailedCreate` events (plain ResourceQuota: the pod is rejected at
@@ -240,8 +250,9 @@ gang); not stripping Slurm state suffixes; reporting UNTOLERATED_TAINT for a cor
 
 ## Design challenge (17-D1) — reference answer
 
-(a) Sixteen blocks of 32 nodes: `SwitchName=blk01 Nodes=orionxl-n[001-032]` … `blk16`, grouped under
-pod/spine switches (manuscript Section 17.5.6). Kubernetes equivalent: Kueue Topology-Aware
+(a) Sixteen blocks of 32 nodes, i.e. the canonical ORION-XL pods: `SwitchName=p00
+Nodes=orionxl-n[001-032]` … `p15` (`orionxl-n[481-512]`), grouped under one `core` switch
+(`SwitchName=core Switches=p[00-15]`, manuscript Section 17.5.6). Kubernetes equivalent: Kueue Topology-Aware
 Scheduling (TAS) — label nodes with their pod, block, and hostname; define a `Topology` object whose
 `levels` list those label keys from widest to narrowest; reference it from the `ResourceFlavor`
 (`spec.topologyName`); and request placement per pod set with the annotation
@@ -256,7 +267,8 @@ cross a block boundary for a rail ring ordered block-contiguously `[MODELED]`: 2
 different block ≈ 1 − 3/63 ≈ 95 % (each block holds ≈ 4 of the 64 nodes). Per-block uplink at 2:1:
 32 × 8 × 400 Gb/s / 2 = 51.2 Tb/s; contiguous placement keeps job cross-block traffic to a few node
 links, while spread placement puts nearly every rail hop on the oversubscribed spine, shared with
-other jobs. Recommendation: require ≤ 2 blocks, allow 3 after a timeout, never spread.
+other jobs. This is a ring-only lower bound: at 64 nodes NCCL may pick Tree or PAT, or run several rings per rail, and a tree crosses block boundaries at every level, so real cross-block traffic is higher and the case for compact placement is stronger.
+Recommendation: require ≤ 2 blocks, allow 3 after a timeout, never spread.
 (c) Waiting cost vs slowdown cost: waiting *w* hours idles 512 GPUs → 512·*w* GPU-h. A 3 % step
 slowdown `[ILLUSTRATIVE]` on a 240 h run costs 0.03 × 240 × 512 ≈ 3,686 GPU-h. Break-even wait
 *w* = 3,686 / 512 ≈ 7.2 h. A `--switches=2@04:00:00` (4 h) bound is defensible; any value with

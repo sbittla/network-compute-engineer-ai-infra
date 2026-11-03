@@ -16,7 +16,7 @@ marking:
   points: 1
 - criterion: 4. Best fit p05 (0 left)
   points: 1
-- criterion: 5. 32 GPUs stranded; 160 GPU-hours; $400 [ILLUSTRATIVE price]
+- criterion: 5. 32 GPUs stranded; 160 GPU-hours; $480 [MODELED price, Chapter 21 TCO]
   points: 2
 - criterion: 6. 128 × (22.5 + 15) min = 80 GPU-hours per preemption
   points: 2

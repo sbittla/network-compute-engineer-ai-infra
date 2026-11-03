@@ -6,12 +6,12 @@ the diagnostic loop of Section 2.12. Evidence is `[ILLUSTRATIVE]`; arithmetic `[
 
 ## 1. Slowdown and why 8 nodes slow the job
 
-Step time 22.6 / 17.4 = 1.299, a **+29.9 %** slowdown. On rack-02 and rack-03 the SM clock fell to
-1,050 / 1,755 = 0.598 of the peers' clock (−40 %). The job is synchronous, so all 256 GPUs wait every
-step for the 64 braking GPUs (8 of 32 nodes). The slowdown is smaller than the clock loss because only
-part of the step scales with SM clock: solving 17.4 × [f / 0.598 + (1 − f)] = 22.6 gives f ≈ 0.45, so
-roughly 45 % of the step behaves as clock-bound compute. Communication, memory-bound phases and waits do
-not scale with clock `[MODELED, single-factor model]`.
+Step time 22.6 / 17.4 = 1.299, a **+29.9 %** slowdown. On rack-02 and rack-03 the SM clock fell to 1,050
+/ 1,830 = 0.574 of the peers' sustained clock (−43 %). The job is synchronous, so all 256 GPUs wait
+every step for the 64 braking GPUs (8 of 32 nodes). The slowdown is smaller than the clock loss because
+only part of the step scales with SM clock: solving 17.4 × [f / 0.574 + (1 − f)] = 22.6 gives f ≈ 0.40,
+so roughly 40 % of the step behaves as clock-bound compute. Communication, memory-bound phases and waits
+do not scale with clock `[MODELED, single-factor model]`.
 
 ## 2. Ranked hypotheses (why only rack-02/03 braked on feed A)
 

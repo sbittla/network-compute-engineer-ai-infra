@@ -9,7 +9,7 @@ points: 12
 evidence_required: 'per episode: label, root or source device, and the quoted discriminating values.'
 marking:
 - criterion: 'Incast 100–158 s: label, root orion-be-leaf-r3:eth1/5, discriminating rates (tx ≈ 394 Gb/s,
-    queue ≈ 3,100 KB, ECN ≈ 0.67 M/s, pause rx 0)'
+    queue ≈ 1,430 KB held near Xoff, ECN median 0, sender pause ≈ 17–19 k/s, pause rx 0)'
   points: 3
 - criterion: 'Pause propagation 250–318 s: root eth1/10, fabric-port pause and spine branches quoted'
   points: 3

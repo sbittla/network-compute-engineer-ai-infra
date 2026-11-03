@@ -26,7 +26,7 @@ repetitions.
    **570 W** (Section 2.10: shed 1.04 kW across 8 GPUs to keep DC load ≤ 8.55 kW). Read the measured GEMM
    throughput at 570 W (say *x* % below the 700 W value) and convert it to W-TRAIN: only the
    clock-sensitive compute share of the 17.4 s step slows, so the step grows by less than *x* % (in
-   Exercise 2.7 about 45 % of the step behaved as clock-scaled). Label it
+   Exercise 2.7 about 40 % of the step behaved as clock-scaled). Label it
    `[MODELED from MEASURED single-GPU data]` and note that collectives and other non-compute time dilute
    the effect.
 

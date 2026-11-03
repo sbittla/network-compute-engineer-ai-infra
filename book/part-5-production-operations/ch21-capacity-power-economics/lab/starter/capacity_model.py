@@ -74,8 +74,10 @@ def first_shortfall(fc: pd.DataFrame) -> str | None:
 
 
 def order_deadlines(quarter: str, a: dict[str, Any]) -> dict[str, str]:
-    """Latest quarter by which each resource must be ordered to be in service by `quarter`."""
-    # TODO: Use quarter_add(quarter, -lead) for each entry of a['lead_time_quarters'].
+    """Latest quarter by which each resource must be ordered to be in service by `quarter`:
+    quarter - lead_time_quarters - onboarding_quarters (onboarding defaults to 0 when absent)."""
+    # TODO: For each entry of a['lead_time_quarters'], add a.get('onboarding_quarters', {}).get(key, 0)
+    #       and use quarter_add(quarter, -(lead + onboarding)).
     raise NotImplementedError("order_deadlines")
 
 

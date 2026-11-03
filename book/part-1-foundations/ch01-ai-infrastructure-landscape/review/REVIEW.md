@@ -99,3 +99,64 @@ Independent reviewer: **9.50** (pass, no margin). Minor findings fixed to protec
 ## Independent review iteration 3 (2026-10-30)
 
 Independent score 9.50 (PASS). The minor findings N3-* raised at this pass are closed: the wording fixes listed in the coordinator's iteration-3 notes are applied, and `python scripts/validate_labs.py` is OK.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.0 · D8 9.5 ·
+D9 9.0 → **9.45** (below gate). 0 blockers, 0 majors, 9 minors. Every finding was re-verified before
+it was applied; none was rejected.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| N01-01 | ORION's default 24 training + 8 inference split never acknowledged | §1.4 opens with the split (`orion-n01`–`n24` Slurm, `orion-n25`–`n32` Kubernetes, full-size W-TRAIN borrows the pool, Chapter 17). Table 1.1 column is now "ORION, full-size W-TRAIN run"; Table 1.2 scheduler row names the 24-node partition and 8-node pool. The design challenge (exercises.md, exercise folder, key, model answer) now asks for a *second* pool, Option A takes 8 of the 24 training nodes (leaving 16), and the key adds a "Training capacity" row and a 1-point deduction for ignoring the existing pool. |
+| N01-02 | "The one row no role scores below 2 on is observability" was false | Now "two rows … observability and automation/safe change"; the Ex 1.3 key and model answer were changed to match. |
+| N01-03 | "Memory-bound unless the batch is very large" contradicted §1.6 | §1.2 now says that BF16 decode at 2k context stays memory-bound at any batch, and only short-context, weight-dominated decode nears the roof. The K4 key and model answer were changed to match (intensity cap ≈ 209 FLOP/B < 295). |
+| N01-04 | W01 FLOP was 6,875 in the lab and 6,881 in the manuscript | `generate_profiles.py` and the CSV now use 6,881 TFLOP (6 × 70e9 × 4,194,304 / 256 = 6,880.7). `check.py` expects 6881/989 = 6.958 s. The lab README, the solution lab README reference table (re-run: 6.96 s), key WP1, the WP1 model answer and `solve.py` assert (6.958 ± 0.005), and the 1.1, LAB and R3 answers now give 6.96 s. The data was regenerated: only the W01 field changed, the seeded jitter is unchanged, and the classification is unchanged. |
+| N01-05 | Ceiling-fraction bands had holes | Four contiguous bands: < 0.25, 0.25–0.9, 0.9–1.0 (recheck counters), > 1.0. |
+| N01-06 | "≈ 5 h at half speed" was unsupported by the log | Two log lines added: an 18:21 page and an 18:52 `scancel 48377`, with resubmission as 48390. Validation now computes 13:49–18:52 = 5.05 h → 32 × 5.05 × 0.5 ≈ 81 GPU-h. The detection delay is explained (alert keyed on job ID, no baseline), and a fix is given. |
+| N01-07 | The design-challenge key misstated the BOM saving | Now "64 fewer backend NICs, 64 fewer rail-leaf host ports, 128 fewer 400G optics (both ends), plus the matching leaf-uplink/spine capacity at 1:1", in both the key and the model answer. |
+| N01-08 | Figure 1.2's H2D volume ignored pipeline staging | Figure 1.2 now shows ≈ 2.1 MB per first-stage node (16.8 MB ÷ 8), and the caption says the last-stage nodes read labels. §1.9 Step 3 gives both the 0.52 MB average and the 2.1 MB first-stage figure (T_io ≈ 0.0004 s, negligible). The 1.1 model answer was changed to match. |
+| N01-09 | Unwrapped source lines | Prose lines over ≈ 105 characters were rewrapped to ≈ 100 in the manuscript, key, exercises.md and the DC exercise README (tables and code blocks left as they are). |
+| D2 advice | Inference failure modes were thin | New §1.4 list: KV cache exhaustion (670 → 335 sequences at 4k context), one degraded replica owning p99 (1/8 = 12.5 % of requests ≫ 1 %), and cold-start storms (7 TB at an assumed 100 GB/s ≈ 70 s) `[ILLUSTRATIVE]`/`[MODELED]`. |
+| D8 advice | Runbook was training-only | Added an inference trigger: one replica's TPOT p95 > 1.5 × the fleet median for 10 min `[ILLUSTRATIVE]` → drain the replica, then diagnose. |
+| D9 extra | $95k vs $96k checkpoint cost | Recomputed: (0.595 + 1.116) % = 1.71 % × $56.1k ≈ $96k; §1.7 now shows this. |
+
+Not done: the D4 suggestion that starter FAIL messages name the offending row. The starter returns
+TODO, by design; once a learner implements a function, the checks already name the wrong rows (for
+example "misclassified (got, want): …"). Committed L2 measured bundles were not edited.
+
+Verification: `python lab/check.py --impl solution` → 9/9 PASS; `--impl starter` → 1/9, 8 TODO, no
+traceback; `python scripts/copyedit_lint.py ch01-ai` → 0 findings; `python scripts/validate_labs.py`
+→ see the coordinator's run. Manuscript is 10,555 words (was 10,138).
+
+Author re-score (pending independent re-review): D1 9.5 · D2 10 · D3 10 · D4 9.5 · D5 10 · D6 10 ·
+D7 9.5 · D8 10 · D9 9.5 → 9.78.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.5 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.0 · D8 9.5 ·
+D9 9.5 → **9.475**. 0 blockers, 0 majors, 5 minors. All five were re-verified and applied.
+
+| ID | Finding | Resolution |
+|---|---|---|
+| R01-01 | The troubleshooting case had 12 replicas, one of them on the training node `orion-n23` | The case now uses `orion-n29` plus the other seven replicas of the default pool (`orion-n25`–`n32`), consistent with §1.4. The folders were renamed `TS-slow-replica-n29` (exercise and solution) and the index, meta.yaml and marking.json updated. The absorb arithmetic is now 8/7 = +14.3 %, with a worst-case linear TPOT p95 of 12 × 1.143 = 13.7 ms against the 50 ms SLO. `solve.py` asserts both, and its outputs were regenerated. The 1.1 model answer now reads "one of the eight default-pool replicas = 12.5 %". |
+| R01-02 | "10 % slow" was ambiguous | §1.1 now says "runs at 90 % of its peers' speed … 0.10 × 256 = 25.6". The K2 prompt (exercises.md and folder) matches, and the key accepts the 10 %-longer reading (9.1 %, 23.3 GPU-equivalents). |
+| R01-03 | The Ex 1.2 key ignored B's existing 40 GB of NVLink traffic | Now (40 + 30) / 450 = 0.156 s in the key, the model answer and `solve.py` (assert and outputs regenerated). The conclusion is unchanged: compute-bound at 0.404 s. |
+| R01-04 | The L2 report cited Section 1.7 for `utilization.gpu` | Changed to Section 1.6 in the `experiment.py` template and in the committed report's prose cross-reference. No measured value was touched. |
+| R01-05 | The Table 1.2 scheduler row implied W-TRAIN fits in 24 nodes | It now adds "a full-size run borrows the 8 inference nodes, Section 1.4". |
+| Price | The canonical rate is now $3.00/GPU-hour (Chapter 21's TCO per nominal GPU-hour) | §1.7 cites Chapter 21: $6,727,680/yr, 1 % ≈ $67k, 5 % ≈ $336k, checkpoint overhead 1.71 % ≈ $115k. Summary: $6.7 M, $67k. DC: pool $1,681,920/yr, reclaimable ≤ $672,768/yr, "$1.7 M". K1 is ≈ $67,000 and K2 is $76.80/h. The DC and K2 `solve.py` outputs were regenerated, and meta.yaml/marking.json updated. |
+| D1 advice | The TP/PP sequence-parallelism mix was unflagged | The Table 1.6 caption now states that TP counts full all-reduces and PP assumes sequence-parallel sharding. |
+| D2 advice | No mechanism was given for how a hang becomes a failure | §1.1 point 5 now explains the watchdog: PyTorch's NCCL process-group default timeout is 10 min, so 10 min × 256 GPUs ≈ 43 GPU-h `[MODELED]`. |
+| D3 advice | No figure for the reading bands | Added Figure 1.5, the four ceiling-fraction bands. |
+| D6 advice | The conventional-fleet bandwidth figure had no qualifier | It is now an explicit order of magnitude, "not a survey figure". |
+| D8 advice | The runbook had no priced stop condition | Step 1: half speed wastes ≈ 128 GPU-h/h (≈ $384); after 30 min (≈ 64 GPU-h) with no proven cause, checkpoint and requeue on known-good placement. |
+
+Not done: the D4 suggestion of automated checking of `data_quality.md`. It would add a free-text check to the
+grader, which we judged too brittle.
+
+Verification: `lab/check.py` solution 9/9, starter 1/9 (graceful); `validate_labs.py ch01` OK;
+`copyedit_lint.py ch01-ai` 0 findings. Manuscript is 10,787 words.

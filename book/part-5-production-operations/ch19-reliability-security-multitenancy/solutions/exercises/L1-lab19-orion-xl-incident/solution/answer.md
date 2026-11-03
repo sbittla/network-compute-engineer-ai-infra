@@ -22,7 +22,7 @@
 | T4 retry policy | orionxl-n212 repeat offender → auto-restart blocked until it is excluded |
 | T4 restart plan | n212 → orionxl-s01 (ranks 1688–1695); n389 → orionxl-s03 (ranks 3104–3111); local ranks preserved |
 | T5 FMEA | Top F03 (RPN 336); F07 DETECTION_INCONSISTENT (re-scored 200); F11 OUT_OF_RANGE; action set F03, F06, F07, F12 |
-| T6 isolation | 10 violations |
+| T6 isolation | 11 violations |
 
 ## Incident packet: the items the rubric marks
 
@@ -51,10 +51,10 @@
    30 min, zero link events. Retry policy: ≤ 2 automatic restarts per 6 h, implicated nodes excluded
    first.
 6. **Metrics (5).** As in the table. The first auto-restart onto the same nodes cost attempt 2's
-   5,529.6 GPU-h. Total ≈ 9,091 GPU-h ≈ $27,300 at $3/GPU-h.
+   5,529.6 GPU-h. Total ≈ 9,091 GPU-h ≈ $27,300 at $3.00/GPU-h.
 7. **Risk register (10)** top 5: F03 336, F07 200 (corrected), F12 189, F08 140, F06 (severity override).
    Each needs an owner and a mitigation.
-8. **Isolation (10):** all 10 violations with remediation (see M2).
+8. **Isolation (10):** all 11 violations with remediation (see M2).
 
 ## Deductions to apply
 

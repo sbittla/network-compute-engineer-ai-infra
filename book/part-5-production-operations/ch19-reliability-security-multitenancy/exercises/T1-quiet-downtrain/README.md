@@ -11,6 +11,7 @@ maintenance reboot of orion-n10 yesterday. Evidence `[ILLUSTRATIVE]`:
 ```text
 per-node SM active: 15 nodes 0.57, orion-n10 0.57    (no compute straggler)
 per-node backend NIC TX (Gb/s, 8 NICs summed): 15 nodes 1,050-1,080, orion-n10 985
+per-NIC peak TX during all-reduce bursts (1 s samples): orion-n10 mlx5_2 ≈ 205 Gb/s; its other NICs and all peers' NICs ≈ 370 Gb/s
 orion-n10 rdma statistic: out_of_sequence flat; rp_cnp_handled normal; link_downed 0
 orion-n10 journalctl -k | grep AER: 3,400 "Corrected error ... type=Physical Layer ... RxErr" since boot (others: 0-5)
 orion-n10 lspci -vvv -s 3b:00.0 (mlx5_2):  LnkCap: Speed 32GT/s, Width x16   LnkSta: Speed 32GT/s, Width x8 (downgraded)

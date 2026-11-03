@@ -14,7 +14,7 @@ Run `python stepmodel.py` to print the full candidate table and checkpoint table
 | C_tp8_pp8_dp4 | 23.1 | 17.47 | 39.8 % | Feasible |
 | L_tp8_pp4_dp8_mb2 | 38.8 | 17.66 | 39.4 % | Feasible |
 | F_fsdp_tp1_pp1_dp256 | 17.2 | 18.55 | 37.5 % | Feasible, slow (full recompute; 9.4 s of DP traffic must be fully prefetched) |
-| K_tp8_pp4_dp8_fullrecomp | 16.7 | 22.17 | 31.4 % | Feasible, slow (recompute) |
+| K_tp8_pp4_dp8_fullrecomp | 16.7 | 23.71 | 29.3 % | Feasible, slow (recompute) |
 
 DP exposure uses the overlap window (last micro-batch's backward = compute/m × 2/3 ≈ 72 ms for the
 baseline): exposed DP = max(0, T_DP − window) ≈ 98 ms.

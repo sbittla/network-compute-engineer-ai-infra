@@ -5,7 +5,7 @@ Type: Outline-mandated · Kind: `computed` · Points: 15
 ## Prompt
 
 <!-- prompt:start -->
-**M4 ★★★ L1 — Capacity/power/cooling model and guardrails (Section 20.3, table 8).** For a hall of Design-B
+**M4 ★★★ L1 — Capacity/power/cooling model and guardrails (course outline §20.3, table 8).** For a hall of Design-B
 racks (8 nodes, 14.3 kW provisioned per node, 80 % heat to liquid), state the facility capacity, rack power
 limit and redundancy mode, liquid-cooling capacity and required coolant flow at ΔT = 10 K, transient
 headroom, and the power-capping policy. Produce the guardrail table (signal, threshold, automated action,

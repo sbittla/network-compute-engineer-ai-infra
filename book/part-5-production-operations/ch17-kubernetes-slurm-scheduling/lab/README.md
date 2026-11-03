@@ -120,7 +120,10 @@ Let `total = gpus_per_node × nodes`, `apparent_free = physical_gpus − allocat
 - Nodes with no failing check are eligible with `free = allocatable − allocated`.
   `FRAGMENTATION` if the eligible nodes' total free ≥ `total` but fewer than `nodes` eligible nodes
   have `free ≥ gpus_per_node`.
-- Return the sorted codes, or `["NONE_FOUND"]`.
+- Return the sorted codes, or `["NONE_FOUND"]`. `NONE_FOUND` means no blocking cause among these
+  codes. It also covers plain insufficient capacity (eligible free GPUs < `total`, no node blocked):
+  there is deliberately no separate capacity code, so a 2-GPU job on a healthy 1-GPU node returns
+  `NONE_FOUND` (as the L2 report shows). Read it as "nothing is misconfigured; wait or add capacity".
 
 ## 6. Tasks and acceptance criteria
 
@@ -132,11 +135,13 @@ Let `total = gpus_per_node × nodes`, `apparent_free = physical_gpus − allocat
 | 4 | Implement `place_job` | both `T4` lines pass | 17 |
 | 5 | Implement `schedule`; run it on the dataset | `T5` invariants, exact match, order pass | 20 |
 | 6 | Implement `diagnose_pending` | `T6` passes (12/12 cases) | 15 |
-| 7 | Write `placement-report.md` (≤ 1 page): for every pending job, the reason and the policy change (if any) that would let it run; identify which jobs were affected by fair share, by rail health, and by lifecycle state | instructor review | 10 |
+| 7 | Write `placement-report.md` (≤ 1 page): for every pending job, the reason and the policy change (if any) that would let it run; identify which jobs were affected by fair share, which by capacity taken by higher-priority jobs, by rail health, and by lifecycle state | instructor review | 10 |
 | 8 | Write `pending-guide.md`: a one-page troubleshooting guide mapping each diagnoser code to the `kubectl`/Slurm command that shows it on a real cluster and the safe fix | instructor review | 10 |
 | | **Total** | | **100** |
 
-Expected run (solution): `9/9 checks passed (solution)`; 10 of 15 jobs placed.
+Expected run (solution): `10/10 checks passed (solution)`; 10 of 15 jobs placed. The first check
+(`D0 dataset reproducible`) regenerates `data/` with the instructor generator and compares it byte
+for byte; in the student release, where the generator is stripped, it reports `SKIP`.
 
 ## 7. Running the checker
 
@@ -184,9 +189,16 @@ a node with one rail administratively down) and measure NCCL `all_reduce_perf` b
 ```bash
 srun -N2 --ntasks-per-node=8 --gpus-per-node=8 ./build/all_reduce_perf -b 1G -e 8G -f 2 -g 1
 ```
-Record ≥ 5 repetitions per placement (median, p95, min/max), warm-up policy, `scontrol show topology`
+Record ≥ 5 repetitions per placement (median, p95, min/max, interquartile range), warm-up policy
+(pass `-w` explicitly; nccl-tests defaults to one warm-up iteration), `scontrol show topology`
 (or the topology labels you used), NIC firmware and driver versions, and time-to-start (p50/p95) for
-gang jobs with and without topology constraints.
+gang jobs with and without topology constraints. **Acceptance rule:** compare bus bandwidth at the
+largest message size (4–8 GB). Two placements differ only if their medians differ by more than the
+larger of the two IQRs and by ≥ 3 %; otherwise report "no measurable difference". As a sanity floor,
+a rail-complete 2-node run on ORION-class hardware should reach ≈ 350+ GB/s busbw (≈ 44 GB/s per rail
+against the 50 GB/s line rate); a node with one rail down should land near 7/8 of the rail-complete
+median. A result outside those bounds points to a fabric or configuration problem, not a placement
+effect.
 
 ### Running the L2 experiment (course harness)
 

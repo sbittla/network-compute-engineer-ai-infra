@@ -1,7 +1,7 @@
 # T1 — The quiet downtrain: worked solution
 
 **Relies on:** Section 19.3 "PCIe AER and link retraining"; Section 19.6 (containment, fault domain vs
-scheduling unit); Section 19.7 (no spares on ORION, requeue); Table 19.4 (straggler row); Chapter 18
+scheduling unit); Section 19.7 (no spares on ORION, requeue); Table 19.5 (straggler row); Chapter 18
 power-cap case. Evidence `[ILLUSTRATIVE]`; arithmetic `[MODELED]`.
 
 ## 1. Hypotheses and discriminating evidence
@@ -22,9 +22,10 @@ NIC line rate = 400 Gb/s = 50 GB/s
 ```
 
 At x8, `mlx5_2` can move at most ≈ 25–27 GB/s (≈ 200–220 Gb/s), about half its line rate. Average NIC
-TX is far below line rate on every node (≈ 133 Gb/s per NIC). The cap bites during communication
-bursts, when every rail-2 transfer from orion-n10 runs at half speed and every rail-2 collective step
-waits for it. That shows up as 7.5 % lower summed TX (985 vs ≈ 1,065 Gb/s mid-range) and a 9 % slower
+TX is far below line rate on every node (≈ 133 Gb/s per NIC), so the average alone cannot show the cap
+binding. The burst peaks do: `mlx5_2` tops out at ≈ 205 Gb/s, inside the x8 achievable band, while every
+other NIC reaches ≈ 370 Gb/s. During those bursts every rail-2 transfer from orion-n10 runs at ≈ 55 % of
+its peers' rate, and every rail-2 collective step waits for it. That shows up as 7.5 % lower summed TX (985 vs ≈ 1,065 Gb/s mid-range) and a 9 % slower
 job.
 
 ## 3. Why SM activity does not single out orion-n10

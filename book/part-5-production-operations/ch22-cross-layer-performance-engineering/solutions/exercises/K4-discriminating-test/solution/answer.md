@@ -14,7 +14,7 @@ The test uses data already held (placement records), costs minutes and carries n
 is T1 (info 0.9, 0.5 h, low → score 1.8).
 
 **Non-example: "look at the fabric dashboard".** TP-split jobs push TP traffic onto the backend (lab:
-backend tx per node 6 → 38 GB/s), GDR-off jobs add host-staged traffic, and genuine congestion raises
+backend tx per node 6 → 96 GB/s), GDR-off jobs add host-staged traffic, and genuine congestion raises
 ECN and PFC counters. Every hypothesis predicts "something odd" there, so whatever is seen, no
 hypothesis is eliminated. Other non-examples: rerunning the same job ("it is still slow" is predicted by
 all hypotheses), or rolling back the most recent change (confounded; see K8).

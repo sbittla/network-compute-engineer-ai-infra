@@ -8,7 +8,8 @@ and NVSwitch, peer-to-peer versus host-staged transfers (counting the copies), N
 — in depth — topology discovery from `nvidia-smi topo -m`, `lstopo`/hwloc, `lspci` and LLDP, producing a
 machine-readable GPU UUID/BDF → NIC/HCA BDF, NUMA, slot and rail mapping. The chapter teaches how to
 verify GPUDirect RDMA instead of assuming it, treats multi-rail assignment as a joint placement problem,
-and quantifies with a labelled model how two flawed nodes halve a 128-GPU job's all-reduce bandwidth.
+and quantifies with a labelled model how two flawed nodes double a 128-GPU job's data-parallel all-reduce
+time.
 
 ## Learning objectives
 

@@ -20,7 +20,7 @@
       "ceiling_fraction": 0.4,
       "dominant": "scaleout"
     },
-    "B_if_all_to_all_on_nvlink_s": 0.0667
+    "B_if_all_to_all_on_nvlink_s": 0.1556
   },
   "ceilings": {
     "compute_tflops": 989.0,

@@ -13,8 +13,9 @@ marking:
   points: 3
 - criterion: 'Root cause: rail 4/5 patch-panel swap on orion-n12 during the rack move'
   points: 2
-- criterion: 'Traffic-path explanation: on an L2 rail VLAN the NIC still reaches peers; same-rail traffic
-    crosses rails via the spines (or PXN), adding a hop and tail latency'
+- criterion: 'Traffic-path explanation: in the stretched L2 domain the swapped NIC still reaches peers; NCCL
+    still pairs GPU4 with mlx5_4, so rail-4 and rail-5 traffic to orion-n12 crosses the spines, adding a hop and
+    tail latency (ECMP collisions on the EVPN-VXLAN underlay; an STP/MLAG answer is accepted if stated)'
   points: 3
 - criterion: Safe fix (drain at checkpoint, swap cords per plan) and validation (LLDP, mapping diff, nccl-tests,
     p99 over ≥ 5 runs)

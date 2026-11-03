@@ -8,5 +8,5 @@ Every row states its evidence label, tier and manifest (or model formula).
 | B-02 | all_reduce_perf busbw, 8 GiB, 2 nodes x 8 GPUs, 8 rails (median of 5; per rail = busbw/8) | 356.1 | GB/s | MEASURED | L3 | - |
 | B-03 | Checkpoint write, 980 GB at 80 GB/s | 12.3 | s |  | L1 | model: 980 GB / 80 GB/s |
 | B-04 | all_reduce_perf busbw, 8 GiB, 8 nodes x 8 GPUs | 328.0 | GB/s | MEASURED | L1 | manifests/l1-laptop.yaml |
-| B-05 | Checkpoint overhead at Young/Daly interval | 2.6 | % | ESTIMATED | L1 | model: delta/tau + tau/(2M), delta=60 s, M=48 h |
-| B-06 | Design-lint runtime on this bundle | 0.4 | s | MEASURED | L1 | manifests/l1-laptop.yaml |
+| B-05 | Checkpoint + rework waste at Young interval (excl. restart R) | 2.6 | % | ESTIMATED | L1 | model: delta/tau + tau/(2M), delta=60 s, M=48 h |
+| B-06 | Design-lint CLI wall time on this bundle (median of 7) | 0.17 | s | MEASURED | L1 | manifests/l1-laptop.yaml |

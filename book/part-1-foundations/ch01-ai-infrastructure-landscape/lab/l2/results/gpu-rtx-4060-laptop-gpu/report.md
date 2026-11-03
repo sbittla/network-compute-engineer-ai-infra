@@ -88,7 +88,7 @@ Machine balance: **149 FLOP/B** here vs **295 FLOP/B** for the manuscript's ORIO
 | L2-H2D | 14 | 2535 | 43.6 | 99 % | 6 % | 69 | 0x0000000000000000 |
 | L2-TINY | 11 | 2535 | 26.3 | 13 % | 0 % | 64 | 0x0000000000000000 |
 
-`utilization.gpu` is the fraction of time *any* kernel ran (Section 1.7): the tiny-launch burst and the GEMM can both read high while one uses a fraction of the SMs. Mask 0x4 is sw_power_cap (routine on a laptop GPU under load); 0x1 is gpu_idle.
+`utilization.gpu` is the fraction of time *any* kernel ran (Section 1.6): the tiny-launch burst and the GEMM can both read high while one uses a fraction of the SMs. Mask 0x4 is sw_power_cap (routine on a laptop GPU under load); 0x1 is gpu_idle.
 
 ## What to conclude
 

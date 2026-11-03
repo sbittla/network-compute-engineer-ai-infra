@@ -1,0 +1,25 @@
+{
+  "difficulty": 1,
+  "evidence_required": "Written answer (2–5 sentences) that names the mechanism, not just the term.",
+  "id": "20-K2",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "Level-triggered acts on the current desired-vs-observed difference",
+      "points": 1
+    },
+    {
+      "criterion": "Edge-triggered acts on events/changes",
+      "points": 1
+    },
+    {
+      "criterion": "After a day down: edge-triggered missed events and never repairs drift; level-triggered converges",
+      "points": 1
+    }
+  ],
+  "points": 3,
+  "tier": "L1",
+  "title": "Level- vs edge-triggered controllers",
+  "type": "knowledge-check"
+}

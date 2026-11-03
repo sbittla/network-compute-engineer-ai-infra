@@ -14,7 +14,7 @@
     "pcie_correlation: PCIe downgrade correlated": "PASS pcie_correlation: PCIe downgrade correlated",
     "perftest_flags: underperforming pair and tail-latency pair flagged": "PASS perftest_flags: underperforming pair and tail-latency pair flagged",
     "perftest_summary: 32 rows, fleet median plateau 388.6 Gb/s": "PASS perftest_summary: 32 rows, fleet median plateau 388.6 Gb/s",
-    "readiness_findings: all 16 planted-fault findings detected, no extras": "PASS readiness_findings: all 16 planted-fault findings detected, no extras",
-    "render_report: report rendered (33 lines)": "PASS render_report: report rendered (33 lines)"
+    "readiness_findings: all 18 planted-fault findings detected, no extras": "PASS readiness_findings: all 18 planted-fault findings detected, no extras",
+    "render_report: report rendered (35 lines)": "PASS render_report: report rendered (35 lines)"
   }
 }

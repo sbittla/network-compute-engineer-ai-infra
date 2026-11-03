@@ -4,7 +4,8 @@ Hands-on lab · difficulty ★★ · tier L1 · kind `lab` · [exercise index](.
 
 <!-- prompt:start -->
 **L1 ★★ (L1) — Attribute a cross-layer regression.** Complete [the Chapter 22 lab](../../lab/README.md):
-tasks 1–9 in `starter/regression_lab.py`, until `python lab/check.py` reports 11/11 PASS.
+tasks 1–9 (including 6b) in `starter/regression_lab.py`, until `python lab/check.py` reports 11/11 PASS
+(your copy skips the instructor-only data-regeneration check).
 *Evidence required:* checker output; generated `report.md`; a short note listing each data-hygiene rule
 and how many rows or jobs it affected.
 <!-- prompt:end -->

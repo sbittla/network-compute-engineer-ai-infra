@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 from typing import Callable
 
+import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
@@ -107,11 +108,24 @@ def main() -> int:
                     f"{early['gpu_util_pct']:.1f} -> {late['gpu_util_pct']:.1f} %, comm {early['comm_ms']:.0f} -> "
                     f"{late['comm_ms']:.0f} ms, burst tx {early['burst_tx_gbps']:.0f} -> {late['burst_tx_gbps']:.0f} Gb/s")
 
+    def c_gaps() -> tuple[bool, str]:
+        # Realism gap: real telemetry loses samples. Drop 5 % of rows and blank 1 % of compute_ms
+        # (fixed seed), then require the same stragglers and an onset for rank 37 within two steps.
+        rng = np.random.default_rng(13)
+        gappy = df.drop(index=df.index[rng.random(len(df)) < 0.05]).copy()
+        gappy.loc[gappy.index[rng.random(len(gappy)) < 0.01], "compute_ms"] = np.nan
+        gappy = gappy.reset_index(drop=True)
+        s = td.find_stragglers(gappy)
+        o37 = td.rank_onset(gappy, 37)
+        ok = list(s) == [12, 37] and o37 is not None and 20 <= o37 <= 22
+        return ok, (f"{len(df) - len(gappy)} rows dropped, {int(gappy['compute_ms'].isna().sum())} NaN: "
+                    f"stragglers={s}, onset rank 37 = {o37} (expect [12, 37], 20-22)")
+
     checks: list[tuple[str, Callable[[], tuple[bool, str]]]] = [
         ("load_telemetry", c_load), ("per_step_stats", c_stats), ("robust_z", c_robust_z),
         ("find_stragglers", c_stragglers), ("rank_onset", c_onset), ("attribute_cause", c_cause),
         ("rail_health", c_rails), ("hot_not_throttled", c_decoy), ("amplification", c_amplification),
-        ("symptom_windows", c_windows),
+        ("symptom_windows", c_windows), ("missing_samples", c_gaps),
     ]
     failed = 0
     for name, fn in checks:

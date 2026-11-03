@@ -4,7 +4,8 @@ Model answer: **accept, documented**. A rail-leaf failure stops a full-scale tra
 ORION-256 has no spare rail and no spare nodes. The cost per event is the restart (256 GPUs × 0.25 h =
 **64 GPU-hours**), the replacement time at 256 GPU-hours per hour (a 2 h leaf swap = **512 GPU-hours**
 `[ILLUSTRATIVE]`), and the work lost since the last checkpoint (on average half the ≈ 34 min interval,
-≈ 73 GPU-hours). That is ≈ 650 GPU-hours, or ≈ $1,600 at $2.50/GPU-hour, per leaf failure. Switch
+≈ 73 GPU-hours). That is ≈ 650 GPU-hours, or ≈ $1,950 at $3.00/GPU-hour (Chapter 21's owned-cluster TCO rate
+`[MODELED]`), per leaf failure. Switch
 failures are rare compared with the 48 h job-level MTBF already driven by nodes, so the leaves add little
 to the expected loss. Removing the SPOF would need a second leaf per rail with dual-ported NICs or a
 non-rail design, roughly doubling leaf count and optics and giving up the rail-optimized locality that

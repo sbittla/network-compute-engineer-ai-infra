@@ -5,10 +5,12 @@ Relies on manuscript Section 6.3 ("What the roofline does not tell you") and Lab
 First principle: the value exceeds the 3.35 TB/s HBM roof, so it **cannot be DRAM bandwidth**. Something in the
 measurement is wrong or the bytes did not come from DRAM.
 
-**Mechanism 1 (1 point): the data never left the on-chip caches.** The working set (or part of it) fits in the
-50 MB L2 or is reused from shared memory, so most accesses hit on chip and never reach HBM. Bytes divided by
-time then measures L2 throughput, which can exceed the HBM roof. Lab 6's `bias_add_l2_resident` (5.03 TB/s
-`[SIMULATED]`) is exactly this.
+**Mechanism 1 (1 point): part of the traffic never left the chip.** The input may still be in L2 from the
+producer kernel, or the output may still sit in L2 write-back when the timer stops, so those accesses never
+reach HBM and bytes ÷ time partly measures L2 throughput. This explains only what fits: the L2 is 50 MB,
+two ≈ 25 MB partitions on this GPU class `[VENDOR-SPEC, 2026-10]`. Lab 6's `bias_add_l2_resident`
+(100.7 MB in 20 µs = 5.03 TB/s `[SIMULATED]`) cannot be fully L2-resident, so its shape-derived byte count
+also overstates DRAM traffic (mechanism 2).
 
 **Mechanism 2 (1 point): the bytes are computed, not counted.** "Bandwidth" was derived from tensor shapes
 (inputs + outputs × element size), which double-counts operands read once but listed twice, assumes a layout

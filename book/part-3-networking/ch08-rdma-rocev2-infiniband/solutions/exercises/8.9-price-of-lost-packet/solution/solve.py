@@ -20,7 +20,7 @@ TIMEOUT, RETRY_CNT = 18, 7
 P_LOSS = 1e-5
 LOST_PKT = 50
 KEY = {"packets": 256, "t_us": 21.4, "bdp_pkts": 60, "b_extra_us": 5.0, "t_ack_s": 1.074,
-       "d_cost_us": 10.7, "d_goodput": 0.67, "e_s": 8.59}
+       "d_cost_us": 10.7, "d_goodput": 0.67, "d_goodput_lossy_ack": 0.50, "e_s": 8.59}
 
 
 def main() -> None:
@@ -36,9 +36,10 @@ def main() -> None:
     bdp_pkts = round(bdp_b / MTU_B)
     b_extra_us = bdp_pkts * MTU_B / bytes_per_us      # resend of the window sent before the NAK came back
     t_ack_s = 4.096e-6 * 2 ** TIMEOUT
-    d_tail_cost_us = P_LOSS * t_ack_s * 1e6           # only the last packet (or final ACK) forces a timeout
+    d_tail_cost_us = P_LOSS * t_ack_s * 1e6           # only the last packet forces a timeout (ACK path loss-free)
     d_mid_cost_us = packets * P_LOSS * RTT_US
     goodput = t_us / (t_us + d_tail_cost_us + d_mid_cost_us)
+    goodput_lossy_ack = t_us / (t_us + 2 * d_tail_cost_us + d_mid_cost_us)   # final ACK equally lossy: ~2p
     e_s = (RETRY_CNT + 1) * t_ack_s
     burst = {k: round(t_us / (t_us + d_tail_cost_us / k + d_mid_cost_us), 3) for k in (1, 4, 16, 64)}
 
@@ -46,6 +47,7 @@ def main() -> None:
     assert bdp_pkts == KEY["bdp_pkts"] and abs(b_extra_us - KEY["b_extra_us"]) < 0.05
     assert abs(t_ack_s - KEY["t_ack_s"]) < 0.0005 and abs(d_tail_cost_us - KEY["d_cost_us"]) < 0.05
     assert abs(goodput - KEY["d_goodput"]) < 0.005 and abs(e_s - KEY["e_s"]) < 0.005
+    assert abs(goodput_lossy_ack - KEY["d_goodput_lossy_ack"]) < 0.005
 
     result = {
         "exercise": "8.9", "evidence_label": "[MODELED]",
@@ -56,6 +58,7 @@ def main() -> None:
         "answer": {"a_packets": packets, "a_time_us": round(t_us, 2), "b_bdp_packets": bdp_pkts,
                    "b_extra_us": round(b_extra_us, 2), "c_extra_s": round(t_ack_s, 4),
                    "d_expected_tail_cost_us": round(d_tail_cost_us, 2), "d_goodput": round(goodput, 3),
+                   "d_goodput_if_final_ack_equally_lossy": round(goodput_lossy_ack, 3),
                    "e_time_to_retry_exc_err_s": round(e_s, 2)},
         "units": "us, s, packets", "tolerance": "key rounding (±0.05 us, ±0.005)",
     }
@@ -64,7 +67,7 @@ def main() -> None:
 - (a) {MSG_B:,} / {MTU_B:,} = **{packets} packets**; {MSG_B:,} B / {bytes_per_us:,.0f} B/µs = **{t_us:.1f} µs**
 - (b) BDP = {bytes_per_us:,.0f} B/µs × {RTT_US} µs = {bdp_b:,.0f} B ≈ **{bdp_pkts} packets**; extra ≈ {bdp_pkts} × 4,096 B / {bytes_per_us:,.0f} B/µs = **{b_extra_us:.1f} µs** ({100 * b_extra_us / t_us:.0f} % of (a))
 - (c) T_ack = 4.096 µs × 2^{TIMEOUT} = **{t_ack_s:.3f} s** extra
-- (d) 10⁻⁵ × {t_ack_s:.3f} s = **{d_tail_cost_us:.1f} µs** per isolated message (+ {d_mid_cost_us:.3f} µs mid-message) → goodput **{100 * goodput:.0f} %**; back-to-back bursts of k messages: {burst}
+- (d) 10⁻⁵ × {t_ack_s:.3f} s = **{d_tail_cost_us:.1f} µs** per isolated message (+ {d_mid_cost_us:.3f} µs mid-message) → goodput **{100 * goodput:.0f} %** with a loss-free ACK path (≈ {100 * goodput_lossy_ack:.0f} % if the final ACK is equally lossy); back-to-back bursts of k messages: {burst}
 - (e) ({RETRY_CNT} + 1) × {t_ack_s:.3f} s = **{e_s:.2f} s**
 """
     (out / "result.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")

@@ -79,7 +79,7 @@ least five items (artifact, command, expected result if hypothesis true, result 
 **12.13 ★★ L1 — nccl-tests analysis toolkit (lab).** Complete [lab/README.md](lab/README.md) tasks 1–6
 so that `python lab/check.py` passes. Optional: run `lab/optional/gloo_allreduce.py` on your laptop if
 PyTorch is installed and parse your own output.
-*Evidence required:* checker output (10/10 PASS), summary table, anomaly labels with explanations,
+*Evidence required:* checker output (11/11 PASS), summary table, anomaly labels with explanations,
 and (optional) your gloo log labelled `[MEASURED]` with the environment.
 
 ## Troubleshooting case
@@ -115,3 +115,15 @@ same misalignment cost much more in production?
 
 **12.19 ★ L1.** What would you need to add to a single nccl-tests log before you would accept it as
 evidence in an incident review?
+
+## Worked problem (added): all-to-all
+
+**12.20 ★★ L1 — All-to-all and PXN on ORION.** An expert-parallel group spans two ORION nodes
+(n = 16, one rank per GPU) and runs `alltoall_perf` with S = 1 GiB per rank on an otherwise idle fabric.
+Assume an effective 45 GB/s per NIC and that NVLink is never the bottleneck. (a) Split the bytes each
+rank sends into intra-node, inter-node same-rail, and inter-node cross-rail. (b) With PXN enabled,
+compute the expected time, algbw, and busbw. (c) Repeat (b) with `NCCL_PXN_DISABLE=1`, and give the
+fraction of all bytes sent that crosses the spines in each case. (d) Repeat the busbw and spine
+fraction for a 256-rank all-to-all over all 32 nodes. (e) Explain why the benchmark in (b) and (c) can
+hide the PXN setting, and what changes in production.
+*Evidence required:* formula → substitution → result for (a)–(d), and two sentences for (e).

@@ -11,7 +11,7 @@ are `[MODELED]` from rule-adjusted evidence; hours are `[ILLUSTRATIVE]`.
 
 | Weeks | Artifact | Hours | Raises | Projected score / status |
 |---|---|---|---|---|
-| 1–7 | Capstone B (telemetry and troubleshooting), with ADRs and a case study in Table 24.12 form | 65 | observability 1 → 3, congestion 2 → 3 | (13.333 + 1.333 + 1.000) / 17 = 15.667 / 17 = **92.2 %, ready** (max gap 1) |
+| 1–7 | Capstone B (telemetry and troubleshooting), with ADRs and a case study in Table 24.14 form | 65 | observability 1 → 3, congestion 2 → 3 | (13.333 + 1.333 + 1.000) / 17 = 15.667 / 17 = **92.2 %, ready** (max gap 1) |
 | 8–10 | L2 GPU-host lab: GPU↔NIC topology and `ib_write_bw --use_cuda` per rail, with manifest | 25 (+ rented GPU time) | host_topology 2 → 3 (+0.667) | 16.333 / 17 = 96.1 %, ready |
 | 11–12 | Portfolio narrative (≤ 1 page), peer review of the capstone, rehearsal of M2 | 20 | none (verifies existing levels) | unchanged |
 
@@ -21,7 +21,7 @@ gap-blocks-ready rule no longer applies.
 
 **Why depth over breadth.** Two L1 capstones would not be L1 *labs*, but a breadth plan of L1 labs caps every
 competency at 2, which cannot close a target-3 gap (Figure 24.5). One capstone that hits the two
-highest-priority gaps at once (Table 24.13: Capstone B raises congestion, RDMA, observability and physical
+highest-priority gaps at once (Table 24.15: Capstone B raises congestion, RDMA, observability and physical
 layer) moves the score most per hour. Paying for L2 time is justified only for host_topology, where a
 hardware-backed measurement is the evidence an interviewer will probe.
 

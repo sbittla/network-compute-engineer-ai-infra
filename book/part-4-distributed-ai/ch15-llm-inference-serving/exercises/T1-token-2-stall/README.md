@@ -22,7 +22,8 @@ normal. You have the following evidence `[ILLUSTRATIVE]`:
 | Inference request rate | 39 req/s | 41 req/s |
 
 The Slurm calendar shows a recurring 64-GPU fine-tuning job from 14:00 to 15:30. You do not know
-which nodes it runs on.
+which nodes it runs on. Under ORION's partition model (Chapter 17) Slurm owns only `orion-n01`–`n24`,
+but Platform's change log shows a Slurm partition-definition change merged three weeks ago.
 (a) Walk the diagnostic loop: list ranked hypotheses, the discriminating test for each, and the
 evidence you would still need. (b) Propose a safe immediate mitigation and a structural fix.
 (c) State how you would validate the fix.

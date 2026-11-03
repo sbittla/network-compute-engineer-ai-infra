@@ -28,6 +28,7 @@ EXPECTED_FINDINGS = {
     "5c2dec0f23a85dae", "874ed4c866150163", "add6e0513c74152b", "b2b5e8a4c02995e1",
     "b83498b078cb65e6", "c6b9312a62b89764", "c8b8fad11066ab4d", "cbbdd4ea057a8bc5",
     "ccd960b3c02076e3", "ce9c3884114ad04f", "e0e5292dcfc765f1", "ef5fc30920b1bc3d",
+    "5a1a2744ea1b77c5", "f7bf07fbc7feabe7",
 }
 EXPECTED_VERDICTS = {
     "0aec59feee2dae5e", "0e02b124cc9f1659", "3e34f161b6ee4999", "7583985d410ed6bf",

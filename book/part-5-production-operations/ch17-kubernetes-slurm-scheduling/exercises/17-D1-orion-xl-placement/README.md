@@ -3,8 +3,8 @@
 Type: design-challenge · Kind: computed · Points: 10
 
 <!-- prompt:start -->
-**17-D1** ★★★ L1 — ORION-XL placement. ORION-XL has 512 HX8 nodes; each block of 32 nodes shares one
-set of 8 rail leaves, and cross-block traffic crosses a spine tier with 2:1 oversubscription
+**17-D1** ★★★ L1 — ORION-XL placement. ORION-XL has 512 HX8 nodes; each block of 32 nodes (a canonical ORION-XL pod,
+`p00`–`p15`) shares one set of 8 rail leaves, and cross-block traffic crosses a spine tier with 2:1 oversubscription
 `[ILLUSTRATIVE]` for this exercise. W-TRAIN is scaled to 64 nodes (512 GPUs). Design the placement
 rules: (a) write the `topology.conf` structure (or the equivalent Kubernetes topology labels);
 (b) decide whether a 64-node job must be confined to 2 blocks, may use 3, or may spread freely, and

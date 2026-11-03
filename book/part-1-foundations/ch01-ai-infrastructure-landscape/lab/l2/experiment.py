@@ -432,7 +432,7 @@ def report(result: dict, env: dict) -> str:
             if tm:
                 L.append(f"| {r['id']} | {tm['samples']} | {tm['sm_clock_mhz']:.0f} | {tm['power_w']:.1f} | {tm['util_gpu_pct']:.0f} % | "
                          f"{tm['util_mem_pct']:.0f} % | {tm['temp_c_max']:.0f} | {', '.join(tm['clock_event_masks'])} |")
-        L += ["", "`utilization.gpu` is the fraction of time *any* kernel ran (Section 1.7): the tiny-launch burst and the "
+        L += ["", "`utilization.gpu` is the fraction of time *any* kernel ran (Section 1.6): the tiny-launch burst and the "
               "GEMM can both read high while one uses a fraction of the SMs. Mask 0x4 is sw_power_cap (routine on a laptop "
               "GPU under load); 0x1 is gpu_idle."]
     t = {r["id"]: r for r in result["tables"]["workloads"]}

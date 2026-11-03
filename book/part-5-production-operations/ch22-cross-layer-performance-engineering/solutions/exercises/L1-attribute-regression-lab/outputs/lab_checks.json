@@ -9,7 +9,7 @@
     "job_factor_table: time-aware factor flags": "PASS job_factor_table: time-aware factor flags - factor exposure counts match",
     "rank_tests: value/cost/risk ordering + safety": "PASS rank_tests: value/cost/risk ordering + safety - order ['T3', 'T1', 'T2', 'T4', 'T8', 'T6', 'T7']; rejected ['T5', 'T9']",
     "regression_summary: mean vs median change": "PASS regression_summary: mean vs median change - before 17.38 s, after 21.42 s, mean +23.2 % (exp 23.2), median +13.1 % (exp 13.1), step-weighted +22.3 % (exp 22.3)",
-    "render_report: facts / causes / uncertainty": "PASS render_report: facts / causes / uncertainty - report sections present and ordered",
+    "render_report: facts / causes / uncertainty": "PASS render_report: facts / causes / uncertainty - report has hygiene counts (44 duplicates, 480 warm-up rows, 0 jobs dropped) and ordered sections",
     "storage_crosscheck: direct vs inferred": "PASS storage_crosscheck: direct vs inferred - data-wait delta 1.46 s vs storage coef 1.40 s, consistent=True",
     "tp_split_jobs: TP groups spanning nodes": "PASS tp_split_jobs: TP groups spanning nodes - 7 TP-split jobs found; missing [], extra []"
   }

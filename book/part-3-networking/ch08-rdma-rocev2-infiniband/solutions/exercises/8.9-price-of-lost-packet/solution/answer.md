@@ -33,12 +33,13 @@ T_ack = 4.096 µs × 2¹⁸ = 4.096 µs × 262,144 = **1.074 s** extra. That is 
 ## (d) Expected goodput with p = 10⁻⁵, isolated messages
 
 For an isolated message (the QP idles afterwards), only a lost **final packet** (or final ACK) costs
-a timeout:
+a timeout. Assume first that the ACK path is loss-free:
 - tail cost per message ≈ p × T_ack = 10⁻⁵ × 1.074 s = **10.7 µs**;
 - mid-message losses: 256 × 10⁻⁵ = 0.00256 losses per message × ≈ 5 µs = 0.013 µs (negligible).
 
 Goodput ≈ 21.4 / (21.4 + 10.7 + 0.013) ≈ **0.67 → ≈ 67 %**. A one-in-100,000 loss rate costs a third
-of throughput.
+of throughput. If the final ACK crosses an equally lossy path, the probability is ≈ 2p: 21.5 µs per
+message and goodput ≈ 21.4 / (21.4 + 21.5) ≈ **50 %**.
 
 **Back-to-back messages:** the next message's first packet exposes a lost tail and triggers a NAK
 (≈ one RTT of cost), so the timeout risk applies only to the *last* packet of each burst. With bursts

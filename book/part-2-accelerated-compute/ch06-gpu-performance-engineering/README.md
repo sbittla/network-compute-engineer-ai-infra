@@ -49,7 +49,7 @@ counters) · **L2** (same protocol on a real GPU with CUDA events and telemetry)
 | Path | Content |
 |---|---|
 | [manuscript.md](manuscript.md) | Chapter text (Sections 6.1–6.11, trade-offs, runbook, summary) |
-| [exercises.md](exercises.md) | Exercises 6.1–6.19 including outline-mandated 6.11–6.13 |
+| [exercises.md](exercises.md) | Exercises 6.1–6.20 including outline-mandated 6.11–6.13 |
 | [exercises/](exercises/) | One learner folder per exercise (6.1–6.20): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 6 guide |
 | `lab/manifest.yaml` | Environment manifest, decision protocol, L2 record fields |

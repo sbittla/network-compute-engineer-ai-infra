@@ -187,6 +187,8 @@ def check_isolation(tenants: dict[str, Any], policy: dict[str, Any]) -> set[tupl
     """Return the set of (tenant, code) violations. Codes:
     RBAC_FORBIDDEN_ROLE, SHARED_VRF / SHARED_VNI / SHARED_IB_PKEY / SHARED_FRONTEND_VLAN (both tenants),
     STORAGE_OVERLAP (the tenant whose export contains or equals another tenant's export),
-    GPU_SHARING_NOT_MIG, NO_SCRUB, SECRETS_SCOPE, AUDIT_RETENTION."""
-    # TODO: One loop per tenant for per-tenant rules; one pass per network field for uniqueness; pairwise path-prefix test for storage.
+    GPU_SHARING_NOT_MIG, NO_SCRUB, SECRETS_SCOPE, AUDIT_RETENTION,
+    GPU_INJECTION_BYPASS (PSA level not allowed, a privileged tenant pod, or a pod that sets
+    NVIDIA_VISIBLE_DEVICES without a GPU request: device access outside the device plugin)."""
+    # TODO: One loop per tenant for per-tenant rules; one pass per network field for uniqueness; pairwise path-prefix test for storage; pod_security fields for GPU_INJECTION_BYPASS.
     raise NotImplementedError("check_isolation")

@@ -10,7 +10,7 @@ import yaml
 
 DATA = Path(__file__).resolve().parents[4] / "lab" / "data"
 ROLE, SENIORITY = "sre_ops", "mid"
-# Demonstrated levels stated in the WP1 prompt (sample learner, Section 24.2 after evidence rules)
+# Demonstrated levels stated in the WP1 prompt (sample learner, the lab's demonstrated_levels output)
 LEVELS = {"observability": 1, "reliability_security": 2, "automation": 3, "scheduling": 1,
           "storage_ckpt": 1, "linux_host": 2, "communication": 3}
 CAPSTONE_F_OBSERVABILITY = 3   # part (d)

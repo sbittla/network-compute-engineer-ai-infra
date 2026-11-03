@@ -37,8 +37,9 @@ flight recorder (ranks behind — minimum completed sequence) and the transport 
 
 **K6.** Fault domain = what failed (the `mlx5_3` link: HCA port, optics, cable). Scheduling unit =
 what the scheduler can remove: the node, because a TP = 8 rail-optimized job needs all 8 rails. They
-coincide for a job that uses only some GPUs/rails of a node (e.g. a 4-GPU inference replica on GPUs 4–7
-can keep running), or when the fault domain is itself a node (PSU).
+coincide when the fault domain is itself the node (PSU, motherboard). For a non-rail-aligned workload
+(e.g. a 4-GPU inference replica on GPUs 4–7) the node stays usable, so the unit removed shrinks to GPU 3
+and its rail, close to the one-link domain.
 
 **K7.**
 
@@ -54,6 +55,17 @@ then slow A's flows (pause propagation, head-of-line blocking). Mitigations: pla
 separate leaf groups / spine planes; separate QoS classes with buffer allocation; tenant-aware rate
 limits; congestion-control tuning.
 
+**K9.** Silent data corruption raises no ECC, Xid, AER, link, or NCCL event, and the collective completes,
+so every error- or timeout-based detector in Tables 19.4–19.5 stays quiet; the all-reduce spreads the
+bad gradient to all replicas. Detect with loss/gradient-norm anomaly rules (date the onset),
+cross-replica parameter checksums (local-update faults), golden-batch replay on suspect vs known-good
+nodes with bisection across DP-replica subsets, and `dcgmi diag -r 3`/`-r 4` or vendor SDC screens.
+Restore the newest checkpoint *before* the onset — later ones may hold corrupted weights — and
+quarantine the node with its evidence. *Marking:* 2/2/1.
+
+*Points per knowledge check* (criteria in each exercise's `meta.yaml`): K1 4, K2 6, K3 6, K4 6, K5 4,
+K6 5, K7 6, K8 5, K9 5.
+
 ## Worked problems
 
 **W1.**
@@ -62,7 +74,7 @@ limits; congestion-control tuning.
 (b) M = 180 min, τ = 19. R = 15: 1/19 + (9.5 + 15)/180 = 0.0526 + 0.1361 = 0.1887 → 81.1 %. R = 5:
 0.0526 + (9.5 + 5)/180 = 0.0526 + 0.0806 = 0.1332 → 86.7 %. (τ_opt in Young's model does not depend
 on R.)
-(c) Difference 0.0556 × 4,096 GPUs × 24 h = 5,461 GPU-h/day ≈ $16,400/day `[MODELED]`.
+(c) Difference 0.0556 × 4,096 GPUs × 24 h = 5,461 GPU-h/day ≈ $16,400/day at $3.00/GPU-h `[MODELED]`.
 *Marking:* 3/4/3. Common mistake: using hours and minutes inconsistently.
 
 **W2.**
@@ -92,7 +104,7 @@ short roughly half the time. Common mistake: adding a flat margin instead of usi
 | Retry policy | repeat offender orionxl-n212 → auto-restart blocked until excluded |
 | Restart plan | orionxl-n212 → orionxl-s01 (ranks 1688–1695); orionxl-n389 → orionxl-s03 (ranks 3104–3111) |
 | FMEA | top F03 (336); F07 DETECTION_INCONSISTENT (re-scored 200); F11 OUT_OF_RANGE; action set F03, F06, F07, F12 |
-| Isolation | 10 violations (see check.py) |
+| Isolation | 11 violations (see check.py) |
 
 **Planted anomalies (do not distribute):**
 1. *First reporter* rank 817 (orionxl-n103) logs the earliest watchdog line — innocent.
@@ -112,7 +124,8 @@ short roughly half the time. Common mistake: adding a flat margin instead of usi
 11. *Isolation*: cluster-admin binding for an acme service account; VNI 10020 shared (borealis, cobalt);
     P_Key 0x8001 shared (acme, cobalt); borealis exports parent path `/lustre/projects`; borealis no GPU
     scrub; borealis secrets prefix `kv/tenants/`; cobalt time-slices GPUs shared with borealis; cobalt
-    audit retention 30 days.
+    audit retention 30 days; *GPU injection*: pod `acme-dev/notebook-7` sets `NVIDIA_VISIBLE_DEVICES=all`
+    without a GPU request (GPU_INJECTION_BYPASS). `baseline` PSA passes it; only the toolkit setting stops it.
 
 **Marking (lab README Section 8):** award full "proven vs correlated" marks only when each verdict cites
 timing, locality, and mechanism, and when H1 is described as proven *pending intervention* (restart
@@ -130,7 +143,9 @@ restoring ckpt-0085, or for picking orionxl-s00.
 
 Arithmetic: Gen5 x16 ≈ 63 GB/s/dir theoretical → x8 ≈ 31.5 GB/s (≈ 25–27 achievable), below the
 400 Gb/s = 50 GB/s NIC line rate, so rail 2 from orion-n10 is capped at ≈ half rate; every rail-2
-collective step waits on it. Why SM activity does not single it out: this is a *network* straggler —
+collective step waits on it. The burst peaks confirm it: mlx5_2 peaks at ≈ 205 Gb/s (the x8 band) while every
+other NIC reaches ≈ 370 Gb/s; the ≈ 133 Gb/s per-NIC average is duty-cycle diluted and hides the cap.
+Why SM activity does not single it out: this is a *network* straggler —
 orion-n10's GPUs wait on their own slow transfers just as peers wait on them, so all nodes show the same
 reduced activity; the per-node NIC throughput and the PCIe link state are the discriminators (unlike a
 compute straggler, which is *busier* than its peers). Containment: fault domain = mlx5_2's PCIe
@@ -166,6 +181,8 @@ dry). *Marking:* model 4, numbers 3, divisibility and recommendation 3.
 
 ## Reflection — guidance
 
+*Points:* R1–R4 are 3 points each, 1 per criterion in each exercise's `meta.yaml`.
+
 - **R1:** "H1 is the cause" needs the intervention: the job running ≥ 2 × MTBF without rail-5 hangs after
   excluding orionxl-n212, and the link clean after the optic swap in a soak test.
 - **R2:** A 15 s skew could place orionxl-n212's link-down *after* the NET/IB errors, breaking precedence;
@@ -180,7 +197,7 @@ dry). *Marking:* model 4, numbers 3, divisibility and recommendation 3.
 - **M1:** Expect ≥ 12 rows across node, rack, leaf, storage, scheduler, control plane; corrected
   detection scores; severity ≥ 9 actioned regardless of RPN. Use Table 19.2 and `data/fmea.csv` as a
   model; deduct for detection scores inconsistent with controls.
-- **M2:** Model: Table 19.7 plus a policy YAML in the lab's format; the learner's own tenant config must
+- **M2:** Model: Table 19.8 plus a policy YAML in the lab's format; the learner's own tenant config must
   pass `check_isolation()` with zero violations.
 - **M3:** Model: Section 19.10 table, with at least: repeated job crash of tenant A (scheduler/storage
   load), disabled backend port in A's allocation, A's storage quota exhaustion; abort criteria on

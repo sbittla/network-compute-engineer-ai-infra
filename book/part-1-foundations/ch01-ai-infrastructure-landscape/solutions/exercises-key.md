@@ -57,9 +57,10 @@ the step; NIC TX rates near line rate (tens of GB/s) during those phases; rising
 rail leaves; step time that scales with tokens routed off-node.
 
 *Placement for B:* constrain expert-parallel groups to one node (EP ≤ 8) or use hierarchical
-all-to-all so most token exchanges ride NVLink. If all 30 GB moved to NVLink: 30 / 450 = 0.067 s,
-making B compute-bound (0.404 s). Limit: the NVLink domain is 8 GPUs, so experts must fit in 8 × 80 GB
-of HBM per group, and any cross-node data-parallel or expert replication traffic remains on the NIC.
+all-to-all so most token exchanges ride NVLink. If all 30 GB moved to NVLink, on top of its 40 GB:
+(40 + 30) / 450 = 0.156 s, making B compute-bound (0.404 s). Limit: the NVLink domain is 8 GPUs, so
+experts must fit in 8 × 80 GB of HBM per group, and any cross-node data-parallel or expert
+replication traffic remains on the NIC.
 
 **Marking (20 pts):** eight bounds correct with units (8); dominant resource and network for each (4);
 telemetry with expected direction (4); placement proposal with ORION limit (4).
@@ -71,11 +72,12 @@ communication-bound because "TP is communication"; summing bounds and calling it
 
 ## Exercise 1.3 — Role-to-skill matrix
 
-Model answer: Table 1.10 of the manuscript. Accept variations of ±1 per cell when justified. Look for:
-AI Network Engineer at 3 on L2/L3/BGP, RDMA/congestion, physical layer; GPU Cluster Engineer at 3 on
-host/PCIe/NUMA, NVLink/topology, NCCL, provisioning/firmware; SRE at 3 on observability and
-automation/safe change. Every role should be ≥ 2 on observability. The personal column and gap list
-must point at specific chapters (e.g., gap in RDMA → Chapters 8–9 and the Chapter 9 telemetry lab).
+Model answer: Table 1.10 of the manuscript. Accept variations of ±1 per cell when justified. Look
+for: AI Network Engineer at 3 on L2/L3/BGP, RDMA/congestion, physical layer; GPU Cluster Engineer at
+3 on host/PCIe/NUMA, NVLink/topology, NCCL, provisioning/firmware; SRE at 3 on observability and
+automation/safe change. Every role should be ≥ 2 on observability and on automation/safe change. The
+personal column and gap list must point at specific chapters (e.g., gap in RDMA → Chapters 8–9 and
+the Chapter 9 telemetry lab).
 
 **Marking (10 pts):** ≥ 12 domains, three roles (3); justifications for highs and lows (3); personal
 column and gap list with chapter + artifact (4). **Common mistakes:** rating everything 3; listing
@@ -88,18 +90,21 @@ tools rather than skill domains; claiming market data without a dated register.
 **K1.** Coupling (step = max over 256 ranks, 17.4 s modeled step); bandwidth per server (3.2 Tb/s
 backend + 400 Gb/s frontend vs 25–100 Gb/s); traffic (east-west synchronized collectives, low
 entropy); power density (≈ 41 kW per rack); failure semantics (one fault stops the job; MTBF_job =
-MTBF_node / n). Also accept: goodput economics (≈ $56k/year per 1 %).
+MTBF_node / n). Also accept: goodput economics (≈ $67k/year per 1 %).
 
 **K2.** Synchronous steps end only when the slowest rank finishes; every other rank waits in the
 collective. The job runs at the speed of its slowest member, so the loss ≈ 10 % of all 256 GPUs
-(≈ 25.6 GPU-equivalents).
+(≈ 25.6 GPU-equivalents). If "10 % slow" is read as a 10 % longer step, the loss is
+1 − 1/1.1 = 9.1 % (23.3 GPU-equivalents); accept either with the reading stated.
 
 **K3.** (a) 400 / 8 = 50 GB/s. (b) 900 GB/s total bidirectional = 450 GB/s per direction.
 (c) 8 × 400 Gb/s = 3,200 Gb/s = 400 GB/s per direction.
 
 **K4.** Prefill: all prompt tokens through every layer at once → large matrix multiplies →
 compute-bound. Decode: one token per sequence per step; all weights + KV cache read each step →
-HBM-bandwidth-bound unless batch is very large.
+HBM-bandwidth-bound. For W-INFER with a BF16 KV cache at 2k context it stays memory-bound at any
+batch size (intensity tends to ≈ 209 FLOP/B < 295); only short-context, weight-dominated decode nears
+the compute roof at very large batch.
 
 **K5.** 2(p − 1)/p × S. p = 4: 1.5; p = 8: 1.75.
 
@@ -136,7 +141,7 @@ Worst-case NIC total ≈ 7.66 + 4.30 ≈ 11.95 GB → 0.239 s.
 |---|---|---|
 | TP bytes, NVLink bound | 1,202.6 GB, 2.67 s | 515.4 GB, 1.145 s |
 | NIC bytes (worst case), bound | 9.8 GB, 0.196 s | 11.95 GB, 0.239 s |
-| Compute per GPU | 6.95 s | 6.95 s |
+| Compute per GPU | 6.96 s | 6.96 s |
 
 Unmodeled cost: the **pipeline bubble**. With *m* micro-batches the idle fraction of a 1F1B schedule
 is ≈ (p − 1)/(m + p − 1); for m = 64 `[ILLUSTRATIVE]`: PP 4 → 3/67 = 4.5 %, PP 8 → 7/71 = 9.9 %.
@@ -189,7 +194,7 @@ batch-1 decode); W05 and W09 mislabeled (communication-bound, declared compute).
 
 ---
 
-## Troubleshooting case — slow replica `orion-n23`
+## Troubleshooting case — slow replica `orion-n29`
 
 **Ranked hypotheses.**
 1. *Degraded NVLink state on GPU 5 (scale-up network).* For: all 18 of GPU 5's links report `inactive`
@@ -208,31 +213,36 @@ second, far too little to explain a 7 ms TPOT gap across ≈ 13,000 all-reduces 
 on the Fleet ticket.
 
 **Mechanism.** Each decode step performs 160 TP all-reduces in sequence. Every all-reduce completes
-only when all eight GPUs have exchanged data, so the slowest path in the group sets its latency. With
-GPU 5's NVLinks inactive, NCCL has no NVLink path to that GPU. Its channels fall back to a slower path:
-PCIe peer-to-peer, or host-staged shared memory where P2P is not permitted. That path costs tens of µs
-per hop instead of a few. Decode is especially sensitive because each all-reduce is small (≈ 524 KB at
-batch 32) and latency-bound. Example: ≈ 44 µs extra per all-reduce × 160 ≈ 7 ms, the observed gap
-`[ILLUSTRATIVE]`. A link running at *reduced width* (some links inactive) would mostly cost bandwidth. Note that this PCIe fallback is not guaranteed: depending on the Fabric Manager degraded-mode policy and driver version, a GPU that has lost all its NVLinks may instead be excluded from use (or block the job from starting) `[VENDOR-SPEC, 2026-10 — verify]`.
-At 524 KB per all-reduce, losing a third of 450 GB/s adds only ≈ 1 µs, so a partial loss produces a
-much smaller TPOT gap and is a watch-and-schedule item, not an emergency.
+only when all eight GPUs have exchanged data, so the slowest path in the group sets its latency.
+With GPU 5's NVLinks inactive, NCCL has no NVLink path to that GPU. Its channels fall back to a
+slower path: PCIe peer-to-peer, or host-staged shared memory where P2P is not permitted. That path
+costs tens of µs per hop instead of a few. Decode is especially sensitive because each all-reduce is
+small (≈ 524 KB at batch 32) and latency-bound. Example: ≈ 44 µs extra per all-reduce × 160 ≈ 7 ms,
+the observed gap `[ILLUSTRATIVE]`. A link running at *reduced width* (some links inactive) would
+mostly cost bandwidth. Note that this PCIe fallback is not guaranteed: depending on the Fabric
+Manager degraded-mode policy and driver version, a GPU that has lost all its NVLinks may instead be
+excluded from use (or block the job from starting) `[VENDOR-SPEC, 2026-10 — verify]`. At 524 KB per
+all-reduce, losing a third of 450 GB/s adds only ≈ 1 µs, so a partial loss produces a much smaller
+TPOT gap and is a watch-and-schedule item, not an emergency.
 
 **Discriminating tests (read-only).** (1) Inspect per-link state and error counters on the node with
-`nvidia-smi nvlink --status` and `nvidia-smi nvlink --errorcounters`, or the DCGM NVLink fields. Expect
-GPU 5's links inactive or missing and every other GPU's links nominal. (2) Read the replica's NCCL
-initialization log (`NCCL_DEBUG=INFO`, captured at pod start). Expect channels touching GPU 5 to use a
-non-NVLink transport (for example `via SHM`, or `P2P` over PCIe) where healthy replicas show
-NVLink `P2P/CUMEM` everywhere (`P2P/IPC` before NCCL 2.19). (3) Compare the pod spec and image digest with a healthy replica using
-`kubectl get pod <pod> -o yaml`. Expect them to be identical, which weakens H3. A further test, after
-draining: run `dcgmi diag -r 3` and an intra-node `all_reduce_perf` on the drained node and on a
-healthy node. Expect lower bus bandwidth and NVLink failures in the diag.
+`nvidia-smi nvlink --status` and `nvidia-smi nvlink --errorcounters`, or the DCGM NVLink fields.
+Expect GPU 5's links inactive or missing and every other GPU's links nominal. (2) Read the replica's
+NCCL initialization log (`NCCL_DEBUG=INFO`, captured at pod start). Expect channels touching GPU 5
+to use a non-NVLink transport (for example `via SHM`, or `P2P` over PCIe) where healthy replicas
+show NVLink `P2P/CUMEM` everywhere (`P2P/IPC` before NCCL 2.19). (3) Compare the pod spec and image
+digest with a healthy replica using `kubectl get pod <pod> -o yaml`. Expect them to be identical,
+which weakens H3. A further test, after draining: run `dcgmi diag -r 3` and an intra-node
+`all_reduce_perf` on the drained node and on a healthy node. Expect lower bus bandwidth and NVLink
+failures in the diag.
 
-**Remediation.** Remove the replica from the router. Confirm that the remaining 11 replicas absorb the
-load (load rises by 12/11 ≈ 9 %) while staying within SLO. Run `kubectl cordon`, then `kubectl drain`
-on the node, and hand it to Fleet with the evidence bundle for diagnostics and repair (reseat or
-replace per vendor process). Return it to service only after acceptance tests pass. **Validation:**
-after return, all 18 links per GPU active at nominal speed, replay counters flat for ≥ 24 h, and
-replica TPOT p95 within 5 % of the fleet median over ≥ 1 h at normal load.
+**Remediation.** Remove the replica from the router. Confirm that the remaining 7 replicas absorb
+the load (load rises by 8/7 ≈ 14 %; even linear in load, TPOT p95 ≈ 13.7 ms against 50 ms). Run
+`kubectl cordon`, then `kubectl drain` on the node, and hand it to Fleet with the evidence bundle
+for diagnostics and repair (reseat or replace per vendor process). Return it to service only after
+acceptance tests pass. **Validation:** after return, all 18 links per GPU active at nominal speed,
+replay counters flat for ≥ 24 h, and replica TPOT p95 within 5 % of the fleet median over ≥ 1 h at
+normal load.
 
 **Proven vs correlated:** the inactive links on GPU 5 are correlated with the slowdown. Causation is
 shown only when the NCCL transport lines confirm the fallback path, the drained-node diagnostics
@@ -240,8 +250,9 @@ reproduce the degraded bandwidth and latency, and the repaired node returns to f
 GPU 2 replay rate is not shown to contribute.
 
 **Marking (15 pts):** hypotheses with evidence (4); mechanism (4); safe tests with expected results
-(4); remediation + validation + proven/correlated (3). **Common mistakes:** blaming the ≈ 1/s replay counter (too small to matter); restarting the pod and
-declaring victory; running diagnostics on a node still serving traffic; blaming the backend fabric.
+(4); remediation + validation + proven/correlated (3). **Common mistakes:** blaming the ≈ 1/s replay
+counter (too small to matter); restarting the pod and declaring victory; running diagnostics on a
+node still serving traffic; blaming the backend fabric.
 
 ---
 
@@ -252,24 +263,28 @@ declaring victory; running diagnostics on a node still serving traffic; blaming 
 | Criterion | A: share ORION nodes | B: dedicated frontend-only pool |
 |---|---|---|
 | SLO risk | Higher: preemption/handover latency; training jobs on same rails/power envelope | Lower: isolated scheduling and capacity |
-| Hardware cost | Uses existing 400G backend NICs/ports that inference does not need | No backend NICs, no rail ports: 64 fewer 400G ports and optics |
+| Training capacity | Partition shrinks from 24 to 16 nodes; a full-size W-TRAIN run must borrow both inference pools | Unchanged (24 nodes) |
+| Hardware cost | Uses existing 400G backend NICs/ports that inference does not need | 64 fewer backend NICs, 64 fewer rail-leaf host ports and 128 fewer 400G optics (both link ends), plus the matching leaf-uplink/spine capacity if the fabric stays 1:1 |
 | Utilization | Higher if training can absorb idle inference capacity | Idle off-peak capacity is wasted |
 | Scheduler | Slurm and Kubernetes must coordinate ownership of the same nodes | Kubernetes only |
-| Failure domain | Shared with training partition | Separate |
+| Failure domain | Shared with the training partition | Separate |
 
-Quantified argument: 8 nodes = 64 GPUs; at $2.50/GPU-hour `[ILLUSTRATIVE]` the pool costs 64 × 2.50 ×
-8,760 = $1,401,600/year. If inference averages 60 % of the pool, sharing could reclaim at most
-0.40 × 64 × 8,760 × $2.50 = $560,640/year of training capacity, and only if training jobs can use
-preemptible 1–8-node fragments, which large synchronous jobs generally cannot. Backend fabric:
-TP = 8 inference stays inside one node and needs no RDMA; it would be needed for multi-node model
-parallelism or disaggregated prefill/decode with KV transfer over RDMA (Chapter 15).
+Quantified argument: 8 nodes = 64 GPUs; at $3.00/GPU-hour (Chapter 21) the pool costs 64 × 3.00
+× 8,760 = $1,681,920/year. If inference averages 60 % of the pool, sharing could reclaim at most
+0.40 × 64 × 8,760 × $3.00 = $672,768/year of training capacity, and only if training jobs can use
+preemptible 1–8-node fragments, which large synchronous jobs generally cannot. Option A also leaves
+16 training nodes, so a full-size W-TRAIN run (32 nodes) must borrow both inference pools. Backend
+fabric: TP = 8 inference stays inside one node and needs no RDMA; it would be needed for multi-node
+model parallelism or disaggregated prefill/decode with KV transfer over RDMA (Chapter 15).
 
 *Would change my mind if:* inference demand is strongly diurnal and Halcyon has many small,
 preemptible training/eval jobs; or a disaggregated-serving design needs RDMA KV transfer; or the
 facility cannot host a separate pool.
 
 **Marking (15 pts):** recommendation with table (5); quantified argument (4); fabric need correctly
-analyzed (3); assumptions + "change my mind" (3). Either option earns full credit if well argued.
+analyzed (3); assumptions + "change my mind" (3). Deduct 1 if the answer treats the eight nodes as
+ORION's only inference capacity (the default pool `orion-n25`–`n32` already exists). Either option
+earns full credit if well argued.
 
 ---
 

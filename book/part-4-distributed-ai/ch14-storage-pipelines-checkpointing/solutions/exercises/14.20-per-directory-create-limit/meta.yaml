@@ -1,0 +1,22 @@
+id: '14.20'
+title: Per-directory create limit
+folder: 14.20-per-directory-create-limit
+type: worked-problem
+difficulty: 2
+tier: L1
+kind: computed
+points: 8
+evidence_required: each formula with values substituted, times in seconds to three significant figures,
+  the integer answer to (d), and a one-paragraph recommendation
+marking:
+- criterion: '(a) 262,400 / 2,700 = 97.2 s, linked to the 96 s completion in Section 14.14'
+  points: 2
+- criterion: '(b) max(262,400 / 30,000, 1,025 / 2,700) = 8.75 s: the aggregate limit binds'
+  points: 2
+- criterion: '(c) 512 / 2,700 = 0.190 s'
+  points: 1
+- criterion: '(d) floor(0.05 x 18.49 x 2,700 / 256) = 9 files per rank'
+  points: 1
+- criterion: '(e) Reduce the file count first; subdirectories or DNE striping only as an agreed fallback'
+  points: 2
+lab_checks: []

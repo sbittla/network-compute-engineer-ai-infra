@@ -101,3 +101,61 @@ and determinism and re-checked the arithmetic. Findings and the author's fixes:
 
 After these fixes: solution checks pass, starter fails gracefully, `python scripts/validate_labs.py ch04 ch05
 ch06` is OK on all columns, and manuscripts stay under 11,000 words. The next independent score is pending.
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.5 · D2 9.0 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.0 · D8 9.5 · D9 9.5 →
+weighted **9.40** (gate fail: below 9.5). Counts: 0 blocker, 1 major, 6 minor. The reviewer reproduced every
+number and passed `check.py` (solution 13/13, starter 0/13 with TODO lines). Author resolutions:
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N06-01 | Major | No method for measuring achievable ceilings. | New §6.3 subsection "Empirical ceilings": memory roof (D2D copy and STREAM-style add/triad on buffers ≫ L2; `nvbandwidth` with a device-local caveat), compute roof (cuBLAS GEMM shape sweep via PyTorch, CUDA events), run under the §6.6 protocol, report fraction of vendor *and* measured roof, record clock/power state. `[ILLUSTRATIVE]` ORION example (2.95 TB/s, 700 TFLOP/s → 8,192³ GEMM 70 % vendor / 99 % measured; decode 85 % / 97 %), and the committed L2 run cited as `[MEASURED]` (RTX 4060: 229 GB/s = 89 % of 256; 28.7 TFLOP/s = 75 % of 38.2; thin GEMMs above the copy roof, so a measured roof is a lower bound). Exercise 6.11 extended: measured-roof fractions K1 90.4 %, K2 84.9 %, K3 97.2 %, ranking unchanged, K2 headroom 1.11 ms vs 2.95 ms; prompt (exercises.md and folder), meta (marking 3/3/2/2), answer, key, solve.py and outputs updated. Realism boundary and Summary point to it. |
+| N06-02 | Minor | 100.7 MB cannot be L2-resident in a 50 MB L2. | Reworded: bytes are shape-derived; part of the input may be in L2 from the producer and part of the output in L2 write-back, but the 50 MB L2 (two ≈ 25 MB partitions) cannot hold 100 MB, so the figure overstates DRAM traffic; measure `dram__bytes_*`. Propagated to key 6.3, 6.3 meta/answer, key T7 row. Dataset name `bias_add_l2_resident` kept (renaming would change the lab's golden outputs; the name is now quoted as a label). |
+| N06-03 | Minor | 6.15 budget does not fit. | Redesigned: one rotating node runs the A/B (6 + 6 interleaved), a fixed reference node runs the 6 + 6 A/A; end-to-end 12 × 2-min runs per node + 6 min setup = 30 min; 20 + 10 + 30 = 60 min × 16 GPUs = 16 GPU-h. Key, answer and solve.py (asserts runs and slot) updated; outputs regenerated. |
+| N06-04 | Minor | σ_run uncertainty not quantified. | Added: with 5 runs (4 df), 95 % interval √(4/11.14) ≈ 0.60× to √(4/0.484) ≈ 2.9× the estimate; size from the upper end. |
+| N06-05 | Minor | Training proxy on inference nodes unexplained. | §6.11 Symptom: the gate's single-node W-TRAIN proxy runs on every node class because full-size W-TRAIN borrows the inference nodes (Chapter 17). Chapter 12 reuse made concrete after the manifest (launch = run, `-w`/`-n`, median busbw per size; Exercise 6.12). |
+| N06-06 | Minor | MPS unexpanded; mid-sentence expansions; ad-hoc table numbers. | MPS expanded; HBM and NCCL now expanded at first use in the Prerequisites paragraph; NIC expansion removed from §6.3; tables renumbered sequentially 6.1–6.11 (6.5a→6.6, 6.5b→6.7, 6.6→6.8, 6.6a→6.9, 6.7→6.10, 6.8→6.11); no other file referenced the changed numbers. |
+| N06-07 | Minor | DCGM 4.7 GPU-Util deprecation missing. | Table 6.4 caption notes `DCGM_FI_DEV_GPU_UTIL` → `DCGM_FI_DEV_GPU_UTIL_RATIO` (0–1). |
+| D2/D3/D6 advice | — | Confounders, strip plot, label clarity, p99 method. | Manifest gains `mem_clock_mhz`, `ecc_mode`, `row_remap_pending`, `pcie_link` with one paragraph on why; Figure 6.2 (ASCII strip plot of cleaned run medians); Figure 6.1 caption separates `[VENDOR-SPEC]` roofs from `[SIMULATED]` points; §6.7 states that medians/p95/p99 use numpy linear interpolation and that p99 from 55 iterations needs pooled or longer runs. D4 advice (an A/A trap that exceeds the floor) not taken: it would change the lab data and golden outputs; recorded for a later lab revision. |
+
+Filler trimmed (opening abstract, worked-example Step 5, §6.8) to keep the manuscript within ≈ 7 % of its
+previous length. Verification after fixes: see the test lines below.
+
+- `python lab/check.py --impl solution` → 13/13 PASS; `--impl starter` → 0/13, TODO lines, no traceback.
+- `python scripts/validate_labs.py ch06` → OK (solution pass, starter fails gracefully, no-generator pass, docs ok).
+- `python scripts/copyedit_lint.py ch06-gpu` → 0 findings (the `--all` scope flags only the committed
+  `lab/l2/results/*/report.md` files, which are measured outputs and are not edited by hand).
+- Exercise outputs regenerated with `docker/harness/generate_outputs.py`; only 6.3, 6.11 and 6.15 outputs
+  changed; `pytest docker/harness/test_package.py --pkg <ch06>` → 86 passed.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.0, D2 9.0, D3 9.0, D4 9.5, D5 9.5, D6 9.0, D7 9.5, D8 9.5, D9 9.0 →
+weighted **9.18** (gate fail; 2 major, 11 minor). Every finding was checked against the data and the
+committed L2 bundle before changing anything. The committed `lab/l2/results/` files were not edited.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R06-01 | Major | RTX 4060 judged against a ceiling at `clocks.max.sm` = 3,105 MHz; the "75 %" and "same pattern as ORION" claims are artefacts. | Confirmed from `report.md`: the BF16 arm's median SM clock was 2,370 MHz. §6.3 now has "State the clock behind every compute peak": peak = SMs × FLOP/clock × clock; ORION's 989 TFLOP/s = 132 × 4,096 × ≈ 1,830 MHz; the laptop's 38.2 TFLOP/s ceiling at 3,105 MHz vs 24 × 512 × 2.370 GHz = 29.1 TFLOP/s at the sustained clock, so the 4096³ BF16 arm (28.4 TFLOP/s) is at 98 %, not 75 %; FP32 GEMMs sustained only 1,830 MHz. The "same pattern" sentence is gone. The Realism boundary's "60–80 % of tensor peak" is replaced by the honest statement (89 % of memory spec, 98 % of clock-adjusted BF16 peak). Lab README §8 gives both peaks and says how to read the bundle's "% of roof" column. `experiment.py` `report()` now also prints peaks at each arm's sustained clock (checked against the committed results.json: 29.1 TFLOP/s → 98 %, TF32 14.3 → 95 %, FP32 11.2 → 62 %); the committed bundle was not regenerated. Exercise 6.11 uses ORION `[ILLUSTRATIVE]` roofs, not the RTX numbers, so its key and outputs are unchanged by this. |
+| R06-02 | Major | Session-wide peer-clock exclusion fails when the change alters the kernel's sustained clock; lesson only in the lab README. | New §6.5 Pitfall: clock as an outcome, the L2 evidence (BF16 2,370 vs FP32 1,830 MHz, session median between them, 0 of 8 baseline runs kept), the signature (one arm shifted as a block, all exclusions in it) and the pre-registered fix (lock clocks at or below sustained, or a per-arm peer clock plus clock reported as a secondary result). Table 6.5 Clocks row and §6.7 "Exclusions" point to it; §6.9 Step 3 notes the rule is valid here because every A and B run except B4 has a median clock of 1,825–1,827 MHz (verified from the CSVs). |
+| R06-03 | Minor | Figure 6.1 points far from their coordinates. | Redrawn to scale by script (log–log, 10 columns and 5 rows per decade, ±12 % per cell), points lettered A–H with exact coordinates in the caption; the bias-add anomaly is now plotted above the memory roof. |
+| R06-04 | Minor | Thin GEMMs "above the roof" may be L2-flattered; "take the max over kernels" can inflate the roof. | Accepted for L2 effects (small inputs L2-resident between iterations; 33.5 MB output ≈ 32 MB L2). Rejected the "compulsory-byte undercounting" part: compulsory bytes are a lower bound on traffic, so they can only understate bandwidth. Rule now: take the memory roof only from kernels whose footprint is ≥ 4–8× L2, confirmed with DRAM counters. |
+| R06-05 | Minor | "40 % faster ⇒ 92 %" assumes a time reading. | Both readings given: 55 / 0.6 = 92 % (40 % less time) or 55 × 1.4 = 77 % (1.4× throughput). |
+| R06-06 | Minor | Step 6 validates against a 7-day baseline (blocked design). | Now a pre-registered interleaved flag schedule on the same nodes, ≥ 10 segments per arm, with two groups of flag-off segments as the A/A check. |
+| R06-07 | Minor | A3/B4 medians include warm-up. | Quoted after warm-up: A3 3.905 ms, B4 4.931 ms (verified from the CSVs); §6.5 says "median after warm-up". |
+| R06-08 | Minor | Undefined acronyms. | GEMM, SIMT, MFU, HFU (objectives), TF32, cuBLAS, cuDNN, JIT, ILP, BLAS, MDE, CI expanded at first use; "GEMV" no longer used (the decode kernel is an m = 16 GEMM). |
+| R06-09 | Minor | 6.13 exclusion cue is `sw_power_cap`, which the chapter calls routine. | Prompt now gives run 5's median clock (1,610 MHz vs 1,822–1,830 MHz, peer median 1,826); key, answer and meta say the exclusion rests on the clock (88 % < 95 %), not on the event, and list "excluded because `sw_power_cap` was logged" as a wrong answer. Folder prompt synced; marking.json regenerated. Numbers unchanged. |
+| R06-10 | Minor | Draining training nodes on no-spare ORION has an unstated cost. | The default is now both drivers on one capped canary node; draining uncapped training nodes shrinks or pauses W-TRAIN and is limited to a maintenance or idle window. |
+| R06-11 | Minor | README says 6.1–6.19; garbled warm-up sentence. | README now 6.1–6.20; sentence rewritten (A 4.912 ms = 1.2× steady state, iteration 0 ≈ 1.6×; B shows the same transient: 4.80 ms, 1.23×, verified). |
+| R06-12 | Minor | Table 6.2's I = 372 uses counter bytes. | Clause added: 46.1 MB measured, 10 % above the 41.9 MB compulsory traffic (which would give I = 410). |
+| R06-13 | Minor | Hard-to-find Romano citation. | Added Vargha & Delaney (2000) as an accessible source for the related *A* statistic (δ = 2A − 1), noting its thresholds are slightly lower. |
+| D7 | — | Chapters 17 and 21 named but not linked. | Linked. |
+| Length | — | — | Trimmed the worked-example discussion, §6.8 GPU paragraph, Realism boundary and summary; manuscript ≈ 10,100 words by `wc -w` (the to-scale figure adds several hundred `wc` tokens). |
+
+Verification: `python lab/check.py --impl solution` → 13/13; `--impl starter` → 0/13, no traceback;
+`python scripts/validate_labs.py ch06` → OK; `python scripts/copyedit_lint.py` → 0 findings in ch06;
+outputs regenerated with `docker/harness/generate_outputs.py` (this round changed only 6.13's marking.json);
+`pytest docker/harness/test_package.py --pkg <ch06>` → 86 passed.

@@ -16,7 +16,7 @@ per step); supporting: dataloader worker stats, storage client latency, CPU iowa
 NIC throughput as a measure of exposed comm — throughput says nothing about overlap.
 
 **K2.** `GPU-Util` / `DCGM_FI_DEV_GPU_UTIL` is the fraction of the sample period during which at least one
-kernel was executing; NCCL kernels spinning while waiting for peers count as "utilised". Better:
+kernel was executing; NCCL kernels spinning while waiting for peers count as "utilized". Better:
 `DCGM_FI_PROF_SM_ACTIVE` (fraction of SMs with resident warps), `DCGM_FI_PROF_PIPE_TENSOR_ACTIVE`,
 SM clock plus clock-event reasons, and timeline breakdown of compute vs communication kernels.
 *Common mistake:* "100 % util means compute-bound".
@@ -36,7 +36,8 @@ and genuine congestion all raise backend traffic or counters, so every hypothesi
 **K5.** The period indicator absorbs any shift common to all after-period jobs (e.g., the container
 rebuild). Without it, that shift is forced onto whichever factor has the highest exposure; in the lab,
 dropping `after` raises the driver effect from 0.90 s to 1.07 s, the storage effect from 1.40 s to
-1.57 s, and TP split from 8.96 s to 9.18 s (the common shift must go somewhere).
+1.57 s, and TP split from 8.96 s to 9.18 s, and moves the ECC-alert coefficient from −0.05 s to +0.16 s,
+making an innocent node look guilty (the common shift must go somewhere).
 *Marking:* role 2 pts; concrete misattribution 2 pts.
 
 **K6.** `E_strong(N) = T(N0)·N0 / (T(N)·N)` (fixed global problem). `E_weak(N) = X(N) / ((N/N0)·X(N0))`
@@ -93,8 +94,8 @@ therefore needs another mechanism, e.g., CPU contention: TP-split jobs move TP t
 NCCL's network proxy threads consume more host CPU on the same NUMA node as the dataloader workers,
 raising batch production time so that recalls are exposed *more*. Evidence to check: `pidstat -u -t 1`
 per-thread CPU for proxy threads and loader workers, NUMA placement (`numastat -p`), and producer time
-per batch. *Marking:* full marks only if the answer either gives a mechanism with evidence or notices the
-sign conflict with the slack model.
+per batch. *Marking (10 pts):* (a) 2, (b) 2, (c) 2, (d) 2, (e) 2. Full marks on (e) only if the answer
+either gives a mechanism with evidence or notices the sign conflict with the slack model.
 
 ### W2 — scaling efficiency and detectability
 
@@ -113,6 +114,7 @@ and ≈ 0.125 s unexplained.
 c. MDE(n = 5) = 2.8 × 0.11 × √(2/5) = 2.8 × 0.11 × 0.632 = **0.195 s** > 0.15 s, so **no**, 5 runs per arm
 cannot reliably detect it. Required n: n = 2 × (2.8 × σ / δ)² = 2 × (0.308 / 0.15)² = 2 × 2.053² = 2 × 4.216
 = 8.43 → **9 runs per arm** (interleaved, same nodes).
+*Marking (10 pts):* (a) 3, (b) 3, (c) MDE verdict 2, required n 2.
 *Common mistakes:* using strong-scaling efficiency; forgetting the √2 for two arms; rounding n down.
 
 ---
@@ -154,7 +156,7 @@ Estimates recover the truth within about 1.5 SE.
 | 2 | Warm-up steps 0–9 (+30 s decaying; +4 s data wait at step 0) | `step_log.csv` | Before mean 17.38 → 17.70 s; short jobs (the failed one) look worse |
 | 3 | Failed TP-split job 41114 (60 usable steps, NCCL timeout) | `jobs.csv` status FAILED | Dropping it: headline +21.9 %, TP share 61.4 % — survivorship bias |
 | 4 | Inventory shows **current** driver; before-period jobs on orion-n17..n32 ran R550 | `node_inventory.csv` | Non-time-aware flag: driver effect 0.35 s, after shift 0.93 s, alert −0.47 s — wrong on three factors |
-| 5 | Red-herring alert: ECC SBE 140–160 per job-node on orion-n13 (no DBE, no remap) | `alerts.csv`, `node_metrics.csv` | Alert-led diagnosis; correct verdict: effect −0.05 ± 0.09 s, ruled out |
+| 5 | Red-herring alert: ECC SBE 140–160 per job-node on orion-n13 (jobs run ≈ 1 h, so this matches the alert's 140–160/h; no DBE, no remap) | `alerts.csv`, `node_metrics.csv` | Alert-led diagnosis; correct verdict: effect −0.05 ± 0.09 s, ruled out |
 | 6 | Confounding: TP-split is over-represented among hot-tier jobs (40 % vs 21 %) and hides stalls | design | Naive storage difference ≈ −0.55 s ("the move helped") |
 | 7 | True TP × storage interaction | design | Additive-only model: storage 1.03 s, after 0.73 s, alert −0.43 ± 0.14 s (spuriously "significant") |
 | 8 | `BackendLinkFlap` on 2026-10-09, *before* the window, port clean since | `alerts.csv` | Time-ordering check: cannot explain an after-window change |
@@ -194,8 +196,11 @@ b. **Ranking** (score = info / (cost × risk)):
 | On a drained orion-n15 and a peer: `ib_write_bw -d mlx5_3 --report_gbits` on rail 3 plus error counters during the run | 0.7 | 3 | medium | 0.117 |
 
 c. **Root cause and chain.** The NIC3 optic on orion-n15 (reseated three days ago; likely contaminated or
-damaged connector) has a marginal optical budget → high pre-FEC bit error ratio (FEC corrected codewords
-≈ 500× other ports) → some codewords uncorrectable (312 per 10 min) → frames fail CRC and are dropped
+damaged connector) has a marginal optical budget → high pre-FEC bit error ratio (≈ 1e-5 vs ≈ 1e-8 elsewhere; FEC corrected codewords
+≈ 500× other ports) → some codewords uncorrectable (312 per 10 min). A *mean* BER of 1e-5 is far below the
+RS(544,514) correction limit (≈ 2.4e-4) and random errors at that rate would give essentially no
+uncorrectables; the errors are bursty (dirty connector), so the FEC symbol-error histogram has codewords at
+the 15-symbol limit, and that tail, not the mean BER, explains the uncorrectables → frames fail CRC and are dropped
 (297 in-errors; host `rx_crc_errors_phy`, `rx_symbol_err_phy` rising) → RoCE packets lost on reliable-
 connected QPs. Losses followed by more packets are detected as out-of-sequence and recovered by NAK and
 go-back-N retransmission (small delays every step → median +0.6 s); losses of the *last* packets of a
@@ -207,12 +212,14 @@ consecutive retries `[VENDOR-SPEC, 2026-10]`.
 d. **Fix.** Fabric team, under a change ticket: at the job's next checkpoint boundary, cordon orion-n15
 (ORION has no spare node, so the job pauses or restarts at reduced DP from checkpoint by Training Infra's
 decision), clean/replace the rail-3 optic (both ends inspected), then run acceptance: link up at
-400 Gb/s, FEC corrected codewords back to baseline (1–4e6 per 10 min), zero uncorrectable and zero CRC over
-a 1 h soak, `ib_write_bw` at ≥ 90 % of line rate on rail 3, `all_reduce_perf` two-node busbw matching
+400 Gb/s; pre-FEC bit error ratio (BER) within the fleet baseline (≈ 1e-8 on healthy ports here; e.g. < 1e-7) and stable over a 1 h soak;
+zero FEC uncorrectable and zero CRC over the soak; module Rx power inside the warning thresholds on both
+ends; corrected-codeword counts only as a trend check, never as an absolute pass/fail threshold
+(VERIFIED_FACTS, FEC alerting); `ib_write_bw` at ≥ 90 % of line rate on rail 3, `all_reduce_perf` two-node busbw matching
 fleet baseline. Return to service through the lifecycle workflow (Chapter 16). **Validation:** 5 × 100-step
 windows with median 17.9 ± 0.1 s, no step > 20 s in 1,000 consecutive steps, `local_ack_timeout_err` flat.
-*Marking:* deduct if the plan touches switch configuration, raises `NCCL_IB_TIMEOUT` to "fix" it (masks the
-fault), or reseats optics on a live job without a ticket.
+*Marking (15 pts):* (a) 4, (b) 3, (c) 4, (d) 4. Deduct if the plan touches switch configuration, raises
+`NCCL_IB_TIMEOUT` to "fix" it (masks the fault), or reseats optics on a live job without a ticket.
 
 ---
 
@@ -230,6 +237,8 @@ Detectability for A: a 3 % regression at 17.4 s is 0.52 s; with σ = 0.11 s, n =
 2 × 0.351 = 0.70, so even one run per day per arm detects it in principle — but day-to-day drift means you
 should compare against a rolling 7-day baseline (n = 7). Recommend **C**, with alert thresholds of
 baseline + max(3σ, 3 %) and automatic attribution reports in the Section 22.9 format.
+*Marking (15 pts):* architecture sketch 3; trade-off table 4; canary-cost arithmetic 3; detectability
+arithmetic and threshold 3; recommendation justified against false-positive cost and causal strength 2.
 
 ---
 
@@ -266,10 +275,10 @@ and an R570 node with and without the module loaded, ≥ 5 runs, busbw median an
 
 | Cause | Direct evidence (lab bundle) |
 |---|---|
-| TP split | Backend tx per node 6.06 → 37.93 GB/s; SM active 0.57 → 0.40 (after, split vs not) |
+| TP split | Backend tx per node 6.06 → 95.93 GB/s (TP model: 6 + two boundary hops × 1.20e12 B per ≈ 26.5 s step ≈ 97 GB/s); SM active 0.57 → 0.40 (after, split vs not) |
 | Storage tier | Data wait +1.46 s/step on TP-packed jobs; CPU iowait 1.52 % → 6.03 %; per-job p99 18.8 → 35.0 s while p50 barely moves (18.17 → 18.24 s) |
 | Driver / GDR | Host bounce copy 0.4 → 9.5 GB/s on orion-n17..n32 after the window only; `nccl_init_sample.log`: channel lines `via NET/IB/0` (no `/GDRDMA`) on orion-n17 vs `via NET/IB/0/GDRDMA` on orion-n09, and empty `lsmod \| grep nvidia_peermem` on orion-n17; inventory `peermem_module_loaded = no`. Caveat: valid only because DMA-BUF is unavailable on these nodes `[VENDOR-SPEC, 2026-10]` |
-| ECC alert (ruled out) | SBE 0.7 → 152 per job-node on orion-n13, temperatures unchanged (67.4 → 68.1 °C), effect −0.05 ± 0.09 s |
+| ECC alert (ruled out) | SBE 0.7 → 152 per job-node (≈ per hour; jobs run ≈ 1 h) on orion-n13, temperatures unchanged (67.4 → 68.1 °C), effect −0.05 ± 0.09 s |
 
 (c) With both interactions: tp_x_storage −1.30 ± 0.15 s (≈ 8.6 SE, predicted by the slack model: keep);
 tp_x_driver +0.03 ± 0.13 s (negligible: drop). The model with the single tp_x_storage term is defensible;

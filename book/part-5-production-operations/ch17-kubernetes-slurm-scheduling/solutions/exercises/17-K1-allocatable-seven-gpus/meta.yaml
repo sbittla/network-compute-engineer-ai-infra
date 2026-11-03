@@ -10,7 +10,7 @@ evidence_required: The component that sets the number, the mechanism, and the sc
 marking:
 - criterion: 'Component: NVIDIA device plugin reports healthy devices to the kubelet, which sets allocatable'
   points: 2
-- criterion: 'Mechanism: per-device health from NVML critical events (e.g. Xid 79, uncorrectable ECC)
+- criterion: 'Mechanism: per-device health from NVML critical events (e.g. uncorrectable ECC Xid 48/95, row-remap failure Xid 64)
     via ListAndWatch'
   points: 2
 - criterion: 'Outcome: 8-GPU pod never placed there (Insufficient nvidia.com/gpu); follow-up is Chapter

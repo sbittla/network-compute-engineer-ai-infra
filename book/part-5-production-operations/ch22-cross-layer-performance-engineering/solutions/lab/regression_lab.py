@@ -55,6 +55,15 @@ def clean_steps(steps: pd.DataFrame, warmup_steps: int = WARMUP_STEPS) -> pd.Dat
     return out.reset_index(drop=True)
 
 
+def hygiene_counts(steps: pd.DataFrame, jobs: pd.DataFrame, warmup_steps: int = WARMUP_STEPS) -> dict:
+    """What each hygiene rule removed: raw rows, replayed duplicates, warm-up rows, jobs dropped."""
+    dedup = steps.drop_duplicates(subset=["job_id", "step"], keep="first")
+    clean = clean_steps(steps, warmup_steps)
+    return {"rows_raw": int(len(steps)), "duplicates_removed": int(len(steps) - len(dedup)),
+            "warmup_removed": int(len(dedup) - len(clean)), "rows_clean": int(len(clean)),
+            "jobs_dropped": int(len(set(jobs["job_id"]) - set(clean["job_id"])))}
+
+
 def tp_split_jobs(placement: pd.DataFrame) -> set[int]:
     """Return job IDs where at least one tensor-parallel group spans more than one node."""
     span = placement.groupby(["job_id", "tp_group"])["node"].nunique()
@@ -226,8 +235,8 @@ def rank_tests(hypotheses: dict) -> tuple[list[dict], list[dict]]:
 
 def render_report(summary: dict, effects: dict, attribution: pd.DataFrame, cross: dict,
                   ranked: list[dict], rejected: list[dict], boot: dict | None = None,
-                  alert_node: str = "orion-n13") -> str:
-    """Markdown before/after report with the three mandatory sections."""
+                  alert_node: str = "orion-n13", hygiene: dict | None = None) -> str:
+    """Markdown before/after report with the three mandatory sections (and the hygiene line if given)."""
     a = attribution
     sh = a["share_pct"]
     lines = [
@@ -235,6 +244,12 @@ def render_report(summary: dict, effects: dict, attribution: pd.DataFrame, cross
         "",
         "All values [SIMULATED] (Chapter 22 lab bundle). Job-weighted = mean of per-job post-warm-up means.",
         "",
+    ]
+    if hygiene:
+        lines += [f"Hygiene: {hygiene['rows_raw']} raw step rows; {hygiene['duplicates_removed']} replayed duplicates "
+                  f"removed; {hygiene['warmup_removed']} warm-up rows (steps 0-9) removed; {hygiene['rows_clean']} rows "
+                  f"analyzed; {hygiene['jobs_dropped']} jobs dropped (failed jobs included).", ""]
+    lines += [
         "## Measured facts",
         "",
         f"- Mean step time (job-weighted) {summary['before_mean_s']:.2f} s -> {summary['after_mean_s']:.2f} s "
@@ -305,7 +320,8 @@ def main() -> int:
     cross = storage_crosscheck(ft, e)
     ranked, rejected = rank_tests(b["hypotheses"])
     ecc_node = b["alerts"].loc[b["alerts"]["alert"] == "NodeGPUCorrectableECCHigh", "target"].iloc[0].split("/")[0]
-    rep = render_report(s, e, att, cross, ranked, rejected, boot, ecc_node)
+    hyg = hygiene_counts(b["steps"], b["jobs"])
+    rep = render_report(s, e, att, cross, ranked, rejected, boot, ecc_node, hyg)
     if args.report:
         args.report.write_text(rep, encoding="utf-8")
     print(rep)

@@ -1,7 +1,7 @@
 # D1 — Hot spares vs elastic training: reference approach
 
 **Relies on:** Section 19.1 (Young's model), Section 19.7 ("Rank remapping and spares", "Elastic training
-granularity is a whole DP replica"), Table 19.8; Reference Cluster canon. All results `[MODELED]` from
+granularity is a whole DP replica"), Table 19.12; Reference Cluster canon. All results `[MODELED]` from
 `[ILLUSTRATIVE]` inputs.
 
 ## Model and assumptions

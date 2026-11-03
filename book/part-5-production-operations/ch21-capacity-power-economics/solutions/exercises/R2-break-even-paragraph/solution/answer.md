@@ -1,14 +1,14 @@
 # R2 — The break-even paragraph: model answer
 
-Sources: manuscript Section 21.5 (Table 21.3 and the break-even); `lab/data/designs.yaml`; Exercise M2's
+Sources: manuscript Section 21.5 (Table 21.6 and the break-even); `lab/data/designs.yaml`; Exercise M2's
 sensitivity table. All numbers `[MODELED]`.
 
 **Model paragraph (memo-ready).**
 
 > Design B wins only because of one input we have not measured: its per-GPU training throughput,
-> assumed to be 2.2× an HX8 GPU. Its TCO ($20.57M/yr) and node count (62, power-bound) do not depend
-> on that figure, so B's useful units per $M scale linearly with it: 31.36 × (x / 2.2). A delivers
-> 26.53 per $M, so B breaks even at x = 2.2 × 26.53 / 31.36 ≈ **1.86×**. At 1.8× B falls to 25.7 per
+> assumed to be 2.2× an HX8 GPU. Its TCO ($20.48M/yr) and node count (62, power-bound) do not depend
+> on that figure, so B's useful units per $M scale linearly with it: 31.49 × (x / 2.2). A delivers
+> 26.69 per $M, so B breaks even at x = 2.2 × 26.69 / 31.49 ≈ **1.86×**. At 1.8× B falls to 25.8 per
 > $M and A is the better buy. At 2.0× B leads by 7 %. Per facility megawatt the margin is much wider
 > (645 vs 396 units), so if power rather than money becomes the constraint B remains preferable down
 > to ≈ 1.35× (2.2 × 396 / 645). Before committing, we will run W-TRAIN and the `chat-70b` inference

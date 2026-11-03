@@ -14,7 +14,7 @@
       "points": 3
     },
     {
-      "criterion": "Root cause split into proven (SW thermal slowdown) and inferred (fan-tray trigger), plus magnitude check 13.5 × 1,980/1,715 ≈ +2.1 s",
+      "criterion": "Root cause split into proven (SW thermal slowdown) and inferred (fan-tray trigger), plus magnitude check 13.5 × 1,830/1,585 ≈ +2.1 s",
       "points": 3
     },
     {

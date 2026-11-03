@@ -1,6 +1,6 @@
 # L1 — Lab 18 reference results
 
-Checker: **14/14 PASS** (the dataset-reproducibility check SKIPs in the student release, where the
+Checker: **15/15 PASS** (the dataset-reproducibility check SKIPs in the student release, where the
 generator is absent). Reference: `solutions/lab/telemetry_analysis.py`. All values `[SIMULATED]`.
 
 | Quantity | Value |

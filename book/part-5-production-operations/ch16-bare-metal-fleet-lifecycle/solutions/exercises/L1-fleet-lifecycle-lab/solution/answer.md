@@ -1,9 +1,9 @@
 # L1 — Fleet lifecycle automation lab (reference results)
 
-Expected checker result: **33/33 checks passed (solution)**. Reference implementation:
+Expected checker result: **37/37 checks passed (solution)**. Reference implementation:
 `solutions/lab/fleet_lifecycle.py`; full planted-fault list: `solutions/lab/PLANTED_FAULTS.md`.
 
-**Acceptance report (`acceptance_results.json`, 32 nodes): 25 PASS, 1 WARN, 6 FAIL** `[SIMULATED]`
+**Acceptance report (`acceptance_results.json`, 32 nodes): 24 PASS, 1 WARN, 7 FAIL** `[SIMULATED]`
 
 | Node | Verdict | Codes | Raw evidence | Remediation |
 |---|---|---|---|---|
@@ -11,6 +11,7 @@ Expected checker result: **33/33 checks passed (solution)**. Reference implement
 | orion-n07 | WARN | `ECC_SBE_ELEVATED` | GPU1 14 corrected errors in 24 h burn-in (warn > 10) | Waiver with expiry; DCGM `-r 4`; monitor the trend |
 | orion-n11 | FAIL | `PCIE_DEGRADED` | GPU3 width x8 under load (Gen 5) | Reseat board/riser; inspect connector; re-accept |
 | orion-n19 | FAIL | `NIC_SPEED`, `RDMA_PAIR_BW_LOW` | rail-5 NIC 200,000 Mb/s; pair test ≈ 192 Gb/s | One fault, two codes: optic DOM, leaf port config, swap-to-isolate (Chapter 10) |
+| orion-n22 | FAIL | `GDR_PATH_FAIL` | Host-buffer pair tests ≈ 386–393 Gb/s on all rails (pass), but GPU-buffer (`--use_cuda`) 142.6 / 138.9 Gb/s on rails 2 and 3; ACS redirect enabled on the four SW1 downstream ports `0000:38:00.0`–`38:03.0` | A host-buffer test cannot see a lost GDR path. Restore the bundle's BIOS PCIe/ACS profile, confirm `ReqRedir- CmpltRedir-`, rerun the GPU-buffer tests and re-accept |
 | orion-n23 | FAIL | `FW_OFF_MATRIX` | NIC7 firmware 28.42.1000 (blocked), other 7 NICs 28.41.1000 | Reflash NIC7 to 28.41.1000; re-accept |
 | orion-n27 | FAIL | `THERMAL_THROTTLE` | GPU6 max 89 °C with `SW_THERMAL_SLOWDOWN` | Fans, airflow, heatsink, BMC inlet; rerun burn-in |
 | orion-n30 | FAIL | `HBM_ROW_REMAP_PENDING` | GPU2 `row_remap.pending = true`, `dbe_aggregate = 1`, `dbe_volatile = 0` | GPU reset per vendor procedure; confirm not pending; `-r 3`; RMA if it recurs |

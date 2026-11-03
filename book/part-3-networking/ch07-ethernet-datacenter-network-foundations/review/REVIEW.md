@@ -112,3 +112,59 @@ Re-score (author): D1–D9 all 9.5 → **9.50**.
 ## Independent review iteration 3 (2026-10-29)
 
 Passed at 9.50 with no open findings.
+
+---
+
+## Independent review r1 (2026-11-01)
+
+Reviewer scores: D1 9.0 · D2 9.5 · D3 9.5 · D4 9.5 · D5 9.5 · D6 9.5 · D7 9.5 · D8 9.5 · D9 9.0 →
+weighted **9.38** (gate fail). Checker 19/19 solution, 1/19 starter (graceful).
+
+| Finding | Severity | Resolution |
+|---|---|---|
+| N07-01 DP all-reduce "usually overlapped" contradicts VERIFIED_FACTS overlap window | major | Fixed. §7.10 Step 8 now models exposure as max(0, T_DP − 70 ms) with Chapter 11 cited for the window: aligned 0.153 s → **0.083 s ≈ 0.48 %** of 17.4 s; misaligned ×3 = 0.459 s → **0.389 s ≈ 2.2 %** `[MODELED]`. Conclusion kept: the larger exposure is PP activations and MoE all-to-all. No other file carried the old figures (grep). |
+| N07-02 "Every major AI backend routes at the leaf" | minor | Fixed. "Most large RoCE backends route at the leaf"; per-rail L2 segments and a stretched L2 domain named as alternatives; IB has no IP routing in the fabric. Objective 1, the Key idea ("a routed AI backend such as ORION's"), "never on a GPU backend" → "rarely" and the trade-offs row aligned. |
+| N07-03 Giant-at-ingress assumes L3 MTU = L2 max frame | minor | Fixed. Root cause states that on this platform the reverted default lowered both, and that NOSes which separate them drop at an egress MTU check instead (`[VENDOR-SPEC, 2026-10]`). |
+| N07-04 Host multi-NIC sysctls; ECMP group table limits | minor | Fixed. §7.2 adds `rp_filter=2`, `arp_ignore=1`, `arp_announce=2` with the failure each prevents (`[VENDOR-SPEC, 2026-10]`, verify); runbook adds an "ECMP group / next-hop table utilization" row. |
+| N07-05 Table 7.7 caption label format | minor | Fixed (Table 7.7 and Table 7.8 captions use backticked canonical labels). |
+| N07-06 Exercise ID scheme | minor | Fixed by stating the convention in the exercises.md header (K/W/L/O/T/D/R, folder `<ID>-<slug>`). Not renumbered: folder names, meta.yaml and CI prompt-sync depend on the IDs. |
+| N07-07 iperf3 control connection | minor | Fixed. Comment in the E4 sweep. |
+| N07-08 Mid-sentence acronym expansions | minor | Fixed. NIC, RDMA and NCCL expanded at first natural use in "Prerequisites and connections"; Table 7.1 and §7.6 use the short forms; ASIC sentence reflowed. |
+| D3 next-0.5: figure of the 7.12 path | advice | Added Figure 7.4 (directional failure mechanisms on `Et17/1`). |
+| D4 next-0.5: host-link fault in the intent | advice | Not done: it would change the planted-fault count across generator, validator, checker, golden outputs, key and exercises. Deferred. |
+| D9 "Table 7.8a" | advice | Renumbered: hypotheses Table 7.9, evidence checklist 7.10, trade-offs 7.11, runbook 7.12; references in exercises.md, 7.T folder and its answer updated. |
+| Cross-chapter netdev naming | — | ORION canonical rail *i* ↔ `mlx5_i` ↔ `ens{i+1}np0` `[ILLUSTRATIVE]` stated in §7.2; rail-3 examples changed from `ens3np0` to `ens4np0`. |
+
+Validation: solution 19/19; starter 1/19 (graceful); `validate_labs.py ch07` OK on all columns;
+`copyedit_lint.py` 0 findings.
+
+---
+
+## Independent review r2 (2026-11-01)
+
+Independent reviewer scores: D1 9.5, D2 9.5, D3 9.5, D4 9.0, D5 9.5, D6 9.0, D7 9.5, D8 9.5, D9 9.0 →
+weighted **9.35** (gate fail). Findings: 0 blocker, 1 major, 14 minor. Every finding was checked
+before it was changed; none was rejected.
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R07-01 | Major | `orion-mini.clab.yml` does not exist; the harness experiment is framed as a GPU measurement. | Added `lab/l2/orion-mini/`: `render.py` (stdlib, deterministic, `--check` mode) and its committed output, `orion-mini.clab.yml` (2 spines, 4 rail leaves, 2 hosts, 16 links) plus `configs/daemons` and one `frr.conf` per switch. They use the chapter conventions (AS 65101 + r / 65100, loopbacks, idx = 8r so leaf-r3 ↔ spine-1 = 10.101.1.48/.49 as in Listing 7.1, host /31s, per-rail policy routing on the hosts, BFD, `timers 3 9`, `maximum-paths 64`). The YAML parses; the README states plainly that the fabric was not deployed in the course harness. The L2 commands now use the real container names, a cross-rail probe (n01 rail 0 → n02 rail 3), and a `netem` loss test so the BFD-versus-hold-timer comparison measures something. The harness section is renamed "ECMP hashing simulation": software only, no network touched, and the GPU only runs more trials. The CPU command comes first, and the only `[MEASURED]` figure is the simulator's speed. The manifest and chapter file map are updated. Committed results are unchanged. |
+| R07-02 | Minor | Setup comment says the starter reports everything as TODO. | Now "T0 PASS (SKIP in the student release), all other checks TODO, exit 1". |
+| R07-03 | Minor | Ping target 10.100.3.1 breaks the node numbering. | The probe now goes from 10.100.0.3 (n01 rail 0) to 10.100.3.5 (n02 rail 3). |
+| R07-04 | Minor | Unlabelled derived and vendor numbers. | 12.5 % and "2 of 8 links" are labelled `[MODELED]`. The 20.4-link figure is shown as 32(1 − (31/32)³²) = 20.41 and labelled `[MODELED]`; the 97 % stays `[SIMULATED]`. The 51.2T port-configuration sentence is labelled `[VENDOR-SPEC, 2026-10]`. |
+| R07-05 | Minor | ORION-XL two-tier framed as *the* decision. | Now a choice between the reference three-tier pod design and a radix-128 two-tier fabric, conditional on the 51.2 Tb/s-class switch option. |
+| R07-06 | Minor | Modulo and hash-threshold disruption are not distinguished. | Hash-threshold (RFC 2992) moves about ¼–½ of flows, a rebuilt group behaves like modulo, and resilient hashing moves ≈ 1/32. The further-reading line is updated. |
+| R07-07 | Minor | `best #9` but the first path is marked best. | `best #1` (exercises.md and the folder prompt). |
+| R07-08 | Minor | NCCL WARN-format note is coarse. | 2.20–2.21 `status=12 opcode=0 len=0 …`; 2.22+ `NET/IB: … status=12 … hca mlx5_N` (both copies). |
+| R07-09 | Minor | Key 7.T(a) cites a 1472-byte ping. | "default-size and 8,972 B pings; 1,400 and 8,948 B MSS fail alike". |
+| R07-10 | Minor | "Roughly a dozen" prefixes. | "About twenty (8 rail aggregates and 12 loopbacks)". |
+| R07-11 | Minor | "The line" has no clear referent. | "The `no bgp ebgp-requires-policy` line in Listing 7.1". |
+| R07-12 | Minor | DP time uses line rate without saying so. | Marked as a best case, with the achievable-rate variant: 7.66 / 44 = 0.174 s, exposed 0.104 s ≈ 0.6 %. |
+| R07-13 | Minor | Undefined acronyms. | Expanded EVPN-VXLAN, NOS, DF, ICMP, CoPP, LLDP, uRPF and LAG at first use. |
+| R07-14 | Minor | Stray blank line in Further reading. | Removed. |
+| R07-15 | Minor | 7.12 drain contradicts §7.9. | GRACEFUL_SHUTDOWN or prepend first; shutting the session is named as a deliberate shortcut for one ECMP member. |
+| D2/D7/D8 advice | — | Convergence budget; direct capstone links; host-port giants. | §7.9 adds a convergence-budget paragraph (detect + BGP + FIB; graceful-restart-versus-BFD interplay; FIB-lag signature). Capstones A and B are now linked directly. The runbook gains a host-facing giant-counter row. |
+
+Verification: `check.py` solution 19/19 and starter 1/19 (graceful); `validate_labs.py ch07` OK;
+`copyedit_lint.py` 0 findings in ch07; package harness 78 passed; `render.py --check` OK. No exercise
+outputs changed. Manuscript 10,968 words.

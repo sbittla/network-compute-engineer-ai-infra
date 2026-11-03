@@ -5,7 +5,8 @@ Produces, under ``lab/data/``:
 
 * ``baseline.yaml``            -- the site's RDMA readiness baseline for ORION backend NICs
 * ``inventory/orion-nNN.txt``  -- per-node command captures (ibv_devinfo, rdma link, show_gids,
-                                  ethtool, ip, dcb, lsmod, site RDMA env file) for nodes n01..n08
+                                  ethtool, ip, dcb, lsmod, site RDMA env file,
+                                  ulimit -l in a login shell and a Slurm job step) for nodes n01..n08
 * ``perftest/bw_*.txt``        -- ib_write_bw -a --report_gbits style output, one file per pair/rail
 * ``perftest/lat_*.txt``       -- ib_write_lat -a style output, one file per pair/rail
 * ``perftest/pcie_link.csv``   -- PCIe link status (LnkSta) per NIC, from an lspci capture
@@ -43,6 +44,8 @@ FAULT_PFC = (4, 1)          # node 4, rail 1: PFC on priority 4 instead of 3
 FAULT_GID_NODE = 5          # node 5: NCCL_IB_GID_INDEX=2 (RoCE v1 GID)
 FAULT_PEERMEM_NODE = 6      # node 6: nvidia_peermem not loaded
 FAULT_SWAP = (7, 2, 3)      # node 7: rails 2 and 3 have swapped IP addresses
+FAULT_TC_NODE = 4           # node 4: NCCL_IB_TC=26 (DSCP written where the ToS byte is expected)
+FAULT_MEMLOCK_NODE = 3      # node 3: locked-memory limit not propagated into Slurm job steps
 BW_SLOW = (5, 6, 5)         # pair n05-n06 on rail 5 underperforms ...
 PCIE_DOWN = (5, 5)          # ... because orion-n05 mlx5_5 trained at PCIe x8
 LAT_TAIL = (7, 8, 2)        # pair n07-n08 on rail 2 has a heavy latency tail
@@ -223,10 +226,19 @@ def sec_lsmod(node: int) -> str:
 
 def sec_env(node: int) -> str:
     gid = 2 if node == FAULT_GID_NODE else 3
+    tc = 26 if node == FAULT_TC_NODE else 106
     return ("# Managed by fleet config. RDMA settings for training jobs on backend rails.\n"
             "NCCL_IB_HCA=mlx5_0,mlx5_1,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7\n"
             f"NCCL_IB_GID_INDEX={gid}\n"
-            "NCCL_IB_TC=106\n")
+            f"NCCL_IB_TC={tc}\n")
+
+
+def sec_ulimit_login(node: int) -> str:
+    return "unlimited\n"
+
+
+def sec_ulimit_srun(node: int) -> str:
+    return "8192\n" if node == FAULT_MEMLOCK_NODE else "unlimited\n"
 
 
 def build_inventory(node: int) -> str:
@@ -244,7 +256,9 @@ def build_inventory(node: int) -> str:
         parts += [f"### cmd: dcb pfc show dev {NETDEVS[r]} prio-pfc", sec_dcb_pfc(node, r)]
         parts += [f"### cmd: dcb app show dev {NETDEVS[r]} dscp-prio", sec_dcb_app(node, r)]
     parts += ["### cmd: lsmod | grep -E 'peermem|mlx5|ib_core|ib_uverbs'", sec_lsmod(node),
-              "### cmd: cat /etc/halcyon/rdma.env", sec_env(node)]
+              "### cmd: cat /etc/halcyon/rdma.env", sec_env(node),
+              "### cmd: ulimit -l", sec_ulimit_login(node),
+              "### cmd: srun -N1 -w " + host + " bash -c 'ulimit -l'", sec_ulimit_srun(node)]
     return "\n".join(p.rstrip("\n") for p in parts) + "\n"
 
 
@@ -264,6 +278,9 @@ expected:
   rdma_active_mtu: 4096
   roce_version: v2
   gid_index_variable: NCCL_IB_GID_INDEX
+  traffic_class_variable: NCCL_IB_TC
+  traffic_class: 106                        # ToS byte = DSCP 26 << 2 | ECT(0)
+  memlock: unlimited                        # ulimit -l in a login shell and inside a Slurm job step
   pfc_enabled_priorities: [3]
   dscp_to_priority: {26: 3, 48: 6}
   peer_memory_module: nvidia_peermem

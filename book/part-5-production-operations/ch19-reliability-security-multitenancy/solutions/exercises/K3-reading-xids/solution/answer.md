@@ -1,9 +1,9 @@
 # K3 — Reading Xids: worked solution
 
-**Relies on:** Section 19.3 "Xid events", Table 19.3 `[VENDOR-SPEC, 2026-10]`.
+**Relies on:** Section 19.3 "Xid events", Table 19.4 `[VENDOR-SPEC, 2026-10]`.
 
 **Caveat (required for full marks):** Xid meanings and recommended actions are defined by NVIDIA per
-GPU generation and driver branch. Table 19.3 is a teaching summary; confirm each code against NVIDIA's
+GPU generation and driver branch. Table 19.4 is a teaching summary; confirm each code against NVIDIA's
 current *Xid Errors* document before acting. Identify the GPU by the PCI address in the
 `NVRM: Xid (PCI:…)` line, not by the CUDA index.
 

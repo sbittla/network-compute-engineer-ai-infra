@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "`python check.py` output showing 11/11 PASS; the generated report; a one-page explanation of the flags (rule, why it exists, what the learner should do).",
+  "evidence_required": "`python check.py` output showing 12/12 PASS; the generated report; a one-page explanation of the flags (rule, why it exists, what the learner should do).",
   "id": "L1",
   "kind": "lab",
   "lab_checks": [
@@ -14,7 +14,8 @@
     "duplicate_clusters",
     "representative_selection",
     "validate_register",
-    "skill_frequency"
+    "skill_frequency",
+    "real_register_worked_example"
   ],
   "marking": [
     {

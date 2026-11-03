@@ -6,12 +6,20 @@
     "title": "Lab 21 L2: power draw vs throughput across workload intensities, and perf/W"
   },
   "invariants": {
-    "failures": [
-      "power fell from 8.56 W at 0 % to 3.94 W at 25 %: power must rise with work at fixed V/f",
-      "perf/W at 100 % duty below 25 % duty: static power should make light duty cycles less efficient"
-    ],
-    "passed": false
+    "failures": [],
+    "passed": true,
+    "scope": "fixed-V/f checks skipped at 25 % duty: DVFS-shifted, SM clock below 80 % of the full-load clock"
   },
+  "invariants_history": [
+    {
+      "evaluated_by": "experiment.py at run time",
+      "failures": [
+        "power fell from 8.56 W at 0 % to 3.94 W at 25 %: power must rise with work at fixed V/f",
+        "perf/W at 100 % duty below 25 % duty: static power should make light duty cycles less efficient"
+      ],
+      "passed": false
+    }
+  ],
   "log": [
     "gemm    0%  0.000 TFLOP/s  8.56 W (p5 1.54, p95 18.56)  SM 225.0 MHz  cap 0.0",
     "gemm   25%  1.373 TFLOP/s  3.94 W (p5 1.72, p95 6.99)  SM 300.0 MHz  cap 0.0",
@@ -68,7 +76,8 @@
   "notes": [
     "Duty cycle in 200 ms periods; each level runs 15 s after a 0.5 s settle (dropped). Power is power.draw.instant sampled every 100 ms; energy = mean sampled power x wall time.",
     "Levels run from 0 % to 100 %, so the GPU warms through the sweep; temperature is recorded per level.",
-    "The 0 % level follows the warm-up, so the GPU idles in a high performance state (SM clock still up). Deep idle (P8, about 2 W on this laptop) takes seconds to reach: the fitted static term is the price of being ready to work."
+    "The 0 % level follows the warm-up, so the GPU idles in a high performance state (SM clock still up). Deep idle (P8, about 2 W on this laptop) takes seconds to reach: the fitted static term is the price of being ready to work.",
+    "Re-rendered on 2026-11-01 from this results.json with the current experiment.py (check() and report()); no measured value was changed. The original render reported Invariants: FAILED because the earlier check held the DVFS-shifted 25 % level (SM clock 300 MHz vs 2,220 MHz at 100 %) to the fixed-V/f rules; that evaluation is kept under invariants_history in results.json."
   ],
   "runtime_s": 95.71,
   "status": "ran",

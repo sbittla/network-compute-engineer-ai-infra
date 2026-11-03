@@ -7,7 +7,8 @@
 *n* = 256, *R* = 8, α = 0.2 ms and no variance: (a) busbw when every path is PIX (48 GB/s); (b) busbw when
 one node has one NIC at PCIe Gen5 x8 (assume 27 GB/s achievable); (c) busbw when one node lacks GPUDirect RDMA on all
 NICs (18 GB/s cap); (d) explain why (c) is worse than one would guess from "one node out of 32". (This
-exercise deliberately uses a full 32-node, 256-rank W-TRAIN job, unlike the 16-node worked example.)
+exercise models a 256-rank `all_reduce_perf` health check across all 32 nodes, unlike the 16-node worked
+example.)
 *Evidence required:* three results with arithmetic; one-paragraph explanation; label `[MODELED]`.
 <!-- prompt:end -->
 

@@ -27,10 +27,12 @@ Goodput = 1 − 0.0477 − 0.05 = **0.9023**. Duration = 96.00 / 0.9023 = **106.
 
 **Reduce δ by validating asynchronous checkpointing.** With δ = 5 s: τ = sqrt(2 × 5 × 86,400) = 929.5 s;
 δ/τ = τ/(2M) = 0.538 % each → 1.076 % + R/M 1.042 % = **2.12 %** total, saving ≈ 2.65 points of goodput:
-96.00 / 0.9288 = 103.36 days, **≈ 3.0 days shorter**. Reducing R (faster requeue, pre-staged images) is a
-strong second: R/M is a fixed 1.04 % here, half the remaining waste once δ is small. Spare nodes are only
-an explicit variation (ORION has none). Doubling storage bandwidth is the weakest lever: it only shrinks
-the 12.25 s write floor inside δ = 60 s. Canonical comparison (M = 48 h): 3.16 % waste (Section 23.10).
+96.00 / 0.9288 = 103.36 days, **≈ 3.0 days shorter**. Doubling storage bandwidth halves only the
+bandwidth-bound 49 s of δ (δ ≈ 24.5 + 11 = 35.5 s, Section 23.10 Step 7): τ = sqrt(2 × 35.5 × 86,400) =
+2,477 s, waste 1.43 % + 1.43 % + 1.04 % = 3.91 %, saving 0.86 points, about a third of what async saving
+buys, and at hardware cost. Reducing R (faster requeue, pre-staged images) attacks the fixed R/M = 1.04 %,
+half the remaining waste once δ is small. Spare nodes are only an explicit variation (ORION has none).
+Canonical comparison (M = 48 h): 3.16 % waste (Section 23.10).
 
 **Common wrong answers.** Mixing M in hours with δ in seconds (τ ≈ 54 s instead of 3,220 s); adding
 waste fractions to goodput instead of subtracting; dividing 96 days by (1 − 0.05) only; recommending more

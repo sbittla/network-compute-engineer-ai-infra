@@ -24,7 +24,9 @@ RB-PERF-03 runbook; NCCL timeout defaults from docs/VERIFIED_FACTS.md.
 
 **(c) Root cause and chain.** The NIC3 optic on orion-n15, reseated three days ago (likely a
 contaminated or damaged connector), has a marginal optical budget → high pre-FEC bit error ratio (FEC
-corrected codewords 1.9e9 per 10 min) → some codewords uncorrectable (312) → frames fail CRC and are
+corrected codewords 1.9e9 per 10 min) → some codewords uncorrectable (312). The mean pre-FEC BER (≈ 1e-5) is
+far below the RS(544,514) limit (≈ 2.4e-4), so random errors would give almost none; the errors are bursty
+(dirty connector) and the FEC symbol-error histogram shows codewords at the 15-symbol limit → frames fail CRC and are
 dropped (297 in-errors; host `rx_crc_errors_phy` 4,118 and `rx_symbol_err_phy` 89,233, rising) →
 RoCE packets lost on reliable-connected QPs. A loss followed by more packets is detected as
 out-of-sequence and recovered by NAK and go-back-N (`out_of_sequence` rising; small delays → median
@@ -36,8 +38,10 @@ stalls; all ranks see them because the collective waits for one flow. (On NCCL �
 
 **(d) Safe fix and validation.** Fabric team, under a change ticket: at the job's next checkpoint, cordon
 orion-n15 (ORION has no spare; Training Infra decides pause or restart at reduced DP), clean or replace
-the rail-3 optic and inspect both ends. Acceptance: link at 400 Gb/s; FEC corrected back to 1–4e6 per
-10 min; zero uncorrectable and zero CRC over a 1 h soak; `ib_write_bw` ≥ 90 % of line rate; two-node
+the rail-3 optic and inspect both ends. Acceptance: link at 400 Gb/s; pre-FEC BER within the fleet
+baseline (≈ 1e-8 here; e.g. < 1e-7) and stable over a 1 h soak; zero FEC uncorrectable and zero CRC over
+the soak; module Rx power inside the warning thresholds on both ends (corrected-codeword counts are a
+trend signal, not a pass/fail threshold); `ib_write_bw` ≥ 90 % of line rate; two-node
 `all_reduce_perf` busbw at fleet baseline. Return through the lifecycle workflow (Chapter 16).
 Validation: 5 × 100-step windows with median 17.9 ± 0.1 s, no step > 20 s in 1,000 consecutive steps,
 `local_ack_timeout_err` flat. Not allowed: switch configuration changes, raising `NCCL_IB_TIMEOUT` (masks

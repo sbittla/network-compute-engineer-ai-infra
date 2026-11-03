@@ -16,19 +16,19 @@ import yaml
 DATA = Path(__file__).resolve().parents[4] / "lab" / "data"
 WINDOW_S = 600
 
-# Prompt table (exercises.md 10.M2). Symbol errors: qualitative column.
+# Prompt table (exercises.md 10.M2). sym = pre-FEC corrected bits in the window (~ BER x 425e9 x 600 s).
 PORTS = {
-    "P1": dict(flaps=0, corr=3.1e7, uncorr=0, fcs=0, sym="low", giants=0, disc=52410, pfc=1.1e6,
+    "P1": dict(flaps=0, corr=3.1e7, uncorr=0, fcs=0, sym=3.1e7, giants=0, disc=52410, pfc=1.1e6,
                ber=1.2e-7, ber7=1.1e-7, rx=[-1.1, -1.3, -0.9, -1.2]),
-    "P2": dict(flaps=0, corr=8.6e9, uncorr=340, fcs=322, sym="high", giants=0, disc=0, pfc=0,
+    "P2": dict(flaps=0, corr=8.6e9, uncorr=340, fcs=322, sym=1.0e10, giants=0, disc=0, pfc=0,
                ber=4.0e-5, ber7=3.6e-5, rx=[-2.0, -2.1, -1.9, -2.0]),
-    "P3": dict(flaps=0, corr=5.1e6, uncorr=0, fcs=1870, sym="~0", giants=0, disc=0, pfc=0,
+    "P3": dict(flaps=0, corr=5.1e6, uncorr=0, fcs=1870, sym=5.1e6, giants=0, disc=0, pfc=0,
                ber=2.0e-8, ber7=2.1e-8, rx=[-0.8, -0.7, -0.9, -0.8]),
-    "P4": dict(flaps=5, corr=2.0e7, uncorr=12, fcs=9, sym="low", giants=0, disc=0, pfc=0,
+    "P4": dict(flaps=5, corr=2.0e7, uncorr=12, fcs=9, sym=2.0e7, giants=0, disc=0, pfc=0,
                ber=8.0e-8, ber7=7.5e-8, rx=[-1.4, -1.5, -1.3, -1.6]),
-    "P5": dict(flaps=0, corr=1.9e10, uncorr=0, fcs=0, sym="high", giants=0, disc=0, pfc=0,
+    "P5": dict(flaps=0, corr=1.9e10, uncorr=0, fcs=0, sym=2.3e10, giants=0, disc=0, pfc=0,
                ber=9.0e-5, ber7=2.0e-6, rx=[-6.8, -2.1, -2.0, -2.2]),
-    "P6": dict(flaps=0, corr=2.6e6, uncorr=0, fcs=0, sym="~0", giants=12044, disc=0, pfc=0,
+    "P6": dict(flaps=0, corr=2.6e6, uncorr=0, fcs=0, sym=2.6e6, giants=12044, disc=0, pfc=0,
                ber=1.0e-8, ber7=1.0e-8, rx=[-0.5, -0.6, -0.4, -0.5]),
 }
 
@@ -71,6 +71,8 @@ def solve() -> dict:
             "lane_imbalance_db": round(max(d["rx"]) - min(d["rx"]), 2),
             "pfc_per_s": round(d["pfc"] / WINDOW_S, 1),
             "p_uncorr_random_model": float(f"{p_uncorrectable(d['ber']):.2e}"),
+            # pre-FEC corrected bits vs BER x 425e9 b/s x window: ~1 when the column and BER agree
+            "sym_vs_ber_ratio": round(d["sym"] / (d["ber"] * 425e9 * WINDOW_S), 2),
         }
     p5_sibling = sorted(PORTS["P5"]["rx"])[2]       # median of the 3 healthy lanes ~ -2.1
     rows["P5"]["drop_vs_siblings_db"] = round(p5_sibling - min(PORTS["P5"]["rx"]), 2)
@@ -93,6 +95,7 @@ def main() -> None:
     assert abs(a["P2"]["margin_decades"] - 0.78) < 0.005 and abs(a["P5"]["margin_decades"] - 0.43) < 0.005
     assert abs(a["P5"]["drop_vs_siblings_db"] - 4.7) < 0.05 and abs(a["P1"]["pfc_per_s"] - 1833.3) < 0.1
     assert a["P5"]["ber_ratio_7d"] == 45.0
+    assert all(0.9 <= v["sym_vs_ber_ratio"] <= 1.1 for v in a.values())  # symbol column agrees with BER
     (out / "result.json").write_text(json.dumps(r, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     md = ["# 10.M2 — Physical or higher-layer? `[MODELED]`", "",
           "| Port | Layer | Cause | Margin (decades) | BER now/7 d | Lane imbalance (dB) | P(uncorr) random model |",

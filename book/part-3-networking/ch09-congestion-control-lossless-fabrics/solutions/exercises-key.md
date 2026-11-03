@@ -93,8 +93,8 @@ Reference output: `python solutions/lab/congestion_lab.py --out report.md` from 
 
 | Episode (s) | Label | Root / source | Discriminating evidence (medians over the episode) |
 |---|---|---|---|
-| 100–158 | incast | root `orion-be-leaf-r3:eth1/5` (to orion-n05) | eth1/5: tx ≈ 394 Gb/s, queue ≈ 3,100 KB (above that leaf's 1,500 KB Kmin), ECN ≈ 0.67 M marks/s, pause rx 0; pause *tx* 2,500–6,000/s on the 12 sender ports only; no fabric-port pauses; orion-n05 `cnp_sent` ≈ 400 k/s |
-| 250–318 | pause_propagation | root `orion-be-leaf-r3:eth1/10` (to orion-n10) | eth1/10 at line rate with deep queue and no pause rx; leaf-r3 uplinks send 6–10 k pause/s to spines; spine ports toward leaf-r3 have deep queues (above Kmax, so ≈ 6 M marks/s) *and* receive pause (branches); spines pause leaf-r4 uplinks; leaf-r4 pauses its 8 rail-4 NICs |
+| 100–158 | incast | root `orion-be-leaf-r3:eth1/5` (to orion-n05) | eth1/5: tx ≈ 394 Gb/s, queue median ≈ 1,430 KB (samples 1,107–1,690 KB: PFC holds it near the 1,000 KB aggregate Xoff-equivalent, below Σ(Xoff + headroom) ≈ 2.1 MB), ECN median 0 (IQR 0–27 k/s; marks only when a peak crosses that leaf's 1,500 KB Kmin), pause rx 0; pause *tx* ≈ 16.5–19.1 k/s (port medians) on the 12 sender ports only; no fabric-port pauses; orion-n05 `cnp_sent` median ≈ 0 (mean ≈ 8 k/s). Marks per pause frame ≈ 0.09: the leaf runs on pause, as Section 9.10 predicts |
+| 250–318 | pause_propagation | root `orion-be-leaf-r3:eth1/10` (to orion-n10) | eth1/10 at line rate, queue median ≈ 1,370 KB (PFC-held, sporadic marks: same as-found Kmin) and no pause rx; leaf-r3 uplinks send 6–10 k pause/s to spines; spine ports toward leaf-r3 have deep queues (above Kmax, so ≈ 6 M marks/s) *and* receive pause (branches); spines pause leaf-r4 uplinks; leaf-r4 pauses its 8 rail-4 NICs |
 | 400–468 | pfc_storm | source `orion-n12:mlx5_3` | leaf-r3 eth1/12: pause rx ≈ 23,750/s, tx ≈ 0 Gb/s, queue ≈ 4,000 KB flat, ECN 0; NIC `pfc_tx_p3` ≈ 23,750/s, rx 0 Gb/s; leaf pauses eth1/3 and eth1/6 (orion-n03, orion-n06: peers of orion-n12) |
 | 520–558 | *not an episode* | — | orion-be-leaf-r4 eth1/7 (to orion-n07): 375–392 Gb/s, queue 155–250 KB (just above that leaf's 150 KB Kmin), ECN ≈ 50 k/s, **no pause** — busy and healthy; DCQCN working |
 
@@ -182,10 +182,12 @@ decision rule).
 
 ## O3 — Controlled experiment (model answer outline)
 
-- Hypothesis: on the lab leaf, Kmin 150 KB (B) reduces total pause duration in a 12:1 incast by ≥ 5×
-  versus Kmin 1,500 KB (A) and increases median incast completion by ≤ 20 %.
+- Hypothesis: on the lab leaf, the template ECN profile B (Kmin 150 KB, Kmax 1,500 KB) reduces total pause
+  duration in a 12:1 incast by ≥ 5× versus the as-found profile A (1,500 / 6,000 KB) and increases median
+  incast completion by ≤ 20 %.
 - Configurations: full snapshots of A and B (trust DSCP, DSCP 26 → TC 3, PFC priority 3, Xoff/headroom
-  profile, ECN Kmax 1,500 / 6,000 KB, Pmax 0.2, watchdog on, CNP DSCP 48 → TC 6); only Kmin/Kmax differ.
+  profile, Pmax 20 %, watchdog on, CNP DSCP 48 → TC 6). The one controlled variable is the ECN profile:
+  Kmin/Kmax 1,500/6,000 KB in A versus 150/1,500 KB in B.
 - Workload: 12 perftest `ib_write_bw` clients, fixed message size and QP count, fixed duration, plus a
   bystander probe (e.g. `ib_write_lat`) from one sender NIC to an idle host.
 - Procedure: warm-up discarded; A/B interleaved; ≥ 5 runs each; counters snapshotted before/after each run.
@@ -276,4 +278,8 @@ pauses (consequence), the job-level slowdown (could have other contributors unti
 pause, so the true root is the host, and the rule finds no switch root — classify as storm/slow
 receiver instead); missing samples at the root port (the rule never sees it); two simultaneous roots;
 counters at the root reset. Extra evidence: NIC-side pause and storm counters, host PCIe/memory state,
-both-end agreement of pause counters, and topology walk of the flows involved.
+both-end agreement of pause counters, and topology walk of the flows involved. *Worked counter-example from the lab
+data:* the spine-2 telemetry gap (300–310 s) falls inside the pause-propagation episode (250–318 s);
+spine-2's branch ports have no samples for 10 s of it. Had the gap hit the root port instead, the rule
+could not select it and would return only branches. The solution takes medians over the non-NaN samples
+of the whole episode, so the root stays `orion-be-leaf-r3:eth1/10` and spine-2 stays a branch.

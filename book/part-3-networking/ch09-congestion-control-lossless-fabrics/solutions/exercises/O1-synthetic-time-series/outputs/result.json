@@ -34,26 +34,26 @@
           "tx_gbps": 96.94
         },
         "orion-n05 mlx5_3 (NP)": {
-          "cnp_sent_rate": 381840.5,
+          "cnp_sent_rate": 10.75,
           "pfc_rx_p3_rate": 0.0,
           "pfc_tx_p3_rate": 0.0,
           "rx_gbps": 393.62,
           "tx_gbps": 147.41
         },
         "root leaf-r3 eth1/5": {
-          "ecn_marked_tc3_rate": 670868.25,
+          "ecn_marked_tc3_rate": 0.0,
           "pfc_rx_p3_rate": 0.0,
           "pfc_tx_p3_rate": 0.0,
-          "q_tc3_max_kb": 3178.6,
+          "q_tc3_max_kb": 1426.1,
           "rx_gbps": 147.41,
           "tx_gbps": 393.62
         },
         "sender port leaf-r3 eth1/1": {
           "ecn_marked_tc3_rate": 0.0,
           "pfc_rx_p3_rate": 0.0,
-          "pfc_tx_p3_rate": 5072.5,
+          "pfc_tx_p3_rate": 19145.25,
           "q_tc3_max_kb": 11.05,
-          "rx_gbps": 93.78,
+          "rx_gbps": 33.38,
           "tx_gbps": 160.43
         }
       },
@@ -93,10 +93,10 @@
           "tx_gbps": 195.02
         },
         "root leaf-r3 eth1/10": {
-          "ecn_marked_tc3_rate": 826438.0,
+          "ecn_marked_tc3_rate": 0.0,
           "pfc_rx_p3_rate": 0.0,
           "pfc_tx_p3_rate": 0.0,
-          "q_tc3_max_kb": 3297.8,
+          "q_tc3_max_kb": 1373.6,
           "rx_gbps": 159.41,
           "tx_gbps": 394.08
         },

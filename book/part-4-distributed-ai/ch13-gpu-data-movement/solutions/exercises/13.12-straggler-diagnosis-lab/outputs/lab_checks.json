@@ -6,6 +6,7 @@
     "find_stragglers:": "PASS find_stragglers: stragglers=[12, 37] (expect two ranks with persistent robust z > 6)",
     "hot_not_throttled:": "PASS hot_not_throttled: hot-but-not-throttled=[51]",
     "load_telemetry:": "PASS load_telemetry: rows=3840 ranks=64 steps=60",
+    "missing_samples:": "PASS missing_samples: 200 rows dropped, 37 NaN: stragglers=[12, 37], onset rank 37 = 20 (expect [12, 37], 20-22)",
     "per_step_stats:": "PASS per_step_stats: step 10: slowest rank 12, ratio 1.294 (exp 1.294)",
     "rail_health:": "PASS rail_health: flagged rails=[2], onset=[30.0]",
     "rank_onset:": "PASS rank_onset: onset rank 37 = 20, rank 12 = 0",

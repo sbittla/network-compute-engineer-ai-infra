@@ -4,6 +4,7 @@ PASS T1 checkpoint steps excluded: per-minute series excludes checkpoint stalls 
 PASS T1 regression onset/recovery: trn-70b onset 02:10 recovery 04:07; ft-13b onset 02:10 recovery 04:07 (expect onset 02:06-02:16, recovery 04:02-04:15)
 PASS T2 training SLI + lost GPU-hours: trn-70b SLI=0.678 (expect ~0.68); lost GPU-hours onset->recovery=62.4 (expect ~62)
 PASS T2 burn rates: availability burn at 05:16: 5m=40.0 (expect ~40), 1h=4.65 (expect ~5); partial windows NaN=True
+PASS T2 scrape gap: 3-minute scrape gap 05:12-05:14: 5m burn at 05:16 is NaN (no data); at 05:20 8.2 = gap-free 8.2
 PASS T2 multiwindow page logic: 7-min deploy blip does not page (0 minutes); synthetic 3% outage pages at 01:27
 PASS T3 rule evaluation: GPUTempHigh fires once (orion-n08@01:53, expect orion-n08 ~01:53); FabricOutDiscards silent (0)
 PASS T3 noisy + missing alert: noisy=['GPUUtilLow'] (expect ['GPUUtilLow']); actionable pages during incident=[] (expect none -> missing alert)
@@ -13,4 +14,4 @@ PASS T5 incident timeline: TTD=48.0 min, TTM=118.2 min, TTR=140.0 min (expect ~4
 PASS T5 postmortem rendering: all placeholders filled=True; missing fact raises KeyError=True
 PASS T6 dashboard hierarchy: levels=['fleet', 'node', 'device', 'workload']; drilldowns chain; fleet has a burn-rate panel; uses DCGM profiling metrics
 
-14/14 checks passed (solution)
+15/15 checks passed (solution)

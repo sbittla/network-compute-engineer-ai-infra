@@ -129,7 +129,8 @@ info. `write_report()` lists every host (even with zero findings) with a verdict
 
 ### Part D — Written diagnosis (graded by your instructor)
 
-1. Run your analyzer: `python starter/host_analyzer.py data/snapshots/*.json --baseline data/orion_hx8_baseline.yaml --out out/fleet_report.md`.
+1. Run your analyzer: `python starter/host_analyzer.py data/snapshots/*.json --baseline
+   data/orion_hx8_baseline.yaml --out out/fleet_report.md`.
 2. Write a one-page **troubleshooting report for `orion-n12`** ("samples/s poor although CPU
    utilization is low"): rank at least three hypotheses, name the discriminating evidence for each,
    state the most likely primary cause and the order in which you would fix things, and the
@@ -194,8 +195,9 @@ link five times in each state through the collector's own guarded `run_command()
 both snapshots with `analyze_fleet()` against two baselines. The first is written for this host from
 independent probes (`/proc/cpuinfo`, `/sys/devices/system/node`, `/proc/meminfo`, torch) and must
 produce no `INVENTORY_MISMATCH`. The second is the ORION HX8 baseline, which must flag the host as the
-wrong platform. The root snapshot, `lspci`/`ethtool`/`sysstat`/`hwloc` output and the L3 fleet run are
-probed and recorded as not runnable when absent.
+wrong platform. The root snapshot, `lspci`/`ethtool`/`sysstat`/`hwloc` output, the NUMA latency and
+bandwidth probes (`mlc --latency_matrix`, `numactl`-pinned STREAM) and the L3 fleet run are probed and
+recorded as not runnable when absent. The committed bundle predates the NUMA probes; a rerun adds them.
 
 ```bash
 python scripts/hw_labs.py build ch03

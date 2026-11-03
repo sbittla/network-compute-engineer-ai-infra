@@ -1,9 +1,10 @@
 {
   "difficulty": 2,
-  "evidence_required": "`python check.py` output showing `9/9 checks passed`; the two reports per the lab rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or `all_reduce_perf` results (≥ 5 repetitions, median and p95).",
+  "evidence_required": "`python check.py` output showing `10/10 checks passed`; the two reports per the lab rubric. For an L2/L3 extension, the filled-in copy of `manifest.yaml` and the captured events or `all_reduce_perf` results (≥ 5 repetitions, median and p95).",
   "id": "17-L1",
   "kind": "lab",
   "lab_checks": [
+    "D0 dataset reproducible",
     "T1 tolerates",
     "T2 node_filter",
     "T3 select_gpus",
@@ -32,7 +33,7 @@
       "points": 15
     },
     {
-      "criterion": "Task 7: placement-report.md — five pending jobs with reasons, fair-share/rail/lifecycle effects, one policy change",
+      "criterion": "Task 7: placement-report.md — five pending jobs with reasons, J01 capacity-blocked after J05 (not fair share), rail and lifecycle effects, one policy change",
       "points": 10
     },
     {

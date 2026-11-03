@@ -14,10 +14,10 @@ job MTBF (A-07) and blocking checkpoint time (A-08).
 ## Architecture
 
 32 HX8 nodes give 256 GPUs; TP=8 stays inside each NVLink domain, PP=4 and DP=8 cross nodes.
-The backend is a rail-optimised RoCEv2 leaf-spine: 8 rail leaves of radix 64 with 32 downlinks and
+The backend is a rail-optimized RoCEv2 leaf-spine: 8 rail leaves of radix 64 with 32 downlinks and
 32 uplinks each, and 4 spines, for 1:1 subscription (see topology.yaml).
 Each GPU node draws up to 10.2 kW [VENDOR-SPEC, 2026-10] so a 4-node rack needs 40.8 kW [MODELED]
-against the 45 kW budget (A-09).
+against the 45 kW planned budget (A-09: 50 kW rack limit less the 10 % transient margin).
 
 ## Failure domains
 
@@ -26,8 +26,9 @@ Rack power (FD-06) is mitigated by spreading DP replicas across racks.
 
 ## Benchmark evidence
 
-The two-node all-reduce run (B-02) is the only physical measurement; everything else is modeled.
-Checkpoint overhead at the Young/Daly interval is about 2.6 % [MODELED] (B-05).
+B-02 is the only fabric benchmark row; everything else is modeled. ORION is fictional and no run
+produced B-02, so it is labelled ILLUSTRATIVE; a real 2-node run would make it MEASURED with its manifest.
+Checkpoint plus rework waste at the Young interval is about 2.6 % [MODELED] (B-05), excluding restart.
 
 ## Failure exercise
 

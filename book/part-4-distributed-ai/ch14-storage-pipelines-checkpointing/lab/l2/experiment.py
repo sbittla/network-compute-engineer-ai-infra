@@ -19,6 +19,11 @@ you cannot verify is not a checkpoint. This experiment (exercise 14.19):
    copy (and what ``dcp.load`` does with it), restores from the intact copy and compares the first-step
    loss with the value recorded at save.
 
+Plausibility guards: the run is refused (status not-runnable) when MemAvailable is below 4 x the state + 1 GB,
+and fails its invariants when the GPU D2H snapshot is below 1 GB/s, when ``dcp.load`` takes more than 20 x the
+synchronous save, or when more than 5 % of the state was swapped out during the run. A paging host measures its
+swap device, not DCP. Host memory and swap counters are recorded in ``results.json``.
+
 CPU fallback: the same model (smaller) lives in host memory; ``save``/``async_save`` still run (staging
 is a host-to-host copy), as do the throughput, interference and restore tests. The D2H/PCIe invariants
 are skipped.
@@ -49,6 +54,13 @@ EXPERIMENT = {
 PKG = Path(__file__).resolve().parents[2]
 PCIE_GBPS_PER_LANE = {3: 0.985, 4: 1.969, 5: 3.938}
 LOSS_RTOL = 1e-6          # FP32, same kernels, same batch: stated before running
+# Plausibility guards (stated before running). A host that swaps produces numbers about the host, not about DCP:
+# the first committed RTX 4060 run on a 7.8 GiB WSL2 VM measured a 0.01 GB/s "D2H" and a 2,247 s dcp.load.
+HOST_HEADROOM_X = 4.0     # MemAvailable must cover >= 4 x state (pinned snapshot, DCP staging, cached pinned, load)
+HOST_HEADROOM_FIXED = 1.0e9   # + 1 GB for the interpreter, CUDA context and page cache
+MIN_D2H_GBPS = 1.0        # any PCIe Gen3 x4 or better link sustains far more; below this the host is paging
+MAX_LOAD_OVER_SAVE = 20.0     # a page-cache-evicted read 20 x slower than write + fsync is not a storage property
+MAX_SWAPOUT_FRAC = 0.05   # pages swapped out during the run, as a fraction of the checkpointed state
 
 
 def _load_lab_module():
@@ -116,6 +128,24 @@ def evict_page_cache(d: Path) -> bool:
             finally:
                 os.close(fd)
     return ok
+
+
+def host_memory() -> dict:
+    """MemAvailable / swap from /proc/meminfo and swap-out pages from /proc/vmstat (bytes; None off Linux)."""
+    out = {"mem_available_bytes": None, "swap_total_bytes": None, "swap_used_bytes": None, "pswpout_bytes": None}
+    try:
+        info = {ln.split(":")[0]: int(ln.split()[1]) * 1024 for ln in Path("/proc/meminfo").read_text().splitlines()
+                if ln.split()[1:2] and ln.split()[1].isdigit()}
+        out["mem_available_bytes"] = info.get("MemAvailable")
+        if "SwapTotal" in info and "SwapFree" in info:
+            out["swap_total_bytes"] = info["SwapTotal"]
+            out["swap_used_bytes"] = info["SwapTotal"] - info["SwapFree"]
+        for ln in Path("/proc/vmstat").read_text().splitlines():
+            if ln.startswith("pswpout "):
+                out["pswpout_bytes"] = int(ln.split()[1]) * os.sysconf("SC_PAGE_SIZE")
+    except (OSError, ValueError, AttributeError):
+        pass
+    return out
 
 
 def build(torch, device: str, width: int, depth: int, seed: int):
@@ -186,6 +216,21 @@ def run(ctx) -> dict:
     state_bytes = sum(t.numel() * t.element_size() for t in _tensors(state))
     n_params = sum(p.numel() for p in model.parameters())
     ctx.log(f"model {n_params / 1e6:.1f} M params, checkpointed state {state_bytes / 1e9:.3f} GB on {dev}")
+
+    # --- fail fast when the host cannot hold the staging copies without paging (guard, stated before running)
+    mem0 = host_memory()
+    need = HOST_HEADROOM_X * state_bytes + HOST_HEADROOM_FIXED
+    if mem0["mem_available_bytes"] is not None and mem0["mem_available_bytes"] < need:
+        dist.destroy_process_group()
+        shutil.rmtree(tmp_root, ignore_errors=True)
+        res = hwlab.not_runnable(
+            f"host memory headroom too small: MemAvailable {mem0['mem_available_bytes'] / 1e9:.1f} GB < "
+            f"{HOST_HEADROOM_X:g} x state ({state_bytes / 1e9:.2f} GB) + {HOST_HEADROOM_FIXED / 1e9:g} GB = "
+            f"{need / 1e9:.1f} GB; the run would page and measure the host's swap, not DCP",
+            needs=[f">= {need / 1e9:.1f} GB of available host RAM (raise the WSL2 VM memory limit), or --quick"],
+            fallback="none: rerun on a larger host; no numbers are recorded from a run that would page")
+        res["metrics"] = {"state_bytes": state_bytes, "host_memory_start": mem0}
+        return res
 
     # --- synchronous save
     rows = []
@@ -275,7 +320,8 @@ def run(ctx) -> dict:
     diff_data = [k for k in diff if loaded[k].numel() > 1]
     consistency = {"tensors_compared": len(loaded), "tensors_differing_from_call_time_state": len(diff),
                    "data_tensors_differing": len(diff_data), "scalar_tensors_differing": len(diff) - len(diff_data),
-                   "differing_examples": diff[:4], "steps_during": len(cons_run["during"])}
+                   "differing_examples": diff[:4], "steps_during": len(cons_run["during"]),
+                   "persist_s": cons_run["completion_s"]}
     ctx.log(f"consistency: {len(diff)} of {len(loaded)} tensors in the async checkpoint differ from the call-time state "
             f"({len(diff_data)} data tensors, {len(diff) - len(diff_data)} scalars, e.g. {diff[:2]})")
     del snap_ref, ref_sd, m3, o3, s3, loaded
@@ -319,6 +365,7 @@ def run(ctx) -> dict:
     dist.destroy_process_group()
     shutil.rmtree(tmp_root, ignore_errors=True)
 
+    mem1 = host_memory()
     timed = [r for r in rows if not r["warmup"]]
     by_api = {api: [r for r in timed if r["api"] == api] for api in ("save", "async_save", "async_save+cached_pinned")}
     loads = [r["load_s"] for r in load_rows if not r["warmup"]]
@@ -368,6 +415,9 @@ def run(ctx) -> dict:
         "torch_251_cache_staged_flag_dropped": bool(dropped_flag),
         "torch_version": torch.__version__, "checkpoint_api": "torch.distributed.checkpoint.save / async_save / load",
         "target_filesystem": _fs_of(tempfile.gettempdir()), "repetitions": reps,
+        "host_memory_start": mem0, "host_memory_end": mem1,
+        "swapped_out_bytes_during_run": (None if mem0["pswpout_bytes"] is None or mem1["pswpout_bytes"] is None
+                                         else mem1["pswpout_bytes"] - mem0["pswpout_bytes"]),
     }
     probes = {"fio_on_path": bool(shutil.which("fio")), "nvme_devices": sorted(p.name for p in Path("/dev").glob("nvme*"))}
     not_runnable_parts = [
@@ -574,7 +624,8 @@ def check(result: dict, env: dict) -> list[str]:
         fails.append("async completion < blocking: the timer around future.result() is wrong")
     # async blocking cannot be faster than copying the state once (5 % allowance for timer noise) - GPU only:
     # for host-resident tensors DCP may stage by reference (see the aliasing metric)
-    if gpu and s["async_blocking_s"]["median"] < 0.95 * s["snapshot_s"]["min"]:
+    # (skipped when the snapshot itself is implausibly slow: then the comparison says nothing about staging)
+    if gpu and m["snapshot_GBps"] >= MIN_D2H_GBPS and s["async_blocking_s"]["median"] < 0.95 * s["snapshot_s"]["min"]:
         fails.append("async_save returned faster than a single copy of the state: it did not stage the state; a "
                      "later in-place update could corrupt the checkpoint")
     if "CHECKSUM_MISMATCH" not in (r["corrupt_codes"] or []):
@@ -602,6 +653,18 @@ def check(result: dict, env: dict) -> list[str]:
     if gpu and s["cached_blocking_s"]["median"] > 1.5 * s["async_blocking_s"]["median"]:
         fails.append("cached pinned staging blocked > 1.5 x longer than pageable staging: pinned buffers are being "
                      "re-allocated on every save")
+    # plausibility guards: a paging host yields numbers about its swap device, not about DCP or the link
+    if gpu and 0 < m["snapshot_GBps"] < MIN_D2H_GBPS:
+        fails.append(f"implausible D2H snapshot rate {m['snapshot_GBps']:.2f} GB/s < {MIN_D2H_GBPS:g} GB/s: the host is "
+                     "paging (pinned allocation under memory pressure?); this run is not valid evidence - rerun on a "
+                     "host with more RAM")
+    if s["load_s"]["n"] and s["load_s"]["median"] > MAX_LOAD_OVER_SAVE * s["save_blocking_s"]["median"]:
+        fails.append(f"implausible restore: dcp.load {s['load_s']['median']:.1f} s > {MAX_LOAD_OVER_SAVE:g} x save "
+                     f"{s['save_blocking_s']['median']:.1f} s; the host is paging; this run is not valid evidence")
+    swapped = m.get("swapped_out_bytes_during_run")
+    if swapped is not None and swapped > MAX_SWAPOUT_FRAC * m["state_bytes"]:
+        fails.append(f"{swapped / 1e9:.2f} GB swapped out during the run (> {MAX_SWAPOUT_FRAC:.0%} of the state): "
+                     "timings include paging; this run is not valid evidence")
     if gpu:
         ceiling = link_ceiling_gbs(env)
         if ceiling and m["snapshot_GBps"] > 1.05 * ceiling:
@@ -615,6 +678,8 @@ def check(result: dict, env: dict) -> list[str]:
 def report(result: dict, env: dict) -> str:
     m, s, c, r = result["metrics"], result["summary"], result["l1_model"], result["restore_test"]
     gpu = env["device"] == "cuda"
+    inv = result.get("invariants") or {}
+    failed = inv.get("passed") is False
 
     def row(label, st, scale=1.0, unit="s", fmt="{:.3f}"):
         f = lambda v: fmt.format(v * scale)  # noqa: E731
@@ -649,7 +714,9 @@ def report(result: dict, env: dict) -> str:
     lines += ["", f"**Consistency:** {cons['tensors_differing_from_call_time_state']} of {cons['tensors_compared']} "
               f"tensors in an async checkpoint differ from the state at the call ({cons['data_tensors_differing']} data "
               f"tensors, {cons['scalar_tensors_differing']} scalars, e.g. `{', '.join(cons['differing_examples'][:2])}`; "
-              f"{cons['steps_during']} training steps ran during the persist)."]
+              f"{cons['steps_during']} training steps ran during this test's own async persist"
+              + (f", {cons['persist_s']:.1f} s" if cons.get("persist_s") is not None else "")
+              + "; it is a separate save, not one of the timed repetitions)."]
     if gpu and cons["scalar_tensors_differing"] and not cons["data_tensors_differing"]:
         lines += ["", "The weights and Adam moments were snapshotted, but Adam's `step` counters are CPU scalar tensors "
                   "(non-fused, non-capturable Adam) and DCP stages host tensors by reference: the checkpoint records a "
@@ -667,7 +734,8 @@ def report(result: dict, env: dict) -> str:
         lines += ["", f"Interference: steps were **{m['interference_frac'] * 100:+.0f} %** slower while the persist ran"
                   f"{cached} (the lab assumes +3 %, `interference_frac`)."]
     if gpu and link_ceiling_gbs(env):
-        lines += [f"PCIe ceiling for the snapshot: {link_ceiling_gbs(env):.1f} GB/s `[MODELED]` from the negotiated link."]
+        lines += [f"PCIe ceiling for the snapshot: {link_ceiling_gbs(env):.1f} GB/s `[MODELED]` from the "
+                  "maximum-capability link (pcie.link.*.max; the negotiated link can be lower)."]
     lines += ["", f"## Lab Part A model with this host's measured rates (`async_pfs`, {c['source']})", "",
               "| Quantity | Predicted | Measured |", "|---|---|---|",
               f"| sync save blocking (s) | {c['pred_sync_blocking_s']:.3f} | {c['meas_sync_blocking_s']:.3f} |",
@@ -675,8 +743,16 @@ def report(result: dict, env: dict) -> str:
               f"| async completion = snapshot + persist (s) | {c['pred_async_completion_s']:.3f} | {c['meas_async_completion_s']:.3f} |",
               "", "Blocking above the predicted snapshot time is DCP's planning, allocation of staging buffers and "
               "metadata work: the lab's `snapshot_fixed_s`.",
-              "", "## Restore test", "", "```text", *r["log"], "```", "",
-              "## What to conclude", "",
+              "", "## Restore test", "", "```text", *r["log"], "```", ""]
+    if failed:
+        lines += ["## What to conclude", "",
+                  "Nothing about timing. The invariants failed, so the throughput, blocking, completion, interference "
+                  "and model-comparison rows above describe this host's condition (for example paging), not DCP. "
+                  "Invariants that tripped:", "", *[f"- {f}" for f in inv.get("failures", [])], "",
+                  "The restore test and the consistency comparison are tensor-by-tensor checks and do not depend on "
+                  "the timings. Rerun on a host with enough free memory before drawing any timing conclusion."]
+        return "\n".join(lines)
+    lines += ["## What to conclude", "",
               "- async_save moves the write off the critical path; what remains on it is the snapshot (bounded by the "
               "D2H link) plus fixed DCP overhead. Size `snapshot_fixed_s` from the gap above, not from a guess.",
               "- The persist is not free: steps during it run slower (CPU/PCIe/page-cache contention). That is the "

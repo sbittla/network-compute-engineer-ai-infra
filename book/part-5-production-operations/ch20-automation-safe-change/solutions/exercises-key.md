@@ -6,9 +6,9 @@ were computed twice: by hand, and with a short Python script. Values are `[ILLUS
 
 ---
 
-## 20.1 Knowledge check
+## Knowledge checks (20-K1 to 20-K8)
 
-1. **Idempotent**: applying the operation once or many times yields the same end state.
+**20-K1.** **Idempotent**: applying the operation once or many times yields the same end state.
    *Idempotent*: `ip link set dev eth1 mtu 9000`, or a gNMI `replace` of a leaf's QoS map.
    *Not idempotent*: NIC firmware flash plus reset, a reboot, appending a config line, or
    allocating an IP. Make it retry-safe by checking the **running** state first (flash only if
@@ -16,44 +16,48 @@ were computed twice: by hand, and with a short Python script. Values are `[ILLUS
    so a retry returns the earlier result instead of acting again.
    *Marking*: 1 pt definition, 1 pt each example, 1 pt technique. Common mistake: "idempotent =
    safe". A reboot command can be "safe" yet is not idempotent.
-2. **Level-triggered** acts on the current difference between desired and observed state.
+**20-K2.** **Level-triggered** acts on the current difference between desired and observed state.
    **Edge-triggered** acts on events ("node added"). After a day of downtime, an edge-triggered
    controller has missed every event in that day and never repairs drift. A level-triggered
-   controller computes the current diff and converges. *Marking*: must mention missed events or
-   drift.
-3. **State**: the tool's record of the objects it manages and their last-known attributes.
+   controller computes the current diff and converges. *Marking (3)*: 1 pt each definition, 1 pt
+   the missed-events/drift consequence; it must mention missed events or drift.
+**20-K3.** **State**: the tool's record of the objects it manages and their last-known attributes.
    **Plan**: the computed diff between configuration and real/recorded state (create, update,
    replace, destroy). **Drift**: real state differing from recorded or declared state, typically
    from hand edits. Stop at **destroy** or **replace** (forced recreate) of a fabric object, because
    that is an outage. Common mistake: thinking `apply` re-reads the reviewed plan. Apply a saved
-   plan file.
-4. Syntax → schema → cross-object policy → pre-deployment analysis → post-deployment verification.
+   plan file. *Marking (4)*: 1 pt each definition, 1 pt destroy/replace flagged with saved-plan apply.
+**20-K4.** Syntax → schema → cross-object policy → pre-deployment analysis → post-deployment verification.
    Layer-3-only examples: leaf PFC on priority 4 while RoCE uses 3; `host_mtu + 22 > leaf
    port_mtu`; CNP DSCP 48 mapped to a PFC-enabled or non-strict class. Each value is valid in
-   isolation; only the relationship is wrong.
-5. Declarative; versioned and immutable; pulled automatically; continuously reconciled. A hand fix
+   isolation; only the relationship is wrong. *Marking (4)*: 2 pts five layers in order, 1 pt a
+   layer-3-only defect, 1 pt "valid alone, wrong together".
+**20-K5.** Declarative; versioned and immutable; pulled automatically; continuously reconciled. A hand fix
    is reverted on the next reconcile. Break-glass: either an expedited, still-reviewed commit, or
    an explicit, time-limited, recorded pause of reconciliation for the specific target or field,
    with automatic expiry and a follow-up commit. Common mistake: "disable GitOps during
-   incidents" fleet-wide.
-6. **Proceed**: all changed nodes have full bake samples and no abort condition is breached (wave 0
+   incidents" fleet-wide. *Marking (4)*: 2 pts four principles, 1 pt revert on reconcile, 1 pt a
+   scoped, expiring break-glass.
+**20-K6.** **Proceed**: all changed nodes have full bake samples and no abort condition is breached (wave 0
    in the lab). **Hold**: evidence is insufficient, e.g. fewer than 12 post-change samples because
    the telemetry pipeline dropped data. **Abort**: any pre-declared condition is breached, e.g. a
    median busbw drop > 5 % on `orion-n25`. Hold ≠ abort: hold means "cannot tell", so no rollback
-   yet, but no progress either.
-7. Node-to-node baseline variation can exceed the regression to detect, so a fleet threshold either
+   yet, but no progress either. *Marking (4)*: 1 pt each state with an example, 1 pt hold ≠ abort.
+**20-K7.** Node-to-node baseline variation can exceed the regression to detect, so a fleet threshold either
    misses regressions on fast nodes or false-aborts on slow ones. A per-sample minimum turns any
    transient dip into an abort; in the lab, `orion-n09`'s single 7 % dip would abort wave 1. Median
-   vs own-baseline median is robust to both.
-8. Any five, each with its failure: dry-run default (accidental destructive run); blast-radius cap
+   vs own-baseline median is robust to both. *Marking (3)*: 1 pt each of the three points.
+**20-K8.** Any five, each with its failure: dry-run default (accidental destructive run); blast-radius cap
    (too many targets or failure domains in one run); rate/concurrency limit (thundering herd on
    PXE/BMC/scheduler); kill switch (cannot stop a bad run); circuit breaker (ploughing on through
    failures); destructive-operation budget (automation draining too much capacity); two-person rule
-   (single-person error); input sanity bounds (truncated input read as "remove everything").
+   (single-person error); input sanity bounds (truncated input read as "remove everything");
+   automation identity (a stolen or over-privileged controller credential). *Marking (5)*: 1 pt per
+   control paired with its specific failure; a control without its failure earns nothing.
 
 ---
 
-## 20.2 Worked problem A — IPv6, VLAN-tagged variant
+## 20-W1 Worked problem A — IPv6, VLAN-tagged variant
 
 a. Leaf counts the full frame: frame = IP MTU + 14 (Ethernet) + 4 (802.1Q) + 4 (FCS) = IP MTU + 22.
    Max IP MTU = 9,100 − 22 = **9,078 B**.
@@ -83,7 +87,7 @@ VLAN tag); keeping the IPv4 budget for IPv6; mixing Gb/s and GB/s (400 Gb/s = 50
 
 ---
 
-## 20.3 Worked problem B — ORION-XL wave plan
+## 20-W2 Worked problem B — ORION-XL wave plan
 
 a. Binomial approximation: P = 1 − 0.98⁸ = 1 − 0.851 = 0.149. Exact (hypergeometric, 10 affected
    of 512, 8 drawn without replacement): P = 1 − C(502, 8) / C(512, 8) ≈ **0.147**. Either is
@@ -105,7 +109,7 @@ assuming that independence holds when racks share a board revision.
 
 ---
 
-## 20.4 Hands-on lab — answers and planted flaws
+## 20-L1 Hands-on lab — answers and planted flaws
 
 ### Planted flaws (do not share with learners)
 
@@ -142,7 +146,7 @@ Expected decisions: wave 0 proceed, wave 1 proceed (`n13` skipped), wave 2 abort
 and G-COMMS are distractors: plan lines 3, 4, and 6 cover them. The pass thresholds are ≥ 13 of 17
 found and ≤ 1 false positive.
 
-### Answers to 20.4 a–c
+### Answers to 20-L1 a–c
 
 a. `n10` MTU 9,216: RoCE is unaffected because its packets are sized by the 4,096-byte path MTU.
    Backend TCP/UDP (NCCL bootstrap/socket fallback, iperf/health checks, ssh over backend addresses;
@@ -166,7 +170,7 @@ c. `all_changed` is right because the regression mechanism (firmware behaviour u
 
 ---
 
-## 20.5 Idempotent validator — reference outline
+## 20-M1 Idempotent validator — reference outline
 
 A good answer (Python or bash with `set -euo pipefail`):
 
@@ -200,7 +204,7 @@ implementations, so a learner who re-reads `active_mtu` after the MTU fix earns 
 
 ---
 
-## 20.6 Canary rollout for the leaf QoS profile — model answer
+## 20-M2 Canary rollout for the leaf QoS profile — model answer
 
 1. **Prechecks**: all 8 leaves reachable via the management API and console (OOB); running config
    equals the git desired state (no drift); no active incidents; per-rail baselines captured over
@@ -231,19 +235,24 @@ canary.
 
 ---
 
-## 20.7 Unsafe plan review — reference
+## 20-M3 Unsafe plan review — reference
 
 The reference `findings.yaml` (17 gaps) is in `solutions/lab/`. A good rewrite has **three**
 changes in order: (1) NIC firmware 28.43.1014 via the Chapter 16 validated-bundle wave process,
 (2) the leaf QoS profile one leaf per wave from git with dry-run diffs, (3) the RDMA MTU change via
-the reconciler with node waves 2/3/4/8/8/7. Each has prechecks, a drain or reservation, bake,
+the reconciler. For (1) and (3) the training partition is a paused gang (Section 20.11 Step 6):
+firmware uses the hybrid (two-node canary under replayed collective load, then the other 22 training
+nodes in one batch); the MTU change uses the batch-only shape. Both batches are recorded exceptions to
+the per-batch caps with second approval, and the inference nodes keep rack-spread waves behind
+replica headroom. Accept slot-major 2/3/4/8/8/7 waves only if the answer prices the stalled gang
+(≈ 1,568 GPU-h vs ≈ 618 hybrid). Each has prechecks, a drain or reservation, bake,
 abort conditions, rehearsed rollback, audit, OOB verification, a kill switch, and a staffed
 weekday window. *Marking (20)*: checker results 10; rewrite quality 10. A common miss is
 G-ORDERING (host/switch transitional mismatch) and G-OOB-ACCESS.
 
 ---
 
-## 20.8 Troubleshooting case — model answer
+## 20-T1 Troubleshooting case — model answer
 
 a. Hypotheses:
    1. **Inventory truncation** (most likely): the log shows `items=16` with a `next=` page link, and
@@ -270,7 +279,7 @@ d. **Fix**: follow pagination; fail closed on partial reads. **Validate**: rerun
 
 ---
 
-## 20.9 Design challenge — marking guidance
+## 20-D1 Design challenge — marking guidance
 
 Strong answers split fields by **ownership and risk**:
 
@@ -291,7 +300,7 @@ pick one global policy.
 
 ---
 
-## 20.10 Deliverable — marking guidance (30)
+## 20-DEL Deliverable — marking guidance (30)
 
 Automation sample (15): safety defaults present and documented (dry-run, cap, audit, kill-switch
 hook) 8; tests or checker evidence 4; README clarity 3. Runbook (15): before/during/after 5;
@@ -300,18 +309,20 @@ thresholds copied from the chapter without a baseline method.
 
 ---
 
-## 20.11 Reflection — guidance
+## Reflection (20-R1 to 20-R4) — guidance
 
-1. Accept the big bang only if the change is reversible in seconds (e.g. commit-confirm), was
+**20-R1.** On ORION the stalled training gang dominates: big bang ≈ 246 GPU-h expected vs staged
+   ≈ 1,578 (hybrid ≈ 618, batch only ≈ 314), so staging is justified by serving continuity and unknown-severity defects,
+   not by mean GPU-hours. Accept the big bang only if the change is reversible in seconds (e.g. commit-confirm), was
    validated in an identical lab under representative load, the fleet is idle (no tail exposure),
    and the tail cost is explicitly accepted by the owner. Evidence: lab results, rehearsed revert
    time, idle-fleet confirmation.
-2. Real telemetry has gaps and late samples (→ hold handling), counter resets and wraps (→ negative
+**20-R2.** Real telemetry has gaps and late samples (→ hold handling), counter resets and wraps (→ negative
    or huge rates), and correlated fleet-wide shifts from other causes (→ a baseline from a
    different load regime). Each could produce a false proceed or a false abort.
-3. Example: "G-ROLLBACK — fix: add rollback" passes on the keyword but is rejected by a reviewer.
+**20-R3.** Example: "G-ROLLBACK — fix: add rollback" passes on the keyword but is rejected by a reviewer.
    It needs the saved config, a tested firmware downgrade, a time bound, and a scope.
-4. Measured step time on W-TRAIN before and after (L3) with ≥ 5 repetitions, warm-up stated, one
+**20-R4.** Measured step time on W-TRAIN before and after (L3) with ≥ 5 repetitions, warm-up stated, one
    variable changed; NIC and switch counters showing packet-rate reduction; evidence that the
    network is on the critical path at all. With TP inside NVLink, DP and PP traffic may be partly
    overlapped with compute, so a 5.9 % ceiling rise may yield much less step-time gain.

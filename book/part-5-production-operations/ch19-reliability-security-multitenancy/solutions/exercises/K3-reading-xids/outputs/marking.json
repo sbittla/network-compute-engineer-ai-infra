@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "classification and action per code, citing Table 19.3, with the vendor-document caveat",
+  "evidence_required": "classification and action per code, citing Table 19.4, with the vendor-document caveat",
   "id": "K3",
   "kind": "written",
   "lab_checks": [],
@@ -18,7 +18,7 @@
       "points": 1
     },
     {
-      "criterion": "Cites Table 19.3 and states that meanings must be checked against NVIDIA's current Xid document",
+      "criterion": "Cites Table 19.4 and states that meanings must be checked against NVIDIA's current Xid document",
       "points": 1
     }
   ],

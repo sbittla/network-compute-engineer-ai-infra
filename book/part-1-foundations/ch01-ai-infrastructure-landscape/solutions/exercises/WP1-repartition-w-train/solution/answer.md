@@ -39,10 +39,10 @@ node, so every other boundary is intra-node and can ride NVLink. Most GPUs then 
 |---|---|---|
 | TP bytes sent, NVLink bound | 1,202.6 GB, 2.67 s | 515.4 GB, 1.145 s |
 | NIC bytes (worst case), bound | 9.8 GB, 0.196 s | 11.95 GB, 0.239 s |
-| Compute bound | 6.95 s | 6.95 s |
+| Compute bound | 6.96 s | 6.96 s |
 
 The new layout cuts the NVLink lower bound by 57 % and raises the worst-case NIC bound by 22 %. Both stay
-well below the 6.95 s compute bound, so on the ceiling model alone the change looks attractive.
+well below the 6.96 s compute bound, so on the ceiling model alone the change looks attractive.
 
 **Unmodeled cost: the pipeline bubble.** In a 1F1B schedule the first and last stages idle while the
 pipeline fills and drains. The idle fraction ≈ (p − 1)/(m + p − 1). With m = 64 micro-batches

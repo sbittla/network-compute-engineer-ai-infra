@@ -6,23 +6,23 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "At least three ranked hypotheses, with NVLink/fabric-manager degradation ranked first and clocks/network rejected with stated evidence",
+      "criterion": "At least three ranked hypotheses, with degraded NVLink on n09 ranked first, the container IPC/P2P (SHM fallback) hypothesis considered, clocks/network rejected with stated evidence, and Fabric Manager rejected because the job would not have started",
       "points": 3
     },
     {
-      "criterion": "Discriminating tests with real commands and expected output (nvlink --status, topo -m, fabric-manager status, single-node all_reduce_perf, NCCL INFO transports)",
+      "criterion": "Discriminating tests with real commands and expected output (nvlink --status, topo -m NV6 vs NV18, nvlink -e / DCGM NVLink error fields, single-node all_reduce_perf, NCCL INFO P2P/CUMEM vs SHM)",
       "points": 3
     },
     {
-      "criterion": "Root cause: fabric-management service failed after the driver update (version mismatch)",
+      "criterion": "Root cause: degraded NVLink on one n09 GPU after the reboot (fewer links trained), giving about 3x TP time",
       "points": 2
     },
     {
-      "criterion": "Safe fix: checkpoint, drain, restart at reduced DP or wait for repair; align versions under change control",
+      "criterion": "Safe fix: checkpoint, drain, restart at reduced DP or wait for repair; repair and acceptance under change control",
       "points": 2
     },
     {
-      "criterion": "Validation with numbers: links active, single-node busbw within 5 % of fleet median, job TP time within 5 %",
+      "criterion": "Validation with numbers: 18 links active (NV18), error counters flat, single-node busbw within 5 % of fleet median, job TP time within 5 %",
       "points": 2
     }
   ],

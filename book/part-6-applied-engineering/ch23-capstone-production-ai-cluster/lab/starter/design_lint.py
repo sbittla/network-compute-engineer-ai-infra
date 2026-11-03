@@ -102,9 +102,11 @@ def load_bundle(path: str | Path) -> dict[str, Any]:
     """Load a bundle directory. YAML files become dicts; Markdown files stay strings.
 
     Missing files are stored as ``None`` so that completeness checks can report them.
+    ``bundle["manifests"]`` lists the manifest paths that exist (``manifests/<name>``), so EVID-003
+    can tell a cited manifest from a dangling one.
     """
     root = Path(path)
-    bundle: dict[str, Any] = {}
+    bundle: dict[str, Any] = {"manifests": sorted(f"manifests/{m.name}" for m in (root / "manifests").glob("*.yaml"))}
     for name in BUNDLE_FILES:
         p = root / name
         if not p.exists():
@@ -187,7 +189,8 @@ def check_evidence(bundle: dict[str, Any]) -> list[dict[str, str]]:
     TODO: use parse_markdown_table. Emit at most ONE finding per row, testing in this order:
       * EVID-001 label empty;
       * EVID-002 label does not match LABEL_RE;
-      * EVID-003 label MEASURED and manifest in ("", "-", "n/a");
+      * EVID-003 label MEASURED and manifest in ("", "-", "n/a"), or (when the bundle has a
+        "manifests" key, i.e. it was loaded from disk) the cited manifest is not in bundle["manifests"];
       * EVID-004 label MEASURED, tier "L1" and unit in PHYSICAL_UNITS.
     """
     raise NotImplementedError("TODO: check_evidence")

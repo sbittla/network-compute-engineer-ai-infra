@@ -12,7 +12,7 @@ the fitted indicators reproduce *in this sample*. It is a statement about fit, n
    failed jobs dropped from the population, can create a well-fitting association with the wrong
    direction (Section 22.4.4).
 3. **No mechanism.** R² cannot say whether a mechanism exists. Section 22.4 requires three kinds of
-   agreement for a cause: the statistical estimate, a direct measurement (for TP split: backend tx 6 → 38
+   agreement for a cause: the statistical estimate, a direct measurement (for TP split: backend tx 6 → 96
    GB/s, SM active 0.57 → 0.40) and a model of the mechanism (TP all-reduce bytes over inter-node
    bandwidth). R² supplies at most the first.
 

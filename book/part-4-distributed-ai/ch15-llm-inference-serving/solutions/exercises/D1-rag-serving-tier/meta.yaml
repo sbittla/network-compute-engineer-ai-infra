@@ -10,8 +10,8 @@ evidence_required: a sizing table with ρ, TTFT, TPOT and batch per pool, the ne
   the arithmetic, a transport decision with numbers, a failure table, and an explicit MODELED/MEASURED
   labelling of every number.
 marking:
-- criterion: 'Sizing: prefill t_p 390 ms with quadratic term, P table (11/12/13), D table (3/4/5), choice
-    13P + 4D with node count'
+- criterion: 'Sizing: prefill t_p 390 ms with quadratic term, P table (12/13/14) with exact M/D/1 p95, D table (3/4/5), choice
+    14P + 4D with node count'
   points: 8
 - criterion: 'Network budget: 2.684 GB per request, 429.5 Gb/s aggregate, 107.4 Gb/s per decode replica'
   points: 5

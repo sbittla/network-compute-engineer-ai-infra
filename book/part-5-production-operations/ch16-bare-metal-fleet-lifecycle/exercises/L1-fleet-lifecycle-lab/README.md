@@ -6,7 +6,7 @@ Type: hands-on-lab · Kind: lab · Points: 100
 **L1 ★★ (L1) — Fleet lifecycle automation.** Complete [lab/README.md](../../lab/README.md) Tasks 1–5:
 `check_compat`, `evaluate_node`, the lifecycle state machine with audit log, the upgrade-wave
 planner, and the acceptance report.
-*Evidence required:* `python lab/check.py` output showing 33/33 PASS; your `acceptance_report.md`
+*Evidence required:* `python lab/check.py` output showing 37/37 PASS; your `acceptance_report.md`
 listing every non-PASS node with codes, the raw evidence values that triggered them, and the
 remediation; the list of rejected lifecycle events with reason codes.
 <!-- prompt:end -->

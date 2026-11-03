@@ -1,15 +1,15 @@
 episode,port,metric,median
 incast,root leaf-r3 eth1/5,tx_gbps,393.62
 incast,root leaf-r3 eth1/5,rx_gbps,147.41
-incast,root leaf-r3 eth1/5,q_tc3_max_kb,3178.6
-incast,root leaf-r3 eth1/5,ecn_marked_tc3_rate,670868.25
+incast,root leaf-r3 eth1/5,q_tc3_max_kb,1426.1
+incast,root leaf-r3 eth1/5,ecn_marked_tc3_rate,0.0
 incast,root leaf-r3 eth1/5,pfc_tx_p3_rate,0.0
 incast,root leaf-r3 eth1/5,pfc_rx_p3_rate,0.0
 incast,sender port leaf-r3 eth1/1,tx_gbps,160.43
-incast,sender port leaf-r3 eth1/1,rx_gbps,93.78
+incast,sender port leaf-r3 eth1/1,rx_gbps,33.38
 incast,sender port leaf-r3 eth1/1,q_tc3_max_kb,11.05
 incast,sender port leaf-r3 eth1/1,ecn_marked_tc3_rate,0.0
-incast,sender port leaf-r3 eth1/1,pfc_tx_p3_rate,5072.5
+incast,sender port leaf-r3 eth1/1,pfc_tx_p3_rate,19145.25
 incast,sender port leaf-r3 eth1/1,pfc_rx_p3_rate,0.0
 incast,leaf-r3 uplink eth1/33,tx_gbps,96.94
 incast,leaf-r3 uplink eth1/33,rx_gbps,81.52
@@ -21,11 +21,11 @@ incast,orion-n05 mlx5_3 (NP),tx_gbps,147.41
 incast,orion-n05 mlx5_3 (NP),rx_gbps,393.62
 incast,orion-n05 mlx5_3 (NP),pfc_tx_p3_rate,0.0
 incast,orion-n05 mlx5_3 (NP),pfc_rx_p3_rate,0.0
-incast,orion-n05 mlx5_3 (NP),cnp_sent_rate,381840.5
+incast,orion-n05 mlx5_3 (NP),cnp_sent_rate,10.75
 pause_propagation,root leaf-r3 eth1/10,tx_gbps,394.08
 pause_propagation,root leaf-r3 eth1/10,rx_gbps,159.41
-pause_propagation,root leaf-r3 eth1/10,q_tc3_max_kb,3297.8
-pause_propagation,root leaf-r3 eth1/10,ecn_marked_tc3_rate,826438.0
+pause_propagation,root leaf-r3 eth1/10,q_tc3_max_kb,1373.6
+pause_propagation,root leaf-r3 eth1/10,ecn_marked_tc3_rate,0.0
 pause_propagation,root leaf-r3 eth1/10,pfc_tx_p3_rate,0.0
 pause_propagation,root leaf-r3 eth1/10,pfc_rx_p3_rate,0.0
 pause_propagation,leaf-r3 uplink eth1/33 (to spine-1),tx_gbps,95.02

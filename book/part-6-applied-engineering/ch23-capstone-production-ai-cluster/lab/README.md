@@ -53,6 +53,7 @@ python check.py                        # progress meter on starter/design_lint.p
 | `failure_domains.yaml` | Failure-domain analysis | `domains[]`: id, class, scope, redundancy, mitigation, detection |
 | `slos.yaml` | Service-level objectives | `slos[]`: id, name, sli, target, unit, window, source |
 | `benchmarks.md` | Evidence table | columns id, metric, value, unit, label, tier, manifest |
+| `manifests/*.yaml` | Environment manifests cited by MEASURED rows | the linter checks that a cited manifest exists (EVID-003); the reviewer reads its content. The reference bundle's L3 manifest is an ILLUSTRATIVE format template (ORION is fictional, so B-02 is labelled ILLUSTRATIVE); its L1 manifest records a real timing run (B-06) |
 
 ### Rule catalogue
 
@@ -71,7 +72,7 @@ python check.py                        # progress meter on starter/design_lint.p
 | POWER-001 | blocker | rack nodes × node **max** power > rack budget | `bom.yaml:racks.<rack>` |
 | EVID-001 | major | benchmark row has no label | `benchmarks.md:<id>` |
 | EVID-002 | major | label outside MEASURED / MODELED / SIMULATED / ILLUSTRATIVE / VENDOR-SPEC, YYYY-MM | `benchmarks.md:<id>` |
-| EVID-003 | major | MEASURED without a manifest | `benchmarks.md:<id>` |
+| EVID-003 | major | MEASURED without a manifest, or citing a manifest that is not in the bundle's `manifests/` | `benchmarks.md:<id>` |
 | EVID-004 | major | MEASURED physical-performance unit (Gb/s, GB/s, TB/s, TFLOP/s, µs, ms, kW, W) at tier L1 | `benchmarks.md:<id>` |
 | NUM-001 | major | a `design.md` line has a number with a unit but no inline label and no ID reference | `design.md:L<n>` |
 | XREF-001 | major | `design.md` cites an A-/B-/FD-/SLO- ID that the bundle does not define | `design.md:<ID>` |
@@ -83,7 +84,7 @@ python check.py                        # progress meter on starter/design_lint.p
 the label is MEASURED, the tier is `L1`, and the unit is in a fixed list of physical units. It
 therefore misses a fabricated physical result expressed in a derived unit (%, ratio, "x faster") and
 one whose tier is falsely declared `L2`/`L3` (EVID-003 still demands a manifest path, but the linter
-cannot check the manifest's contents). Treat a clean EVID-004 as "no obvious laptop measurement", not
+cannot check the manifest's contents, or even that the cited file exists). Treat a clean EVID-004 as "no obvious laptop measurement", not
 as proof that the evidence is physical; the reviewer still opens the manifest.
 
 ## 5. Tasks
@@ -122,7 +123,11 @@ python check.py                    # your starter implementation
 python check.py --impl solution    # instructors: reference implementation, must exit 0
 ```
 
-Each line is `PASS`, `FAIL` (with the missing/unexpected findings) or `TODO`. The checker requires
+Each line is `PASS`, `FAIL` or `TODO`. A `FAIL` line counts how many planted findings you found,
+lists the missing and unexpected ones, and adds a hint for the commonest mistakes (for example,
+sizing racks with sustained power, or flagging a declared-spares design as GPU-001). In the
+instructor copy, a first `check_data_regenerates` line confirms the bundles match the generator; it
+reports `SKIP` in the student release. The checker requires
 the *exact* set of planted findings on the Kestrel bundle and *zero* findings on the reference
 bundle: precision matters as much as recall, because a noisy linter is one teams switch off.
 

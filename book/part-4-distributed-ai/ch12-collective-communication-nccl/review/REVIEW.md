@@ -64,3 +64,39 @@ Independent score 9.50 (pass). Protective fix applied; validate_labs: all column
 | ID | Finding | Resolution |
 |---|---|---|
 | R2-01 | c3 shows no GDRDMA at SYS distance although PXN exists | The alternative image also sets `NCCL_PXN_DISABLE=1`; stated in §12.8 item 1 and the c3 excerpt, added to the regenerated `nccl_debug_c3_2node_alt_map.txt`, instructor notes, and the key's evidence table |
+
+## Independent review r1 (2026-11-01)
+
+Independent score **9.40** (D1 9.5, D2 9.0, D3 9.5, D4 9.5, D5 9.5, D6 9.5, D7 9.5, D8 9.5, D9 9.0).
+check.py 10/10 (solution), 0/10 with clean TODOs (starter).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| N12-01 | Minor | "2.32 prints status=<name>(12)…" unsupported | Verified in NCCL sources: named codes absent at v2.28.3-1 (`status=%d`), present at v2.28.9-1 and v2.31.2-1 (`status=%s(%d) opcode=%s(%d) … vendor_err=%u`); `qp_num=%u` first appears at v2.32.3-1 (`src/transport/net_ib/p2p.cc`). Table 12.6 now states exactly that, with the tags checked |
+| N12-02 | Major | All-to-all and PXN not quantified | New §12.8 "All-to-all and PXN, quantified": per-NIC bytes S/2, busbw ≈ 84 GB/s on 2 nodes and ≈ 46 GB/s on 32 (general formula), spine share 7/15 (2 nodes) and 217/255 (256 ranks) without PXN, 0 with PXN, MoE dispatch size ≈ 67 MB / 0.75 ms. New exercise 12.20 (folder, meta, answer, solve.py, outputs, key, index count 20). check.py `bus_factor` now also asserts alltoall(16) = 15/16. An alltoall log pair was not added (needs generator and digest changes) |
+| N12-03 | Minor | Collective/compute interaction; NCCL upgrade validation | Paragraph on channels as SMs, `NCCL_MIN/MAX_CTAS`, CUDA graphs (§12.6); four-step NCCL upgrade A/B procedure (§12.10) |
+| N12-04 | Minor | 25 MB vs 25 MiB | Table 12.1, §12.5 (≈ 82 %, 83 % for exactly 25 MiB), §12.11 step 5 now say ≈ 25 MB (default 25 MiB = 26.2 MB). Exercise 12.9 keeps its given 25 MB (self-contained) |
+| N12-05 | Minor | Netdev naming; review answers | `eth3` → `ens4np0` (rail 3); inline review answers (Q1 223.7 / 391.4 GB/s) |
+| D6 advice | — | Table 12.7 single launches | Caption labels the table `[SIMULATED]`, single simulated launch per row |
+| D8 advice | — | Capture before restart | First runbook row: save NCCL INFO logs and flight-recorder dumps before restarting |
+| D9 advice | — | Log prefixes | Figure 12.4 caption says the `host:pid:tid [rank] NCCL INFO` prefix is omitted |
+
+Tests: `check.py --impl solution` 10/10, `--impl starter` 0/10; `validate_labs.py` OK; `copyedit_lint.py` 0
+findings in this chapter; package test suite 86 passed; golden check output and 12.13 lab_checks regenerated.
+
+## Independent review r2 (2026-11-01)
+
+Independent score **9.40** (D1 9.0, all others 9.5).
+
+| ID | Severity | Finding | Resolution |
+|---|---|---|---|
+| R12-01 | Major | Double-binary-tree bandwidth term implied ≈ S/B | Verified: a single pipelined tree costs ≈ 3·S/B per direction; the double tree ≈ 2·S/B (interior in one tree: 3 × S/2; leaf in the other: S/2). Table 12.3 corrected; added a worked n = 8 paragraph (2·S against the ring's 1.75·S, 1.14×) and "only in-network reduction goes below 2(n − 1)/n·S/B". Nothing else was derived from the old cell (Table 12.8 already said "near ring") |
+| R12-02 | Minor | Review answer 1 vs the ring ceiling | 391 GB/s is above the 360–380 GB/s ring range and below 400 GB/s: ambiguous, so run the NVLS on/off control |
+| R12-03 | Minor | `NCCL_PXN_DISABLE` / `NCCL_P2P_PXN_LEVEL` missing from Table 12.5 | Row added |
+| R12-04 | Minor | 12.20 out of order | Moved to the end of exercises.md, the index and the key (ID and folder unchanged) |
+| R12-05 | Minor | No multi-launch data | Generator writes `data/launches/c2_launch1–5.log` from its own RNG (existing files byte-identical); one launch is lower (channel-count change). New check `launch_spread` (median 352.2, range 329.7–356.9 GB/s); lab Task 6 and rubric (11 checks), 12.13 meta/prompt/answer and key (median, IQR, why not the mean) updated |
+| R12-06 | Minor | Validation skipped the GPU path | `ib_write_bw --use_cuda=3` and Chapter 10's commissioning gates added to Validate |
+| D8 advice | — | Stop/rollback and time budget | Discriminating tests: about one hour, stop on isolation or production conflict; failed validation keeps the node drained |
+| D2/D5 advice | — | RAS tooling; NVLS-ambiguity exercise | Deferred |
+
+Tests: check.py solution 11/11, starter 0/11 (TODO); validate_labs OK; copyedit_lint 0; package tests 86 passed.

@@ -1,5 +1,19 @@
 # Lab 14 L2: checkpoint blocking vs completion time, save/restore throughput and restore test
 
+> **Not a valid reference run (pending rerun).** This bundle FAILED its invariants and is kept only as a record
+> of a failed measurement; do not read timings or shape from it. The 0.01 GB/s "D2H snapshot" (on a 15.8 GB/s
+> link) and the 2,247 s `dcp.load` (0.00 GB/s) are physically implausible. The likely cause is memory pressure on
+> the 7.8 GiB WSL2 VM: about 1.1 GB of pinned host buffers plus several host copies of a 1.13 GB state forced the
+> host to page. That is a property of the test host, not of DCP. `experiment.py` now refuses such runs (host-memory
+> headroom check) and fails them (D2H below 1 GB/s, load more than 20 x save, swap-out during the run). This
+> report was re-rendered on 2026-11-01 from the unchanged `results.json` measurements with those checks; the
+> invariant list below is the re-evaluated one (the original is kept in `results.json` as `invariants_original`).
+> The restore-test and consistency lines are tensor comparisons and do not depend on the timings. The consistency
+> line's 382 steps (x ~182 ms = ~70 s) belong to that test's own async save, which this paging host stretched far
+> beyond the ~8 s timed ones; its duration was not recorded then (the experiment now records it). For the expected
+> shape, read `../cpu-fallback/report.md` until a rerun on a host with at least 4 x the state in free RAM
+> replaces this bundle.
+
 `[MEASURED]` on **NVIDIA GeForce RTX 4060 Laptop GPU**, 2026-11-01T01:14:14Z.
 
 | Environment | Value |
@@ -18,7 +32,7 @@
 | power.limit | [N/A] |
 
 **Status:** ran
-**Invariants:** FAILED: async_save returned faster than a single copy of the state: it did not stage the state; a later in-place update could corrupt the checkpoint
+**Invariants:** FAILED: implausible D2H snapshot rate 0.01 GB/s < 1 GB/s: the host is paging (pinned allocation under memory pressure?); this run is not valid evidence - rerun on a host with more RAM; implausible restore: dcp.load 2246.8 s > 20 x save 6.5 s; the host is paging; this run is not valid evidence
 
 Checkpointed state: **1.133 GB** (94.4 M params, FP32 weights + Adam) on the GPU; target /tmp on / (overlay; rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotte).
 
@@ -48,12 +62,12 @@ Checkpointed state: **1.133 GB** (94.4 M params, FP32 weights + Adam) on the GPU
 | save (write + fsync) | 0.18 |
 | restore (dcp.load) | 0.00 |
 
-**Consistency:** 20 of 80 tensors in an async checkpoint differ from the state at the call (0 data tensors, 20 scalars, e.g. `optim.state.0.weight.step, optim.state.0.bias.step`; 382 training steps ran during the persist).
+**Consistency:** 20 of 80 tensors in an async checkpoint differ from the state at the call (0 data tensors, 20 scalars, e.g. `optim.state.0.weight.step, optim.state.0.bias.step`; 382 training steps ran during this test's own async persist; it is a separate save, not one of the timed repetitions).
 
 The weights and Adam moments were snapshotted, but Adam's `step` counters are CPU scalar tensors (non-fused, non-capturable Adam) and DCP stages host tensors by reference: the checkpoint records a later step count than its moments, which skews bias correction on resume. Copy them (or use `fused=True`/`capturable=True`, which keeps `step` on the GPU) before relying on async_save.
 
 Interference: steps were **+0 %** slower while the persist ran; +0 % with cached pinned staging (the lab assumes +3 %, `interference_frac`).
-PCIe ceiling for the snapshot: 15.8 GB/s `[MODELED]` from the negotiated link.
+PCIe ceiling for the snapshot: 15.8 GB/s `[MODELED]` from the maximum-capability link (pcie.link.*.max; the negotiated link can be lower).
 
 ## Lab Part A model with this host's measured rates (`async_pfs`, solutions/lab/storage_lab.py)
 
@@ -80,11 +94,12 @@ first step after restore: loss 0.9990169405937195 vs recorded 0.9990169405937195
 
 ## What to conclude
 
-- async_save moves the write off the critical path; what remains on it is the snapshot (bounded by the D2H link) plus fixed DCP overhead. Size `snapshot_fixed_s` from the gap above, not from a guess.
-- The persist is not free: steps during it run slower (CPU/PCIe/page-cache contention). That is the lab's interference term, and here it is measured.
-- DCP stores no data checksums. Only the manifest validator caught the corrupted copy: verify before you load, and pick the latest *valid* checkpoint, not the `latest` pointer.
+Nothing about timing. The invariants failed, so the throughput, blocking, completion, interference and model-comparison rows above describe this host's condition (for example paging), not DCP. Invariants that tripped:
 
-_Laptop RTX 4060 (PCIe Gen4 x8) writing to a Docker Desktop/WSL2 virtual disk, not an HX8 node with 8 x U.2 NVMe and a PFS. Compare the shape (blocking << completion; interference > 0) with Chapter 14, not the absolute GB/s._
+- implausible D2H snapshot rate 0.01 GB/s < 1 GB/s: the host is paging (pinned allocation under memory pressure?); this run is not valid evidence - rerun on a host with more RAM
+- implausible restore: dcp.load 2246.8 s > 20 x save 6.5 s; the host is paging; this run is not valid evidence
+
+The restore test and the consistency comparison are tensor-by-tensor checks and do not depend on the timings. Rerun on a host with enough free memory before drawing any timing conclusion.
 
 - State = model.state_dict() + Adam state via torch.distributed.checkpoint.state_dict.get_state_dict (FP32: 4 B weight + 8 B Adam m, v = 12 B/param; the lab's 14 B/param adds a BF16 copy).
 - One warm-up then 5 timed repetitions per API; the warm-up row is kept in the table and excluded from the summary. dcp.save uses FileSystemWriter(sync_files=True): completion includes fsync.

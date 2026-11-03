@@ -123,7 +123,10 @@ Return a dict with: `gpus`, `total_hbm_gb`, `training_state_tb`, `training_state
 ### Task 5 — Failure domains and SPOFs (`failed_set`, `find_spofs`) — 20 points
 
 Implement failure propagation to a fixed point, then fail each component alone and record which
-services are lost. **Acceptance:** the exact SPOF set and correct service impact. In your report, draw
+services are lost. The model asks whether a *service* survives: `svc-training` survives while at least
+28 of the 32 nodes remain schedulable (`gpu-nodes`, `min_required: 28`), so one failed node is not a
+SPOF here. Manuscript Table 2.9 instead gives the effect on one full-scale job, which fails when any
+node does. **Acceptance:** the exact SPOF set and correct service impact. In your report, draw
 the failure-domain diagram and propose a mitigation for each SPOF, stating which ones you would
 *accept* as a documented risk and why.
 

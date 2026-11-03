@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R4 — what the real October 2026 register does and does not say about Python (Section 24.4, Table 24.8a)."""
+"""R4 — what the real October 2026 register does and does not say about Python (Section 24.4, Table 24.9)."""
 from __future__ import annotations
 
 import argparse
@@ -50,8 +50,8 @@ def main() -> None:
     dates = sorted({r["date_checked"] for r in rows})
 
     assert n == 42 and employers == 11
-    assert counts["python"]["required"] == 23                       # Table 24.8a: 23 of 42
-    assert exact_python == 9                                        # Table 24.8a: exact-tag count 9
+    assert counts["python"]["required"] == 23                       # Table 24.9: 23 of 42
+    assert exact_python == 9                                        # Table 24.9: exact-tag count 9
     assert counts["kubernetes"]["required"] == 12 and counts["slurm"]["required"] == 5
     assert counts["nccl"]["required"] == 3 and counts["nccl"]["required_or_preferred"] == 8
     assert dates == ["2026-10-30"]

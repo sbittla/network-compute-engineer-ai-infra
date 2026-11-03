@@ -3,7 +3,7 @@
     "choice": {
       "decode": 4,
       "nodes_incl_spare": 10,
-      "prefill": 13
+      "prefill": 14
     },
     "decode_pool": {
       "3": {
@@ -21,7 +21,8 @@
     },
     "failures": {
       "decode_loss_seqs": 28,
-      "prefill_loss_rho": 0.65,
+      "prefill_loss_rho": 0.6,
+      "prefill_loss_ttft_p95_s": 1.49,
       "reprefill_replica_s": 10.9
     },
     "kv_fit_per_replica": {
@@ -50,20 +51,23 @@
       }
     },
     "prefill_pool": {
-      "11": {
-        "rho": 0.709,
-        "ttft_mean_s": 0.865,
-        "ttft_p95_approx_s": 1.82
-      },
       "12": {
         "rho": 0.65,
         "ttft_mean_s": 0.752,
-        "ttft_p95_approx_s": 1.48
+        "ttft_p95_s": 1.71,
+        "wait_p95_over_mean": 3.64
       },
       "13": {
         "rho": 0.6,
         "ttft_mean_s": 0.682,
-        "ttft_p95_approx_s": 1.27
+        "ttft_p95_s": 1.49,
+        "wait_p95_over_mean": 3.77
+      },
+      "14": {
+        "rho": 0.557,
+        "ttft_mean_s": 0.635,
+        "ttft_p95_s": 1.35,
+        "wait_p95_over_mean": 3.91
       }
     },
     "shared_alternative": {

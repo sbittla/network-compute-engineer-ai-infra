@@ -5,8 +5,8 @@
 At ORION-XL scale a 4,096-GPU job is interrupted about every three hours. This chapter treats failure
 as the operating environment: fault domains and FMEA; the GPU/host error taxonomy (ECC, row remapping,
 Xid, thermal/power, PCIe AER, link retraining, NIC/HCA health, firmware mismatch); distributed failure
-signatures (NCCL hangs, rank loss, collective mismatch, stragglers, partitions); the fast isolation
-workflow from rank to switch port; containment of the smallest defensible failure domain; and recovery
+signatures (NCCL hangs, rank loss, collective mismatch, stragglers, partitions, silent data
+corruption); the fast isolation workflow from rank to switch port; containment of the smallest defensible failure domain; and recovery
 with validated checkpoints, rank remapping, spares, retry-loop policy, RTO/RPO, and lost
 accelerator-hours. The second half covers identity, RBAC, secrets, network/storage/GPU isolation, and
 audit for multi-tenant platforms.
@@ -43,7 +43,7 @@ and **L3** (link-flap survival trials on a dedicated RDMA partition).
 
 ## Deliverable (course outline)
 
-Risk register, isolation model, and recovery test plan (M1–M3), plus the Section 20.1 evidence pack
+Risk register, isolation model, and recovery test plan (M1–M3), plus the course-outline §20.1 evidence pack
 from the 512-node incident (M4 / Lab 19).
 
 ## File map

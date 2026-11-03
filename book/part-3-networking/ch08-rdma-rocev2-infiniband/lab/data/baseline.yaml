@@ -13,6 +13,9 @@ expected:
   rdma_active_mtu: 4096
   roce_version: v2
   gid_index_variable: NCCL_IB_GID_INDEX
+  traffic_class_variable: NCCL_IB_TC
+  traffic_class: 106                        # ToS byte = DSCP 26 << 2 | ECT(0)
+  memlock: unlimited                        # ulimit -l in a login shell and inside a Slurm job step
   pfc_enabled_priorities: [3]
   dscp_to_priority: {26: 3, 48: 6}
   peer_memory_module: nvidia_peermem

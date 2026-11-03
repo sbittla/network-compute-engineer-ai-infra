@@ -58,9 +58,9 @@ R² = 0.806.
 
 ## What to conclude
 
-- The lab's estimator, fed real per-job means, recovers both injected regressions within their uncertainty (pageable +6.02 vs +2.65 ms direct; small batch +6.55 vs +5.93 ms) and gives the placebo -1.33 ± 1.47 ms. A factor that happens to coincide with an incident is not its cause.
-- The data-path effect is also explained by mechanism: 32.0 MiB at the slower copy rate costs +2.05 ms per step, 77 % of the +2.65 ms measured in the A/B. Statistical, direct and mechanism evidence agree, so it is a strong inferred cause. The unexplained remainder is the host-side cost a bandwidth number does not capture (staging-buffer management, cache effects).
-- The common-shift term (+3.02 ms) absorbs whatever drifted between the before and after blocks, such as temperature or clocks. Compare it with the MDE before calling it real.
+- Recovery of the injected regressions, read from the verdict column: micro-batches + grad accumulation (injected): recovered and corroborated (OLS +6.55 vs +5.93 ms direct); pageable H2D input (injected): direction recovered, but OLS +6.02 ms is 2.3× the +2.65 ms direct A/B; inconclusive at this n. The placebo gives -1.33 ± 1.47 ms (verdict: ruled out (no effect)). A factor that happens to coincide with an incident is not its cause.
+- Mechanism: 32.0 MiB at the slower copy rate costs +2.05 ms per step, 77 % of the +2.65 ms measured in the A/B, so direct and mechanism evidence agree; the statistical estimate is too noisy to add support, and the cause rests on the A/B and the model. The unexplained remainder is host-side cost a bandwidth number does not capture (staging-buffer management, cache effects).
+- The common shift (+3.02 ms, 16× the 0.185 ms MDE, 33 % of the +9.04 ms delta) is large: the before-jobs ran first, so block-order drift (temperature, clocks) dominates it. Interleave before and after jobs, or add a drift covariate, before trusting the shares.
 - This is a **laptop Ada GPU** on PCIe Gen4 x8, not an HX8 node. The lab's W-TRAIN factors (TP split, GDR host-staging across nodes, storage tier) need multi-node hardware (L3). This run validates the *method* on regressions whose truth is known.
 
 - 16 before-jobs, then 32 after-jobs (8 per pageable x small_batch cell, order shuffled, placebo on a random half); 30 steps per job, the first 5 dropped as warm-up.

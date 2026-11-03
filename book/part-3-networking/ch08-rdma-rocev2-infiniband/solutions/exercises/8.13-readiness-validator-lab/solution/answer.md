@@ -10,8 +10,8 @@ Relies on manuscript Sections 8.7, 8.8, 8.10, 8.11 and Table 8.10.
 ## Reference readiness summary
 
 ```text
-Nodes checked: 8; ready: 2; findings: 16
-orion-n01 READY | n02 FIRMWARE | n03 LINK_SPEED, PORT_STATE | n04 QOS_PFC
+Nodes checked: 8; ready: 2; findings: 18
+orion-n01 READY | n02 FIRMWARE | n03 LINK_SPEED, MEMLOCK, PORT_STATE | n04 QOS_PFC, TRAFFIC_CLASS
 n05 GID_INDEX (all 8 devices) | n06 MTU (mlx5_3), PEERMEM | n07 ADDRESS_PLAN (mlx5_2, mlx5_3) | n08 READY
 ```
 
@@ -19,7 +19,8 @@ n05 GID_INDEX (all 8 devices) | n06 MTU (mlx5_3), PEERMEM | n07 ADDRESS_PLAN (ml
 |---|---|---|
 | n02 | FIRMWARE (mlx5_5: 28.36.2024 vs baseline 28.39.1002) | RMA spare shipped with old firmware; update before admission |
 | n03 | PORT_STATE + LINK_SPEED (mlx5_6 down, Polling, `Speed: Unknown!`) | One root symptom (no link partner), two checks fail: cable, optic or switch port (Chapter 10) |
-| n04 | QOS_PFC (mlx5_1: PFC on priority 4, not 3) | RoCE is lossy on that NIC under incast |
+| n03 | MEMLOCK (`ulimit -l` unlimited in a login shell, 8192 inside a Slurm job step) | Limit not propagated into jobs (`slurmd` limit / `PropagateResourceLimits`); `ibv_reg_mr` fails only under a job, so an interactive check passes |
+| n04 | QOS_PFC (mlx5_1: PFC on priority 4, not 3), TRAFFIC_CLASS (`NCCL_IB_TC=26` = DSCP 6 + ECT(0), not 106) | Two QoS errors on one node; RoCE is lossy on mlx5_1 under incast and every QP's data lands in a lossy queue |
 | n05 | GID_INDEX ×8 (`NCCL_IB_GID_INDEX=2` → RoCE v1) | One node-level config error showing on all 8 devices: v1 is not routable (8.4) |
 | n06 | MTU (mlx5_3 netdev 1500 → `active_mtu 1024`), PEERMEM (`nvidia_peermem` absent) | Cite both the `ip link` and `ibv_devinfo` evidence lines; GDR falls back to host staging |
 | n07 | ADDRESS_PLAN ×2 (rail-2/rail-3 addresses swapped) | Each NIC holds the other rail's /31; the GID check still passes, so each check covers a different failure |

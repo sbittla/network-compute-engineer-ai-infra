@@ -442,7 +442,8 @@ def build_report(a: dict) -> str:
     for ep in a["episodes"]:
         if ep["label"] == "incast":
             L.append(f"- Incast ({ep['start']}-{ep['end']} s): egress {', '.join(ep['roots'])} at line rate with a "
-                     "deep TC3 queue and ECN marks; PFC pauses only on the senders' ingress ports (first hop).")
+                     "deep TC3 queue (held near Xoff by PFC; marks depend on where Kmin sits); PFC pauses only on "
+                     "the senders' ingress ports (first hop).")
         elif ep["label"] == "pause_propagation":
             L.append(f"- Pause propagation ({ep['start']}-{ep['end']} s): root {', '.join(ep['roots'])} is the only "
                      "congested port not itself receiving pause; spine and orion-be-leaf-r4 uplink queues are branches "

@@ -18,7 +18,21 @@
 | power.limit | [N/A] |
 
 **Status:** ran
-**Invariants:** all passed
+**Invariants:** all passed (at capture time; see the erratum)
+
+> **Erratum (2026-11-01) — fixed-variant trace analysis invalid, rerun pending.** The "fixed" step has no
+> host sync, and the capture closed each step's CPU-side range before the GPU had drained its queue. The
+> traced windows (20.1–24.0 ms) cover only ≈ 19 % of the measured 108.28 ms median step, while the same
+> capture's kernel table holds ≈ 113 ms of GPU time per step. Every fixed-variant figure derived from the
+> window is therefore invalid: traced step, GPU busy (any and kernels), copy overlap, idle gaps by cause,
+> and the findings list. The per-op durations (kernel classification and top-kernels tables), the
+> uninstrumented step-time table, the launch and sync counts and the 1.21× speedup are unaffected. The
+> baseline windows (133–237 ms against a 131.15 ms median) pass the window-sanity invariant that
+> `experiment.py` now enforces (traced window ≥ 90 % of the median step), and its figures stand. One
+> caveat: optimizer kernels queued after the baseline's last `.item()` may also extend slightly past
+> each window. `experiment.py` now synchronizes before closing each step range. The values below are
+> left exactly as measured. This is the Section 4.10 pitfall, "NVTX ranges are CPU-side", caught in
+> our own evidence.
 
 ## Workload
 
@@ -72,6 +86,9 @@ Top kernels by GPU time (roof fraction vs this GPU's BF16 peak / DRAM bandwidth;
 | aten::add_ | 80 | 11.67 | 4.2 % | memory | 18 % |
 
 ## Trace analysis: fixed (3 captures x 2 steps, lab `analyze()`)
+
+> **Invalid (truncated window; see the erratum).** The window-derived rows and the findings below are kept
+> as measured, but they must not be cited. Only the per-op tables are usable.
 
 | Metric | Median | min-max over steps |
 |---|---|---|

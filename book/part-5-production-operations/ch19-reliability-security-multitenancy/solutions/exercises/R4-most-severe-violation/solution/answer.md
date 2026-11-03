@@ -1,7 +1,7 @@
 # R4 — Most severe isolation violation: guidance and model answer
 
-**Relies on:** Section 19.8 (RBAC, secrets, audit), Section 19.9 (Table 19.7); lab `data/tenants.yaml`,
-`data/isolation_policy.yaml`; the 10 violations reported by `check_isolation()`.
+**Relies on:** Section 19.8 (RBAC, secrets, audit), Section 19.9 (Table 19.8); lab `data/tenants.yaml`,
+`data/isolation_policy.yaml`; the 11 violations reported by `check_isolation()`.
 
 ## Answer
 
@@ -31,10 +31,14 @@ answer when the reasoning compares the scope of access.
   reachability, and therefore an attack path, but not data access by itself.
 - Secrets prefix `kv/tenants/`: broad read of secrets. This is serious, but limited to the secrets store.
 - Time-slicing and no scrub: data residue, fault-sharing and performance risk.
+- Env-var GPU injection (`acme-dev/notebook-7`, GPU_INJECTION_BYPASS): the pod reaches every GPU on its
+  node, including GPUs allocated to other tenants' pods there. That is data and fault exposure on one node,
+  so it ranks just below the two above.
 - 30-day audit retention: loses the evidence, but grants no access.
 
 ## Response
 
-Treat the two data-exposure violations as security incidents, not just configuration fixes. Remove the
+Treat the data-exposure violations as security incidents, not just configuration fixes. Remove the
 binding, rotate every Secret readable cluster-wide, and review API audit logs for its use. Narrow the
-export, then review storage access logs for reads outside `/lustre/projects/borealis`.
+export, then review storage access logs for reads outside `/lustre/projects/borealis`. Delete the
+notebook pod, fix the toolkit setting, and reset the GPUs it could reach.

@@ -1,6 +1,6 @@
 # L1 — Lab 15: capacity model, serving-trace analyzer, disaggregation model: worked solution
 
-**Checker.** `python lab/check.py` must end `18/18 passed, 0 failed, 0 TODO`. The rubric is lab
+**Checker.** `python lab/check.py` must end `19/19 passed, 0 failed, 0 TODO`. The rubric is lab
 Section 8 (100 points). Reference values: `solutions/lab/INSTRUCTOR_NOTES.md`.
 
 **Report expectations.**

@@ -26,7 +26,7 @@ marking:
   points: 5
 - criterion: 'Risk register: top-5 risks with corrected scores, owners, mitigations'
   points: 10
-- criterion: Isolation model with remediation for all 10 violations
+- criterion: Isolation model with remediation for all 11 violations
   points: 10
 lab_checks:
 - 'dataset reproducible:'

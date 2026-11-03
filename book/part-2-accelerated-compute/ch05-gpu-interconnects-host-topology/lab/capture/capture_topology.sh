@@ -39,14 +39,25 @@ lldpcli show neighbors -f keyvalue > "$out/lldp.txt" 2>/dev/null || echo "# lldp
   echo "### nvidia-smi --query-gpu=driver_version --format=csv,noheader -i 0"
   nvidia-smi --query-gpu=driver_version --format=csv,noheader -i 0 || echo "# unavailable"
   echo "### ofed_info -s";                 (ofed_info -s 2>/dev/null || echo "ofed_info unavailable")
-  echo "### lspci -vvv | grep ACSCtl  (downstream switch port directly above each GPU and NIC)"
-  # For each GPU (vendor 10de, class 0302) and NIC (vendor 15b3), find its parent bridge and print its ACSCtl.
-  # Output format matches the lab data: "<port BDF> (above <device>) ACSCtl:<TAB>SrcValid... ReqRedir..."
+  echo "### lspci -vvv | grep ACSCtl  (every bridge between each GPU/NIC and its root port)"
+  # For each GPU (vendor 10de, class 0302) and NIC (vendor 15b3), walk its sysfs path upward and print the
+  # ACSCtl of every bridge on the way (leaf-switch downstream port, leaf upstream port, top-switch ports,
+  # root port): redirect on any of them can force peer traffic up to the root complex. Each bridge is
+  # printed once. Output format matches the lab data: "<port BDF> (above <device>) ACSCtl:<TAB>..."
   # (parse_gdr reads the first token as the port BDF and looks for "ReqRedir+"; the annotation is ignored).
+  seen=" "
   for dev in $(lspci -D -d 10de::0302 2>/dev/null | awk '{print $1}') $(lspci -D -d 15b3: 2>/dev/null | awk '{print $1}'); do
-    parent=$(basename "$(dirname "$(readlink -f /sys/bus/pci/devices/$dev)")")
-    acs=$(lspci -vvv -s "$parent" 2>/dev/null | grep -m1 'ACSCtl:' | sed 's/^[[:space:]]*//')
-    echo "$parent (above $dev) ${acs:-ACSCtl: <no ACS capability>}"
+    path=$(readlink -f "/sys/bus/pci/devices/$dev")
+    for comp in $(echo "$path" | tr '/' ' '); do
+      case "$comp" in
+        "$dev") ;;
+        [0-9a-f][0-9a-f][0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]:[0-9a-f][0-9a-f].[0-7])
+          case "$seen" in *" $comp "*) continue ;; esac
+          seen="$seen$comp "
+          acs=$(lspci -vvv -s "$comp" 2>/dev/null | grep -m1 'ACSCtl:' | sed 's/^[[:space:]]*//')
+          echo "$comp (above $dev) ${acs:-ACSCtl: <no ACS capability>}" ;;
+      esac
+    done
   done
 } > "$out/gdr_prereqs.txt"
 
