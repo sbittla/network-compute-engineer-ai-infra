@@ -5,7 +5,7 @@ Relies on manuscript Section 6.5 (clocks, power) and Section 6.4 (MFU).
 **What changes.** Sustained SM clocks fall under heavy GEMMs (power cap reached sooner), so achievable FLOP/s,
 kernel times, step times and fractions of the *compute* roof all change; memory-bound kernels change less.
 `sw_power_cap` events become frequent rather than routine (≈ 3 % today), so the exclusion rule's thresholds
-need revisiting, and noise floors may change. The A/A floor (0.66 %), Lab 6 decisions and roofline fractions
+need revisiting, and noise floors may change. The A/A floor (0.55 %), Lab 6 decisions and roofline fractions
 are all baseline-specific.
 
 **MFU.** Still computed against the vendor dense peak (989 TFLOP/s), so MFU falls; if you want efficiency

@@ -3,7 +3,7 @@
 Relies on manuscript Section 6.6 (protocol) and forward reference to Chapter 15 (LLM inference serving).
 
 **Decision to change:** the statistic. The lab summarizes each run by its *median* latency of isolated,
-back-to-back kernel calls and compares medians of run medians.
+back-to-back kernel calls and compares the arm means of those run medians.
 
 **Replacement:** use **tail percentiles** (p95/p99 time-to-first-token and time-per-output-token, or request
 latency) as the statistic, measured under **realistic concurrency and arrival processes** (open-loop Poisson or

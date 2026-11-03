@@ -4,7 +4,7 @@
 
 <!-- prompt:start -->
 **6.17** ★ L1 — In the worked example, Cliff's δ for candidate C is −0.28 on iterations but −0.67 on run
-medians, while the change is only 0.50 %. Explain the difference and what it says about relying on effect
+medians, while the change is only 0.45 %. Explain the difference and what it says about relying on effect
 sizes alone.
 <!-- prompt:end -->
 

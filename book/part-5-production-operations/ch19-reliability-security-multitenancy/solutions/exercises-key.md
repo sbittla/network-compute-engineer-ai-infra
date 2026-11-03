@@ -63,8 +63,18 @@ nodes with bisection across DP-replica subsets, and `dcgmi diag -r 3`/`-r 4` or 
 Restore the newest checkpoint *before* the onset — later ones may hold corrupted weights — and
 quarantine the node with its evidence. *Marking:* 2/2/1.
 
+**K10.** (a) Secrets: namespaced RBAC, no cluster-scoped binding to tenant subjects, per-tenant secret
+paths; check `kubectl get clusterrolebindings -o wide` and `kubectl auth can-i get secrets -n <other-ns>
+--as=system:serviceaccount:<ns>:<sa>`; pass = no tenant subject, `no`. (b) GPU residue: whole GPU or MIG
+plus reset on tenant change; check the V2 residue test (pattern written by A, uninitialized allocation by
+B); pass = zero matches. (c) NVMe: Section 16.10 crypto or block erase (or destruction); check `sanicap`
+before and `nvme sanitize-log` after, plus a certificate listing every serial. Only V2 is not read-only:
+drained lab node only. A pass in (b) covers only the tested driver branch and sequence, so rerun it per
+driver, after reset and after MIG reconfiguration; it says nothing about reuse within one process, where
+CUDA does not zero allocations. *Marking:* 2/1/1/1/1.
+
 *Points per knowledge check* (criteria in each exercise's `meta.yaml`): K1 4, K2 6, K3 6, K4 6, K5 4,
-K6 5, K7 6, K8 5, K9 5.
+K6 5, K7 6, K8 5, K9 5, K10 6.
 
 ## Worked problems
 

@@ -1,26 +1,38 @@
 {
   "answer": {
     "all_runs": {
-      "change": -0.020523,
+      "change": -0.011394,
       "ci95": [
-        -0.029671,
-        0.016499
+        -0.026944,
+        0.011397
       ],
       "decision": "not_significant",
-      "median_candidate_ms": 12.17,
+      "mean_candidate_ms": 12.2917,
       "n_candidate_runs": 6,
-      "p_perm": 0.36147
+      "p_perm": 0.36147,
+      "sensitivity_medians": {
+        "change": -0.020523,
+        "decision_if_used": "improvement",
+        "median_candidate_ms": 12.17,
+        "p_perm": 0.04113
+      }
     },
     "without_run5": {
-      "change": -0.024547,
+      "change": -0.021984,
       "ci95": [
-        -0.031613,
-        -0.008458
+        -0.028983,
+        -0.014182
       ],
       "decision": "improvement",
-      "median_candidate_ms": 12.12,
+      "mean_candidate_ms": 12.16,
       "n_candidate_runs": 5,
-      "p_perm": 0.00216
+      "p_perm": 0.00216,
+      "sensitivity_medians": {
+        "change": -0.024547,
+        "decision_if_used": "improvement",
+        "median_candidate_ms": 12.12,
+        "p_perm": 0.01299
+      }
     }
   },
   "evidence_label": "MODELED (statistics on supplied run medians)",
@@ -51,6 +63,7 @@
     "threshold": 0.02
   },
   "steps": {
+    "mean_baseline_ms": 12.4333,
     "median_baseline_ms": 12.425
   },
   "units": {

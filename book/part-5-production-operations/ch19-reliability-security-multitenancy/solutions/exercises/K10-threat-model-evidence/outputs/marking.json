@@ -1,0 +1,33 @@
+{
+  "difficulty": 2,
+  "evidence_required": "a three-row table (claim, mitigation, check, pass condition); one paragraph on the non-read-only check and the limits of (b)",
+  "id": "K10",
+  "kind": "written",
+  "lab_checks": [],
+  "marking": [
+    {
+      "criterion": "(a) Secrets: namespaced RBAC, no cluster binding to tenant subjects, per-tenant secret paths; check with kubectl auth can-i (--as the tenant service account) and the cluster-binding listing; pass = no",
+      "points": 2
+    },
+    {
+      "criterion": "(b) GPU residue: whole GPU or MIG plus reset on tenant change; residue test with an uninitialized allocation by a second user; pass = zero pattern matches",
+      "points": 1
+    },
+    {
+      "criterion": "(c) NVMe: Section 16.10 sanitize (crypto or block erase) or key destruction; check sanicap before and sanitize-log after, plus a certificate listing every drive serial",
+      "points": 1
+    },
+    {
+      "criterion": "Names the residue test as the non-read-only check and confines it to a drained lab node",
+      "points": 1
+    },
+    {
+      "criterion": "Limits of (b): a passing test covers only the tested driver branch, sequence and allocation pattern; it says nothing about reuse within one process (CUDA does not zero allocations), so rerun it per driver branch, after reset and after MIG reconfiguration",
+      "points": 1
+    }
+  ],
+  "points": 6,
+  "tier": "L1",
+  "title": "From threat model to evidence",
+  "type": "knowledge-check"
+}

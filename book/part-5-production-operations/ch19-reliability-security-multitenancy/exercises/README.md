@@ -17,6 +17,7 @@ reflection, marked against a rubric). Canonical inputs: node MTBF ≈ 1,536 node
 | K7 | Sharing a GPU across tenants | Knowledge check | ★ | L1 | written | [K7](K7-gpu-sharing-tenants/) |
 | K8 | Reachability vs performance | Knowledge check | ★★ | L1 | written | [K8](K8-reachability-vs-performance/) |
 | K9 | Silent data corruption | Knowledge check | ★★ | L1 | written | [K9](K9-silent-data-corruption/) |
+| K10 | From threat model to evidence | Knowledge check | ★★ | L1 | written | [K10](K10-threat-model-evidence/) |
 | W1 | Checkpoint interval and restart overhead | Worked problem | ★★ | L1 | computed | [W1](W1-checkpoint-interval-restart/) |
 | W2 | Retry budgets and spares | Worked problem | ★★★ | L1 | computed | [W2](W2-retry-budgets-spares/) |
 | L1 | Lab 19: ORION-XL incident | Hands-on lab | ★★★ | L1 | lab | [L1](L1-lab19-orion-xl-incident/) |
@@ -31,4 +32,4 @@ reflection, marked against a rubric). Canonical inputs: node MTBF ≈ 1,536 node
 | M3 | Recovery and containment exercise | Outline-mandated | ★★★ | L1 | written | [M3](M3-recovery-containment-exercise/) |
 | M4 | 512-node incident (course-outline §20.1) | Outline-mandated | ★★★ | L1 | lab | [M4](M4-512-node-incident/) |
 
-Exercise count: 22
+Exercise count: 23

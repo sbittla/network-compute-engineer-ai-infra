@@ -134,3 +134,18 @@ Tests: `check.py --impl solution` 12/12 (exit 0); `--impl starter` 1/12 (exit 1)
 | ID | Finding | Resolution |
 |---|---|---|
 | R19-07 | The $3.00/GPU-hour price was labelled `[ILLUSTRATIVE]` although it is the Chapter 21 TCO | Relabelled `[MODELED]` (Chapter 21 owned-cluster TCO $3.02, rounded) in the manuscript, exercises.md and folder prompts, key, answers, meta.yaml and solve.py comments; outputs regenerated. Tests: check.py solution/starter as before, `validate_labs.py` OK, package tests pass, `copyedit_lint.py` 0 findings. |
+
+---
+
+## External PDF review fixes (2026-11-03)
+
+| ID | Finding | Resolution |
+|---|---|---|
+| X19-01 | No consolidated security threat model (assets, threats, attack surfaces, mitigations, verification) | New Section 19.9.2 with Table 19.9a: ten assets (GPU memory/compute; host kernel and node credentials; RDMA fabric and registered memory; models, datasets, checkpoints; secrets and keys; Kubernetes/Slurm control planes; BMCs and firmware; images, packages, model artifacts; audit and incident evidence; retired or reassigned hardware) with threat, surface, ORION mitigations and check IDs. Builds on Tables 19.8/19.9 rather than repeating them; mechanisms limited to MIG, CC mode, PSA, NetworkPolicy, RBAC, KMS encryption at rest, projected tokens, Redfish AccountService/NetworkProtocol/FirmwareInventory, UEFI Secure Boot, Sigstore cosign, SBOM, SLSA/in-toto, safetensors / `weights_only`, NVMe sanitize (Section 16.10). Names and defaults labelled `[VENDOR-SPEC, 2026-10]`; no new CVEs. |
+| X19-02 | GPU memory sanitization guarantees unclear | Paragraph separating within-process reuse (CUDA does not zero allocations; caching allocators), between-tenant clearing (a driver/platform property: verify per branch, including after reset and MIG reconfiguration), concurrent MIG instances, and what CC mode does. Table 19.8 residue row and the §19.9 paragraph now point here. |
+| X19-03 | Verification not actionable | Table 19.9b: checks V1–V11, each a concrete command with a pass condition; all read-only except the V2 residue test (drained lab node only). Safety callout: the checklist reads state; remediation through Chapter 20; sanitize only in the Chapter 16 flow. |
+| X19-04 | Exercise | New knowledge check K10 "From threat model to evidence" (written, 6 points): exercises.md, learner folder, index (count 23), meta.yaml, answer.md, marking.json, key entry and points line. Chapter README objectives/summary and folder count updated (was stale at 21). |
+
+Length: §19.8 bullets compressed (lab facts kept for M2/R4), duplicated residue text removed from §19.9, and cuts in §19.1, §19.2, §19.3 (ECC, AER, HCA health, fabric manager), §19.4, §19.5, §19.6, §19.7 (async checkpointing, reconciliation, spares, elastic), Step 4/8, §19.13, runbook, realism boundary, summary and Further reading (MIG guide merged; Kubernetes/Sigstore/SLSA and NIST SP 800-88 added). Acronyms SSO, QOS, AAA, SBOM, SLSA, TPM, UEFI, VBIOS added. Objective 7 now names the threat model. Manuscript 11,019 → 11,686 words (+6.1 %).
+
+Tests: `check.py --impl solution` 12/12 (exit 0); `--impl starter` 1/12 (exit 1); `validate_labs.py` 32/32 valid; `copyedit_lint.py` 0 findings. K10 `marking.json` was written with the harness `dump_json`/marking payload (Docker not run).

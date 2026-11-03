@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import itertools
 import math
 import os
 import sys
@@ -134,13 +135,31 @@ def c_clean(h, a):
 
 
 def _boot(b, c, n_boot, seed):
+    """Independent re-implementation of the documented recipe: the primary statistic is the difference in
+    arm means of run medians divided by the observed baseline mean (a fixed reference)."""
     rng = np.random.default_rng(seed)
+    ref = float(np.mean(b))
     reps = []
     for _ in range(n_boot):
         bi = rng.integers(0, len(b), len(b))
         ci = rng.integers(0, len(c), len(c))
-        reps.append(np.median(c[ci]) / np.median(b[bi]) - 1)
+        reps.append((np.mean(c[ci]) - np.mean(b[bi])) / ref)
     return float(np.quantile(reps, 0.025)), float(np.quantile(reps, 0.975))
+
+
+def _perm_brute(b, c):
+    """Independent exact permutation p for the difference in means (sum-based, no numpy masks)."""
+    pooled = [float(v) for v in b] + [float(v) for v in c]
+    n, k = len(pooled), len(c)
+    total_sum = sum(pooled)
+    obs = abs(sum(pooled[n - k:]) / k - sum(pooled[:n - k]) / (n - k))
+    hits = 0
+    splits = list(itertools.combinations(range(n), k))
+    for idx in splits:
+        s = sum(pooled[i] for i in idx)
+        if abs(s / k - (total_sum - s) / (n - k)) >= obs - 1e-12:
+            hits += 1
+    return hits / len(splits)
 
 
 def c_bootstrap(h, a):
@@ -148,10 +167,25 @@ def c_bootstrap(h, a):
     c = np.array([3.89, 3.87, 3.88, 3.879, 3.878])
     p, lo, hi = a.bootstrap_ratio_ci(b, c, n_boot=500, seed=3)
     elo, ehi = _boot(b, c, 500, 3)
-    assert abs(p - (np.median(c) / np.median(b) - 1)) < 1e-12, "point estimate = ratio of medians - 1"
+    assert abs(p - (np.mean(c) - np.mean(b)) / np.mean(b)) < 1e-12, \
+        "point estimate = (mean(cand) - mean(base)) / mean(base) of the run medians"
     assert abs(lo - elo) < 1e-12 and abs(hi - ehi) < 1e-12, f"CI ({lo:.5f},{hi:.5f}) != expected ({elo:.5f},{ehi:.5f}); follow the RNG recipe"
     assert lo <= p <= hi
     return f"point {p:+.3%}, 95 % CI [{lo:+.3%}, {hi:+.3%}] reproduces the documented recipe"
+
+
+def c_bootstrap_seed(h, a):
+    rng = np.random.default_rng(5)
+    b, c = 10 + 0.05 * rng.standard_normal(6), 9.9 + 0.05 * rng.standard_normal(7)
+    r1 = a.bootstrap_ratio_ci(b, c, n_boot=1000, seed=42)
+    r2 = a.bootstrap_ratio_ci(b, c, n_boot=1000, seed=42)
+    r3 = a.bootstrap_ratio_ci(b, c, n_boot=1000, seed=43)
+    assert tuple(r1) == tuple(r2), "same seed must reproduce the band exactly"
+    assert r1[0] == r3[0], "the point estimate must not depend on the seed"
+    assert (r1[1], r1[2]) != (r3[1], r3[2]), "a different seed should give a (slightly) different band"
+    elo, ehi = _boot(b, c, 1000, 42)
+    assert abs(r1[1] - elo) < 1e-12 and abs(r1[2] - ehi) < 1e-12, "band must follow the documented RNG recipe"
+    return f"seed 42 reproducible: [{r1[1]:+.3%}, {r1[2]:+.3%}]; seed 43: [{r3[1]:+.3%}, {r3[2]:+.3%}]"
 
 
 def c_permutation(h, a):
@@ -161,6 +195,71 @@ def c_permutation(h, a):
     assert 0.5 < p2 <= 1.0, "interleaved groups must not be significant"
     assert abs(a.mde(0.01, 8) - 2.8 * 0.01 * 0.5) < 1e-12, "MDE = 2.8 * sigma * sqrt(2/n)"
     return "exact enumeration correct; MDE formula correct"
+
+
+def c_permutation_exact(h, a):
+    # Hand case: pooled {1..6}, candidate {3, 5, 6}. A split with candidate sum S has difference (2S - 21) / 3;
+    # observed S = 14, so |diff| >= 7/3 needs S >= 14 ({3,5,6}, {4,5,6}) or S <= 7 ({1,2,3}, {1,2,4}): 4 of 20.
+    p = a.permutation_test(np.array([1.0, 2.0, 4.0]), np.array([3.0, 5.0, 6.0]))
+    assert abs(p - 4 / 20) < 1e-12, f"hand case: p must be 4/20 = 0.2, got {p}"
+    p_swap = a.permutation_test(np.array([3.0, 5.0, 6.0]), np.array([1.0, 2.0, 4.0]))
+    assert abs(p_swap - p) < 1e-12, "two-sided: swapping the arms must not change p"
+    return "pooled 1..6, candidate {3,5,6}: p = 4/20 = 0.200 (hand count); unchanged when the arms are swapped"
+
+
+def c_permutation_bounds(h, a):
+    same = np.array([4.01, 4.02, 3.99, 4.00])
+    assert a.permutation_test(same, same.copy()) == 1.0, "identical arms must give p = 1"
+    assert a.permutation_test(np.full(3, 2.0), np.full(4, 2.0)) == 1.0, "constant data must give p = 1"
+    for k in (3, 4, 5):  # fully separated, equal sizes: observed split and its mirror -> 2 / C(2k, k)
+        base, cand = np.arange(k, dtype=float) + 10.0, np.arange(k, dtype=float)
+        p = a.permutation_test(base, cand)
+        assert abs(p - 2 / math.comb(2 * k, k)) < 1e-12, f"{k} + {k} separated: p must be 2/C({2 * k},{k}), got {p}"
+    # Unequal sizes: base {10, 11}, cand {1, 2, 3}, |diff| 8.5. The opposite extreme (cand {3, 10, 11}) has
+    # |diff| 6.5 < 8.5, so only the observed split counts: p = 1/C(5, 3).
+    p = a.permutation_test(np.array([10.0, 11.0]), np.array([1.0, 2.0, 3.0]))
+    assert abs(p - 1 / math.comb(5, 3)) < 1e-12, f"2 + 3 separated: p must be 1/10, got {p}"
+    return "identical arms p = 1; separated k + k p = 2/C(2k,k) for k = 3, 4, 5; separated 2 + 3 p = 1/C(5,3)"
+
+
+def c_sample_sizes(h, a):
+    rng = np.random.default_rng(8)
+    seen = []
+    for nb, nc in ((2, 2), (3, 4), (5, 6), (6, 5), (2, 8), (7, 7)):
+        b = 4.0 + 0.02 * rng.standard_normal(nb)
+        c = 4.0 + 0.02 * rng.standard_normal(nc)
+        p = a.permutation_test(b, c)
+        total = math.comb(nb + nc, nc)
+        expect = _perm_brute(b, c)
+        assert abs(p - expect) < 1e-12, f"{nb}+{nc}: p {p} != brute-force {expect}"
+        assert abs(p * total - round(p * total)) < 1e-9 and 1 / total <= p <= 1, f"{nb}+{nc}: p must be j/C({nb + nc},{nc})"
+        pt, lo, hi = a.bootstrap_ratio_ci(b, c, n_boot=300, seed=1)
+        assert abs(pt - (c.mean() - b.mean()) / b.mean()) < 1e-12 and lo <= hi, f"{nb}+{nc}: bootstrap inconsistent"
+        seen.append(f"{nb}+{nc}")
+    return "p equals a brute-force count and bootstrap is consistent for " + ", ".join(seen)
+
+
+def c_synthetic_shift(h, a):
+    # Known truth: candidate run medians shifted by exactly 3 % (both signs), run-to-run noise 0.4 %, 7 + 7 runs.
+    rng = np.random.default_rng(2024)
+    points = []
+    for sign in (-1, 1):
+        truth = sign * 0.03
+        for _ in range(3):
+            base = 4.0 * (1 + 0.004 * rng.standard_normal(7))
+            cand = 4.0 * (1 + truth) * (1 + 0.004 * rng.standard_normal(7))
+            p = a.permutation_test(base, cand)
+            pt, lo, hi = a.bootstrap_ratio_ci(base, cand, n_boot=2000, seed=11)
+            assert p < 0.05, f"a 3 % shift with 0.4 % noise at 7 + 7 runs must be detected, p = {p:.4f}"
+            assert np.sign(pt) == sign, f"sign of the detected shift wrong: {pt:+.3%} vs truth {truth:+.0%}"
+            assert lo <= truth <= hi, f"95 % band [{lo:+.3%}, {hi:+.3%}] misses the true shift {truth:+.0%}"
+            points.append(pt)
+    null_base = 4.0 * (1 + 0.004 * rng.standard_normal(7))
+    null_cand = 4.0 * (1 + 0.004 * rng.standard_normal(7))
+    p_null = a.permutation_test(null_base, null_cand)
+    assert p_null >= 0.05, f"no shift: this seeded null sample must not be significant, p = {p_null:.3f}"
+    return (f"-3 % and +3 % shifts detected with the right sign (points {min(points):+.2%} .. {max(points):+.2%}); "
+            f"each band contains the true shift; seeded null p = {p_null:.3f}")
 
 
 def c_decisions(h, a):
@@ -174,6 +273,9 @@ def c_decisions(h, a):
     assert abs(rb["p_perm"] - 2 / 252) < 1e-12, f"B is fully separated: exact p = 2/252, got {rb['p_perm']:.4f}"
     assert rc["naive"] < -0.01, "naive mean comparison of C should (wrongly) show >1 % improvement"
     assert rc["decision"] == "below_threshold" and abs(rc["point"]) < 0.01, f"C: {rc['decision']} {rc['point']:+.3%}"
+    for r in (rb, rc):  # one statistic: the point lies in its band, and a p < 0.05 band excludes 0
+        assert r["ci_lo"] <= r["point"] <= r["ci_hi"], f"point outside its own band: {r['point']:+.3%}"
+        assert r["ci_hi"] < 0, f"significant improvement, yet the band [{r['ci_lo']:+.3%}, {r['ci_hi']:+.3%}] reaches 0"
     assert rb["cliffs_delta_runs"] == -1.0 and rb["cliffs_delta_iter"] < -0.474, "B's effect size should be large at both levels"
     return (f"floor ±{floor:.2%}; B naive {rb['naive']:+.2%} -> {rb['point']:+.2%} p={rb['p_perm']:.3f} {rb['decision']}; "
             f"C naive {rc['naive']:+.2%} -> {rc['point']:+.2%} p={rc['p_perm']:.3f} {rc['decision']}")
@@ -216,7 +318,10 @@ CHECKS: list[tuple[str, Callable]] = [
     ("harness.run_independent", c_independent),
     ("analysis.quantile_summary", c_quantile), ("analysis.cliffs_delta", c_cliff),
     ("analysis.clean_runs", c_clean), ("analysis.bootstrap", c_bootstrap),
-    ("analysis.permutation_mde", c_permutation), ("analysis.decisions", c_decisions), ("analysis.roofline", c_roofline), ("analysis.mfu", c_mfu),
+    ("analysis.bootstrap_seed", c_bootstrap_seed),
+    ("analysis.permutation_mde", c_permutation), ("analysis.permutation_exact", c_permutation_exact),
+    ("analysis.permutation_bounds", c_permutation_bounds), ("analysis.sample_sizes", c_sample_sizes),
+    ("analysis.synthetic_shift", c_synthetic_shift), ("analysis.decisions", c_decisions), ("analysis.roofline", c_roofline), ("analysis.mfu", c_mfu),
 ]
 
 

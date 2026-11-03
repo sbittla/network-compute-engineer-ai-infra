@@ -8,9 +8,13 @@ Graded with the Lab 6 rubric (lab README Section 7, 100 points); the checks list
 
 | | Naive | Cleaned change | 95 % bootstrap band | Permutation *p* | Cliff's δ (iter / runs) | Runs used | Decision |
 |---|---|---|---|---|---|---|---|
-| A/A floor | — | −0.07 % | [−0.66 %, +0.48 %] | 0.57 | — | 6/6 | floor = **0.66 %**; bar = max(0.66 %, 1 %) = 1 % |
-| B vs A | +1.04 % | **−3.15 %** | [−3.49 %, −2.11 %] | **2/252 = 0.008** | −0.95 / −1.00 | 5/5 | **improvement** |
-| C vs A | −1.83 % | **−0.50 %** | [−0.82 %, +0.18 %] | **0.026** | −0.28 / −0.67 | 5/6 | **below_threshold** |
+| A/A floor | — | −0.14 % | [−0.55 %, +0.29 %] | 0.57 | — | 6/6 | floor = **0.55 %**; bar = max(0.55 %, 1 %) = 1 % |
+| B vs A | +1.04 % | **−2.89 %** | [−3.33 %, −2.33 %] | **2/252 = 0.008** | −0.95 / −1.00 | 5/5 | **improvement** |
+| C vs A | −1.83 % | **−0.45 %** | [−0.72 %, −0.12 %] | **0.026** | −0.28 / −0.67 | 5/6 | **below_threshold** |
+
+One statistic for the change, the band and *p*: the difference in arm means of the run medians, as a % of
+the baseline mean. *Sensitivity analysis (median of run medians, `center=np.median`; not the decision):*
+B −3.15 % [−3.49 %, −2.11 %], *p* = 0.048; C −0.50 % [−0.82 %, +0.18 %], *p* = 0.054.
 
 Exclusions (rules applied identically to every arm): **A3** (version: PyTorch 2.3.1 vs 2.4.0); **B4** (clocks:
 `sw_thermal_slowdown` on 48 of 60 iterations, median 1,443 MHz vs 1,826 MHz session peer median, −21 %, 70 → 86 °C).
@@ -18,7 +22,8 @@ Routine `sw_power_cap` events (≈ 3 % of iterations in every arm) are kept. C's
 start at 5), which is why its naive comparison looks 1.83 % faster.
 
 σ_run (5 cleaned A run medians) = 0.37 % → MDE at 5 runs per arm ≈ 0.65 % (normal quantiles) or ≈ 0.74 % (t, 8 df);
-at 10 runs ≈ 0.46 %. C's significance is marginal (median-based permutation statistic gives p = 0.054).
+at 10 runs ≈ 0.46 %. C's significance is marginal: under the median-based sensitivity statistic its band
+touches zero and p = 0.054. The decision (do not ship C for performance) is the same either way.
 
 ## Roofline and MFU `[MODELED]`
 
@@ -34,7 +39,8 @@ table with justified exclusions quoting rows (6); roofline actions (4); conclusi
 do not ship C for performance alone) and limitations, including what would make it `[MEASURED]` on ORION (6).
 
 **Common mistakes.** Bootstrapping iterations instead of runs; judging throttling against max boost;
-applying an exclusion rule to one arm only; excluding B4's throttled iterations but keeping the run; reading
+applying an exclusion rule to one arm only; reporting a change, band and p-value computed from different
+statistics; excluding B4's throttled iterations but keeping the run; reading
 C's "below_threshold" as "no effect" (small real effect, not worth acting on); t-tests on iterations.
 
 ## Hardware run

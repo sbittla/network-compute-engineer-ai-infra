@@ -6,13 +6,15 @@ difficulty: 2
 tier: L1
 kind: computed
 points: 10
-evidence_required: medians, relative changes, p-values, bootstrap bands, decisions, justification.
+evidence_required: arm means of the run medians, relative changes, p-values, bootstrap bands, decisions,
+  justification.
 marking:
-- criterion: 'Medians: baseline 12.425 ms, candidate 12.17 ms (all runs) and 12.12 ms (without run 5)'
+- criterion: 'Arm means of run medians: baseline 12.4333 ms, candidate 12.2917 ms (all runs) and 12.16 ms
+    (without run 5)'
   points: 2
-- criterion: 'Relative changes: −2.05 % and −2.45 %'
+- criterion: 'Relative changes (same statistic as the band and the test): −1.14 % and −2.20 %'
   points: 2
-- criterion: 'Tests: bootstrap bands [−2.97 %, +1.65 %] and [−3.16 %, −0.85 %]; exact permutation p =
+- criterion: 'Tests: bootstrap bands [−2.69 %, +1.14 %] and [−2.90 %, −1.42 %]; exact permutation p =
     0.36 and 0.002'
   points: 3
 - criterion: 'Decisions (not significant vs improvement) and justification: exclusion rests on the clock (1,610 /

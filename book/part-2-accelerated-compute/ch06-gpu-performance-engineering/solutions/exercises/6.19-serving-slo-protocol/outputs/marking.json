@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "One protocol decision named (e.g. median of run medians as the statistic)",
+      "criterion": "One protocol decision named (e.g. the mean of run medians as the statistic)",
       "points": 1
     },
     {

@@ -20,8 +20,8 @@ sys.path.insert(0, str(PKG / "solutions" / "lab"))
 import analysis  # noqa: E402
 
 REF = {"driver": "570.124.06", "cuda": "12.8", "torch": "2.4.0"}
-KEY_WITH_RULE = {"point": -0.0050, "p": 0.026, "decision": "below_threshold"}           # Lab 6 reference
-KEY_NO_RULE = {"point": -0.0044, "lo": -0.0077, "hi": 0.0119, "p": 0.99, "decision": "not_significant"}  # key 6.20
+KEY_WITH_RULE = {"point": -0.0045, "lo": -0.0072, "hi": -0.0012, "p": 0.026, "decision": "below_threshold"}  # Lab 6
+KEY_NO_RULE = {"point": -0.0001, "lo": -0.0065, "hi": 0.0093, "p": 0.99, "decision": "not_significant"}  # key 6.20
 
 
 def no_version_rule(df: pd.DataFrame) -> pd.DataFrame:
@@ -51,6 +51,7 @@ def main() -> None:
     without = analysis.compare(no_version_rule(base), no_version_rule(cand), REF, floor)
     assert [e["run_id"] for e in with_rule["excluded"]] == ["A3"]
     assert abs(with_rule["point"] - KEY_WITH_RULE["point"]) < 0.0005 and with_rule["decision"] == KEY_WITH_RULE["decision"]
+    assert abs(with_rule["ci_lo"] - KEY_WITH_RULE["lo"]) < 0.0005 and abs(with_rule["ci_hi"] - KEY_WITH_RULE["hi"]) < 0.0005
     assert abs(with_rule["p_perm"] - KEY_WITH_RULE["p"]) < 0.001
     assert not without["excluded"] and without["n_runs_base"] == 6
     assert abs(without["point"] - KEY_NO_RULE["point"]) < 0.0005, without["point"]

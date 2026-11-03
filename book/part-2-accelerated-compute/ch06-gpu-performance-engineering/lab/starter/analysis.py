@@ -85,10 +85,21 @@ def run_medians(df: pd.DataFrame) -> np.ndarray:
 # --------------------------------------------------------------------------------------
 # Task 3 — comparison and decision
 # --------------------------------------------------------------------------------------
+def relative_change(base_runs: np.ndarray, cand_runs: np.ndarray, center=np.mean) -> float:
+    """THE primary statistic, used for the point estimate, the bootstrap band and the permutation test:
+    the difference in arm means of the run medians, mean(cand) − mean(base), expressed as a fraction of
+    the observed baseline mean (−0.03 = 3 % faster). Dividing by a fixed reference is a unit conversion
+    (ms → fraction), so the band and the test are about the same quantity.
+    center=np.median gives the median-based SENSITIVITY statistic (labelled as such wherever reported)."""
+    # TODO: one line: (center(cand) − center(base)) / center(base).
+    raise NotImplementedError("relative_change")
+
+
 def bootstrap_ratio_ci(base_runs: np.ndarray, cand_runs: np.ndarray, n_boot: int = N_BOOT, seed: int = 11,
-                       level: float = 0.95) -> tuple[float, float, float]:
-    """Relative change of candidate vs baseline, (median(cand_runs)/median(base_runs) − 1), with a
-    percentile bootstrap CI that resamples RUNS (with replacement) independently in each arm.
+                       level: float = 0.95, center=np.mean) -> tuple[float, float, float]:
+    """relative_change(base, cand) with a percentile bootstrap CI that resamples RUNS (with replacement)
+    independently in each arm. Each replicate is (mean(c*) − mean(b*)) / mean(base_runs): the same
+    difference in means, divided by the same fixed reference (the observed baseline mean).
     RNG: rng = np.random.default_rng(seed); for each replicate draw baseline indices first
     (rng.integers(0, nb, nb)), then candidate indices (rng.integers(0, nc, nc)).
     Returns (point, lo, hi) as fractions (−0.03 = 3 % faster)."""
@@ -104,14 +115,23 @@ def noise_floor(aa: pd.DataFrame, reference_sw: dict) -> float:
     raise NotImplementedError("noise_floor")
 
 
-def permutation_test(base_runs: np.ndarray, cand_runs: np.ndarray) -> float:
-    """Exact two-sided permutation test on run medians. Statistic: mean(cand) − mean(base) of the run
-    medians (a median-of-medians statistic is too coarse at n = 5: many splits tie with the observed one).
+def permutation_test(base_runs: np.ndarray, cand_runs: np.ndarray, center=np.mean) -> float:
+    """Exact two-sided permutation test of the primary statistic: the difference in arm means of the run
+    medians (relative_change() divides the same difference by a constant, so the test is unchanged).
     Enumerate every way to assign the pooled run medians to a 'candidate' group of the same size
-    (itertools.combinations over indices); p = (# assignments with |stat| >= |observed| − 1e-12) / total.
-    With 5 + 5 runs there are C(10, 5) = 252 assignments, so the smallest possible p is 2/252 ≈ 0.008."""
-    # TODO: itertools.combinations over indices of the pooled run medians; count |stat| >= |observed|.
+    (itertools.combinations over indices); p = (# assignments with |diff| >= |observed| − 1e-12) / total.
+    Identical arms give p = 1. With 5 + 5 runs there are C(10, 5) = 252 assignments; fully separated equal
+    arms give the observed split and its mirror, so the smallest possible p is 2/252 ≈ 0.008.
+    center=np.median gives the median-based sensitivity test (coarse at n = 5: many splits tie)."""
+    # TODO: itertools.combinations over indices of the pooled run medians; count |diff| >= |observed|.
     raise NotImplementedError("permutation_test")
+
+
+def sensitivity_medians(base_runs: np.ndarray, cand_runs: np.ndarray) -> dict:
+    """SENSITIVITY analysis, never the decision: the same point / band / test with the median of the run
+    medians in place of their mean (center=np.median). Returns {"point", "ci_lo", "ci_hi", "p_perm"}."""
+    # TODO: call bootstrap_ratio_ci and permutation_test with center=np.median.
+    raise NotImplementedError("sensitivity_medians")
 
 
 def mde(sigma_run_rel: float, n_runs: int) -> float:
@@ -132,15 +152,18 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
             threshold: float = PRACTICAL_THRESHOLD) -> dict:
     """Clean both sets with the same rules, compare run medians, and decide.
 
-    Significance comes from the exact permutation test on run medians (p_perm < ALPHA); at 5–6 runs per
-    arm a percentile bootstrap CI is not reliable enough to make that call, so the CI is reported as a
-    magnitude band only. decision:
+    One statistic throughout: relative_change() (difference in arm means of run medians, as a fraction of
+    the baseline mean) is the point, the quantity the bootstrap band resamples and the quantity the exact
+    permutation test permutes. Significance comes from the permutation test (p_perm < ALPHA); at 5–6
+    runs per arm a percentile bootstrap CI under-covers, so the CI is reported as a magnitude band only.
+    decision:
       "improvement"     p_perm < ALPHA, point < 0 and |point| ≥ max(floor, threshold)
       "regression"      p_perm < ALPHA, point > 0 and |point| ≥ max(floor, threshold)
       "below_threshold" p_perm < ALPHA but |point| < max(floor, threshold): real but not worth acting on
       "not_significant" p_perm ≥ ALPHA
       "undecidable"     cleaning left fewer than 2 runs in an arm: no comparison is possible
-    Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), cliffs_delta_iter
+    Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), sensitivity_medians
+    (the median-based sensitivity analysis; not used for the decision), cliffs_delta_iter
     (candidate vs baseline, cleaned iterations), cliffs_delta_runs (on run medians), floor, threshold,
     decision, excluded, n_runs_base, n_runs_cand, naive.
     """
@@ -213,6 +236,9 @@ def main() -> int:
         c = r[k]
         print(f"{k}: naive {c['naive']:+.2%} | cleaned {c['point']:+.2%} [{c['ci_lo']:+.2%}, {c['ci_hi']:+.2%}] "
               f"p_perm {c['p_perm']:.3f} delta(iter/runs) {c['cliffs_delta_iter']:+.2f}/{c['cliffs_delta_runs']:+.2f} runs {c['n_runs_base']}/{c['n_runs_cand']} -> {c['decision']}")
+        sm = c["sensitivity_medians"]
+        print(f"    sensitivity (median of run medians, not the decision): {sm['point']:+.2%} "
+              f"[{sm['ci_lo']:+.2%}, {sm['ci_hi']:+.2%}] p_perm {sm['p_perm']:.3f}")
         for e in c["excluded"]:
             print(f"    excluded {e['run_id']}: {e['reason']} — {e['detail']}")
     cols = ["name", "precision", "ai", "ridge", "bound", "pct_of_roof"]

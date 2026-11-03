@@ -71,13 +71,18 @@ Reference output `[SIMULATED]`:
 
 | | Naive | Cleaned change | 95 % bootstrap band | Permutation *p* | Cliff's δ (iter / runs) | Runs used | Decision |
 |---|---|---|---|---|---|---|---|
-| A/A floor | — | −0.07 % | [−0.66 %, +0.48 %] | 0.57 | — | 6/6 | floor = **0.66 %**; bar = max(0.66 %, 1 %) = 1 % |
-| B vs A | +1.04 % | **−3.15 %** | [−3.49 %, −2.11 %] | **2/252 = 0.008** | −0.95 / −1.00 | 5/5 | **improvement** |
-| C vs A | −1.83 % | **−0.50 %** | [−0.82 %, +0.18 %] | **0.026** | −0.28 / −0.67 | 5/6 | **below_threshold** |
+| A/A floor | — | −0.14 % | [−0.55 %, +0.29 %] | 0.57 | — | 6/6 | floor = **0.55 %**; bar = max(0.55 %, 1 %) = 1 % |
+| B vs A | +1.04 % | **−2.89 %** | [−3.33 %, −2.33 %] | **2/252 = 0.008** | −0.95 / −1.00 | 5/5 | **improvement** |
+| C vs A | −1.83 % | **−0.45 %** | [−0.72 %, −0.12 %] | **0.026** | −0.28 / −0.67 | 5/6 | **below_threshold** |
+
+One statistic for the change, the band and *p*: the difference in arm means of the run medians, as a % of
+the baseline mean. *Sensitivity analysis (median of run medians, `center=np.median`; not the decision):*
+B −3.15 % [−3.49 %, −2.11 %], *p* = 0.048; C −0.50 % [−0.82 %, +0.18 %], *p* = 0.054.
 
 σ_run (sample SD of the 5 cleaned A run medians / mean) = 0.37 % → MDE at 5 runs per arm = 0.65 % (normal
-quantiles) or ≈ 0.74 % (t, 8 df, multiplier ≈ 3.2); at 10 runs = 0.46 % (z; ≈ 0.49 % with t at 18 df). C's significance is marginal: the
-median-based permutation statistic gives p = 0.054.
+quantiles) or ≈ 0.74 % (t, 8 df, multiplier ≈ 3.2); at 10 runs = 0.46 % (z; ≈ 0.49 % with t at 18 df). C's significance is marginal: under the
+median-based sensitivity statistic its band touches zero and p = 0.054 (not significant); either way C is not
+shipped.
 
 Roofline: compute — GEMM 8192³ (70 %), flash-attn (55 %), FP32 stencil (85 % of FP32 roof), FP8 GEMM
 (60 %), GEMM 4096×4096×512 (28.5 %); memory — decode GEMM (85 %), LayerNorm (80 %), embedding gather
@@ -136,12 +141,14 @@ twice), statistic = median busbw per size per launch, bootstrap CI over launches
 iteration counts). *Marking (10 pts):* 1 pt each for warm-up, repetitions/launches, interleaving, concurrency
 control, input sizes, version control and noise floor (7), decision rule (2), manifest (1).
 
-**6.13** Medians: baseline sorted 12.37, 12.39, 12.41, 12.44, 12.47, 12.52 → (12.41 + 12.44)/2 = **12.425**.
-Candidate all six: 12.05, 12.10, 12.12, 12.22, 12.31, 12.95 → **12.17** → 12.17/12.425 − 1 = **−2.05 %**;
-bootstrap band [−2.97 %, +1.65 %]; exact permutation *p* (6 + 6, C(12, 6) = 924 splits) = **0.36** → *not
-significant*. Without run 5: 12.05, 12.10, 12.12, 12.22, 12.31 → **12.12** → **−2.45 %**; band
-[−3.16 %, −0.85 %]; *p* (6 + 5, C(11, 5) = 462 splits) = 1/462 = **0.002**; |−2.45 %| ≥ max(0.9 %, 2 %) →
-**improvement**. The exclusion is justified by the **clock**, not by the event: `sw_power_cap` alone is
+**6.13** Primary statistic (the lab's): difference in arm means of the run medians, as % of the baseline
+mean. Baseline mean = 74.60 / 6 = **12.4333 ms**. Candidate, all six: 73.75 / 6 = **12.2917 ms** →
+**−1.14 %**; bootstrap band [−2.69 %, +1.14 %]; exact permutation *p* (6 + 6, C(12, 6) = 924 splits) =
+**0.36** → *not significant*. Without run 5: 60.80 / 5 = **12.16 ms** → **−2.20 %**; band
+[−2.90 %, −1.42 %]; *p* (6 + 5, C(11, 5) = 462 splits) = 1/462 = **0.002**; |−2.20 %| ≥ max(0.9 %, 2 %) →
+**improvement**. *Sensitivity (median of run medians: 12.425, 12.17, 12.12 ms):* −2.05 % (*p* = 0.041) and
+−2.45 % (*p* = 0.013). With all runs the median statistic would call it an improvement while the primary
+says not significant: the decision depends on the statistic, which is exactly why it is fixed in advance. The exclusion is justified by the **clock**, not by the event: `sw_power_cap` alone is
 routine, but run 5's median clock is 1,610 / 1,826 = 88 % of the peer median, below the 95 % rule. Both arms
 run the same kernel family at the same clock (the other eleven runs at 1,822–1,830 MHz), so a session-wide
 peer clock is valid here. The second decision stands *only if* that rule was part of the pre-registered
@@ -191,7 +198,7 @@ about a different system and uses its own A/A floor; the laptop noise only shows
 **6.17** Cliff's δ measures how often one distribution's samples exceed the other's, and its value depends
 on the level at which it is computed. For C, on iterations δ = −0.28 ("small": single iterations overlap
 heavily); on run medians δ = −20/30 = −0.67 ("large": of the 6 × 5 = 30 run pairs, 25 favour C and 5 favour A) — yet the change is only
-0.50 %. Tight run-level distributions make even a tiny shift look "large". Effect sizes describe separation,
+0.45 %. Tight run-level distributions make even a tiny shift look "large". Effect sizes describe separation,
 not practical value: state the level, and pair δ with the relative change and a practical threshold. *(3 pts.)*
 
 **6.18** Sustained clocks and achievable FLOP/s drop; step times, kernel times, and fractions of the
@@ -204,8 +211,8 @@ floor, new reference runs per node under the cap, manifests recording the enforc
 concurrency and arrival processes, with longer runs to estimate tails — medians of isolated kernel runs
 miss queueing effects (Chapter 15). *(3 pts.)*
 
-**6.20** If A3 is kept (no version rule) and nothing else changes, C vs A becomes −0.44 % with a bootstrap
-band of [−0.77 %, +1.19 %] and permutation *p* = 0.99: the "small real effect" disappears because a
+**6.20** If A3 is kept (no version rule) and nothing else changes, C vs A becomes −0.01 % with a bootstrap
+band of [−0.65 %, +0.93 %] and permutation *p* = 0.99 (with the rule: −0.45 %, [−0.72 %, −0.12 %], *p* = 0.026): the "small real effect" disappears because a
 2.7 %-fast baseline run sits among A's runs. Which answer is right depends on a rule decided *before* the
 data were seen — and applied to every arm. Excluding A3 because it is a different experiment (wrong
 container) is legitimate; excluding it because it makes C look worse would not be. Pre-registration plus

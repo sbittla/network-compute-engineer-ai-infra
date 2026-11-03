@@ -20,7 +20,7 @@ decision_protocol:
   warmup_iters: 5
   replication_unit: run
   runs: "each run is a separate process (harness records pid)"
-  statistic: "median of run medians; relative change candidate/baseline - 1"
+  statistic: "difference in arm means of run medians, as a fraction of the baseline mean; used for the point, the bootstrap band and the permutation test (median of run medians = labelled sensitivity analysis only)"
   significance: "exact two-sided permutation test on run medians (mean difference), alpha 0.05"
   magnitude_band: "95 % percentile bootstrap over runs, 4000 replicates, seed 11 (not the significance call at n = 5-6)"
   practical_threshold: 0.01

@@ -108,23 +108,37 @@ def run_medians(df: pd.DataFrame) -> np.ndarray:
 # --------------------------------------------------------------------------------------
 # Task 3 — comparison and decision
 # --------------------------------------------------------------------------------------
+def relative_change(base_runs: np.ndarray, cand_runs: np.ndarray, center=np.mean) -> float:
+    """THE primary statistic, used for the point estimate, the bootstrap band and the permutation test:
+    the difference in arm means of the run medians, mean(cand) − mean(base), expressed as a fraction of
+    the observed baseline mean (−0.03 = 3 % faster). Dividing by a fixed reference is a unit conversion
+    (ms → fraction), so the band and the test are about the same quantity.
+    center=np.median gives the median-based SENSITIVITY statistic (labelled as such wherever reported)."""
+    b = np.asarray(base_runs, dtype=float)
+    c = np.asarray(cand_runs, dtype=float)
+    return float((center(c) - center(b)) / center(b))
+
+
 def bootstrap_ratio_ci(base_runs: np.ndarray, cand_runs: np.ndarray, n_boot: int = N_BOOT, seed: int = 11,
-                       level: float = 0.95) -> tuple[float, float, float]:
-    """Relative change of candidate vs baseline, (median(cand_runs)/median(base_runs) − 1), with a
-    percentile bootstrap CI that resamples RUNS (with replacement) independently in each arm.
+                       level: float = 0.95, center=np.mean) -> tuple[float, float, float]:
+    """relative_change(base, cand) with a percentile bootstrap CI that resamples RUNS (with replacement)
+    independently in each arm. Each replicate is (mean(c*) − mean(b*)) / mean(base_runs): the same
+    difference in means, divided by the same fixed reference (the observed baseline mean).
     RNG: rng = np.random.default_rng(seed); for each replicate draw baseline indices first
     (rng.integers(0, nb, nb)), then candidate indices (rng.integers(0, nc, nc)).
     Returns (point, lo, hi) as fractions (−0.03 = 3 % faster)."""
+    b = np.asarray(base_runs, dtype=float)
+    c = np.asarray(cand_runs, dtype=float)
     rng = np.random.default_rng(seed)
-    nb, nc = len(base_runs), len(cand_runs)
+    nb, nc = len(b), len(c)
+    ref = center(b)
     reps = np.empty(n_boot)
     for i in range(n_boot):
-        b = base_runs[rng.integers(0, nb, nb)]
-        c = cand_runs[rng.integers(0, nc, nc)]
-        reps[i] = np.median(c) / np.median(b) - 1.0
+        bs = b[rng.integers(0, nb, nb)]
+        cs = c[rng.integers(0, nc, nc)]
+        reps[i] = (center(cs) - center(bs)) / ref
     alpha = (1 - level) / 2
-    point = float(np.median(cand_runs) / np.median(base_runs) - 1.0)
-    return point, quantile(reps, alpha), quantile(reps, 1 - alpha)
+    return relative_change(b, c, center), quantile(reps, alpha), quantile(reps, 1 - alpha)
 
 
 def noise_floor(aa: pd.DataFrame, reference_sw: dict) -> float:
@@ -138,23 +152,38 @@ def noise_floor(aa: pd.DataFrame, reference_sw: dict) -> float:
     return float(max(abs(p), abs(lo), abs(hi)))
 
 
-def permutation_test(base_runs: np.ndarray, cand_runs: np.ndarray) -> float:
-    """Exact two-sided permutation test on run medians. Statistic: mean(cand) − mean(base) of the run
-    medians (a median-of-medians statistic is too coarse at n = 5: many splits tie with the observed one).
+def permutation_test(base_runs: np.ndarray, cand_runs: np.ndarray, center=np.mean) -> float:
+    """Exact two-sided permutation test of the primary statistic: the difference in arm means of the run
+    medians (relative_change() divides the same difference by a constant, so the test is unchanged).
     Enumerate every way to assign the pooled run medians to a 'candidate' group of the same size
-    (itertools.combinations over indices); p = (# assignments with |stat| >= |observed| − 1e-12) / total.
-    With 5 + 5 runs there are C(10, 5) = 252 assignments, so the smallest possible p is 2/252 ≈ 0.008."""
-    pooled = np.concatenate([np.asarray(base_runs, float), np.asarray(cand_runs, float)])
-    nc = len(cand_runs)
-    obs = abs(np.mean(cand_runs) - np.mean(base_runs))
-    count = total = 0
-    for idx in itertools.combinations(range(len(pooled)), nc):
-        mask = np.zeros(len(pooled), bool)
-        mask[list(idx)] = True
-        stat = abs(pooled[mask].mean() - pooled[~mask].mean())
-        count += stat >= obs - 1e-12
+    (itertools.combinations over indices); p = (# assignments with |diff| >= |observed| − 1e-12) / total.
+    Identical arms give p = 1. With 5 + 5 runs there are C(10, 5) = 252 assignments; fully separated equal
+    arms give the observed split and its mirror, so the smallest possible p is 2/252 ≈ 0.008.
+    center=np.median gives the median-based sensitivity test (coarse at n = 5: many splits tie)."""
+    b = np.asarray(base_runs, dtype=float)
+    c = np.asarray(cand_runs, dtype=float)
+    pooled = np.concatenate([b, c])
+    k = len(c)
+    observed = abs(center(c) - center(b))
+    hits = 0
+    total = 0
+    for idx in itertools.combinations(range(len(pooled)), k):
+        in_cand = np.zeros(len(pooled), dtype=bool)
+        in_cand[list(idx)] = True
+        diff = center(pooled[in_cand]) - center(pooled[~in_cand])
+        if abs(diff) >= observed - 1e-12:
+            hits += 1
         total += 1
-    return count / total
+    return hits / total
+
+
+def sensitivity_medians(base_runs: np.ndarray, cand_runs: np.ndarray) -> dict:
+    """SENSITIVITY analysis, never the decision: the same point / band / test with the median of the run
+    medians in place of their mean (center=np.median). Reported only to show whether the conclusion
+    depends on the choice of statistic."""
+    point, lo, hi = bootstrap_ratio_ci(base_runs, cand_runs, center=np.median)
+    return {"point": point, "ci_lo": lo, "ci_hi": hi,
+            "p_perm": permutation_test(base_runs, cand_runs, center=np.median)}
 
 
 def mde(sigma_run_rel: float, n_runs: int) -> float:
@@ -173,15 +202,18 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
             threshold: float = PRACTICAL_THRESHOLD) -> dict:
     """Clean both sets with the same rules, compare run medians, and decide.
 
-    Significance comes from the exact permutation test on run medians (p_perm < ALPHA); at 5–6 runs per
-    arm a percentile bootstrap CI is not reliable enough to make that call, so the CI is reported as a
-    magnitude band only. decision:
+    One statistic throughout: relative_change() (difference in arm means of run medians, as a fraction of
+    the baseline mean) is the point, the quantity the bootstrap band resamples and the quantity the exact
+    permutation test permutes. Significance comes from the permutation test (p_perm < ALPHA); at 5–6
+    runs per arm a percentile bootstrap CI under-covers, so the CI is reported as a magnitude band only.
+    decision:
       "improvement"     p_perm < ALPHA, point < 0 and |point| ≥ max(floor, threshold)
       "regression"      p_perm < ALPHA, point > 0 and |point| ≥ max(floor, threshold)
       "below_threshold" p_perm < ALPHA but |point| < max(floor, threshold): real but not worth acting on
       "not_significant" p_perm ≥ ALPHA
       "undecidable"     cleaning left fewer than 2 runs in an arm: no comparison is possible
-    Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), cliffs_delta_iter
+    Returns point, ci_lo, ci_hi, p_perm (exact permutation test on run medians), sensitivity_medians
+    (the median-based sensitivity analysis; not used for the decision), cliffs_delta_iter
     (candidate vs baseline, cleaned iterations), cliffs_delta_runs (on run medians), floor, threshold,
     decision, excluded, n_runs_base, n_runs_cand, naive.
     """
@@ -205,7 +237,7 @@ def compare(base: pd.DataFrame, cand: pd.DataFrame, reference_sw: dict, floor: f
         decision = "below_threshold"
     else:
         decision = "improvement" if p < 0 else "regression"
-    return {"point": p, "ci_lo": lo, "ci_hi": hi, "p_perm": pp,
+    return {"point": p, "ci_lo": lo, "ci_hi": hi, "p_perm": pp, "sensitivity_medians": sensitivity_medians(rb, rc),
             "cliffs_delta_iter": cliffs_delta(cc["latency_ms"], cb["latency_ms"]),
             "cliffs_delta_runs": cliffs_delta(rc, rb),
             "floor": floor, "threshold": threshold, "decision": decision, "excluded": eb + ec,
@@ -291,6 +323,9 @@ def main() -> int:
         c = r[k]
         print(f"{k}: naive {c['naive']:+.2%} | cleaned {c['point']:+.2%} [{c['ci_lo']:+.2%}, {c['ci_hi']:+.2%}] "
               f"p_perm {c['p_perm']:.3f} delta(iter/runs) {c['cliffs_delta_iter']:+.2f}/{c['cliffs_delta_runs']:+.2f} runs {c['n_runs_base']}/{c['n_runs_cand']} -> {c['decision']}")
+        sm = c["sensitivity_medians"]
+        print(f"    sensitivity (median of run medians, not the decision): {sm['point']:+.2%} "
+              f"[{sm['ci_lo']:+.2%}, {sm['ci_hi']:+.2%}] p_perm {sm['p_perm']:.3f}")
         for e in c["excluded"]:
             print(f"    excluded {e['run_id']}: {e['reason']} — {e['detail']}")
     cols = ["name", "precision", "ai", "ridge", "bound", "pct_of_roof"]

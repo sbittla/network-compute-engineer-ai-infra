@@ -10,7 +10,7 @@ cache eviction). Each changes from one process to the next, so it shows up as ru
 within-run noise.
 
 This does not invalidate the supplied GPU analysis: that is a different system (an ORION GPU) with its own
-measured A/A floor (0.66 %), and its decisions are made relative to that floor. The laptop spread only
+measured A/A floor (0.55 %), and its decisions are made relative to that floor. The laptop spread only
 demonstrates why the protocol (fresh processes, A/A floor, manifest) is necessary.
 
 (≈ 140 words.)

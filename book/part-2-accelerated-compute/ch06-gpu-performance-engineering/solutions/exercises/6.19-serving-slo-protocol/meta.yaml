@@ -8,7 +8,7 @@ kind: written
 points: 3
 evidence_required: short written answers (≤ 150 words each) citing specific mechanisms or data.
 marking:
-- criterion: One protocol decision named (e.g. median of run medians as the statistic)
+- criterion: One protocol decision named (e.g. the mean of run medians as the statistic)
   points: 1
 - criterion: 'Replacement: tail percentiles (p95/p99 TTFT/TPOT) under realistic concurrency and arrival
     processes, longer runs'

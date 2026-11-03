@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Recomputed with the lab code: −0.44 %, band [−0.77 %, +1.19 %], permutation p = 0.99, not significant",
+      "criterion": "Recomputed with the lab code: −0.01 %, band [−0.65 %, +0.93 %], permutation p = 0.99, not significant",
       "points": 1
     },
     {

@@ -33,7 +33,12 @@ lab_checks:
 - analysis.cliffs_delta
 - analysis.clean_runs
 - analysis.bootstrap
+- analysis.bootstrap_seed
 - analysis.permutation_mde
+- analysis.permutation_exact
+- analysis.permutation_bounds
+- analysis.sample_sizes
+- analysis.synthetic_shift
 - analysis.decisions
 - analysis.roofline
 - analysis.mfu

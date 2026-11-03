@@ -55,6 +55,14 @@ restore.
 *Evidence required:* why SDC evades error-based detectors; two detection methods; the restore choice
 with its reason.
 
+**K10 ★★ L1 — From threat model to evidence.** A tenant's security reviewer asks ORION to prove three
+claims: (a) a tenant's pod cannot read another tenant's Secrets; (b) a GPU handed from tenant A to
+tenant B holds none of A's data; (c) a retired node's NVMe drives hold no tenant data. For each, name
+the asset and threat, the mitigation, and one concrete check with its pass condition (Tables
+19.9a–19.9b). Say which check is not read-only and where it may run, and what check (b) cannot prove.
+*Evidence required:* a three-row table (claim, mitigation, check, pass condition); one paragraph on the
+non-read-only check and the limits of (b).
+
 ## Worked problems
 
 **W1 ★★ L1 — Checkpoint interval and restart overhead.**

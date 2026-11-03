@@ -59,9 +59,13 @@ Manuscript Sections 6.2–6.3 (intensity, roofline, Table 6.1), 6.4 (MFU/HFU), 6
 2. **Your own noise** — from `results.json`, report for each benchmark the median of run medians, the
    spread of run medians (min–max), and the within-run IQR. How large is your laptop's run-to-run noise
    compared with the A/A floor in the supplied GPU data? Which manifest fields would you suspect first?
-3. **Statistics** — `quantile`, `summarize`, `cliffs_delta`, `run_medians`, `bootstrap_ratio_ci`,
-   `permutation_test`, `mde`. *Acceptance:* quantiles equal numpy's linear method; bootstrap reproduces the
-   documented RNG recipe; the exact permutation test and MDE match the checker's hand cases.
+3. **Statistics** — `quantile`, `summarize`, `cliffs_delta`, `run_medians`, `relative_change`,
+   `bootstrap_ratio_ci`, `permutation_test`, `sensitivity_medians`, `mde`. One primary statistic (difference
+   in arm means of run medians, as a fraction of the baseline mean) for the point, the band and the test.
+   *Acceptance:* quantiles equal numpy's linear method; bootstrap reproduces the documented RNG recipe for a
+   fixed seed; the exact permutation test matches the checker's hand cases (an exact p of 4/20, p = 1 for
+   identical arms, the 2/C(2k, k) floor for separated arms), brute-force counts at several sample sizes, and
+   detects a known ±3 % synthetic shift with a band that contains it; MDE matches the formula.
 4. **Cleaning and decisions** — `clean_runs`, `noise_floor`, `naive_compare`, `compare`. Apply to B and C.
    *Acceptance:* decisions as checked; for each excluded run, quote the rows that justify the exclusion.
 5. **Roofline and MFU** — `ridge_point`, `attainable`, `classify_kernels`, `mfu`. *Acceptance:* all nine
@@ -164,7 +168,11 @@ arm tables with clocks and clock-event reasons, the decisions, and the measured 
 manuscript's H100-class roofline (989 TFLOP/s, 3.35 TB/s). It is a laptop GPU, not an H100. Its "% of roof"
 column uses the maximum-clock ceiling (the bundle predates the sustained-clock line that `experiment.py`
 now adds to the report), so read the square GEMMs' ≈ 75 % as ≈ 98 % of the peak at the clock they ran at
-(manuscript Section 6.3, "Empirical ceilings").
+(manuscript Section 6.3, "Empirical ceilings"). The bundles also predate the switch to one primary
+statistic (difference in arm means of run medians) for the point, the band and the test: their points
+and bands use the earlier ratio of medians. Their decisions do not depend on it (the real effects are
+−49 % to −76 % with *p* at its floor; A/A and no-op are not significant), and a rerun
+(`python scripts/hw_labs.py run ch06`) refreshes the numbers.
 
 ## 9. Intentionally flawed inputs
 

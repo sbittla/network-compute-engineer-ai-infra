@@ -1,7 +1,9 @@
 # AI Infrastructure Engineering
 
-**From GPU Compute and High-Speed Networking to Distributed Training, LLM Inference, and
-Production-Scale AI Systems**
+**Designing, Building, and Operating GPU Clusters, High-Speed Networks, Distributed Training, and
+LLM Inference at Scale**
+
+*First Edition* · Srinivasa Rao Bittla · ISBN 9798167679542 (paperback), 9798167679764 (hardcover)
 
 A practical, systems-oriented book and 14-week course for engineers who design, build, operate, and
 optimize AI infrastructure. It treats AI infrastructure as one connected discipline: workloads are

@@ -159,3 +159,55 @@ Verification: `python lab/check.py --impl solution` → 13/13; `--impl starter` 
 `python scripts/validate_labs.py ch06` → OK; `python scripts/copyedit_lint.py` → 0 findings in ch06;
 outputs regenerated with `docker/harness/generate_outputs.py` (this round changed only 6.13's marking.json);
 `pytest docker/harness/test_package.py --pkg <ch06>` → 86 passed.
+
+
+## External PDF review fixes (2026-11-03)
+
+An external reviewer of the concise PDF reported two problems in the statistics of Section 6.7 and the
+worked example (concise Table 6.7 = full Table 6.8).
+
+| # | Finding | Fix |
+|---|---|---|
+| X06-01 | `permutation_test` packed two statements per line with semicolons; in the PDF `total += 1` wrapped and read as if it were outside the loop. | Rewritten as plain multi-line code (one statement per line, no semicolons, every line ≤ 90 characters; `hits / len(splits)`), in the manuscript and in the concise chapter. The bootstrap block is rewritten the same way. |
+| X06-02 | The C-vs-A row mixed statistics: the change was a ratio of medians of run medians (−0.50 %), the band bootstrapped that ratio ([−0.82 %, +0.18 %], straddling 0), while the test permuted a difference in means (p = 0.026); the text also quoted a median-based p = 0.054. | One primary statistic, fixed in the protocol (Section 6.7 new paragraph, 6.9 protocol, `lab/manifest.yaml`): the difference in arm means of the run medians, as a fraction of the observed baseline mean. The point estimate, the bootstrap band (replicates divided by the same fixed baseline mean) and the exact permutation test all use it. The median version is computed by the same code (`center=np.median`) and reported only as a labelled sensitivity analysis (`analysis.sensitivity_medians`). |
+
+**Recomputed by running the published code on `lab/data`** (manuscript code blocks executed and compared with
+`solutions/lab/analysis.py`):
+
+| | Before | After (primary) | Sensitivity (median of run medians) |
+|---|---|---|---|
+| A/A | −0.07 % [−0.66 %, +0.48 %], p 0.57; floor 0.66 % | −0.14 % [−0.55 %, +0.29 %], p 0.57; floor **0.55 %** (bar still 1 %) | — |
+| B vs A | −3.15 % [−3.49 %, −2.11 %], p 0.008 | **−2.89 %** [−3.33 %, −2.33 %], p 0.008 → improvement | −3.15 % [−3.49 %, −2.11 %], p 0.048 |
+| C vs A | −0.50 % [−0.82 %, +0.18 %], p 0.026 | **−0.45 %** [−0.72 %, −0.12 %], p 0.026 → below threshold | −0.50 % [−0.82 %, +0.18 %], p 0.054 (not significant) |
+
+Table 6.7 gains the arm means (4.0126 / 3.8968 / 3.9944 ms) beside the medians. **Decisions unchanged**
+(B improvement; C real but below threshold). The text now says honestly that C's significance depends on
+the statistic (median-based p = 0.054), while the action (do not ship C) does not. Derived numbers updated:
+roofline cross-check 55 / 0.9711 = 56.6 %; summary bullets; Table 6.10 significance row.
+
+Exercises and keys: 6.10 table and text; 6.13 recomputed on means of run medians (−1.14 %, [−2.69 %,
++1.14 %], p 0.36 → not significant; without run 5 −2.20 %, [−2.90 %, −1.42 %], p 0.002 → improvement;
+decisions unchanged; median sensitivity −2.05 % p 0.041 / −2.45 % p 0.013 reported, showing why the
+statistic is pre-registered); prompt "Evidence required" now names arm means (exercises.md and folder README
+synced); 6.16/6.18 floor 0.55 %; 6.17 change 0.45 % (prompt synced); 6.19 meta; 6.20 recomputed (A3 kept:
+−0.01 %, [−0.65 %, +0.93 %], p 0.99, not significant; with the rule −0.45 % [−0.72 %, −0.12 %], p 0.026).
+`solve.py` for 6.13 and 6.20 assert the new keys; outputs regenerated with `docker/harness/generate_outputs.py`.
+
+Tests added to `lab/check.py` (13 → 18 checks; starter reports them as TODO): `analysis.bootstrap_seed`
+(fixed seed reproduces the band exactly, point independent of the seed, band follows the RNG recipe),
+`analysis.permutation_exact` (hand case pooled 1..6, candidate {3,5,6}: p = 4/20; arm swap invariant),
+`analysis.permutation_bounds` (identical arms and constant data p = 1; separated k + k arms p = 2/C(2k, k)
+for k = 3, 4, 5; separated 2 + 3 arms p = 1/C(5, 3)), `analysis.sample_sizes` (2+2 … 7+7 and unequal sizes
+match an independent brute-force count; p is a multiple of 1/C), `analysis.synthetic_shift` (±3 % shifts
+with 0.4 % noise at 7 + 7 runs detected with the right sign, every 95 % band contains the true shift, seeded
+null not significant). `analysis.bootstrap` now checks the mean-difference point; `analysis.decisions`
+checks that each point lies in its band and that a significant improvement's band excludes 0. 6.10's
+`lab_checks` lists the new checks.
+
+L2 bundles (`lab/l2/results/`): not re-measured (GPU evidence). Their points and bands were computed with
+the earlier ratio of medians; their decisions do not depend on it (effects −49 % to −76 % at the p floor;
+A/A and no-op not significant). Stated in `lab/README.md` §8; `python scripts/hw_labs.py run ch06` refreshes them.
+
+Verification: `python lab/check.py --impl solution` → 18/18; `--impl starter` → 0/18, no traceback;
+`python scripts/validate_labs.py` → OK; `python scripts/copyedit_lint.py` → no ch06 findings;
+`pytest docker/harness/test_package.py --pkg <ch06>` → 86 passed.

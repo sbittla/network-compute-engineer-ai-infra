@@ -9,7 +9,8 @@ signatures (NCCL hangs, rank loss, collective mismatch, stragglers, partitions, 
 corruption); the fast isolation workflow from rank to switch port; containment of the smallest defensible failure domain; and recovery
 with validated checkpoints, rank remapping, spares, retry-loop policy, RTO/RPO, and lost
 accelerator-hours. The second half covers identity, RBAC, secrets, network/storage/GPU isolation, and
-audit for multi-tenant platforms.
+audit for multi-tenant platforms, closing with a consolidated threat model and a read-only validation
+checklist.
 
 ## Learning objectives
 
@@ -21,7 +22,7 @@ audit for multi-tenant platforms.
 5. **Correlate** rank → GPU UUID → BDF → NUMA → HCA → switch port → counters → logs → scheduler, and
    **distinguish** proven cause from correlation.
 6. **Design** containment and recovery with RTO/RPO and lost accelerator-hours.
-7. **Define** and **audit** tenant isolation boundaries.
+7. **Define** and **audit** tenant isolation boundaries and a platform threat model.
 
 ## Prerequisites
 
@@ -56,7 +57,7 @@ from the 512-node incident (M4 / Lab 19).
 | `lab/data/` | Incident dataset (`lab/tools/` generator: instructor copy only) |
 | `lab/starter/incident_toolkit.py` | Learner module |
 | `lab/check.py`, `lab/manifest.yaml` | Checker and environment manifest |
-| [exercises/](exercises/README.md) | One learner folder per exercise (21): prompt, what to submit, empty `outputs/` |
+| [exercises/](exercises/README.md) | One learner folder per exercise (23): prompt, what to submit, empty `outputs/` |
 | `solutions/` | Answer key and reference implementation |
 | `solutions/exercises/` | Per-exercise `meta.yaml` (marking), worked `answer.md`, `solve.py` for computed exercises, generated `outputs/` (instructor only) |
 | [review/REVIEW.md](review/REVIEW.md) | Editorial review log |

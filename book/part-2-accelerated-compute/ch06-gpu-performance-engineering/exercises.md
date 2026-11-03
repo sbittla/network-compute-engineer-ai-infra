@@ -79,8 +79,8 @@ fifth run logged `sw_power_cap` on most iterations and had a median SM clock of 
 runs of both arms sat at 1,822–1,830 MHz (peer median 1,826 MHz). The A/A floor is 0.9 %; the practical
 threshold is 2 %.
 Using the lab's `permutation_test` and `bootstrap_ratio_ci` (seed 11, 4,000 replicates), decide with and without the fifth run
-and justify which decision stands. *Evidence required:* medians, relative changes, p-values, bootstrap bands, decisions,
-justification.
+and justify which decision stands. *Evidence required:* arm means of the run medians, relative changes, p-values,
+bootstrap bands, decisions, justification.
 
 ## Troubleshooting case
 
@@ -104,7 +104,7 @@ with budget arithmetic, the decision rule, and the rejected alternative.
 inspect, and why does this not invalidate the supplied GPU analysis?
 
 **6.17** ★ L1 — In the worked example, Cliff's δ for candidate C is −0.28 on iterations but −0.67 on run
-medians, while the change is only 0.50 %. Explain the difference and what it says about relying on effect
+medians, while the change is only 0.45 %. Explain the difference and what it says about relying on effect
 sizes alone.
 
 **6.18** ★★ L1 — Which of this chapter's numbers would change if ORION ran with a 500 W power cap, and how
