@@ -1,0 +1,25 @@
+<p><b>One cluster. Every layer.</b></p>
+<p>A large training job runs only as fast as its slowest GPU, link or disk. A thermally throttled GPU, a swapped cable, a lossy switch queue, a NIC on the wrong PCIe switch and a bad scheduling decision can all produce the same symptom: the step got slower. Most books cover one layer. This one treats AI infrastructure as one connected system and teaches you to follow a workload from the GPU die to the data-center feed.</p>
+<p>Every chapter applies the same diagnostic method: <b>observe the symptom, collect evidence, trace the bottleneck across compute, network, storage and orchestration, find the root cause, make a safe change, and validate it with repeatable measurements.</b></p>
+<p><b>Inside the book</b></p>
+<ul>
+<li><b>24 chapters in 6 parts:</b> foundations, accelerated compute, networking for AI clusters, distributed AI systems, production operations, and applied engineering</li>
+<li><b>One reference cluster, ORION:</b> 256 H100-class GPUs on a rail-optimized 400G RoCE fabric, so every number can be traced from one layer to the next</li>
+<li><b>A worked example, a troubleshooting scenario and operating notes in every chapter</b>, with thresholds, safe-change rules and safety boundaries</li>
+<li><b>Five appendices:</b> the full reference configuration, a benchmark reporting standard, a 69-point readiness checklist, a glossary, and a dated register of version-sensitive vendor claims</li>
+<li><b>A companion repository with 32 labs and 484 exercises</b>: 24 chapter labs and 8 capstones. Most run on a laptop; the extensions run on one real GPU</li>
+</ul>
+<p><b>You will learn to</b></p>
+<ul>
+<li>Read GPU, NVLink, NVSwitch and PCIe topology, and the host signals that predict trouble</li>
+<li>Design rail-optimized RoCE and InfiniBand fabrics: PFC, ECN, DCQCN, buffers, optics and FEC</li>
+<li>Lay out distributed training and reason about NCCL collectives, PXN and checkpoint cost</li>
+<li>Size LLM serving: KV-cache capacity, continuous batching, time to first token and inter-token latency</li>
+<li>Accept and run GPU fleets with burn-in, Kubernetes and Slurm scheduling, SLOs and incident response</li>
+<li>Change production safely with canaries, staged rollouts and proven rollbacks</li>
+<li>Plan power, cooling, capacity and the true cost of a useful GPU-hour</li>
+<li>Secure multi-tenant GPU clusters, from MIG and RDMA isolation to a full threat model</li>
+</ul>
+<p><b>Honest about its numbers.</b> Every quantitative claim is labeled measured, modeled, simulated, illustrative or vendor-specified, and version-sensitive details carry the release and the date they were checked. The book never presents a model as a measurement.</p>
+<p><b>Who it's for:</b> infrastructure, network and platform engineers moving into AI; ML engineers who need to understand the cluster under their jobs; SREs who run GPU fleets; and architects who size, buy and operate them. You need Linux and basic networking. You don't need a GPU cluster to start.</p>
+<p>Companion code, labs and exercises: github.com/sbittla/network-compute-engineer-ai-infra</p>
