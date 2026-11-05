@@ -172,3 +172,13 @@ Tests: `check.py --impl solution` 10/10 (exit 0); `--impl starter` 1/10 (exit 1)
 | ID | Finding | Resolution |
 |---|---|---|
 | R17-08 | The $3.00/GPU-hour price was labelled `[ILLUSTRATIVE]` although it is the Chapter 21 TCO | Relabelled `[MODELED]` (Chapter 21 owned-cluster TCO $3.02, rounded) in the manuscript, exercises.md and folder prompts, key, answers, meta.yaml and solve.py comments; outputs regenerated. Tests: check.py solution/starter as before, `validate_labs.py` OK, package tests pass, `copyedit_lint.py` 0 findings. |
+
+## Repetition pass (2026-11-04)
+
+- §17.8: "Chapter 19 extends isolation from quotas to identity, network, storage, and secrets" removed; the same forward pointer is in "Prerequisites and connections" (now lists storage too).
+- §17.5.5 / Table 17.4: the caption's "fleet lifecycle system is the source of truth; scheduler state is derived and reconciled" restated the prose above it; merged into the prose (with the Chapter 20 reconciliation pointer), caption shortened.
+- §17.6 Level 0: the 4-GPU-replica-on-socket-1 / 2 + 2 split explanation repeated §17.2.4; replaced by a pointer to §17.2.4, rule kept.
+- §17.5.3: `QOSGrpGRES`/`QOSMaxGRESPerUser` re-definition replaced by a pointer to §17.5.2, where both reason strings are defined.
+- §17.9 Step 4: the J03/J04 explanations duplicated Table 17.7 rows 5–6; reduced to one sentence tying J03 to the 30-GPU headroom with a pointer to the table.
+- Kept by design: learning objectives, Summary, the worked example's re-use of earlier numbers, Table 17.4/`sinfo` state glossary (reference mapping), Table 17.3 sharing-mode comparison alongside §17.3.2 prose (prose carries the measured time-slicing cost and failure consequences), the 17.11 pointer to the §17.5.5 RESUME pitfall, the preemption lost-work formula (chapter-specific 32 GPU-hour figure).
+- Checks: `check.py --impl solution` 10/10; `copyedit_lint.py` 0 findings. Manuscript 10,641 → 10,564 words (`wc -w`).

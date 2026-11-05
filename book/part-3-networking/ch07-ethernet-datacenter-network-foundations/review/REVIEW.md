@@ -168,3 +168,17 @@ before it was changed; none was rejected.
 Verification: `check.py` solution 19/19 and starter 1/19 (graceful); `validate_labs.py ch07` OK;
 `copyedit_lint.py` 0 findings in ch07; package harness 78 passed; `render.py --check` OK. No exercise
 outputs changed. Manuscript 10,968 words.
+
+## Repetition pass (2026-11-04)
+
+- §7.10 Step 8: removed the re-derivation of W-TRAIN's 2.19 × 10⁹-parameter shard, the 4.375 GB BF16 gradient and the 2 × 7/8 ring factor. Chapter 1 (Table 1.6) owns that derivation, and Chapter 11 owns the 72 ms overlap-window step-time model; ch16 Defect B repeats it too. Step 8 now states the 7.66 GB / 0.153 s result with cross-references and keeps the chapter's own material: exposed 0.081 s, the 44 GB/s variant, rail alignment (no spine) and the misaligned 0.459 s / 0.387 s ≈ 2.2 % case.
+- §7.2: removed the "Layer 2 exists only on each point-to-point link" Key-idea box. It restated "Why the AI backend is routed to the host" (each NIC port on its own point-to-point subnet, Layer 3 above the host).
+- §7.4 PMTUD: removed "BGP stays up" from the mismatch-signature sentence. The Pitfall right below states it with the MSS mechanism, which Exercise 7.K3 relies on.
+- §7.4 RoCEv2 frames: the "host MTU lets the device *select* 4,096" sentence restated the paragraph above. It is cut to the new point: frames are ≈ 4.2 KB, not 9 KB.
+- §7.6 low-entropy quantification: removed the third statement of "a collective finishes with its slowest flow". It is kept in the epigraph and §7.1 (Table 7.1 and the sentence after it).
+- §7.9 Link failure: "One dead link in 32 costs one eighth of the ingress capacity" restated the −12.5 % bullet above it. The sentence now gives only the cause (unweighted ECMP).
+- §7.12 Safe change step 1: replaced the re-explanation of draining with a pointer to §7.9's drain procedure. It still drains before shutdown, as R07-15 requires.
+- §7.1: the three-networks intro now points to Chapter 2 (Section 2.4), which owns the three-network layout. Figure 7.1 is kept because it carries this chapter's design labels and the first-use expansions of OOB and BMC.
+- Kept on purpose: §7.7's production note and §7.9's "Leaf failure" both state that a leaf is a cluster-wide fault domain. Exercise 7.K8 and its solution cite both. Figure 7.2 and the RoCEv2 frame arithmetic are also kept, although Chapter 8 recomputes them, because Exercise 7.K4 cites Figure 7.2. Steps 4 and 6 re-use earlier numbers (worked example). The 7.12 "ping proves one path" beats belong to the scenario.
+
+Verification: `check.py --impl solution` 19/19, the same as before the edits; `copyedit_lint.py` 0 findings; `build_concise.py --check` OK. Manuscript 10,968 → 10,865 words (`wc -w`).

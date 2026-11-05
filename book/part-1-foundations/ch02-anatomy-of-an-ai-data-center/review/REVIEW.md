@@ -172,3 +172,13 @@ D9 9.5 → **9.525** (pass). 0 blockers, 0 majors, 4 minors. I verified every fi
 Not done: the D4 "false SPOF" distractor in `cluster_design.yaml`. Adding it would change the SPOF set that `check.py` verifies through salted hashes, and that is out of scope for a minor round. It stays an open idea.
 
 Verification: `python lab/check.py --impl solution` → 14/14 PASS. `--impl starter` → 1/14 with no traceback. `python scripts/validate_labs.py ch02` → OK. `python scripts/copyedit_lint.py ch02-anatomy` → 0 findings. The manuscript is 11,334 words.
+
+## Repetition pass (2026-11-04)
+
+- §2.3: the line "The 13 empty rack units are what a power-limited rack looks like" repeated the Figure 2.2 elevation note ("13U deliberately empty: the rack is power-limited"). Reworded it to keep only what it adds: filling the 13U needs coolant, CDU and floor changes with months of lead time.
+- §2.4: the parenthetical after Table 2.3 expanded NCCL and IPMI a second time; both are already expanded inside the table. The RoCEv2, RDMA and eBGP expansions stay.
+- §2.9 Table 2.9: the GPU-rack row repeated the node row's "no spares: wait for repair, or restart at DP = 7". It now reads "same options as a node, since a rack = 4 nodes = one DP replica".
+- §2.12 Listing 2.1 caption: re-listed the DCGM counter units (µs/ns/seconds) from §2.6. Replaced with "units vary by DCGM release; Section 2.6".
+- Kept on purpose: the §2.2 Pitfall callout, because it adds "worst-case input voltage and inlet temperature". Also kept the worked example Steps 1–10 alongside Table 2.10, the runbook procedure's 570 W/8.55 kW re-statement (operational by design), and the Summary (no copied sentences). The TDP/MEP/UPS/PDU full definitions in §2.5–2.8 stay because §2.1 explicitly defers them ("defined fully later").
+- No cross-chapter re-teaching found: rails (Ch 7), optics (Ch 10), collectives (Ch 12), scheduling (Ch 17) and economics (Ch 21) are pointers only.
+- Words (wc -w): 11,334 → 11,297. `copyedit_lint.py` 0 findings; `lab/check.py --impl solution` 14/14 PASS.

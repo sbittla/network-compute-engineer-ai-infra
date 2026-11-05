@@ -187,3 +187,20 @@ Tests: `check.py --impl solution` 14/14; `--impl starter` 1/14 (13 TODO); data r
 ## Re-score follow-up (2026-11-01)
 
 Reviewer re-score after r2: **9.78** (pass). N23-01 cleared: §23.12 now reads "half the ≈ 350+ GB/s expected for ORION-class nodes (reference row B-02, illustrative)"; the word "result" is gone. Tests: package suite 86 passed; `validate_labs.py` OK; lint 0 findings.
+
+## Repetition pass (2026-11-04)
+
+Capstone synthesis kept; only re-teaching and in-chapter restatements removed. Manuscript 11,136 → 10,984 words (−152).
+
+- **Table 23.6, Node row:** the recovery and redundancy cells copied the GPU row word for word; now "As GPU, plus RMA" / "As GPU". Kept in the GPU row.
+- **§23.4 "Check the arithmetic that is not a bottleneck":** dropped the sentence restating Invariant 12 (12.25 s checkpoint floor). Kept in Table 23.5, B-03 and Step 7.
+- **Figure 23.3 caption:** the physical-vs-logical blast-radius sentence restated the prose that follows; caption shortened. Kept in "Blast radius is a logical, not a physical, property".
+- **§23.5 FMEA (cross-chapter):** the S/O/D definition and the "scores are subjective" caveat now point to Section 19.2 (Chapter 19). Kept here: the RPN formula, IEC 60812, the ORION example scores and the high-D sentence (exercise K6 relies on it).
+- **§23.5 Young/Daly (cross-chapter):** the term-by-term explanation of the waste formula is replaced by a pointer to Section 14.11. Formula kept (Step 7 and exercises use it), as is "Young's model assumes independent failures" (quoted by exercise R3).
+- **§23.7 Scaling efficiency (cross-chapter):** strong/weak-scaling definitions now point to Section 22.5. The formula, the baseline rule and the 64→256 GPU example are kept.
+- **§23.7 B-02 paragraph:** the second "to allow for 32-node latency and stragglers" reason removed; the first statement in the same paragraph is kept.
+- **Figure 23.6 caption:** "the spines carry almost nothing" removed; kept in §23.4 "What a spine is for".
+- **Realism boundary:** the independence assumption is no longer restated; the callout keeps the unique "exponentially distributed" assumption and points to §23.5 for clustering.
+- **Deliberately kept:** the 45 kW / 0.9 margin across the problem statement, Invariant 11 and Step 6 (worked example); the ADR-005 bubble (re-derived in Step 3); the Meta 419-interruption figure (re-used in Step 7); the runbook safety and escalation lines alongside the §23.8 Safety callout; the Further-reading repeat of Young/Daly.
+
+Checks: `copyedit_lint.py` 0 findings; `lab/check.py --impl solution` 14/14 passed.

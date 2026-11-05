@@ -211,3 +211,18 @@ A/A and no-op not significant). Stated in `lab/README.md` §8; `python scripts/h
 Verification: `python lab/check.py --impl solution` → 18/18; `--impl starter` → 0/18, no traceback;
 `python scripts/validate_labs.py` → OK; `python scripts/copyedit_lint.py` → no ch06 findings;
 `pytest docker/harness/test_package.py --pkg <ch06>` → 86 passed.
+
+## Repetition pass (2026-11-04)
+
+- §6.3 "Empirical ceilings": the FP32-GEMM 1,830 MHz sentence repeated the §6.5 Pitfall; it now points there ("Section 6.5, Pitfall").
+- §6.3 bias-add bullet: the DRAM counter names were restated; it now points to the counters named in §6.2.
+- §6.5: the B4 throttling numbers (21 % below 1,826 MHz, 4.93 vs 3.89 ms) duplicated §6.9 Step 2. §6.5 keeps the airflow cause and the 1.27× latency and points to Step 2 for the rest.
+- §6.9 Situation: dropped the third definition of "session-wide peer median" (kept in Table 6.5 and §6.7 "Exclusions").
+- §6.9 Step 2: dropped "peers sit at ≈ 1,830 MHz sustained, not 1,980 MHz boost" (kept in §6.3 and §6.5).
+- §6.11 Root cause: dropped the sentence that repeated the Evidence paragraph's "two variables at once"; the Pitfall that generalizes it stays.
+- §6.11 Fix (2): the restated exclusion thresholds now point to Table 6.5's clock rules.
+- §6.8: "never evidence about ORION" now points to Realism boundaries, which keeps the caveat.
+- Realism boundaries: the repeated L2 laptop figures (89 % memory spec, 98 % clock-adjusted peak) are cut; §6.3 keeps them, and the pointer remains.
+- Summary: the bullet that copied the bold "State the clock behind every compute peak" is reworded as a summary.
+- Kept deliberately: the worked example's re-derived MDE (0.65 %) and 2/252 floor, Table 6.5 vs Table 6.10 (checklist vs trade-off), the runbook's "never change the threshold" step, and all safety callouts.
+- Words: 10,532 → 10,410. Checks: `copyedit_lint` 0 findings; `lab/check.py --impl solution` 18/18.

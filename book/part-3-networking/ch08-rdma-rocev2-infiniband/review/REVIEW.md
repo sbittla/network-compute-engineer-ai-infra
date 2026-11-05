@@ -166,3 +166,15 @@ weighted **9.33**. Findings: 0 blocker, 1 major, 11 minor. Each was checked firs
 Verification: check.py solution 15/15, starter 1/15 (graceful); `validate_labs.py ch08` OK;
 `copyedit_lint.py` 0 findings in ch08; package harness 86 passed; outputs regenerated (only 8.9 changed
 in this round). Manuscript 11,137 words (additions for R08-01, Figure 8.8 and the canary criterion).
+
+## Repetition pass (2026-11-04)
+
+- Figure 8.1 and 8.2 captions: the per-message cost counts (copies, DMAs, system calls, interrupts, context switches, remote CPU) removed. Table 8.1 is now the single count. The captions keep the ①–④ legend and the RDMA control-path note.
+- Table 8.2 note: "NCCL uses RC" removed (the RC row's typical-use column says it).
+- Figure 8.6 caption: the four-field rundown (port 4791, source-port entropy, DSCP, ECN) removed. The "Four fields" paragraphs in 8.4 explain each one; the Chapter 9 pointer for ECN moved into the lead-in sentence.
+- Figure 8.7 caption: "Data rides lossless class 3, CNPs strict-priority class 6" removed (the 8.4 DSCP paragraph and the figure labels give it). "PFC acts hop by hop" and the cross-rail note are kept.
+- Figure 8.8 caption: it re-explained steps 3–4 of the go-back-N list directly above it, and now points to that list.
+- 8.6 "Where the evidence is": the definitions of DCQCN's notification, reaction and congestion points cut to one clause plus a Chapter 9 cross-reference (Chapter 9's DCQCN role table owns them).
+- Summary, first bullet: no longer a word-for-word copy of the chapter opening ("RDMA removes the kernel and CPU from the data path"). It is rephrased as a summary.
+- Kept by design: Table 8.5 (the comparison is learning objective 4); the worked example re-deriving 392.1 Gb/s, the traffic-class byte and the bandwidth-delay product; the 8.12 realism callout (template). Also kept: the 8.7 MTU pitfall, because it adds "validate all three", and the Safe-actions "Drain before testing", because it gives the drain commands that the 8.10 Safety note lacks.
+- Verification: `check.py --impl solution` 15/15 (unchanged); `copyedit_lint.py` 0 findings. Manuscript 11,125 → 10,982 words.

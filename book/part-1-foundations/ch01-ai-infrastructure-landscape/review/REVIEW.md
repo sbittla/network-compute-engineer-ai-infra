@@ -160,3 +160,14 @@ grader, which we judged too brittle.
 
 Verification: `lab/check.py` solution 9/9, starter 1/9 (graceful); `validate_labs.py ch01` OK;
 `copyedit_lint.py ch01-ai` 0 findings. Manuscript is 10,787 words.
+
+## Repetition pass (2026-11-04)
+
+- Table 1.1: dropped the "Network per server", "Dominant traffic" and "Rack power" rows, which repeated the numbers in properties 2–4 just above. The caption now says the table covers the consequences of coupling and failure.
+- Section 1.1, inference paragraph: the degraded-NVLink-replica sentence is now a short clause pointing to the Section 1.4 failure mode "One degraded replica owns the tail", which keeps the numbers.
+- Section 1.4, weight loading: removed "and much longer if fifty replicas start at once"; the cold-start-storm bullet below covers it with the ≈ 70 s number.
+- Section 1.11: the GPU-utilization trap is now a pointer to the Section 1.6 pitfall and is no longer re-explained.
+- Runbook step 2: the straggler rule (longest compute, least collective wait) now points to Table 1.13; the explanation stays in the Table 1.13 caption and in hypothesis 2.
+- Summary: the training/inference bullet copied Section 1.2 almost word for word; it has been rewritten as a summary.
+- Kept on purpose: the ring all-reduce formula and the TP/PP/DP bullets in Section 1.5 (the arithmetic needs them; both point to Chapters 11 and 12); the Realism boundary restating the lower-bound caveat; Table 1.12, which reuses Table 1.7 evidence (it is the worked example); Hands-on/lab overview.
+- Words: 10,782 before, 10,691 after. `copyedit_lint.py`: 0 findings; `lab/check.py --impl solution`: 9/9.

@@ -173,3 +173,18 @@ Tests: check.py solution 14/14, starter 1/14; `validate_labs.py ch20` OK; packag
 | ID | Finding | Resolution |
 |---|---|---|
 | R20-10 | The batch-only "≈ 30 min" left out the 10-min pair test | Batch only now takes ≈ 40 min: 192 × 40/60 = 128 GPU-h, planned 128 + 48 + 80 = 256, expected 256 + 57.6 ≈ **314 GPU-h** (was 282). Updated §20.11 Step 6, the 20-R1 answer and the key. Table 20.14 carries no number. The conclusion is unchanged: batch only still beats the hybrid (≈ 618) on mean cost. Tests: `validate_labs.py ch20` OK, package tests 90 passed, `copyedit_lint.py` 0 findings in ch20. |
+
+## Repetition pass (2026-11-04)
+
+Full manuscript 11,447 → 11,384 words (wc). Five repetitions removed, one wording fix:
+
+- §20.7.2 two-scheduler paragraph: the Slurm drain/reservation, PodDisruptionBudget and wave-2 serving-headroom detail removed; kept in §20.11 Step 5. §20.7.2 keeps one sentence and the pointer.
+- §20.11 Step 3: the account of how the `orion-be-leaf-r2` drift survived the incident fix (cron retired, map saved mid-incident, alert-only QoS) cut to a pointer; kept in §20.13 "What was missed".
+- §20.10: restated automation-identity requirement (scoped, short-lived credential per controller) replaced by a pointer to Table 20.11 and Chapter 19.
+- §20.11 Step 6: "the method transfers and the numbers do not" removed; kept in Realism boundaries. Step 6 keeps "recompute the Step 5–6 numbers…".
+- §20.13 intro: "the lab enforces" removed; kept in Fix step 3 (`validate_desired`).
+- §20.9: "The last row deserves emphasis" pointed at the identity row while discussing sanity bounds; now "The sanity-bounds row".
+
+Deliberately kept: Step 1's header-byte sum (worked example re-uses Figure 20.2), the cap list and exception safeguards in Step 6 (Table 20.11 and runbook item 4 only point to it), the Trade-offs table and runbook (synthesis/template), and the one-sentence PFC/CNP and `active_mtu` statements with Chapter 9/8 cross-references.
+
+Checks: `copyedit_lint.py` 0 findings; `lab/check.py --impl solution` 14/14.

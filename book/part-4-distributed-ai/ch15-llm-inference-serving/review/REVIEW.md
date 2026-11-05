@@ -181,3 +181,20 @@ An external reviewer asked for reproducible benchmark configurations, a theoreti
 New tables use letter suffixes, so no existing table number, exercise or key reference changes. To hold growth to ≈ 6 %, these parts were tightened: the opening, Prerequisites, the §15.2 TP and attention paragraphs, the §15.3 deviation box, the §15.4 knobs paragraph, the §15.5 preemption text and production note, the INT4 aside, the §15.7 Little's-law intro and the e2e SLI row, the §15.9 bullets and "when it hurts", the §15.10 TCP, QoS and security text, the §15.12 step 7/8 prose, the §15.14 root-cause and second-defect text, "When each wins", the Safety box, Realism boundaries and the Summary (which now carries the 186 → 140 point). The manuscript went from 10,702 to 11,368 words (`wc -w`, +6.2 %). No lab, exercise or key depended on the changed text.
 
 Validation: `check.py --impl solution` 19/19; `--impl starter` 19 TODO. `validate_labs.py` 32/32 valid. `copyedit_lint.py` 0 findings.
+
+## Repetition pass (2026-11-04)
+
+Eight repetitions removed or merged; manuscript 11,370 → 11,286 words (`wc -w`, −84). No unique fact, number, evidence label or safety warning was removed; no exercise quotes the cut text.
+
+1. Table 15.1 caption: dropped the TPOT-is-an-average / ITL-shows-spikes sentences. Kept in the Key idea callout directly below.
+2. §15.2: dropped "Calibrating both against your own stack is the L2 extension." Kept in Realism boundaries (bullet 1) and the §15.12 recommendation.
+3. §15.3: dropped two early mentions of engine start-up memory profiling ("Serving engines … measure your own value"; "the engine's start-up profile gives the real budget"). Kept in the fuller paragraph after Table 15.3a (vLLM flag, defaults, read the logged KV size).
+4. Table 15.3a, runtime-reserve row: replaced the re-listed reserve contents (activations, CUDA graph pools, NCCL buffers, fragmentation) with "the reserve described above, 4 × 2 GB". Kept in the prose after the budget formula.
+5. §15.3 deviation box: dropped the restated "≈ 214k tokens of KV per replica"; now points to §15.14. Kept in the paragraph just above the box.
+6. Table 15.6 caption: dropped "The efficiency factors are teaching values". Kept in the lead-in ("`[ILLUSTRATIVE]` assumptions") and Realism boundaries.
+7. Safety box: the cold-start load ("≥ 7 s of the 160 GB/s parallel-file-system read") is no longer re-derived; it points to the Autoscaling and cold start paragraph above. The warning, the ≈ 1.1 TB figure and the roll-one-at-a-time rule stay.
+8. §15.14 root cause: dropped "The router could not see KV pressure", which repeated Step 3's finding on count-based routing; the 0.9 s recompute cost now points to §15.5.
+
+Deliberately kept: the §15.12 worked example's reuse of 278 sequences, 671 MB, 107.4 Gb/s and 7.9 % / 107 % (repetition by design); Tables 15.7a and 15.11 (synthesis tables that cite the sections they summarise); the §15.14 Step 4 "avoid restarting replicas" line alongside the pool-wide Safety box (both are safety warnings); the §15.2 TP all-reduce estimate and §15.10 QoS paragraph (short applied uses of Chapters 12 and 9, already cross-referenced).
+
+Validation: `check.py --impl solution` 19/19; `copyedit_lint.py` 0 findings.

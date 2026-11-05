@@ -134,3 +134,22 @@ Tests: `check.py --impl solution` 15/15 (exit 0); `--impl starter` 1/15 (exit 1)
 | ID | Finding | Resolution |
 |---|---|---|
 | R18-08 | The $3.00/GPU-hour price was labelled `[ILLUSTRATIVE]` although it is the Chapter 21 TCO | Relabelled `[MODELED]` (Chapter 21 owned-cluster TCO $3.02, rounded) in the manuscript, exercises.md and folder prompts, key, answers, meta.yaml and solve.py comments; outputs regenerated. Tests: check.py solution/starter as before, `validate_labs.py` OK, package tests pass, `copyedit_lint.py` 0 findings. |
+
+## Repetition pass (2026-11-04)
+
+Full manuscript 10,772 → 10,585 words (11 repetitions removed; one grammar fix).
+
+- §18.1 item 1: the GPU_UTIL/NCCL-residency mechanism is cut to one sentence; the explanation stays in §18.3.
+- §18.2: the "rate() window ≥ 4 scrapes" rule is now a pointer; it is kept, with "survive one missed scrape", in §18.6's rules of thumb.
+- §18.4 host RDMA counters: the per-counter re-definitions of the ECN/CNP counters point to Table 9.5 (Chapter 9) and Table 13.3a (Chapter 13); the loss-counter reading, `out_of_buffer` and the rx/tx pause-direction paragraph (used by Ex K5) stay.
+- §18.7 design note: the goodput loss definition is not restated; it stays in Table 18.4's goodput row.
+- §18.8: the critique of the `GPU_UTIL < 80 %` page points to §18.3's pitfall instead of repeating it.
+- §18.8 burn rate: "a burn rate of 1 consumes the budget in 30 days" (the definition restated) is cut; the 14.4 → 50 h figure stays.
+- Figure 18.3 caption: "both red herrings start before onset" is cut; Step 8 and the timeline itself show it.
+- §18.14 node level: "still computing while everyone else waits" is cut; the Key idea callout directly below says it.
+- §18.14 safe change: the Chapter 17 lifecycle-transition walkthrough and the restated 24/8 default split (the job footprints are already listed above) are cut to one sentence pointing to §17.7 and §17.5.5.
+- Trade-offs Table 18.10: the "Alerting basis" row is removed; it duplicated §18.8's page/ticket/dashboard list.
+- Runbook thresholds: they now point to Table 18.5 and Table 18.8 instead of restating the windows and the SEV2 criteria.
+- Grammar: Step 4's "At an canonical ≈ $3.00" now reads "At the canonical $3.00"; the `[MODELED]` label stays.
+
+Deliberately kept: the PFC pause-quanta derivation in §18.4 (Chapter 9 owns it, but Ex K2(c) asks for it); the §18.8 training-burn detection numbers that Step 6 reuses (worked example); and the budget arithmetic under Table 18.4 (it derives the table's numbers). Tests: `check.py --impl solution` 15/15; `copyedit_lint.py` 0 findings.

@@ -164,3 +164,15 @@ Tests: check.py solution 15/15, starter 1/15; validate_labs OK; copyedit_lint 0;
 ## Post-verification minors (2026-11-03)
 
 Verified scores: ch09 9.60, ch10 9.83, ch11 9.75, ch12 9.78 (all pass). Cleared: N09-01 Figure 9.10 gains a PFC-priority-mismatch question before the headroom/storm leaf, so the mismatch branch is reachable; N09-02 "an NIC" typo fixed.
+
+## Repetition pass (2026-11-04)
+
+- 9.1 "The transport hates loss": Chapter 8's go-back-N explanation was re-taught here (NAK, ≈ 200–250 KB window, the 4.096 µs × 2^timeout formula, 4.3 s / 1.07 s). It is now one sentence plus "Chapter 8, Section 8.6". The 4.3 s / 1.07 s timeout stays in Section 9.10 Step 4 (row C), where it is used. "Negative acknowledgment (NAK)" is now expanded at its new first use (9.9); ACK is expanded in 9.1.
+- Figure 9.1 caption: it restated the ingress/egress accounting paragraph directly above it, and now points to that paragraph.
+- 9.3: the second expansion of DCQCN removed (the chapter opening expands it). In 9.6 the third expansion was removed, as was the repeat of the paper's Kmin 5 KB / Kmax 200 KB / Pmax 1 %, which is kept in 9.3's rules of thumb (9.6 points there).
+- 9.4 ORION example: "standards bound only the second part; use the vendor's per-ASIC figure" removed. Table 9.2's r × t_resp row says it; the example now cites Table 9.2.
+- 9.7 Production note: "NCCL collectives are mostly 1:1 per link" shortened to a pointer to Section 9.1, which makes that point.
+- Trade-offs: the closing "Across options" line removed. Each clause repeated an earlier statement: the 9.5 Key idea (one lossless priority), the 9.6 mark-to-pause metric, the 9.5 watchdog production note, and the 9.6 vendor note on lab A/B testing.
+- Summary: the PFC bullet no longer copies the 9.5 opening. It is rephrased as a summary.
+- Kept by design: the 9.5 "Key idea (outline exercise)", which is the answer outline for an exercise; the worked example re-using the BDP and incast numbers; the runbook rows (operational reference); and the 9.12 victim paragraph (it adds the victim mechanism to the earlier two-sender note).
+- Verification: `check.py --impl solution` 15/15 (unchanged); `copyedit_lint.py` 0 findings. Manuscript 11,230 → 11,074 words.

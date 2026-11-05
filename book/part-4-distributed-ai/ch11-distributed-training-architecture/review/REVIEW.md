@@ -114,3 +114,13 @@ Tests: check.py solution 10/10, starter 0/10; validate_labs OK; copyedit_lint 0;
 ## Post-verification minors (2026-11-03)
 
 Verified scores: ch09 9.60, ch10 9.83, ch11 9.75, ch12 9.78 (all pass). Cleared: N11-01 SDC signature now uses weight/optimizer-state checksums disagreeing across DP replicas, not local gradient norms.
+
+## Repetition pass (2026-11-04)
+
+- Figure 11.1 caption: the NVLink and rail-leaf placement statement removed. Section 11.8 ("The ORION mapping") and Figure 11.5 own it, and the caption now points to 11.8. The Chapter 13 pointer is kept (Chapter 13 cites Figure 11.1, which is unchanged).
+- 11.3 "Numbers for the baseline": the repeated "Only the last micro-batch's backward pass can hide it" removed (the gradient-accumulation paragraph above states it). The 72 ms window and 98 ms exposure are kept.
+- Figure 11.3 caption: "one all-reduce forward and one backward per block; attention adds another pair, four per layer" removed, because it restated the prose immediately above.
+- 11.10 Step 6: two consecutive paragraphs both said the model reproduces the 17.4 s / 40 % planning figure. They are merged into one; the "consistent, not true" caveat is kept.
+- Figure 11.6 caption: "a restart overwrites the evidence that identifies the culprit" removed (11.11 Hangs says it, and the runbook row gives the action). It now reads "Collecting is a gate (Section 11.11)".
+- Kept by design: the worked example re-deriving 6ND compute, the bubble, the TP collective and the DP window; the 11.9 Key idea, which generalizes the paragraph above it to every fixed per-step cost; Table 11.6 next to Table 11.2, which have different columns and purposes; and the 11.3 ring all-reduce volume formula, which the chapter's arithmetic needs (Chapter 12 owns the algorithm).
+- Verification: `check.py --impl solution` 10/10 (unchanged); `copyedit_lint.py` 0 findings. Manuscript 11,394 → 11,346 words.

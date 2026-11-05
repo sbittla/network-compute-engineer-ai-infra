@@ -100,3 +100,14 @@ Independent score **9.40** (D1 9.0, all others 9.5).
 | D2/D5 advice | — | RAS tooling; NVLS-ambiguity exercise | Deferred |
 
 Tests: check.py solution 11/11, starter 0/11 (TODO); validate_labs OK; copyedit_lint 0; package tests 86 passed.
+
+## Repetition pass (2026-11-04)
+
+- 12.1: the second expansion of NCCL removed (the chapter opening expands it).
+- 12.8 mapping failures: item 3 ("Communicators that span the wrong GPUs": one-GPU-per-node DP groups are bounded by one NIC) removed; it is not a failure, and the list is now three items. Its one unique point, that the bound surprises people who benchmarked only the whole-node all-reduce, is merged into the 12.3 sentence that already said the flat model applies to one-GPU-per-node communicators. Step 5 and the Summary keep the application.
+- 12.5 Regions: the second statement of the DDP default bucket size ("25 MiB = 26.2 MB") replaced by a pointer to Table 12.1. The 83 % figure for exactly 25 MiB is kept.
+- Figure 12.3 caption: "Other channels use other rails, so all eight NICs carry traffic" removed, because the channels paragraph directly above says it.
+- 12.8 rail alignment: the re-definition of PXN (given in the Figure 12.3 caption) and of `NCCL_CROSS_NIC` (given in Table 12.5) cut to one clause each with pointers.
+- 12.8 failure signatures: Chapter 8's ACK-timeout arithmetic and version defaults (4.096 µs × 2^value; 18 ≈ 1.07 s to 2.22, 20 ≈ 4.3 s from 2.23) reduced to a cross-reference to Chapter 8, Section 8.6 (Table 8.3 there has the same values). The operational point, that raising them hides flaps but delays real failures, is kept.
+- Kept by design: the worked example re-analysing c3/c6 and re-deriving the DP group's 0.17 s; the Summary bullet on one-GPU-per-node communicators; and the Trade-offs guidance (a decision rule, beyond the 12.7 Pitfall). Other chapters' references into 12.8 (Chapter 10 → "Section 12.8 and Exercise 12.20") still resolve: the PXN all-to-all quantification is unchanged.
+- Verification: `check.py --impl solution` 11/11 (unchanged); `copyedit_lint.py` 0 findings. Manuscript 9,566 → 9,489 words.

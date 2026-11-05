@@ -162,3 +162,15 @@ Not done: a scaled timeline figure (D3) and achieved occupancy from a CUPTI-capa
 Verification: `lab/check.py` solution 11/11, starter 0/11 (graceful); `experiment.py` parses (it
 cannot be run here: Docker is down and the GPU must not be used); `copyedit_lint.py` 0 findings
 book-wide.
+
+## Repetition pass (2026-11-04)
+
+- Section 4.8 opening: dropped the restated 989 BF16 / 67 FP32 TFLOP/s peaks; now points to Table 4.1, which holds them with their `[VENDOR-SPEC]` label.
+- Section 4.10 (NVTX ranges are CPU-side): the "because the CPU ran ahead" explanation now points to Section 4.5 (Asynchrony), which owns it; the 2.3 ms / ≈ 19.6 ms numbers stay because Exercise 4.6 uses them.
+- Section 4.10 (Nsight Compute): removed the second description of the *Occupancy* section (theoretical vs achieved, limiter); kept in Section 4.7 Tools, with a pointer.
+- Section 4.9: the 4-block / 3 % example now refers back to Section 4.1 instead of restating it.
+- Section 4.14: the explanation of why boolean-mask indexing syncs now points to Table 4.3; the 24 syncs per step stay.
+- Section 4.14 closing pitfall: "GPU-Util is a duty cycle" restatement replaced with a pointer to Section 4.9.
+- Realism boundaries: the NCCL-kernels-hold-SMs mechanism (already in Section 4.11 with `NCCL_MIN_CTAS`, Chapter 12) is now a back-reference; the "fewer than 132 SMs" consequence stays.
+- Kept on purpose: both Nsight Compute safety callouts and runbook step 3 (safety warnings); the worked example's reuse of 62 % / 725 GB/s / 88.8 % numbers; Tables 4.13/4.14 against the Section 4.5 remedies (the tables compare options, the prose teaches mechanisms); Summary and Learning objectives.
+- Words (wc -w): 11,717 → 11,678.

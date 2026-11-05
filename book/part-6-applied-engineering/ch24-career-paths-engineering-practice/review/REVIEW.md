@@ -204,3 +204,17 @@ Reviewer re-score after r2: **9.75** (pass).
 - **N24-01:** the erratum stays, because a re-run is not possible here. It says plainly that the scoring section is wrong and the correct result is Effective 2, readiness 78.4, and it states which measurement remains valid.
 
 Tests: package suite 86 passed; `validate_labs.py` OK; lint 0 findings.
+
+## Repetition pass (2026-11-04)
+
+- **Role-group caveat (verbatim with Chapter 1, Table 1.8):** the §24.4 opening now points to Chapter 1 (Table 1.8) and states the caveat once as "representative, not a claim of current openings" (the phrase exercise K8 quotes). The same caveat was cut from the Table 24.7 caption, which now says "as in Table 1.8".
+- **FEC corrected-codeword rule (verbatim with Chapter 16):** §24.7 item 3 keeps the rule in one clause and points to Chapter 16. Item 1's acceptance thresholds now name Chapter 16's commissioning thresholds as their source.
+- **Degradation alert set:** the §24.12 "Validate" step restated the §24.7 alert list and the corrected-codeword rule. It now points to Section 24.7; the post-audit link check stays.
+- **Evidence caps:** the §24.2 sentence listing each evidence type's cap duplicated Table 24.2's evidence column and Figure 24.5. It now points to both.
+- **Extra role families:** the §24.2 paragraph previewed two Table 24.9 rows. It is now one sentence pointing to Table 24.9, and the unique detail (power, cooling, DCIM, structured cabling) moved into that table row.
+- **Table 24.11:** the NIC row repeated the GPU row's recovery text word for word. It now says "then recover as for a failed GPU".
+- **Table 24.12:** the rail-leaf follow-up points to Table 24.11 for the ≈ 8/7 per-rail load. The `NCCL_IB_HCA` setting and the Section 23.5 reference stay, so N24-02 still holds.
+- **Realism boundaries:** the register's sample description (42 roles, 11 employers, no hyperscaler, mostly US) repeated §24.4. It now refers to the limits stated there.
+- **Deliberately kept:** the checkpoint arithmetic in walk-through 1 (a worked example that reuses Chapter 23's numbers and is the interview answer itself); the runbook soak row (operational artifact); the ORION QoS plan statement (an interview answer, not re-teaching); the Summary.
+
+Manuscript 12,041 → 11,958 words. Checks: `check.py --impl solution` 12/12; `copyedit_lint.py` 0 findings.

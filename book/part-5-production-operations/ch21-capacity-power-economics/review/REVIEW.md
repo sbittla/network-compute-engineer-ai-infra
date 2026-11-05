@@ -133,3 +133,23 @@ Reviewer re-score after r2: **9.68** (pass). New minor findings cleared:
 - **N21-03:** the electricity row of Table 21.4 now shows +3.5 %.
 
 Tests: package suite 86 passed; committed-evidence test passed; `validate_labs.py` OK; lint 0 findings.
+
+## Repetition pass (2026-11-04)
+
+Manuscript 8,663 → 8,413 words (wc; −250). 13 repetitions removed or merged:
+
+- **§21.2 repair:** 0.5 failures/day and Poisson P(≤ 4) re-derivation reduced to Chapter 16's result; 7.8 %, p90 = 5 nodes, 0.778 and the ORION-XL check kept.
+- **§21.3 onboarding:** "use order-to-in-service lead times in the order-by arithmetic" cut; kept in the order-by paragraph.
+- **§21.4:** the "1.57× is larger than price negotiations" observation cut (1.57× kept in §21.1; the argument kept after Table 21.4). "Three observations" → "Two".
+- **§21.5:** "its PUE of 1.35 reflects that" cut; the PUE rationale is kept in the second caveat.
+- **§21.6:** the redundancy and derating bullets merged; the √3 × V × I circuit derivation now points to Chapter 2, Section 2.5 (32.78 / 65.55 kW kept). Figure 21.2 kept: solution R4 cites it.
+- **§21.7 heat removal:** Figure 21.3 (DLC block diagram, duplicating Figure 2.5) removed, along with the code-block flow arithmetic. Kept as one sentence with a Chapter 2, Section 2.7 pointer (143 L/min, glycol +7 %); the CDU telemetry points moved into the constraints paragraph. The "thermal-performance coupling of Chapter 2" parenthetical now points to the subsection below.
+- **§21.7 transients:** the mechanism and its UPS/generator/utility effects, plus the Llama 3 sentence, now point to Chapter 2, Section 2.6 (Llama 3 stays in Further reading). The 250 W swing, 64 kW / 1.0 MW, the transient margin and the `[VENDOR-SPEC]` millisecond-excursion sentence kept.
+- **§21.8:** the millisecond-excursion caveat now points to §21.7 instead of restating it.
+- **Safety callouts:** the runbook callout merged into the §21.8 callout (energization and capping policies added there); the runbook keeps a one-line pointer.
+- **Runbook signals:** "rack power > 80 %" replaced by a pointer to Table 21.8.
+- **§21.9:** Step 3 cites 1.428 kW from §21.2 instead of re-deriving it; Step 5's repeat of the nominal view and lead time now points to the §21.2 pitfall and §21.3.
+
+Kept on purpose: the worked example's numbers, the summary, objectives, and the Chapter 18 straggler pointer in "Cap jobs, not racks".
+
+Checks: `copyedit_lint.py` 0 findings; `lab/check.py --impl solution` 9/9.

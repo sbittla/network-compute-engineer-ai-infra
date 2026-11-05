@@ -160,3 +160,15 @@ Verification: `check.py --impl solution` 11/11; `--impl starter` 0/11 (TODOs, no
 `validate_labs.py ch05` OK on all columns; `copyedit_lint.py` 0 findings; package harness 90 passed.
 Outputs were regenerated with `generate_outputs.py`. Only the marking.json files for 5.3, 5.16 and 5.19
 changed. The concise edition was not edited.
+
+## Repetition pass (2026-11-04)
+
+- Figure 5.2 caption: second sentence restated the GDR / no-GDR prose directly below it; cut (prose in Section 5.4 keeps it).
+- Section 5.7: "The `/GDRDMA` suffix is the evidence" repeated Table 5.3 row 6 and the code comment; now a one-clause pointer to row 6 (label kept).
+- Section 5.8 PXN: dropped the restatement of NCCL's same-NIC-index ring rule (stated at the top of 5.8 and owned by Chapter 12, Section 12.8); the `NCCL_PXN_DISABLE` / `NCCL_P2P_PXN_LEVEL` / `NCCL_CROSS_NIC` semantics now cross-reference Chapter 12, Sections 12.7–12.8 (variable names and `[VENDOR-SPEC]` label kept).
+- Section 5.9 GDR gate: first sentence now points back to Section 5.4 instead of re-explaining `NCCL_NET_GDR_LEVEL`.
+- Section 5.10 S2 bullet: no longer re-derives the 18 GB/s → 14.797 ms arithmetic; points at the identical forced-alignment line.
+- Section 5.10 S5 bullet: the PXN-eligibility explanation (already in Section 5.8 and the Table 5.5 row) reduced to a pointer.
+- Section 5.10 Step 5: slot/socket root cause and ACS/IOMMU details restated from Steps 2–3 replaced with pointers.
+- Deliberately kept: Table 5.8 (intra-node mechanisms; adds the root-complex row, pageable 10–25 GB/s and use guidance), the Fabric Manager note in 5.3 vs Table 5.10 row (runbook reference), the three `setpci` safety warnings, the 5.12 Pitfall callout, and the Summary.
+- Word count (wc -w): 10,634 → 10,528. Lint 0 findings; `check.py --impl solution` 11/11 pass.

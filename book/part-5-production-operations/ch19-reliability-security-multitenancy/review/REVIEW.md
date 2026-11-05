@@ -149,3 +149,20 @@ Tests: `check.py --impl solution` 12/12 (exit 0); `--impl starter` 1/12 (exit 1)
 Length: §19.8 bullets compressed (lab facts kept for M2/R4), duplicated residue text removed from §19.9, and cuts in §19.1, §19.2, §19.3 (ECC, AER, HCA health, fabric manager), §19.4, §19.5, §19.6, §19.7 (async checkpointing, reconciliation, spares, elastic), Step 4/8, §19.13, runbook, realism boundary, summary and Further reading (MIG guide merged; Kubernetes/Sigstore/SLSA and NIST SP 800-88 added). Acronyms SSO, QOS, AAA, SBOM, SLSA, TPM, UEFI, VBIOS added. Objective 7 now names the threat model. Manuscript 11,019 → 11,686 words (+6.1 %).
 
 Tests: `check.py --impl solution` 12/12 (exit 0); `--impl starter` 1/12 (exit 1); `validate_labs.py` 32/32 valid; `copyedit_lint.py` 0 findings. K10 `marking.json` was written with the harness `dump_json`/marking payload (Docker not run).
+
+
+## Repetition pass (2026-11-04)
+
+Manuscript 11,686 → 11,444 words (−242); nine repetitions removed or merged.
+
+- §19.3 row remapping: mechanism sentence and the `ROW_REMAPPER` output listing cut; Section 16.5 owns both (pointer added). V100 page retirement, remap failure → replace, and Table 19.3 kept.
+- §19.3 device-plugin sentence (critical Xids mark the GPU unallocatable) merged into §19.6 step 1, where it is kept; §19.3 points there.
+- §19.4 watchdog: "every extra minute is paid by every GPU" (restates the §19.1 Key idea and Step 8) reworded to the unique point (raising the timeout delays detection).
+- §19.4 ACK-timeout formula and the 1.07 s / 8.6 s derivation block: Section 8.6 and Table 8.3 own them; kept the version defaults, the 8.6 s budget with its `[MODELED]` label and the survival caveat. Step 3 of the worked example keeps its re-use of the numbers.
+- §19.5 paragraph listing the lab's H1–H6 verdicts duplicated Table 19.11; replaced by a pointer. Its unique reasoning ("a failing switch would show errors on more than one port") and "NIC" for H4 moved into Table 19.11.
+- §19.7 asynchronous-checkpointing subsection: DCP/Megatron bullets and the staging/persisting/committing walk-through re-taught Section 14.9; reduced to one paragraph and a pointer. Table 19.7 and the reconciliation kept.
+- §19.7 restore validation now points to Section 14.10's ladder; RPO/RTO definitions point to Section 14.11 (formulas kept: Step 7 uses them); §19.1 Young model points to Section 14.11 for the derivation (formulas kept: exercise uses them).
+- §19.8 audit bullet duplicated Table 19.9a's audit row (sources, ≥ 365 days) and the BMC/OOB sentence duplicated the BMC row and V8; compressed to the "proof of isolation" point plus a pointer. Identity and secrets bullets kept (lab facts for M2/R4).
+- §19.9 paragraph after Figure 19.5 restated Table 19.8's time-slicing/MPS row and residue pointer; deleted, Chapter 17 reference moved into the table cell. Table 19.8 residue cell shortened (the reset-and-test policy stays in §19.9.2).
+
+Kept deliberately: Key idea in §19.1, Summary, worked-example re-use of the 8.6 s budget, RTO/RPO and timeline numbers, Table 19.9a (consolidates by design), runbook, and the §19.8 bullets needed by exercises. Checks: `copyedit_lint.py` 0 findings; `check.py --impl solution` 12/12.

@@ -126,3 +126,16 @@ for GPU0↔NIC2 should read NODE.
 
 Author re-score (estimate; independent re-review pending): D1 9.5 · D2 10 · D3 9.5 · D4 9.5 · D5 10 ·
 D6 10 · D7 10 · D8 10 · D9 9.5 → 9.73.
+
+## Repetition pass (2026-11-04)
+
+- §13.1: "each collective waits for the slowest rank" removed (stated in the chapter opening and owned by §13.7); replaced by "(Section 13.7)".
+- Figure 13.1 caption: "The fallback is roughly an order of magnitude slower `[ILLUSTRATIVE]`" removed; kept the specific 5–10× `[ILLUSTRATIVE]` in the P2P-disabled bullet.
+- Figure 13.2 caption: "where NCCL by default does not use GPUDirect RDMA at all" removed; the paragraph below the figure states it with the `NCCL_NET_GDR_LEVEL` reason.
+- §13.3 PXN: eligibility rule and `NCCL_PXN_DISABLE`/`NCCL_P2P_PXN_LEVEL` controls removed (owned by Chapter 5, Section 5.8, and Chapter 12, "Rail alignment and PXN"); replaced with a pointer. Data path, cost and channel-line format kept (Table 13.5 item 11 uses it).
+- §13.4 latency budget: "two PCIe crossings by the NCCL kernel and two DRAM round trips" restated Table 13.2; now points to it. The "several µs" estimate and host-memory-bandwidth cost kept.
+- §13.5 rule 1: the `NODE`/`SYS`/PXN explanation restated §13.3; cut to one clause plus "(Section 13.3)".
+- §13.7 flight recorder: the variable list (`TORCH_NCCL_TRACE_BUFFER_SIZE`, `TORCH_NCCL_DUMP_ON_TIMEOUT`, `TORCH_NCCL_DEBUG_INFO_TEMP_FILE`, `TORCH_FR_*` names) is owned by Chapter 11, Section 11.11; replaced with a pointer. Kept `TORCH_NCCL_ENABLE_TIMING=1`, the version-dependent buffer default (2,000 vs 0) and the "lowest sequence number" rule, which Chapter 11 does not give.
+- §13.13: "(NCCL kernels spin while waiting)" replaced by "(Section 13.8)", which explains the metric trap.
+- Kept deliberately: §13.7 "two stragglers" trap and §13.13's application of it to ranks 12/37; Table 13.4's `utilization.gpu` row; runbook rows echoing Table 13.6a.
+- Checks: `check.py --impl solution` 11/11; `copyedit_lint.py` 0 findings. Manuscript 9,375 → 9,250 words.

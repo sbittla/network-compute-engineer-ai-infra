@@ -198,3 +198,16 @@ Not done: a format-variant snapshot (D4) and a shared BDF table with Chapter 5 (
 
 Verification: `check.py --impl solution` → 21/21; starter → 0/21, 21 TODO; `validate_labs.py` →
 32/32; `copyedit_lint.py ch03-linux` → 0 findings. Manuscript is 11,028 words (was 10,794).
+
+## Repetition pass (2026-11-04)
+
+- Section 3.2: the Intel Memory Latency Checker (`mlc`) commands appeared twice (SLIT paragraph and the bandwidth-asymmetry paragraph); merged into the latter, the SLIT paragraph now says "measure the real ratio as described below".
+- Section 3.2 / Figure 3.1: the prose "Legend for Figure 3.1" duplicated the figure caption (bus `0x80` split, GPU i / NIC i under one switch); removed from prose, the socket-1 half of the bus rule moved into the caption.
+- Section 3.7: ORION's RoCE QoS values (DSCP 26 -> TC 3, CNP DSCP 48 -> TC 6) cut to "ORION's RoCE QoS plan" plus the existing Chapter 9 cross-reference (owned by Chapter 9 and `docs/REFERENCE_CLUSTER.md`).
+- Section 3.9: "NUMA-remote memory slows work while keeping the CPU busy" now points to the Section 3.4 pitfall.
+- Section 3.11 Step 1: the re-derivation of the 79–87 % achievable band (already in Section 3.6) replaced by a pointer; the Gen5 x8 note kept.
+- Section 3.13 root cause: `acpi-cpufreq` `powersave` behaviour points back to Section 3.3.
+- Section 3.13 safe change: the drain/no-spare/DP = 7 cost restatement (32 GPU-h/h, two 64 GPU-h restarts, batch change) replaced by a pointer to Section 3.11 Step 6; the 33.3, 448 and 1,600 GPU-h figures kept.
+- Section 3.13 validation: the 2.6 ÷ 20.0 = 13 % re-derivation points to Section 3.1; the `[MODELED]` 799 GPU-hours/day kept with its label.
+- Deliberately kept: Section 3.3 RMA production note (foreshadows the scenario); Section 3.11 Step 6 intact (exercise 3.9 cites its decision rule); runbook RB-HOST-03 steps 7–8 restating decision and return-to-service criteria; worked-example re-use of PCIe formulas; Summary bullets (none copy a body sentence verbatim).
+- Word count (wc -w): 11,037 -> 10,963. Lint 0 findings; `check.py --impl solution` 21/21.

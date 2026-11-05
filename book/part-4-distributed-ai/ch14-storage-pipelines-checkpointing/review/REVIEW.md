@@ -148,3 +148,18 @@ The reviewer scored every dimension (D1–D9) 9.5, so the weighted score is **9.
 | Next-0.5 D4 | — | Rerun the GPU L2 bundle | External gate, still open |
 
 None of the findings was rejected. Tests: `check.py` solution 15/15 and starter graceful. `validate_labs.py ch14` 1/1 valid. `copyedit_lint.py` 0 ch14 findings. Local `docker/harness/test_package.py`: 86 passed. Without code blocks the manuscript is about 9,350 words.
+
+## Repetition pass (2026-11-04)
+
+- §14.3 step 3: the full-leaf "3:1 by port count, 1.5:1 by bandwidth" derivation re-taught Chapter 7's fabric; reduced to "1:1 as populated" plus a cross-reference to Chapter 7 (Ethernet and Data-Center Network Foundations).
+- §14.3: the prose listing 1,600 / 1,600 / 80 GB/s duplicated Table 14.1a; the prose now points to the table, which keeps the numbers.
+- §14.6 fio rule 4: the Little's-law check restated §14.2's "queue depth is not what you think" text; now a pointer to §14.2.
+- §14.5: "32 × 12,000 = 384,000 opens/s" re-derived §14.1's figure; now cited from §14.1.
+- §14.9 Figure 14.3 caption: "not recoverable until the commit marker is durable" repeated step 3 ("Complete") of the list above it; cut from the caption.
+- §14.10: the object-storage commit sentence restated §14.4's manifest-last pattern; now a pointer to §14.4 (the reader rule "a prefix without a valid manifest is nonexistent" is kept).
+- §14.11 Figure 14.5 caption: re-explained τ/2 + L, which the paragraph above derives; caption shortened to its title.
+- §14.12 Table 14.7 caption: "rounding to steps matters more" repeated §14.11's Young/Daly paragraph; cut.
+- §14.12: the Key idea callout after Step 10 restated item 2 (time-to-resume dominates); merged into item 2 as one sentence ("faster detection, spare capacity, and validated restore paths, not faster disks"). The Summary's last bullet stays.
+- §14.14 Safe change: "agree per-rank subdirectories or a striped directory with Storage" restated the root-cause fallback; shortened to "Agree either fallback layout with the Storage team first"; the "never restripe a shared directory during the incident" warning is kept.
+- Kept deliberately: Young/Daly citations in Further reading (shared with Chapter 19's reading list); the §14.9 "Completion latency … (Section 14.11)" forward pointer; the §14.7 production note and runbook row on data wait; the checkpoint file-count SLI in §14.14 (it carries the SLI expansion) and in the runbook table; both shared-PFS safety warnings; the GDS note's NODE/PHB line (it carries the NUMA expansion); worked-example re-use of §14.8 numbers.
+- Words: 10,963 → 10,829. Tests: `check.py --impl solution` 15/15; `copyedit_lint.py` 0 findings. No exercise prompt quotes the removed passages (grepped `exercises.md`).

@@ -146,3 +146,19 @@ Independent score **9.50** (all dimensions 9.5). No blocker or major findings.
 | D4/D5 advice | Far-end snapshot; FEC-histogram exercise | Deferred |
 
 Tests: check.py solution 13/13, starter 1/13; validate_labs OK; copyedit_lint 0; package tests 86 passed.
+
+## Repetition pass (2026-11-04)
+
+- Figure 10.1 caption: the counter-to-stage list was removed. The 10.2.2 stage paragraph and Table 10.6 own it (Table 10.6 is the single map), and the Summary keeps it as a takeaway. The caption keeps the ECN expansion.
+- Figure 10.2 caption: the per-box counter list was replaced by "(Table 10.6)". The reverse-direction note is kept.
+- Figure 10.3 caption: "costs about 9.5 dB … why links need FEC" was removed. The figure shows 9.54 dB and the paragraph below draws the consequence. The caption keeps the `[MODELED]` label for the penalty.
+- 10.4.3: the Key-idea box ("Corrected codewords are normal. Uncorrectable … never normal. Pre-FEC BER tells the margin; the histogram tells bursty") was removed. It restated the two numbered facts directly above it. The Summary's first two bullets keep the takeaway.
+- Figure 10.4 caption: "the −6.00 dBm warning … informational, never the alert" was removed. It is stated in 10.7 "How seniors read DOM" (1) and in the runbook Rx-power row.
+- Table 10.6 caption: the explanation of pre-FEC and post-FEC symbol errors was reduced to a pointer to the two table rows that state it.
+- 10.13 Step 1: the second "(2.4–2.7 dB below its siblings)" in the same step was removed.
+- 10.13 production note: Chapter 7's re-derivation of the uplink-drain capacity (spine still advertises the prefix … 4 × min(7, 8, 8, 8) × 400 Gb/s) was reduced to the result (11.2 Tb/s, −12.5 % `[MODELED]`) plus the reason in one clause, citing Section 7.9 and Table 7.8. The three-step drain and its abort criteria are unchanged.
+- 10.15 safe change: the third statement of "spine-2 still delivers a quarter of remote traffic over 7 links" was removed. It now cites Section 10.13 for the percentages.
+- Trade-offs: the "Guidance" paragraph was removed. Each clause repeated a Table 10.9 "When it wins" or failure-mode cell.
+- Runbook safe-change rules: "(routing policy first, admin-down second, confirm zero traffic)" was replaced by a pointer to the Section 10.13 production note, which has the same steps plus their abort criteria.
+- Kept by design: 10.6.2's excess-loss example (3.7 dB, 2.7 dB excess, 57 % lost), which the worked example re-uses; the media table (Table 10.3) beside Trade-offs Table 10.9, which adds cost, failure modes and when each option wins; the 10.9 contamination-migration pitfall; and the 10.15 Safety box.
+- Verification: `check.py --impl solution` 13/13 (unchanged); `copyedit_lint.py` 0 findings. Manuscript 11,312 → 11,105 words.

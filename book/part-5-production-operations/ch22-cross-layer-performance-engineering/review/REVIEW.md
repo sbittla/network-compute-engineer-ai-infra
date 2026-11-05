@@ -173,3 +173,20 @@ Tests: `check.py --impl solution` 12/12; `--impl starter` 1/12 (graceful); `vali
 ## Re-score follow-up (2026-11-01)
 
 Reviewer re-score after r2: **9.78** (pass). N22-01 cleared: the single-node L3 reference command now sets `NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring` for the ≈ 360 GB/s prediction. The README and §22.10.3 now state that with NVLS left on (default 2), an NVLS-capable node reports more than ≈ 400 GB/s. Tests: package suite 86 passed; `validate_labs.py` OK; lint 0 findings.
+
+---
+
+## Repetition pass (2026-11-04)
+
+- §22.1.2: the DP traffic derivation (7.7 GB, 0.17 s, 70 ms hidden) removed from the budget paragraph; kept in §22.5.2 (and reused in the §22.10.5 worked example). The paragraph keeps "≈ 0.10 s exposed" with a pointer to §22.5.2.
+- Table 22.3 GPU blind-spot cell repeated the GPU-utilization Pitfall; cell now points to the Pitfall, and the unique fact (SM_ACTIVE counts only the few SMs NCCL occupies) moved into the Pitfall.
+- §22.2 vendor note: general `nvidia_peermem` versus DMA-BUF teaching reduced to a pointer to Chapter 13 (Table 13.5), which owns GPUDirect RDMA verification. Kept: the `/GDRDMA` evidence rule, the lab R570 facts, and the NCCL topology-line note.
+- §22.3.4 Key idea ("Rank tests before you run them … partition of evidence you already hold") removed: it restated the §22.3.3 closing paragraph and the §22.3.4 prose next to it.
+- Realism boundaries: the MDE-assumptions bullet duplicated §22.6.1; merged (bootstrap alternative now in §22.6.1) and bullet removed. The "observational attribution" bullet now points to §22.4.4's Key idea instead of restating it.
+- Table 22.9 noisy-fabric antidote now points to §22.6.3 instead of repeating its list.
+- §22.9: the "Add the scope, hygiene, recommended change, manifest" paragraph duplicated the report skeleton; folded into the skeleton lead-in, with "run manifest" added to its last line.
+- Figure 22.3 caption no longer restates the "slow ranks wait least" conclusion (kept in the prose and the closing Key idea).
+- Summary bullet on mean versus median rephrased (it copied §22.3.1 almost verbatim).
+- Deliberately kept: the worked example's reuse of 17.4 s, the straggler factors and MDE; the anti-pattern and trade-off tables (catalogs required by objective 7); the §22.12 cooling-flow arithmetic (one step, already pointing to §21.7); the runbook's operational restatements.
+
+Words: 11,336 → 11,223. Checks: `copyedit_lint.py` 0 findings; `check.py --impl solution` 12/12.
