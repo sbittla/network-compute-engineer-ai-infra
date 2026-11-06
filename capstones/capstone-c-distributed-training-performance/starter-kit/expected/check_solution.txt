@@ -1,0 +1,14 @@
+PASS H1 ring_allreduce correctness + bytes    sums correct for n=1..5 incl. lengths not divisible by n; bytes = 2(n-1)L x 8
+PASS H2 summarize statistics                  median/p95/IQR/CV match numpy (linear interpolation, ddof=1)
+PASS H3 run_benchmark discipline              warm-up excluded, compute + comm = total, numerics deterministic
+PASS H4 manifest and evidence label           manifest complete; label says CPU proxy, not GPU evidence
+PASS A1 steady_state (warm-up and restart)    first 5 steps of each run and of each restart removed
+PASS A2 run_summary                           per-run median / p95 / IQR / CV
+PASS A3 validate_runs (admissibility)         restart, environment drift and two statistical outliers (one with a documented cause) caught
+PASS A4 weak-scaling table                    weak-scaling efficiency at 256 GPUs: baseline 0.842, ib_gdr 0.979
+PASS A5 permutation test                      exact two-sided permutation p-values; Holm step-down adjustment
+PASS A6 variant comparisons + significance    transport fix significant at every scale after Holm (8 tests); bucket tweak nowhere
+PASS A7 exposed communication (profile)       exposed comm 15.3% -> 0.8% of step at 256 GPUs
+PASS A8 NCCL transport from debug log         baseline fell back to NET/Socket; fix uses NET/IB with GDRDMA on 8 HCAs
+
+12/12 checks pass (0 TODO, 0 FAIL) [impl=solution]

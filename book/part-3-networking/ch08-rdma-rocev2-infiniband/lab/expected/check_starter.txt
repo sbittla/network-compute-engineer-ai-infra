@@ -1,0 +1,17 @@
+TODO parse_ibv_devinfo: not implemented (parse_ibv_devinfo)
+TODO parse_rdma_link: not implemented (parse_rdma_link)
+TODO parse_show_gids: not implemented (parse_show_gids)
+TODO parse_ethtool: not implemented (parse_ethtool_i)
+TODO parse_ip: not implemented (parse_ip_link)
+TODO parse_qos_env_lsmod: not implemented (parse_dcb_pfc)
+TODO no_false_positive_clean_node: not implemented (check_node)
+TODO readiness_findings: not implemented (run_readiness)
+TODO node_verdicts: not implemented (run_readiness)
+TODO render_report: not implemented (run_readiness)
+TODO parse_perftest: not implemented (parse_bw)
+TODO perftest_summary: not implemented (summarize)
+TODO perftest_flags: not implemented (summarize)
+TODO pcie_correlation: not implemented (pcie_downgrades)
+PASS data_regenerates_identically: generator reproduces data/ byte-for-byte
+
+1/15 checks passed, 0 skipped (starter)

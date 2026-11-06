@@ -1,0 +1,13 @@
+PASS normalize_bdf — nvidia-smi, lspci and lstopo address forms normalized
+PASS parse_topo_matrix — 324 relations, NIC legend and CPU/NUMA affinity parsed
+PASS parse_lstopo — 8 GPUs, 10 NICs, ancestors and names recovered
+PASS classify_path — lstopo-derived relations match nvidia-smi on all 160 GPU-NIC pairs
+PASS small_parsers — inventory, lspci -vmm, ibdev2netdev, LLDP parsed
+PASS parse_gdr — peer-memory module, IOMMU mode, ACS and driver version extracted
+PASS build_mapping — mapping columns complete; n17 GPU3 and n23 GPU4/5 misalignment captured
+PASS detect_issues — every planted fault found, no false positives on the clean host
+PASS make_rank_map — aligned, nearest, cross-socket and PXN policies produce the expected NIC choices
+PASS model_allreduce — deterministic case: 14.647 ms, busbw 142.0 GB/s; modifiers applied in order
+PASS scenarios — S1 352 GB/s, S2 41, S3 177, S4 139, S5 177, S4@SYS 186 [MODELED]
+
+11/11 checks passed (solution)

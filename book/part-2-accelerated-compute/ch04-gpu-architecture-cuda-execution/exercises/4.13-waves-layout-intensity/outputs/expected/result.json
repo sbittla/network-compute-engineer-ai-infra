@@ -1,0 +1,64 @@
+{
+  "answer": {
+    "a_waves": {
+      "large": {
+        "efficiency": 0.9697,
+        "tiles": 512,
+        "waves": 4,
+        "waves_exact": 3.879
+      },
+      "small": {
+        "efficiency": 0.4848,
+        "tiles": 64,
+        "waves": 1,
+        "waves_exact": 0.485
+      }
+    },
+    "b_coalescing": {
+      "efficiency": 0.0625,
+      "fetched_B": 1024,
+      "sectors_per_warp": 32,
+      "thread_stride_B": 8192,
+      "useful_B": 64
+    },
+    "c_intensity_flop_per_B_by_m": {
+      "64": 62.1,
+      "128": 120.5,
+      "256": 227.6,
+      "512": 409.6
+    },
+    "c_ratio_m64_over_m128": 0.515
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.13",
+  "inputs": {
+    "dtype_bytes": 2,
+    "layer_k_n": [
+      4096,
+      4096
+    ],
+    "shapes": {
+      "large": [
+        8192,
+        2048
+      ],
+      "small": [
+        1024,
+        2048
+      ]
+    },
+    "sms": 132,
+    "tensor": [
+      8192,
+      4096
+    ],
+    "tile": [
+      128,
+      256
+    ]
+  },
+  "units": {
+    "bytes": "B",
+    "intensity": "FLOP/B"
+  }
+}

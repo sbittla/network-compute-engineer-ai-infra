@@ -1,0 +1,17 @@
+{
+  "answer": {
+    "million_series": 20.34,
+    "series_per_day": 20340736,
+    "steps_per_day": 4966
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "K8",
+  "inputs": {
+    "day_s": 86400,
+    "ranks": 4096,
+    "step_s": 17.4
+  },
+  "units": {
+    "series": "time series per day"
+  }
+}

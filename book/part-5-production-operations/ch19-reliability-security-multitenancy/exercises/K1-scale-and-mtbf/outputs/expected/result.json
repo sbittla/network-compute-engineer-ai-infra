@@ -1,0 +1,45 @@
+{
+  "answer": [
+    {
+      "gpus": 64,
+      "interruptions_per_day": 0.125,
+      "job_mtbf_h": 192.0,
+      "nodes": 8
+    },
+    {
+      "gpus": 256,
+      "interruptions_per_day": 0.5,
+      "job_mtbf_h": 48.0,
+      "nodes": 32
+    },
+    {
+      "gpus": 1024,
+      "interruptions_per_day": 2.0,
+      "job_mtbf_h": 12.0,
+      "nodes": 128
+    },
+    {
+      "gpus": 4096,
+      "interruptions_per_day": 8.0,
+      "job_mtbf_h": 3.0,
+      "nodes": 512
+    }
+  ],
+  "evidence_label": "[MODELED] from [ILLUSTRATIVE] inputs",
+  "exercise": "K1",
+  "formula": "MTBF_job = MTBF_node / N ; interruptions/day = 24 h / MTBF_job",
+  "inputs": {
+    "job_sizes_nodes": [
+      8,
+      32,
+      128,
+      512
+    ],
+    "node_mtbf_h": 1536.0
+  },
+  "tolerance": 1e-09,
+  "units": {
+    "interruptions_per_day": "1/day",
+    "job_mtbf_h": "hours"
+  }
+}

@@ -1,0 +1,13 @@
+TODO merge_intervals — not implemented yet
+TODO busy_ns — not implemented yet
+TODO step_windows — not implemented yet
+TODO utilization — not implemented yet
+TODO copy_compute_overlap — not implemented yet
+TODO find_gaps — not implemented yet
+TODO copy_table — not implemented yet
+TODO theoretical_occupancy — not implemented yet
+TODO kernel_summary — not implemented yet
+TODO analyze_findings — not implemented yet
+TODO render_report — not implemented yet
+
+0/11 checks passed (starter)

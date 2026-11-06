@@ -1,0 +1,9 @@
+{
+  "answer": {
+    "4": 1.5,
+    "8": 1.75
+  },
+  "evidence": "[MODELED]",
+  "formula": "sent = 2(p-1)/p x S",
+  "units": "multiples of S (bytes)"
+}

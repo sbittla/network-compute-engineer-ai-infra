@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "nic_time_exceeds_step": true,
+    "time_over_nic_s": 30.06,
+    "time_over_nvlink_s": 3.34
+  },
+  "evidence_label": "MODELED",
+  "id": "K5",
+  "inputs": {
+    "allreduces_per_layer": 4,
+    "bytes_per_elem": 2,
+    "hidden": 8192,
+    "layers_per_stage": 20,
+    "micro_batches": 128,
+    "nic_GBps": 40.0,
+    "nvlink_GBps": 360.0,
+    "seq_tokens": 4096,
+    "step_s": 17.4,
+    "tp": 8
+  },
+  "steps": {
+    "activation_MB": 67.11,
+    "ring_bytes_per_allreduce_MB": 117.44,
+    "tp_bytes_per_gpu_per_step_TB": 1.203
+  },
+  "units": {
+    "time": "s",
+    "volume": "TB per GPU per step"
+  }
+}

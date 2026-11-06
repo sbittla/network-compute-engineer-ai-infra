@@ -1,0 +1,22 @@
+{
+  "answer": {
+    "usage = half share": 0.7071,
+    "usage = share": 0.5,
+    "usage = twice share": 0.25
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "17-K7",
+  "inputs": {
+    "U_over_S": {
+      "usage = half share": 0.5,
+      "usage = share": 1.0,
+      "usage = twice share": 2.0
+    }
+  },
+  "steps": {
+    "priority_points_gap_half_vs_twice": 4571.1
+  },
+  "units": {
+    "F": "dimensionless"
+  }
+}

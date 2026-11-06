@@ -1,0 +1,40 @@
+{
+  "answer": {
+    "calendar_days": 8.12,
+    "calendar_h": 195.0,
+    "canary_p_detect": 0.7631,
+    "capacity_fraction": 0.0154,
+    "gpu_hours_out": 768.0,
+    "node_hours_for_95pct": 299.6,
+    "node_hours_out": 96.0,
+    "p_detect_4_nodes_75_h": 0.9502,
+    "wave_sizes": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      2
+    ],
+    "waves": 8
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "M2",
+  "inputs": {
+    "bake_h": 12.0,
+    "canary_bake_h": 72.0,
+    "canary_nodes": 2,
+    "lambda_per_node_hour": 0.01,
+    "nodes": 32,
+    "per_rack_cap": 1,
+    "racks": 8,
+    "wave_cap": 4,
+    "wave_h": 3.0
+  },
+  "units": {
+    "capacity": "node-hours / GPU-hours",
+    "time": "h"
+  }
+}

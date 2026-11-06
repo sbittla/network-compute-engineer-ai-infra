@@ -1,0 +1,12 @@
+PASS bubble_fraction: bubble(pp=4,m=128)=0.0229 (expect 0.0229); pp=1 must be 0
+PASS validate_config: baseline=[] tp16=['kv_heads_not_divisible_by_tp', 'tp_spans_nodes'] dp4=['world_size_mismatch']
+PASS memory_baseline: states=12.03 GB (exp 12.03), act=11.41 (exp 11.41), total=27.44 (exp 27.44)
+PASS memory_traps: G=168.5 GB (>80), I=84.6 GB (>80), J=70.4 GB (68..80: fits, violates headroom)
+PASS allreduce_time: NVLink 8-GPU 67 MB: 391 us (exp 391); 8-node rail 4.4 GB: 0.170 s (exp 0.170)
+PASS comm_volumes_baseline: TP=1.203 TB (exp 1.203), DP=7.66 GB (exp 7.66), PP=2.15 GB (exp 2.15); full recompute re-runs TP collectives x1.50 (exp x1.50)
+PASS step_time_baseline: baseline step=17.45 s (exp ~17.45), MFU=0.399 (exp ~0.399), exposed DP=98 ms (exp ~98)
+PASS evaluate_and_recommend: feasible=8 (exp 8), recommended=D_tp4_pp8_dp8 (exp D_tp4_pp8_dp8)
+PASS young_daly: tau_opt=65.7 min (exp 65.7), waste=2.80 %
+PASS reliability_table: ORION-XL sync tau_opt=16.4 min, waste opt=17.5 %; 4 h interval invalid (completes with p=0.26)
+
+10/10 checks passed (solution)

@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "allocated": 27,
+    "dashboard_free": 21,
+    "free_by_node": {
+      "orion-n25": 0,
+      "orion-n26": 4,
+      "orion-n27": 5,
+      "orion-n28": 0,
+      "orion-n29": 4,
+      "orion-n30": 0,
+      "orion-n31": 8,
+      "orion-n32": 0
+    },
+    "hidden_by_zero_allocatable": {
+      "orion-n28": 8,
+      "orion-n30": 8
+    },
+    "nodes_fitting_8": [],
+    "physically_idle": 37,
+    "quota_after_request": 35,
+    "usable_after_dedication": {
+      "orion-n26": 4,
+      "orion-n27": 5,
+      "orion-n29": 4
+    }
+  },
+  "evidence_label": "[ILLUSTRATIVE]",
+  "exercise": "17-T1",
+  "inputs": {
+    "allocatable": {
+      "orion-n25": 8,
+      "orion-n26": 8,
+      "orion-n27": 8,
+      "orion-n28": 0,
+      "orion-n29": 8,
+      "orion-n30": 0,
+      "orion-n31": 8,
+      "orion-n32": 8
+    },
+    "allocated": {
+      "orion-n25": 8,
+      "orion-n26": 4,
+      "orion-n27": 3,
+      "orion-n29": 4,
+      "orion-n32": 8
+    }
+  },
+  "units": {
+    "gpus": "GPUs"
+  }
+}

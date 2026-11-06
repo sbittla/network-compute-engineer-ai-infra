@@ -1,0 +1,44 @@
+{
+  "answer": {
+    "ports": {
+      "eth1/33 (spine-1, 20 m)": {
+        "deficit_b": 7500,
+        "length_m": 20,
+        "needed_b": 78496,
+        "shortfall_pct": 9.6
+      },
+      "eth1/57 (spine-4, 100 m)": {
+        "deficit_b": 47500,
+        "length_m": 100,
+        "needed_b": 118496,
+        "shortfall_pct": 40.1
+      },
+      "eth1/7 (orion-n07, 30 m)": {
+        "deficit_b": 12500,
+        "length_m": 30,
+        "needed_b": 83496,
+        "shortfall_pct": 15.0
+      }
+    },
+    "provided_b": 70996
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "T1",
+  "inputs": {
+    "mtu_b": 9216,
+    "ns_per_m": 5,
+    "profile_cable_m": 5,
+    "rate_b_per_ns": 50,
+    "t_resp_ns": 1000
+  },
+  "steps": {
+    "provided_terms_b": {
+      "pfc": 64,
+      "response": 50000,
+      "two_mtu": 18432,
+      "wire": 2500
+    }
+  },
+  "tolerance": "exact",
+  "units": "bytes per port per lossless priority"
+}

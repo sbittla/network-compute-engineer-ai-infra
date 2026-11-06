@@ -1,0 +1,33 @@
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth0", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth0", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth0", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth0", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth1", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth1", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth1", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth1", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth2", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth2", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth2", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth2", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 1500, "key": "host_mtu", "netdev": "eth3", "result": "drift", "target": "orion-n06"}
+{"after": 4096, "before": 1024, "key": "rdma_active_mtu", "netdev": "eth3", "result": "drift", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth3", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth3", "result": "in_sync", "target": "orion-n06"}
+{"action": "set_mtu", "after": 9000, "before": 1500, "key": "host_mtu", "netdev": "eth3", "result": "dry-run", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth4", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth4", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth4", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth4", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth5", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth5", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth5", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth5", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth6", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth6", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth6", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth6", "result": "in_sync", "target": "orion-n06"}
+{"after": 9000, "before": 9000, "key": "host_mtu", "netdev": "eth7", "result": "in_sync", "target": "orion-n06"}
+{"after": 4096, "before": 4096, "key": "rdma_active_mtu", "netdev": "eth7", "result": "in_sync", "target": "orion-n06"}
+{"after": 400000, "before": 400000, "key": "speed_mbps", "netdev": "eth7", "result": "in_sync", "target": "orion-n06"}
+{"after": ["28.42.1000", "28.43.1014"], "before": "28.43.1014", "key": "nic_firmware", "netdev": "eth7", "result": "in_sync", "target": "orion-n06"}

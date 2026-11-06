@@ -1,0 +1,68 @@
+{
+  "answer": {
+    "alternative": "tp4_pp8_dp8",
+    "chosen": "tp8_pp2_dp16"
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "global_batch_seqs": 512,
+    "planning_limit_gb": 68.0,
+    "seq_len": 8192
+  },
+  "layouts": {
+    "tp2_pp8_dp16": {
+      "bubble": 0.1795,
+      "dp_bytes": 16410000000.0,
+      "exposed_tp_s": 0.4391,
+      "fits_limit": false,
+      "mem_gb": 116.0493,
+      "mfu": 0.3988,
+      "step_s": 17.4475,
+      "tp_bytes": 171800000000.0
+    },
+    "tp4_pp8_dp8": {
+      "bubble": 0.0986,
+      "dp_bytes": 7656000000.0,
+      "exposed_tp_s": 1.3077,
+      "fits_limit": true,
+      "mem_gb": 61.6653,
+      "mfu": 0.4143,
+      "step_s": 16.795,
+      "tp_bytes": 515400000000.0
+    },
+    "tp8_pp2_dp16": {
+      "bubble": 0.0303,
+      "dp_bytes": 16410000000.0,
+      "exposed_tp_s": 3.0449,
+      "fits_limit": true,
+      "mem_gb": 47.5983,
+      "mfu": 0.398,
+      "step_s": 17.4829,
+      "tp_bytes": 1203000000000.0
+    },
+    "tp8_pp4_dp8": {
+      "bubble": 0.0448,
+      "dp_bytes": 7656000000.0,
+      "exposed_tp_s": 3.0449,
+      "fits_limit": true,
+      "mem_gb": 38.8483,
+      "mfu": 0.3939,
+      "step_s": 17.6638,
+      "tp_bytes": 1203000000000.0
+    },
+    "tp8_pp8_dp4": {
+      "bubble": 0.0519,
+      "dp_bytes": 3281000000.0,
+      "exposed_tp_s": 3.0449,
+      "fits_limit": true,
+      "mem_gb": 34.4733,
+      "mfu": 0.3915,
+      "step_s": 17.7735,
+      "tp_bytes": 1203000000000.0
+    }
+  },
+  "units": {
+    "mem": "GB",
+    "step": "s"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "answer": {
+    "checkpoint_B_per_param": 14,
+    "training_state_B_per_param": 16,
+    "w_train_checkpoint_GB": 980.0,
+    "w_train_training_state_GB": 1120.0
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "components": {
+      "adam_m_fp32": {
+        "bytes_per_param": 4,
+        "checkpointed": true
+      },
+      "adam_v_fp32": {
+        "bytes_per_param": 4,
+        "checkpointed": true
+      },
+      "bf16_gradients": {
+        "bytes_per_param": 2,
+        "checkpointed": false
+      },
+      "bf16_weights": {
+        "bytes_per_param": 2,
+        "checkpointed": true
+      },
+      "fp32_master_weights": {
+        "bytes_per_param": 4,
+        "checkpointed": true
+      }
+    },
+    "params": 70000000000.0
+  },
+  "steps": {
+    "checkpoint_B_per_param": 14,
+    "training_state_B_per_param": 16
+  },
+  "units": {
+    "per_param": "B/param",
+    "size": "GB (1e9 B)"
+  }
+}

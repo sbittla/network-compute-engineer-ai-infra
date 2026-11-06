@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "with_version_rule": {
+      "change": -0.00454,
+      "ci95": [
+        -0.00719,
+        -0.00121
+      ],
+      "decision": "below_threshold",
+      "excluded": [
+        "A3"
+      ],
+      "p_perm": 0.026,
+      "runs": [
+        5,
+        6
+      ]
+    },
+    "without_version_rule": {
+      "change": -9e-05,
+      "ci95": [
+        -0.00648,
+        0.0093
+      ],
+      "decision": "not_significant",
+      "excluded": [],
+      "p_perm": 0.9935,
+      "runs": [
+        6,
+        6
+      ]
+    }
+  },
+  "evidence_label": "SIMULATED data; MODELED statistics",
+  "exercise": "6.20",
+  "inputs": {
+    "a3_torch": "2.3.1",
+    "noise_floor": 0.00551,
+    "reference_sw": {
+      "cuda": "12.8",
+      "driver": "570.124.06",
+      "torch": "2.4.0"
+    }
+  },
+  "steps": {
+    "a3_median_ms": 3.9053,
+    "a3_vs_other_baseline_runs": -0.0275
+  },
+  "units": {
+    "change": "fraction"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "answer": {
+    "leaf": {
+      "affected_ingress": 0.0,
+      "affected_raw": 0.0,
+      "bisection": 38.4,
+      "ecmp_width": 32
+    },
+    "link": {
+      "affected_ingress": 11.2,
+      "affected_raw": 12.4,
+      "bisection": 50.8,
+      "ecmp_width": 32
+    },
+    "spine": {
+      "affected_ingress": 9.6,
+      "affected_raw": 9.6,
+      "bisection": 38.4,
+      "ecmp_width": 24
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.O2",
+  "inputs": {
+    "bfd": "300 ms x 3",
+    "bgp_timers_s": [
+      3,
+      9
+    ],
+    "leaves": 8,
+    "link_gbps": 400,
+    "links_per_pair": 8,
+    "observer_leaf": "orion-be-leaf-r7",
+    "spines": 4
+  },
+  "steps": {
+    "bfd_detection_s": 0.8999999999999999
+  },
+  "tolerance": "1e-9",
+  "units": "Tb/s one direction; ECMP width in next hops"
+}

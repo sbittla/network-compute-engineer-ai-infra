@@ -1,0 +1,25 @@
+{
+  "answer": {
+    "recompute_s": 0.884,
+    "swap_GB_per_gpu": 1.64,
+    "swap_GB_total": 3.28,
+    "swap_one_way_ms": 32.8,
+    "swap_round_trip_ms": 65.5
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "kv_bytes_per_token": 327680,
+    "mfu": 0.4,
+    "pcie_Bps": 50000000000.0,
+    "tokens": 10000,
+    "tp": 2
+  },
+  "steps": {
+    "kv_bytes": 3276800000,
+    "prefill_us_per_token": 88.43
+  },
+  "units": {
+    "bytes": "GB (1e9 B)",
+    "time": "s or ms"
+  }
+}

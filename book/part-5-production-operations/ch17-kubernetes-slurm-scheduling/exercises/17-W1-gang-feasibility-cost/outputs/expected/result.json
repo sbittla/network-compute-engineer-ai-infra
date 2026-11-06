@@ -1,0 +1,55 @@
+{
+  "answer": {
+    "1_eligible": 52,
+    "1_naive": 60,
+    "2_largest_gang_gpus": 24,
+    "2_whole_nodes": [
+      "p01",
+      "p02",
+      "p10"
+    ],
+    "3_reason": "Fragmentation",
+    "4_best_fit": "p05",
+    "4_leftovers": {
+      "p01": 2,
+      "p02": 2,
+      "p05": 0,
+      "p10": 2,
+      "p12": 1
+    },
+    "5_cost_usd": 480.0,
+    "5_gpu_hours": 160.0,
+    "5_stranded_gpus": 32,
+    "6_gpu_hours_per_preemption": 80.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "17-W1",
+  "inputs": {
+    "checkpoint_min": 45.0,
+    "draining": [
+      "p07"
+    ],
+    "free": {
+      "p01": 8,
+      "p02": 8,
+      "p03": 0,
+      "p04": 4,
+      "p05": 6,
+      "p06": 2,
+      "p07": 8,
+      "p08": 3,
+      "p09": 5,
+      "p10": 8,
+      "p11": 1,
+      "p12": 7
+    },
+    "job_gpus": 128,
+    "price_per_gpu_h": 3.0,
+    "restart_min": 15.0
+  },
+  "units": {
+    "cost": "USD [ILLUSTRATIVE]",
+    "gpus": "GPUs",
+    "loss": "GPU-hours"
+  }
+}

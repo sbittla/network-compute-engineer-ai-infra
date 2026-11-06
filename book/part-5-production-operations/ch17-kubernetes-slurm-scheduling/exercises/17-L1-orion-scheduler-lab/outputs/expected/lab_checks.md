@@ -1,0 +1,16 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `D0 dataset reproducible` | PASS  D0 dataset reproducible        generator reproduces committed data byte-for-byte (45 kB) |
+| `T1 tolerates` | PASS  T1 tolerates                   7 taint/toleration cases correct (incl. Exists, effect mismatch, PreferNoSchedule) |
+| `T2 node_filter` | PASS  T2 node_filter                 10 filter cases correct (order and codes) |
+| `T3 select_gpus` | PASS  T3 select_gpus                 7 GPU-selection cases correct (socket best-fit) |
+| `T4 place_job single-node` | PASS  T4 place_job single-node       best-fit, rail-preference, state update, InvalidRequest, QuotaExceeded |
+| `T4 place_job gang` | PASS  T4 place_job gang              all-or-nothing, Fragmentation vs InsufficientCapacity, rack-compact selection |
+| `T5 schedule invariants` | PASS  T5 schedule invariants         10/15 placed; no overcommit, gangs exact, eligibility and quotas respected |
+| `T5 schedule exact match` | PASS  T5 schedule exact match        all 15 placements/pending reasons match the reference |
+| `T5 schedule order/fairness` | PASS  T5 schedule order/fairness     attempt order and final tenant usage match |
+| `T6 diagnose_pending` | PASS  T6 diagnose_pending            all 12 pending-job evidence bundles diagnosed correctly |

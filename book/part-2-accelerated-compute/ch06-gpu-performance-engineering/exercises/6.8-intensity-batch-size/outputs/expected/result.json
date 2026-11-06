@@ -1,0 +1,44 @@
+{
+  "answer": {
+    "a_M4096": {
+      "I_flop_per_B": 1365.33,
+      "M": 4096,
+      "Q_bytes": 100663296,
+      "W_flop": 137438953472,
+      "attainable_TFLOPs": 989.0,
+      "bound": "compute",
+      "fraction_of_peak": 1.0,
+      "t_roof_us": 138.97
+    },
+    "b_M64": {
+      "I_flop_per_B": 62.06,
+      "M": 64,
+      "Q_bytes": 34603008,
+      "W_flop": 2147483648,
+      "attainable_TFLOPs": 207.9,
+      "bound": "memory",
+      "fraction_of_peak": 0.21,
+      "t_roof_us": 10.33
+    },
+    "c_M_star_exact": 344.95,
+    "c_smallest_integer_M": 345
+  },
+  "evidence_label": "MODELED",
+  "exercise": "6.8",
+  "inputs": {
+    "K": 4096,
+    "N": 4096,
+    "dtype_bytes": 2,
+    "hbm_Bps": 3350000000000.0,
+    "peak_flops": 989000000000000.0
+  },
+  "steps": {
+    "ridge_flop_per_B": 295.22
+  },
+  "units": {
+    "I": "FLOP/B",
+    "Q": "B",
+    "W": "FLOP",
+    "t": "\u00b5s"
+  }
+}

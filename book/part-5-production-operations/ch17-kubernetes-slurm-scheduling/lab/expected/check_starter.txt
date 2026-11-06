@@ -1,0 +1,12 @@
+PASS  D0 dataset reproducible        generator reproduces committed data byte-for-byte (45 kB)
+TODO  T1 tolerates                   tolerates: TODO
+TODO  T2 node_filter                 node_filter: TODO
+TODO  T3 select_gpus                 select_gpus: TODO
+TODO  T4 place_job single-node       place_job: TODO
+TODO  T4 place_job gang              place_job: TODO
+TODO  T5 schedule invariants         schedule: TODO
+TODO  T5 schedule exact match        schedule: TODO
+TODO  T5 schedule order/fairness     schedule: TODO
+TODO  T6 diagnose_pending            diagnose_pending: TODO
+
+1/10 checks passed (starter)

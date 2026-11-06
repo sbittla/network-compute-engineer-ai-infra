@@ -1,0 +1,37 @@
+{
+  "answer": {
+    "a_lost": 0.0842,
+    "a_ratio": 0.9158,
+    "b_cost_usd": {
+      "A": 6726,
+      "B": 724
+    },
+    "b_gpu_hours": {
+      "A": 2242.0,
+      "B": 241.4
+    },
+    "c_fires_at_1_10": false,
+    "c_median_sd_pct": 0.257,
+    "c_proposed_threshold": 1.05,
+    "c_sigmas": 19.4,
+    "c_step_ratio": 1.092,
+    "c_steps_in_window": 34
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W2",
+  "inputs": {
+    "base_s": 17.4,
+    "case_hours": {
+      "A": 6.5,
+      "B": 0.7
+    },
+    "gpus": 4096,
+    "noise_sd": 0.012,
+    "price_usd_per_gpu_h": 3.0,
+    "slow_s": 19.0
+  },
+  "units": {
+    "cost": "USD [ILLUSTRATIVE]",
+    "loss": "GPU-hours"
+  }
+}

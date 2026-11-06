@@ -15,7 +15,7 @@ recompute, compute per-GPU model state, activations on stage 0, total, and say w
 - **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
 - **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) with W-TRAIN on ORION-256 and the assumptions in Table 11.4.
 - **Model inputs (W-TRAIN):** 70 × 10⁹ parameters, 80 layers, hidden 8,192, sequence length 4,096, global batch 1,024 sequences, BF16 mixed-precision Adam (16 B/param of training state). Table 11.4 supplies the 68 GB planning limit; Section 11.2 gives the memory formulas.
-- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/11.8-memory-audit/` (instructor material in the full repository; removed from student releases).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare it with [outputs/expected/](outputs/expected/README.md): the reference script's output (`result.md`), the worked solution (`answer.md`) and the marking scheme (`marking.md`).
 
 ## What to submit
 

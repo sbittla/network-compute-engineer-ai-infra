@@ -1,0 +1,58 @@
+{
+  "answer": {
+    "aggregate_Gbps": 214.7,
+    "designs": {
+      "disagg-rdma": {
+        "itl_worst_ms": 32.4815,
+        "kv_transfer_ms": 15.8203,
+        "link_util_pct": 7.8952,
+        "per_layer_ms": 0.1974,
+        "rho": 0.6037,
+        "tpot_ms": 16.7232,
+        "ttft_s": 0.6381
+      },
+      "disagg-tcp": {
+        "itl_worst_ms": 232.4095,
+        "kv_transfer_ms": 215.7484,
+        "link_util_pct": 107.3742,
+        "per_layer_ms": 2.6844,
+        "rho": 0.6037,
+        "tpot_ms": 17.5073,
+        "ttft_s": 0.6381
+      },
+      "shared": {
+        "itl_worst_ms": 374.8081,
+        "kv_transfer_ms": 0.0,
+        "link_util_pct": 0.0,
+        "rho": 0.4528,
+        "tpot_ms": 23.0335,
+        "ttft_s": 0.512
+      }
+    },
+    "fp8_kv": {
+      "aggregate_Gbps": 107.4,
+      "rdma_ms": 7.9,
+      "tcp_ms": 108.4,
+      "tcp_util_pct": 53.7
+    },
+    "kv_bytes_per_request": 2684354560,
+    "per_decode_replica_Gbps": 107.4
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "change": {
+      "output_tokens": 256,
+      "prompt_tokens": 8192,
+      "request_rate": 10.0
+    },
+    "yaml": "lab/data/configs.yaml"
+  },
+  "steps": {
+    "prefill_per_layer_ms": 4.53,
+    "t_p_ms": 362.2
+  },
+  "units": {
+    "bandwidth": "Gb/s",
+    "time": "ms or s"
+  }
+}

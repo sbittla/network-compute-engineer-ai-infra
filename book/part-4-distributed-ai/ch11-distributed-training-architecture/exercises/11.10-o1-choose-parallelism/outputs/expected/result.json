@@ -1,0 +1,47 @@
+{
+  "a": {
+    "act_gb": 13.6902,
+    "compute_s": 0.2584,
+    "dp_payload_gb": 2.6,
+    "dp_sent_gb": 5.1188,
+    "dp_time_s": 0.0278,
+    "layout": "DP=64 (DDP or ZeRO-1), b=4 x 2 accumulation",
+    "states_gb": 20.8,
+    "total_gb": 38.4902
+  },
+  "b": {
+    "act_gb": 11.4085,
+    "alt_tp4_pp8_total_gb": 48.692,
+    "alt_tp_bytes": 515400000000.0,
+    "dp_bytes": 4375000000.0,
+    "dp_time_s": 0.0973,
+    "layout": "TP8 PP4 DP2 ZeRO-1",
+    "pp_bytes": 2147000000.0,
+    "states_gb": 21.875,
+    "total_gb": 37.2835,
+    "tp_bytes": 1203000000000.0
+  },
+  "c": {
+    "act_gb": 10.7374,
+    "bubble": 0.0857,
+    "full_act_per_layer_mb": 134.2177,
+    "layout": "TP8 PP4 DP1 full recompute",
+    "pp_bytes": 8590000000.0,
+    "selective_act_gb": 182.5361,
+    "states_gb": 35.0,
+    "total_gb": 49.7374,
+    "tp_bytes": 4810000000000.0,
+    "tp_bytes_with_recompute": 7216000000000.0,
+    "tp_msg_gb": 1.0737,
+    "tp_time_s_at_nvlink": 24.0518
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "planning_limit_gb": 68.0
+  },
+  "units": {
+    "bytes": "B per GPU per step",
+    "memory": "GB",
+    "time": "s"
+  }
+}

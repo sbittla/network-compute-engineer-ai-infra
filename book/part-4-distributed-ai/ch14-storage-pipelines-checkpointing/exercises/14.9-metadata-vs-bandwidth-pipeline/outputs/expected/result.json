@@ -1,0 +1,45 @@
+{
+  "answer": {
+    "a_GBps_cluster": 30.7,
+    "a_GBps_node": 1.92,
+    "a_img_per_s_cluster": 256000,
+    "a_img_per_s_node": 16000,
+    "b_inflight_per_node": 76.8,
+    "b_max_img_per_s_node": 3125.0,
+    "b_open_rate_needed": 256000,
+    "c_images_per_shard": 4474,
+    "c_inflight_per_node": 1.37,
+    "c_opens_per_s_node": 3.58,
+    "c_pfs_share_pct": 19.2,
+    "c_requests_per_s_node": 114.4,
+    "classification": {
+      "file_per_image": "metadata-bound",
+      "local_staging": "fits on NVMe; one-off bandwidth-bound copy",
+      "shards": "bandwidth-bound (far from limit)"
+    },
+    "d_dataset_TB": 4.8,
+    "d_stage_all_nodes_s": 480.0,
+    "e_recommendation": "repack into shards (optionally plus local staging)"
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "gpus_per_node": 8,
+    "image_B": 120000.0,
+    "img_per_gpu": 2000,
+    "mds_open_per_s": 50000,
+    "n_images": 40000000.0,
+    "nodes": 16,
+    "pfs_read_Bps": 160000000000.0,
+    "request_B": 16777216,
+    "request_s": 0.012,
+    "shard_B": 536870912
+  },
+  "steps": {
+    "per_sample_latency_s": 0.0048
+  },
+  "units": {
+    "bandwidth": "GB/s (1e9 B/s)",
+    "rates": "1/s",
+    "time": "s"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "answer": {
+    "a06_change_supported": false,
+    "a06_node_GBps": 320.0,
+    "claimed_loss_pct": 22.7,
+    "clean_loss_vs_b02_pct": 9.0,
+    "clean_median_GBps": 324.0,
+    "mean_GBps": 275.04,
+    "mean_per_rail_GBps": 34.38,
+    "median_GBps": 318.4
+  },
+  "evidence_label": "ILLUSTRATIVE",
+  "id": "T1",
+  "inputs": {
+    "a06_per_rail_GBps": 40.0,
+    "b02_GBps": 356.0,
+    "contaminated_runs": [
+      2,
+      4
+    ],
+    "runs_GBps": [
+      329.6,
+      194.4,
+      318.4,
+      208.8,
+      324.0
+    ]
+  },
+  "steps": {
+    "clean_runs": [
+      329.6,
+      318.4,
+      324.0
+    ],
+    "sorted": [
+      194.4,
+      208.8,
+      318.4,
+      324.0,
+      329.6
+    ],
+    "sum": 1375.2
+  },
+  "units": {
+    "busbw": "GB/s",
+    "loss": "%"
+  }
+}

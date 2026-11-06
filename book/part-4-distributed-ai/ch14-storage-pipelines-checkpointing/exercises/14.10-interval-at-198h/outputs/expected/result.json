@@ -1,0 +1,90 @@
+{
+  "answer": {
+    "async_loss_reduction_x": 2.9,
+    "interval_stretch_x": 2.03,
+    "ranking": [
+      "async_pfs",
+      "async_two_level",
+      "sync_local_drain",
+      "sync_pfs"
+    ],
+    "table": {
+      "async_pfs": {
+        "completion_s": 18.486,
+        "delta_s": 1.188,
+        "e_lost_s": 670.986,
+        "e_ttr_s": 904.167,
+        "interval_s": 1305.0,
+        "interval_steps": 75,
+        "lost_gpu_h_ckpt": 5.594,
+        "lost_gpu_h_day": 19.171,
+        "lost_gpu_h_fail": 13.577,
+        "overhead_pct": 0.091,
+        "rpo_max_s": 1323.486,
+        "young_s": 1301.457
+      },
+      "async_two_level": {
+        "completion_s": 21.08,
+        "delta_s": 0.784,
+        "e_lost_s": 1390.2,
+        "e_ttr_s": 899.649,
+        "interval_s": 1061.4,
+        "interval_steps": 61,
+        "lost_gpu_h_ckpt": 4.538,
+        "lost_gpu_h_day": 24.275,
+        "lost_gpu_h_fail": 19.737,
+        "overhead_pct": 0.074,
+        "rpo_max_s": 5328.08,
+        "young_s": 1057.157
+      },
+      "sync_local_drain": {
+        "completion_s": 20.427,
+        "delta_s": 3.084,
+        "e_lost_s": 1062.427,
+        "e_ttr_s": 899.649,
+        "interval_s": 2105.4,
+        "interval_steps": 121,
+        "lost_gpu_h_ckpt": 8.999,
+        "lost_gpu_h_day": 25.911,
+        "lost_gpu_h_fail": 16.912,
+        "overhead_pct": 0.146,
+        "rpo_max_s": 2125.827,
+        "young_s": 2096.71
+      },
+      "sync_pfs": {
+        "completion_s": 17.833,
+        "delta_s": 17.833,
+        "e_lost_s": 2540.833,
+        "e_ttr_s": 904.167,
+        "interval_s": 5046.0,
+        "interval_steps": 290,
+        "lost_gpu_h_ckpt": 21.714,
+        "lost_gpu_h_day": 51.408,
+        "lost_gpu_h_fail": 29.694,
+        "overhead_pct": 0.353,
+        "rpo_max_s": 5063.833,
+        "young_s": 5042.142
+      }
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "job_mtbf_h": 198.0,
+    "yaml": "lab/data/orion_ckpt_inputs.yaml"
+  },
+  "steps": {
+    "baseline_M48_lost_gpu_h_day": {
+      "async_pfs": 55.59,
+      "async_two_level": 65.71,
+      "sync_local_drain": 69.04,
+      "sync_pfs": 121.05
+    },
+    "failures_per_day": 0.1212,
+    "mtbf_s": 712800.0
+  },
+  "units": {
+    "lost": "GPU-h/day",
+    "overhead": "%",
+    "time": "s"
+  }
+}

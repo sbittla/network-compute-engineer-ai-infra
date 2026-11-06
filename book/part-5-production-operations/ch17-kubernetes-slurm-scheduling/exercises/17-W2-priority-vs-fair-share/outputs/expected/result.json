@@ -1,0 +1,164 @@
+{
+  "answer": {
+    "gpus_placed": {
+      "baseline": 69,
+      "variant": 69
+    },
+    "new_gpus_by_tenant": {
+      "baseline": {
+        "finetune": 14,
+        "inference": 15,
+        "pretrain": 16,
+        "research": 16,
+        "search": 8
+      },
+      "variant": {
+        "finetune": 14,
+        "inference": 15,
+        "pretrain": 32,
+        "research": 0,
+        "search": 8
+      }
+    }
+  },
+  "baseline": {
+    "gpus_placed": 69,
+    "order": [
+      "J10",
+      "J05",
+      "J12",
+      "J02",
+      "J03",
+      "J04",
+      "J08",
+      "J07",
+      "J11",
+      "J13",
+      "J01",
+      "J15",
+      "J06",
+      "J14",
+      "J09"
+    ],
+    "results": {
+      "J01": "InsufficientCapacity",
+      "J02": [
+        "orion-n14"
+      ],
+      "J03": "QuotaExceeded",
+      "J04": "InvalidRequest",
+      "J05": [
+        "orion-n22",
+        "orion-n24"
+      ],
+      "J06": "Fragmentation",
+      "J07": [
+        "orion-n20"
+      ],
+      "J08": [
+        "orion-n13",
+        "orion-n18"
+      ],
+      "J09": [
+        "orion-n20"
+      ],
+      "J10": [
+        "orion-n26"
+      ],
+      "J11": [
+        "orion-n29"
+      ],
+      "J12": [
+        "orion-n31"
+      ],
+      "J13": [
+        "orion-n30"
+      ],
+      "J14": "QuotaExceeded",
+      "J15": [
+        "orion-n29"
+      ]
+    },
+    "tenant_used": {
+      "finetune": 24,
+      "inference": 42,
+      "pretrain": 112,
+      "research": 34,
+      "search": 8
+    }
+  },
+  "evidence_label": "[SIMULATED]",
+  "exercise": "17-W2",
+  "inputs": {
+    "change": "J01 priority 50 -> 100",
+    "data": "lab/data (seed 17)"
+  },
+  "units": {
+    "gpus": "GPUs"
+  },
+  "variant": {
+    "gpus_placed": 69,
+    "order": [
+      "J10",
+      "J01",
+      "J05",
+      "J12",
+      "J02",
+      "J03",
+      "J04",
+      "J08",
+      "J07",
+      "J11",
+      "J13",
+      "J15",
+      "J06",
+      "J14",
+      "J09"
+    ],
+    "results": {
+      "J01": [
+        "orion-n13",
+        "orion-n18",
+        "orion-n22",
+        "orion-n24"
+      ],
+      "J02": [
+        "orion-n14"
+      ],
+      "J03": "QuotaExceeded",
+      "J04": "InvalidRequest",
+      "J05": "InsufficientCapacity",
+      "J06": "Fragmentation",
+      "J07": [
+        "orion-n20"
+      ],
+      "J08": "InsufficientCapacity",
+      "J09": [
+        "orion-n20"
+      ],
+      "J10": [
+        "orion-n26"
+      ],
+      "J11": [
+        "orion-n29"
+      ],
+      "J12": [
+        "orion-n31"
+      ],
+      "J13": [
+        "orion-n30"
+      ],
+      "J14": "QuotaExceeded",
+      "J15": [
+        "orion-n29"
+      ]
+    },
+    "tenant_used": {
+      "finetune": 24,
+      "inference": 42,
+      "pretrain": 128,
+      "research": 18,
+      "search": 8
+    }
+  }
+}

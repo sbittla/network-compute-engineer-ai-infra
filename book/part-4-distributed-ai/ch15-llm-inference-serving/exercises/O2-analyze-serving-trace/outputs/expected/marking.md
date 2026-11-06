@@ -1,0 +1,12 @@
+# Marking scheme: O2 Analyze a serving trace
+
+Type outline-mandated · kind computed · tier L1 · 8 points
+
+**Evidence required:** a table with each metric for the baseline and each episode, and the explanation.
+
+| Criterion | Points |
+|---|---|
+| Baseline row: 6.00 req/s, 1,216 tokens/s, TTFT p50/p95 0.138/0.449 s, ITL p50/p99 21.8/216 ms, queue p95 0.11 s, busy 97.6 % | 2 |
+| Burst episode 240-345 s row with the same metrics | 2 |
+| Storm episode 465-600 s row with the same metrics | 2 |
+| Explanation: GPU busy ≈ 98-100 % in all segments, cannot separate healthy/overloaded or slot/memory bound | 2 |

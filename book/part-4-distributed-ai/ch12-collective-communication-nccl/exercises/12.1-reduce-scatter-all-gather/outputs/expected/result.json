@@ -1,0 +1,46 @@
+{
+  "all_gather_of_rs": [
+    [
+      11,
+      22
+    ],
+    [
+      11,
+      22
+    ]
+  ],
+  "all_reduce": [
+    [
+      11,
+      22
+    ],
+    [
+      11,
+      22
+    ]
+  ],
+  "answer": {
+    "composition_equals_all_reduce": true
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "ranks": [
+      [
+        1,
+        2
+      ],
+      [
+        10,
+        20
+      ]
+    ]
+  },
+  "reduce_scatter": [
+    [
+      11
+    ],
+    [
+      22
+    ]
+  ]
+}

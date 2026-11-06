@@ -1,0 +1,25 @@
+{
+  "answer": {
+    "attention_flop_per_B": 8.0,
+    "decode_bound": "HBM bandwidth",
+    "decode_flop_per_B": 32.0,
+    "prefill_bound": "compute",
+    "prefill_flop_per_B": 2048.0,
+    "ridge_flop_per_B": 295.2
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "batch": 32,
+    "bf16_peak_flops": 989000000000000.0,
+    "gqa_group": 8,
+    "hbm_bw": 3350000000000.0,
+    "n_params": 70000000000.0,
+    "prompt_tokens": 2048
+  },
+  "steps": {
+    "ridge_flop_per_B": 295.2
+  },
+  "units": {
+    "intensity": "FLOP/B"
+  }
+}

@@ -1,0 +1,14 @@
+PASS data_regenerates: bundle matches generator - data/ is byte-identical to the generator output
+TODO clean_steps: dedupe + warm-up - not implemented (clean_steps)
+TODO tp_split_jobs: TP groups spanning nodes - not implemented (tp_split_jobs)
+TODO job_factor_table: time-aware factor flags - not implemented (job_factor_table)
+TODO job_factor_table: failed job retained - not implemented (job_factor_table)
+TODO regression_summary: mean vs median change - not implemented (job_factor_table)
+TODO estimate_effects: per-factor OLS effects - not implemented (job_factor_table)
+TODO attribute: contributions and shares - not implemented (job_factor_table)
+TODO bootstrap_shares: job-level 95 % interval - not implemented (job_factor_table)
+TODO storage_crosscheck: direct vs inferred - not implemented (job_factor_table)
+TODO rank_tests: value/cost/risk ordering + safety - not implemented (rank_tests)
+TODO render_report: facts / causes / uncertainty - not implemented (rank_tests)
+
+1/12 checks passed (starter); 0 skipped

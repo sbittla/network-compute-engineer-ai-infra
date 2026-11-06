@@ -1,0 +1,21 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `A1 size + transfer time` | PASS  A1 size + transfer time         980 GB; 16.33 s at 60 GB/s effective |
+| `A2 Young/Daly interval` | PASS  A2 Young/Daly interval          Young 2483 s, Daly 2471 s |
+| `A3 interval selection` | PASS  A3 interval selection           Young floored at completion latency, rounded up to whole steps |
+| `A4 strategy timings` | PASS  A4 strategy timings             all four strategies' blocking/delta/completion/load times match |
+| `A5 fixed-interval plan` | PASS  A5 fixed-interval plan          sync @30 min: 0.99 % overhead, 125.7 GPU-h/day; async @30 min: 68.9 GPU-h/day |
+| `A6 strategy comparison` | PASS  A6 strategy comparison          async_pfs best at 37-step interval (55.6 GPU-h/day); two-level pays for its k*tau RPO |
+| `B1 latency percentiles` | PASS  B1 latency percentiles          open p50 5.0 ms, read p99.9 193 ms |
+| `B2 window classification` | PASS  B2 window classification        0-6 s metadata-bound (~0.2 GB/s), 7-19 s bandwidth-bound (~7.6 GB/s) |
+| `B3 phase segmentation` | PASS  B3 phase segmentation           3 phases |
+| `B4 interference windows` | PASS  B4 interference windows         read p99 inflated 13-17 s (write-burst interference) |
+| `B5 slow storage target` | PASS  B5 slow storage target          storage target 5 is slow |
+| `B6 fio acceptance parse` | PASS  B6 fio acceptance parse         nvme2 low write bandwidth; nvme5 p99.9 tail outlier |
+| `C1 audit checkpoint store` | PASS  C1 audit checkpoint store       5 planted defects classified |
+| `C2 select latest valid` | PASS  C2 select latest valid          restore from step_001800, not the 'step_002700' pointer |
+| `C3 validator on unseen defects` | PASS  C3 validator on unseen defects  unseen defects (rank coverage, truncated manifest) detected |

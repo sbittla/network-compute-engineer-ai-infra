@@ -1,0 +1,21 @@
+TODO A1 kv_bytes_per_token (W-INFER BF16 and FP8 KV) -- TODO: implement kv_bytes_per_token
+TODO A2 kv_budget_bytes (TP=8 BF16, TP=4 FP8, TP=2 FP8) -- TODO: implement kv_budget_bytes
+TODO A3 max_concurrent_sequences (paged, 16-token blocks) -- TODO: implement max_concurrent_sequences
+TODO A4 prefill_time_s (2k prompt, TP=8 BF16, 40% MFU) -- TODO: implement prefill_time_s
+TODO A5 decode step lower bound and tokens/s (TP=8 BF16, B=32, ctx=2176) -- TODO: implement decode_step_time_s
+TODO A6 compare_serving_configs + recommendation per objective -- TODO: implement compare_serving_configs
+TODO B1 request_metrics (queue, prefill, TTFT, TPOT, e2e) -- TODO: implement request_metrics
+TODO B2 latency_percentiles (chat TTFT p50/p95/p99) -- TODO: implement latency_percentiles
+TODO B3 itl_values_s + ITL tail (sampled token gaps) -- TODO: implement itl_values_s
+TODO B4 slo_report (attainment, goodput, throughput) -- TODO: implement request_metrics
+TODO B5 detect queueing collapse under the arrival burst -- TODO: implement request_metrics
+TODO B6 detect preemption storm (and do not call it a burst) -- TODO: implement request_metrics
+TODO B7 detect the slow replica -- TODO: implement request_metrics
+TODO B8 telemetry_evidence corroborates the diagnoses -- TODO: implement request_metrics
+TODO B9 analyzer robustness: missing and out-of-order timestamps -- TODO: implement request_metrics
+TODO C1 kv_transfer_time_s (2k-token KV over 4x400G RDMA) -- TODO: implement kv_transfer_time_s
+TODO C2 md1_wait_s -- TODO: implement md1_wait_s
+TODO C3 compare_designs (shared vs disaggregated RDMA/TCP) [MODELED] -- TODO: implement compare_designs
+TODO C4 speculative decoding expected tokens and speedup -- TODO: implement speculative_expected_tokens
+
+0/19 passed, 0 failed, 19 TODO [impl=starter]

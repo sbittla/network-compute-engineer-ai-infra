@@ -1,0 +1,12 @@
+parameter,value,a_per_musd,b_per_musd,winner
+b_rel_throughput,1.6,26.69,22.9,A
+b_rel_throughput,1.8,26.69,25.77,A
+b_rel_throughput,1.86,26.69,26.63,A
+b_rel_throughput,2.0,26.69,28.63,B
+b_rel_throughput,2.2,26.69,31.49,B
+b_rel_throughput,2.4,26.69,34.36,B
+usd_per_kwh,0.06,27.01,31.77,B
+usd_per_kwh,0.08,26.69,31.49,B
+usd_per_kwh,0.12,26.08,30.96,B
+usd_per_kwh,0.15,25.63,30.58,B
+usd_per_kwh,0.2,24.92,29.96,B

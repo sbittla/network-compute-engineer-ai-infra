@@ -1,0 +1,30 @@
+{
+  "answer": {
+    "a_eager_iteration_ms": 4.0,
+    "a_kernel_busy": 0.6,
+    "b_graph_iteration_ms": 2.814,
+    "b_kernel_busy": 0.853,
+    "b_speedup": 1.421,
+    "c_bound": "PCIe copy",
+    "c_eager_with_pageable_ms": 26.37,
+    "c_pageable_copy_ms": 22.37,
+    "c_pinned_copy_ms": 5.37,
+    "c_steady_state_iteration_ms": 5.37
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.9",
+  "inputs": {
+    "cpu_us_per_launch": 10.0,
+    "gpu_us": 6.0,
+    "graph_inter_kernel_us": 1.0,
+    "graph_replay_us": 15.0,
+    "input_bytes": 268435456,
+    "kernels": 400,
+    "pageable_Bps": 12000000000.0,
+    "pinned_Bps": 50000000000.0
+  },
+  "units": {
+    "busy": "fraction",
+    "time": "ms"
+  }
+}

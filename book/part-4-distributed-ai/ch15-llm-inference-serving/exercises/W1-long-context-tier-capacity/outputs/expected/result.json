@@ -1,0 +1,41 @@
+{
+  "answer": {
+    "bf16": {
+      "blocks": 93460,
+      "max_seqs": 182
+    },
+    "fp8": {
+      "blocks": 186920,
+      "max_seqs": 365
+    },
+    "kv_budget_GB": 490.0,
+    "lower_bound_ms": 4.96,
+    "lower_bound_tok_s": 12905,
+    "planning_ms": 10.08,
+    "planning_tok_s": 6346
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "batch": 64,
+    "block_tokens": 16,
+    "ctx": 6000,
+    "eff": 0.7,
+    "mem_fraction": 0.9,
+    "overhead_s": 0.003,
+    "reserve_per_gpu": 2000000000.0,
+    "seq_tokens": 8192,
+    "tp": 8,
+    "weight_bytes": 70000000000.0
+  },
+  "steps": {
+    "blocks_per_seq": 512,
+    "kv_bytes_bf16": 327680,
+    "kv_bytes_fp8": 163840,
+    "step_bytes": 132914560000.0
+  },
+  "units": {
+    "budget": "GB (1e9 B)",
+    "throughput": "tokens/s",
+    "time": "ms"
+  }
+}

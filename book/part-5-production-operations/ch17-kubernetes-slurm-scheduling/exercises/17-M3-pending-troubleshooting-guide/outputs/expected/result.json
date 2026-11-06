@@ -1,0 +1,61 @@
+{
+  "answer": {
+    "P03": {
+      "blocked": {},
+      "causes": [
+        "FRAGMENTATION"
+      ],
+      "eligible_free": {
+        "orion-n13": 4,
+        "orion-n14": 3,
+        "orion-n15": 6,
+        "orion-n16": 2,
+        "orion-n17": 8,
+        "orion-n18": 1,
+        "orion-n19": 5,
+        "orion-n20": 5
+      },
+      "eligible_total": 34,
+      "events": [
+        "squeue: 48211 train pt-ablation PD 0:00 4 (Resources)"
+      ],
+      "quota_after": 128,
+      "quota_hard": 160,
+      "requested": 32,
+      "whole_nodes": [
+        "orion-n17"
+      ]
+    },
+    "P11": {
+      "blocked": {
+        "orion-n31": "UNTOLERATED_TAINT"
+      },
+      "causes": [
+        "UNTOLERATED_TAINT"
+      ],
+      "eligible_free": {
+        "orion-n26": 4,
+        "orion-n30": 8
+      },
+      "eligible_total": 12,
+      "events": [
+        "pod distill-2node-worker-1: 0/3 nodes are available: 1 node(s) had untolerated taint {halcyon.ai/dedicated: search}, 2 Insufficient nvidia.com/gpu.",
+        "pod distill-2node-worker-0: Scheduled to orion-n30 (gang not complete; waiting)"
+      ],
+      "quota_after": 40,
+      "quota_hard": 48,
+      "requested": 16,
+      "whole_nodes": [
+        "orion-n30"
+      ]
+    }
+  },
+  "evidence_label": "[SIMULATED]",
+  "exercise": "17-M3",
+  "inputs": {
+    "data": "lab/data/pending_cases.json"
+  },
+  "units": {
+    "gpus": "GPUs"
+  }
+}

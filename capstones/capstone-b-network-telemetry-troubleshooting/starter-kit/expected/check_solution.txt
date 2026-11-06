@@ -1,0 +1,16 @@
+PASS 01 parse leaf CLI text                         40 rows, canonical names, UTC timestamps
+PASS 02 parse spine JSON lines                      OpenConfig-style paths and ns timestamps normalized
+PASS 03 parse NIC ethtool + hw_counters             mlx5 counter names mapped to canonical schema
+PASS 04 load full bundle                            267,264 samples from 3 formats and 44 devices
+PASS 05 counter_delta: wrap vs reset                32-bit wrap recovered; 64-bit decrease and implausible 'wrap' treated as reset (None)
+PASS 06 rates: resets and wraps in the bundle       3 resets marked invalid; 32-bit wrap recovered; no negative or absurd rates
+PASS 07 in_maintenance                              start-inclusive, end-exclusive, per device
+PASS 08 detection recall                            all 5 faults paged in-window at root-cause granularity; worst latency 901 s from onset
+PASS 09 detection precision                         precision 1.00 (0 FP)
+PASS 10 persistence reduces false positives         persistence=1 -> 195 FP; tuned -> 0 FP
+PASS 10b separated glitches do not page             isolated glitches never open an episode (hysteresis applies only after opening)
+PASS 11 maintenance suppression (incl. link peers)  4 link_down alerts suppressed by the change calendar
+PASS 12 score()                                     time-aware matching: pre-onset FP, in-window TP, duplicates, latency from onset
+PASS 13 leaf health table (report)                  per-leaf summary separates r1, r2, r5, r6 from the healthy rails
+
+14/14 checks pass (0 TODO, 0 FAIL) [impl=solution]

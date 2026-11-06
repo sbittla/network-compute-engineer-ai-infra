@@ -1,0 +1,35 @@
+{
+  "answer": {
+    "concurrency": {
+      "gqa": {
+        "blocks": 40054,
+        "max_seqs": 156
+      },
+      "no_gqa": {
+        "blocks": 5006,
+        "max_seqs": 19
+      }
+    },
+    "kv_bytes_per_token_gqa": 327680,
+    "kv_bytes_per_token_no_gqa": 2621440,
+    "ratio": 8
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "bytes_per_elem": 2,
+    "head_dim": 128,
+    "kv_heads": 8,
+    "layers": 80,
+    "q_heads": 64,
+    "seq_tokens": 4096
+  },
+  "steps": {
+    "blocks_per_seq": 256,
+    "formula": "2 \u00d7 layers \u00d7 kv_heads \u00d7 head_dim \u00d7 bytes",
+    "kv_budget_B": 210000000000.0
+  },
+  "units": {
+    "budget": "B",
+    "kv": "B/token"
+  }
+}

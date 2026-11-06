@@ -1,0 +1,16 @@
+J05  ['orion-n22', 'orion-n24']
+J10  ['orion-n26']
+J01  InsufficientCapacity
+J12  ['orion-n31']
+J02  ['orion-n14']
+J03  QuotaExceeded
+J04  InvalidRequest
+J08  ['orion-n13', 'orion-n18']
+J07  ['orion-n20']
+J11  ['orion-n29']
+J13  ['orion-n30']
+J15  ['orion-n29']
+J06  Fragmentation
+J14  QuotaExceeded
+J09  ['orion-n20']
+tenant_used {'finetune': 24, 'inference': 42, 'pretrain': 112, 'research': 34, 'search': 8}

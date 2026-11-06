@@ -1,0 +1,18 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `data_regenerates` | PASS data_regenerates              data/ is byte-identical to tools/generate_data.py output |
+| `effective_level_rules` | PASS effective_level_rules         14 rule cases |
+| `demonstrated_levels` | PASS demonstrated_levels           15 competency levels and 9 evidence flags match |
+| `readiness_scores` | PASS readiness_scores              7 role/seniority scores + gap-blocks-ready rule |
+| `gap_plan_priorities` | PASS gap_plan_priorities           ai_network/senior plan: observability(4), congestion(3), host_topology(2), physical_layer(2) |
+| `normalize_url_and_key` | PASS normalize_url_and_key         URL canonicalisation and identity key |
+| `row_issues_rules` | PASS row_issues_rules              10 field-rule cases |
+| `duplicate_clusters` | PASS duplicate_clusters            transitive merge; 61 rows -> 51 postings |
+| `representative_selection` | PASS representative_selection      representative selection |
+| `validate_register` | PASS validate_register             51 unique / 40 complete / 31 active-fresh; 25 issues |
+| `skill_frequency` | PASS skill_frequency               top-5 required skills over active, fresh, complete postings |
+| `real_register_worked_example` | PASS real_register_worked_example  real 2026-10 register: collected file 50 50 50, role file 42 42 42, 0 issues |

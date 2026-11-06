@@ -1,0 +1,26 @@
+{
+  "answer": {
+    "MBps_qd1": 43.1,
+    "MiBps_qd1": 41.1,
+    "avg_queue_depth": 32.0,
+    "iops_qd1": 10526,
+    "util_100pct_is_saturation": false
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "block_B": 4096,
+    "iostat_r_await_s": 9.7e-05,
+    "iostat_r_per_s": 330000,
+    "latency_qd1_s": 9.5e-05
+  },
+  "steps": {
+    "formula": "QD = IOPS \u00d7 latency",
+    "iops_qd1": 10526.3
+  },
+  "units": {
+    "MBps": "1e6 B/s",
+    "MiBps": "2^20 B/s",
+    "iops": "1/s",
+    "queue_depth": "requests"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "lost_fraction": 0.1854,
+    "lost_gpu_s_per_step": 10.96,
+    "p_at_least_one_slow": {
+      "1024": 0.4008,
+      "256": 0.1202,
+      "4096": 0.8711
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "N": [
+      256,
+      1024,
+      4096
+    ],
+    "normal_ms": 600.0,
+    "p": 0.0005,
+    "ranks": 64,
+    "slow_ms": 774.0,
+    "step_ms": 924.0
+  },
+  "steps": {
+    "formula_a": "1 - (1 - p)^N",
+    "formula_b": "sum_r (max a - a_r) / (N * T_step)",
+    "waiting_ranks": 63
+  },
+  "units": {
+    "lost_gpu_s_per_step": "GPU-seconds",
+    "probabilities": "fraction"
+  }
+}

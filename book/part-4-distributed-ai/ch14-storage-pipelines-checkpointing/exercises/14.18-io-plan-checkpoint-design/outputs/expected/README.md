@@ -1,0 +1,14 @@
+# Expected outputs: 14.18 Deliverable: I/O benchmark plan and checkpoint/recovery design
+
+These are the reference results for this exercise, so you can see what a finished answer looks like and check your own. **Attempt the exercise first**, then compare. Put your own work in `outputs/` (one level up), not in this folder; this folder is regenerated and would overwrite it.
+
+`lab_checks.md` lists the `check.py` lines this exercise depends on, as a finished lab prints them; `answer.md` is the worked answer for the parts the checker does not cover.
+
+- `README.md`
+- `lab_checks.md`
+- `answer.md`
+- `marking.md`
+
+Numbers carry the evidence labels used in the book: `[MODELED]` and `[ILLUSTRATIVE]` values come from the stated assumptions and do not change from run to run; `[MEASURED]` values belong to the machine that produced them.
+
+Generated 2026-11-05 from commit `2a64486` with Python 3.13.14 by `scripts/make_expected_outputs.py`.

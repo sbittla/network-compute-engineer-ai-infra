@@ -1,0 +1,43 @@
+{
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "S_bytes": 1073741824,
+    "gpus_per_node": 8,
+    "nic_GBps": 45.0
+  },
+  "orion_256": {
+    "algbw_GBps": 46.4516,
+    "busbw_GBps": 46.2702,
+    "chunk_MB": 4.1943,
+    "cross_rail_MB": 910.164,
+    "cross_rail_share_of_internode": 0.875,
+    "intra_MB": 29.3601,
+    "n": 256,
+    "nic_MB_per_direction": 1040.1874,
+    "same_rail_MB": 130.0234,
+    "sent_MB": 1069.5475,
+    "spine_fraction_pxn_off": 0.851,
+    "spine_fraction_pxn_on": 0.0,
+    "time_ms": 23.1153
+  },
+  "two_nodes": {
+    "algbw_GBps": 90.0,
+    "busbw_GBps": 84.375,
+    "chunk_MB": 67.1089,
+    "cross_rail_MB": 469.762,
+    "cross_rail_share_of_internode": 0.875,
+    "intra_MB": 469.762,
+    "n": 16,
+    "nic_MB_per_direction": 536.8709,
+    "same_rail_MB": 67.1089,
+    "sent_MB": 1006.633,
+    "spine_fraction_pxn_off": 0.4667,
+    "spine_fraction_pxn_on": 0.0,
+    "time_ms": 11.9305
+  },
+  "units": {
+    "bw": "GB/s",
+    "bytes": "MB (1e6 B)",
+    "time": "ms"
+  }
+}

@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 7 files byte-identical on regeneration
+PASS  simulator deterministic -- 97 events identical across two runs
+TODO  T1 fault plan: structure and safety -- not implemented: TODO: implement fault_plan()
+TODO  T1 fault plan: executes in the simulator -- not implemented: TODO: implement fault_plan()
+TODO  T2 alert rules: no false positives -- not implemented: TODO: implement alert_rules()
+TODO  T2 alert rules: detection targets -- not implemented: TODO: implement alert_rules()
+TODO  T3 detection times on recorded game day -- not implemented: TODO: implement detection_time()
+TODO  T4 recovery metrics on recorded game day -- not implemented: TODO: implement recovery_metrics()
+TODO  T5 incident timeline -- not implemented: TODO: implement build_timeline()
+TODO  T6 hypothesis evaluation -- not implemented: TODO: implement evaluate_hypotheses()
+TODO  T7 backlog prioritisation -- not implemented: TODO: implement prioritize_backlog()
+
+2/11 checks passed (starter)

@@ -1,0 +1,35 @@
+{
+  "answer": {
+    "rack_power": {
+      "gpus_lost": 32,
+      "jobs_affected": "jobs with ranks in that rack",
+      "pct_capacity": 12.5
+    },
+    "rail_leaf": {
+      "backend_bw_lost_per_node_pct": 12.5,
+      "gpus_lost": 0,
+      "jobs_affected": "every multi-node job using the rail (plan job-fatal)",
+      "nodes_losing_a_rail": 32
+    }
+  },
+  "evidence_label": "MODELED",
+  "id": "K5",
+  "inputs": {
+    "gpus_per_node": 8,
+    "node_max_kW": 10.2,
+    "nodes": 32,
+    "rack_budget_kW": 45.0,
+    "rails": 8
+  },
+  "steps": {
+    "nodes_per_rack": 4,
+    "spine_failure_oversub": 1.333,
+    "spine_failure_uplinks_left": 24,
+    "total_gpus": 256
+  },
+  "units": {
+    "backend_bw_lost_per_node_pct": "%",
+    "gpus_lost": "GPUs",
+    "pct_capacity": "%"
+  }
+}

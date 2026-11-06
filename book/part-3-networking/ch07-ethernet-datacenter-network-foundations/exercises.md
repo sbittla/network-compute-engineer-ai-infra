@@ -1,6 +1,6 @@
 # Chapter 7 — Exercises
 
-**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit, an `outputs/` folder for your answer and `outputs/expected/` with the reference results (attempt the exercise first). The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
 
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/model · L2 single host
 or container lab · L3 dedicated multi-node hardware lab. Every exercise states the **evidence

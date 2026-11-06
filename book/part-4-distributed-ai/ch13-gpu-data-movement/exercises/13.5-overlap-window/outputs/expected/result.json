@@ -1,0 +1,22 @@
+{
+  "answer": {
+    "exposed_ms": 97.8,
+    "window_ms": 72.4
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "backward_share": 0.6667,
+    "compute_s": 13.9,
+    "dp_bytes": 7660000000.0,
+    "micro_batches": 128,
+    "nic_Bps": 45000000000.0
+  },
+  "steps": {
+    "dp_comm_ms": 170.2,
+    "per_microbatch_ms": 108.6,
+    "window_ms": 72.4
+  },
+  "units": {
+    "time": "ms"
+  }
+}

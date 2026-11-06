@@ -1,0 +1,109 @@
+{
+  "answer": {
+    "checkpoints_in_quota": 4,
+    "detect_300_to_60_saves_gpu_h_day": 2185,
+    "e_time_to_resume_s": 905.5,
+    "interval_s": 180.0,
+    "interval_steps": 9,
+    "lost_pct_of_gpu_h": 10.1,
+    "pfs_avg_write_share_pct": 7.9,
+    "pfs_burst_duty_pct": 12.2,
+    "restart_gpu_h_day": 8242,
+    "retention": "3 validated + 1 in flight",
+    "rpo_max_s": 202.5,
+    "strategy": "async_pfs"
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "overrides": {
+      "reliability": {
+        "job_mtbf_h": 3.0
+      },
+      "storage": {
+        "commit_overhead_s": 3.0,
+        "pfs_read_GBps": 800.0,
+        "pfs_write_GBps": 400.0
+      },
+      "workload": {
+        "gpus": 4096,
+        "nodes": 512,
+        "params": 405000000000.0,
+        "step_time_s": 20.0
+      }
+    },
+    "quota_B": 25000000000000.0,
+    "yaml": "lab/data/orion_ckpt_inputs.yaml"
+  },
+  "steps": {
+    "failures_per_day": 8.0,
+    "gpu_h_per_day": 98304,
+    "size_TB": 5.67,
+    "table": {
+      "async_pfs": {
+        "blocking_s": 0.555,
+        "completion_s": 22.455,
+        "delta_s": 1.212,
+        "e_ttr_s": 905.45,
+        "interval_s": 180.0,
+        "interval_steps": 9,
+        "lost_gpu_h_ckpt": 662.116,
+        "lost_gpu_h_day": 9927.317,
+        "lost_gpu_h_fail": 9265.201,
+        "overhead_pct": 0.674,
+        "rpo_max_s": 202.455,
+        "t_pfs_w_s": 18.9,
+        "young_s": 161.825
+      },
+      "async_two_level": {
+        "blocking_s": 0.555,
+        "completion_s": 25.851,
+        "delta_s": 0.681,
+        "e_ttr_s": 899.918,
+        "interval_s": 140.0,
+        "interval_steps": 7,
+        "lost_gpu_h_ckpt": 477.923,
+        "lost_gpu_h_day": 10441.483,
+        "lost_gpu_h_fail": 9963.559,
+        "overhead_pct": 0.486,
+        "rpo_max_s": 725.851,
+        "t_pfs_w_s": 18.9,
+        "young_s": 121.251
+      },
+      "sync_local_drain": {
+        "blocking_s": 3.396,
+        "completion_s": 25.296,
+        "delta_s": 3.963,
+        "e_ttr_s": 899.918,
+        "interval_s": 300.0,
+        "interval_steps": 15,
+        "lost_gpu_h_ckpt": 1298.435,
+        "lost_gpu_h_day": 10965.668,
+        "lost_gpu_h_fail": 9667.233,
+        "overhead_pct": 1.321,
+        "rpo_max_s": 325.296,
+        "t_pfs_w_s": 18.9,
+        "young_s": 292.558
+      },
+      "sync_pfs": {
+        "blocking_s": 21.9,
+        "completion_s": 21.9,
+        "delta_s": 21.9,
+        "e_ttr_s": 905.45,
+        "interval_s": 700.0,
+        "interval_steps": 35,
+        "lost_gpu_h_ckpt": 3075.511,
+        "lost_gpu_h_day": 14702.234,
+        "lost_gpu_h_fail": 11626.724,
+        "overhead_pct": 3.129,
+        "rpo_max_s": 721.9,
+        "t_pfs_w_s": 18.9,
+        "young_s": 687.779
+      }
+    }
+  },
+  "units": {
+    "lost": "GPU-h/day",
+    "size": "TB (1e12 B)",
+    "time": "s"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "ecmp_ingress_drop_pct": 12.5,
+    "ecmp_ingress_gbps": 11200,
+    "raw_drop_pct": 3.12,
+    "raw_uplink_gbps": 12400
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.K6",
+  "inputs": {
+    "failed": "one orion-be-leaf-r0 <-> orion-be-spine-1 link",
+    "leaves": 8,
+    "link_gbps": 400,
+    "links_per_pair": 8,
+    "spines": 4
+  },
+  "steps": {
+    "baseline_gbps": 12800,
+    "bundles_after_failure": [
+      7,
+      8,
+      8,
+      8
+    ],
+    "fabric_capacity_ref": {
+      "bisection_gbps": 50800,
+      "ecmp_ingress_gbps_leaf_r0": 11200,
+      "uplink_gbps_leaf_r0": 12400
+    }
+  },
+  "tolerance": "exact Gb/s; percentages \u00b10.05",
+  "units": "Gb/s, one direction"
+}

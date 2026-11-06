@@ -1,0 +1,86 @@
+{
+  "answer": {
+    "judgment": "keep tp_x_storage, drop tp_x_driver",
+    "tp_x_driver": [
+      0.03,
+      0.13
+    ],
+    "tp_x_storage": [
+      -1.3,
+      0.15
+    ],
+    "z": {
+      "tp_x_driver": 0.3,
+      "tp_x_storage": 8.6
+    }
+  },
+  "evidence_label": "SIMULATED",
+  "id": "O1",
+  "inputs": {
+    "alert_node": "orion-n13",
+    "bundle": "lab/data (seed 2214)",
+    "r570_nodes": [
+      "orion-n17",
+      "orion-n18",
+      "orion-n19",
+      "orion-n20",
+      "orion-n21",
+      "orion-n22",
+      "orion-n23",
+      "orion-n24",
+      "orion-n25",
+      "orion-n26",
+      "orion-n27",
+      "orion-n28",
+      "orion-n29",
+      "orion-n30",
+      "orion-n31",
+      "orion-n32"
+    ]
+  },
+  "steps": {
+    "corroboration": {
+      "bounce_after": 9.504,
+      "bounce_before": 0.404,
+      "dw_delta": 1.459,
+      "iowait_cap": 6.027,
+      "iowait_hot": 1.517,
+      "p50_cap": 18.239,
+      "p50_hot": 18.17,
+      "p99_cap": 35.039,
+      "p99_hot": 18.803,
+      "sbe_after": 152.167,
+      "sbe_before": 0.667,
+      "sm_packed": 0.566,
+      "sm_split": 0.397,
+      "temp_after": 68.117,
+      "temp_before": 67.4,
+      "tx_packed": 6.061,
+      "tx_split": 95.931
+    },
+    "two_interaction_model": {
+      "coef_s": {
+        "after": 0.343,
+        "alert_node": -0.055,
+        "driver_new": 0.891,
+        "intercept": 17.385,
+        "storage_new": 1.397,
+        "tp_split": 8.944,
+        "tp_x_driver": 0.034,
+        "tp_x_storage": -1.302
+      },
+      "r2": 0.9984,
+      "se_s": {
+        "after": 0.093,
+        "alert_node": 0.095,
+        "driver_new": 0.085,
+        "intercept": 0.03,
+        "storage_new": 0.075,
+        "tp_split": 0.121,
+        "tp_x_driver": 0.133,
+        "tp_x_storage": 0.152
+      }
+    }
+  },
+  "units": "GB/s; fraction; %; s; count; degC"
+}

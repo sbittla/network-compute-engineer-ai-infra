@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "p50": {
+      "first_shortfall": "2028Q3",
+      "order_by_first_shortfall": {
+        "facility_power": "2027Q3",
+        "gpus": "2028Q1",
+        "network": "2028Q2"
+      },
+      "shortfalls": {
+        "2028Q3": {
+          "binding": "power",
+          "energized_gpus_needed": 584,
+          "gap": -18.3,
+          "order_by": {
+            "facility_power": "2027Q3"
+          },
+          "required": 494.1,
+          "usable": 475.8
+        },
+        "2029Q4": {
+          "binding": "gpus+power",
+          "energized_gpus_needed": 1136,
+          "gap": -94.7,
+          "order_by": {
+            "facility_power": "2028Q4",
+            "gpus": "2029Q2",
+            "network": "2029Q3"
+          },
+          "required": 964.7,
+          "usable": 870.0
+        }
+      }
+    },
+    "p90": {
+      "first_shortfall": "2028Q3",
+      "order_by_first_shortfall": {
+        "facility_power": "2027Q3",
+        "gpus": "2028Q1",
+        "network": "2028Q2"
+      },
+      "shortfalls": {
+        "2028Q3": {
+          "binding": "power",
+          "energized_gpus_needed": 728,
+          "gap": -141.9,
+          "order_by": {
+            "facility_power": "2027Q3"
+          },
+          "required": 617.6,
+          "usable": 475.8
+        },
+        "2029Q2": {
+          "binding": "power",
+          "energized_gpus_needed": 1096,
+          "gap": -36.1,
+          "order_by": {
+            "facility_power": "2028Q2"
+          },
+          "required": 926.5,
+          "usable": 890.4
+        },
+        "2029Q3": {
+          "binding": "gpus+power",
+          "energized_gpus_needed": 1248,
+          "gap": -188.8,
+          "order_by": {
+            "facility_power": "2028Q3",
+            "gpus": "2029Q1",
+            "network": "2029Q2"
+          },
+          "required": 1058.8,
+          "usable": 870.0
+        },
+        "2029Q4": {
+          "binding": "gpus+power",
+          "energized_gpus_needed": 1424,
+          "gap": -335.9,
+          "order_by": {
+            "facility_power": "2028Q4",
+            "gpus": "2029Q2",
+            "network": "2029Q3"
+          },
+          "required": 1205.9,
+          "usable": 870.0
+        }
+      }
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "M1",
+  "inputs": {
+    "lead_time_quarters": {
+      "facility_power": 4,
+      "gpus": 2,
+      "network": 1
+    },
+    "p90_from": "2028Q3",
+    "p90_uplift": 1.25,
+    "target_allocation": 0.85
+  },
+  "steps": {
+    "files": [
+      "forecast_p50.csv",
+      "forecast_p90.csv"
+    ]
+  },
+  "tolerance_gpus": 0.15,
+  "units": {
+    "capacity": "GPUs",
+    "dates": "quarters"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "answer": {
+    "choice": {
+      "decode": 4,
+      "nodes_incl_spare": 10,
+      "prefill": 14
+    },
+    "decode_pool": {
+      "3": {
+        "batch": 50.2,
+        "tpot_ms": 25.1
+      },
+      "4": {
+        "batch": 27.9,
+        "tpot_ms": 18.6
+      },
+      "5": {
+        "batch": 19.3,
+        "tpot_ms": 16.1
+      }
+    },
+    "failures": {
+      "decode_loss_seqs": 28,
+      "prefill_loss_rho": 0.6,
+      "prefill_loss_ttft_p95_s": 1.49,
+      "reprefill_replica_s": 10.9
+    },
+    "kv_fit_per_replica": {
+      "bf16": 75,
+      "fp8": 150
+    },
+    "network": {
+      "aggregate_Gbps": 429.5,
+      "decision": "rdma",
+      "kv_GB_per_request": 2.684,
+      "per_decode_replica_Gbps": 107.4,
+      "prefill_per_layer_ms": 4.87,
+      "transports": {
+        "rdma": {
+          "achievable_Gbps": 1360.0,
+          "per_layer_ms": 0.2,
+          "transfer_ms": 15.8,
+          "util_pct": 7.9
+        },
+        "tcp": {
+          "achievable_Gbps": 100.0,
+          "per_layer_ms": 2.68,
+          "transfer_ms": 215.7,
+          "util_pct": 107.4
+        }
+      }
+    },
+    "prefill_pool": {
+      "12": {
+        "rho": 0.65,
+        "ttft_mean_s": 0.752,
+        "ttft_p95_s": 1.71,
+        "wait_p95_over_mean": 3.64
+      },
+      "13": {
+        "rho": 0.6,
+        "ttft_mean_s": 0.682,
+        "ttft_p95_s": 1.49,
+        "wait_p95_over_mean": 3.77
+      },
+      "14": {
+        "rho": 0.557,
+        "ttft_mean_s": 0.635,
+        "ttft_p95_s": 1.35,
+        "wait_p95_over_mean": 3.91
+      }
+    },
+    "shared_alternative": {
+      "chunk_512_ms": 22.6,
+      "itl_worst_ms": 403,
+      "replicas": 16,
+      "rho": 0.4875,
+      "tpot_ms": 25.9,
+      "ttft_s": 0.575
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "out": 300,
+    "prompt": 8192,
+    "rate": 20.0,
+    "replica": "T-tp4-fp8"
+  },
+  "steps": {
+    "blocks_per_seq": 531,
+    "c_ms_per_seq": 0.2914,
+    "prefill_demand": 7.8,
+    "t_p_attention_ms": 27.8,
+    "t_p_linear_ms": 362.2,
+    "t_p_ms": 390.0
+  },
+  "units": {
+    "bandwidth": "Gb/s",
+    "time": "s or ms"
+  }
+}

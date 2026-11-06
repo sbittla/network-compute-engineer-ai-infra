@@ -1,0 +1,52 @@
+{
+  "answer": {
+    "hall_nodes": 62,
+    "hall_racks": 8,
+    "hall_transient_swing_kw": 124.0,
+    "per_side_limit_needed_kw": 127.1,
+    "rack_air_kw": 22.9,
+    "rack_flow_kg_s": 2.19,
+    "rack_flow_l_min": 131,
+    "rack_liquid_kw": 91.5,
+    "rack_provisioned_kw": 114.4,
+    "rack_transient_swing_kw": 16.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "M4",
+  "inputs": {
+    "cdu_kw": 1000,
+    "cp_water": 4.18,
+    "delta_t_k": 10.0,
+    "facility_it_kw": 1000,
+    "gpu_swing_w": 250,
+    "kw_per_node": 14.3,
+    "liquid_fraction": 0.8,
+    "nodes_per_rack": 8,
+    "pue": 1.2,
+    "sustained_kw_per_node": 12.0,
+    "transient_margin": 0.1
+  },
+  "steps": {
+    "flow_glycol_kg_s": 2.35,
+    "hall_air_kw": 177.3,
+    "hall_facility_mw": 1.0,
+    "hall_flow_kg_s": 17.0,
+    "hall_flow_l_min": 1018,
+    "hall_liquid_kw": 709.3,
+    "nodes_cooling_fit": 87,
+    "nodes_power_fit": 62,
+    "rack_sustained_kw": 96.0
+  },
+  "tolerance": {
+    "air_kw": 0.05,
+    "flow_kg_s": 0.005,
+    "flow_l_min": 0.6,
+    "liquid_kw": 0.05,
+    "rack_kw": 0.05
+  },
+  "units": {
+    "facility": "MW",
+    "flow": "kg/s and L/min (water)",
+    "power": "kW"
+  }
+}

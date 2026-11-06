@@ -1,0 +1,21 @@
+PASS  T0  dataset regenerates byte-identically (seed 7)
+TODO  T1a size ORION-256 backend (64-port, 1:1)                           size_two_tier not implemented yet
+TODO  T1b size frontend pair (3:1 ports, 1.5:1 bandwidth)                 size_two_tier not implemented yet
+TODO  T1c ORION-XL radix limit (64- vs 128-port)                          size_two_tier not implemented yet
+TODO  T2a addressing plan: 512 unique /31s                                build_addressing_plan not implemented yet
+TODO  T2b addressing plan: spot values                                    build_addressing_plan not implemented yet
+TODO  T3  BGP neighbor table (256 sessions, ASNs)                         build_addressing_plan not implemented yet
+TODO  T4  detect planted ASN_COLLISION                                    validate_intent not implemented yet
+TODO  T4  detect planted ASYM_ADVERT                                      validate_intent not implemented yet
+TODO  T4  detect planted BAD_ORIGIN                                       validate_intent not implemented yet
+TODO  T4  detect planted DUP_P2P                                          validate_intent not implemented yet
+TODO  T4  detect planted ECMP_MAXPATHS                                    validate_intent not implemented yet
+TODO  T4  detect planted MTU_MISMATCH                                     validate_intent not implemented yet
+TODO  T4  no false positives (shared spine ASN, host MTU 9000 are legal)  validate_intent not implemented yet
+TODO  T5  capacity: baseline                                              fabric_capacity not implemented yet
+TODO  T5  capacity: one orion-be-leaf-r0/orion-be-spine-1 link down       fabric_capacity not implemented yet
+TODO  T5  capacity: orion-be-spine-2 down                                 fabric_capacity not implemented yet
+TODO  T5  capacity: orion-be-leaf-r5 prefix not sent to orion-be-spine-4  fabric_capacity not implemented yet
+TODO  T5  capacity: orion-be-leaf-r3 down (rail 3 isolated)               fabric_capacity not implemented yet
+
+1/19 checks passed (starter)

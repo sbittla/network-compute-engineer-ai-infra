@@ -1,0 +1,19 @@
+PASS  dataset deterministic -- 8 files byte-identical on regeneration, 51 KiB
+PASS  T1 state machine shape -- 7 states, all reachable, every state can reach retired
+PASS  T1 state machine safety -- no path to schedulable bypasses validated; repair/retire require drain
+PASS  T2 acceptance: planted failures -- 5 planted failures found exactly; 5 nodes pass
+PASS  T2 acceptance: policy-driven thresholds -- thresholds come from the policy, not the code
+PASS  T3 compatibility classification -- blocked x2, deprecated x5, non_compliant x1, unknown x1, golden x32
+PASS  T4 event rules (noop/reject/guards) -- noop / rejected / guard semantics correct
+PASS  T4 replay: final states -- 16 audited nodes end in the expected state
+PASS  T4 replay: duplicates and ordering -- at-most-once delivery and time ordering enforced
+PASS  T4 replay: admission gates -- 3 admissions, all gated; 5 unsafe events rejected
+PASS  T5 rollout waves -- 28 eligible nodes in 7 waves (minimum); headroom per wave training 5, inference 1; expiring bundle first
+PASS  T5 rollout refuses unsafe constraints -- refuses when a partition floor leaves no headroom (pending drain counted)
+PASS  T6 canary gate -- S1 promote, S2 abort (worst canary), S3 extend, S4 abort (Xid)
+PASS  T7 remediation plan -- 7 actions; blocked node drained before reimage
+PASS  T7 remediation idempotent -- converged fleet -> empty plan (idempotent)
+PASS  T8 audit: planted tamper -- tampered record seq 23 detected
+PASS  T8 audit: append/verify -- append/verify detect edits and deletions; hashes match the controller export
+
+17/17 checks passed (solution)

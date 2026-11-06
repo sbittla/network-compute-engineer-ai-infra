@@ -1,0 +1,31 @@
+{
+  "answer": {
+    "gdr": {
+      "host_copies": 0,
+      "pcie_MB": 16.77,
+      "pcie_transfers": 2,
+      "time_us": 186.4
+    },
+    "host_staged": {
+      "host_copies": 2,
+      "pcie_MB": 33.55,
+      "pcie_transfers": 4,
+      "time_us": 521.9
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "copy_Bps": 50000000000.0,
+    "msg_bytes": 8387500,
+    "nic_Bps": 45000000000.0
+  },
+  "steps": {
+    "gdr_with_fixed_us": 196.4,
+    "t_copy_us": 167.8,
+    "t_wire_us": 186.4
+  },
+  "units": {
+    "pcie_MB": "MB (1e6 B)",
+    "time_us": "microseconds"
+  }
+}

@@ -24,7 +24,7 @@ metadata-bound or bandwidth-bound.
 - **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
 - **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the W-TRAIN values.
 - **Local NVMe for part (d):** each HX8 node has 8 × 3.84 TB U.2 NVMe, ≈ 30.7 TB raw per node (the Local NVMe row of the HX8 node table in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md)). Staging reads come from the PFS, so use the prompt's 160 GB/s aggregate for the all-nodes-at-once case.
-- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/14.9-metadata-vs-bandwidth-pipeline/` (instructor material in the full repository; removed from student releases).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare it with [outputs/expected/](outputs/expected/README.md): the reference script's output (`result.md`), the worked solution (`answer.md`) and the marking scheme (`marking.md`).
 
 ## What to submit
 

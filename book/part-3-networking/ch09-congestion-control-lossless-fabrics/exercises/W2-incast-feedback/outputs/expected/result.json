@@ -1,0 +1,32 @@
+{
+  "answer": {
+    "a_excess_kb_per_us": 750.0,
+    "b_time_to_threshold_us": 2.0,
+    "c_feedback_before_threshold": false,
+    "d_min_completion_us": 640.0,
+    "e_halvings": 4,
+    "e_pct_of_d": 24.4,
+    "e_time_us": 156.0,
+    "f_bdp_kb": 300.0,
+    "f_kmin_upper_bound_kb": 300.0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W2",
+  "inputs": {
+    "alpha": 1,
+    "burst_mb": 2,
+    "cnp_interval_us": 50.0,
+    "rate_kb_per_us": 50.0,
+    "rtt_us": 6.0,
+    "senders": 16,
+    "share_kb": 6000,
+    "threshold_kb": 1500
+  },
+  "steps": {
+    "alternative_e_pct": 31.2,
+    "alternative_e_us": 200.0,
+    "share_fill_us_without_pfc": 8.0
+  },
+  "tolerance": "1e-9 (e: \u00b10.5 percentage points)",
+  "units": "KB/us, us, KB"
+}

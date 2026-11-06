@@ -1,0 +1,25 @@
+{
+  "answer": {
+    "alert_threshold_s": 17.92,
+    "canary_cost_pct": 1.04,
+    "mde_7day_baseline_s": 0.165,
+    "runs_per_arm_needed": 0.7
+  },
+  "evidence_label": "MODELED",
+  "id": "D1",
+  "inputs": {
+    "baseline_n": 7,
+    "canary_gpus": 64,
+    "canary_hours": 1.0,
+    "cluster_gpus": 256,
+    "regression": 0.03,
+    "sigma_s": 0.11,
+    "step_s": 17.4
+  },
+  "steps": {
+    "canary_gpu_h_per_day": 64.0,
+    "cluster_gpu_h_per_day": 6144,
+    "delta_s": 0.522
+  },
+  "units": "%; runs; s"
+}

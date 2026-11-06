@@ -1,0 +1,19 @@
+{
+  "answer": {
+    "ceiling_fraction": 1.6,
+    "implied_GBps": 80.0,
+    "line_rate_GBps": 50.0,
+    "lower_bound_s": 0.8,
+    "verdict": "IMPOSSIBLE"
+  },
+  "evidence": "[MODELED]",
+  "inputs": {
+    "bytes_GB": 40.0,
+    "nic_Gbps": 400,
+    "window_s": 0.5
+  },
+  "units": {
+    "rate": "GB/s",
+    "time": "s"
+  }
+}

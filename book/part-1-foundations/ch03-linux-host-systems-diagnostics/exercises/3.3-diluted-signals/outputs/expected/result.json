@@ -1,0 +1,18 @@
+{
+  "answer": {
+    "about": 10,
+    "max_blocked_tasks": 10.08,
+    "next_metrics": [
+      "vmstat 1 5 (column b, drop first row)",
+      "iostat -x 1 3 (r_await, w_await, aqu-sz, last report)"
+    ],
+    "runnable_implied_by_load": 2
+  },
+  "evidence": "[MODELED]",
+  "inputs": {
+    "cpus": 224,
+    "iowait_pct": 4.5,
+    "load_avg": 12
+  },
+  "units": "tasks"
+}

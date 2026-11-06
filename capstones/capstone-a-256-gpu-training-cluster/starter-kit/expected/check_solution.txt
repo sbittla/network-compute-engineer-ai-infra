@@ -1,0 +1,18 @@
+PASS 01 load_inputs                     dataset loaded (13 racks, 32-node hostfile)
+PASS 02 fabric_counts option A          8 leaves, 4 spines, 256+256 links, 1:1
+PASS 03 fabric_counts option B          8 ToR leaves, 2 spines, 256+128 links, 2:1
+PASS 04 vendor quote C is flagged       3 design-rule warnings raised
+PASS 05 cable plan option A             224 MM + 32 SM host links; 128 DAC + 128 MM fabric links; 768 optics
+PASS 06 cable plan option B             256 in-rack DAC; 112 MM + 16 SM uplinks; 256 optics
+PASS 07 feed usable kW (units trap)     415 V 3-phase: 80 A -> 43.70 kW, 63 A -> 34.42 kW usable
+PASS 08 rack power + 2N, option A       rack-05 violates 2N at max (40.8 > 34.42 kW) but fits at sustained
+PASS 09 rack power + 2N, option B       ToR leaf pushes rack-05 over its feed even at sustained load
+PASS 10 cooling N+1 per row             row D (rack-08 overflow position) cannot cool a 41 kW rack with N+1
+PASS 11 communication bytes             DP 7.66 GB, PP 1.07 GB, FSDP 50.9 GB per GPU per step
+PASS 12 oversubscription vs rank layout rail-optimized always 1.0; ToR 1.0 or 2.0 depending on rank order
+PASS 13 step-time model                 A baseline 17.52 s (0.12 s exposed); B baseline hostfile 0.31 s exposed; B FSDP hostfile 18.16 s
+PASS 14 bill of materials               A $12.62 M vs B $12.08 M [ILLUSTRATIVE prices]
+PASS 15 acceptance campaign size        512 links / 768 optics / 256 rail-pair tests to certify (option A)
+PASS 16 cost per million tokens         $400/h -> $0.464 per M training tokens [MODELED]
+
+16/16 checks pass (0 TODO, 0 FAIL) [impl=solution]

@@ -1,0 +1,15 @@
+PASS dataset_reproducible: dataset regenerates byte-identically (50160 bytes)
+PASS counter_delta: normal, zero and counter-reset cases
+PASS pcs_fec_line_rate: 400G -> 425.0000 Gb/s, 100G -> 106.2500 Gb/s (expect 425, 106.25)
+PASS fec_margin_decades: margin(2.4e-6)=2.000, margin(2.4e-4)=0.000, margin(1.6e-4)=0.176 decades
+PASS compute_deltas: 64 ports, dt = 600 s, no negative deltas
+PASS layer_classification: layer counts {'healthy': 55, 'physical': 7, 'higher_layer': 2} (expect {'healthy': 55, 'physical': 7, 'higher_layer': 2})
+PASS primary_findings: primary-code counts match
+PASS per_port_digest: per-port classification matches reference
+PASS severity_policy: critical=7 (expect 7); healthy->ok, higher_layer->refer
+PASS commissioning_report: overall=FAIL, accepted=57/64, failures=7, referrals=2
+PASS link_budget: DR4 0.5 km, 4 MPO pairs, Tx 0 dBm: {'loss_db': 2.2, 'rx_dbm': -2.2, 'margin_db': 3.7}; 50 m, 2 pairs, Tx -2.9 dBm, 1 dB penalty: {'loss_db': 2.52, 'rx_dbm': -5.42, 'margin_db': 0.48}
+PASS bom_and_spares: small: 8 leaves/2 spines/256 links/512 optics; ORION: 8/4/512/1024 (matches the ORION reference)
+PASS cabling_schedule: 256 cables, unique endpoints, 8 links per leaf-spine pair
+
+13/13 checks passed (solution)

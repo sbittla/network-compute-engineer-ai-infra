@@ -1,0 +1,12 @@
+{
+  "answer": {
+    "binding_numa_node": 1,
+    "gpu2_bdf": "3a:00.0",
+    "gpu2_numa_node": 0,
+    "socket1_first_threads": "56-111",
+    "socket1_smt_siblings": "168-223",
+    "verdict": "wrong socket: bind rank 2 to socket-0 cores (0-55, siblings 112-167)"
+  },
+  "evidence": "[SIMULATED] snapshot orion-n01",
+  "units": "logical CPU ids"
+}

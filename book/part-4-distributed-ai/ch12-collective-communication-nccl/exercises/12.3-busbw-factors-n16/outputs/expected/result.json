@@ -1,0 +1,13 @@
+{
+  "answer": {
+    "all_gather": 0.9375,
+    "all_reduce": 1.875,
+    "alltoall": 0.9375,
+    "broadcast": 1.0,
+    "reduce_scatter": 0.9375
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "n": 16
+  }
+}

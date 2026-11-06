@@ -1,0 +1,26 @@
+{
+  "answer": "x16 ≈ 63 GB/s per direction (≈ 50–55 achievable); x8 ≈ 31.5 GB/s (≈ 25–27.5 achievable), below the 50 GB/s a 400 Gb/s NIC needs: the rail runs at roughly half rate",
+  "evidence_label": "[MODELED] from [VENDOR-SPEC] link rates",
+  "exercise": "K4",
+  "inputs": {
+    "achievable_x16_gbs": [
+      50.0,
+      55.0
+    ],
+    "encoding": "128b/130b",
+    "gt_per_lane": 32.0,
+    "nic_gbits": 400.0
+  },
+  "steps": {
+    "nic_line_rate_gbs": 50.0,
+    "x16_theoretical_gbs": 63.02,
+    "x8_achievable_gbs": [
+      25.0,
+      27.5
+    ],
+    "x8_fraction_of_nic": 0.63,
+    "x8_theoretical_gbs": 31.51
+  },
+  "tolerance_gbs": 0.1,
+  "units": "GB/s per direction"
+}

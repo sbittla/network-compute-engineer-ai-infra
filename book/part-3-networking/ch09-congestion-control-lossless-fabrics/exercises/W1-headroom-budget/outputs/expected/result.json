@@ -1,0 +1,35 @@
+{
+  "answer": {
+    "a_headroom_per_port_priority_b": 143496,
+    "b_switch_total_b": 18367488,
+    "c_headroom_800g_b": 268496,
+    "c_ratio_800_over_400": 1.871
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "W1",
+  "inputs": {
+    "cable_m": 150,
+    "lossless_priorities": 2,
+    "mtu_b": 9216,
+    "ns_per_m": 5,
+    "ports": 64,
+    "t_resp_ns": 1000
+  },
+  "steps": {
+    "a_terms_b": {
+      "pfc": 64,
+      "response": 50000,
+      "two_mtu": 18432,
+      "wire": 75000
+    },
+    "c_terms_b": {
+      "pfc": 64,
+      "response": 100000,
+      "two_mtu": 18432,
+      "wire": 150000
+    },
+    "one_way_delay_ns": 750
+  },
+  "tolerance": "exact bytes; ratio \u00b10.005",
+  "units": "bytes"
+}

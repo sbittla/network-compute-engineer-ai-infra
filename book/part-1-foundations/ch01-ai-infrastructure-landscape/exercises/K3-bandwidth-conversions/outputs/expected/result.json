@@ -1,0 +1,11 @@
+{
+  "answer": {
+    "a_GBps": 50.0,
+    "b_GBps_per_direction": 450.0,
+    "c_GBps_per_direction": 400.0,
+    "c_Gbps": 3200
+  },
+  "evidence": "[MODELED] from [VENDOR-SPEC, 2026-10]-class rates",
+  "nvlink_to_nic_ratio_per_gpu": 9.0,
+  "units": "GB/s unless suffixed Gbps"
+}

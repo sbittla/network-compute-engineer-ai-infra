@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "budget_per_shift": 2,
+    "inference_per_shift": 0.3,
+    "pages_one_incident_with_grouping": 1,
+    "pages_one_incident_without_grouping": 40,
+    "shifts_per_month": 60,
+    "total_per_shift": 0.633,
+    "training_per_shift": 0.333
+  },
+  "evidence_label": "[ILLUSTRATIVE]",
+  "exercise": "D1",
+  "inputs": {
+    "jobs": 40,
+    "pages_per_job_month": 0.5,
+    "pages_per_service_month": 6.0,
+    "services": 3,
+    "shift_h": 12
+  },
+  "units": {
+    "pages": "pages per 12 h shift"
+  }
+}

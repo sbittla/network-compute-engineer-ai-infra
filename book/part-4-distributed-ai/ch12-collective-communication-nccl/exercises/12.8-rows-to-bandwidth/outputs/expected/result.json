@@ -1,0 +1,43 @@
+{
+  "answer": {
+    "efficiency_vs_node_egress": 0.8755
+  },
+  "evidence_label": "[MODELED] from [SIMULATED] data",
+  "inputs": {
+    "factor": 1.9375,
+    "log": "c4_4node_aligned.log",
+    "nodes": 4,
+    "nranks": 32,
+    "plateau_GBps": 348.72
+  },
+  "rows": [
+    {
+      "algbw_GBps": 24.3402,
+      "busbw_GBps": 47.1591,
+      "printed_busbw": 47.16,
+      "region": "latency",
+      "size_b": 1048576,
+      "time_us": 43.08
+    },
+    {
+      "algbw_GBps": 165.4558,
+      "busbw_GBps": 320.5706,
+      "printed_busbw": 320.57,
+      "region": "bandwidth",
+      "size_b": 67108864,
+      "time_us": 405.6
+    },
+    {
+      "algbw_GBps": 180.7494,
+      "busbw_GBps": 350.202,
+      "printed_busbw": 350.2,
+      "region": "bandwidth",
+      "size_b": 4294967296,
+      "time_us": 23762.0
+    }
+  ],
+  "units": {
+    "bandwidth": "GB/s (1e9 B/s)",
+    "time": "us"
+  }
+}

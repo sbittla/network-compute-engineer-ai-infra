@@ -1,0 +1,95 @@
+{
+  "answer": {
+    "dp_rails": [
+      3
+    ],
+    "pp_rails": [
+      3
+    ]
+  },
+  "coords": {
+    "dp": 2,
+    "pp": 0,
+    "tp": 3
+  },
+  "dp_group": [
+    3,
+    11,
+    19,
+    27,
+    35,
+    43,
+    51,
+    59
+  ],
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "dp": 8,
+    "pp": 4,
+    "rank": 19,
+    "tp": 8
+  },
+  "placement": {
+    "11": {
+      "local_rank": 3,
+      "node": 1,
+      "rail": 3
+    },
+    "147": {
+      "local_rank": 3,
+      "node": 18,
+      "rail": 3
+    },
+    "19": {
+      "local_rank": 3,
+      "node": 2,
+      "rail": 3
+    },
+    "211": {
+      "local_rank": 3,
+      "node": 26,
+      "rail": 3
+    },
+    "27": {
+      "local_rank": 3,
+      "node": 3,
+      "rail": 3
+    },
+    "3": {
+      "local_rank": 3,
+      "node": 0,
+      "rail": 3
+    },
+    "35": {
+      "local_rank": 3,
+      "node": 4,
+      "rail": 3
+    },
+    "43": {
+      "local_rank": 3,
+      "node": 5,
+      "rail": 3
+    },
+    "51": {
+      "local_rank": 3,
+      "node": 6,
+      "rail": 3
+    },
+    "59": {
+      "local_rank": 3,
+      "node": 7,
+      "rail": 3
+    },
+    "83": {
+      "local_rank": 3,
+      "node": 10,
+      "rail": 3
+    }
+  },
+  "pp_group": [
+    19,
+    83,
+    147,
+    211
+  ]
+}

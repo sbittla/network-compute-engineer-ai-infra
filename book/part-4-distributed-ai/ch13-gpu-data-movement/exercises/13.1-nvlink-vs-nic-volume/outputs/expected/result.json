@@ -1,0 +1,21 @@
+{
+  "answer": {
+    "cause": "tensor parallelism (TP 8) over NVLink",
+    "ratio": 122.3
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "dp_bytes": 7660000000.0,
+    "pp_bytes": 2150000000.0,
+    "tp_bytes": 1200000000000.0
+  },
+  "steps": {
+    "nic_bytes": 9810000000.0,
+    "ratio_tp_over_dp": 156.7,
+    "ratio_tp_over_nic": 122.3
+  },
+  "units": {
+    "bytes": "B per GPU per step",
+    "ratio": "dimensionless"
+  }
+}

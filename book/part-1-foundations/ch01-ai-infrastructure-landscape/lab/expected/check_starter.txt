@@ -1,0 +1,11 @@
+PASS dataset_reproducible   generator reproduces committed data byte-for-byte
+TODO validation_issues      normalize_and_validate is not implemented yet
+TODO unit_normalization     normalize_and_validate is not implemented yet
+TODO resource_times_core    resource_times is not implemented yet
+TODO resource_times_io      resource_times is not implemented yet
+TODO w01_worked_example     normalize_and_validate is not implemented yet
+TODO classification         analyze is not implemented yet
+TODO flags                  analyze is not implemented yet
+TODO comparison_markdown    analyze is not implemented yet
+
+1/9 checks passed, 0 skipped (starter)

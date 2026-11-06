@@ -1,0 +1,18 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `dataset reproducible` | PASS dataset reproducible: generator reproduces committed data byte-for-byte (1.48 MB) |
+| `T1 log parsers` | PASS T1 log parsers: xid={'pci': '0000:5d:00', 'xid': 63}; netib={'peer_ip': '10.135.1.167', 'status': 12, 'hca': 'mlx5_5'}; non-matching -> None: True; Xids parsed from events.jsonl=[{'pci': '0000:5d:00', 'xid': 63}] |
+| `T1 rank -> hardware map` | PASS T1 rank -> hardware map: rank 1693 -> orionxl-n212 mlx5_5 orionxl-be-leaf-p06-r5:Ethernet20/1 NUMA 1; Xid PCI 0000:5d:00 on orionxl-n389 -> rank 3107 (expect 3107) |
+| `T2 stuck group localisation` | PASS T2 stuck group localisation: 64 stuck ranks; rails={5} pp_stages={3} leaves=['orionxl-be-leaf-p06-r5', 'orionxl-be-leaf-p07-r5'] |
+| `T2 link implication + switch ports` | PASS T2 link implication + switch ports: top endpoint ('orionxl-n212', 'mlx5_5', 3); bad ports=[('orionxl-be-leaf-p06-r5', 'Ethernet20/1')] link_downs=[4] |
+| `T2 GPU health decisions` | PASS T2 GPU health decisions: [('orionxl-n046', 6, 'monitor'), ('orionxl-n389', 3, 'drain_reset_validate'), ('orionxl-s00', 2, 'quarantine_rma')] |
+| `T3 proven cause vs correlation` | PASS T3 proven cause vs correlation: classification={'H1': 'proven_cause', 'H2': 'real_fault_not_cause', 'H3': 'correlation_only', 'H4': 'correlation_only', 'H5': 'correlation_only', 'H6': 'refuted'} |
+| `T4 checkpoint selection + RPO/RTO` | PASS T4 checkpoint selection + RPO/RTO: checkpoint=ckpt-0084 (ckpt-0085 lacks committed metadata); metrics={'rpo_min': 31.03, 'rto_min': 49.97, 'lost_gpu_hours': 5529.6} |
+| `T4 retry-loop policy` | PASS T4 retry-loop policy: repeat offenders={'orionxl-n212'}; restart allowed with offender=False, after exclusion=True |
+| `T4 restart plan + rank remap` | PASS T4 restart plan + rank remap: node_map={'orionxl-n212': 'orionxl-s01', 'orionxl-n389': 'orionxl-s03'} (orionxl-s00 failed acceptance, orionxl-s02 in repair); 16 ranks remapped |
+| `T5 FMEA scorer` | PASS T5 FMEA scorer: top=F03 RPN 336; issues={'F07': 'DETECTION_INCONSISTENT', 'F11': 'OUT_OF_RANGE'}; action_required=['F03', 'F06', 'F07', 'F12'] |
+| `T6 tenant isolation checker` | PASS T6 tenant isolation checker: 11 violations; missing=[]; unexpected=[] |

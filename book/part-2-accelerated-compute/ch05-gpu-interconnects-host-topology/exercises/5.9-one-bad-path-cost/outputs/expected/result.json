@@ -1,0 +1,41 @@
+{
+  "answer": {
+    "a_all_pix": {
+      "busbw_GBps": 370.7,
+      "rings_affected": 0,
+      "slowest_path_GBps": 48.0,
+      "t_ms": 5.771
+    },
+    "b_one_gen5_x8_nic": {
+      "busbw_GBps": 211.7,
+      "rings_affected": 1,
+      "slowest_path_GBps": 27.0,
+      "t_ms": 10.103
+    },
+    "c_one_node_no_gdr": {
+      "busbw_GBps": 142.1,
+      "rings_affected": 8,
+      "slowest_path_GBps": 18.0,
+      "t_ms": 15.055
+    },
+    "d_busbw_loss_fraction": 0.617,
+    "d_nodes_affected_fraction": 0.0312
+  },
+  "evidence_label": "MODELED",
+  "exercise": "5.9",
+  "inputs": {
+    "R": 8,
+    "S_bytes": 1073741824,
+    "alpha_ms": 0.2,
+    "n": 256
+  },
+  "steps": {
+    "bytes_per_ring": 134217728,
+    "ring_bytes_moved": 267386880,
+    "ring_factor": 1.99219
+  },
+  "units": {
+    "busbw": "GB/s",
+    "time": "ms"
+  }
+}

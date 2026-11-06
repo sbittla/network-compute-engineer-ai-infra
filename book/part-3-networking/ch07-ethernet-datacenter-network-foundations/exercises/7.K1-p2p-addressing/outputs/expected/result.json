@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "ipv4_addresses_slash30": 2048,
+    "ipv4_addresses_slash31": 1024,
+    "ipv6_prefix_length": 127,
+    "links": 512,
+    "rfc_ipv4_slash31": "RFC 3021",
+    "rfc_ipv6_slash127": "RFC 6164"
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.K1",
+  "inputs": {
+    "fabric_links": 256,
+    "host_links": 256,
+    "links_csv": "lab/data/links.csv"
+  },
+  "steps": {
+    "addresses_per_slash30": 4,
+    "addresses_per_slash31": 2
+  },
+  "tolerance": "exact",
+  "units": "IPv4 addresses"
+}

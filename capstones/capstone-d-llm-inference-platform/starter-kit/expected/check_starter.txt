@@ -1,0 +1,13 @@
+TODO 01 KV bytes per token (units)          kv_bytes_per_token: 2 x layers x kv_heads x head_dim x bytes
+TODO 02 replica capacity                    capacity: weights, reserve and KV-cache budget per replica
+TODO 03 iteration cost (roofline + attention) iteration_time_s: overhead + max(compute incl. attention, HBM traffic)
+TODO 04 simulator: single request timeline  simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+TODO 05 simulator: rejection and preemption simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+TODO 06 c1 nominal load: TTFT and ITL tails simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+TODO 07 c4 'meets SLO' by rejecting         simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+TODO 08 c3 FP8 TP4 (two replicas per node)  simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+TODO 09 replication and instability         replicate: run every seed
+TODO 10 error budget, burn rate, rollback gates error_budget_minutes
+TODO 11 cost per million tokens             simulate: iteration-level continuous batching with paged-KV admission and ITL capture
+
+0/11 checks pass (11 TODO, 0 FAIL) [impl=starter]

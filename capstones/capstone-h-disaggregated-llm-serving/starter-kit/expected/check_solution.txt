@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 6 files byte-identical on regeneration
+PASS  T1 KV-cache size -- 327,680 B/token; 2,048 tokens = 671 MB; 4,096 tokens = 1.34 GB
+PASS  T2 link normalisation -- 360 / 45 / 30 / 12.5 GB/s achievable; vendor-sheet row rejected (GB/s vs Gb/s)
+PASS  T3 roofline prefill/decode -- prefill 2k 73.9 ms, 32k 1.52 s; decode B=256 23.1 ms; KV cap 1,330,566 tokens
+PASS  T3 KV transfer exposure -- 2k RDMA pipelined 0.07 ms; 2k TCP unpipelined 22.9 ms; 32k TCP pipelined 5.0 ms
+PASS  T4 pool sizing -- P=4, D=1 (40 GPUs); B=491 at 33.5 ms/step; KV 23.8 GB/s
+PASS  T4 bottleneck at target load -- 5P2D prefill-bound (prefill 0.55, TCP fan-in 0.40); 5P1D over TCP network-bound (fan-in 0.79); Ch15 TCP fan-in 0.95; model 0.551 vs sim 0.554 (same window)
+PASS  T5 admission control -- TTFT p95 9.49 s -> 0.57 s; reject 7.1%; TPOT p95 17.6 ms; ITL p99 18.4 ms; second-token gap p95 30.2 ms
+PASS  T6 speculative decoding -- simple model 2.40x (k=4); at the operating point B=491: 1.25x (verify 76.4 ms vs plain 33.5 ms); best k 6 / 3 / 8
+PASS  T7 QoS / isolation audit -- 3 findings on the proposal; corrected design is clean
+PASS  T8 cost model -- 5P2D at 8,940 tok/s: $6.96 per million output tokens
+
+11/11 checks passed (solution)

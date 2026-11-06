@@ -1,0 +1,20 @@
+{
+  "answer": {
+    "coeff_with_sp": 4.25,
+    "coeff_without_sp": 13.0,
+    "factor": 3.0588,
+    "per_layer_mb_with": 142.6063,
+    "per_layer_mb_without": 436.2076
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "b": 1,
+    "h": 8192,
+    "s": 4096,
+    "tp": 8
+  },
+  "units": {
+    "coeff": "bytes per (s*b*h) per layer",
+    "per_layer": "MB"
+  }
+}

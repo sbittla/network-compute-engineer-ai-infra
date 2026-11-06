@@ -1,0 +1,44 @@
+{
+  "answer": {
+    "a_table_tbps": {
+      "baseline": {
+        "bisection_tbps": 102.4,
+        "ecmp_ingress_tbps": 12.8,
+        "raw_uplink_tbps": 12.8
+      },
+      "link_down": {
+        "bisection_tbps": 102.0,
+        "ecmp_ingress_tbps": 9.6,
+        "raw_uplink_tbps": 12.4
+      },
+      "spine_down": {
+        "bisection_tbps": 89.6,
+        "ecmp_ingress_tbps": 11.2,
+        "raw_uplink_tbps": 11.2
+      }
+    },
+    "b_link_penalty_pct": 25.0,
+    "b_spine_penalty_pct": 12.5,
+    "c_expected_links_used": 2.7344,
+    "c_p_no_collision": 0.0938
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.W2",
+  "inputs": {
+    "leaves": 16,
+    "link_gbps": 400,
+    "links_per_pair": 4,
+    "spines": 8
+  },
+  "steps": {
+    "enumerated_outcomes": 256,
+    "hand_ingress_tbps": {
+      "baseline": 12.8,
+      "link_down": 9.6,
+      "spine_down": 11.2
+    },
+    "orion256_link_penalty_pct": 12.5
+  },
+  "tolerance": "1e-9 Tb/s; key rounding for (c)",
+  "units": "Tb/s one direction; probability; links"
+}

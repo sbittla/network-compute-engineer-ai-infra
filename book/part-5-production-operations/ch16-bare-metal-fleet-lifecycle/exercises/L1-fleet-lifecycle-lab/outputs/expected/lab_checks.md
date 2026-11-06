@@ -1,0 +1,43 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `T1.compat_exact_production` | PASS T1.compat_exact_production |
+| `T1.compat_deprecated` | PASS T1.compat_deprecated |
+| `T1.compat_list_values_and_blocked` | PASS T1.compat_list_values_and_blocked |
+| `T1.compat_off_matrix_closest` | PASS T1.compat_off_matrix_closest |
+| `T2.clean_node_passes` | PASS T2.clean_node_passes |
+| `T2.distractors_do_not_fail` | PASS T2.distractors_do_not_fail |
+| `T2.detects_GPU_COUNT` | PASS T2.detects_GPU_COUNT |
+| `T2.detects_PCIE_DEGRADED` | PASS T2.detects_PCIE_DEGRADED |
+| `T2.detects_NIC_SPEED` | PASS T2.detects_NIC_SPEED |
+| `T2.detects_FW_OFF_MATRIX` | PASS T2.detects_FW_OFF_MATRIX |
+| `T2.detects_THERMAL_THROTTLE` | PASS T2.detects_THERMAL_THROTTLE |
+| `T2.detects_HBM_ROW_REMAP_PENDING` | PASS T2.detects_HBM_ROW_REMAP_PENDING |
+| `T2.detects_NVLINK_DOWN` | PASS T2.detects_NVLINK_DOWN |
+| `T2.detects_ECC_DBE` | PASS T2.detects_ECC_DBE |
+| `T2.detects_RDMA_PAIR_BW_LOW` | PASS T2.detects_RDMA_PAIR_BW_LOW |
+| `T2.detects_LINK_BER_HIGH` | PASS T2.detects_LINK_BER_HIGH |
+| `T2.detects_GDR_PATH_FAIL` | PASS T2.detects_GDR_PATH_FAIL |
+| `T2.detects_NVME_DRIVE_SLOW` | PASS T2.detects_NVME_DRIVE_SLOW |
+| `T2.detects_NCCL_BUSBW_LOW` | PASS T2.detects_NCCL_BUSBW_LOW |
+| `T2.detects_NCCL_ALGO_UNRECORDED` | PASS T2.detects_NCCL_ALGO_UNRECORDED |
+| `T2.detects_NIC_MTU` | PASS T2.detects_NIC_MTU |
+| `T2.nccl_floor_follows_algorithm` | PASS T2.nccl_floor_follows_algorithm |
+| `T2.gdr_rules` | PASS T2.gdr_rules |
+| `T2.sbe_is_warning_not_failure` | PASS T2.sbe_is_warning_not_failure |
+| `T2.fleet_verdict_counts` | PASS T2.fleet_verdict_counts |
+| `T2.fleet_digest` | PASS T2.fleet_digest |
+| `T3.transition_table_shape` | PASS T3.transition_table_shape |
+| `T3.guard_rejects_and_audits` | PASS T3.guard_rejects_and_audits |
+| `T3.replay_does_not_mutate_input` | PASS T3.replay_does_not_mutate_input |
+| `T3.replay_rejections` | PASS T3.replay_rejections |
+| `T3.replay_final_states` | PASS T3.replay_final_states |
+| `T3.invariant_no_shortcut_to_schedulable` | PASS T3.invariant_no_shortcut_to_schedulable |
+| `T4.excluded_nodes` | PASS T4.excluded_nodes |
+| `T4.coverage_exactly_once` | PASS T4.coverage_exactly_once |
+| `T4.canary_and_wave_limits` | PASS T4.canary_and_wave_limits |
+| `T4.minimal_wave_count` | PASS T4.minimal_wave_count |
+| `T4.deterministic` | PASS T4.deterministic |

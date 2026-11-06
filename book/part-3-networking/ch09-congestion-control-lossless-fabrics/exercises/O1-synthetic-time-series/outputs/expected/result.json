@@ -1,0 +1,154 @@
+{
+  "answer": {
+    "episodes": {
+      "incast": {
+        "root": "orion-be-leaf-r3:eth1/5",
+        "window_s": [
+          100,
+          158
+        ]
+      },
+      "pause_propagation": {
+        "root": "orion-be-leaf-r3:eth1/10",
+        "window_s": [
+          250,
+          318
+        ]
+      },
+      "pfc_storm": {
+        "source": "orion-n12:mlx5_3",
+        "window_s": [
+          400,
+          468
+        ]
+      }
+    },
+    "median_rates": {
+      "incast": {
+        "leaf-r3 uplink eth1/33": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 10.9,
+          "rx_gbps": 81.52,
+          "tx_gbps": 96.94
+        },
+        "orion-n05 mlx5_3 (NP)": {
+          "cnp_sent_rate": 10.75,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 0.0,
+          "rx_gbps": 393.62,
+          "tx_gbps": 147.41
+        },
+        "root leaf-r3 eth1/5": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 1426.1,
+          "rx_gbps": 147.41,
+          "tx_gbps": 393.62
+        },
+        "sender port leaf-r3 eth1/1": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 19145.25,
+          "q_tc3_max_kb": 11.05,
+          "rx_gbps": 33.38,
+          "tx_gbps": 160.43
+        }
+      },
+      "not_an_episode_520_558": {
+        "leaf-r4 eth1/7 (to orion-n07)": {
+          "ecn_marked_tc3_rate": 45816.75,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 211.5,
+          "rx_gbps": 160.78,
+          "tx_gbps": 380.97
+        }
+      },
+      "pause_propagation": {
+        "leaf-r3 uplink eth1/33 (to spine-1)": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 7965.5,
+          "q_tc3_max_kb": 9.5,
+          "rx_gbps": 198.18,
+          "tx_gbps": 95.02
+        },
+        "leaf-r4 eth1/1 (to orion-n01)": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 2649.5,
+          "q_tc3_max_kb": 9.4,
+          "rx_gbps": 52.68,
+          "tx_gbps": 171.19
+        },
+        "leaf-r4 uplink eth1/33 (to spine-1)": {
+          "ecn_marked_tc3_rate": 5886255.5,
+          "pfc_rx_p3_rate": 4780.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 1879.1,
+          "rx_gbps": 103.89,
+          "tx_gbps": 195.02
+        },
+        "root leaf-r3 eth1/10": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 1373.6,
+          "rx_gbps": 159.41,
+          "tx_gbps": 394.08
+        },
+        "spine-1 eth1/25 (to leaf-r3)": {
+          "ecn_marked_tc3_rate": 5948586.0,
+          "pfc_rx_p3_rate": 7965.5,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 2491.1,
+          "rx_gbps": 95.02,
+          "tx_gbps": 198.18
+        },
+        "spine-2 eth1/25 (to leaf-r3)": {
+          "ecn_marked_tc3_rate": 5994750.43,
+          "pfc_rx_p3_rate": 8249.5,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 2357.9,
+          "rx_gbps": 93.33,
+          "tx_gbps": 194.44
+        }
+      },
+      "pfc_storm": {
+        "leaf-r3 eth1/12 (to orion-n12)": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 23730.0,
+          "pfc_tx_p3_rate": 0.0,
+          "q_tc3_max_kb": 3995.0,
+          "rx_gbps": 0.03,
+          "tx_gbps": 0.03
+        },
+        "leaf-r3 eth1/3 (to orion-n03)": {
+          "ecn_marked_tc3_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 6171.0,
+          "q_tc3_max_kb": 12.6,
+          "rx_gbps": 35.82,
+          "tx_gbps": 158.63
+        },
+        "orion-n12 mlx5_3 (storm source)": {
+          "cnp_sent_rate": 0.0,
+          "pfc_rx_p3_rate": 0.0,
+          "pfc_tx_p3_rate": 23730.0,
+          "rx_gbps": 0.03,
+          "tx_gbps": 0.03
+        }
+      }
+    }
+  },
+  "evidence_label": "[SIMULATED]",
+  "exercise": "O1",
+  "inputs": {
+    "data": "lab/data/switch_ports.csv, nic_counters.csv"
+  },
+  "tolerance": "ranges stated in the assertions (key values are approximate)",
+  "units": "Gb/s, KB, marks/s, pause frames/s, CNPs/s (medians over the episode)"
+}

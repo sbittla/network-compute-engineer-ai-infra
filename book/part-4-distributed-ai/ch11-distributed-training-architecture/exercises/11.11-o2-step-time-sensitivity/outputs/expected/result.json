@@ -1,0 +1,66 @@
+{
+  "answer": {
+    "ranking": [
+      "b_tp_overlap_0.60",
+      "a_efficiency_0.55",
+      "c_straggler_8pct",
+      "d_dp_x3"
+    ]
+  },
+  "cases": {
+    "a_efficiency_0.55": {
+      "delta_s": -1.2881,
+      "mfu": 0.4305,
+      "step_s": 16.1623
+    },
+    "b_tp_overlap_0.60": {
+      "delta_s": -1.4389,
+      "mfu": 0.4345,
+      "step_s": 16.0116
+    },
+    "baseline": {
+      "delta_s": 0.0,
+      "mfu": 0.3987,
+      "step_s": 17.4504
+    },
+    "c_straggler_8pct": {
+      "delta_s": 1.1393,
+      "mfu": 0.3743,
+      "step_s": 18.5898
+    },
+    "d_dp_x3": {
+      "delta_s": 0.3404,
+      "mfu": 0.3911,
+      "step_s": 17.7908
+    },
+    "e_b_and_c": {
+      "delta_s": -0.2995,
+      "mfu": 0.4057,
+      "step_s": 17.1509
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "baseline": {
+      "dp": 8,
+      "micro_batch": 1,
+      "pp": 4,
+      "recompute": "selective",
+      "tp": 8,
+      "zero_stage": 1
+    },
+    "ideal_s": 6.9578
+  },
+  "intermediate": {
+    "a_bubble_s": 0.2965,
+    "a_compute_s": 12.6506,
+    "a_exposed_dp_s": 0.1043,
+    "b_exposed_tp_s": 1.6444,
+    "c_straggle_s": 1.1393,
+    "d_exposed_dp_s": 0.4381
+  },
+  "units": {
+    "mfu": "fraction",
+    "step": "s"
+  }
+}

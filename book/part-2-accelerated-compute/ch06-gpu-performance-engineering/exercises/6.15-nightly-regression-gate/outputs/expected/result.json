@@ -1,0 +1,38 @@
+{
+  "answer": {
+    "e2e_measured_minutes": 24,
+    "e2e_runs_per_node": 12,
+    "gpu_hours": 16.0,
+    "headroom_gpu_h": 0.0,
+    "runs_per_arm": 6,
+    "stages": [
+      {
+        "gpu_hours": 5.33,
+        "minutes": 20,
+        "stage": "microbenchmark suite (GEMM BF16/FP8 \u00d7 3 shapes, LayerNorm, attention)"
+      },
+      {
+        "gpu_hours": 2.67,
+        "minutes": 10,
+        "stage": "single-node all_reduce_perf, 8 GPUs"
+      },
+      {
+        "gpu_hours": 8.0,
+        "minutes": 30,
+        "stage": "end-to-end W-TRAIN proxy, TP = 8, 12 \u00d7 2-minute runs per node (rotating node: 6 candidate + 6 baseline interleaved; reference node: 6 + 6 baseline A/A), plus 6 min setup"
+      }
+    ],
+    "window_minutes": 60
+  },
+  "evidence_label": "MODELED",
+  "exercise": "6.15",
+  "inputs": {
+    "budget_gpu_h": 16.0,
+    "gpus_per_node": 8,
+    "nodes": 2
+  },
+  "units": {
+    "budget": "GPU-hours",
+    "time": "minutes"
+  }
+}

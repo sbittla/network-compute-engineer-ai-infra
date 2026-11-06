@@ -1,0 +1,122 @@
+{
+  "answer": {
+    "df_ping": {
+      "df_1472_b": true,
+      "df_8972_b": false
+    },
+    "ib_write_bw_m1024_full_sweep_passes": true,
+    "ibv_rc_pingpong_default_passes": true,
+    "last_passing_perftest_row_b": 1024
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "8.15",
+  "inputs": {
+    "headers_b": {
+      "bth": 12,
+      "icrc": 4,
+      "ipv4": 20,
+      "reth": 16,
+      "udp": 8
+    },
+    "port_mtu_b": 1500,
+    "qp_path_mtu_b": 4096
+  },
+  "steps": {
+    "sweep": {
+      "1024": {
+        "largest_ip_packet_b": 1084,
+        "passes": true
+      },
+      "1048576": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "128": {
+        "largest_ip_packet_b": 188,
+        "passes": true
+      },
+      "131072": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "16": {
+        "largest_ip_packet_b": 76,
+        "passes": true
+      },
+      "16384": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "2": {
+        "largest_ip_packet_b": 62,
+        "passes": true
+      },
+      "2048": {
+        "largest_ip_packet_b": 2108,
+        "passes": false
+      },
+      "2097152": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "256": {
+        "largest_ip_packet_b": 316,
+        "passes": true
+      },
+      "262144": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "32": {
+        "largest_ip_packet_b": 92,
+        "passes": true
+      },
+      "32768": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "4": {
+        "largest_ip_packet_b": 64,
+        "passes": true
+      },
+      "4096": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "4194304": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "512": {
+        "largest_ip_packet_b": 572,
+        "passes": true
+      },
+      "524288": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "64": {
+        "largest_ip_packet_b": 124,
+        "passes": true
+      },
+      "65536": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "8": {
+        "largest_ip_packet_b": 68,
+        "passes": true
+      },
+      "8192": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      },
+      "8388608": {
+        "largest_ip_packet_b": 4156,
+        "passes": false
+      }
+    }
+  },
+  "tolerance": "exact",
+  "units": "bytes"
+}

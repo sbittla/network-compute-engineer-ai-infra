@@ -1,0 +1,17 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `bus_factor` | PASS bus_factor: all_reduce(8)=1.75, all_gather(8)=0.875, reduce_scatter(16)=0.9375, broadcast=1.0, alltoall(16)=0.9375 |
+| `parse_nccl_log` | PASS parse_nccl_log: rows=31 nranks=16 nodes=2 iters=20 |
+| `compute_bw` | PASS compute_bw: recomputed algbw/busbw match printed columns (worst excess 0.0000 GB/s) |
+| `plateau_busbw` | PASS plateau_busbw: plateau busbw 1-node=449.1 GB/s (~450), 8-node=345.2 GB/s (~346) |
+| `classify_regions` | PASS classify_regions: latency sizes=18, bandwidth sizes=9, monotonic=True |
+| `fit_alpha_beta` | PASS fit_alpha_beta: alpha=28.1 us (~28), B=354.3 GB/s (~355), n_half=5.31 MB |
+| `jitter_cv` | PASS jitter_cv: jitter CV c5=0.016, c6=0.088 |
+| `analyze_all` | PASS analyze_all: 6 configs; c5 plateau 345 GB/s vs reported 'Avg bus bandwidth' 117 GB/s |
+| `detect_anomalies` | PASS detect_anomalies: anomalous configs correctly labelled |
+| `predict_time_us` | PASS predict_time_us: 1 GiB on 16 ranks: 5699 us (exp 5699) |
+| `launch_spread` | PASS launch_spread: 5 launches of c2: median plateau 352.2 GB/s, range 329.7-356.9 (one low launch: report median and spread, not the mean) |

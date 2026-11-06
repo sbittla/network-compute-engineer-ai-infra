@@ -1,0 +1,13 @@
+# Marking scheme: 3.13 Host health at ORION-XL scale
+
+Type design-challenge · kind computed · tier L1 · 15 points
+
+**Evidence required:** A design note of no more than two pages with a decision table, the snapshot-volume arithmetic, and at least two explicitly rejected alternatives with reasons.
+
+| Criterion | Points |
+|---|---|
+| Decision table covering continuous vs on-demand collection with triggers, privilege model with audit, and retention | 5 |
+| Snapshot-volume arithmetic from the supplied snapshot sizes (about 141 KB typical, about 72 MB per 512-node sweep, about 26 GB per year of daily sweeps before compression) | 2 |
+| Auto-drain versus page-a-human split justified in GPU-hours (false drain costs one node; missed straggler costs a share of the whole job) | 4 |
+| At least two rejected alternatives with reasons | 2 |
+| Baseline YAML versioned in Git, changed by reviewed pull request, rolled out in shadow mode or canary | 2 |

@@ -1,0 +1,46 @@
+{
+  "a": {
+    "channel_db": 2.368,
+    "connectors_db": 2.0,
+    "fiber_db": 0.168,
+    "margin_db": 0.632,
+    "rx_worst_dbm": -5.268,
+    "splices_db": 0.2,
+    "within_channel_budget": true
+  },
+  "b": {
+    "below_rx_min_db": 0.368,
+    "channel_db": 3.368,
+    "decision": "Reject: clean or re-terminate and re-measure before acceptance",
+    "meets_channel_budget": false,
+    "meets_rx_min": false,
+    "over_budget_db": 0.368,
+    "rx_typical_tx_dbm": -2.868,
+    "rx_worst_dbm": -6.268
+  },
+  "c": {
+    "rx_mw": 0.2973
+  },
+  "d": {
+    "decision": "Equal excess on all lanes -> shared element (MPO end-face at a mated pair, splice or trunk bend); drain, inspect jumpers and panel interfaces first",
+    "excess_db": 2.332,
+    "measured_loss_db": 4.7
+  },
+  "evidence_label": "[MODELED]",
+  "inputs": {
+    "fiber_db_per_km": 0.4,
+    "length_km": 0.42,
+    "max_channel_db": 3.0,
+    "mpo_db": 0.5,
+    "mpo_pairs": 4,
+    "rx_min_dbm": -5.9,
+    "splice_db": 0.1,
+    "splices": 2,
+    "tx_min_dbm": -2.9
+  },
+  "units": {
+    "loss": "dB",
+    "power": "dBm",
+    "rx_mw": "mW"
+  }
+}

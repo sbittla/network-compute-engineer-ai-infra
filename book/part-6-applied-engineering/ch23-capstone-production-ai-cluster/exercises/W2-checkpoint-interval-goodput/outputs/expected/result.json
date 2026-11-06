@@ -1,0 +1,39 @@
+{
+  "answer": {
+    "async": {
+      "days_saved": 3.04,
+      "duration_days": 103.36,
+      "tau_s": 929.5,
+      "total_waste_pct": 2.12
+    },
+    "backlog_first": "reduce delta (validate asynchronous checkpoint)",
+    "canonical_M48_total_waste_pct": 3.16,
+    "duration_days": 106.39,
+    "goodput": 0.9023,
+    "lost_gpu_hours_per_failure": 178.5,
+    "total_waste_pct": 4.77
+  },
+  "evidence_label": "MODELED",
+  "id": "W2",
+  "inputs": {
+    "M_s": 86400.0,
+    "R_s": 900.0,
+    "delta_s": 60.0,
+    "gpus": 256,
+    "ideal_days": 96.0,
+    "other_loss": 0.05
+  },
+  "steps": {
+    "ckpt_overhead_pct": 1.863,
+    "lost_s_per_failure": 2510.0,
+    "restart_pct": 1.042,
+    "rework_pct": 1.863,
+    "tau_s": 3219.9
+  },
+  "units": {
+    "duration": "days",
+    "lost": "GPU-hours",
+    "pct": "%",
+    "tau_s": "s"
+  }
+}

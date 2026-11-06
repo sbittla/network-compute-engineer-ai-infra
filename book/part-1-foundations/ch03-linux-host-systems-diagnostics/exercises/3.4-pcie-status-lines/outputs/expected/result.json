@@ -1,0 +1,28 @@
+{
+  "answer": {
+    "a": {
+      "cap_raw_GBps": 63.02,
+      "status_raw_GBps": 31.51,
+      "verdict": "fault-critical"
+    },
+    "b": {
+      "cap_raw_GBps": 63.02,
+      "status_raw_GBps": 4.0,
+      "verdict": "probably-benign-verify"
+    },
+    "c": {
+      "cap_raw_GBps": 0.5,
+      "status_raw_GBps": 0.5,
+      "verdict": "healthy"
+    },
+    "d": {
+      "achievable_GBps": 25.84,
+      "cap_raw_GBps": 63.02,
+      "nic_line_rate_GBps": 50.0,
+      "status_raw_GBps": 31.51,
+      "verdict": "fault-warning"
+    }
+  },
+  "evidence": "[MODELED]",
+  "units": "GB/s per direction"
+}

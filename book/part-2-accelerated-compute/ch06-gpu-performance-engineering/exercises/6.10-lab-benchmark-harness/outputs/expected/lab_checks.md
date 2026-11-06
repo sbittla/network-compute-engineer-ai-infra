@@ -1,0 +1,24 @@
+# Lab checks this exercise relies on
+
+When your lab implementation is complete, `check.py` prints these lines (reference run):
+
+| Check | Reference line |
+|---|---|
+| `harness.time_samples` | PASS harness.time_samples — warm-up separated, per-call timing, argument validation |
+| `harness.summarize_ns` | PASS harness.summarize_ns — median 2.5 ms, IQR 1.5 ms, 800 GFLOP/s on synthetic samples |
+| `harness.benches` | PASS harness.benches — matmul 2n^3 FLOP, copy 2x bytes, deterministic inputs |
+| `harness.manifest_and_suite` | PASS harness.manifest_and_suite — manifest complete (incl. pid); suite records raw samples and config |
+| `harness.run_independent` | PASS harness.run_independent — 2 runs in fresh processes (pids <n>) |
+| `analysis.quantile_summary` | PASS analysis.quantile_summary — matches numpy linear quantiles; summary fields correct |
+| `analysis.cliffs_delta` | PASS analysis.cliffs_delta — sign and tie handling correct |
+| `analysis.clean_runs` | PASS analysis.clean_runs — A3 (torch 2.3.1) and B4 (thermal, clock 21 % below peers) excluded; routine power-cap events kept |
+| `analysis.bootstrap` | PASS analysis.bootstrap — point -3.117%, 95 % CI [-3.389%, -2.877%] reproduces the documented recipe |
+| `analysis.bootstrap_seed` | PASS analysis.bootstrap_seed — seed 42 reproducible: [-1.449%, -0.493%]; seed 43: [-1.484%, -0.552%] |
+| `analysis.permutation_mde` | PASS analysis.permutation_mde — exact enumeration correct; MDE formula correct |
+| `analysis.permutation_exact` | PASS analysis.permutation_exact — pooled 1..6, candidate {3,5,6}: p = 4/20 = 0.200 (hand count); unchanged when the arms are swapped |
+| `analysis.permutation_bounds` | PASS analysis.permutation_bounds — identical arms p = 1; separated k + k p = 2/C(2k,k) for k = 3, 4, 5; separated 2 + 3 p = 1/C(5,3) |
+| `analysis.sample_sizes` | PASS analysis.sample_sizes — p equals a brute-force count and bootstrap is consistent for 2+2, 3+4, 5+6, 6+5, 2+8, 7+7 |
+| `analysis.synthetic_shift` | PASS analysis.synthetic_shift — -3 % and +3 % shifts detected with the right sign (points -3.15% .. +3.32%); each band contains the true shift; seeded null p = 0.764 |
+| `analysis.decisions` | PASS analysis.decisions — floor ±0.55%; B naive +1.04% -> -2.89% p=0.008 improvement; C naive -1.83% -> -0.45% p=0.026 below_threshold |
+| `analysis.roofline` | PASS analysis.roofline — 9 kernels classified; precision-specific ceilings; L2-resident anomaly flagged |
+| `analysis.mfu` | PASS analysis.mfu — W-TRAIN MFU 40.0%, HFU with full recompute 53.3% |

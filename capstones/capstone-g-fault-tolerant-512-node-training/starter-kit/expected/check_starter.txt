@@ -1,0 +1,13 @@
+PASS  dataset deterministic -- 15 files byte-identical, 1.20 MB
+TODO  T1 rank-to-device inventory -- not implemented: TODO: implement build_maps()
+TODO  T1 cabling plan vs LLDP -- not implemented: TODO: implement cabling_discrepancies()
+TODO  T2 telemetry normalisation and correlation -- not implemented: TODO: implement build_maps()
+TODO  T3 health scoring -- not implemented: TODO: implement build_maps()
+TODO  T4 failure classification -- not implemented: TODO: implement build_maps()
+TODO  T5 quarantine policy -- not implemented: TODO: implement build_maps()
+TODO  T6 checkpoint selection -- not implemented: TODO: implement select_checkpoint()
+TODO  T7 restart orchestration -- not implemented: TODO: implement build_maps()
+TODO  T8 RTO/RPO and lost GPU-hours -- not implemented: TODO: implement build_maps()
+TODO  T9 post-incident validation -- not implemented: TODO: implement validate_resume()
+
+1/11 checks passed (starter)

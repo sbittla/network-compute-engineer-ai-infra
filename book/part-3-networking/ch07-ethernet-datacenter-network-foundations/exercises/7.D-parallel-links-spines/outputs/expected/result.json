@@ -1,0 +1,82 @@
+{
+  "answer": {
+    "A": {
+      "baseline_bisection_tbps": 51.2,
+      "bfd": 256,
+      "bisection_spine_down": 38.4,
+      "ebgp": 256,
+      "ecmp_width": 32,
+      "ingress_link_down": 11.2,
+      "ingress_link_down_pct": 12.5,
+      "ingress_spine_down": 9.6,
+      "ingress_spine_down_pct": 25.0,
+      "links_per_pair": 8,
+      "micro_bfd_members": 0,
+      "spine_ports_idle": 0,
+      "spine_ports_used": 64,
+      "spines": 4,
+      "total_spine_ports": 256
+    },
+    "B": {
+      "baseline_bisection_tbps": 51.2,
+      "bfd": 256,
+      "bisection_spine_down": 44.8,
+      "ebgp": 256,
+      "ecmp_width": 32,
+      "ingress_link_down": 9.6,
+      "ingress_link_down_pct": 25.0,
+      "ingress_spine_down": 11.2,
+      "ingress_spine_down_pct": 12.5,
+      "links_per_pair": 4,
+      "micro_bfd_members": 0,
+      "spine_ports_idle": 32,
+      "spine_ports_used": 32,
+      "spines": 8,
+      "total_spine_ports": 256
+    },
+    "C": {
+      "baseline_bisection_tbps": 51.2,
+      "bfd": 32,
+      "bisection_spine_down": 38.4,
+      "ebgp": 32,
+      "ecmp_width": 4,
+      "ingress_link_down": 11.2,
+      "ingress_link_down_pct": 12.5,
+      "ingress_spine_down": 9.6,
+      "ingress_spine_down_pct": 25.0,
+      "links_per_pair": 8,
+      "micro_bfd_members": 256,
+      "spine_ports_idle": 0,
+      "spine_ports_used": 64,
+      "spines": 4,
+      "total_spine_ports": 256
+    }
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "7.D",
+  "inputs": {
+    "leaves": 8,
+    "link_gbps": 400,
+    "options": {
+      "A": {
+        "lag": false,
+        "links": 8,
+        "spines": 4
+      },
+      "B": {
+        "lag": false,
+        "links": 4,
+        "spines": 8
+      },
+      "C": {
+        "lag": true,
+        "links": 8,
+        "spines": 4
+      }
+    },
+    "spine_radix": 64
+  },
+  "recommendation": "A (or C) for an optics-failure-dominated risk; B if spine drains/faults dominate",
+  "tolerance": "1e-9",
+  "units": "Tb/s one direction; session and port counts"
+}

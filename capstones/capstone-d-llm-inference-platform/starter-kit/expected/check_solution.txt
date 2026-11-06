@@ -1,0 +1,13 @@
+PASS 01 KV bytes per token (units)          327,680 B = 320 KiB per token (BF16 KV)
+PASS 02 replica capacity                    TP8 BF16: 1,232,910 KV tokens (301 x 4k seqs); TP4 FP8: 616,455
+PASS 03 iteration cost (roofline + attention) prefill 2k 75.5 ms; decode 64 x 2k 12.7 ms; attention = 23% of a 32k prefill
+PASS 04 simulator: single request timeline  chunked prefill with attention, first-token timing, TPOT and per-token ITL exact
+PASS 05 simulator: rejection and preemption over-length and over-capacity requests rejected; preemption at 1,074-token KV capacity
+PASS 06 c1 nominal load: TTFT and ITL tails TTFT p95 1.53 s, TPOT p95 39 ms but ITL p99 104 ms
+PASS 07 c4 'meets SLO' by rejecting         latency SLIs met, but 2.1% rejections = 21x burn -> roll back
+PASS 08 c3 FP8 TP4 (two replicas per node)  half the node's traffic per replica: TTFT p95 0.74 s (target 0.77), ITL p99 79 ms
+PASS 09 replication and instability         overloaded run flagged unstable; aggregate refuses to report a p95
+PASS 10 error budget, burn rate, rollback gates 43.2 min budget; SLO (incl. frontend budget and ITL), regression and burn gates
+PASS 11 cost per million tokens             $13.54/replica-hour -> $0.596 per M total tokens (input-dominated mix) [MODELED]
+
+11/11 checks pass (0 TODO, 0 FAIL) [impl=solution]

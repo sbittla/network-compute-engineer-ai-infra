@@ -1,0 +1,16 @@
+PASS p0.dataset_reproducible  seed-20 generator reproduces all 7 data files byte-for-byte (0.07 MB)
+PASS p1.validate_planted_violations  4 violations, all planted ones found
+PASS p1.validate_clean_and_cnp_rule  clean desired state passes; injected CNP/RoCE DSCP clash is caught
+PASS p1.plan_diff_blocked_unreachable  24 actions on 22 targets; blocked and unreachable excluded
+PASS p1.apply_default_is_dry_run  apply_plan defaults to dry-run; zero writes
+PASS p1.apply_cap_and_audit  blast-radius cap respected (8 targets); audit records complete
+PASS p1.idempotent_converge_and_noop  3 capped batches converge; re-plan empty; re-apply is a recorded no-op
+PASS p2.condition_semantics  relative_drop / relative_rise+floor / sum_gt behave correctly
+PASS p2.wave_decisions  wave0 proceed; wave1 proceed (degraded node skipped, transient dip ignored); wave2 abort
+PASS p2.bake_insufficient_hold  insufficient bake time -> hold
+PASS p2.rollout_abort_and_rollback  abort at wave 2; roll back 8 changed nodes; waves 3-5 never start
+PASS p3.review_coverage  found 17/17 real gaps
+PASS p3.review_false_positives  0 false positive(s) (limit 1)
+PASS p3.review_evidence_quality  17 findings cite valid plan lines and concrete fixes
+
+14/14 checks passed (solution)

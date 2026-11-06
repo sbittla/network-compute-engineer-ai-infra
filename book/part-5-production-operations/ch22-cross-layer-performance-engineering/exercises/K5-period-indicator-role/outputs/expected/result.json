@@ -1,0 +1,67 @@
+{
+  "answer": {
+    "alert_node_without_after_s": 0.16,
+    "driver_new_without_after_s": 1.07,
+    "storage_new_without_after_s": 1.57,
+    "tp_split_without_after_s": 9.18
+  },
+  "evidence_label": "SIMULATED",
+  "id": "K5",
+  "inputs": {
+    "bundle": "lab/data (seed 2214)",
+    "jobs": 48,
+    "terms": [
+      "after",
+      "tp_split",
+      "driver_new",
+      "storage_new",
+      "alert_node",
+      "tp_x_storage"
+    ]
+  },
+  "steps": {
+    "after_coef_s": 0.337,
+    "after_se_s": 0.09,
+    "r2_with_after": 0.9984,
+    "r2_without_after": 0.9978,
+    "table": [
+      {
+        "change_s": null,
+        "term": "after",
+        "with_after_s": 0.337,
+        "without_after_s": null
+      },
+      {
+        "change_s": 0.215,
+        "term": "tp_split",
+        "with_after_s": 8.961,
+        "without_after_s": 9.176
+      },
+      {
+        "change_s": 0.172,
+        "term": "driver_new",
+        "with_after_s": 0.902,
+        "without_after_s": 1.074
+      },
+      {
+        "change_s": 0.169,
+        "term": "storage_new",
+        "with_after_s": 1.396,
+        "without_after_s": 1.565
+      },
+      {
+        "change_s": 0.21,
+        "term": "alert_node",
+        "with_after_s": -0.053,
+        "without_after_s": 0.157
+      },
+      {
+        "change_s": -0.28,
+        "term": "tp_x_storage",
+        "with_after_s": -1.307,
+        "without_after_s": -1.588
+      }
+    ]
+  },
+  "units": "s per step"
+}

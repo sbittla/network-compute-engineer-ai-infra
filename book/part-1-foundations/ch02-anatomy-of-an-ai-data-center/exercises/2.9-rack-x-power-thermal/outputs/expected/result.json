@@ -1,0 +1,33 @@
+{
+  "answer": {
+    "air_kw": 18.0,
+    "c125_kw": 68.286,
+    "c125_x2_kw": 136.572,
+    "c125_x3_kw": 204.858,
+    "c160_kw": 87.406,
+    "c160_x2_kw": 174.812,
+    "cdu_util_normal": 0.408,
+    "cdu_util_one_failed": 0.816,
+    "cdus_n_plus_1": 2,
+    "cfm_rack": 2106.243,
+    "envelope_min_flow_lpm": 163.462,
+    "envelope_side_80pct_kw": 139.85,
+    "floor": 1944.444,
+    "headroom_160_kw": 36.812,
+    "liquid_kw": 102.0,
+    "lpm_rack": 192.308,
+    "lpm_row": 1538.462,
+    "n125": 3,
+    "n160": 2,
+    "row_liquid_kw": 816.0,
+    "side_kw": 138.0,
+    "step_kw": 288.0
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] assumptions",
+  "units": {
+    "air": "CFM",
+    "floor": "kg/m2",
+    "flow": "L/min",
+    "power": "kW"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "answer": {
+    "a_b": {
+      "active_warps": 16,
+      "bandwidth_bound_TBps": 0.901,
+      "blocks_per_sm": 4,
+      "fraction_of_hbm": 0.26899,
+      "in_flight_per_sm_B": 4096,
+      "limiter": "shared_memory",
+      "limits_blocks": {
+        "blocks": 32,
+        "registers": 6,
+        "shared_memory": 4,
+        "warps": 16
+      },
+      "occupancy": 0.25,
+      "regs_per_warp": 2560,
+      "smem_per_block_B": 49152,
+      "tied_limits": [
+        "shared_memory"
+      ],
+      "warps_by_regs": 24,
+      "warps_by_regs_raw": 25,
+      "warps_per_block": 4
+    },
+    "c": {
+      "active_warps": 24,
+      "bandwidth_bound_TBps": 1.352,
+      "blocks_per_sm": 6,
+      "fraction_of_hbm": 0.40349,
+      "in_flight_per_sm_B": 6144,
+      "limiter": "registers",
+      "limits_blocks": {
+        "blocks": 32,
+        "registers": 6,
+        "shared_memory": 6,
+        "warps": 16
+      },
+      "occupancy": 0.375,
+      "regs_per_warp": 2560,
+      "smem_per_block_B": 32768,
+      "tied_limits": [
+        "registers",
+        "shared_memory"
+      ],
+      "warps_by_regs": 24,
+      "warps_by_regs_raw": 25,
+      "warps_per_block": 4
+    }
+  },
+  "evidence_label": "MODELED",
+  "exercise": "4.8",
+  "inputs": {
+    "device": "H100-SXM-class (ORION HX8 GPU0)",
+    "hbm_Bps": 3350000000000.0,
+    "latency_s": 6e-07,
+    "load_bytes": 128,
+    "loads_in_flight_per_warp": 2,
+    "regs_per_thread": 80,
+    "smem_cases_B": {
+      "a_b": 49152,
+      "c": 32768
+    },
+    "threads_per_block": 128
+  },
+  "steps": {
+    "needed_in_flight_per_sm_B": 15227.3,
+    "reservation_example_45KB_blocks": {
+      "with_reservation": 4,
+      "without_reservation": 5
+    }
+  },
+  "units": {
+    "bandwidth": "TB/s",
+    "bytes": "B",
+    "occupancy": "fraction of 64 warps"
+  }
+}

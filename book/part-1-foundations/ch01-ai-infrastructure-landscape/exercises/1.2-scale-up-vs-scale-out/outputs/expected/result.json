@@ -1,0 +1,49 @@
+{
+  "answer": {
+    "A": {
+      "bounds_s": {
+        "compute": 0.000566,
+        "memory": 0.006024,
+        "scaleout": 0.0,
+        "scaleup": 0.000327
+      },
+      "ceiling_fraction": 0.634,
+      "dominant": "memory"
+    },
+    "B": {
+      "bounds_s": {
+        "compute": 0.404449,
+        "memory": 0.149254,
+        "scaleout": 0.6,
+        "scaleup": 0.088889
+      },
+      "ceiling_fraction": 0.4,
+      "dominant": "scaleout"
+    },
+    "B_if_all_to_all_on_nvlink_s": 0.1556
+  },
+  "ceilings": {
+    "compute_tflops": 989.0,
+    "hbm_gbps": 3350.0,
+    "nic_gbps": 50.0,
+    "nvlink_gbps": 450.0
+  },
+  "evidence": "[MODELED] from [ILLUSTRATIVE] profiles and [VENDOR-SPEC, 2026-10]-class ceilings",
+  "inputs": {
+    "A": {
+      "hbm_gb": 20.18,
+      "nic_gb": 0.0,
+      "nvlink_gb": 0.147,
+      "observed_s": 0.0095,
+      "tflop": 0.56
+    },
+    "B": {
+      "hbm_gb": 500.0,
+      "nic_gb": 30.0,
+      "nvlink_gb": 40.0,
+      "observed_s": 1.5,
+      "tflop": 400.0
+    }
+  },
+  "units": "seconds"
+}

@@ -1,0 +1,42 @@
+{
+  "answer": {
+    "a_goodput": 0.968,
+    "a_tau_opt_min": 75.9,
+    "b_goodput_r15": 0.811,
+    "b_goodput_r5": 0.867,
+    "c_gpu_h_per_day": 5461.0,
+    "c_usd_per_day": 16384.0
+  },
+  "evidence_label": "[MODELED] from [ILLUSTRATIVE] inputs",
+  "exercise": "W1",
+  "inputs": {
+    "delta_min": 1.0,
+    "gpus_xl": 4096,
+    "node_mtbf_h": 1536.0,
+    "r_min": [
+      15.0,
+      5.0
+    ],
+    "tau_xl_min": 19.0,
+    "usd_per_gpu_h": 3.0
+  },
+  "steps": {
+    "a_M_min": 2880.0,
+    "a_checkpoint_term": 0.0132,
+    "a_failure_term": 0.0184,
+    "a_overhead": 0.0316,
+    "a_tau_opt_min": 75.8947,
+    "b_M_min": 180.0,
+    "b_checkpoint_term": 0.0526,
+    "b_failure_term_r15": 0.1361,
+    "b_failure_term_r5": 0.0806,
+    "b_tau_opt_min_for_reference": 18.9737,
+    "c_overhead_difference": 0.0556
+  },
+  "tolerance": "relative 0.005",
+  "units": {
+    "c": "GPU-h/day and USD/day",
+    "goodput": "fraction of wall time",
+    "tau": "min"
+  }
+}

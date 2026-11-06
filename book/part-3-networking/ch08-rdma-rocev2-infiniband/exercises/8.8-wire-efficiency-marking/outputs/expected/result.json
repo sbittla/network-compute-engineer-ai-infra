@@ -1,0 +1,38 @@
+{
+  "answer": {
+    "a_ceiling_gbps": 383.9,
+    "b_ceiling_gbps": 390.3,
+    "c_packets_per_s_millions": 11.91,
+    "d_correct_nccl_ib_tc": 106,
+    "d_dscp": 6,
+    "d_ecn": "ECT(0)",
+    "d_orion_traffic_class": 0
+  },
+  "evidence_label": "[MODELED]",
+  "exercise": "8.8",
+  "inputs": {
+    "base_overhead_b": {
+      "bth": 12,
+      "ethernet": 14,
+      "fcs": 4,
+      "icrc": 4,
+      "ifg": 12,
+      "ipv4": 20,
+      "preamble_sfd": 8,
+      "udp": 8
+    },
+    "ipv6_extra_b": 20,
+    "line_gbps": 400,
+    "nccl_ib_tc": 26,
+    "vlan_b": 4
+  },
+  "steps": {
+    "a_efficiency": 0.9597,
+    "a_overhead_b": 86,
+    "b_efficiency": 0.9757,
+    "b_overhead_b": 102,
+    "tc_byte_binary": "00011010"
+  },
+  "tolerance": "\u00b10.05 Gb/s, \u00b10.005 Mpps, exact for bit fields",
+  "units": "Gb/s, M packets/s"
+}

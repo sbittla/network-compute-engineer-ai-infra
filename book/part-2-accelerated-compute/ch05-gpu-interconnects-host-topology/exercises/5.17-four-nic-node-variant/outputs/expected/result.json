@@ -1,0 +1,40 @@
+{
+  "answer": {
+    "hx8": {
+      "busbw_GBps": 370.7,
+      "ring_GBps": 48.0,
+      "rings": 8,
+      "t_ms": 5.771
+    },
+    "per_node_nic_GBps": {
+      "hx8": 400,
+      "variant": 200
+    },
+    "ratio": 0.509,
+    "variant_4_rings": {
+      "busbw_GBps": 188.6,
+      "ring_GBps": 48.0,
+      "t_ms": 11.341
+    },
+    "variant_8_rings": {
+      "busbw_GBps": 188.6,
+      "ring_GBps": 24.0,
+      "t_ms": 11.341
+    }
+  },
+  "evidence_label": "MODELED",
+  "exercise": "5.17",
+  "inputs": {
+    "S_bytes": 1073741824,
+    "alpha_ms": 0.2,
+    "gpus_per_node": 8,
+    "n": 256,
+    "nodes": 32,
+    "params": "lab/data/path_model.yaml [ILLUSTRATIVE]",
+    "pix_GBps": 48.0
+  },
+  "units": {
+    "busbw": "GB/s",
+    "time": "ms"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "answer": {
+    "examples": {
+      "NODE": {
+        "gpu": "GPU0",
+        "hca": "mlx5_2",
+        "nic_column": "NIC3",
+        "relation": "NODE"
+      },
+      "PHB": {
+        "gpu": "GPU0",
+        "hca": "mlx5_8",
+        "nic_column": "NIC0",
+        "relation": "PHB"
+      },
+      "PXB": {
+        "gpu": "GPU0",
+        "hca": "mlx5_1",
+        "nic_column": "NIC2",
+        "relation": "PXB"
+      },
+      "SYS": {
+        "gpu": "GPU0",
+        "hca": "mlx5_4",
+        "nic_column": "NIC6",
+        "relation": "SYS"
+      }
+    },
+    "shortest": [
+      {
+        "gpu": "GPU0",
+        "hca": "mlx5_0",
+        "nic_column": "NIC1",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU1",
+        "hca": "mlx5_1",
+        "nic_column": "NIC2",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU2",
+        "hca": "mlx5_2",
+        "nic_column": "NIC3",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU3",
+        "hca": "mlx5_3",
+        "nic_column": "NIC4",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU4",
+        "hca": "mlx5_4",
+        "nic_column": "NIC6",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU5",
+        "hca": "mlx5_5",
+        "nic_column": "NIC7",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU6",
+        "hca": "mlx5_6",
+        "nic_column": "NIC8",
+        "relation": "PIX"
+      },
+      {
+        "gpu": "GPU7",
+        "hca": "mlx5_7",
+        "nic_column": "NIC9",
+        "relation": "PIX"
+      }
+    ]
+  },
+  "evidence_label": "SIMULATED capture; relations read from it",
+  "exercise": "5.11",
+  "inputs": {
+    "capture": "lab/data/hosts/orion-n01/nvidia-smi_topo_m.txt",
+    "nic_legend": {
+      "NIC0": "mlx5_8",
+      "NIC1": "mlx5_0",
+      "NIC2": "mlx5_1",
+      "NIC3": "mlx5_2",
+      "NIC4": "mlx5_3",
+      "NIC5": "mlx5_9",
+      "NIC6": "mlx5_4",
+      "NIC7": "mlx5_5",
+      "NIC8": "mlx5_6",
+      "NIC9": "mlx5_7"
+    }
+  },
+  "units": {}
+}
