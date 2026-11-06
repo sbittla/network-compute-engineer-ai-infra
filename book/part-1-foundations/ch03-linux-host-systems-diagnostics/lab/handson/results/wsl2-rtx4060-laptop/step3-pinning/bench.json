@@ -1,0 +1,506 @@
+{
+ "cpu_x": 14,
+ "smt_sibling": 15,
+ "other_core_cpu": 1,
+ "seconds": 3.0,
+ "reps": 3,
+ "chunk_iterations": 20000,
+ "configs": {
+  "alone": {
+   "placement": [
+    [
+     14
+    ]
+   ],
+   "raw": [
+    [
+     {
+      "pid": 801,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1186.7826747742208
+     }
+    ],
+    [
+     {
+      "pid": 803,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1180.0025274914333
+     }
+    ],
+    [
+     {
+      "pid": 808,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1146.960904308311
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    1180.0
+   ],
+   "per_worker_vs_alone": [
+    1.0
+   ],
+   "total_vs_alone": 1.0
+  },
+  "same_cpu": {
+   "placement": [
+    [
+     14
+    ],
+    [
+     14
+    ]
+   ],
+   "raw": [
+    [
+     {
+      "pid": 811,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 574.2403364507434
+     },
+     {
+      "pid": 810,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 580.6288485678717
+     }
+    ],
+    [
+     {
+      "pid": 815,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 580.6436607906344
+     },
+     {
+      "pid": 814,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 585.5685901738816
+     }
+    ],
+    [
+     {
+      "pid": 819,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 580.1574750209135
+     },
+     {
+      "pid": 818,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 581.3375532625294
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    580.16,
+    581.34
+   ],
+   "per_worker_vs_alone": [
+    0.492,
+    0.493
+   ],
+   "total_vs_alone": 0.984
+  },
+  "separate_cores": {
+   "placement": [
+    [
+     14
+    ],
+    [
+     1
+    ]
+   ],
+   "raw": [
+    [
+     {
+      "pid": 822,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1189.6091903020872
+     },
+     {
+      "pid": 823,
+      "affinity": [
+       1
+      ],
+      "chunks_per_s": 1182.7115398093426
+     }
+    ],
+    [
+     {
+      "pid": 826,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1185.702406481511
+     },
+     {
+      "pid": 827,
+      "affinity": [
+       1
+      ],
+      "chunks_per_s": 1186.7912928612316
+     }
+    ],
+    [
+     {
+      "pid": 830,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1188.7821774603358
+     },
+     {
+      "pid": 831,
+      "affinity": [
+       1
+      ],
+      "chunks_per_s": 1185.8618696235626
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    1188.78,
+    1185.86
+   ],
+   "per_worker_vs_alone": [
+    1.007,
+    1.005
+   ],
+   "total_vs_alone": 2.012
+  },
+  "unpinned": {
+   "placement": [
+    "any",
+    "any"
+   ],
+   "raw": [
+    [
+     {
+      "pid": 834,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1196.736961205069
+     },
+     {
+      "pid": 835,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1186.4893565107402
+     }
+    ],
+    [
+     {
+      "pid": 838,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1194.1317221040415
+     },
+     {
+      "pid": 839,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1189.3385123132816
+     }
+    ],
+    [
+     {
+      "pid": 843,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1193.488825692411
+     },
+     {
+      "pid": 842,
+      "affinity": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23
+      ],
+      "chunks_per_s": 1195.4203503034946
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    1194.13,
+    1189.34
+   ],
+   "per_worker_vs_alone": [
+    1.012,
+    1.008
+   ],
+   "total_vs_alone": 2.02
+  },
+  "smt_siblings": {
+   "placement": [
+    [
+     14
+    ],
+    [
+     15
+    ]
+   ],
+   "raw": [
+    [
+     {
+      "pid": 846,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1169.3906468167513
+     },
+     {
+      "pid": 847,
+      "affinity": [
+       15
+      ],
+      "chunks_per_s": 1165.6497599364811
+     }
+    ],
+    [
+     {
+      "pid": 850,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1175.3237565580973
+     },
+     {
+      "pid": 851,
+      "affinity": [
+       15
+      ],
+      "chunks_per_s": 1173.754330088696
+     }
+    ],
+    [
+     {
+      "pid": 854,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1179.7880581540874
+     },
+     {
+      "pid": 855,
+      "affinity": [
+       15
+      ],
+      "chunks_per_s": 1179.6540557715841
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    1175.32,
+    1173.75
+   ],
+   "per_worker_vs_alone": [
+    0.996,
+    0.995
+   ],
+   "total_vs_alone": 1.991
+  },
+  "alone_again": {
+   "placement": [
+    [
+     14
+    ]
+   ],
+   "raw": [
+    [
+     {
+      "pid": 858,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1170.1475454970807
+     }
+    ],
+    [
+     {
+      "pid": 860,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1168.4656091788015
+     }
+    ],
+    [
+     {
+      "pid": 862,
+      "affinity": [
+       14
+      ],
+      "chunks_per_s": 1169.8785192714288
+     }
+    ]
+   ],
+   "median_chunks_per_s_per_worker": [
+    1169.88
+   ],
+   "per_worker_vs_alone": [
+    0.991
+   ],
+   "total_vs_alone": 0.991
+  }
+ }
+}

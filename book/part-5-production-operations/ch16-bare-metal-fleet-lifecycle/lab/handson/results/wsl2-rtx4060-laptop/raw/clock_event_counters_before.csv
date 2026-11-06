@@ -1,0 +1,2 @@
+clocks_event_reasons_counters.sw_power_cap [us], clocks_event_reasons_counters.sw_thermal_slowdown [us], clocks_event_reasons_counters.hw_thermal_slowdown [us], clocks_event_reasons_counters.hw_power_brake_slowdown [us]
+62090 us, 0 us, 0 us, 0 us

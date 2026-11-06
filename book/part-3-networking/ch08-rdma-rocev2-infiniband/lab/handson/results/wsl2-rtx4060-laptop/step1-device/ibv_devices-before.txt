@@ -1,0 +1,3 @@
+$ ibv_devices   (before)
+    device          	   node GUID
+    ------          	----------------

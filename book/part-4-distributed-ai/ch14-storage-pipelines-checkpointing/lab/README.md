@@ -230,3 +230,12 @@ other tenants were active, since shared-storage results are meaningless without 
 
 The datasets contain planted anomalies that teach diagnosis. They are documented for instructors
 only in `../solutions/lab/README.md`.
+
+## Hands-on lab (single machine)
+
+`handson/` measures the chapter's storage mechanisms on one Linux machine (WSL2 works): `fio` random and
+sequential reads at queue depths 1-32 with and without the page cache, checked against Little's law;
+the same reads over WSL2's 9P path; and a real model checkpointed on the GPU with `dcp.save`,
+`dcp.async_save` and a pinned snapshot plus background thread, with blocking and completion time,
+interference, restore time and an async consistency test, feeding the measured δ into Young/Daly. See
+[handson/README.md](handson/README.md); the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

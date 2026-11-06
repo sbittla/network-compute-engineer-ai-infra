@@ -241,3 +241,12 @@ not evidence.
 The trace contains planted anomalies. Their descriptions, ground-truth windows, and the reasons
 they were chosen are in the instructor folder (`solutions/lab/INSTRUCTOR_NOTES.md`) and are
 deliberately left out of this guide.
+
+## Hands-on lab (single machine)
+
+`handson/` serves a real model on one GPU: vLLM 0.30.0 with Qwen2.5-1.5B-Instruct on an 8 GB laptop GPU,
+driven by a streaming load generator you can read in full. It measures TTFT, ITL, TPOT and throughput from
+1 to 32 concurrent clients, prefix caching off and on, and KV cache usage and preemptions from `/metrics`.
+Sweeping `--gpu-memory-utilization` and `--max-num-seqs` shows how they set capacity, and the analysis walks
+Table 15.3a with the measured numbers. See [handson/README.md](handson/README.md); the reference evidence is
+in `handson/results/wsl2-rtx4060-laptop/`.

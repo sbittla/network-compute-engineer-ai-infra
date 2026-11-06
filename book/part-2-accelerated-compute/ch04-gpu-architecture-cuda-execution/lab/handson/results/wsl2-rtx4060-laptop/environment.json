@@ -1,0 +1,16 @@
+{
+  "captured_at": "2026-11-05T04:00:27+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "nsys --version": "NVIDIA Nsight Systems version 2025.6.3.541-256337736014v0",
+    "nvidia-smi --query-gpu=name,driver_version,clocks.max.sm,pcie.link.gen.max,pcie.link.width.max --format=csv,noheader": "NVIDIA GeForce RTX 4060 Laptop GPU, 592.82, 3105 MHz, 4, 8",
+    "/root/.venvs/ai-infra-handson/bin/python -c 'import torch; print(torch.__version__, torch.version.cuda)'": "2.5.1+cu124 12.4"
+  }
+}

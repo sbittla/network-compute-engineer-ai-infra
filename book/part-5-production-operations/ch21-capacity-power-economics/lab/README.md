@@ -155,3 +155,12 @@ Compare with the `transient_margin` assumption.
 The plan and designs contain planted traps (a duplicate row, deliveries ahead of energized power, a
 retirement, a design whose per-GPU cost hides better economics, a constraint that binds before the
 obvious one). They are documented for instructors in `../solutions/exercises-key.md`.
+
+## Hands-on lab (single machine)
+
+`handson/` runs one fixed training job on a real GPU (WSL2 works) at batch 1, 4 and 16 and at 75, 50 and
+25 % busy, and integrates board power over time for energy per token and per FLOP. It then runs Section
+21.4's cost-per-useful-GPU-hour ladder on your measured power and goodput beside ORION's $3.00. Where
+power-limit changes are refused (WSL2) it records the refusal; on a dedicated Linux host an opt-in cap sweep
+runs and restores the limit. See [handson/README.md](handson/README.md); the reference evidence is in
+`handson/results/wsl2-rtx4060-laptop/`.

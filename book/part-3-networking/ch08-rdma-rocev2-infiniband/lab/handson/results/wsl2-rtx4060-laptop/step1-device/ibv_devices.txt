@@ -1,0 +1,4 @@
+$ ibv_devices
+    device          	   node GUID
+    ------          	----------------
+    ch08rxe0        	7050adfffe9c7b76

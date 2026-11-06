@@ -1,0 +1,86 @@
+{
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "mib": 256,
+ "reps": 10,
+ "proc_status_kib_before_pin": {
+  "VmLck": 0,
+  "VmPin": 0,
+  "VmRSS": 754992
+ },
+ "proc_status_kib_after_pin": {
+  "VmLck": 0,
+  "VmPin": 0,
+  "VmRSS": 1018536
+ },
+ "pin_memory_call_ms": 206.4,
+ "h2d_pageable": {
+  "ms": [
+   24.423,
+   24.343,
+   26.519,
+   24.439,
+   24.409,
+   24.339,
+   23.865,
+   26.731,
+   24.115,
+   24.557
+  ],
+  "median_ms": 24.416,
+  "gb_per_s": 10.99,
+  "host_blocked_median_ms": 24.116
+ },
+ "h2d_pinned": {
+  "ms": [
+   20.734,
+   20.696,
+   20.74,
+   20.701,
+   20.757,
+   20.709,
+   20.749,
+   20.695,
+   20.692,
+   20.631
+  ],
+  "median_ms": 20.705,
+  "gb_per_s": 12.96,
+  "host_blocked_median_ms": 0.035
+ },
+ "d2h_pageable": {
+  "ms": [
+   24.376,
+   25.24,
+   24.865,
+   23.819,
+   26.527,
+   25.406,
+   24.38,
+   26.289,
+   28.343,
+   24.717
+  ],
+  "median_ms": 25.053,
+  "gb_per_s": 10.71,
+  "host_blocked_median_ms": 24.754
+ },
+ "d2h_pinned": {
+  "ms": [
+   20.365,
+   20.423,
+   20.388,
+   20.391,
+   20.429,
+   20.39,
+   20.393,
+   20.359,
+   20.352,
+   20.395
+  ],
+  "median_ms": 20.391,
+  "gb_per_s": 13.16,
+  "host_blocked_median_ms": 0.038
+ },
+ "h2d_pinned_over_pageable": 1.18
+}

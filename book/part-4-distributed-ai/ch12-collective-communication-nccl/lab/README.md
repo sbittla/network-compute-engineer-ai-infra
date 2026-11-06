@@ -142,3 +142,12 @@ configuration, and state whether the fabric was idle.
 
 Two configurations contain planted problems with different signatures, and the "Avg bus bandwidth"
 trailer is a trap in every file. Instructor notes are in `../solutions/lab/README.md`.
+
+## Hands-on lab (single machine)
+
+`handson/` measures real collectives on one Linux machine (WSL2 works): `torch.distributed`
+all-reduce, all-gather, reduce-scatter and broadcast with gloo across 2, 4 and 8 processes from 4 B
+to 64 MiB, algbw and busbw with the nccl-tests conventions, weighted alpha-beta fits and n½, repeated
+launches for spread, a hand-written ring against a binomial tree, and NCCL on one GPU (two ranks on
+one device are refused; one rank shows the per-call floor). See [handson/README.md](handson/README.md);
+the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

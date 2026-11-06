@@ -252,3 +252,11 @@ power. Rerun on your own hardware and compare like with like.
 
 The planted flaws, why each was chosen, the complete expected findings, and model answers to the
 written parts are documented in `../solutions/exercises-key.md` (section "Lab 2 answer key").
+
+## Hands-on lab (single machine)
+
+`handson/` drives a real GPU (WSL2 works) through idle, memory-bound and compute-bound phases, a duty-cycle
+ramp and a 1 s on, 1 s off square wave. It records power, SM clock, temperature and clock-event reasons at
+100 ms with `nvidia-smi`, finds where the power limit binds and what it costs in clock, and compares the
+swing with Table 2.5. It also records which fields and controls the platform withholds. See
+[handson/README.md](handson/README.md); the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

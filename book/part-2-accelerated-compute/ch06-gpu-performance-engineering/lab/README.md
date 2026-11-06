@@ -179,3 +179,12 @@ and bands use the earlier ratio of medians. Their decisions do not depend on it 
 The result sets contain several planted traps, and the kernel table contains at least two cases where a
 naive reading gives the wrong answer. They are documented for instructors in
 `../solutions/exercises-key.md` ("Lab 6 — planted anomalies").
+
+## Hands-on lab (single machine)
+
+`handson/` runs this chapter's protocol on a real GPU. It times one GEMM four ways, three of them wrong,
+and then runs a training step in four arms (baseline, A/A, fused AdamW, `zero_grad(set_to_none=False)`).
+Each run is a fresh process, the arms are interleaved, and clock telemetry is sampled every 100 ms. The
+lab applies the pre-registered clock rule, A/A noise floor, exact permutation test, bootstrap band and
+Table 6.6 decision rule, and finishes with an empirical roofline from a copy and a GEMM sweep. See
+[handson/README.md](handson/README.md); the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

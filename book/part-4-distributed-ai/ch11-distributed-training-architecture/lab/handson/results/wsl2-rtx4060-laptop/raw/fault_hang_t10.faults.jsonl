@@ -1,0 +1,4 @@
+{"ev": "hang", "rank": 2, "step": 23, "t": 1793849013.7187884, "attempt": 0, "pg_timeout_s": 10.0}
+{"ev": "peer_error", "rank": 0, "step": 23, "t": 1793849023.7598395, "attempt": 0, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/unbound_buffer.cc:81] Timed out waiting 10000ms for recv operation to complete"}
+{"ev": "peer_error", "rank": 3, "step": 23, "t": 1793849023.7670724, "attempt": 0, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/unbound_buffer.cc:133] Timed out waiting 10000ms for send operation to complete"}
+{"ev": "sigterm", "rank": 2, "t": 1793849024.3412588, "attempt": 0}

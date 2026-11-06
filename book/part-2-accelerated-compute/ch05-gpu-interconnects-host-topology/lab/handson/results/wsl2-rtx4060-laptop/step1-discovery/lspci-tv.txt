@@ -1,0 +1,4 @@
+-[01b1:00]---00.0  Microsoft Corporation Basic Render Driver
+-[5582:00]---00.0  Red Hat, Inc. Virtio 1.0 console
+-[a810:00]---00.0  Microsoft Corporation Basic Render Driver
+-[d6fd:00]---00.0  Red Hat, Inc. Virtio file system

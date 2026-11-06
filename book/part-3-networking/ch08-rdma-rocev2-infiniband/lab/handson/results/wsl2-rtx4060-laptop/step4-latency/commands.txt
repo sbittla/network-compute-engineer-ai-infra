@@ -1,0 +1,3 @@
+$ ib_write_lat -d ch08rxe0 -p 18510 -x 1 -F -a [server]  /  ... 10.208.0.1 [client]
+$ ib_read_lat -d ch08rxe0 -p 18511 -x 1 -F -a [server]  /  ... 10.208.0.1 [client]
+$ ib_send_lat -d ch08rxe0 -p 18512 -x 1 -F -a [server]  /  ... 10.208.0.1 [client]

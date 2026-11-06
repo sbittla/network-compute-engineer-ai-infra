@@ -1,0 +1,27 @@
+ WARNING: BW peak won't be measured in this run.
+Requested mtu is higher than active mtu 
+Changing to active mtu - 3
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF		Device         : ch08rxe0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : OFF
+ TX depth        : 128
+ CQ Moderation   : 1
+ Mtu             : 1024[B]
+ Link type       : Ethernet
+ GID index       : 1
+ Max inline data : 0[B]
+ rdma_cm QPs	 : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x0040 PSN 0xc541ea RKey 0x0030f4 VAddr 0x00738a16d73000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+ remote address: LID 0000 QPN 0x003f PSN 0x283a81 RKey 0x003160 VAddr 0x007f3313fd7000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+ 1048576    819              0.00               2.30   		   0.000275
+---------------------------------------------------------------------------------------

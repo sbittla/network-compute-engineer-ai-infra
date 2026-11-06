@@ -1,0 +1,146 @@
+{
+  "idle:start": {
+    "timestamp": "2026/11/04 19:02:32.733",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 75679.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "idle:end": {
+    "timestamp": "2026/11/04 19:02:42.781",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 75679.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "memory:start": {
+    "timestamp": "2026/11/04 19:02:42.874",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 75679.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "memory:end": {
+    "timestamp": "2026/11/04 19:03:07.992",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 75679.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "compute:start": {
+    "timestamp": "2026/11/04 19:03:08.045",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 75679.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "compute:end": {
+    "timestamp": "2026/11/04 19:03:33.194",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 2931562.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "cooldown:start": {
+    "timestamp": "2026/11/04 19:03:33.340",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 2931562.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "cooldown:end": {
+    "timestamp": "2026/11/04 19:03:45.466",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d025:start": {
+    "timestamp": "2026/11/04 19:03:45.532",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d025:end": {
+    "timestamp": "2026/11/04 19:03:53.670",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d050:start": {
+    "timestamp": "2026/11/04 19:03:53.721",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d050:end": {
+    "timestamp": "2026/11/04 19:04:01.796",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d075:start": {
+    "timestamp": "2026/11/04 19:04:01.904",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d075:end": {
+    "timestamp": "2026/11/04 19:04:10.027",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d100:start": {
+    "timestamp": "2026/11/04 19:04:10.143",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "ramp_d100:end": {
+    "timestamp": "2026/11/04 19:04:18.297",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 4931512.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "idle_end:start": {
+    "timestamp": "2026/11/04 19:04:35.283",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 6910063.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  },
+  "idle_end:end": {
+    "timestamp": "2026/11/04 19:04:41.397",
+    "enforced.power.limit": 80.0,
+    "clocks_event_reasons_counters.sw_power_cap": 10449835.0,
+    "clocks_event_reasons_counters.sw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_thermal_slowdown": 0.0,
+    "clocks_event_reasons_counters.hw_power_brake_slowdown": 0.0
+  }
+}

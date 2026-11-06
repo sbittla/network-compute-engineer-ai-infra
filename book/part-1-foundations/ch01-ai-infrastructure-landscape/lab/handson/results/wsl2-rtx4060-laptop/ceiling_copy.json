@@ -1,0 +1,7 @@
+{
+  "buffer_bytes": 1073741824,
+  "bytes_moved_per_iter": 2147483648,
+  "iterations": 640,
+  "elapsed_s": 6.026591380999996,
+  "achieved_bytes_per_s": 228054209723.4319
+}

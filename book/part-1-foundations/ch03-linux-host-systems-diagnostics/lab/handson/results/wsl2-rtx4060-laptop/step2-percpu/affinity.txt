@@ -1,0 +1,5 @@
+$ taskset -cp 790
+pid 790's current affinity list: 14
+$ ps -L -o pid,tid,psr,pcpu,comm -p 790
+    PID     TID PSR %CPU COMMAND
+    790     790  14 98.0 python3

@@ -1,0 +1,2 @@
+nvidia-smi bus id (lower case): 0000:01:00.0
+ls: cannot access '/sys/bus/pci/devices/0000:01:00.0': No such file or directory

@@ -1,0 +1,4 @@
+pswpin 0
+pswpout 0
+pgmajfault 10030
+oom_kill 0

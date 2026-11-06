@@ -1,0 +1,44 @@
+W1104 19:32:12.936000 77330 torch/distributed/run.py:793] 
+W1104 19:32:12.936000 77330 torch/distributed/run.py:793] *****************************************
+W1104 19:32:12.936000 77330 torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1104 19:32:12.936000 77330 torch/distributed/run.py:793] *****************************************
+# gloo on cpu, nranks 8, init + first collective 7.7 ms, tag algo_n8
+#              op       size      count  iters    time(us)    algbw    busbw #wrong
+       all_reduce          4          1    154      770.62    0.000    0.000      0
+       all_reduce         16          4    109     1393.79    0.000    0.000      0
+       all_reduce         64         16     54     4690.49    0.000    0.000      0
+       all_reduce        256         64     40     4398.16    0.000    0.000      0
+       all_reduce       1024        256     46     4209.99    0.000    0.000      0
+       all_reduce       4096       1024     49     4200.05    0.001    0.002      0
+       all_reduce      16384       4096     45     4199.31    0.004    0.007      0
+       all_reduce      65536      16384     41     4377.28    0.015    0.026      0
+       all_reduce     262144      65536     41     4493.86    0.058    0.102      0
+       all_reduce    1048576     262144     36     5504.19    0.191    0.333      0
+       all_reduce    4194304    1048576     23     8532.35    0.492    0.860      0
+       all_reduce   16777216    4194304      8    21994.46    0.763    1.335      0
+       all_reduce   67108864   16777216      5    88891.79    0.755    1.321      0
+   ring_allreduce         32          8     47     4013.88    0.000    0.000      0
+   ring_allreduce         64         16     44     4052.41    0.000    0.000      0
+   ring_allreduce        256         64     50     3877.05    0.000    0.000      0
+   ring_allreduce       1024        256     50     3995.30    0.000    0.000      0
+   ring_allreduce       4096       1024     53     4007.84    0.001    0.002      0
+   ring_allreduce      16384       4096     47     4121.61    0.004    0.007      0
+   ring_allreduce      65536      16384     47     4309.43    0.015    0.027      0
+   ring_allreduce     262144      65536     44     4528.89    0.058    0.101      0
+   ring_allreduce    1048576     262144     38     5098.16    0.206    0.360      0
+   ring_allreduce    4194304    1048576     25     8666.73    0.484    0.847      0
+   ring_allreduce   16777216    4194304      8    22623.52    0.742    1.298      0
+   ring_allreduce   67108864   16777216      5    95476.43    0.703    1.230      0
+   tree_allreduce          4          1    220      639.91    0.000    0.000      0
+   tree_allreduce         16          4    249      599.14    0.000    0.000      0
+   tree_allreduce         64         16    255      712.47    0.000    0.000      0
+   tree_allreduce        256         64    187      712.24    0.000    0.001      0
+   tree_allreduce       1024        256    235      638.29    0.002    0.003      0
+   tree_allreduce       4096       1024    254      648.89    0.006    0.011      0
+   tree_allreduce      16384       4096    227      646.31    0.025    0.044      0
+   tree_allreduce      65536      16384    228      727.29    0.090    0.158      0
+   tree_allreduce     262144      65536    147     1071.52    0.245    0.428      0
+   tree_allreduce    1048576     262144     82     2150.54    0.488    0.853      0
+   tree_allreduce    4194304    1048576     26     6908.38    0.607    1.062      0
+   tree_allreduce   16777216    4194304      6    28238.50    0.594    1.040      0
+   tree_allreduce   67108864   16777216      5   117167.39    0.573    1.002      0

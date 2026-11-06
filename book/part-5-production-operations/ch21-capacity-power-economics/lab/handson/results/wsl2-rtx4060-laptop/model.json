@@ -1,0 +1,12 @@
+{
+  "config": {
+    "vocab": 8192,
+    "d": 768,
+    "layers": 8,
+    "heads": 12,
+    "seq": 512
+  },
+  "params_for_flops": 62995968,
+  "flop_per_token_6N": 377975808,
+  "job_tokens": 524288
+}

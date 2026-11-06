@@ -1,0 +1,23 @@
+{
+ "mode": "bidir",
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "mib": 256,
+ "h2d_alone_gb_per_s": 12.841,
+ "d2h_alone_gb_per_s": 13.167,
+ "concurrent_wall_ms": 41.334,
+ "concurrent_aggregate_gb_per_s": 12.989,
+ "concurrent_ms_raw": [
+  41.324,
+  41.357,
+  41.338,
+  41.334,
+  41.325,
+  41.334,
+  41.337,
+  41.41,
+  41.15,
+  41.323
+ ],
+ "aggregate_over_best_unidirectional": 0.986
+}

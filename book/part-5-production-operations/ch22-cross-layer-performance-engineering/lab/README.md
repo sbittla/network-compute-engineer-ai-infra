@@ -212,3 +212,12 @@ fields under `extensions[1].record`. A laptop result never substitutes for these
 
 The bundle contains planted flaws that teach diagnosis. They are documented for instructors in
 `../solutions/exercises-key.md` (Lab key). Do not look before you finish.
+
+## Hands-on lab (single machine)
+
+`handson/` runs a small training job on one GPU that fetches its batches over a veth pair from a data
+server in another network namespace. It injects four bottlenecks one at a time: a dataloader stall, CPU
+contention from a pinned noisy neighbour, a hidden host sync, and netem delay on the data path. For each
+one it reads the loop's own clock and the layer below, names the cause with rules written before the
+runs, and validates the fix with an interleaved A/B test and an exact permutation test. See
+[handson/README.md](handson/README.md).

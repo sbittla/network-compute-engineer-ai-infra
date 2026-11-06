@@ -1,0 +1,31 @@
+{
+  "_comment": "Edit the 'yours' block for your own machine. Every value there is an [ASSUMPTION] until you replace it; the lab measures power, throughput and busy fraction itself. The 'orion' block is Chapter 21's model (Sections 21.1 and 21.4) and should not be edited.",
+  "yours": {
+    "hardware_usd": 1500,
+    "hardware_note": "purchase price of the machine the GPU lives in; a laptop GPU cannot be bought on its own",
+    "amortization_years": 3,
+    "electricity_usd_per_kwh": 0.08,
+    "electricity_note": "the book's tariff; replace with your own",
+    "pue": 1.0,
+    "host_power_w": 0,
+    "host_power_note": "non-GPU power (CPU, display, fans); nvidia-smi sees only the GPU board, so 0 means GPU-board energy only",
+    "usable_fraction": 1.0,
+    "allocated_fraction": 0.25,
+    "allocated_note": "share of owned hours the GPU runs your jobs: 0.25 = 6 hours a day"
+  },
+  "orion": {
+    "usd_per_nominal_gpu_hour": 3.00,
+    "usable_fraction": 0.85,
+    "allocated_fraction": 0.85,
+    "goodput": 0.88,
+    "mfu": 0.40,
+    "it_kwh_per_step": 1.47,
+    "pue": 1.25,
+    "electricity_usd_per_kwh": 0.08,
+    "tokens_per_step": 4194304,
+    "flop_per_step": 1.762e18,
+    "step_s": 17.4,
+    "gpus": 256,
+    "electricity_share_of_tco": 0.04
+  }
+}

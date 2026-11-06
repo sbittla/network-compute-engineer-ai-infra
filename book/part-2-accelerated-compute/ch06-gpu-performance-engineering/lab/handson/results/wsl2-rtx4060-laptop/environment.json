@@ -1,0 +1,16 @@
+{
+  "captured_at": "2026-11-05T03:31:30+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "nvidia-smi --query-gpu=name,uuid,driver_version,vbios_version,clocks.max.sm,clocks.max.memory,power.limit,pcie.link.gen.current,pcie.link.width.current,persistence_mode --format=csv,noheader": "NVIDIA GeForce RTX 4060 Laptop GPU, GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629, 592.82, 95.07.28.00.59, 3105 MHz, 8001 MHz, [N/A], 4, 8, Enabled",
+    "nvidia-smi --query-gpu=clocks.applications.graphics,clocks.sm,temperature.gpu,clocks_event_reasons.active --format=csv,noheader": "[Requested functionality has been deprecated], 2250 MHz, 63, 0x0000000000000001",
+    "/root/.venvs/ai-infra-handson/bin/python -c 'import torch; print(torch.__version__, torch.version.cuda, torch.backends.cudnn.version())'": "2.5.1+cu124 12.4 90100"
+  }
+}

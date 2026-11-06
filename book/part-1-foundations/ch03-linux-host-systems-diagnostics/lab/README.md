@@ -224,3 +224,12 @@ check the cross-host MTU and link-speed consistency rules on real data.
 procps versions, CPU model, BIOS version (`cat /sys/class/dmi/id/bios_version`), GPU driver version,
 NIC driver/firmware (`ethtool -i`), run as root or not, idle vs loaded, number of snapshots per host,
 and any regex you had to change for your tool versions.
+
+## Hands-on lab (single machine)
+
+`handson/` runs this lab's collector and analyzer on a real Linux host (WSL2 works), as root and as
+`nobody`, then produces each signal the chapter teaches you to read: one saturated core hidden in the
+all-CPU average, two workers time-sharing one CPU under `taskset`, cold versus warm reads through the page
+cache, `RLIMIT_MEMLOCK` refusing an `mlock`, pinned versus pageable copies to the GPU, and CPU saturation in
+PSI and `vmstat r`. It also records what the platform hides. See [handson/README.md](handson/README.md);
+the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

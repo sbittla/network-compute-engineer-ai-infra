@@ -1,0 +1,4 @@
+memory pattern: 1.50 GiB, 0 mismatched words
+numerics cold: fp32 3.52e-07, fp16 5.09e-05
+numerics hot: fp32 3.52e-07, fp16 5.09e-05
+stress: 120 s, median 27.7 TFLOP/s, golden 0/58 mismatched

@@ -190,3 +190,12 @@ Rerun on your own hardware and compare like with like.
 Three of the four hosts contain planted faults of different kinds, and one is clean. The fault list,
 the raw lines that reveal each, and the reasoning they exercise are in
 `../solutions/exercises-key.md` ("Lab 5 — planted anomalies"). Do not look before submitting.
+
+## Hands-on lab (single machine)
+
+`handson/` reads a real host's topology with `nvidia-smi topo -m` and `-q`, `lspci`, `lstopo`, `numactl` and
+sysfs, and states what a one-GPU WSL2 laptop hides: no PCIe tree in `lspci`, no NIC-to-GPU locality and one
+NUMA node. It then measures what remains: the link's generation and width (current against maximum), H2D
+and D2H bandwidth from pinned and pageable memory against the link's theoretical rate, both directions at
+once, and the link under load. See [handson/README.md](handson/README.md); the reference evidence is in
+`handson/results/wsl2-rtx4060-laptop/`.

@@ -1,0 +1,27 @@
+
+************************************
+* Waiting for client to connect... *
+************************************
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF		Device         : ch08rxe0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : OFF
+ CQ Moderation   : 100
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 1
+ Max inline data : 0[B]
+ rdma_cm QPs	 : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x001e PSN 0x925170 RKey 0x000edb VAddr 0x00705f75351000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+ remote address: LID 0000 QPN 0x001d PSN 0x386c42 RKey 0x000f38 VAddr 0x007be8cbfff000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+ 8388608    1000             4.86               4.75   		   0.000071
+---------------------------------------------------------------------------------------

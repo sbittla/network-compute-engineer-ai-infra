@@ -1,0 +1,47 @@
+[19:05:03] start server base: util=0.80 max-num-seqs=64 prefix=off
+[19:06:18] server base ready after 75 s
+warmup: c=4 n=8 errors=0 wall=1.70s out_tok/s=150.7
+sweep-c1-r1: c=1 n=16 errors=0 wall=28.69s out_tok/s=71.4
+sweep-c1-r2: c=1 n=16 errors=0 wall=28.91s out_tok/s=70.8
+sweep-c1-r3: c=1 n=16 errors=0 wall=29.19s out_tok/s=70.2
+sweep-c2-r1: c=2 n=16 errors=0 wall=15.36s out_tok/s=133.3
+sweep-c2-r2: c=2 n=16 errors=0 wall=15.57s out_tok/s=131.5
+sweep-c2-r3: c=2 n=16 errors=0 wall=15.50s out_tok/s=132.1
+sweep-c4-r1: c=4 n=16 errors=0 wall=8.26s out_tok/s=248.0
+sweep-c4-r2: c=4 n=16 errors=0 wall=8.63s out_tok/s=237.4
+sweep-c4-r3: c=4 n=16 errors=0 wall=8.64s out_tok/s=237.0
+sweep-c8-r1: c=8 n=32 errors=0 wall=9.82s out_tok/s=417.2
+sweep-c8-r2: c=8 n=32 errors=0 wall=9.95s out_tok/s=411.7
+sweep-c8-r3: c=8 n=32 errors=0 wall=9.65s out_tok/s=424.4
+sweep-c16-r1: c=16 n=64 errors=0 wall=12.75s out_tok/s=642.3
+sweep-c16-r2: c=16 n=64 errors=0 wall=12.90s out_tok/s=635.2
+sweep-c16-r3: c=16 n=64 errors=0 wall=12.63s out_tok/s=648.4
+sweep-c32-r1: c=32 n=128 errors=0 wall=18.43s out_tok/s=889.2
+sweep-c32-r2: c=32 n=128 errors=0 wall=17.89s out_tok/s=915.6
+sweep-c32-r3: c=32 n=128 errors=0 wall=18.11s out_tok/s=904.7
+prefix-off-c1: c=1 n=24 errors=0 wall=9.93s out_tok/s=38.7
+prefix-off-c8: c=8 n=48 errors=0 wall=10.27s out_tok/s=74.8
+mns64-c32: c=32 n=96 errors=0 wall=13.97s out_tok/s=879.7
+pressure-u0.80: c=32 n=64 errors=0 wall=28.18s out_tok/s=1162.9
+[19:12:43] start server prefix-on: util=0.80 max-num-seqs=64 prefix=on
+[19:13:47] server prefix-on ready after 64 s
+prefix-on-c1: c=1 n=24 errors=0 wall=5.92s out_tok/s=64.9
+prefix-on-c8: c=8 n=48 errors=0 wall=2.05s out_tok/s=374.7
+[19:14:02] start server mns4: util=0.80 max-num-seqs=4 prefix=off
+[19:14:38] server mns4 ready after 36 s
+mns4-c32: c=32 n=96 errors=0 wall=49.79s out_tok/s=246.8
+[19:15:31] start server mns16: util=0.80 max-num-seqs=16 prefix=off
+[19:16:04] server mns16 ready after 33 s
+mns16-c32: c=32 n=96 errors=0 wall=18.67s out_tok/s=658.2
+[19:16:27] start server util0.45: util=0.45 max-num-seqs=64 prefix=off
+[19:17:03] server util0.45 ready after 36 s
+[19:17:05] start server util0.55: util=0.55 max-num-seqs=64 prefix=off
+[19:17:38] server util0.55 ready after 33 s
+pressure-u0.55: c=32 n=64 errors=0 wall=37.37s out_tok/s=876.8
+[19:18:18] start server util0.65: util=0.65 max-num-seqs=64 prefix=off
+[19:18:52] server util0.65 ready after 34 s
+[19:18:54] start server util0.80: util=0.80 max-num-seqs=64 prefix=off
+[19:19:30] server util0.80 ready after 36 s
+[19:19:31] start server util0.90: util=0.90 max-num-seqs=64 prefix=off
+[19:19:57] server util0.90 exited during start-up (see server-util0.90.log)
+[19:19:57] experiments done

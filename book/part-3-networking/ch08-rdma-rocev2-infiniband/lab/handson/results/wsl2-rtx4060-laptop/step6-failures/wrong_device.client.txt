@@ -1,0 +1,2 @@
+IB device mlx5_0 not found
+ Unable to find the Infiniband/RoCE device

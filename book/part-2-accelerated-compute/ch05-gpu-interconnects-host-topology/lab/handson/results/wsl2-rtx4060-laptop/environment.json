@@ -1,0 +1,20 @@
+{
+  "captured_at": "2026-11-05T02:35:29+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "lspci --version": "lspci version 3.10.0",
+    "lstopo-no-graphics --version": "lstopo-no-graphics 2.10.0",
+    "numactl --show | head -1": "policy: default",
+    "nvidia-smi --version | head -1": "NVIDIA-SMI version  : 590.74",
+    "uname -r": "6.18.54.1-rxe+",
+    "nproc": "24",
+    "test -d /usr/lib/wsl && echo wsl2 || echo native": "wsl2"
+  }
+}

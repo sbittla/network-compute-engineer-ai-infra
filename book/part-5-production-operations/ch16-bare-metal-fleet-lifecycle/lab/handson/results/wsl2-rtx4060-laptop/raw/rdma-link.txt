@@ -1,0 +1,2 @@
+$ rdma link show
+[rc=0]

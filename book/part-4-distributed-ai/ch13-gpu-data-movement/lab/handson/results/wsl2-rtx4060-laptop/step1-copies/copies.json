@@ -1,0 +1,63 @@
+{
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "rows": [
+  {
+   "mib": 1,
+   "pageable_ms": 0.1656,
+   "pageable_gb_per_s": 6.332,
+   "pageable_cpu_blocked_ms": 0.0886,
+   "pinned_ms": 0.0966,
+   "pinned_gb_per_s": 10.858,
+   "pinned_cpu_blocked_ms": 0.0087,
+   "pin_memory_first_call_ms": 0.067,
+   "pin_memory_call_ms": 0.025,
+   "pin_memory_call_ms_raw": [
+    0.067,
+    0.023,
+    0.021,
+    0.029,
+    0.025
+   ],
+   "pin_every_batch_gb_per_s": 8.621
+  },
+  {
+   "mib": 8,
+   "pageable_ms": 0.9239,
+   "pageable_gb_per_s": 9.08,
+   "pageable_cpu_blocked_ms": 0.7929,
+   "pinned_ms": 0.6604,
+   "pinned_gb_per_s": 12.703,
+   "pinned_cpu_blocked_ms": 0.0149,
+   "pin_memory_first_call_ms": 7.83,
+   "pin_memory_call_ms": 0.194,
+   "pin_memory_call_ms_raw": [
+    7.83,
+    0.23,
+    0.185,
+    0.194,
+    0.191
+   ],
+   "pin_every_batch_gb_per_s": 9.818
+  },
+  {
+   "mib": 64,
+   "pageable_ms": 6.8558,
+   "pageable_gb_per_s": 9.789,
+   "pageable_cpu_blocked_ms": 6.7635,
+   "pinned_ms": 5.2245,
+   "pinned_gb_per_s": 12.845,
+   "pinned_cpu_blocked_ms": 0.0237,
+   "pin_memory_first_call_ms": 48.772,
+   "pin_memory_call_ms": 3.387,
+   "pin_memory_call_ms_raw": [
+    48.772,
+    3.558,
+    3.335,
+    3.355,
+    3.387
+   ],
+   "pin_every_batch_gb_per_s": 7.793
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+$ ethtool -i eth0
+[rc=0]
+driver: hv_netvsc
+version: 6.18.54.1-rxe+
+firmware-version: N/A
+expansion-rom-version: 
+bus-info: f3a048dd-cb9a-4809-8cc5-a034454
+supports-statistics: yes
+supports-test: no
+supports-eeprom-access: no
+supports-register-dump: yes
+supports-priv-flags: no

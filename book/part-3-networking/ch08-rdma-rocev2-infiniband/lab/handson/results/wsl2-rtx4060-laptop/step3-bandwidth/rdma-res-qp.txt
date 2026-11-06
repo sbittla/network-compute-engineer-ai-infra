@@ -1,0 +1,4 @@
+$ rdma resource show qp link ch08rxe0/1
+link ch08rxe0/1 lqpn 35 rqpn 36 type RC state RTS rq-psn 4440051 sq-psn 14633295 path-mig-state MIGRATED pdn 20 pid 72307 comm ib_write_bw 
+link ch08rxe0/1 lqpn 36 rqpn 35 type RC state RTR rq-psn 14633242 sq-psn 0 path-mig-state MIGRATED pdn 19 pid 72302 comm ib_write_bw 
+link ch08rxe0/1 lqpn 1 type GSI state RTS sq-psn 0 comm [ib_core] 

@@ -1,0 +1,71 @@
+lspci: Unable to load libkmod resources: error -2
+01b1:00:00.0 3D controller: Microsoft Corporation Basic Render Driver
+	Physical Slot: 1289075626
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	NUMA node: 0
+	Capabilities: [40] Null
+	Kernel driver in use: dxgkrnl
+
+5582:00:00.0 SCSI storage controller: Red Hat, Inc. Virtio 1.0 console (rev 01)
+	Subsystem: Red Hat, Inc. Virtio 1.0 console
+	Physical Slot: 3300344309
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 64
+	NUMA node: 0
+	Region 0: Memory at 9ffe00000 (64-bit, non-prefetchable) [size=4K]
+	Region 2: Memory at 9ffe01000 (64-bit, non-prefetchable) [size=4K]
+	Region 4: Memory at 9ffe02000 (64-bit, non-prefetchable) [size=4K]
+	Capabilities: [40] MSI-X: Enable+ Count=65 Masked-
+		Vector table: BAR=2 offset=00000000
+		PBA: BAR=2 offset=00000400
+	Capabilities: [4c] Vendor Specific Information: VirtIO: CommonCfg
+		BAR=0 offset=00000000 size=00000038
+	Capabilities: [5c] Vendor Specific Information: VirtIO: Notify
+		BAR=0 offset=00000038 size=00000004 multiplier=00000000
+	Capabilities: [70] Vendor Specific Information: VirtIO: ISR
+		BAR=0 offset=0000003c size=00000001
+	Capabilities: [80] Vendor Specific Information: VirtIO: <unknown>
+		BAR=0 offset=00000000 size=00000000
+	Capabilities: [94] Vendor Specific Information: VirtIO: DeviceCfg
+		BAR=4 offset=00000000 size=00000010
+	Kernel driver in use: virtio-pci
+
+a810:00:00.0 3D controller: Microsoft Corporation Basic Render Driver
+	Physical Slot: 3543391051
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	NUMA node: 0
+	Capabilities: [40] Null
+	Kernel driver in use: dxgkrnl
+
+d6fd:00:00.0 System peripheral: Red Hat, Inc. Virtio file system (rev 01)
+	Subsystem: Microsoft Corporation Virtio file system
+	Physical Slot: 592722500
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	NUMA node: 0
+	Region 0: Memory at e00000000 (64-bit, prefetchable) [size=4K]
+	Region 2: Memory at e00001000 (64-bit, prefetchable) [size=4K]
+	Region 4: Memory at c00000000 (64-bit, prefetchable) [size=8G]
+	Capabilities: [40] MSI-X: Enable+ Count=64 Masked-
+		Vector table: BAR=2 offset=00000000
+		PBA: BAR=2 offset=00000400
+	Capabilities: [4c] Vendor Specific Information: VirtIO: CommonCfg
+		BAR=0 offset=00000000 size=00000038
+	Capabilities: [5c] Vendor Specific Information: VirtIO: Notify
+		BAR=0 offset=00000038 size=00000004 multiplier=00000000
+	Capabilities: [70] Vendor Specific Information: VirtIO: ISR
+		BAR=0 offset=0000003c size=00000004
+	Capabilities: [80] Vendor Specific Information: VirtIO: DeviceCfg
+		BAR=0 offset=00000040 size=00000028
+	Capabilities: [90] Vendor Specific Information: VirtIO: <unknown>
+		BAR=4 offset=00000000 size=00000000
+	Capabilities: [a8] Vendor Specific Information: VirtIO: <unknown>
+		BAR=0 offset=00000000 size=00000000
+	Kernel driver in use: virtio-pci
+

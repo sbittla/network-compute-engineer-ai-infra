@@ -1,0 +1,19 @@
+{"ev": "kill", "rank": 2, "step": 50, "t": 1793849259.3059845, "attempt": 0, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 50, "t": 1793849259.3568163, "attempt": 0, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:51844: Connection reset by peer"}
+{"ev": "sigterm", "rank": 0, "t": 1793849259.4405725, "attempt": 0}
+{"ev": "kill", "rank": 2, "step": 117, "t": 1793849270.0817719, "attempt": 1, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 117, "t": 1793849270.127595, "attempt": 1, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:22202: Connection reset by peer"}
+
+{"ev": "sigterm", "rank": 0, "t": 1793849270.1956766, "attempt": 1}
+{"ev": "kill", "rank": 2, "step": 121, "t": 1793849273.594876, "attempt": 2, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 121, "t": 1793849273.6409454, "attempt": 2, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:18632: Connection reset by peer"}
+{"ev": "sigterm", "rank": 0, "t": 1793849273.6953542, "attempt": 2}
+{"ev": "kill", "rank": 2, "step": 132, "t": 1793849278.4904475, "attempt": 3, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 1, "step": 132, "t": 1793849278.5365586, "attempt": 3, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:33496: Connection reset by peer"}
+{"ev": "sigterm", "rank": 0, "t": 1793849278.5958548, "attempt": 3}
+{"ev": "kill", "rank": 2, "step": 145, "t": 1793849283.1480007, "attempt": 4, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 145, "t": 1793849283.1944387, "attempt": 4, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.1.1]:2434: Connection reset by peer"}
+{"ev": "sigterm", "rank": 0, "t": 1793849283.2955797, "attempt": 4}
+{"ev": "kill", "rank": 2, "step": 152, "t": 1793849286.4683735, "attempt": 5, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 152, "t": 1793849286.5160244, "attempt": 5, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:60571: Connection reset by peer"}
+{"ev": "sigterm", "rank": 0, "t": 1793849286.5892718, "attempt": 5}

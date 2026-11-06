@@ -1,0 +1,52 @@
+{
+ "file": "/var/tmp/ch03-pagecache.bin",
+ "size_mib": 1024,
+ "block_bytes": 8388608,
+ "steps": [
+  {
+   "step": "after_write_fsync",
+   "resident_fraction": 1.0,
+   "meminfo_cached_kib": 1872916,
+   "write_seconds": 0.622
+  },
+  {
+   "step": "after_fadvise_dontneed",
+   "resident_fraction": 0.0,
+   "meminfo_cached_kib": 824340
+  },
+  {
+   "step": "after_cold_read",
+   "resident_fraction": 1.0,
+   "meminfo_cached_kib": 1873056,
+   "read": {
+    "bytes": 1073741824,
+    "seconds": 0.2323,
+    "gb_per_s": 4.621
+   }
+  },
+  {
+   "step": "after_warm_read",
+   "resident_fraction": 1.0,
+   "meminfo_cached_kib": 1873056,
+   "read": {
+    "bytes": 1073741824,
+    "seconds": 0.1161,
+    "gb_per_s": 9.252
+   }
+  },
+  {
+   "step": "after_odirect_read",
+   "resident_fraction": 1.0,
+   "meminfo_cached_kib": 1873056,
+   "read": {
+    "bytes": 1073741824,
+    "seconds": 0.3559,
+    "gb_per_s": 3.017
+   }
+  }
+ ],
+ "cold_gb_per_s": 4.621,
+ "warm_gb_per_s": 9.252,
+ "odirect_gb_per_s": 3.017,
+ "warm_over_cold": 2.0
+}

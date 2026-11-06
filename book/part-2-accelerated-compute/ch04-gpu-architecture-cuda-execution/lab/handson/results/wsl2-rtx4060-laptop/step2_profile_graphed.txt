@@ -1,0 +1,19 @@
+-----------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                         Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg    # of Calls  
+-----------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+        cudaStreamSynchronize        85.51%      92.313ms        85.51%      92.313ms      30.771ms             3  
+              cudaGraphLaunch         9.05%       9.767ms         9.05%       9.767ms       3.256ms             3  
+               ch04_step_body         3.17%       3.423ms        13.38%      14.441ms       4.814ms             3  
+        cudaDeviceSynchronize         0.83%     893.408us         0.83%     893.408us     223.352us             4  
+              cudaMemcpyAsync         0.58%     622.927us         0.58%     622.927us      15.972us            39  
+                  aten::copy_         0.44%     472.620us         0.92%     992.415us      27.567us            36  
+             cudaLaunchKernel         0.16%     169.323us         0.16%     169.323us      28.221us             6  
+    aten::_local_scalar_dense         0.14%     148.258us        85.75%      92.565ms      30.855ms             3  
+                  aten::fill_         0.07%      80.846us         0.23%     250.169us      41.695us             6  
+                   aten::item         0.03%      35.051us        85.78%      92.600ms      30.867ms             3  
+             aten::is_nonzero         0.02%      16.877us        85.79%      92.617ms      30.872ms             3  
+        cudaStreamIsCapturing         0.01%       8.449us         0.01%       8.449us       1.408us             6  
+         cudaDriverGetVersion         0.00%       0.713us         0.00%       0.713us       0.238us             3  
+-----------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 107.951ms
+

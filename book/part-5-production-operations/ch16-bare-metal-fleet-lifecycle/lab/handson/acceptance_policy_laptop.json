@@ -1,0 +1,36 @@
+{
+ "policy_version": "acc-2026.10-wsl2-laptop",
+ "derived_from": "lab/data/acceptance_policy.yaml (acc-2026.10, HX8)",
+ "note": "The chapter's thresholds are kept unchanged. 'expected' is rewritten for this platform (one laptop GPU in WSL2) and every change is listed in 'adaptations'. Lab-local checks have codes the chapter does not use and are marked lab_local. Edit 'expected' for your own machine and bump policy_version.",
+ "adaptations": [
+  "gpu_count 8 -> 1; gpu_product H100-SXM-80GB -> NVIDIA GeForce RTX 4060 Laptop GPU; gpu memory >= 81000 MiB -> >= 8000 MiB",
+  "gpu_pcie Gen5 x16 -> the GPU's own maximum (Gen4 x8 on the reference machine), judged under load",
+  "compute NICs 8 x 400G -> none expected (no RDMA NIC on a laptop): compute NIC, RDMA, link-quality and GPUDirect checks are N/A",
+  "frontend NICs 2 x 200G, MTU 9000 -> 1 virtual NIC, >= 1000 Mb/s reported, MTU 1500",
+  "8 NVMe drives, >= 5 GB/s each, >= 40 GB/s total -> the data disks this OS mounts, >= 1.0 GB/s each and in total [ILLUSTRATIVE floor, not a measured fleet baseline]"
+ ],
+ "expected": {
+  "gpu_count": 1,
+  "gpu_product": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_mem_total_mib_min": 8000,
+  "gpu_pcie": "max",
+  "frontend_nic": {"count": 1, "speed_mbps_min": 1000, "mtu": 1500},
+  "compute_nic_count": 0,
+  "data_disk_count_min": 1,
+  "host_mem_gib_min": 7.5
+ },
+ "thresholds": {
+  "dcgm_diag_min_level": 3,
+  "ecc_dbe_volatile_max": 0,
+  "ecc_sbe_volatile_warn": 10,
+  "max_gpu_temp_c": 87,
+  "throttle_reasons_fail": ["HW_THERMAL_SLOWDOWN", "SW_THERMAL_SLOWDOWN", "HW_POWER_BRAKE_SLOWDOWN"],
+  "throttle_reasons_ignore": ["SW_POWER_CAP", "GPU_IDLE"],
+  "disk_seq_read_min_gbs": 1.0,
+  "storage_seq_read_min_gbs": 1.0,
+  "gemm_fp32_rel_err_max": 1e-5,
+  "gemm_fp16_rel_err_max": 2e-3,
+  "stress_decay_warn_frac": 0.10,
+  "min_stress_seconds": 60
+ }
+}

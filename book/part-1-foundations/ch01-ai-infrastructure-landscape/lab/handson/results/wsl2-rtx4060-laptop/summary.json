@@ -1,0 +1,475 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "sm_count": 24,
+  "flop_per_clk_per_sm_bf16": 512.0,
+  "bus_bits": 128.0,
+  "spec_source": "table [VENDOR-SPEC, 2026-10]",
+  "max_sm_clock_mhz": 3105.0,
+  "max_mem_clock_mhz": 8001.0,
+  "peak_bf16_flops_at_max_clock": 38154240000000.0,
+  "theoretical_bw_bytes_per_s": 256032000000.0,
+  "machine_balance_at_max_clock": 149.02137232845894,
+  "idle": {
+    "samples": 20,
+    "sm_clock_mhz": {
+      "n": 20,
+      "mean": 2250.0,
+      "p05": 2250.0,
+      "median": 2250.0,
+      "p95": 2250.0,
+      "min": 2250.0,
+      "max": 2250.0
+    },
+    "mem_clock_mhz": {
+      "n": 20,
+      "mean": 8000.0,
+      "p05": 8000.0,
+      "median": 8000.0,
+      "p95": 8000.0,
+      "min": 8000.0,
+      "max": 8000.0
+    },
+    "power_w": {
+      "n": 20,
+      "mean": 18.2775,
+      "p05": 17.32,
+      "median": 18.39,
+      "p95": 18.55,
+      "min": 17.26,
+      "max": 18.57
+    },
+    "temp_c": {
+      "n": 20,
+      "mean": 54.6,
+      "p05": 54.0,
+      "median": 55.0,
+      "p95": 55.0,
+      "min": 54.0,
+      "max": 55.0
+    },
+    "sw_power_cap_fraction": 0.0,
+    "sw_thermal_fraction": 0.0,
+    "reasons_seen": [
+      "gpu_idle"
+    ]
+  },
+  "gemm": {
+    "achieved_flops": 27751327851925.074,
+    "telemetry": {
+      "samples": 54,
+      "sm_clock_mhz": {
+        "n": 54,
+        "mean": 2306.9444444444443,
+        "p05": 2280.0,
+        "median": 2310.0,
+        "p95": 2355.0,
+        "min": 2250.0,
+        "max": 2355.0
+      },
+      "mem_clock_mhz": {
+        "n": 54,
+        "mean": 8000.0,
+        "p05": 8000.0,
+        "median": 8000.0,
+        "p95": 8000.0,
+        "min": 8000.0,
+        "max": 8000.0
+      },
+      "power_w": {
+        "n": 54,
+        "mean": 79.91537037037038,
+        "p05": 77.54,
+        "median": 80.15,
+        "p95": 81.76,
+        "min": 72.18,
+        "max": 82.87
+      },
+      "temp_c": {
+        "n": 54,
+        "mean": 71.07407407407408,
+        "p05": 66.0,
+        "median": 72.0,
+        "p95": 73.0,
+        "min": 66.0,
+        "max": 73.0
+      },
+      "sw_power_cap_fraction": 1.0,
+      "sw_thermal_fraction": 0.0,
+      "reasons_seen": [
+        "sw_power_cap"
+      ]
+    },
+    "clock_adjusted_peak": 28347733333333.332,
+    "fraction_of_clock_adjusted_peak": 0.9789610874917127,
+    "fraction_of_max_clock_peak": 0.7273458428715937
+  },
+  "copy": {
+    "achieved_bytes_per_s": 228054209723.4319,
+    "telemetry": {
+      "samples": 55,
+      "sm_clock_mhz": {
+        "n": 55,
+        "mean": 2535.0,
+        "p05": 2535.0,
+        "median": 2535.0,
+        "p95": 2535.0,
+        "min": 2535.0,
+        "max": 2535.0
+      },
+      "mem_clock_mhz": {
+        "n": 55,
+        "mean": 8000.0,
+        "p05": 8000.0,
+        "median": 8000.0,
+        "p95": 8000.0,
+        "min": 8000.0,
+        "max": 8000.0
+      },
+      "power_w": {
+        "n": 55,
+        "mean": 52.85672727272727,
+        "p05": 52.73,
+        "median": 53.02,
+        "p95": 53.32,
+        "min": 43.37,
+        "max": 53.47
+      },
+      "temp_c": {
+        "n": 55,
+        "mean": 65.85454545454546,
+        "p05": 65.0,
+        "median": 65.0,
+        "p95": 69.0,
+        "min": 65.0,
+        "max": 73.0
+      },
+      "sw_power_cap_fraction": 0.0,
+      "sw_thermal_fraction": 0.0,
+      "reasons_seen": []
+    },
+    "theoretical_bw": 256000000000.0,
+    "fraction_of_theoretical": 0.8908367567321558
+  },
+  "machine_balance_measured_clock": 110.73333333333333,
+  "machine_balance_empirical": 121.68741759066818,
+  "gemv_sweep": [
+    {
+      "batch": 1,
+      "intensity_flop_per_byte": 0.9997559189650964,
+      "observed_s": 0.0005436884995117207,
+      "t_compute_s": 4.978219736206063e-06,
+      "t_memory_s": 0.000524416,
+      "dominant": "memory",
+      "ceiling_fraction": 0.9645523134496516,
+      "achieved_flops": 246865122437.82816,
+      "achieved_bytes_per_s": 246925392243.11084,
+      "sm_clock_mhz": 2194.090909090909,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    },
+    {
+      "batch": 4,
+      "intensity_flop_per_byte": 3.9960975609756098,
+      "observed_s": 0.0005564088632812533,
+      "t_compute_s": 1.8102617222567504e-05,
+      "t_memory_s": 0.0005248,
+      "dominant": "memory",
+      "ceiling_fraction": 0.9431913016359056,
+      "achieved_flops": 964885621760.1672,
+      "achieved_bytes_per_s": 241456973218.79184,
+      "sm_clock_mhz": 2413.5,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    },
+    {
+      "batch": 16,
+      "intensity_flop_per_byte": 15.937743190661479,
+      "observed_s": 0.000555728260937501,
+      "t_compute_s": 6.972378482611876e-05,
+      "t_memory_s": 0.000526336,
+      "dominant": "memory",
+      "ceiling_fraction": 0.9471103720945971,
+      "achieved_flops": 3864269282215.815,
+      "achieved_bytes_per_s": 242460255256.2169,
+      "sm_clock_mhz": 2506.5,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    },
+    {
+      "batch": 64,
+      "intensity_flop_per_byte": 63.01538461538462,
+      "observed_s": 0.0006498161383928576,
+      "t_compute_s": 0.00031000029563932005,
+      "t_memory_s": 0.00053248,
+      "dominant": "memory",
+      "ceiling_fraction": 0.8194317877622177,
+      "achieved_flops": 13219023173608.541,
+      "achieved_bytes_per_s": 209774537667.12775,
+      "sm_clock_mhz": 2255.0,
+      "band": "meaningful (0.25-0.9): gap is ordinary inefficiency"
+    },
+    {
+      "batch": 256,
+      "intensity_flop_per_byte": 240.94117647058823,
+      "observed_s": 0.0013498118293010831,
+      "t_compute_s": 0.0012787512195121952,
+      "t_memory_s": 0.000557056,
+      "dominant": "compute",
+      "ceiling_fraction": 0.947355173331321,
+      "achieved_flops": 25455206142170.996,
+      "achieved_bytes_per_s": 105649048929.90892,
+      "sm_clock_mhz": 2186.6666666666665,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    },
+    {
+      "batch": 1024,
+      "intensity_flop_per_byte": 819.2,
+      "observed_s": 0.0051732514484536035,
+      "t_compute_s": 0.004956341506646972,
+      "t_memory_s": 0.00065536,
+      "dominant": "compute",
+      "ceiling_fraction": 0.9580708682019563,
+      "achieved_flops": 26567228529570.793,
+      "achieved_bytes_per_s": 32430698888.636223,
+      "sm_clock_mhz": 2256.6666666666665,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    },
+    {
+      "batch": 4096,
+      "intensity_flop_per_byte": 2048.0,
+      "observed_s": 0.020232572040000035,
+      "t_compute_s": 0.0196512046852123,
+      "t_memory_s": 0.001048576,
+      "dominant": "compute",
+      "ceiling_fraction": 0.9712657711714375,
+      "achieved_flops": 27171820409245.36,
+      "achieved_bytes_per_s": 13267490434.201836,
+      "sm_clock_mhz": 2276.6666666666665,
+      "band": "recheck (0.9-1.0): suspiciously close to peak"
+    }
+  ],
+  "train": [
+    {
+      "batch": 1,
+      "tokens_per_step": 512,
+      "steps_timed": 207,
+      "median_step_s": 0.027996428999998102,
+      "p95_step_s": 0.03500142699999742,
+      "tokens_per_s": 18288.04666480981,
+      "achieved_flops_6N": 6912439214873.194,
+      "achieved_flops_with_attention": 7602789860378.78,
+      "sm_clock_mhz": 2520.0,
+      "clock_adjusted_peak": 30965760000000.0,
+      "mfu_clock_adjusted": 0.22322846960233478,
+      "mfu_at_max_clock": 0.18117093185117025,
+      "mfu_with_attention_clock_adjusted": 0.24552246934610292,
+      "fraction_of_empirical_gemm": 0.24908498979783728,
+      "modeled_min_bytes": 2798983432,
+      "intensity_flop_per_byte": 69.14067853474883,
+      "t_compute_s": 0.0062496,
+      "t_memory_s": 0.01093352903125,
+      "dominant": "memory",
+      "ceiling_fraction": 0.3905329865909235,
+      "peak_mem_bytes": 4290692608,
+      "telemetry": {
+        "samples": 55,
+        "sm_clock_mhz": {
+          "n": 55,
+          "mean": 2520.0,
+          "p05": 2520.0,
+          "median": 2520.0,
+          "p95": 2520.0,
+          "min": 2520.0,
+          "max": 2520.0
+        },
+        "mem_clock_mhz": {
+          "n": 55,
+          "mean": 8000.0,
+          "p05": 8000.0,
+          "median": 8000.0,
+          "p95": 8000.0,
+          "min": 8000.0,
+          "max": 8000.0
+        },
+        "power_w": {
+          "n": 55,
+          "mean": 71.36018181818181,
+          "p05": 65.29,
+          "median": 72.26,
+          "p95": 75.4,
+          "min": 61.95,
+          "max": 76.04
+        },
+        "temp_c": {
+          "n": 55,
+          "mean": 75.54545454545455,
+          "p05": 70.0,
+          "median": 76.0,
+          "p95": 78.0,
+          "min": 70.0,
+          "max": 79.0
+        },
+        "sw_power_cap_fraction": 0.10909090909090909,
+        "sw_thermal_fraction": 0.0,
+        "reasons_seen": [
+          "sw_power_cap"
+        ]
+      },
+      "band": "meaningful (0.25-0.9): gap is ordinary inefficiency"
+    },
+    {
+      "batch": 4,
+      "tokens_per_step": 2048,
+      "steps_timed": 107,
+      "median_step_s": 0.056444108000007986,
+      "p95_step_s": 0.05748425400000201,
+      "tokens_per_s": 36283.68084051767,
+      "achieved_flops_6N": 13714353582908.785,
+      "achieved_flops_with_attention": 15084016672065.746,
+      "sm_clock_mhz": 2387.222222222222,
+      "clock_adjusted_peak": 29334186666666.664,
+      "mfu_clock_adjusted": 0.4675211806193633,
+      "mfu_at_max_clock": 0.35944507302225875,
+      "mfu_with_attention_clock_adjusted": 0.5142128821729418,
+      "fraction_of_empirical_gemm": 0.4941872928057905,
+      "modeled_min_bytes": 3594901768,
+      "intensity_flop_per_byte": 215.33118419941204,
+      "t_compute_s": 0.026388816011170588,
+      "t_memory_s": 0.01404258503125,
+      "dominant": "compute",
+      "ceiling_fraction": 0.4675211806193634,
+      "peak_mem_bytes": 4803352064,
+      "telemetry": {
+        "samples": 54,
+        "sm_clock_mhz": {
+          "n": 54,
+          "mean": 2387.222222222222,
+          "p05": 2325.0,
+          "median": 2370.0,
+          "p95": 2445.0,
+          "min": 2310.0,
+          "max": 2460.0
+        },
+        "mem_clock_mhz": {
+          "n": 54,
+          "mean": 8000.0,
+          "p05": 8000.0,
+          "median": 8000.0,
+          "p95": 8000.0,
+          "min": 8000.0,
+          "max": 8000.0
+        },
+        "power_w": {
+          "n": 54,
+          "mean": 79.59666666666668,
+          "p05": 77.68,
+          "median": 79.7,
+          "p95": 81.33,
+          "min": 75.97,
+          "max": 82.14
+        },
+        "temp_c": {
+          "n": 54,
+          "mean": 81.62962962962963,
+          "p05": 80.0,
+          "median": 82.0,
+          "p95": 83.0,
+          "min": 79.0,
+          "max": 84.0
+        },
+        "sw_power_cap_fraction": 1.0,
+        "sw_thermal_fraction": 0.0,
+        "reasons_seen": [
+          "sw_power_cap"
+        ]
+      },
+      "band": "meaningful (0.25-0.9): gap is ordinary inefficiency"
+    },
+    {
+      "batch": 16,
+      "tokens_per_step": 8192,
+      "steps_timed": 31,
+      "median_step_s": 0.19663788299999396,
+      "p95_step_s": 0.19817518899999698,
+      "tokens_per_s": 41660.33459585329,
+      "achieved_flops_6N": 15746598630418.0,
+      "achieved_flops_with_attention": 17319223602748.533,
+      "sm_clock_mhz": 2314.3636363636365,
+      "clock_adjusted_peak": 28438900363636.367,
+      "mfu_clock_adjusted": 0.5536992791237638,
+      "mfu_at_max_clock": 0.41270901033326834,
+      "mfu_with_attention_clock_adjusted": 0.6089976539632278,
+      "fraction_of_empirical_gemm": 0.5674178444519251,
+      "modeled_min_bytes": 6778575112,
+      "intensity_flop_per_byte": 456.78889264714843,
+      "t_compute_s": 0.10887825406551967,
+      "t_memory_s": 0.02647880903125,
+      "dominant": "compute",
+      "ceiling_fraction": 0.5536992791237638,
+      "peak_mem_bytes": 6901306880,
+      "telemetry": {
+        "samples": 55,
+        "sm_clock_mhz": {
+          "n": 55,
+          "mean": 2314.3636363636365,
+          "p05": 2250.0,
+          "median": 2310.0,
+          "p95": 2385.0,
+          "min": 2235.0,
+          "max": 2430.0
+        },
+        "mem_clock_mhz": {
+          "n": 55,
+          "mean": 8000.0,
+          "p05": 8000.0,
+          "median": 8000.0,
+          "p95": 8000.0,
+          "min": 8000.0,
+          "max": 8000.0
+        },
+        "power_w": {
+          "n": 55,
+          "mean": 79.60527272727272,
+          "p05": 77.25,
+          "median": 79.43,
+          "p95": 82.54,
+          "min": 76.72,
+          "max": 83.09
+        },
+        "temp_c": {
+          "n": 55,
+          "mean": 85.05454545454545,
+          "p05": 82.0,
+          "median": 85.0,
+          "p95": 86.0,
+          "min": 82.0,
+          "max": 86.0
+        },
+        "sw_power_cap_fraction": 0.9636363636363636,
+        "sw_thermal_fraction": 0.03636363636363636,
+        "reasons_seen": [
+          "sw_power_cap",
+          "sw_thermal_slowdown"
+        ]
+      },
+      "band": "meaningful (0.25-0.9): gap is ordinary inefficiency"
+    }
+  ],
+  "scaling": {
+    "time_per_token_ratio_largest_vs_next": 0.8709406967684127,
+    "flop_ratio": 4.0,
+    "step_time_ratio": 3.4837627870736507,
+    "scales_with_flops": true
+  },
+  "verdict": {
+    "batch": 16,
+    "class": "compute",
+    "ceiling_fraction": 0.5536992791237638,
+    "confirmed_by_scaling": true,
+    "smallest_batch_band": "meaningful (0.25-0.9): gap is ordinary inefficiency"
+  },
+  "orion_comparison": {
+    "orion_machine_balance": 295,
+    "this_gpu_machine_balance": 110.73333333333333,
+    "orion_w_train_mfu": 0.4,
+    "this_gpu_mfu": 0.5536992791237638,
+    "orion_peak_over_this_gpu_peak": 34.88815096327514
+  }
+}

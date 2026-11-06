@@ -1,0 +1,22 @@
+{
+ "mode": "contend",
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "mib": 256,
+ "alone_gb_per_s": 12.818,
+ "under_gemm_gb_per_s": 12.838,
+ "under_gemm_ms_raw": [
+  20.996,
+  21.001,
+  20.9,
+  20.842,
+  20.951,
+  20.926,
+  20.892,
+  20.918,
+  20.89,
+  20.878
+ ],
+ "gemm_burst_ms": 194.9,
+ "ratio_under_over_alone": 1.002
+}

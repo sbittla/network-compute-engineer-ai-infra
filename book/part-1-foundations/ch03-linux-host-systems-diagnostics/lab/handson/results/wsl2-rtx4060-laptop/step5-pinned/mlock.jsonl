@@ -1,0 +1,3 @@
+{"uid": 0, "request_mib": 128, "rlimit_memlock_soft_kib": 1016080, "rlimit_memlock_hard_kib": 1016080, "mlock_ok": true, "errno": 0, "error": "", "vmlck_kib_before": 0, "vmlck_kib_while_locked": 131072}
+{"uid": 65534, "request_mib": 16, "rlimit_memlock_soft_kib": 65536, "rlimit_memlock_hard_kib": 65536, "mlock_ok": true, "errno": 0, "error": "", "vmlck_kib_before": 0, "vmlck_kib_while_locked": 16384}
+{"uid": 65534, "request_mib": 128, "rlimit_memlock_soft_kib": 65536, "rlimit_memlock_hard_kib": 65536, "mlock_ok": false, "errno": 12, "error": "Cannot allocate memory", "vmlck_kib_before": 0, "vmlck_kib_while_locked": 0}

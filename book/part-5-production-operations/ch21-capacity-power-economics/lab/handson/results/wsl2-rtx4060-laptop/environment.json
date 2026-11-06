@@ -1,0 +1,15 @@
+{
+  "captured_at": "2026-11-05T03:03:25+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "nvidia-smi --version | head -3": "NVIDIA-SMI version  : 590.74\nNVML version        : 590.74\nDRIVER version      : 592.82",
+    "/root/.venvs/ai-infra-handson/bin/python -c 'import torch; print(torch.__version__, torch.version.cuda)'": "2.5.1+cu124 12.4"
+  }
+}

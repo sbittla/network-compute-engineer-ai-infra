@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-11-05T03:02:51+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "/root/.venvs/ch15-vllm/bin/python -c 'import vllm; print(vllm.__version__)'": "0.30.0",
+    "/root/.venvs/ch15-vllm/bin/python -c 'import torch; print(torch.__version__, torch.version.cuda)'": "2.13.0+cu130 13.0",
+    "nvidia-smi --query-gpu=name,driver_version,memory.total,clocks.max.sm,power.limit --format=csv,noheader": "NVIDIA GeForce RTX 4060 Laptop GPU, 592.82, 8188 MiB, 3105 MHz, [N/A]",
+    "echo Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+  }
+}

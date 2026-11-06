@@ -145,3 +145,12 @@ and explain the gap.
 
 The candidate list contains deliberate traps. Their identities and explanations are in
 `../solutions/` (instructors only). Part of your grade is finding them yourself.
+
+## Hands-on lab (single machine)
+
+`handson/` runs the chapter's mechanisms for real on one Linux machine (WSL2 works): `torchrun` DDP
+jobs with gloo across 1, 2, 4 and 8 CPU processes plus a one-GPU reference; step time, exposed
+all-reduce time and scaling efficiency; `bucket_cap_mb` and `no_sync` accumulation; and a killed and a
+hung rank recovered with `--max-restarts` from the last checkpoint, with lost work measured against
+the checkpoint interval and Young/Daly. See [handson/README.md](handson/README.md); the reference
+evidence is in `handson/results/wsl2-rtx4060-laptop/`.

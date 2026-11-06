@@ -1,0 +1,132 @@
+{
+ "collected_at": "2026-11-05T03:34:28Z",
+ "hostname": "srini",
+ "kernel": "6.18.54.1-rxe+",
+ "gpu": {
+  "gpus": [
+   {
+    "index": 0,
+    "uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629",
+    "bdf": "00000000:01:00.0",
+    "product": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "memory_total_mib": 8188,
+    "vbios": "95.07.28.00.59",
+    "driver": "592.82",
+    "pcie_idle": {
+     "gen": 4,
+     "width": 8
+    },
+    "pcie_max": {
+     "gen": 4,
+     "width": 8
+    },
+    "ecc_mode": "[N/A]",
+    "temp_idle_c": 65,
+    "power_limit": "[N/A]"
+   }
+  ],
+  "row_remap": {
+   "correctable": "0",
+   "uncorrectable": "0",
+   "pending": "No",
+   "failure": "No"
+  },
+  "ecc_dram_uncorrectable_fields": [
+   "N/A",
+   "N/A"
+  ],
+  "nvlink_supported": false,
+  "nvlink_status_text": "Device does not have or support Nvlink"
+ },
+ "kernel_log": {
+  "dmesg_rc": 0,
+  "dmesg_lines": 931,
+  "xid_lines": [],
+  "nvidia_kernel_module_loaded": false,
+  "dxg_device": true,
+  "dcgmi_on_path": false,
+  "nv_hostengine_on_path": false
+ },
+ "memory": {
+  "mem_total_bytes": 8323727360,
+  "mem_available_bytes": 6227132416,
+  "swap_total_bytes": 8589934592,
+  "swap_used_bytes": 73846784,
+  "hw_corrupted_bytes": 0,
+  "edac_present": false,
+  "pattern_test": {
+   "bytes": 536870912,
+   "patterns": 5,
+   "bad_chunks": 0,
+   "fill_GBps": 10.897736475963757
+  }
+ },
+ "nics": {
+  "netdevs": [
+   {
+    "name": "eth0",
+    "has_device": true,
+    "driver": "hv_netvsc",
+    "operstate": "up",
+    "carrier": "1",
+    "speed_mbps": 10000,
+    "mtu": 1500
+   }
+  ],
+  "rdma_devices": []
+ },
+ "storage": {
+  "nvme_devices": [],
+  "data_disks": [
+   {
+    "device": "sdd",
+    "model": "Virtual Disk",
+    "rotational": "1",
+    "is_nvme": false,
+    "runs": [
+     {
+      "rep": 0,
+      "warmup": true,
+      "rc": 0,
+      "cmd": "fio --name=ch16-sdd --filename=/dev/sdd --readonly --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --ramp_time=2 --runtime=8 --time_based --output-format=json --output=/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/lab/handson/results/wsl2-rtx4060-laptop/raw/fio-sdd-r0.json",
+      "stderr": "",
+      "bw_GBps": 7.250816575,
+      "iops": 6911.044478,
+      "clat_p999_us": 10158.08
+     },
+     {
+      "rep": 1,
+      "warmup": false,
+      "rc": 0,
+      "cmd": "fio --name=ch16-sdd --filename=/dev/sdd --readonly --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --ramp_time=2 --runtime=8 --time_based --output-format=json --output=/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/lab/handson/results/wsl2-rtx4060-laptop/raw/fio-sdd-r1.json",
+      "stderr": "",
+      "bw_GBps": 7.149548553,
+      "iops": 6814.467766,
+      "clat_p999_us": 12124.16
+     },
+     {
+      "rep": 2,
+      "warmup": false,
+      "rc": 0,
+      "cmd": "fio --name=ch16-sdd --filename=/dev/sdd --readonly --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --ramp_time=2 --runtime=8 --time_based --output-format=json --output=/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/lab/handson/results/wsl2-rtx4060-laptop/raw/fio-sdd-r2.json",
+      "stderr": "",
+      "bw_GBps": 8.016680555,
+      "iops": 7641.429285,
+      "clat_p999_us": 11075.584
+     },
+     {
+      "rep": 3,
+      "warmup": false,
+      "rc": 0,
+      "cmd": "fio --name=ch16-sdd --filename=/dev/sdd --readonly --rw=read --bs=1M --iodepth=32 --ioengine=libaio --direct=1 --ramp_time=2 --runtime=8 --time_based --output-format=json --output=/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch16-bare-metal-fleet-lifecycle/lab/handson/results/wsl2-rtx4060-laptop/raw/fio-sdd-r3.json",
+      "stderr": "",
+      "bw_GBps": 7.633224539,
+      "iops": 7275.737131,
+      "clat_p999_us": 12255.232
+     }
+    ]
+   }
+  ],
+  "smart_tool": null
+ }
+}

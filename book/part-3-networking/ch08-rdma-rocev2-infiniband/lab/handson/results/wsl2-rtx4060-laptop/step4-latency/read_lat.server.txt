@@ -1,0 +1,25 @@
+Device not recognized to implement inline feature. Disabling it
+---------------------------------------------------------------------------------------
+
+************************************
+* Waiting for client to connect... *
+************************************
+---------------------------------------------------------------------------------------
+                    RDMA_Read Latency Test
+ Dual-port       : OFF		Device         : ch08rxe0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : OFF
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 1
+ Outstand reads  : 128
+ rdma_cm QPs	 : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x0027 PSN 0x581dde OUT 0x80 RKey 0x001938 VAddr 0x00773e6a6b8000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+ remote address: LID 0000 QPN 0x0028 PSN 0x4619ae OUT 0x80 RKey 0x0018c9 VAddr 0x007a834970a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+---------------------------------------------------------------------------------------

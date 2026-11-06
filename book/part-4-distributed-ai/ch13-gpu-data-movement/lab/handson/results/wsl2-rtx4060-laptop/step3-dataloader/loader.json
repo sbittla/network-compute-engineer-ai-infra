@@ -1,0 +1,367 @@
+{
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "cpus": 24,
+ "batch": 64,
+ "image": [
+  3,
+  128,
+  128
+ ],
+ "aug_passes": 6,
+ "steps": 30,
+ "warmup": 5,
+ "batch_mib_float32": 12.0,
+ "gpu_only": {
+  "step_ms": 17.848,
+  "samples_per_s": 3585.8
+ },
+ "cpu_batch": {
+  "batch_ms": 63.34,
+  "samples_per_s_per_worker": 1010.4
+ },
+ "workers_needed_estimate": 4,
+ "configs": [
+  {
+   "workers": 0,
+   "pin_memory": false,
+   "prefetch_factor": null,
+   "samples_per_s": 733.8,
+   "step_ms": 87.22,
+   "data_wait_ms_per_step": 80.34,
+   "data_wait_fraction": 0.921,
+   "gpu_busy_fraction": 0.287,
+   "nvidia_smi_util_mean": 27.8,
+   "nvidia_smi_util_samples": [
+    19,
+    19,
+    21,
+    30,
+    25,
+    27,
+    38,
+    26,
+    27,
+    30,
+    39,
+    28,
+    32
+   ],
+   "samples_per_s_all_reps": [
+    731.6,
+    733.8,
+    745.6
+   ]
+  },
+  {
+   "workers": 1,
+   "pin_memory": false,
+   "prefetch_factor": 2,
+   "samples_per_s": 895.4,
+   "step_ms": 71.48,
+   "data_wait_ms_per_step": 63.65,
+   "data_wait_fraction": 0.89,
+   "gpu_busy_fraction": 0.372,
+   "nvidia_smi_util_mean": 38.6,
+   "nvidia_smi_util_samples": [
+    40,
+    46,
+    42,
+    34,
+    37,
+    38,
+    41,
+    40,
+    38,
+    34,
+    35
+   ],
+   "samples_per_s_all_reps": [
+    891.9,
+    895.4,
+    897.6
+   ]
+  },
+  {
+   "workers": 2,
+   "pin_memory": false,
+   "prefetch_factor": 2,
+   "samples_per_s": 1622.9,
+   "step_ms": 39.44,
+   "data_wait_ms_per_step": 25.99,
+   "data_wait_fraction": 0.659,
+   "gpu_busy_fraction": 0.446,
+   "nvidia_smi_util_mean": 40.7,
+   "nvidia_smi_util_samples": [
+    18,
+    42,
+    49,
+    43,
+    48,
+    44
+   ],
+   "samples_per_s_all_reps": [
+    1603.3,
+    1622.9,
+    1679.8
+   ]
+  },
+  {
+   "workers": 4,
+   "pin_memory": false,
+   "prefetch_factor": 2,
+   "samples_per_s": 2952.8,
+   "step_ms": 21.67,
+   "data_wait_ms_per_step": 4.69,
+   "data_wait_fraction": 0.217,
+   "gpu_busy_fraction": 0.813,
+   "nvidia_smi_util_mean": 58,
+   "nvidia_smi_util_samples": [
+    0,
+    64,
+    86,
+    82
+   ],
+   "samples_per_s_all_reps": [
+    2950.9,
+    2952.8,
+    2989.0
+   ]
+  },
+  {
+   "workers": 8,
+   "pin_memory": false,
+   "prefetch_factor": 2,
+   "samples_per_s": 2928.1,
+   "step_ms": 21.86,
+   "data_wait_ms_per_step": 2.45,
+   "data_wait_fraction": 0.112,
+   "gpu_busy_fraction": 0.81,
+   "nvidia_smi_util_mean": 61,
+   "nvidia_smi_util_samples": [
+    0,
+    74,
+    85,
+    85
+   ],
+   "samples_per_s_all_reps": [
+    2915.5,
+    2928.1,
+    2961.0
+   ]
+  },
+  {
+   "workers": 12,
+   "pin_memory": false,
+   "prefetch_factor": 2,
+   "samples_per_s": 2775.1,
+   "step_ms": 23.06,
+   "data_wait_ms_per_step": 2.71,
+   "data_wait_fraction": 0.117,
+   "gpu_busy_fraction": 0.77,
+   "nvidia_smi_util_mean": 70.2,
+   "nvidia_smi_util_samples": [
+    45,
+    67,
+    85,
+    84
+   ],
+   "samples_per_s_all_reps": [
+    2685.1,
+    2775.1,
+    2798.2
+   ]
+  },
+  {
+   "workers": 0,
+   "pin_memory": true,
+   "prefetch_factor": null,
+   "samples_per_s": 815.0,
+   "step_ms": 78.53,
+   "data_wait_ms_per_step": 73.8,
+   "data_wait_fraction": 0.94,
+   "gpu_busy_fraction": 0.327,
+   "nvidia_smi_util_mean": 34.5,
+   "nvidia_smi_util_samples": [
+    39,
+    26,
+    38,
+    29,
+    41,
+    27,
+    40,
+    27,
+    40,
+    37,
+    30,
+    40
+   ],
+   "samples_per_s_all_reps": [
+    810.4,
+    815.0,
+    827.9
+   ]
+  },
+  {
+   "workers": 2,
+   "pin_memory": true,
+   "prefetch_factor": 2,
+   "samples_per_s": 1553.9,
+   "step_ms": 41.19,
+   "data_wait_ms_per_step": 37.51,
+   "data_wait_fraction": 0.911,
+   "gpu_busy_fraction": 0.428,
+   "nvidia_smi_util_mean": 49.7,
+   "nvidia_smi_util_samples": [
+    67,
+    50,
+    45,
+    46,
+    36,
+    54
+   ],
+   "samples_per_s_all_reps": [
+    1551.8,
+    1553.9,
+    1575.4
+   ]
+  },
+  {
+   "workers": 4,
+   "pin_memory": true,
+   "prefetch_factor": 2,
+   "samples_per_s": 3017.8,
+   "step_ms": 21.21,
+   "data_wait_ms_per_step": 16.59,
+   "data_wait_fraction": 0.782,
+   "gpu_busy_fraction": 0.827,
+   "nvidia_smi_util_mean": 68.3,
+   "nvidia_smi_util_samples": [
+    36,
+    81,
+    88
+   ],
+   "samples_per_s_all_reps": [
+    2996.9,
+    3017.8,
+    3073.6
+   ]
+  },
+  {
+   "workers": 8,
+   "pin_memory": true,
+   "prefetch_factor": 2,
+   "samples_per_s": 3419.1,
+   "step_ms": 18.72,
+   "data_wait_ms_per_step": 7.55,
+   "data_wait_fraction": 0.403,
+   "gpu_busy_fraction": 0.945,
+   "nvidia_smi_util_mean": 76.7,
+   "nvidia_smi_util_samples": [
+    35,
+    96,
+    99
+   ],
+   "samples_per_s_all_reps": [
+    3418.5,
+    3419.1,
+    3436.1
+   ]
+  },
+  {
+   "workers": 12,
+   "pin_memory": true,
+   "prefetch_factor": 2,
+   "samples_per_s": 3423.7,
+   "step_ms": 18.69,
+   "data_wait_ms_per_step": 1.97,
+   "data_wait_fraction": 0.105,
+   "gpu_busy_fraction": 0.946,
+   "nvidia_smi_util_mean": 76.7,
+   "nvidia_smi_util_samples": [
+    36,
+    95,
+    99
+   ],
+   "samples_per_s_all_reps": [
+    3423.3,
+    3423.7,
+    3429.4
+   ]
+  },
+  {
+   "workers": 4,
+   "pin_memory": true,
+   "prefetch_factor": 1,
+   "samples_per_s": 2949.2,
+   "step_ms": 21.7,
+   "data_wait_ms_per_step": 17.46,
+   "data_wait_fraction": 0.805,
+   "gpu_busy_fraction": 0.804,
+   "nvidia_smi_util_mean": 73.8,
+   "nvidia_smi_util_samples": [
+    42,
+    85,
+    85,
+    83
+   ],
+   "samples_per_s_all_reps": [
+    2914.0,
+    2949.2,
+    2976.6
+   ]
+  },
+  {
+   "workers": 4,
+   "pin_memory": true,
+   "prefetch_factor": 4,
+   "samples_per_s": 3074.2,
+   "step_ms": 20.82,
+   "data_wait_ms_per_step": 16.1,
+   "data_wait_fraction": 0.773,
+   "gpu_busy_fraction": 0.841,
+   "nvidia_smi_util_mean": 57.3,
+   "nvidia_smi_util_samples": [
+    5,
+    79,
+    88
+   ],
+   "samples_per_s_all_reps": [
+    3029.4,
+    3074.2,
+    3117.9
+   ]
+  },
+  {
+   "workers": 4,
+   "pin_memory": true,
+   "prefetch_factor": 8,
+   "samples_per_s": 2922.6,
+   "step_ms": 21.9,
+   "data_wait_ms_per_step": 17.33,
+   "data_wait_fraction": 0.792,
+   "gpu_busy_fraction": 0.799,
+   "nvidia_smi_util_mean": 68,
+   "nvidia_smi_util_samples": [
+    24,
+    80,
+    85,
+    83
+   ],
+   "samples_per_s_all_reps": [
+    2902.5,
+    2922.6,
+    2983.2
+   ]
+  }
+ ],
+ "best_samples_per_s": 3423.7,
+ "cheapest_within_5pct_of_best": {
+  "workers": 8,
+  "pin_memory": true,
+  "prefetch_factor": 2,
+  "samples_per_s": 3419.1,
+  "gpu_busy_fraction": 0.945
+ },
+ "best_over_ceiling": 0.955
+}

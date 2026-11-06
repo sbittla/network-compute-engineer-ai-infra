@@ -1,0 +1,381 @@
+{
+ "lab": "ch13-data-to-gpu",
+ "run": "wsl2-rtx4060-laptop",
+ "environment": {
+  "captured_at": "2026-11-05T02:36:16+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+   "nvidia-smi --version | head -1": "NVIDIA-SMI version  : 590.74",
+   "nproc": "24",
+   "df -h /dev/shm | tail -1": "none            3.9G     0  3.9G   0% /dev/shm",
+   "test -d /usr/lib/wsl && echo wsl2 || echo native": "wsl2"
+  }
+ },
+ "step1": {
+  "rows": [
+   {
+    "mib": 1,
+    "pageable_gb_per_s": 6.332,
+    "pinned_gb_per_s": 10.858,
+    "pageable_cpu_blocked_ms": 0.0886,
+    "pinned_cpu_blocked_ms": 0.0087,
+    "pin_memory_first_call_ms": 0.067,
+    "pin_memory_call_ms": 0.025,
+    "pin_every_batch_gb_per_s": 8.621,
+    "pinned_ms": 0.0966
+   },
+   {
+    "mib": 8,
+    "pageable_gb_per_s": 9.08,
+    "pinned_gb_per_s": 12.703,
+    "pageable_cpu_blocked_ms": 0.7929,
+    "pinned_cpu_blocked_ms": 0.0149,
+    "pin_memory_first_call_ms": 7.83,
+    "pin_memory_call_ms": 0.194,
+    "pin_every_batch_gb_per_s": 9.818,
+    "pinned_ms": 0.6604
+   },
+   {
+    "mib": 64,
+    "pageable_gb_per_s": 9.789,
+    "pinned_gb_per_s": 12.845,
+    "pageable_cpu_blocked_ms": 6.7635,
+    "pinned_cpu_blocked_ms": 0.0237,
+    "pin_memory_first_call_ms": 48.772,
+    "pin_memory_call_ms": 3.387,
+    "pin_every_batch_gb_per_s": 7.793,
+    "pinned_ms": 5.2245
+   }
+  ]
+ },
+ "step2": {
+  "chunk_mib": 64,
+  "chunks": 12,
+  "calibration": {
+   "copy_ms_per_chunk": 5.224,
+   "one_matmul_iter_ms": 0.753,
+   "k": 7
+  },
+  "serial": {
+   "wall_ms": 118.059,
+   "sum_copy_ms": 64.535,
+   "sum_compute_ms": 53.473,
+   "overlap_ms": 0.0,
+   "copy_hidden_fraction": 0.0
+  },
+  "overlap_pinned": {
+   "wall_ms": 67.166,
+   "sum_copy_ms": 62.721,
+   "sum_compute_ms": 53.333,
+   "overlap_ms": 49.032,
+   "copy_hidden_fraction": 0.782
+  },
+  "overlap_pageable": {
+   "wall_ms": 128.55,
+   "sum_copy_ms": 73.842,
+   "sum_compute_ms": 54.122,
+   "overlap_ms": 0.003,
+   "copy_hidden_fraction": 0.0
+  },
+  "serial_over_overlap_pinned": 1.758,
+  "ideal_overlap_wall_ms": 62.721,
+  "profiler": {
+   "ran": true,
+   "gpu_side_events": 0,
+   "ops_with_gpu_time_ms": {}
+  }
+ },
+ "step3": {
+  "gpu_only": {
+   "step_ms": 17.848,
+   "samples_per_s": 3585.8
+  },
+  "cpu_batch": {
+   "batch_ms": 63.34,
+   "samples_per_s_per_worker": 1010.4
+  },
+  "workers_needed_estimate": 4,
+  "batch_mib_float32": 12.0,
+  "configs": [
+   {
+    "workers": 0,
+    "pin_memory": false,
+    "prefetch_factor": null,
+    "samples_per_s": 733.8,
+    "step_ms": 87.22,
+    "data_wait_ms_per_step": 80.34,
+    "data_wait_fraction": 0.921,
+    "gpu_busy_fraction": 0.287,
+    "nvidia_smi_util_mean": 27.8,
+    "samples_per_s_all_reps": [
+     731.6,
+     733.8,
+     745.6
+    ]
+   },
+   {
+    "workers": 1,
+    "pin_memory": false,
+    "prefetch_factor": 2,
+    "samples_per_s": 895.4,
+    "step_ms": 71.48,
+    "data_wait_ms_per_step": 63.65,
+    "data_wait_fraction": 0.89,
+    "gpu_busy_fraction": 0.372,
+    "nvidia_smi_util_mean": 38.6,
+    "samples_per_s_all_reps": [
+     891.9,
+     895.4,
+     897.6
+    ]
+   },
+   {
+    "workers": 2,
+    "pin_memory": false,
+    "prefetch_factor": 2,
+    "samples_per_s": 1622.9,
+    "step_ms": 39.44,
+    "data_wait_ms_per_step": 25.99,
+    "data_wait_fraction": 0.659,
+    "gpu_busy_fraction": 0.446,
+    "nvidia_smi_util_mean": 40.7,
+    "samples_per_s_all_reps": [
+     1603.3,
+     1622.9,
+     1679.8
+    ]
+   },
+   {
+    "workers": 4,
+    "pin_memory": false,
+    "prefetch_factor": 2,
+    "samples_per_s": 2952.8,
+    "step_ms": 21.67,
+    "data_wait_ms_per_step": 4.69,
+    "data_wait_fraction": 0.217,
+    "gpu_busy_fraction": 0.813,
+    "nvidia_smi_util_mean": 58,
+    "samples_per_s_all_reps": [
+     2950.9,
+     2952.8,
+     2989.0
+    ]
+   },
+   {
+    "workers": 8,
+    "pin_memory": false,
+    "prefetch_factor": 2,
+    "samples_per_s": 2928.1,
+    "step_ms": 21.86,
+    "data_wait_ms_per_step": 2.45,
+    "data_wait_fraction": 0.112,
+    "gpu_busy_fraction": 0.81,
+    "nvidia_smi_util_mean": 61,
+    "samples_per_s_all_reps": [
+     2915.5,
+     2928.1,
+     2961.0
+    ]
+   },
+   {
+    "workers": 12,
+    "pin_memory": false,
+    "prefetch_factor": 2,
+    "samples_per_s": 2775.1,
+    "step_ms": 23.06,
+    "data_wait_ms_per_step": 2.71,
+    "data_wait_fraction": 0.117,
+    "gpu_busy_fraction": 0.77,
+    "nvidia_smi_util_mean": 70.2,
+    "samples_per_s_all_reps": [
+     2685.1,
+     2775.1,
+     2798.2
+    ]
+   },
+   {
+    "workers": 0,
+    "pin_memory": true,
+    "prefetch_factor": null,
+    "samples_per_s": 815.0,
+    "step_ms": 78.53,
+    "data_wait_ms_per_step": 73.8,
+    "data_wait_fraction": 0.94,
+    "gpu_busy_fraction": 0.327,
+    "nvidia_smi_util_mean": 34.5,
+    "samples_per_s_all_reps": [
+     810.4,
+     815.0,
+     827.9
+    ]
+   },
+   {
+    "workers": 2,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "samples_per_s": 1553.9,
+    "step_ms": 41.19,
+    "data_wait_ms_per_step": 37.51,
+    "data_wait_fraction": 0.911,
+    "gpu_busy_fraction": 0.428,
+    "nvidia_smi_util_mean": 49.7,
+    "samples_per_s_all_reps": [
+     1551.8,
+     1553.9,
+     1575.4
+    ]
+   },
+   {
+    "workers": 4,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "samples_per_s": 3017.8,
+    "step_ms": 21.21,
+    "data_wait_ms_per_step": 16.59,
+    "data_wait_fraction": 0.782,
+    "gpu_busy_fraction": 0.827,
+    "nvidia_smi_util_mean": 68.3,
+    "samples_per_s_all_reps": [
+     2996.9,
+     3017.8,
+     3073.6
+    ]
+   },
+   {
+    "workers": 8,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "samples_per_s": 3419.1,
+    "step_ms": 18.72,
+    "data_wait_ms_per_step": 7.55,
+    "data_wait_fraction": 0.403,
+    "gpu_busy_fraction": 0.945,
+    "nvidia_smi_util_mean": 76.7,
+    "samples_per_s_all_reps": [
+     3418.5,
+     3419.1,
+     3436.1
+    ]
+   },
+   {
+    "workers": 12,
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "samples_per_s": 3423.7,
+    "step_ms": 18.69,
+    "data_wait_ms_per_step": 1.97,
+    "data_wait_fraction": 0.105,
+    "gpu_busy_fraction": 0.946,
+    "nvidia_smi_util_mean": 76.7,
+    "samples_per_s_all_reps": [
+     3423.3,
+     3423.7,
+     3429.4
+    ]
+   },
+   {
+    "workers": 4,
+    "pin_memory": true,
+    "prefetch_factor": 1,
+    "samples_per_s": 2949.2,
+    "step_ms": 21.7,
+    "data_wait_ms_per_step": 17.46,
+    "data_wait_fraction": 0.805,
+    "gpu_busy_fraction": 0.804,
+    "nvidia_smi_util_mean": 73.8,
+    "samples_per_s_all_reps": [
+     2914.0,
+     2949.2,
+     2976.6
+    ]
+   },
+   {
+    "workers": 4,
+    "pin_memory": true,
+    "prefetch_factor": 4,
+    "samples_per_s": 3074.2,
+    "step_ms": 20.82,
+    "data_wait_ms_per_step": 16.1,
+    "data_wait_fraction": 0.773,
+    "gpu_busy_fraction": 0.841,
+    "nvidia_smi_util_mean": 57.3,
+    "samples_per_s_all_reps": [
+     3029.4,
+     3074.2,
+     3117.9
+    ]
+   },
+   {
+    "workers": 4,
+    "pin_memory": true,
+    "prefetch_factor": 8,
+    "samples_per_s": 2922.6,
+    "step_ms": 21.9,
+    "data_wait_ms_per_step": 17.33,
+    "data_wait_fraction": 0.792,
+    "gpu_busy_fraction": 0.799,
+    "nvidia_smi_util_mean": 68,
+    "samples_per_s_all_reps": [
+     2902.5,
+     2922.6,
+     2983.2
+    ]
+   }
+  ],
+  "workers0": {
+   "samples_per_s": 733.8,
+   "gpu_busy_fraction": 0.287,
+   "data_wait_fraction": 0.921,
+   "nvidia_smi_util_mean": 27.8
+  },
+  "best": {
+   "config": "workers 12, pin on, prefetch 2",
+   "samples_per_s": 3423.7,
+   "gpu_busy_fraction": 0.946,
+   "data_wait_fraction": 0.105,
+   "nvidia_smi_util_mean": 76.7
+  },
+  "cheapest_within_5pct_of_best": {
+   "workers": 8,
+   "pin_memory": true,
+   "prefetch_factor": 2,
+   "samples_per_s": 3419.1,
+   "gpu_busy_fraction": 0.945
+  },
+  "best_over_ceiling": 0.955,
+  "pin_memory_pairs": [
+   {
+    "workers": 0,
+    "off": 733.8,
+    "on": 815.0
+   },
+   {
+    "workers": 2,
+    "off": 1622.9,
+    "on": 1553.9
+   },
+   {
+    "workers": 4,
+    "off": 2952.8,
+    "on": 3017.8
+   },
+   {
+    "workers": 8,
+    "off": 2928.1,
+    "on": 3419.1
+   },
+   {
+    "workers": 12,
+    "off": 2775.1,
+    "on": 3423.7
+   }
+  ]
+ }
+}

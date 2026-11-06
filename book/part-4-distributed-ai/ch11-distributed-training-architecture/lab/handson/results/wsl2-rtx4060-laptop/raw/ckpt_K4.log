@@ -1,0 +1,168 @@
+W1104 19:25:53.467000 70811 torch/distributed/run.py:793] 
+W1104 19:25:53.467000 70811 torch/distributed/run.py:793] *****************************************
+W1104 19:25:53.467000 70811 torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1104 19:25:53.467000 70811 torch/distributed/run.py:793] *****************************************
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank3]:     sys.exit(main())
+[rank3]:              ^^^^^^
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank3]:     loss.backward()
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank3]:     torch.autograd.backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank3]:     _engine_run_backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank3]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.1.1]:16768: Connection reset by peer
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank1]:     sys.exit(main())
+[rank1]:              ^^^^^^
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank1]:     loss.backward()
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:13544: Connection reset by peer
+W1104 19:26:02.668000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 70846 closing signal SIGTERM
+W1104 19:26:02.670000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 70847 closing signal SIGTERM
+W1104 19:26:02.672000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 70849 closing signal SIGTERM
+E1104 19:26:02.738000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 70848) of binary: /root/.venvs/ai-infra-handson/bin/python3
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank3]:     sys.exit(main())
+[rank3]:              ^^^^^^
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank3]:     loss.backward()
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank3]:     torch.autograd.backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank3]:     _engine_run_backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank3]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.1.1]:27565: Connection reset by peer
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank1]:     sys.exit(main())
+[rank1]:              ^^^^^^
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank1]:     loss.backward()
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.1.1]:27565: Connection reset by peer
+W1104 19:26:14.726000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71029 closing signal SIGTERM
+W1104 19:26:14.728000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71030 closing signal SIGTERM
+W1104 19:26:14.730000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71032 closing signal SIGTERM
+E1104 19:26:14.847000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 71031) of binary: /root/.venvs/ai-infra-handson/bin/python3
+W1104 19:26:18.073000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71211 closing signal SIGTERM
+W1104 19:26:18.075000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71212 closing signal SIGTERM
+W1104 19:26:18.077000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71214 closing signal SIGTERM
+E1104 19:26:18.194000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 71213) of binary: /root/.venvs/ai-infra-handson/bin/python3
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank1]:     sys.exit(main())
+[rank1]:              ^^^^^^
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank1]:     loss.backward()
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:53934: Connection reset by peer
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank3]:     sys.exit(main())
+[rank3]:              ^^^^^^
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank3]:     loss.backward()
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank3]:     torch.autograd.backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank3]:     _engine_run_backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank3]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:65220: Connection reset by peer
+W1104 19:26:22.321000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71345 closing signal SIGTERM
+W1104 19:26:22.323000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71346 closing signal SIGTERM
+W1104 19:26:22.325000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71348 closing signal SIGTERM
+E1104 19:26:22.441000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 71347) of binary: /root/.venvs/ai-infra-handson/bin/python3
+W1104 19:26:27.472000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71495 closing signal SIGTERM
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank1]:     sys.exit(main())
+[rank1]:              ^^^^^^
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank1]:     loss.backward()
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:16557: Connection reset by peer
+W1104 19:26:27.474000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71496 closing signal SIGTERM
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank3]:     sys.exit(main())
+[rank3]:              ^^^^^^
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank3]:     loss.backward()
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank3]:     torch.autograd.backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank3]:     _engine_run_backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank3]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:30361: Connection reset by peer
+W1104 19:26:27.477000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71498 closing signal SIGTERM
+E1104 19:26:27.598000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 71497) of binary: /root/.venvs/ai-infra-handson/bin/python3
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank3]:     sys.exit(main())
+[rank3]:              ^^^^^^
+[rank3]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank3]:     loss.backward()
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank3]:     torch.autograd.backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank3]:     _engine_run_backward(
+[rank3]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank3]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:6356: Connection reset by peer
+W1104 19:26:31.121000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71647 closing signal SIGTERM
+W1104 19:26:31.123000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71648 closing signal SIGTERM
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 216, in <module>
+[rank1]:     sys.exit(main())
+[rank1]:              ^^^^^^
+[rank1]:   File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-4-distributed-ai/ch11-distributed-training-architecture/lab/handson/ch11_ddp.py", line 165, in main
+[rank1]:     loss.backward()
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]: RuntimeError: [../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:25260: Connection reset by peer
+W1104 19:26:31.125000 70811 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 71650 closing signal SIGTERM
+E1104 19:26:31.191000 70811 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 2 (pid: 71649) of binary: /root/.venvs/ai-infra-handson/bin/python3

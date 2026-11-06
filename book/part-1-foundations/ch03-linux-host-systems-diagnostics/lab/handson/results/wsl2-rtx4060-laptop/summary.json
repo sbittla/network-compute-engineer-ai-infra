@@ -1,0 +1,201 @@
+{
+ "lab": "ch03-host-diagnostics",
+ "run": "wsl2-rtx4060-laptop",
+ "environment": {
+  "captured_at": "2026-11-05T04:11:52+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": true,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+   "vmstat -V | head -1": "vmstat from procps-ng 4.0.4",
+   "mpstat -V 2>&1 | head -1": "sysstat version 12.6.1",
+   "lspci --version": "lspci version 3.10.0",
+   "numactl --show | head -1": "policy: default",
+   "uname -r": "6.18.54.1-rxe+",
+   "ulimit -l": "1016080",
+   "cat /proc/sys/kernel/dmesg_restrict": "0",
+   "nproc": "24",
+   "test -d /usr/lib/wsl && echo wsl2 || echo native": "wsl2"
+  }
+ },
+ "step1": {
+  "collector": "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-1-foundations/ch03-linux-host-systems-diagnostics/solutions/lab/host_collector.py",
+  "root": {
+   "user_is_root": true,
+   "sections": 15,
+   "ok": 13,
+   "gaps": {
+    "cpufreq": "missing",
+    "nvidia_smi": "missing"
+   },
+   "lspci_access_denied_lines": 0,
+   "lspci_functions": 4,
+   "nvidia_smi_status": "missing",
+   "nvidia_smi_stderr": "nvidia-smi not found in /usr/sbin:/usr/bin:/sbin:/bin"
+  },
+  "nonroot": {
+   "user_is_root": false,
+   "sections": 15,
+   "ok": 13,
+   "gaps": {
+    "cpufreq": "missing",
+    "nvidia_smi": "missing"
+   },
+   "lspci_access_denied_lines": 4,
+   "lspci_functions": 4,
+   "nvidia_smi_status": "missing",
+   "nvidia_smi_stderr": "nvidia-smi not found in /usr/sbin:/usr/bin:/sbin:/bin"
+  },
+  "triage_vs_orion": {
+   "critical": 16,
+   "warning": 0,
+   "info": 2,
+   "verdict": "DRAIN / repair"
+  },
+  "triage_check_ids": [
+   "EVIDENCE_GAP",
+   "INTERFACE_MISSING",
+   "INVENTORY_MISMATCH"
+  ]
+ },
+ "step2": {
+  "hot_cpu": 14,
+  "spinner_affinity": "14",
+  "hot_cpu_busy_pct": 100.0,
+  "all_cpu_busy_pct": 4.5,
+  "one_core_share_of_host_pct": 4.17,
+  "busiest_other_cpu_busy_pct": 5.9,
+  "vmstat_since_boot_idle_pct": 95,
+  "vmstat_live_idle_pct_mean": 96.0,
+  "vmstat_live_rows": 5
+ },
+ "step3": {
+  "cpu_x": 14,
+  "smt_sibling": 15,
+  "other_core_cpu": 1,
+  "alone": {
+   "per_worker_vs_alone": [
+    1.0
+   ],
+   "total_vs_alone": 1.0
+  },
+  "same_cpu": {
+   "per_worker_vs_alone": [
+    0.492,
+    0.493
+   ],
+   "total_vs_alone": 0.984
+  },
+  "separate_cores": {
+   "per_worker_vs_alone": [
+    1.007,
+    1.005
+   ],
+   "total_vs_alone": 2.012
+  },
+  "unpinned": {
+   "per_worker_vs_alone": [
+    1.012,
+    1.008
+   ],
+   "total_vs_alone": 2.02
+  },
+  "smt_siblings": {
+   "per_worker_vs_alone": [
+    0.996,
+    0.995
+   ],
+   "total_vs_alone": 1.991
+  },
+  "alone_again": {
+   "per_worker_vs_alone": [
+    0.991
+   ],
+   "total_vs_alone": 0.991
+  }
+ },
+ "step4": {
+  "size_mib": 1024,
+  "cold_gb_per_s": 4.621,
+  "warm_gb_per_s": 9.252,
+  "odirect_gb_per_s": 3.017,
+  "warm_over_cold": 2.0,
+  "resident_after_write": 1.0,
+  "resident_after_fadvise": 0.0,
+  "resident_after_cold_read": 1.0,
+  "cached_drop_on_fadvise_mib": 1024
+ },
+ "step5": {
+  "ulimit": [
+   "root:   ulimit -l = 1016080",
+   "nobody: ulimit -l = 65536"
+  ],
+  "mlock": [
+   {
+    "uid": 0,
+    "request_mib": 128,
+    "rlimit_memlock_soft_kib": 1016080,
+    "mlock_ok": true,
+    "error": "",
+    "vmlck_kib_while_locked": 131072
+   },
+   {
+    "uid": 65534,
+    "request_mib": 16,
+    "rlimit_memlock_soft_kib": 65536,
+    "mlock_ok": true,
+    "error": "",
+    "vmlck_kib_while_locked": 16384
+   },
+   {
+    "uid": 65534,
+    "request_mib": 128,
+    "rlimit_memlock_soft_kib": 65536,
+    "mlock_ok": false,
+    "error": "Cannot allocate memory",
+    "vmlck_kib_while_locked": 0
+   }
+  ],
+  "gpu": {
+   "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+   "mib": 256,
+   "pin_memory_call_ms": 206.4,
+   "vmlck_kib_after_pin": 0,
+   "vmpin_kib_after_pin": 0,
+   "h2d_pageable_gb_per_s": 10.99,
+   "h2d_pinned_gb_per_s": 12.96,
+   "d2h_pageable_gb_per_s": 10.71,
+   "d2h_pinned_gb_per_s": 13.16,
+   "h2d_pageable_host_blocked_ms": 24.116,
+   "h2d_pinned_host_blocked_ms": 0.035,
+   "h2d_copy_ms_pinned": 20.705,
+   "h2d_pinned_over_pageable": 1.18
+  }
+ },
+ "step6": {
+  "dmesg_lines": 522,
+  "dmesg_err_lines": 64,
+  "dmesg_warn_lines": 14,
+  "dmesg_categories": {
+   "aer": 0,
+   "edac": 0,
+   "xid": 0,
+   "mce": 0,
+   "oom": 0,
+   "io_error": 0,
+   "dxg_ioctl_failed": 62
+  },
+  "oom_kill_counter": 0,
+  "hogs": 48,
+  "psi_cpu_some_avg10_before": 0.58,
+  "psi_cpu_some_avg10_during": 39.15,
+  "vmstat_r_live_max_during": 48,
+  "loadavg_1m_before": 2.29,
+  "loadavg_1m_during": 9.32
+ }
+}

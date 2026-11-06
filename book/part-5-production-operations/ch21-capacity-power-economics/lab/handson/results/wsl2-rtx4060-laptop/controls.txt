@@ -1,0 +1,5 @@
+limits: {"power.limit": "[N/A]", "enforced.power.limit": 80.0, "power.default_limit": 80.0, "power.min_limit": 5.0, "power.max_limit": 120.0}
+$ nvidia-smi -pl 80.00   (same value: tests permission, changes nothing)
+(exit 4) Failed to set power management limit for GPU 00000000:01:00.0: Insufficient Permissions
+Terminating early due to previous errors.
+clock-lock probe not attempted (set CH21_PROBE_CLOCK_LOCK=1 to try nvidia-smi -lgc / -rgc)

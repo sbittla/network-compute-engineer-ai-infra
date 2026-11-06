@@ -1,0 +1,2 @@
+eth0 device=/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/be7a938d-84f1-43f2-9a5e-43463e273ed6 driver=hv_netvsc
+lo device=/sys/devices/virtual/net/lo/device driver=

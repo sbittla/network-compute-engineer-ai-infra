@@ -1,0 +1,8 @@
+Capture range started in the application.
+Capture range ended in the application.
+Generating '/tmp/nsys-report-81e9.qdstrm'
+[1/1] [0%                          ] step_baseline.nsys-repProcessing events...
+[1/1] [0%                          ] step_baseline.nsys-rep[1/1] [0%                          ] step_baseline.nsys-rep[1/1] [=======39%                  ] step_baseline.nsys-rep[1/1] [===========50%              ] step_baseline.nsys-rep[1/1] [========================100%] step_baseline.nsys-rep[1/1] [========================100%] step_baseline.nsys-rep
+{"variant": "baseline", "captured_steps": 6}
+Generated:
+	/tmp/ch04-handson/step_baseline.nsys-rep

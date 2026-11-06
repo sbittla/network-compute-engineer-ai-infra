@@ -1,0 +1,9 @@
+ulimit -l = 8192 KiB, uid 65534
+Couldn't allocate MR
+failed to create mr
+Failed to create MR
+ Couldn't create IB resources
+
+************************************
+* Waiting for client to connect... *
+************************************

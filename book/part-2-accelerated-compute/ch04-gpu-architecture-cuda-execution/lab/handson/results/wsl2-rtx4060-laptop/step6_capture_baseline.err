@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-2-accelerated-compute/ch04-gpu-architecture-cuda-execution/lab/handson/train_step.py", line 289, in mode_capture
+    tr.capture()
+  File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-2-accelerated-compute/ch04-gpu-architecture-cuda-execution/lab/handson/train_step.py", line 152, in capture
+    self.compute()
+  File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-2-accelerated-compute/ch04-gpu-architecture-cuda-execution/lab/handson/train_step.py", line 137, in compute
+    loss = loss_fn(logits, tgt, mask) / self.a.micro
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/Learning/network-compute-engineer-ai-infra/book/part-2-accelerated-compute/ch04-gpu-architecture-cuda-execution/lab/handson/train_step.py", line 96, in loss_baseline
+    raise FloatingPointError("non-finite loss")
+FloatingPointError: non-finite loss

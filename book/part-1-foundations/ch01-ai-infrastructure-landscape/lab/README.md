@@ -169,3 +169,11 @@ p95, and which values are `MEASURED` versus `MODELED`.
 
 The dataset contains planted flaws that mirror real capacity-review mistakes. They are documented for
 instructors in `../solutions/lab/README.md`. Learners: find them yourselves; that is the point.
+
+## Hands-on lab (single machine)
+
+`handson/` applies this lab's ceiling model to a real GPU (WSL2 works). It measures the GEMM and copy
+ceilings against the peak at the measured SM clock, sweeps a matrix-vector product from batch 1 to 4,096
+across the machine balance, and trains a small transformer, reporting tokens/s, MFU and a compute- or
+memory-bound verdict confirmed by scaling. See [handson/README.md](handson/README.md); the reference
+evidence is in `handson/results/wsl2-rtx4060-laptop/`.

@@ -1,0 +1,8 @@
+$ ib_write_bw -d ch08rxe0 -p 18501 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18502 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18503 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18504 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18505 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18506 -x 1 -F -a -n 1000 --report_gbits [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18507 -x 1 -F -s 65536 -n 10000 [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18508 -x 1 -F -s 65536 -n 10000 [server]  /  ... 10.208.0.1 [client]

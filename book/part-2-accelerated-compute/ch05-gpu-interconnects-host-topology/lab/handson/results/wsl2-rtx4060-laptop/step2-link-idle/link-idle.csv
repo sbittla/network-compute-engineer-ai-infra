@@ -1,0 +1,12 @@
+timestamp, pcie.link.gen.current, pcie.link.gen.gpucurrent, pcie.link.gen.max, pcie.link.gen.gpumax, pcie.link.gen.hostmax, pcie.link.width.current, pcie.link.width.max, utilization.gpu [%], clocks.current.sm [MHz], power.draw [W]
+2026/11/04 18:35:34.781, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 16.82 W
+2026/11/04 18:35:35.047, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 17.07 W
+2026/11/04 18:35:35.316, 4, 4, 4, 4, 5, 8, 8, [Unknown Error], 2250 MHz, 1.20 W
+2026/11/04 18:35:35.994, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 16.64 W
+2026/11/04 18:35:36.260, 4, 4, 4, 4, 5, 8, 8, [Unknown Error], 2250 MHz, 1.20 W
+2026/11/04 18:35:36.958, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 16.66 W
+2026/11/04 18:35:37.229, 4, 4, 4, 4, 5, 8, 8, [Unknown Error], 2250 MHz, 1.20 W
+2026/11/04 18:35:37.918, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 16.69 W
+2026/11/04 18:35:38.185, 4, 4, 4, 4, 5, 8, 8, [Unknown Error], 2250 MHz, 1.20 W
+2026/11/04 18:35:38.896, 4, 4, 4, 4, 5, 8, 8, 0 %, 2250 MHz, 16.57 W
+2026/11/04 18:35:39.159, 4, 4, 4, 4, 5, 8, 8, [Unknown Error], 2250 MHz, 1.20 W

@@ -1,0 +1,9 @@
+$ ib_write_bw -d mlx5_0 -x 1 -F -p 18590 10.208.0.1
+$ ib_write_bw -d ch08rxe0 -x 1 -F -p 18591 10.208.0.1   (no server)
+$ ib_write_bw -d ch08rxe0 -x 1 ... [server] / ib_write_bw -d ch08rxe0 -x 7 ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18525 -x 7 -F -s 65536 -n 1000 [server]  /  ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -p 18526 -x 0 -F -s 65536 -n 1000 [server]  /  ... 10.208.0.1 [client]
+$ setpriv --reuid=65534 ... bash -c 'ulimit -l 4096; ib_write_bw -d ch08rxe0 -x 1 -F -s 8388608 -n 20' [server]
+$ setpriv --reuid=65534 ... bash -c 'ulimit -l 8192; ib_write_bw -d ch08rxe0 -x 1 -F -s 8388608 -n 20' [server]
+$ setpriv --reuid=65534 ... bash -c 'ulimit -l 16384; ib_write_bw -d ch08rxe0 -x 1 -F -s 8388608 -n 20' [server]
+$ setpriv --reuid=65534 ... bash -c 'ulimit -l 65536; ib_write_bw -d ch08rxe0 -x 1 -F -s 8388608 -n 20' [server]

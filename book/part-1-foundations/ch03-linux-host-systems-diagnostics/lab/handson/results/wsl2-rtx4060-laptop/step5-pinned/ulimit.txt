@@ -1,0 +1,2 @@
+root:   ulimit -l = 1016080
+nobody: ulimit -l = 65536

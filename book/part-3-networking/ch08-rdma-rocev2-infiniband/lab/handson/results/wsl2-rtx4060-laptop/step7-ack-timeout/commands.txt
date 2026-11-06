@@ -1,0 +1,3 @@
+$ ib_write_bw -d ch08rxe0 -x 1 -F -s 65536 -n 2000000 -u 14 -p 18532 [server, killed after 2 s] / ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -x 1 -F -s 65536 -n 2000000 -u 16 -p 18533 [server, killed after 2 s] / ... 10.208.0.1 [client]
+$ ib_write_bw -d ch08rxe0 -R --retry_count=3 -F -s 65536 -n 2000000 -p 18534 [server, killed after 2 s] / ... 10.208.0.1 [client]

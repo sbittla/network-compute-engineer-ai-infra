@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-11-05T02:36:16+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "nvidia-smi --version | head -1": "NVIDIA-SMI version  : 590.74",
+    "nproc": "24",
+    "df -h /dev/shm | tail -1": "none            3.9G     0  3.9G   0% /dev/shm",
+    "test -d /usr/lib/wsl && echo wsl2 || echo native": "wsl2"
+  }
+}

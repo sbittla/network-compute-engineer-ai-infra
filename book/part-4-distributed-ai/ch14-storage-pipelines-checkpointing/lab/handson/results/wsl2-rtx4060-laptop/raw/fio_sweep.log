@@ -1,0 +1,72 @@
+Step 1: ext4 virtual disk, O_DIRECT (page cache bypassed)
+  laid out /var/tmp/ch14-handson/fio-test.dat (1024M, direct=1)
+  ext4-direct-randread-4k-qd1-r1             ok
+  ext4-direct-randread-4k-qd4-r1             ok
+  ext4-direct-randread-4k-qd16-r1            ok
+  ext4-direct-randread-4k-qd32-r1            ok
+  ext4-direct-seqread-1m-qd1-r1              ok
+  ext4-direct-seqread-1m-qd4-r1              ok
+  ext4-direct-seqread-1m-qd16-r1             ok
+  ext4-direct-seqread-1m-qd32-r1             ok
+  ext4-direct-randread-4k-qd1-r2             ok
+  ext4-direct-randread-4k-qd4-r2             ok
+  ext4-direct-randread-4k-qd16-r2            ok
+  ext4-direct-randread-4k-qd32-r2            ok
+  ext4-direct-seqread-1m-qd1-r2              ok
+  ext4-direct-seqread-1m-qd4-r2              ok
+  ext4-direct-seqread-1m-qd16-r2             ok
+  ext4-direct-seqread-1m-qd32-r2             ok
+  ext4-direct-randread-4k-qd1-r3             ok
+  ext4-direct-randread-4k-qd4-r3             ok
+  ext4-direct-randread-4k-qd16-r3            ok
+  ext4-direct-randread-4k-qd32-r3            ok
+  ext4-direct-seqread-1m-qd1-r3              ok
+  ext4-direct-seqread-1m-qd4-r3              ok
+  ext4-direct-seqread-1m-qd16-r3             ok
+  ext4-direct-seqread-1m-qd32-r3             ok
+  ext4-direct-randread-4k-qd1-r4             ok
+  ext4-direct-randread-4k-qd4-r4             ok
+  ext4-direct-randread-4k-qd16-r4            ok
+  ext4-direct-randread-4k-qd32-r4            ok
+  ext4-direct-seqread-1m-qd1-r4              ok
+  ext4-direct-seqread-1m-qd4-r4              ok
+  ext4-direct-seqread-1m-qd16-r4             ok
+  ext4-direct-seqread-1m-qd32-r4             ok
+  ext4-direct-randread-4k-qd1-r5             ok
+  ext4-direct-randread-4k-qd4-r5             ok
+  ext4-direct-randread-4k-qd16-r5            ok
+  ext4-direct-randread-4k-qd32-r5            ok
+  ext4-direct-seqread-1m-qd1-r5              ok
+  ext4-direct-seqread-1m-qd4-r5              ok
+  ext4-direct-seqread-1m-qd16-r5             ok
+  ext4-direct-seqread-1m-qd32-r5             ok
+Step 3a: ext4, buffered, cold cache (drop_caches before every job)
+  ext4-buffered-cold-randread-4k-qd1         ok
+  ext4-buffered-cold-randread-4k-qd4         ok
+  ext4-buffered-cold-randread-4k-qd16        ok
+  ext4-buffered-cold-randread-4k-qd32        ok
+  ext4-buffered-cold-seqread-1m-qd1          ok
+  ext4-buffered-cold-seqread-1m-qd4          ok
+  ext4-buffered-cold-seqread-1m-qd16         ok
+  ext4-buffered-cold-seqread-1m-qd32         ok
+Step 3b: ext4, buffered, warm cache (file read once, cache kept)
+  ext4-buffered-warmup-read                  ok
+  ext4-buffered-warm-randread-4k-qd1         ok
+  ext4-buffered-warm-randread-4k-qd4         ok
+  ext4-buffered-warm-randread-4k-qd16        ok
+  ext4-buffered-warm-randread-4k-qd32        ok
+  ext4-buffered-warm-seqread-1m-qd1          ok
+  ext4-buffered-warm-seqread-1m-qd4          ok
+  ext4-buffered-warm-seqread-1m-qd16         ok
+  ext4-buffered-warm-seqread-1m-qd32         ok
+Step 2: the 9P path (/mnt/<drive>, a Windows directory served to the VM over 9P)
+  laid out /mnt/c/Users/Public/ch14-handson/fio-test.dat (256M, direct=1)
+  9p-direct-randread-4k-qd1                  ok
+  9p-buffered-randread-4k-qd1                ok
+  9p-direct-randread-4k-qd32                 ok
+  9p-buffered-randread-4k-qd32               ok
+  9p-direct-seqread-1m-qd1                   ok
+  9p-buffered-seqread-1m-qd1                 ok
+  9p-direct-seqread-1m-qd32                  ok
+  9p-buffered-seqread-1m-qd32                ok
+fio sweep done: 67 jobs, 0 failed []

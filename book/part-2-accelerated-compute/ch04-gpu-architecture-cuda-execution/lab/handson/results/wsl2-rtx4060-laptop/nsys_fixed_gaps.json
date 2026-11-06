@@ -1,0 +1,515 @@
+{
+  "min_gap_us": 10.0,
+  "steps": [
+    {
+      "range": "train_step_0",
+      "window_ms": 60.638699,
+      "busy_ms": 33.365891,
+      "busy_frac": 0.550240878353937,
+      "idle_ms": 27.272808,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 273,
+          "total_us": 23610.48400000001
+        },
+        "dependency": {
+          "count": 26,
+          "total_us": 1819.268
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 48332535,
+          "dur_us": 584.313,
+          "cause": "dependency",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 23741537,
+          "dur_us": 512.323,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 29707944,
+          "dur_us": 475.862,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78506839,
+          "dur_us": 469.785,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 30184738,
+          "dur_us": 468.564,
+          "cause": "launch_bound",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 23077613,
+          "dur_us": 384.483,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 22657316,
+          "dur_us": 375.154,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 47737000,
+          "dur_us": 276.643,
+          "cause": "dependency",
+          "next": "memset memset",
+          "submitted_by": "cudaMemsetAsync_v3020",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_1",
+      "window_ms": 48.586666,
+      "busy_ms": 33.397119,
+      "busy_frac": 0.6873721074008248,
+      "idle_ms": 15.189547,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 205,
+          "total_us": 12672.322000000004
+        },
+        "dependency": {
+          "count": 35,
+          "total_us": 1075.8650000000002
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 127624240,
+          "dur_us": 384.902,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 90460747,
+          "dur_us": 217.256,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 96135850,
+          "dur_us": 130.315,
+          "cause": "launch_bound",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 114069958,
+          "dur_us": 130.251,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 96961277,
+          "dur_us": 124.817,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 96709649,
+          "dur_us": 123.435,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 83612612,
+          "dur_us": 117.004,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 114201270,
+          "dur_us": 113.403,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_2",
+      "window_ms": 47.3843,
+      "busy_ms": 33.391697,
+      "busy_frac": 0.7046995945914575,
+      "idle_ms": 13.992603,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 182,
+          "total_us": 11929.489000000012
+        },
+        "dependency": {
+          "count": 19,
+          "total_us": 563.124
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 175095417,
+          "dur_us": 397.698,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 132466103,
+          "dur_us": 160.378,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 159142726,
+          "dur_us": 127.165,
+          "cause": "launch_bound",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 134587161,
+          "dur_us": 123.241,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s16816gemm_bf16_128x64_ldg8_relu_f2f_stag",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 132927303,
+          "dur_us": 115.975,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 171705640,
+          "dur_us": 114.046,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_f2f_stages_32",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 135020130,
+          "dur_us": 112.953,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 170559713,
+          "dur_us": 112.76,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_3",
+      "window_ms": 45.196628,
+      "busy_ms": 33.400598,
+      "busy_frac": 0.7390064143723288,
+      "idle_ms": 11.79603,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 173,
+          "total_us": 9672.449999999995
+        },
+        "dependency": {
+          "count": 22,
+          "total_us": 621.7390000000001
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 220502349,
+          "dur_us": 181.631,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 179723655,
+          "dur_us": 174.044,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 191797236,
+          "dur_us": 142.308,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 186487260,
+          "dur_us": 121.538,
+          "cause": "launch_bound",
+          "next": "kernel layer_norm_grad_input_kernel_vectorized",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 193345748,
+          "dur_us": 120.605,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 200891278,
+          "dur_us": 113.145,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 204095789,
+          "dur_us": 106.715,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 193238904,
+          "dur_us": 105.783,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_4",
+      "window_ms": 37.115086,
+      "busy_ms": 33.39725,
+      "busy_frac": 0.899829519457398,
+      "idle_ms": 3.717836,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 51,
+          "total_us": 1794.426
+        },
+        "dependency": {
+          "count": 11,
+          "total_us": 310.18000000000006
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 257595621,
+          "dur_us": 245.229,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 224833013,
+          "dur_us": 100.928,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 242747219,
+          "dur_us": 94.69,
+          "cause": "launch_bound",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 224542024,
+          "dur_us": 78.202,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 225092358,
+          "dur_us": 56.911,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 242901167,
+          "dur_us": 55.785,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 241435448,
+          "dur_us": 55.014,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 233246026,
+          "dur_us": 53.406,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_5",
+      "window_ms": 38.244838,
+      "busy_ms": 33.384501,
+      "busy_frac": 0.872915215381485,
+      "idle_ms": 4.860337,
+      "kernels": 956,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 56,
+          "total_us": 2889.451
+        },
+        "dependency": {
+          "count": 11,
+          "total_us": 333.93899999999996
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 295883917,
+          "dur_us": 233.912,
+          "cause": "launch_bound",
+          "next": "kernel multi_tensor_apply_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 270625748,
+          "dur_us": 136.07,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_layer_norm_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 272171109,
+          "dur_us": 129.19,
+          "cause": "launch_bound",
+          "next": "kernel unrolled_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 287463187,
+          "dur_us": 122.181,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 287586429,
+          "dur_us": 119.962,
+          "cause": "launch_bound",
+          "next": "kernel indexSelectLargeIndex",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 270957822,
+          "dur_us": 111.988,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 271691196,
+          "dur_us": 101.474,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 271943756,
+          "dur_us": 99.899,
+          "cause": "launch_bound",
+          "next": "kernel ampere_bf16_s16816gemm_bf16_128x64_ldg8_relu_f2f_stag",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-11-05T03:29:08+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "/root/.venvs/ai-infra-handson/bin/python -c 'import torch; print(torch.__version__, torch.version.cuda, torch.cuda.nccl.version())'": "2.5.1+cu124 12.4 (2, 21, 5)",
+    "/root/.venvs/ai-infra-handson/bin/torchrun --help | head -1": "usage: torchrun [-h] [--nnodes NNODES] [--nproc-per-node NPROC_PER_NODE]",
+    "cat /proc/loadavg": "7.08 5.55 4.80 2/455 75185",
+    "free -m | sed -n 2p": "Mem:            7938        1622        4397          81        2293        6315"
+  }
+}

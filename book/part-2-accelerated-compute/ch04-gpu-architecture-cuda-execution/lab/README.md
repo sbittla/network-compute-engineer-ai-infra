@@ -181,3 +181,12 @@ signatures in the timeline are the same.
 The capture contains planted problems and at least one planted distractor. Their list, magnitudes and
 the reasoning they are meant to exercise are documented for instructors in
 `../solutions/exercises-key.md` (section "Lab 4 — planted anomalies"). Do not look before submitting.
+
+## Hands-on lab (single machine)
+
+`handson/` profiles a real training step on your own GPU. The step hides two host syncs in its loss
+function: boolean-mask indexing and a NaN check that branches on a GPU value. You find them with
+`torch.profiler`, an Nsight Systems timeline analyzed by the same gap rule this lab implements, and
+`torch.cuda.set_sync_debug_mode("warn")`. You then remove them and re-measure in separate, interleaved
+processes, show that the old step cannot be captured as a CUDA Graph, and capture the fixed one. See
+[handson/README.md](handson/README.md); the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

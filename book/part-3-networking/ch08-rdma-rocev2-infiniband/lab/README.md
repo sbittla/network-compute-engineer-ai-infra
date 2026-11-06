@@ -200,6 +200,17 @@ pinned-versus-pageable copy).
 `cpu-fallback/` the CPU run; each `report.md` lists what was measured, what was not runnable and why, and
 the invariants it passed. Rerun on your own hardware and compare like with like.
 
+## Hands-on lab (single machine)
+
+`handson/` runs real verbs on one Linux machine (WSL2 works with the Soft-RoCE kernel of
+`docs/HANDS_ON_LABS.md` section 6): an rxe device on a veth end, `rdma link`, `ibv_devinfo -v` and the
+GID table, `ibv_rc_pingpong`, then `ib_write_bw`, `ib_write_lat`, `ib_read_lat` and `ib_send_lat` across
+message sizes at path MTUs 256 to 4,096. It breaks the setup on purpose (wrong device, no server, empty
+GID index, a locked-memory limit too small for the buffer) and kills a peer mid-transfer to measure the
+ACK timeout and the `IBV_WC_RETRY_EXC_ERR` (12) failure. Numbers are software-RDMA numbers on one CPU,
+labelled `[MEASURED]`; the mechanisms carry over, the magnitudes do not. See
+[handson/README.md](handson/README.md); `python handson/check.py handson/results/<run-id>` checks a run.
+
 ## 9. Intentionally flawed inputs
 
 The dataset contains planted faults chosen because each is a real and common cause of RDMA admission

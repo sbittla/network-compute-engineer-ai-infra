@@ -1,0 +1,10 @@
+inventory + GPU discovery (idle)
+kernel log
+host memory
+NICs
+storage
+  fio /dev/sdd rep 0: 7.250816575
+  fio /dev/sdd rep 1: 7.149548553
+  fio /dev/sdd rep 2: 8.016680555
+  fio /dev/sdd rep 3: 7.633224539
+host collection done

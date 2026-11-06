@@ -1,0 +1,55 @@
+$ lsblk -J -b -o NAME,KNAME,PKNAME,TYPE,SIZE,ROTA,MODEL,FSTYPE,MOUNTPOINTS
+[rc=0]
+{
+   "blockdevices": [
+      {
+         "name": "sda",
+         "kname": "sda",
+         "pkname": null,
+         "type": "disk",
+         "size": 758038528,
+         "rota": true,
+         "model": "Virtual Disk",
+         "fstype": "ext4",
+         "mountpoints": [
+             null
+         ]
+      },{
+         "name": "sdb",
+         "kname": "sdb",
+         "pkname": null,
+         "type": "disk",
+         "size": 8589938688,
+         "rota": true,
+         "model": "Virtual Disk",
+         "fstype": "swap",
+         "mountpoints": [
+             "[SWAP]"
+         ]
+      },{
+         "name": "sdc",
+         "kname": "sdc",
+         "pkname": null,
+         "type": "disk",
+         "size": 1099511627776,
+         "rota": true,
+         "model": "Virtual Disk",
+         "fstype": "ext4",
+         "mountpoints": [
+             null
+         ]
+      },{
+         "name": "sdd",
+         "kname": "sdd",
+         "pkname": null,
+         "type": "disk",
+         "size": 1099511627776,
+         "rota": true,
+         "model": "Virtual Disk",
+         "fstype": "ext4",
+         "mountpoints": [
+             "/mnt/wslg/distro", "/"
+         ]
+      }
+   ]
+}

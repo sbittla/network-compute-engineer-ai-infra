@@ -1,0 +1,14 @@
+[    0.137493] PCI: System does not support PCI
+[    0.253292] device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+[    1.784466] Failed to connect to bus: No such file or directory
+[    1.890724] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[   21.489017] Failed to connect to bus: No such file or directory
+[   21.638190] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[   80.908751] Failed to connect to bus: No such file or directory
+[   81.017128] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[  105.543635] Failed to connect to bus: No such file or directory
+[  105.672051] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[  234.634461] Failed to connect to bus: No such file or directory
+[  234.747849] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[  299.498698] Failed to connect to bus: No such file or directory
+[  299.605599] systemd-journald[59]: File /var/log/journal/9b0a3746aae1469b8e85fdc41fb96eb0/system.journal corrupted or uncleanly shut down, renaming and replacing.

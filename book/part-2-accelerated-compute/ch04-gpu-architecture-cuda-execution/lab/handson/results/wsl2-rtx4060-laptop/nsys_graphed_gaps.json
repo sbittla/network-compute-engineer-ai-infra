@@ -1,0 +1,435 @@
+{
+  "min_gap_us": 10.0,
+  "steps": [
+    {
+      "range": "train_step_0",
+      "window_ms": 35.542146,
+      "busy_ms": 33.348076,
+      "busy_frac": 0.9382684996004462,
+      "idle_ms": 2.19407,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 2,
+          "total_us": 378.036
+        },
+        "dependency": {
+          "count": 14,
+          "total_us": 601.6030000000001
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 8424042,
+          "dur_us": 353.016,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 42988026,
+          "dur_us": 254.055,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 9047348,
+          "dur_us": 85.534,
+          "cause": "dependency",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 8950832,
+          "dur_us": 57.999,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 8780273,
+          "dur_us": 29.732,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 8827927,
+          "dur_us": 25.943,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 9154497,
+          "dur_us": 25.02,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaGraphLaunch_v10000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 9133965,
+          "dur_us": 19.736,
+          "cause": "dependency",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_1",
+      "window_ms": 34.47767,
+      "busy_ms": 33.391872,
+      "busy_frac": 0.9685072106090696,
+      "idle_ms": 1.085798,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 8,
+          "total_us": 363.593
+        },
+        "dependency": {
+          "count": 1,
+          "total_us": 50.009
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 43991448,
+          "dur_us": 102.822,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44332441,
+          "dur_us": 79.613,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaGraphLaunch_v10000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44267916,
+          "dur_us": 57.776,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78260672,
+          "dur_us": 50.009,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44208803,
+          "dur_us": 26.485,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44144374,
+          "dur_us": 24.861,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 2048 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44177353,
+          "dur_us": 24.479,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 44111396,
+          "dur_us": 24.033,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_2",
+      "window_ms": 34.853654,
+      "busy_ms": 33.517828,
+      "busy_frac": 0.9616732868238148,
+      "idle_ms": 1.335826,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 4,
+          "total_us": 506.32900000000006
+        },
+        "dependency": {
+          "count": 4,
+          "total_us": 160.469
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 78520296,
+          "dur_us": 289.423,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78964966,
+          "dur_us": 187.653,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113141109,
+          "dur_us": 91.041,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78906172,
+          "dur_us": 24.575,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78859855,
+          "dur_us": 23.366,
+          "cause": "dependency",
+          "next": "memcpy HtoD 2048 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78812966,
+          "dur_us": 21.487,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 78947045,
+          "dur_us": 16.807,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 79153447,
+          "dur_us": 12.446,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaGraphLaunch_v10000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_3",
+      "window_ms": 34.821505,
+      "busy_ms": 33.461224,
+      "busy_frac": 0.9609356057413372,
+      "idle_ms": 1.360281,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 2,
+          "total_us": 510.10699999999997
+        },
+        "dependency": {
+          "count": 6,
+          "total_us": 196.98000000000002
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 113391926,
+          "dur_us": 292.628,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113853076,
+          "dur_us": 217.479,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 148001269,
+          "dur_us": 59.24,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113687483,
+          "dur_us": 57.712,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113752485,
+          "dur_us": 25.848,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113788933,
+          "dur_us": 23.079,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 113822484,
+          "dur_us": 20.692,
+          "cause": "dependency",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 114071670,
+          "dur_us": 10.409,
+          "cause": "dependency",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_4",
+      "window_ms": 34.472507,
+      "busy_ms": 33.370017,
+      "busy_frac": 0.9680182819311632,
+      "idle_ms": 1.10249,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 2,
+          "total_us": 285.283
+        },
+        "dependency": {
+          "count": 1,
+          "total_us": 94.034
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 148254752,
+          "dur_us": 147.193,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 148458161,
+          "dur_us": 138.09,
+          "cause": "launch_bound",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 182424400,
+          "dur_us": 94.034,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        }
+      ]
+    },
+    {
+      "range": "train_step_5",
+      "window_ms": 34.421822,
+      "busy_ms": 33.462205,
+      "busy_frac": 0.9721218417781604,
+      "idle_ms": 0.959617,
+      "kernels": 1048,
+      "sync_calls": 2,
+      "gaps_by_cause": {
+        "launch_bound": {
+          "count": 1,
+          "total_us": 167.8
+        },
+        "dependency": {
+          "count": 2,
+          "total_us": 159.385
+        }
+      },
+      "largest_gaps": [
+        {
+          "start_ns": 182739914,
+          "dur_us": 167.8,
+          "cause": "launch_bound",
+          "next": "memcpy HtoD 16384 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 216939878,
+          "dur_us": 113.037,
+          "cause": "dependency",
+          "next": "memcpy DtoH 1 B",
+          "submitted_by": "cudaMemcpyAsync_v3020",
+          "blocking_call": ""
+        },
+        {
+          "start_ns": 182969055,
+          "dur_us": 46.348,
+          "cause": "dependency",
+          "next": "kernel vectorized_elementwise_kernel",
+          "submitted_by": "cudaLaunchKernel_v7000",
+          "blocking_call": ""
+        }
+      ]
+    }
+  ]
+}

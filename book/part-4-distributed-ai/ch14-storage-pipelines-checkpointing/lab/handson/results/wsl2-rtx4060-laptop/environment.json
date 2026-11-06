@@ -1,0 +1,19 @@
+{
+  "captured_at": "2026-11-05T03:02:46+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "fio --version": "fio-3.36",
+    "/root/.venvs/ai-infra-handson/bin/python -c 'import torch; print(torch.__version__)'": "2.5.1+cu124",
+    "findmnt -no FSTYPE,SOURCE --target /var/tmp": "ext4   /dev/sdd",
+    "findmnt -no FSTYPE,SOURCE --target /mnt/c": "9p     C:\\",
+    "lsblk -dno NAME,TYPE,SIZE,ROTA,MODEL": "sda  disk 722.9M    1 Virtual Disk\nsdb  disk     8G    1 Virtual Disk\nsdc  disk     1T    1 Virtual Disk\nsdd  disk     1T    1 Virtual Disk",
+    "nvidia-smi --query-gpu=pcie.link.gen.max,pcie.link.width.max --format=csv,noheader": "4, 8"
+  }
+}

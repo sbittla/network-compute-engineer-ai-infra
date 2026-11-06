@@ -1,0 +1,1 @@
+$ ibv_rc_pingpong -d ch08rxe0 -g 1 -n 1000 [server] / ... 10.208.0.1 [client]

@@ -1,0 +1,5 @@
+{"ev": "kill", "rank": 2, "step": 23, "t": 1793848998.2489858, "attempt": 0, "pg_timeout_s": 30.0}
+{"ev": "peer_error", "rank": 3, "step": 23, "t": 1793848998.3001194, "attempt": 0, "type": "RuntimeError", "err": "[../third_party/gloo/gloo/transport/tcp/pair.cc:525] Read error [127.0.0.1]:27835: Connection reset by peer"}
+{"ev": "sigterm", "rank": 3, "t": 1793848998.3192575, "attempt": 0}
+{"ev": "sigterm", "rank": 1, "t": 1793848998.3225288, "attempt": 0}
+{"ev": "sigterm", "rank": 0, "t": 1793848998.3664641, "attempt": 0}

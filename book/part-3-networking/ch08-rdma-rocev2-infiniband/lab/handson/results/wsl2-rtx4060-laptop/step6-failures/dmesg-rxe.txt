@@ -1,0 +1,11 @@
+[ 1476.536187] ch08rxe0: pd#2 rxe_reg_user_mr: returned err = -12
+[ 1476.827307] ch08rxe0: pd#4 rxe_reg_user_mr: returned err = -12
+[ 1502.859935] ch08rxe0: pd#2 rxe_reg_user_mr: returned err = -12
+[ 1505.197634] ch08rxe0: pd#4 rxe_reg_user_mr: returned err = -12
+[ 1678.700054] ch08rxe0: qp#19 make_send_cqe: non-flush error status = 12
+[ 1684.954208] ch08rxe0: qp#23 make_send_cqe: non-flush error status = 12
+[ 2297.568868] ch08rxe0: pd#55 rxe_reg_user_mr: returned err = -12
+[ 2299.161958] ch08rxe0: pd#57 rxe_reg_user_mr: returned err = -12
+[ 2327.878568] ch08rxe0: qp#83 make_send_cqe: non-flush error status = 12
+[ 2938.387245] ch08rxe0: pd#56 rxe_reg_user_mr: returned err = -12
+[ 2940.178601] ch08rxe0: pd#58 rxe_reg_user_mr: returned err = -12

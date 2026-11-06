@@ -1,0 +1,63 @@
+{
+ "node": "srini",
+ "collected_at": "2026-11-05T03:34:28Z",
+ "acceptance_policy": "acc-2026.10-wsl2-laptop",
+ "firmware": {
+  "kernel": "6.18.54.1-rxe+",
+  "gpu_driver": "592.82",
+  "gpu_vbios": "95.07.28.00.59"
+ },
+ "gpus": [
+  {
+   "index": 0,
+   "uuid": "GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629",
+   "bdf": "00000000:01:00.0",
+   "product": "NVIDIA GeForce RTX 4060 Laptop GPU",
+   "hbm_total_mib": 8188,
+   "pcie": {
+    "gen": 4.0,
+    "width": 8.0,
+    "gen_idle": 4
+   },
+   "nvlink_links_up": null,
+   "ecc": null,
+   "row_remap": {
+    "correctable": "0",
+    "uncorrectable": "0",
+    "pending": "No",
+    "failure": "No"
+   },
+   "burn_in": {
+    "duration_h": 0.03333333333333333,
+    "max_temp_c": 76.0,
+    "throttle_reasons": [
+     "SW_POWER_CAP"
+    ]
+   }
+  }
+ ],
+ "dcgm_diag": null,
+ "nics": [
+  {
+   "name": "eth0",
+   "role": "frontend",
+   "link_state": "up",
+   "speed_mbps": 10000,
+   "mtu": 1500
+  }
+ ],
+ "gdr": null,
+ "storage": {
+  "nvme": [],
+  "data_disks": [
+   {
+    "device": "sdd",
+    "seq_read_gbs": 7.633224539
+   }
+  ],
+  "fio_seq_read_gbs": 7.633224539
+ },
+ "nccl_single_node": null,
+ "xid_events": [],
+ "_note": "None means not collected on this platform (N/A), never zero."
+}

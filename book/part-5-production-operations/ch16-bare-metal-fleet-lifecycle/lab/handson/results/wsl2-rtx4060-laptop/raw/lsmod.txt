@@ -1,0 +1,3 @@
+$ lsmod
+[rc=0]
+Module                  Size  Used by

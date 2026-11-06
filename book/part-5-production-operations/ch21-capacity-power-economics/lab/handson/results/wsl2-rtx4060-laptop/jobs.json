@@ -1,0 +1,93 @@
+{
+  "idle": {
+    "t0": 1793848806.9980102,
+    "t1": 1793848814.999759,
+    "wall_s": 8.001749992370605,
+    "tokens": 0,
+    "busy_s": 0.0
+  },
+  "intensity_b1": {
+    "batch": 1,
+    "target_busy_fraction": 1.0,
+    "steps": 1024,
+    "tokens": 524288,
+    "t0": 1793848816.8844585,
+    "t1": 1793848845.3407516,
+    "wall_s": 28.4562931060791,
+    "busy_s": 28.452893750004478,
+    "final_loss": 1.6367945931961003e-07,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  },
+  "intensity_b4": {
+    "batch": 4,
+    "target_busy_fraction": 1.0,
+    "steps": 256,
+    "tokens": 524288,
+    "t0": 1793848846.5494695,
+    "t1": 1793848860.8081994,
+    "wall_s": 14.258729934692383,
+    "busy_s": 14.25747190800098,
+    "final_loss": 5.788853645324707,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  },
+  "intensity_b16": {
+    "batch": 16,
+    "target_busy_fraction": 1.0,
+    "steps": 64,
+    "tokens": 524288,
+    "t0": 1793848862.4246187,
+    "t1": 1793848874.6393356,
+    "wall_s": 12.214716911315918,
+    "busy_s": 12.214333803000045,
+    "final_loss": 9.762137413024902,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  },
+  "duty_075": {
+    "batch": 16,
+    "target_busy_fraction": 0.75,
+    "steps": 64,
+    "tokens": 524288,
+    "t0": 1793848876.3213255,
+    "t1": 1793848892.6644886,
+    "wall_s": 16.343163013458252,
+    "busy_s": 12.236792851999553,
+    "final_loss": 8.874445915222168,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  },
+  "duty_050": {
+    "batch": 16,
+    "target_busy_fraction": 0.5,
+    "steps": 64,
+    "tokens": 524288,
+    "t0": 1793848894.3133361,
+    "t1": 1793848918.6306825,
+    "wall_s": 24.317346334457397,
+    "busy_s": 12.144617465000238,
+    "final_loss": 8.486714363098145,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  },
+  "duty_025": {
+    "batch": 16,
+    "target_busy_fraction": 0.25,
+    "steps": 64,
+    "tokens": 524288,
+    "t0": 1793848920.2324758,
+    "t1": 1793848968.6032026,
+    "wall_s": 48.37072682380676,
+    "busy_s": 12.07141149699919,
+    "final_loss": 8.23873519897461,
+    "limits": {
+      "enforced.power.limit": 80.0
+    }
+  }
+}

@@ -131,3 +131,11 @@ the manifest's L3 extension.
 
 The bundle contains several planted causes with different onsets, two of which mask each other, and
 one decoy. Instructor notes are in `../solutions/lab/README.md`.
+
+## Hands-on lab (single machine)
+
+`handson/` measures the host-to-GPU hop on a real GPU (WSL2 works): pinned versus pageable copies and the
+cost of pinning, copies overlapped with compute on two CUDA streams (proved with per-operation GPU
+timestamps), and a `DataLoader` sweep over `num_workers`, `pin_memory` and `prefetch_factor` that finds the
+cheapest configuration that keeps an input-bound training loop's GPU busy. See
+[handson/README.md](handson/README.md); the reference evidence is in `handson/results/wsl2-rtx4060-laptop/`.

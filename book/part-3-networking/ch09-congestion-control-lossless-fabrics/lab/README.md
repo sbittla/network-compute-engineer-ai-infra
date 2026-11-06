@@ -224,3 +224,12 @@ the invariants it passed. Rerun on your own hardware and compare like with like.
 
 The dataset contains planted anomalies and configuration faults. They are documented for instructors
 in `solutions/exercises-key.md` (Lab section), not here.
+
+## Hands-on lab (single machine)
+
+`handson/` builds a one-switch fabric in network namespaces: up to 16 senders, a receiver and a probe joined
+by a Linux bridge, with a 100 Mb/s bottleneck queue on the port that faces the receiver. It runs a
+synchronized 8:1 TCP incast with iperf3 into five queue configurations: drop-tail, RED with ECN marking at
+the template thresholds scaled by the BDP, the same queue with senders that do not negotiate ECN, the
+as-found thresholds of Section 9.10, and DCTCP. For each it measures marks, CE packets at the receiver,
+drops, queue depth and delay, and goodput. See [handson/README.md](handson/README.md).

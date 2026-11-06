@@ -1,0 +1,31 @@
+state 0.403 GB (33.6 M params), target /var/tmp/ch14-handson/ckpt
+  sync      rep 0: blocking 0.821 s, completion 0.821 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 0: blocking 0.234 s, completion 0.733 s, 0.403 GB, 14 steps during persist
+  thread    rep 0: blocking 0.032 s, completion 0.391 s, 0.403 GB, 10 steps during persist
+  sync      rep 1: blocking 0.365 s, completion 0.365 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 1: blocking 0.055 s, completion 0.487 s, 0.403 GB, 12 steps during persist
+  thread    rep 1: blocking 0.032 s, completion 0.423 s, 0.403 GB, 11 steps during persist
+  sync      rep 2: blocking 0.532 s, completion 0.532 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 2: blocking 0.277 s, completion 0.749 s, 0.403 GB, 13 steps during persist
+  thread    rep 2: blocking 0.033 s, completion 0.467 s, 0.403 GB, 12 steps during persist
+  sync      rep 3: blocking 0.358 s, completion 0.358 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 3: blocking 0.249 s, completion 0.724 s, 0.403 GB, 13 steps during persist
+  thread    rep 3: blocking 0.032 s, completion 0.467 s, 0.403 GB, 12 steps during persist
+  sync      rep 4: blocking 0.439 s, completion 0.439 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 4: blocking 0.302 s, completion 0.818 s, 0.403 GB, 14 steps during persist
+  thread    rep 4: blocking 0.032 s, completion 0.359 s, 0.403 GB, 9 steps during persist
+  sync      rep 5: blocking 0.473 s, completion 0.473 s, 0.403 GB, 0 steps during persist
+  dcp_async rep 5: blocking 0.203 s, completion 0.920 s, 0.403 GB, 19 steps during persist
+  thread    rep 5: blocking 0.032 s, completion 1.169 s, 0.403 GB, 29 steps during persist
+  dcp.load cold: 0.410 s (0.98 GB/s)
+  dcp.load warm: 0.295 s (1.37 GB/s)
+  dcp.load cold: 0.385 s (1.05 GB/s)
+  dcp.load warm: 0.342 s (1.18 GB/s)
+  dcp.load cold: 0.523 s (0.77 GB/s)
+  dcp.load warm: 0.380 s (1.06 GB/s)
+  dcp.load cold: 0.518 s (0.78 GB/s)
+  dcp.load warm: 0.420 s (0.96 GB/s)
+  dcp.load cold: 0.493 s (0.82 GB/s)
+  dcp.load warm: 0.279 s (1.44 GB/s)
+  consistency: 0 of 64 tensors differ; 7 steps ran meanwhile; live state changed: True
+checkpoint bench done: medians sync 0.439 s, dcp_async blocking 0.249 s

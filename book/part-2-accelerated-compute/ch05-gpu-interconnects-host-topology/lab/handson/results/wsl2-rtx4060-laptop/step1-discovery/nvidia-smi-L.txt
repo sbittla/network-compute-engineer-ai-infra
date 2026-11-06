@@ -1,0 +1,1 @@
+GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU (UUID: GPU-fe211e06-dfa3-0d80-fb58-b775a89cc629)

@@ -200,3 +200,12 @@ resulting numbers `[MEASURED]` with a pointer to that manifest.
 The dataset contains planted acceptance defects, distractors that must *not* fail, and lifecycle
 events that must be refused. They are documented for instructors only in
 `../solutions/lab/PLANTED_FAULTS.md`.
+
+## Hands-on lab (single machine)
+
+`handson/` runs a node acceptance suite against the machine you are on (WSL2 works): inventory, PCIe
+link under load, GPU memory patterns, GEMMs checked against a CPU reference while the GPU is hot, a
+stress run with temperature, clock and clock-event-reason telemetry, host memory, NIC and read-only
+per-disk `fio` checks. It reports PASS/WARN/FAIL/N/A per Table 16.4 reason code against a versioned
+policy, and shows why N/A is not PASS. See [handson/README.md](handson/README.md); the reference
+evidence is in `handson/results/wsl2-rtx4060-laptop/`.

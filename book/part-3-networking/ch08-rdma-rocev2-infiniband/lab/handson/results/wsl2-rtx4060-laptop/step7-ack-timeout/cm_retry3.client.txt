@@ -1,0 +1,27 @@
+ Completion with error at client
+ Failed status 12: wr_id 0 syndrom 0x0
+scnt=14209, ccnt=14081
+ Failed to complete run_iter_bw function successfully
+ WARNING: BW peak won't be measured in this run.
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF		Device         : ch08rxe0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : OFF
+ TX depth        : 128
+ CQ Moderation   : 1
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 1
+ Max inline data : 0[B]
+ rdma_cm QPs	 : ON
+ Data ex. method : rdma_cm
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x0055 PSN 0x52434e
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+ remote address: LID 0000 QPN 0x0056 PSN 0x7f49a4
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:208:00:01
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[MB/sec]    BW average[MB/sec]   MsgRate[Mpps]

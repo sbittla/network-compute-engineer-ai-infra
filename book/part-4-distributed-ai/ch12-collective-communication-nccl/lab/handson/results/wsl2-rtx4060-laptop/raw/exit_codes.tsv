@@ -1,0 +1,9 @@
+coll_n2	0
+coll_n4	0
+coll_n8	0
+coll_n4_rep2	0
+coll_n4_rep3	0
+algo_n4	0
+algo_n8	0
+nccl_2ranks_1gpu	1
+nccl_n1	0

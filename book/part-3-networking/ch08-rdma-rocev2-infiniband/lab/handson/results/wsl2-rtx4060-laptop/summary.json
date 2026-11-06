@@ -1,0 +1,377 @@
+{
+  "step1": {
+    "device": "ch08rxe0",
+    "state": "ACTIVE",
+    "netdev": "ch08-v0",
+    "transport": "InfiniBand (0)",
+    "link_layer": "Ethernet",
+    "port_state": "PORT_ACTIVE (4)",
+    "max_mtu": 4096,
+    "fw_ver": "0.0.0",
+    "vendor_id": "0xffffff",
+    "devices_before": [
+      "    device          \t   node GUID",
+      "    ------          \t----------------"
+    ],
+    "active_mtu_netdev1500": 1024,
+    "active_mtu_netdev9000": 4096
+  },
+  "step2": {
+    "gids": [
+      {
+        "index": 0,
+        "gid": "fe80:0000:0000:0000:7050:adff:fe9c:7b76",
+        "type": "RoCE v2",
+        "ndev": "ch08-v0"
+      },
+      {
+        "index": 1,
+        "gid": "0000:0000:0000:0000:0000:ffff:0ad0:0001",
+        "type": "RoCE v2",
+        "ndev": "ch08-v0"
+      }
+    ],
+    "ipv4_gid_index": 1,
+    "ipv4_gid": "0000:0000:0000:0000:0000:ffff:0ad0:0001",
+    "ipv4_gid_addr": "10.208.0.1",
+    "ipv4_gid_type": "RoCE v2",
+    "types": [
+      "RoCE v2"
+    ],
+    "rc_pingpong_rc": 0,
+    "rc_pingpong_usec_per_iter": 73.33,
+    "rc_pingpong_gids": [
+      "::ffff:10.208.0.1",
+      "::ffff:10.208.0.1"
+    ]
+  },
+  "step3": {
+    "netdev1500": {
+      "sizes": 23,
+      "reps": 3,
+      "curve_gbps": {
+        "2": 0.005,
+        "4": 0.012,
+        "8": 0.027,
+        "16": 0.042,
+        "32": 0.12,
+        "64": 0.2,
+        "128": 0.44,
+        "256": 0.97,
+        "512": 1.21,
+        "1024": 1.58,
+        "2048": 2.08,
+        "4096": 3.26,
+        "8192": 3.16,
+        "16384": 3.41,
+        "32768": 3.59,
+        "65536": 3.34,
+        "131072": 2.96,
+        "262144": 3.11,
+        "524288": 3.19,
+        "1048576": 2.91,
+        "2097152": 3.13,
+        "4194304": 3.11,
+        "8388608": 2.95
+      },
+      "plateau_gbps": 3.59,
+      "plateau_size": 32768,
+      "plateau_min_max_gbps": [
+        1.34,
+        3.71
+      ],
+      "n_half_bytes": 2048,
+      "bw_8MiB_gbps": 2.95,
+      "msg_rate_2B_mpps": 0.3059,
+      "path_mtu": 1024,
+      "sent_pkts_per_64KiB_write": 65.0
+    },
+    "netdev9000": {
+      "sizes": 23,
+      "reps": 3,
+      "curve_gbps": {
+        "2": 0.004,
+        "4": 0.014,
+        "8": 0.021,
+        "16": 0.038,
+        "32": 0.089,
+        "64": 0.15,
+        "128": 0.22,
+        "256": 0.52,
+        "512": 0.91,
+        "1024": 1.95,
+        "2048": 3.5,
+        "4096": 6.63,
+        "8192": 7.91,
+        "16384": 9.98,
+        "32768": 9.94,
+        "65536": 6.08,
+        "131072": 6.86,
+        "262144": 9.56,
+        "524288": 9.24,
+        "1048576": 9.35,
+        "2097152": 8.82,
+        "4194304": 7.79,
+        "8388608": 4.75
+      },
+      "plateau_gbps": 9.98,
+      "plateau_size": 16384,
+      "plateau_min_max_gbps": [
+        3.32,
+        10.09
+      ],
+      "n_half_bytes": 4096,
+      "bw_8MiB_gbps": 4.75,
+      "msg_rate_2B_mpps": 0.2552,
+      "path_mtu": 4096,
+      "sent_pkts_per_64KiB_write": 17.0
+    },
+    "qp_snapshot": [
+      {
+        "lqpn": "35",
+        "rqpn": "36",
+        "type": "RC",
+        "state": "RTS",
+        "rq-psn": "4440051",
+        "sq-psn": "14633295",
+        "path-mig-state": "MIGRATED",
+        "pdn": "20",
+        "pid": "72307",
+        "comm": "ib_write_bw"
+      },
+      {
+        "lqpn": "36",
+        "rqpn": "35",
+        "type": "RC",
+        "state": "RTR",
+        "rq-psn": "14633242",
+        "sq-psn": "0",
+        "path-mig-state": "MIGRATED",
+        "pdn": "19",
+        "pid": "72302",
+        "comm": "ib_write_bw"
+      },
+      {
+        "lqpn": "1",
+        "type": "GSI",
+        "state": "RTS",
+        "sq-psn": "0",
+        "comm": "[ib_core]"
+      }
+    ]
+  },
+  "step4": {
+    "write_lat": {
+      "sizes": 23,
+      "typical_2B_us": 10.01,
+      "p99_2B_us": 1219.28,
+      "typical_64KiB_us": 91.97,
+      "typical_8MiB_us": 13452.06
+    },
+    "read_lat": {
+      "sizes": 23,
+      "typical_2B_us": 10.55,
+      "p99_2B_us": 41.63,
+      "typical_64KiB_us": 69.49,
+      "typical_8MiB_us": 13221.17
+    },
+    "send_lat": {
+      "sizes": 23,
+      "typical_2B_us": 21.75,
+      "p99_2B_us": 628.9,
+      "typical_64KiB_us": 74.75,
+      "typical_8MiB_us": 13785.3
+    },
+    "read_over_write_2B": 1.05
+  },
+  "step5": {
+    "path_mtu": [
+      {
+        "requested": 256,
+        "reported": [
+          256
+        ],
+        "gbps_median": 0.655,
+        "gbps_all": [
+          0.61,
+          0.7
+        ],
+        "payload_pkts_per_s_M": 0.32
+      },
+      {
+        "requested": 512,
+        "reported": [
+          512
+        ],
+        "gbps_median": 1.275,
+        "gbps_all": [
+          1.31,
+          1.24
+        ],
+        "payload_pkts_per_s_M": 0.311
+      },
+      {
+        "requested": 1024,
+        "reported": [
+          1024
+        ],
+        "gbps_median": 2.26,
+        "gbps_all": [
+          2.29,
+          2.23
+        ],
+        "payload_pkts_per_s_M": 0.276
+      },
+      {
+        "requested": 2048,
+        "reported": [
+          2048
+        ],
+        "gbps_median": 3.94,
+        "gbps_all": [
+          3.99,
+          3.89
+        ],
+        "payload_pkts_per_s_M": 0.24
+      },
+      {
+        "requested": 4096,
+        "reported": [
+          4096
+        ],
+        "gbps_median": 5.98,
+        "gbps_all": [
+          5.79,
+          6.17
+        ],
+        "payload_pkts_per_s_M": 0.182
+      }
+    ],
+    "netdev1500_ask4096": {
+      "reported_mtu": 1024,
+      "gbps": 2.3
+    }
+  },
+  "step6": {
+    "wrong_device": {
+      "rc": 1,
+      "signature": "IB device mlx5_0 not found",
+      "signature_found": true
+    },
+    "no_server": {
+      "rc": 1,
+      "signature": "Couldn't connect to 10\\.208\\.0\\.1:\\d+",
+      "signature_found": true
+    },
+    "gid7_client_only": {
+      "rc": 1,
+      "signature": "Incompatibility issue with GID types",
+      "signature_found": true
+    },
+    "gid7_both": {
+      "rc": 1,
+      "signature": "Failed to modify QP \\S+ to RTR",
+      "signature_found": true
+    },
+    "gid0_linklocal": {
+      "rc": 0,
+      "completed": true,
+      "gid_seen": [
+        "254:128:00:00:00:00:00:00:112:80:173:255:254:156:123:118"
+      ]
+    },
+    "memlock": {
+      "memlock_nobody_16384": {
+        "limit_kib": 16384,
+        "uid": 65534,
+        "mr_failed": false,
+        "completed": true,
+        "server_rc": 0,
+        "client_rc": 0,
+        "client_error": null
+      },
+      "memlock_nobody_4096": {
+        "limit_kib": 4096,
+        "uid": 65534,
+        "mr_failed": true,
+        "completed": false,
+        "server_rc": 1,
+        "client_rc": 1,
+        "client_error": "ethernet_read_keys: Couldn't read remote address"
+      },
+      "memlock_nobody_65536": {
+        "limit_kib": 65536,
+        "uid": 65534,
+        "mr_failed": false,
+        "completed": true,
+        "server_rc": 0,
+        "client_rc": 0,
+        "client_error": null
+      },
+      "memlock_nobody_8192": {
+        "limit_kib": 8192,
+        "uid": 65534,
+        "mr_failed": true,
+        "completed": false,
+        "server_rc": 1,
+        "client_rc": 1,
+        "client_error": "ethernet_read_keys: Couldn't read remote address"
+      },
+      "memlock_root_4096": {
+        "limit_kib": 4096,
+        "uid": 0,
+        "mr_failed": false,
+        "completed": true,
+        "server_rc": 0,
+        "client_rc": 0,
+        "client_error": null
+      }
+    },
+    "dmesg_enomem_lines": 8
+  },
+  "step7": {
+    "u14": {
+      "retries": 57,
+      "first_retry_after_kill_s": 0.133,
+      "mean_interval_s": 0.0683,
+      "retry_exceeded_delta": 0,
+      "timeout": 14,
+      "t_ack_model_s": 0.0671,
+      "client_alive_after_sampling": "yes"
+    },
+    "u16": {
+      "retries": 27,
+      "first_retry_after_kill_s": 0.368,
+      "mean_interval_s": 0.2865,
+      "retry_exceeded_delta": 0,
+      "timeout": 16,
+      "t_ack_model_s": 0.2684,
+      "client_alive_after_sampling": "yes"
+    },
+    "cm_retry3": {
+      "time_to_fail_s": 2.218,
+      "client_rc": 1,
+      "wc_status": 12,
+      "retry_exceeded_delta": 1,
+      "implied_t_ack_s": 0.5546,
+      "implied_timeout_exponent": 17.05
+    }
+  },
+  "counters_final": {
+    "sent_pkts": 95446250,
+    "rcvd_pkts": 95433562,
+    "duplicate_request": 0,
+    "out_of_seq_request": 0,
+    "rcvd_rnr_err": 0,
+    "send_rnr_err": 0,
+    "rcvd_seq_err": 0,
+    "ack_deferred": 5715630,
+    "retry_exceeded_err": 1,
+    "retry_rnr_exceeded_err": 0,
+    "completer_retry_err": 90,
+    "send_err": 0,
+    "link_downed": 0,
+    "rdma_sends": 48028,
+    "rdma_recvs": 48028
+  }
+}

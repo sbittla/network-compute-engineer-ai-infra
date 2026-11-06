@@ -1,0 +1,31 @@
+W1104 19:31:50.975000 77027 torch/distributed/run.py:793] 
+W1104 19:31:50.975000 77027 torch/distributed/run.py:793] *****************************************
+W1104 19:31:50.975000 77027 torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1104 19:31:50.975000 77027 torch/distributed/run.py:793] *****************************************
+# gloo on cpu, nranks 4, init + first collective 8.6 ms, tag coll_n4_rep3
+#              op       size      count  iters    time(us)    algbw    busbw #wrong
+       all_reduce          4          1    377      455.28    0.000    0.000      0
+       all_reduce          8          2    393      422.01    0.000    0.000      0
+       all_reduce         16          4    252      691.67    0.000    0.000      0
+       all_reduce         32          8    188     1053.27    0.000    0.000      0
+       all_reduce         64         16    176      996.55    0.000    0.000      0
+       all_reduce        128         32    203      984.49    0.000    0.000      0
+       all_reduce        256         64    201     1108.40    0.000    0.000      0
+       all_reduce        512        128    120     1285.12    0.000    0.001      0
+       all_reduce       1024        256    147     1459.00    0.001    0.001      0
+       all_reduce       2048        512    125     1525.50    0.001    0.002      0
+       all_reduce       4096       1024    156     1389.36    0.003    0.004      0
+       all_reduce       8192       2048    140     1446.39    0.006    0.008      0
+       all_reduce      16384       4096    184     1453.14    0.011    0.017      0
+       all_reduce      32768       8192    120     1782.57    0.018    0.028      0
+       all_reduce      65536      16384    136     1468.45    0.045    0.067      0
+       all_reduce     131072      32768    144     1142.79    0.115    0.172      0
+       all_reduce     262144      65536    167     1240.56    0.211    0.317      0
+       all_reduce     524288     131072    148     1350.96    0.388    0.582      0
+       all_reduce    1048576     262144    132     1579.38    0.664    0.996      0
+       all_reduce    2097152     524288    100     1929.71    1.087    1.630      0
+       all_reduce    4194304    1048576     72     2806.62    1.494    2.242      0
+       all_reduce    8388608    2097152     41     5228.35    1.604    2.407      0
+       all_reduce   16777216    4194304     20    10068.95    1.666    2.499      0
+       all_reduce   33554432    8388608      9    19547.28    1.717    2.575      0
+       all_reduce   67108864   16777216      5    38432.74    1.746    2.619      0

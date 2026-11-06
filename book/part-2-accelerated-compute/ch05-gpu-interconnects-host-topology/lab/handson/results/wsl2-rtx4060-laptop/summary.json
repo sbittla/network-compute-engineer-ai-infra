@@ -1,0 +1,522 @@
+{
+ "lab": "ch05-host-topology",
+ "run": "wsl2-rtx4060-laptop",
+ "environment": {
+  "captured_at": "2026-11-05T02:35:29+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": false,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+   "lspci --version": "lspci version 3.10.0",
+   "lstopo-no-graphics --version": "lstopo-no-graphics 2.10.0",
+   "numactl --show | head -1": "policy: default",
+   "nvidia-smi --version | head -1": "NVIDIA-SMI version  : 590.74",
+   "uname -r": "6.18.54.1-rxe+",
+   "nproc": "24",
+   "test -d /usr/lib/wsl && echo wsl2 || echo native": "wsl2"
+  }
+ },
+ "step1": {
+  "gpu_count": 1,
+  "gpu_bus_id": "00000000:01:00.0",
+  "lspci_functions": 4,
+  "lspci_nvidia_functions": 0,
+  "lspci_gpu_class_functions": 2,
+  "lspci_vendors": [
+   "1414",
+   "1af4"
+  ],
+  "lspci_tree_has_bridges": false,
+  "lspci_vvv_lnkcap_lines": 0,
+  "gpu_bdf_in_sysfs": false,
+  "sysfs_pci_functions": 4,
+  "sysfs_functions_with_link_files": 0,
+  "numa_nodes": 1,
+  "topo_m_columns": [
+   "GPU0",
+   "CPU",
+   "Affinity",
+   "NUMA",
+   "Affinity",
+   "GPU",
+   "NUMA",
+   "ID"
+  ],
+  "topo_m_nic_columns": 0,
+  "rdma_devices": [],
+  "rdma_devices_pci_backed": 0,
+  "net_devices": [
+   "eth0 device=/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/be7a938d-84f1-43f2-9a5e-43463e273ed6 driver=hv_netvsc",
+   "lo device=/sys/devices/virtual/net/lo/device driver="
+  ],
+  "lstopo_pci_objects": 3,
+  "lstopo_gpu_osdev": false,
+  "smi_q_host_max_gen": 5.0
+ },
+ "step2": {
+  "samples": 11,
+  "pcie.link.gen.current": {
+   "min": 4.0,
+   "max": 4.0
+  },
+  "pcie.link.gen.gpucurrent": {
+   "min": 4.0,
+   "max": 4.0
+  },
+  "pcie.link.width.current": {
+   "min": 8.0,
+   "max": 8.0
+  },
+  "utilization.gpu": {
+   "min": 0.0,
+   "max": 0.0
+  },
+  "pcie.link.gen.max": 4.0,
+  "pcie.link.gen.gpumax": 4.0,
+  "pcie.link.gen.hostmax": 5.0,
+  "pcie.link.width.max": 8.0,
+  "theoretical_gb_s_per_direction": 15.75,
+  "link_label": "Gen4 x8",
+  "host_side_label": "Gen5"
+ },
+ "step3": {
+  "rows": [
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 0.0625,
+    "reps": 30,
+    "median_ms": 0.0142,
+    "gb_per_s": 4.602,
+    "min_ms": 0.0092,
+    "max_ms": 0.0481,
+    "pct_of_link": 29.2
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 0.0625,
+    "reps": 30,
+    "median_ms": 0.0416,
+    "gb_per_s": 1.577,
+    "min_ms": 0.037,
+    "max_ms": 0.1287,
+    "pct_of_link": 10.0
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 0.0625,
+    "reps": 30,
+    "median_ms": 0.0269,
+    "gb_per_s": 2.434,
+    "min_ms": 0.0198,
+    "max_ms": 0.0337,
+    "pct_of_link": 15.5
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 0.0625,
+    "reps": 30,
+    "median_ms": 0.0267,
+    "gb_per_s": 2.456,
+    "min_ms": 0.0247,
+    "max_ms": 0.0326,
+    "pct_of_link": 15.6
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 0.25,
+    "reps": 30,
+    "median_ms": 0.0374,
+    "gb_per_s": 7.005,
+    "min_ms": 0.0239,
+    "max_ms": 0.054,
+    "pct_of_link": 44.5
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 0.25,
+    "reps": 30,
+    "median_ms": 0.1054,
+    "gb_per_s": 2.487,
+    "min_ms": 0.0998,
+    "max_ms": 0.1204,
+    "pct_of_link": 15.8
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 0.25,
+    "reps": 30,
+    "median_ms": 0.0345,
+    "gb_per_s": 7.589,
+    "min_ms": 0.0278,
+    "max_ms": 0.0762,
+    "pct_of_link": 48.2
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 0.25,
+    "reps": 30,
+    "median_ms": 0.0334,
+    "gb_per_s": 7.847,
+    "min_ms": 0.0259,
+    "max_ms": 0.0668,
+    "pct_of_link": 49.8
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 1,
+    "reps": 30,
+    "median_ms": 0.153,
+    "gb_per_s": 6.855,
+    "min_ms": 0.1059,
+    "max_ms": 0.1997,
+    "pct_of_link": 43.5
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 1,
+    "reps": 30,
+    "median_ms": 0.2351,
+    "gb_per_s": 4.459,
+    "min_ms": 0.2057,
+    "max_ms": 0.3252,
+    "pct_of_link": 28.3
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 1,
+    "reps": 30,
+    "median_ms": 0.0951,
+    "gb_per_s": 11.022,
+    "min_ms": 0.0847,
+    "max_ms": 0.2278,
+    "pct_of_link": 70.0
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 1,
+    "reps": 30,
+    "median_ms": 0.0955,
+    "gb_per_s": 10.983,
+    "min_ms": 0.0934,
+    "max_ms": 0.1061,
+    "pct_of_link": 69.7
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 4,
+    "reps": 30,
+    "median_ms": 0.4442,
+    "gb_per_s": 9.443,
+    "min_ms": 0.418,
+    "max_ms": 0.5944,
+    "pct_of_link": 60.0
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 4,
+    "reps": 30,
+    "median_ms": 0.5176,
+    "gb_per_s": 8.104,
+    "min_ms": 0.4844,
+    "max_ms": 0.7293,
+    "pct_of_link": 51.5
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 4,
+    "reps": 30,
+    "median_ms": 0.3398,
+    "gb_per_s": 12.342,
+    "min_ms": 0.3302,
+    "max_ms": 0.3595,
+    "pct_of_link": 78.4
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 4,
+    "reps": 30,
+    "median_ms": 0.3268,
+    "gb_per_s": 12.834,
+    "min_ms": 0.3223,
+    "max_ms": 0.3535,
+    "pct_of_link": 81.5
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 16,
+    "reps": 30,
+    "median_ms": 1.4167,
+    "gb_per_s": 11.842,
+    "min_ms": 1.3868,
+    "max_ms": 2.5969,
+    "pct_of_link": 75.2
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 16,
+    "reps": 30,
+    "median_ms": 1.6601,
+    "gb_per_s": 10.106,
+    "min_ms": 1.5882,
+    "max_ms": 1.6982,
+    "pct_of_link": 64.2
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 16,
+    "reps": 30,
+    "median_ms": 1.3197,
+    "gb_per_s": 12.713,
+    "min_ms": 1.288,
+    "max_ms": 1.35,
+    "pct_of_link": 80.7
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 16,
+    "reps": 30,
+    "median_ms": 1.2852,
+    "gb_per_s": 13.054,
+    "min_ms": 1.2772,
+    "max_ms": 1.305,
+    "pct_of_link": 82.9
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 64,
+    "reps": 10,
+    "median_ms": 6.1517,
+    "gb_per_s": 10.909,
+    "min_ms": 6.0428,
+    "max_ms": 6.763,
+    "pct_of_link": 69.3
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 64,
+    "reps": 10,
+    "median_ms": 6.0582,
+    "gb_per_s": 11.077,
+    "min_ms": 6.0129,
+    "max_ms": 6.2685,
+    "pct_of_link": 70.3
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 64,
+    "reps": 10,
+    "median_ms": 5.2277,
+    "gb_per_s": 12.837,
+    "min_ms": 5.1741,
+    "max_ms": 5.2622,
+    "pct_of_link": 81.5
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 64,
+    "reps": 10,
+    "median_ms": 5.0974,
+    "gb_per_s": 13.165,
+    "min_ms": 5.094,
+    "max_ms": 5.1074,
+    "pct_of_link": 83.6
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 256,
+    "reps": 10,
+    "median_ms": 24.6425,
+    "gb_per_s": 10.893,
+    "min_ms": 24.2623,
+    "max_ms": 25.6409,
+    "pct_of_link": 69.2
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 256,
+    "reps": 10,
+    "median_ms": 24.3574,
+    "gb_per_s": 11.021,
+    "min_ms": 23.8694,
+    "max_ms": 29.7831,
+    "pct_of_link": 70.0
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 256,
+    "reps": 10,
+    "median_ms": 20.711,
+    "gb_per_s": 12.961,
+    "min_ms": 20.5747,
+    "max_ms": 20.9369,
+    "pct_of_link": 82.3
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 256,
+    "reps": 10,
+    "median_ms": 20.3778,
+    "gb_per_s": 13.173,
+    "min_ms": 20.3655,
+    "max_ms": 20.4035,
+    "pct_of_link": 83.6
+   },
+   {
+    "direction": "h2d",
+    "memory": "pageable",
+    "mib": 512,
+    "reps": 10,
+    "median_ms": 49.2371,
+    "gb_per_s": 10.904,
+    "min_ms": 47.8476,
+    "max_ms": 55.183,
+    "pct_of_link": 69.2
+   },
+   {
+    "direction": "d2h",
+    "memory": "pageable",
+    "mib": 512,
+    "reps": 10,
+    "median_ms": 48.9909,
+    "gb_per_s": 10.959,
+    "min_ms": 47.8163,
+    "max_ms": 54.7177,
+    "pct_of_link": 69.6
+   },
+   {
+    "direction": "h2d",
+    "memory": "pinned",
+    "mib": 512,
+    "reps": 10,
+    "median_ms": 41.7173,
+    "gb_per_s": 12.869,
+    "min_ms": 41.5143,
+    "max_ms": 41.9365,
+    "pct_of_link": 81.7
+   },
+   {
+    "direction": "d2h",
+    "memory": "pinned",
+    "mib": 512,
+    "reps": 10,
+    "median_ms": 40.8372,
+    "gb_per_s": 13.147,
+    "min_ms": 40.7256,
+    "max_ms": 40.9833,
+    "pct_of_link": 83.5
+   }
+  ],
+  "at_256mib_gb_s": {
+   "h2d_pageable": 10.893,
+   "d2h_pageable": 11.021,
+   "h2d_pinned": 12.961,
+   "d2h_pinned": 13.173
+  },
+  "at_256mib_pct_of_link": {
+   "h2d_pageable": 69.2,
+   "d2h_pageable": 70.0,
+   "h2d_pinned": 82.3,
+   "d2h_pinned": 83.6
+  },
+  "best_gb_s": {
+   "h2d_pageable": 11.842,
+   "d2h_pageable": 11.077,
+   "h2d_pinned": 12.961,
+   "d2h_pinned": 13.173
+  },
+  "at_64kib_gb_s": {
+   "h2d_pageable": 4.602,
+   "d2h_pageable": 1.577,
+   "h2d_pinned": 2.434,
+   "d2h_pinned": 2.456
+  },
+  "bidir": {
+   "h2d_alone_gb_per_s": 12.841,
+   "d2h_alone_gb_per_s": 13.167,
+   "concurrent_aggregate_gb_per_s": 12.989,
+   "aggregate_over_best_unidirectional": 0.986
+  }
+ },
+ "step4": {
+  "link_under_load": {
+   "samples": 42,
+   "pcie.link.gen.current": {
+    "min": 4.0,
+    "max": 4.0
+   },
+   "pcie.link.gen.gpucurrent": {
+    "min": 4.0,
+    "max": 4.0
+   },
+   "pcie.link.width.current": {
+    "min": 8.0,
+    "max": 8.0
+   },
+   "utilization.gpu": {
+    "min": 0.0,
+    "max": 99.0
+   },
+   "pcie.link.gen.max": 4.0,
+   "pcie.link.gen.gpumax": 4.0,
+   "pcie.link.gen.hostmax": 5.0,
+   "pcie.link.width.max": 8.0
+  },
+  "dmon_rxpci_mb_s_max": 7207.0,
+  "dmon_txpci_mb_s_max": 7966.0,
+  "dmon_samples": 12,
+  "hold_gb_s_each_way": 6.46,
+  "copy_alone_gb_s": 12.818,
+  "copy_under_gemm_gb_s": 12.838,
+  "copy_under_gemm_ratio": 1.002
+ },
+ "step5": {
+  "first": {
+   "cpus": [
+    0
+   ],
+   "pinned": 12.835,
+   "pageable": 8.657
+  },
+  "last": {
+   "cpus": [
+    23
+   ],
+   "pinned": 12.835,
+   "pageable": 9.757
+  },
+  "pinned_ratio_last_over_first": 1.0
+ }
+}

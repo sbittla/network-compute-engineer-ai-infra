@@ -1,0 +1,48 @@
+train_step_0: window 60.64 ms, GPU busy 33.37 ms (55.0 %), idle 27.27 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      26     1.82 ms
+   gaps >= 10 us  launch_bound   273    23.61 ms
+      584.3 us  dependency   next: kernel unrolled_elementwise_kernel       after: -
+      512.3 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+      475.9 us  launch_bound next: kernel vectorized_elementwise_kernel     after: -
+      469.8 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      468.6 us  launch_bound next: kernel unrolled_elementwise_kernel       after: -
+train_step_1: window 48.59 ms, GPU busy 33.40 ms (68.7 %), idle 15.19 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      35     1.08 ms
+   gaps >= 10 us  launch_bound   205    12.67 ms
+      384.9 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      217.3 us  launch_bound next: kernel vectorized_elementwise_kernel     after: -
+      130.3 us  launch_bound next: kernel unrolled_elementwise_kernel       after: -
+      130.3 us  launch_bound next: kernel vectorized_elementwise_kernel     after: -
+      124.8 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+train_step_2: window 47.38 ms, GPU busy 33.39 ms (70.5 %), idle 13.99 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      19     0.56 ms
+   gaps >= 10 us  launch_bound   182    11.93 ms
+      397.7 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      160.4 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+      127.2 us  launch_bound next: kernel unrolled_elementwise_kernel       after: -
+      123.2 us  launch_bound next: kernel ampere_bf16_s16816gemm_bf16_128x64_ldg8_relu_f2f_stag after: -
+      116.0 us  launch_bound next: kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn after: -
+train_step_3: window 45.20 ms, GPU busy 33.40 ms (73.9 %), idle 11.80 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      22     0.62 ms
+   gaps >= 10 us  launch_bound   173     9.67 ms
+      181.6 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      174.0 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+      142.3 us  launch_bound next: kernel vectorized_elementwise_kernel     after: -
+      121.5 us  launch_bound next: kernel layer_norm_grad_input_kernel_vectorized after: -
+      120.6 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+train_step_4: window 37.12 ms, GPU busy 33.40 ms (90.0 %), idle 3.72 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      11     0.31 ms
+   gaps >= 10 us  launch_bound    51     1.79 ms
+      245.2 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      100.9 us  launch_bound next: kernel indexSelectLargeIndex             after: -
+       94.7 us  launch_bound next: kernel unrolled_elementwise_kernel       after: -
+       78.2 us  launch_bound next: memcpy HtoD 16384 B                      after: -
+       56.9 us  launch_bound next: kernel ampere_bf16_s1688gemm_bf16_128x128_ldg8_relu_f2f_tn after: -
+train_step_5: window 38.24 ms, GPU busy 33.38 ms (87.3 %), idle 4.86 ms, 956 kernels, 2 synchronize calls
+   gaps >= 10 us  dependency      11     0.33 ms
+   gaps >= 10 us  launch_bound    56     2.89 ms
+      233.9 us  launch_bound next: kernel multi_tensor_apply_kernel         after: -
+      136.1 us  launch_bound next: kernel vectorized_layer_norm_kernel      after: -
+      129.2 us  launch_bound next: kernel unrolled_elementwise_kernel       after: -
+      122.2 us  launch_bound next: kernel vectorized_elementwise_kernel     after: -
+      120.0 us  launch_bound next: kernel indexSelectLargeIndex             after: -

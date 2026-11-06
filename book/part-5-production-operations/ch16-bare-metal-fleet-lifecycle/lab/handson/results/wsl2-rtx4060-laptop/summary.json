@@ -1,0 +1,420 @@
+{
+ "lab": "ch16-handson",
+ "policy_version": "acc-2026.10-wsl2-laptop",
+ "checks": [
+  {
+   "stage": "discovery",
+   "code": "GPU_COUNT",
+   "status": "PASS",
+   "evidence": "1 GPU(s) from nvidia-smi",
+   "criterion": "== 1",
+   "lab_local": false
+  },
+  {
+   "stage": "discovery",
+   "code": "GPU_PRODUCT",
+   "status": "PASS",
+   "evidence": "NVIDIA GeForce RTX 4060 Laptop GPU",
+   "criterion": "== NVIDIA GeForce RTX 4060 Laptop GPU",
+   "lab_local": false
+  },
+  {
+   "stage": "discovery",
+   "code": "HBM_CAPACITY",
+   "status": "PASS",
+   "evidence": "8188 MiB (GDDR6 on this SKU, not HBM)",
+   "criterion": ">= 8000 MiB",
+   "lab_local": false
+  },
+  {
+   "stage": "pcie",
+   "code": "PCIE_DEGRADED",
+   "status": "PASS",
+   "evidence": "under load Gen4 x8 (median of 226 samples); idle Gen4 x8",
+   "criterion": "Gen4 x8 (the GPU's maximum) under load",
+   "lab_local": false
+  },
+  {
+   "stage": "gpu-health",
+   "code": "NVLINK_DOWN",
+   "status": "N/A",
+   "evidence": "Device does not have or support Nvlink",
+   "criterion": "18/18 links per GPU (HX8); this GPU has no NVLink, so there is nothing to test",
+   "lab_local": false
+  },
+  {
+   "stage": "gpu-health",
+   "code": "ECC_DBE / ECC_SBE_ELEVATED",
+   "status": "N/A",
+   "evidence": "ecc.mode.current = [N/A]",
+   "criterion": "0 volatile DBE, SBE <= 10: needs a GPU with memory ECC enabled",
+   "lab_local": false
+  },
+  {
+   "stage": "gpu-health",
+   "code": "HBM_ROW_REMAP_PENDING / HBM_ROW_REMAP_FAILURE",
+   "status": "N/A",
+   "evidence": "driver reports correctable=0 uncorrectable=0 pending=No failure=No, but with ECC off nothing detects the errors that would trigger a remap",
+   "criterion": "no pending remap or failure, on a GPU whose ECC feeds the remapper",
+   "lab_local": false
+  },
+  {
+   "stage": "gpu-health",
+   "code": "DCGM_DIAG_FAIL",
+   "status": "N/A",
+   "evidence": "dcgmi on PATH: False; DCGM does not support GeForce GPUs or WSL",
+   "criterion": "dcgmi diag -r 3 Pass",
+   "lab_local": false
+  },
+  {
+   "stage": "gpu-health",
+   "code": "GPU_NUMERICS",
+   "status": "PASS",
+   "evidence": "GEMM vs CPU reference: FP32 cold 3.5e-07 hot 3.5e-07; FP16 cold 5.1e-05 hot 5.1e-05; golden output 0/58 mismatched during stress",
+   "criterion": "FP32 <= 1e-05, FP16 <= 0.002 (scaled by |A||B|); golden bit-identical",
+   "lab_local": true
+  },
+  {
+   "stage": "gpu-health",
+   "code": "GPU_MEM_PATTERN",
+   "status": "PASS",
+   "evidence": "1.50 GiB x 5 patterns: 0 mismatched words",
+   "criterion": "0 mismatches",
+   "lab_local": true
+  },
+  {
+   "stage": "burn-in",
+   "code": "THERMAL_THROTTLE",
+   "status": "PASS",
+   "evidence": "max 76.0 C over 120 s; reasons seen under load ['SW_POWER_CAP']; counter deltas (us) sw_power_cap 0, sw_thermal_slowdown 0, hw_thermal_slowdown 0, hw_power_brake_slowdown 0",
+   "criterion": "max < 87 C; none of ['HW_THERMAL_SLOWDOWN', 'SW_THERMAL_SLOWDOWN', 'HW_POWER_BRAKE_SLOWDOWN']; soak >= 60 s",
+   "lab_local": false
+  },
+  {
+   "stage": "burn-in",
+   "code": "STRESS_PERF_DECAY",
+   "status": "PASS",
+   "evidence": "GEMM 27.8 TFLOP/s in the first third, 27.6 in the last (+0.8 % decay)",
+   "criterion": "decay <= 10 % (else WARN)",
+   "lab_local": true
+  },
+  {
+   "stage": "host",
+   "code": "HOST_MEM_CAPACITY",
+   "status": "PASS",
+   "evidence": "MemTotal 7.75 GiB (the WSL2 VM's share, not the laptop's DIMMs)",
+   "criterion": ">= 7.5 GiB",
+   "lab_local": true
+  },
+  {
+   "stage": "host",
+   "code": "HOST_MEM_PATTERN",
+   "status": "PASS",
+   "evidence": "512 MiB x 5 patterns: 0 bad 1 MiB chunks; HardwareCorrupted 0 B",
+   "criterion": "0 bad chunks (a user-space pattern test, not memtest86)",
+   "lab_local": true
+  },
+  {
+   "stage": "host",
+   "code": "HOST_ECC",
+   "status": "N/A",
+   "evidence": "EDAC present: False (a VM sees no memory controller)",
+   "criterion": "0 corrected/uncorrected DIMM errors from EDAC or the BMC SEL",
+   "lab_local": true
+  },
+  {
+   "stage": "nic",
+   "code": "NIC_COUNT",
+   "status": "PASS",
+   "evidence": "1 device-backed netdev(s): eth0 (hv_netvsc); virtual (no device) skipped: 0",
+   "criterion": "1 frontend, 0 compute",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "NIC_LINK_DOWN",
+   "status": "PASS",
+   "evidence": "eth0 operstate up, carrier 1",
+   "criterion": "up",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "NIC_SPEED",
+   "status": "PASS",
+   "evidence": "eth0 10000 Mb/s (a value the virtual NIC reports, not a negotiated PHY rate)",
+   "criterion": ">= 1000 Mb/s",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "NIC_MTU",
+   "status": "PASS",
+   "evidence": "eth0 MTU 1500",
+   "criterion": "== 1500",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "RDMA_PAIR_BW_LOW",
+   "status": "N/A",
+   "evidence": "RDMA devices: none (software rxe from other labs, if any: not a compute NIC)",
+   "criterion": "ib_write_bw per rail against a reference node, median of 5 >= 360 Gb/s",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "LINK_BER_HIGH",
+   "status": "N/A",
+   "evidence": "no physical link: no FEC histogram or pre-FEC BER exists",
+   "criterion": "pre-FEC BER < 1e-6, 0 flaps",
+   "lab_local": false
+  },
+  {
+   "stage": "nic",
+   "code": "GDR_PATH_FAIL",
+   "status": "N/A",
+   "evidence": "no RDMA NIC, no PCIe tree visible in WSL2 (no ACS, no peer memory)",
+   "criterion": "GPU-buffer >= 90 % of host-buffer bandwidth per rail",
+   "lab_local": false
+  },
+  {
+   "stage": "storage",
+   "code": "NVME_COUNT",
+   "status": "PASS",
+   "evidence": "1 data disk(s): sdd (Virtual Disk); NVMe devices visible: 0",
+   "criterion": ">= 1 data disk (8 NVMe on HX8)",
+   "lab_local": false
+  },
+  {
+   "stage": "storage",
+   "code": "NVME_MEDIA_ERRORS",
+   "status": "N/A",
+   "evidence": "SMART tool: None; a Hyper-V virtual disk exposes no SMART log",
+   "criterion": "critical_warning 0, media_errors 0",
+   "lab_local": false
+  },
+  {
+   "stage": "storage",
+   "code": "NVME_DRIVE_SLOW",
+   "status": "PASS",
+   "evidence": "/dev/sdd median 7.63 GB/s (runs 7.15, 8.02, 7.63)",
+   "criterion": "each >= 1.0 GB/s, fio read-only 1 MiB QD32 O_DIRECT, median of timed runs",
+   "lab_local": false
+  },
+  {
+   "stage": "storage",
+   "code": "STORAGE_THROUGHPUT_LOW",
+   "status": "PASS",
+   "evidence": "sum of per-disk medians 7.63 GB/s",
+   "criterion": ">= 1.0 GB/s",
+   "lab_local": false
+  },
+  {
+   "stage": "collective",
+   "code": "NCCL_BUSBW_LOW / NCCL_ALGO_UNRECORDED",
+   "status": "N/A",
+   "evidence": "1 GPU: there is no intra-node collective to run",
+   "criterion": "all_reduce_perf -g 8 busbw >= 400 (NVLS) / 330 (Ring) GB/s",
+   "lab_local": false
+  },
+  {
+   "stage": "kernel-log",
+   "code": "XID_PRESENT",
+   "status": "N/A",
+   "evidence": "dmesg scanned (931 lines, 0 Xid), but the nvidia kernel module is not loaded in this kernel (GPU reached through /dev/dxg: True): Xid events are logged by the Windows driver and cannot appear here",
+   "criterion": "no Xid during acceptance, from a log the GPU driver writes to",
+   "lab_local": false
+  },
+  {
+   "stage": "firmware",
+   "code": "FW_OFF_MATRIX / FW_DEPRECATED",
+   "status": "N/A",
+   "evidence": "driver 592.82, VBIOS 95.07.28.00.59 recorded; no BMC/Redfish, no platform bundle to compare against",
+   "criterion": "BIOS, BMC, NIC, GPU firmware == the production bundle",
+   "lab_local": false
+  }
+ ],
+ "counts": {
+  "PASS": 17,
+  "WARN": 0,
+  "FAIL": 0,
+  "N/A": 12
+ },
+ "verdict_on_checks_that_ran": "PASS",
+ "decision": "NOT VALIDATED: 12 required checks produced no evidence (N/A)",
+ "hx8_policy_codes": [
+  [
+   "GPU_COUNT",
+   "1 != 8"
+  ],
+  [
+   "GPU_PRODUCT",
+   "NVIDIA GeForce RTX 4060 Laptop GPU"
+  ],
+  [
+   "HBM_CAPACITY",
+   "8188 MiB < 81000"
+  ],
+  [
+   "PCIE_DEGRADED",
+   "Gen4 x8 != Gen5 x16"
+  ],
+  [
+   "NVLINK_DOWN",
+   "0/18 links"
+  ],
+  [
+   "NIC_COUNT",
+   "0 compute / 1 frontend != 8 / 2"
+  ],
+  [
+   "NIC_MTU",
+   "MTU 1500 != 9000"
+  ],
+  [
+   "NVME_COUNT",
+   "0 NVMe != 8"
+  ],
+  [
+   "STORAGE_THROUGHPUT_LOW",
+   "7.63 GB/s < 40.0"
+  ]
+ ],
+ "telemetry": {
+  "samples": 233,
+  "samples_loaded": 226,
+  "temp_c": {
+   "median": 75.0,
+   "p95": 76.0,
+   "min": 66.0,
+   "max": 76.0
+  },
+  "power_w": {
+   "median": 79.94,
+   "p95": 79.99,
+   "min": 53.61,
+   "max": 80.21
+  },
+  "sm_mhz": {
+   "median": 2295.0,
+   "p95": 2325.0,
+   "min": 2280.0,
+   "max": 2355.0
+  },
+  "sm_max_mhz": 3105.0,
+  "reasons_share": {
+   "SW_POWER_CAP": 1.0
+  },
+  "counter_deltas_us": {
+   "sw_power_cap": 0.0,
+   "sw_thermal_slowdown": 0,
+   "hw_thermal_slowdown": 0,
+   "hw_power_brake_slowdown": 0
+  },
+  "tflops": {
+   "median": 27.6976410275249,
+   "p95": 28.059591563274207,
+   "min": 26.956487887682975,
+   "max": 28.21215058450662
+  }
+ },
+ "numerics": {
+  "cold": {
+   "fp32_err": 3.518054722558267e-07,
+   "fp16_err": 5.094612415947546e-05
+  },
+  "hot": {
+   "fp32_err": 3.518054722558267e-07,
+   "fp16_err": 5.094612415947546e-05
+  }
+ },
+ "memory_pattern": {
+  "bytes": 1610612736,
+  "patterns": 5,
+  "mismatched_words": 0,
+  "fill_GBps": 100.32713582382544
+ },
+ "host_memory_pattern": {
+  "bytes": 536870912,
+  "patterns": 5,
+  "bad_chunks": 0,
+  "fill_GBps": 10.897736475963757
+ },
+ "disks": [
+  {
+   "device": "sdd",
+   "median_GBps": 7.633224539,
+   "runs_GBps": [
+    7.149548553,
+    8.016680555,
+    7.633224539
+   ]
+  }
+ ],
+ "gpu": {
+  "product": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "memory_total_mib": 8188,
+  "driver": "592.82",
+  "vbios": "95.07.28.00.59",
+  "bdf": "00000000:01:00.0",
+  "pcie_max": {
+   "gen": 4,
+   "width": 8
+  },
+  "pcie_idle": {
+   "gen": 4,
+   "width": 8
+  }
+ },
+ "stress_seconds": 120.0,
+ "node": "srini",
+ "collected_at": "2026-11-05T03:34:28Z",
+ "policy": {
+  "policy_version": "acc-2026.10-wsl2-laptop",
+  "derived_from": "lab/data/acceptance_policy.yaml (acc-2026.10, HX8)",
+  "note": "The chapter's thresholds are kept unchanged. 'expected' is rewritten for this platform (one laptop GPU in WSL2) and every change is listed in 'adaptations'. Lab-local checks have codes the chapter does not use and are marked lab_local. Edit 'expected' for your own machine and bump policy_version.",
+  "adaptations": [
+   "gpu_count 8 -> 1; gpu_product H100-SXM-80GB -> NVIDIA GeForce RTX 4060 Laptop GPU; gpu memory >= 81000 MiB -> >= 8000 MiB",
+   "gpu_pcie Gen5 x16 -> the GPU's own maximum (Gen4 x8 on the reference machine), judged under load",
+   "compute NICs 8 x 400G -> none expected (no RDMA NIC on a laptop): compute NIC, RDMA, link-quality and GPUDirect checks are N/A",
+   "frontend NICs 2 x 200G, MTU 9000 -> 1 virtual NIC, >= 1000 Mb/s reported, MTU 1500",
+   "8 NVMe drives, >= 5 GB/s each, >= 40 GB/s total -> the data disks this OS mounts, >= 1.0 GB/s each and in total [ILLUSTRATIVE floor, not a measured fleet baseline]"
+  ],
+  "expected": {
+   "gpu_count": 1,
+   "gpu_product": "NVIDIA GeForce RTX 4060 Laptop GPU",
+   "gpu_mem_total_mib_min": 8000,
+   "gpu_pcie": "max",
+   "frontend_nic": {
+    "count": 1,
+    "speed_mbps_min": 1000,
+    "mtu": 1500
+   },
+   "compute_nic_count": 0,
+   "data_disk_count_min": 1,
+   "host_mem_gib_min": 7.5
+  },
+  "thresholds": {
+   "dcgm_diag_min_level": 3,
+   "ecc_dbe_volatile_max": 0,
+   "ecc_sbe_volatile_warn": 10,
+   "max_gpu_temp_c": 87,
+   "throttle_reasons_fail": [
+    "HW_THERMAL_SLOWDOWN",
+    "SW_THERMAL_SLOWDOWN",
+    "HW_POWER_BRAKE_SLOWDOWN"
+   ],
+   "throttle_reasons_ignore": [
+    "SW_POWER_CAP",
+    "GPU_IDLE"
+   ],
+   "disk_seq_read_min_gbs": 1.0,
+   "storage_seq_read_min_gbs": 1.0,
+   "gemm_fp32_rel_err_max": 1e-05,
+   "gemm_fp16_rel_err_max": 0.002,
+   "stress_decay_warn_frac": 0.1,
+   "min_stress_seconds": 60
+  }
+ }
+}

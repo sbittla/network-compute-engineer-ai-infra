@@ -1,0 +1,44 @@
+$ nvidia-smi -q -d POWER
+(exit 0)
+
+==============NVSMI LOG==============
+
+Timestamp                                              : Wed Nov  4 19:02:27 2026
+Driver Version                                         : 592.82
+CUDA Version                                           : 13.1
+
+Attached GPUs                                          : 1
+GPU 00000000:01:00.0
+    GPU Power Readings
+        Average Power Draw                             : 19.80 W
+        Instantaneous Power Draw                       : 20.27 W
+        Current Power Limit                            : 80.00 W
+        Requested Power Limit                          : 80.00 W
+        Default Power Limit                            : 80.00 W
+        Min Power Limit                                : 5.00 W
+        Max Power Limit                                : 120.00 W
+    Power Samples
+        Duration                                       : Not Found
+        Number of Samples                              : Not Found
+        Max                                            : Not Found
+        Min                                            : Not Found
+        Avg                                            : Not Found
+    GPU Memory Power Readings 
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+    Module Power Readings
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+        Current Power Limit                            : N/A
+        Requested Power Limit                          : N/A
+        Default Power Limit                            : N/A
+        Min Power Limit                                : N/A
+        Max Power Limit                                : N/A
+    EDPp Multiplier                                    : N/A
+
+
+$ nvidia-smi -pl 80.00
+(exit 4)
+Failed to set power management limit for GPU 00000000:01:00.0: Insufficient Permissions
+Terminating early due to previous errors.
+

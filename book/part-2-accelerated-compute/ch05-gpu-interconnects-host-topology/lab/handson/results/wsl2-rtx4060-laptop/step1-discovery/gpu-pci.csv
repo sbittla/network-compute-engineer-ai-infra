@@ -1,0 +1,2 @@
+index, name, pci.bus_id, pcie.link.gen.max, pcie.link.gen.hostmax, pcie.link.width.max
+0, NVIDIA GeForce RTX 4060 Laptop GPU, 00000000:01:00.0, 4, 5, 8

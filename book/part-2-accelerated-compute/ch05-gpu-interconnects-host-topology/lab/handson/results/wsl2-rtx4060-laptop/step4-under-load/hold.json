@@ -1,0 +1,8 @@
+{
+ "mode": "hold",
+ "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+ "torch": "2.5.1+cu124",
+ "seconds": 8.0,
+ "iterations": 385,
+ "bytes_each_way": 51673825280
+}

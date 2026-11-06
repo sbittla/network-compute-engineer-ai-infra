@@ -1,0 +1,4 @@
+$ rdma link show
+link ch08rxe0/1 state ACTIVE physical_state LINK_UP netdev ch08-v0 
+$ rdma dev show ch08rxe0
+21: ch08rxe0: node_type ca node_guid 7050:adff:fe9c:7b76 sys_image_guid 7050:adff:fe9c:7b76 
