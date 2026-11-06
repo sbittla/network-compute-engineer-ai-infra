@@ -63,6 +63,14 @@ case "${1:-}" in
     link_pair "$RX" ch09-rx0 "$PORT_DEV" 10.209.0.100
     link_pair "$PR" ch09-pr0 ch09-spr 10.209.0.200
     for i in $(seq 1 "$n"); do link_pair "ch09-h$i" "ch09-h${i}e" "ch09-s$i" "10.209.0.$i"; done
+    # TCP Small Queues caps the bytes each socket may have queued below it at about 1 ms of its pacing rate.
+    # On one host a sender's skb stays charged to its socket through the veth, the bridge and the switch's
+    # queue, so TSQ would stop every flow at ~20 packets and a 500 KB queue would never fill. A real NIC frees
+    # the skb when the frame leaves the host. Raising the pacing ratios to their maximum (1000 %) lifts the TSQ
+    # cap well above the queue; these senders don't pace (cubic/dctcp, no fq), so nothing else changes.
+    for i in $(seq 1 "$n"); do
+      ns_exec "ch09-h$i" sysctl -qw net.ipv4.tcp_pacing_ca_ratio=1000 net.ipv4.tcp_pacing_ss_ratio=1000
+    done
     # Base RTT: delay what the receiver sends (ACKs, echo replies); the data path keeps only the bottleneck.
     ns_exec "$RX" tc qdisc replace dev ch09-rx0 root netem delay "$BASE_DELAY" limit 100000
     # Learn every MAC on the bridge before the first measurement (one ping from each host to the receiver).

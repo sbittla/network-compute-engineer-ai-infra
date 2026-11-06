@@ -1,0 +1,1 @@
+{"verdict": "dataloader", "slowdown": 2.3501134971367654, "why": ["step 100.4 ms vs healthy 42.7 ms (2.35x)", "data-wait share 58 % (healthy 0 %)", "batches decoded by the training process itself (pid 3984); main-thread CPU 98 %"]}

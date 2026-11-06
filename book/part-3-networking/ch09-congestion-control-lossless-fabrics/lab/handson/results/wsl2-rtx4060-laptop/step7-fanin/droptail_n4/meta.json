@@ -1,0 +1,1 @@
+{"config": "droptail", "queue": "droptail", "tcp_ecn": 1, "cc": "cubic", "senders": 4, "seconds": 10}

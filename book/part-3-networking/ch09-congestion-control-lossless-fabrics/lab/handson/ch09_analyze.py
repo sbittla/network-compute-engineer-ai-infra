@@ -113,8 +113,12 @@ def run_metrics(d: Path) -> dict:
     dq = {k: q1.get(k, 0) - q0.get(k, 0) for k in ("packets", "bytes", "drops", "marked", "early", "pdrop", "overlimits")}
     dn = {k: n1.get(f"IpExt.{k}", 0) - n0.get(f"IpExt.{k}", 0) for k in ("InNoECTPkts", "InECT0Pkts", "InECT1Pkts", "InCEPkts")}
     gp = [f["goodput_mbps"] for f in fl]
-    m = {"senders": len(fl), "cc": sorted({f["cc"] for f in fl if f["cc"]}),
-         "goodput_mbps": sum(gp), "utilization": sum(gp) / CEILING_MBPS, "per_flow_mbps": gp, "jain": jain(gp),
+    # Aggregate goodput is every byte delivered over the incast's wall-clock window. Summing per-flow rates
+    # would overstate it: each flow's rate uses its own 15 s, and staggered starts make the union longer.
+    t0, t1 = (float(x) for x in (d / "window.txt").read_text().split()[:2])
+    agg = sum(f["bytes"] for f in fl) * 8 / (t1 - t0) / 1e6
+    m = {"senders": len(fl), "cc": sorted({f["cc"] for f in fl if f["cc"]}), "window_s": t1 - t0,
+         "goodput_mbps": agg, "utilization": agg / CEILING_MBPS, "per_flow_mbps": gp, "jain": jain(gp),
          "retransmits": sum(f["retransmits"] for f in fl),
          "queue_sent_pkts": dq["packets"], "drops": dq["drops"], "marks": dq["marked"], "early_drops": dq["early"],
          "tail_drops": dq["pdrop"], "overlimits": dq["overlimits"],

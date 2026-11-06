@@ -1,0 +1,347 @@
+{
+  "lab": "ch22-handson",
+  "run_id": "wsl2-rtx4060-laptop",
+  "threshold_pct": 5.0,
+  "calibration": {
+    "gpu_only_step_ms": 42.75729220000054,
+    "decode_base_ms": 1.8173639999758961,
+    "decode_ms_per_round": 9.376849375001939,
+    "decode_rounds": 9,
+    "decode_ms_expected": 86.20900837499335,
+    "netem_delay_ms": 257,
+    "workers": 4,
+    "rule": "decode ~ 2 x GPU step on one CPU (4 workers keep up with 2x headroom); netem delay ~ 6 x GPU step"
+  },
+  "healthy": {
+    "evidence": {
+      "label": "healthy:fixed",
+      "pid": 3597,
+      "config": {
+        "workers": 4,
+        "inflight": 1,
+        "inject_sync": false,
+        "decode_rounds": 9,
+        "tokens": 4096,
+        "d": 1024,
+        "blocks": 4,
+        "no_data": false,
+        "affinity": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "server": "http://10.22.0.2:8222"
+      },
+      "steps": 60,
+      "warmup": 15,
+      "step_ms": 42.74038068333349,
+      "step_ms_median": 6.9465335000131745,
+      "data_block_ms_median": 0.23424399995519707,
+      "data_block_share": 0.33914531531034925,
+      "data_wait_ms_median": 0.002047999994829297,
+      "data_wait_share": 0.0006499533529261226,
+      "fetch_ms_median": 0.6364574999793149,
+      "fetch_wait_ms_median": 0.6364574999793149,
+      "decode_ms_median": 109.84845149999956,
+      "decode_cpu_ms_median": 96.50485900000001,
+      "decode_runqueue_ms_median": 11.7599365,
+      "decode_runqueue_share": 0.1538261976005659,
+      "main_cpu_share": 0.45591842472596167,
+      "main_runqueue_share": 0.13443588845338894,
+      "gpu_util_median": 99.0,
+      "gpu_util_samples": 25,
+      "loader_pids": [
+        3628,
+        3629,
+        3630,
+        3631
+      ],
+      "profile_syncs_per_step": 0.3333333333333333,
+      "profile_item_per_step": 0.0
+    },
+    "run_step_ms": [
+      42.73517194999954,
+      43.169555016665605,
+      43.38731738333195,
+      44.193524083332626,
+      44.37687358333354
+    ],
+    "mean_step_ms": 43.57248840333265,
+    "ping_avg_ms": 0.067
+  },
+  "scenarios": {
+    "loader": {
+      "title": "Dataloader stall",
+      "injected": "decode moved into the training process (num_workers=0)",
+      "fix": "num_workers=4",
+      "expected_verdict": "dataloader",
+      "verdict": "dataloader",
+      "why": [
+        "step 100.4 ms vs healthy 42.7 ms (2.35x)",
+        "data-wait share 58 % (healthy 0 %)",
+        "batches decoded by the training process itself (pid 3984); main-thread CPU 98 %"
+      ],
+      "slowdown_vs_healthy": 2.3501134971367654,
+      "evidence": {
+        "step_ms": 100.44474551666553,
+        "data_wait_share": 0.5776320470861304,
+        "data_block_share": 0.9328588197223547,
+        "fetch_wait_ms_median": 0.5242770000108976,
+        "decode_ms_median": 90.74727900002699,
+        "decode_cpu_ms_median": 90.467678,
+        "decode_runqueue_share": 0.0006868364669373525,
+        "main_cpu_share": 0.9793177882096961,
+        "main_runqueue_share": 0.0006518938977828611,
+        "gpu_util_median": 42.0,
+        "profile_syncs_per_step": 0.3333333333333333,
+        "profile_item_per_step": 0.0,
+        "sync_debug_warnings": null,
+        "loader_pids": [
+          3984
+        ],
+        "pid": 3984
+      },
+      "ab": {
+        "bad_step_ms": [
+          98.88993744999841,
+          99.15319874999871,
+          98.3955303333327,
+          99.7111617166657,
+          99.25320913333356
+        ],
+        "fixed_step_ms": [
+          43.294051083334274,
+          42.99392580000093,
+          43.023987066667736,
+          42.892035283333975,
+          42.52983874999927
+        ],
+        "bad_mean_ms": 99.08060747666582,
+        "fixed_mean_ms": 42.946767596667236,
+        "change_pct": -56.65471913181245,
+        "band_pct": [
+          -56.93161348665392,
+          -56.38779815872805
+        ],
+        "perm_p": 0.007936507936507936,
+        "p_floor": 0.007936507936507936,
+        "cliffs_delta_runs": -1.0,
+        "decision_bar_pct": 5.0,
+        "decision": "improvement",
+        "runs": [
+          5,
+          5
+        ],
+        "fixed_vs_healthy_pct": -1.4360456094987595
+      }
+    },
+    "cpu": {
+      "title": "CPU contention",
+      "injected": "8 ch22-hog busy loops pinned with taskset to the job's CPUs",
+      "fix": "re-pin the job to a disjoint CPU set",
+      "expected_verdict": "cpu_contention",
+      "verdict": "cpu_contention",
+      "why": [
+        "step 74.0 ms vs healthy 42.7 ms (1.73x)",
+        "data-wait share 44 % (healthy 0 %)",
+        "decode run-queue delay 69 % of decode time (healthy 15 %)"
+      ],
+      "slowdown_vs_healthy": 1.7310378682592429,
+      "evidence": {
+        "step_ms": 73.98521746666613,
+        "data_wait_share": 0.4363936755516875,
+        "data_block_share": 0.7810253979817993,
+        "fetch_wait_ms_median": 4.068664999977045,
+        "decode_ms_median": 285.0287505000324,
+        "decode_cpu_ms_median": 89.52322850000004,
+        "decode_runqueue_share": 0.6878195026973162,
+        "main_cpu_share": 0.048763516193291945,
+        "main_runqueue_share": 0.16575811610193655,
+        "gpu_util_median": 54.0,
+        "profile_syncs_per_step": 0.3333333333333333,
+        "profile_item_per_step": 0.0,
+        "sync_debug_warnings": null,
+        "loader_pids": [
+          4616,
+          4617,
+          4618,
+          4619
+        ],
+        "pid": 4585
+      },
+      "ab": {
+        "bad_step_ms": [
+          80.60973511666703,
+          81.56060271666661,
+          71.00727839999952,
+          86.5964186000004,
+          83.02611471666712
+        ],
+        "fixed_step_ms": [
+          42.603990216665956,
+          42.732077733332595,
+          42.692162283333346,
+          42.77753358333219,
+          42.7214083000005
+        ],
+        "bad_mean_ms": 80.56002991000014,
+        "fixed_mean_ms": 42.70543442333292,
+        "change_pct": -46.98930167845956,
+        "band_pct": [
+          -49.44885350911752,
+          -43.39477486864988
+        ],
+        "perm_p": 0.007936507936507936,
+        "p_floor": 0.007936507936507936,
+        "cliffs_delta_runs": -1.0,
+        "decision_bar_pct": 5.0,
+        "decision": "improvement",
+        "runs": [
+          5,
+          5
+        ],
+        "fixed_vs_healthy_pct": -1.9899115514674492
+      },
+      "hog_processes_seen": 8
+    },
+    "sync": {
+      "title": "Hidden host sync",
+      "injected": "a per-block activation statistic copied to the host (.cpu() + numpy) and loss.item() every step",
+      "fix": "remove the per-block host statistic; log the loss every 20 steps",
+      "expected_verdict": "host_sync",
+      "verdict": "host_sync",
+      "why": [
+        "step 93.4 ms vs healthy 42.7 ms (2.19x)",
+        "data-wait share 0 % (healthy 0 %)",
+        "synchronize calls per step: 5.333333333333333 (healthy 0.3333333333333333)"
+      ],
+      "slowdown_vs_healthy": 2.186343328159408,
+      "evidence": {
+        "step_ms": 93.44514614999942,
+        "data_wait_share": 0.003946369623886241,
+        "data_block_share": 0.0032509025794790858,
+        "fetch_wait_ms_median": 0.559165000026951,
+        "decode_ms_median": 88.85124799996902,
+        "decode_cpu_ms_median": 88.77002049999999,
+        "decode_runqueue_share": 4.208499397959516e-05,
+        "main_cpu_share": 0.981814579782757,
+        "main_runqueue_share": 0.0012367879777063632,
+        "gpu_util_median": 49.0,
+        "profile_syncs_per_step": 5.333333333333333,
+        "profile_item_per_step": 1.0,
+        "sync_debug_warnings": 5,
+        "loader_pids": [
+          5366,
+          5367,
+          5368,
+          5369
+        ],
+        "pid": 5332
+      },
+      "ab": {
+        "bad_step_ms": [
+          92.72108733333273,
+          93.15638361666554,
+          93.43476250000056,
+          93.51666036666681,
+          94.16115154999905
+        ],
+        "fixed_step_ms": [
+          42.79492956666786,
+          42.752279116666614,
+          42.681546000000026,
+          42.51457966666786,
+          42.69774930000002
+        ],
+        "bad_mean_ms": 93.39800907333294,
+        "fixed_mean_ms": 42.68821673000048,
+        "change_pct": -54.29429689825279,
+        "band_pct": [
+          -54.51799572206612,
+          -54.0828581253798
+        ],
+        "perm_p": 0.007936507936507936,
+        "p_floor": 0.007936507936507936,
+        "cliffs_delta_runs": -1.0,
+        "decision_bar_pct": 5.0,
+        "decision": "improvement",
+        "runs": [
+          5,
+          5
+        ],
+        "fixed_vs_healthy_pct": -2.029426607787077
+      }
+    },
+    "network": {
+      "title": "Network delay on the data fetch",
+      "injected": "netem delay on the data server's veth (ch22-d0)",
+      "fix": "4 fetches in flight per worker (prefetch)",
+      "expected_verdict": "network",
+      "verdict": "network",
+      "why": [
+        "step 154.4 ms vs healthy 42.7 ms (3.61x)",
+        "data-wait share 74 % (healthy 0 %)",
+        "decode run-queue delay 1 % of decode time (healthy 15 %)",
+        "worker network wait 515.3 ms per batch (healthy 0.6 ms), decode 100.1 ms"
+      ],
+      "slowdown_vs_healthy": 3.6134994841125887,
+      "evidence": {
+        "step_ms": 154.44234355000123,
+        "data_wait_share": 0.7405473329243859,
+        "data_block_share": 0.9498336956136364,
+        "fetch_wait_ms_median": 515.2756605000377,
+        "decode_ms_median": 100.11519699997962,
+        "decode_cpu_ms_median": 99.54438199999998,
+        "decode_runqueue_share": 0.005569787250677394,
+        "main_cpu_share": 0.038835820726359466,
+        "main_runqueue_share": 2.070157656578745e-05,
+        "gpu_util_median": 11.0,
+        "profile_syncs_per_step": 0.3333333333333333,
+        "profile_item_per_step": 0.0,
+        "sync_debug_warnings": null,
+        "loader_pids": [
+          6098,
+          6099,
+          6100,
+          6101
+        ],
+        "pid": 6067
+      },
+      "ab": {
+        "bad_step_ms": [
+          154.81773905000105,
+          154.44095986666375,
+          154.3138593833343,
+          154.24069424999894,
+          154.66315848333352
+        ],
+        "fixed_step_ms": [
+          42.297079783334844,
+          42.394247016666974,
+          42.290484083336345,
+          42.446541966667915,
+          42.16189811666785
+        ],
+        "bad_mean_ms": 154.4952822066663,
+        "fixed_mean_ms": 42.318050193334784,
+        "change_pct": -72.60883983711135,
+        "band_pct": [
+          -72.67597544437518,
+          -72.5449838461273
+        ],
+        "perm_p": 0.007936507936507936,
+        "p_floor": 0.007936507936507936,
+        "cliffs_delta_runs": -1.0,
+        "decision_bar_pct": 5.0,
+        "decision": "improvement",
+        "runs": [
+          5,
+          5
+        ],
+        "fixed_vs_healthy_pct": -2.8789684866883047
+      },
+      "ping_avg_ms": 257.431
+    }
+  }
+}

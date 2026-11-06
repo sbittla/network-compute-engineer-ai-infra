@@ -46,7 +46,7 @@ and on a real multi-node fabric (nccl-tests with aligned and cross-rail placemen
 | Kernel | veth (built in on WSL2) and the `netem` qdisc (`CONFIG_NET_SCH_NETEM`, module `sch_netem`). Stock Ubuntu and stock WSL2 kernels load it on demand; a custom kernel needs its modules installed or `NETEM=y`. `setup.sh` and `run.sh` both test it before measuring. |
 | CPUs | At least 16 logical CPUs for the default CPU sets (`CH22_CPUS_A=8-11` for the job, `CH22_CPUS_B=12-15` for the fix); set both on smaller machines, as two disjoint sets of four |
 | Software | The shared venv (`scripts/handson/venv.sh`: PyTorch 2.5.1 + CUDA 12.4, NumPy 2.1.3), iproute2, util-linux |
-| Disk, RAM | under 1 MB of results; about 2 GB of RAM (the data server holds 64 MB, each loader worker a few hundred MB) |
+| Disk, RAM | under 1 MB of results; about 2 GB of RAM (the data server holds 1 MB, each loader worker a few hundred MB) |
 | Time | setup under 1 min with the venv present; run about 10–15 min with 5 runs per arm |
 
 ## 4. Safety
@@ -180,6 +180,15 @@ Look for: data-wait share up, decode run-queue delay normal, and each worker's n
 at least the added delay. The fix keeps four fetches in flight per worker, so the latency overlaps
 instead of adding up: the bandwidth was never the problem, the round trips were. Raw output:
 `evidence_network.json`, `net_delay_status_*.txt`, `ab_network.jsonl`.
+
+`netlab.sh up` turns off `net.ipv4.tcp_slow_start_after_idle` in the data server's namespace. With it on,
+a keep-alive connection that sits idle longer than its retransmission timeout restarts slow start from a
+10-segment window, and the 64 KB reply then pays extra round trips of slow start. Prefetching makes
+each connection idle longer between requests, so with the default the fix partly undoes itself: a
+cross-layer interaction of exactly the kind this chapter is about. The data server also raises its
+listen backlog from Python's default of 5, because the fixed arm opens 16 connections at once and the
+extra SYNs would otherwise wait for the 1 s SYN retransmit. To see it, run
+the fixed arm once with `sudo ip netns exec ch22-data sysctl -w net.ipv4.tcp_slow_start_after_idle=1`.
 
 **Question 5.** The fix did not remove the delay. Use Little's law (requests in flight = throughput ×
 latency) to explain why it works, and how many fetches in flight the calibrated delay needs.

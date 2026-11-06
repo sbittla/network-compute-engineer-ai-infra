@@ -109,6 +109,17 @@ Why GSO, TSO and GRO are off on every veth (`net.sh` does it): with them on, the
 super-packets, RED counts one "packet" where the wire would carry 44, and the queue's depth jumps in
 64 KB steps. Off, it holds 1,514-byte frames, as a switch does.
 
+Why `net.sh` raises `tcp_pacing_ca_ratio` and `tcp_pacing_ss_ratio` to 1000 in every sender: TCP Small
+Queues lets a socket keep only about 1 ms of its pacing rate queued below it. On a real host the NIC frees
+each frame once it is on the wire, so the switch's queue is invisible to TSQ. Here the sender's skb stays
+charged to its socket all the way through the veth, the bridge and the bottleneck queue, so with the
+defaults each cubic flow stalls at about 20 packets, the 8:1 incast holds a ~150 KB queue, and drop-tail
+never drops. The higher ratios lift that cap; these senders do not pace, so nothing else changes.
+
+Aggregate goodput is the bytes all receivers got, divided by the incast's wall-clock window
+(`window.txt`), not the sum of each flow's own rate: flows start a few milliseconds apart, and summing
+their rates can report more than the link carries.
+
 ## 6. Steps
 
 Write your answers in `results/<run-id>/answers.md`.
@@ -138,9 +149,9 @@ sudo bash incast.sh /tmp/dt 8 15
 tc -n ch09-sw -s qdisc show dev ch09-srx      # dropped, backlog
 ```
 
-Look for: zero marks (a FIFO cannot mark), thousands of drops, a queue that sits for most of the run
-near the 500,000-byte limit, and a probe RTT tens of milliseconds above the idle RTT. A full 500,000-byte
-queue at 100 Mbit/s is 40 ms of delay. Goodput is still close to the ceiling. Raw output:
+Look for: zero marks (a FIFO cannot mark), tail drops (about 150 in a 15 s run on the reference machine),
+a queue that sits for most of the run near the 500,000-byte limit, and a probe RTT tens of
+milliseconds above the idle RTT. A full 500,000-byte queue at 100 Mbit/s is 40 ms of delay. Goodput is still close to the ceiling. Raw output:
 `step2-incast/droptail_rep*/`.
 
 **Question 2.** Convert the median queue depth into queueing delay and compare it with the probe's RTT.
@@ -185,8 +196,8 @@ sudo bash net.sh queue asfound   # min 187500 max 750000: thresholds 10x the tem
 sudo bash incast.sh /tmp/af 8 15
 ```
 
-Look for: a queue that grows well past the template's Kmax before marking starts, with far fewer
-marks per second and a probe RTT close to drop-tail's. With Kmax above the 500,000-byte limit, RED can
+Look for: a queue that settles just above the as-found Kmin (187,500 B, the template's Kmax), about six
+times the template's depth, with a tenth of its marks and a probe RTT about four times longer. With Kmax above the 500,000-byte limit, RED can
 reach the full queue before it marks at full probability, and then it tail-drops (`pdrop`). Raw output:
 `step2-incast/asfound_rep*/`.
 
@@ -201,7 +212,9 @@ sudo bash net.sh queue dctcp     # step marking: min 18750, max 20264, probabili
 sudo bash incast.sh /tmp/dc 8 15 dctcp     # every client runs iperf3 -C dctcp
 ```
 
-Look for: a queue held near K = 18,750 B, with goodput at the ceiling and a mark rate of a few percent.
+Look for: a queue held near K = 18,750 B, with goodput at the ceiling and close to half of all packets
+marked: step marking marks every packet while the queue is above K, and the senders' proportional cuts
+keep it hovering there.
 DCTCP cuts its window in proportion to the fraction of marked packets instead of halving it, so it
 can run with a much smaller standing queue than cubic. `run.sh` skips this step when
 `tcp_available_congestion_control` lacks `dctcp`. Raw output: `step2-incast/dctcp_rep*/`.
@@ -212,7 +225,7 @@ step, explain why the chapter's rules put Kmin at or below one BDP for a proport
 ### Step 7: fan-in
 
 `run.sh` repeats the drop-tail and RED+ECN runs at N = 1, 4 and 16 senders for 10 s each. Look for:
-drop-tail drops and its deep queue at every N; RED+ECN marks at every N, and whether its queue and drops
+drop-tail's deep queue and drops at N = 4 and 16 (one cubic flow alone stays below the buffer); RED+ECN marks at every N, and whether its queue and drops
 stay low at N = 16. With 16 flows of at least two segments each in flight, the window floor alone holds
 more than the BDP. Raw output: `step7-fanin/`.
 

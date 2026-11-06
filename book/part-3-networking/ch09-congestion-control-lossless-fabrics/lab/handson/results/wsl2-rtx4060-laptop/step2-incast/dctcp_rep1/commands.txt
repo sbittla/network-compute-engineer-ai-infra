@@ -1,0 +1,4 @@
+$ ip netns exec ch09-rx iperf3 -s -1 -B 10.209.0.100 -p 520<i>   (i = 1..8)
+$ ip netns exec ch09-sw python3 qsample.py ch09-srx 16 queue.csv 0.02
+$ ip netns exec ch09-pr ping -D -n -i 0.02 -Q 2 -w 16 10.209.0.100
+$ ip netns exec ch09-h<i> iperf3 -c 10.209.0.100 -p 520<i> -t 15 -C dctcp -J   (i = 1..8, started together)

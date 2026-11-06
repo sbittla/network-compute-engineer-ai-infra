@@ -1,0 +1,90 @@
+== ch09-h1
+ch09-h1e@if5     UP             10.209.0.1/24 fe80::bc1c:e9ff:fe41:6708/64 
+== ch09-h2
+ch09-h2e@if6     UP             10.209.0.2/24 fe80::64c3:beff:fe99:276d/64 
+== ch09-h3
+ch09-h3e@if7     UP             10.209.0.3/24 fe80::90dc:2fff:fe59:2d92/64 
+== ch09-h4
+ch09-h4e@if8     UP             10.209.0.4/24 fe80::f46f:39ff:fe1c:aa87/64 
+== ch09-h5
+ch09-h5e@if9     UP             10.209.0.5/24 fe80::fc7f:adff:feb1:734c/64 
+== ch09-h6
+ch09-h6e@if10    UP             10.209.0.6/24 fe80::50fb:ff:fea6:9525/64 
+== ch09-h7
+ch09-h7e@if11    UP             10.209.0.7/24 fe80::cc53:edff:fed1:fce5/64 
+== ch09-h8
+ch09-h8e@if12    UP             10.209.0.8/24 fe80::3458:78ff:fea3:fa58/64 
+== ch09-h9
+ch09-h9e@if13    UP             10.209.0.9/24 fe80::1c35:e6ff:fec7:1651/64 
+== ch09-h10
+ch09-h10e@if14   UP             10.209.0.10/24 fe80::c447:b1ff:fe87:f4c2/64 
+== ch09-h11
+ch09-h11e@if15   UP             10.209.0.11/24 fe80::943a:41ff:fee9:d5d1/64 
+== ch09-h12
+ch09-h12e@if16   UP             10.209.0.12/24 fe80::fcb5:7bff:fe4f:f145/64 
+== ch09-h13
+ch09-h13e@if17   UP             10.209.0.13/24 fe80::8087:86ff:fe23:dd11/64 
+== ch09-h14
+ch09-h14e@if18   UP             10.209.0.14/24 fe80::386b:c9ff:fe72:e118/64 
+== ch09-h15
+ch09-h15e@if19   UP             10.209.0.15/24 fe80::749a:3cff:fef1:caaa/64 
+== ch09-h16
+ch09-h16e@if20   UP             10.209.0.16/24 fe80::c47a:1fff:fe8e:d747/64 
+== ch09-pr
+ch09-pr0@if4     UP             10.209.0.200/24 fe80::305f:f6ff:fe83:d066/64 
+== ch09-rx
+ch09-rx0@if3     UP             10.209.0.100/24 fe80::48bd:40ff:fe4b:1617/64 
+== ch09-sw
+ch09-br          UP             fe80::7cde:7cff:fe67:a140/64 
+ch09-srx@if2     UP             fe80::3031:bbff:fefe:37c/64 
+ch09-spr@if2     UP             fe80::2c31:77ff:fea1:33c2/64 
+ch09-s1@if2      UP             fe80::f084:b2ff:fe65:9d45/64 
+ch09-s2@if2      UP             fe80::10a9:80ff:fecf:ea95/64 
+ch09-s3@if2      UP             fe80::c07b:7fff:fe7c:bc0c/64 
+ch09-s4@if2      UP             fe80::1c83:88ff:fe4c:2367/64 
+ch09-s5@if2      UP             fe80::ac35:74ff:fe49:6d7b/64 
+ch09-s6@if2      UP             fe80::e855:65ff:fe0c:d608/64 
+ch09-s7@if2      UP             fe80::f4c4:cfff:fe22:3f10/64 
+ch09-s8@if2      UP             fe80::24dc:8eff:fe8c:44d9/64 
+ch09-s9@if2      UP             fe80::6caf:c8ff:fe0e:7824/64 
+ch09-s10@if2     UP             fe80::3889:e5ff:fef6:bf5a/64 
+ch09-s11@if2     UP             fe80::48ae:7cff:fef0:18a5/64 
+ch09-s12@if2     UP             fe80::bc43:d9ff:fe21:2789/64 
+ch09-s13@if2     UP             fe80::941c:c1ff:fe58:355c/64 
+ch09-s14@if2     UP             fe80::1d:c9ff:fe5a:4839/64 
+ch09-s15@if2     UP             fe80::462:3ff:fed0:fa8e/64 
+ch09-s16@if2     UP             fe80::d058:c0ff:fe02:449e/64 
+== bridge ports
+ch09-srx@if2     UP             32:31:bb:fe:03:7c <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-spr@if2     UP             2e:31:77:a1:33:c2 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s1@if2      UP             f2:84:b2:65:9d:45 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s2@if2      UP             12:a9:80:cf:ea:95 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s3@if2      UP             c2:7b:7f:7c:bc:0c <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s4@if2      UP             1e:83:88:4c:23:67 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s5@if2      UP             ae:35:74:49:6d:7b <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s6@if2      UP             ea:55:65:0c:d6:08 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s7@if2      UP             f6:c4:cf:22:3f:10 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s8@if2      UP             26:dc:8e:8c:44:d9 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s9@if2      UP             6e:af:c8:0e:78:24 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s10@if2     UP             3a:89:e5:f6:bf:5a <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s11@if2     UP             4a:ae:7c:f0:18:a5 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s12@if2     UP             be:43:d9:21:27:89 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s13@if2     UP             96:1c:c1:58:35:5c <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s14@if2     UP             02:1d:c9:5a:48:39 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s15@if2     UP             06:62:03:d0:fa:8e <BROADCAST,MULTICAST,UP,LOWER_UP> 
+ch09-s16@if2     UP             d2:58:c0:02:44:9e <BROADCAST,MULTICAST,UP,LOWER_UP> 
+== bottleneck ch09-srx
+qdisc tbf 1: root refcnt 25 rate 100Mbit burst 3028b/1 mpu 0b lat 39.8ms linklayer ethernet 
+ Sent 262 bytes 3 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc bfifo 10: parent 1:1 limit 500000b
+ Sent 262 bytes 3 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+== receiver port ch09-rx0
+qdisc netem 8002: root refcnt 25 limit 100000 delay 2ms
+ Sent 2470 bytes 35 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+== offloads on ch09-srx
+tcp-segmentation-offload: off
+generic-segmentation-offload: off
+generic-receive-offload: off

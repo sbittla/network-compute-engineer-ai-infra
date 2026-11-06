@@ -28,6 +28,12 @@ case "${1:-}" in
     ip -n "$NS_T" addr replace 10.22.0.1/30 dev ch22-t0
     ip -n "$NS_D" addr replace 10.22.0.2/30 dev ch22-d0
     for ns in "$NS_T" "$NS_D"; do ip -n "$ns" link set lo up; done
+    # The data server sends a 64 KB reply per batch on keep-alive connections. With the default
+    # tcp_slow_start_after_idle=1, a connection idle longer than its RTO restarts from a 10-segment cwnd,
+    # and under the netem delay a 64 KB reply then needs extra round trips of slow start. Prefetching makes each
+    # connection idle longer, so the fix would partly undo itself. Off in both arms: the A/B still changes
+    # one thing, the number of fetches in flight.
+    ip netns exec "$NS_D" sysctl -qw net.ipv4.tcp_slow_start_after_idle=0
     ip -n "$NS_T" link set ch22-t0 up
     ip -n "$NS_D" link set ch22-d0 up
     if ! { [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; }; then

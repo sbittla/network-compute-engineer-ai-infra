@@ -1,0 +1,24 @@
+# ps while the evidence run is going: PSR = the CPU each process last ran on
+    PID PSR %CPU STAT COMMAND         COMMAND
+   4569   8 44.2 R+   python3         ch22-hog -c while True: pass
+   4566   8 43.7 R+   python3         ch22-hog -c while True: pass
+   4567   8 43.7 R+   python3         ch22-hog -c while True: pass
+   4570  10 35.3 R+   python3         ch22-hog -c while True: pass
+   4565  11 35.0 R+   python3         ch22-hog -c while True: pass
+   4568  11 34.8 R+   python3         ch22-hog -c while True: pass
+   4571  10 34.7 R+   python3         ch22-hog -c while True: pass
+   4572  10 34.4 R+   python3         ch22-hog -c while True: pass
+   4616   9 31.6 Rl   pt_data_worker  /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operatio
+   4619  11 30.3 Rl   pt_data_worker  /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operatio
+   4617   9 29.9 Rl   pt_data_worker  /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operatio
+   4618   9 29.4 Rl   pt_data_worker  /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operatio
+   4585  10 27.9 Sl   python          /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operatio
+   4584   2  0.0 S    timeout         timeout 900 taskset -c 8-11 ip netns exec ch22-train /root/.venvs/ai-infra-handson/bin/python /mnt/d/Learning/network-comp
+hog 4565 affinity: 8-11
+hog 4566 affinity: 8-11
+hog 4567 affinity: 8-11
+hog 4568 affinity: 8-11
+hog 4569 affinity: 8-11
+hog 4570 affinity: 8-11
+hog 4571 affinity: 8-11
+hog 4572 affinity: 8-11

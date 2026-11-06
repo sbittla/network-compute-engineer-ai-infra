@@ -1,0 +1,1 @@
+fabric up: 16 senders, probe, receiver, bridge ch09-br in ch09-sw; bottleneck ch09-srx at 100mbit

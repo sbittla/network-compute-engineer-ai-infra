@@ -80,7 +80,8 @@ class Fetcher:
 
 
 def decode(raw: bytes, tokens: int, d: int, rounds: int) -> np.ndarray:
-    x = np.frombuffer(raw, dtype=np.uint8)[: tokens * d].astype(np.float32)
+    # The server's 64 KB reply stands for a compressed batch: repeat it to tokens x d, then do the CPU work.
+    x = np.resize(np.frombuffer(raw, dtype=np.uint8), tokens * d).astype(np.float32)
     x *= 1.0 / 255.0
     for _ in range(rounds):                      # stand-in for decompression / augmentation: pure CPU work
         np.tanh(x, out=x)

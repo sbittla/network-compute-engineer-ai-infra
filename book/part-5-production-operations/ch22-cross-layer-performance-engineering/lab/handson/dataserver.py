@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Ch 22 hands-on data server: serves raw training batches over HTTP/1.1 (keep-alive).
 
-    python3 dataserver.py --bind 10.22.0.2 --port 8222 --bytes 4194304
+    python3 dataserver.py --bind 10.22.0.2 --port 8222 --bytes 65536
 
 GET /batch/<i> returns <bytes> bytes of deterministic pseudo-random data (16 distinct blobs, chosen by i);
+the trainer's decode expands them to a full batch, as a decompressor would. Small replies keep each fetch at a
+fixed couple of round trips, so the network scenario measures latency and not TCP window growth;
 GET /health returns "ok". Standard library only; run it inside the ch22-data network namespace.
 """
 from __future__ import annotations
@@ -18,7 +20,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--bind", default="10.22.0.2")
     ap.add_argument("--port", type=int, default=8222)
-    ap.add_argument("--bytes", type=int, default=4 * 1024 * 1024)
+    ap.add_argument("--bytes", type=int, default=65536)
     a = ap.parse_args()
     rng = random.Random(22)
     blobs = [rng.randbytes(a.bytes) for _ in range(16)]
@@ -48,6 +50,10 @@ def main() -> int:
             pass
 
     ThreadingHTTPServer.daemon_threads = True
+    # socketserver's default listen backlog is 5. The prefetching trainer opens 16 connections at once
+    # (4 workers x 4 fetches in flight), so with the default the extra SYNs overflow the accept queue and
+    # wait for the 1 s SYN retransmit: a stall that would be blamed on the fix being tested.
+    ThreadingHTTPServer.request_queue_size = 128
     srv = ThreadingHTTPServer((a.bind, a.port), Handler)
     print(f"serving {len(blobs)} x {a.bytes} B on {a.bind}:{a.port}", flush=True)
     srv.serve_forever()

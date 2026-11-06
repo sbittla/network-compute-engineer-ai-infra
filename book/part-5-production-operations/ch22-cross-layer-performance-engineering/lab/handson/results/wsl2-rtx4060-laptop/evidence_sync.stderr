@@ -1,0 +1,5 @@
+/root/.venvs/ai-infra-handson/lib/python3.12/site-packages/torch/cuda/__init__.py:1036: UserWarning: Synchronization debug mode is a prototype feature and does not yet detect all synchronizing operations (Triggered internally at ../torch/csrc/cuda/Module.cpp:886.)
+  torch._C._cuda_set_sync_debug_mode(debug_mode)
+WARNING /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch22-cross-layer-performance-engineering/lab/handson/trainer.py:173: called a synchronizing CUDA operation (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:150.)
+WARNING /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch22-cross-layer-performance-engineering/lab/handson/trainer.py:173: called a synchronizing CUDA operation (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:150.)
+WARNING /mnt/d/Learning/network-compute-engineer-ai-infra/book/part-5-production-operations/ch22-cross-layer-performance-engineering/lab/handson/trainer.py:173: called a synchronizing CUDA operation (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:150.)

@@ -1,0 +1,1 @@
+{"verdict": "network", "slowdown": 3.6134994841125887, "why": ["step 154.4 ms vs healthy 42.7 ms (3.61x)", "data-wait share 74 % (healthy 0 %)", "decode run-queue delay 1 % of decode time (healthy 15 %)", "worker network wait 515.3 ms per batch (healthy 0.6 ms), decode 100.1 ms"]}

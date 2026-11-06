@@ -1,0 +1,6 @@
+qdisc tbf 1: root refcnt 25 rate 100Mbit burst 3028b/1 mpu 0b lat 39.8ms linklayer ethernet 
+ Sent 125154008 bytes 83180 pkt (dropped 27, overlimits 247700 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc bfifo 10: parent 1:1 limit 500000b
+ Sent 125154008 bytes 83180 pkt (dropped 27, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0

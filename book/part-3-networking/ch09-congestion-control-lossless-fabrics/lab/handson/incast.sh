@@ -9,7 +9,7 @@
 # every 20 ms through the same queue. Its echo requests carry ECT(0) (ping -Q 2), so a RED queue marks them
 # instead of dropping them.
 # Writes into <out-dir>: client_h<i>.json (iperf3 -J), qdisc_{before,after}.{txt,json} (tc -s),
-# queue.csv (qsample.py), ping.txt, rx_netstat_{before,after}.txt (/proc/net/netstat and snmp of the
+# queue.csv (qsample.py), ping.txt, window.txt (start and end of the clients, epoch seconds), rx_netstat_{before,after}.txt (/proc/net/netstat and snmp of the
 # receiver namespace), commands.txt.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -47,6 +47,7 @@ echo "\$ ip netns exec $SW python3 qsample.py $DEV $((secs + 1)) queue.csv 0.02"
 echo "\$ ip netns exec $PR ping -D -n -i 0.02 -Q 2 -w $((secs + 1)) $RXIP" >> "$cmds"
 
 pids=()
+date +%s.%N > "$out/window.txt"           # wall-clock window of the incast: aggregate goodput = bytes / window
 for i in $(seq 1 "$n"); do
   ip netns exec "ch09-h$i" timeout $((secs + 30)) iperf3 -c "$RXIP" -p $((5200 + i)) -t "$secs" -C "$cc" -J \
     > "$out/client_h$i.json" 2>&1 &
@@ -55,6 +56,7 @@ done
 echo "\$ ip netns exec ch09-h<i> iperf3 -c $RXIP -p 520<i> -t $secs -C $cc -J   (i = 1..$n, started together)" >> "$cmds"
 rc=0
 for p in "${pids[@]}"; do wait "$p" || rc=$?; done
+date +%s.%N >> "$out/window.txt"
 wait "$qs" || true
 wait "$pp" || true
 

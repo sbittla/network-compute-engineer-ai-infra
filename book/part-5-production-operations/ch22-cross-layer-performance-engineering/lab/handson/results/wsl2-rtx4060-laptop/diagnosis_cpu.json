@@ -1,0 +1,1 @@
+{"verdict": "cpu_contention", "slowdown": 1.7310378682592429, "why": ["step 74.0 ms vs healthy 42.7 ms (1.73x)", "data-wait share 44 % (healthy 0 %)", "decode run-queue delay 69 % of decode time (healthy 15 %)"]}

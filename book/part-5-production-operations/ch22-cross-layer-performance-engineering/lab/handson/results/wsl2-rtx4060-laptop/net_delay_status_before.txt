@@ -1,0 +1,8 @@
+ch22-t0@if2      UP             10.22.0.1/30 fe80::f8a5:a1ff:fecb:9646/64 
+ch22-d0@if2      UP             10.22.0.2/30 fe80::1069:58ff:fe4c:5cfd/64 
+qdisc netem 800f: root refcnt 25 limit 10000 delay 257ms
+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+5 packets transmitted, 5 received, 0% packet loss, time 805ms
+rtt min/avg/max/mdev = 257.324/257.431/257.594/0.093 ms, pipe 2
+State Recv-Q Send-Q Local Address:Port Peer Address:PortProcess

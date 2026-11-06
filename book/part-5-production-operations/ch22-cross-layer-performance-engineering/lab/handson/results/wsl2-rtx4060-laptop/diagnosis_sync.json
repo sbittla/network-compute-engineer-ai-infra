@@ -1,0 +1,1 @@
+{"verdict": "host_sync", "slowdown": 2.186343328159408, "why": ["step 93.4 ms vs healthy 42.7 ms (2.19x)", "data-wait share 0 % (healthy 0 %)", "synchronize calls per step: 5.333333333333333 (healthy 0.3333333333333333)"]}

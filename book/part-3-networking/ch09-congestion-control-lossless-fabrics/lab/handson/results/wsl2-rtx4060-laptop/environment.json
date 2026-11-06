@@ -1,0 +1,21 @@
+{
+  "captured_at": "2026-11-06T00:24:48+00:00",
+  "kernel": "6.18.54.1-rxe+",
+  "os": "Ubuntu 24.04.1 LTS",
+  "wsl": true,
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "cpus": 24,
+  "mem_gib": 7.8,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 592.82",
+  "python": "3.12.3",
+  "tools": {
+    "uname -r": "6.18.54.1-rxe+",
+    "iperf3 --version | head -1": "iperf 3.16 (cJSON 1.7.15)",
+    "ip -V": "ip utility, iproute2-6.1.0, libbpf 1.3.0",
+    "tc -V": "tc utility, iproute2-6.1.0, libbpf 1.3.0",
+    "ethtool --version": "ethtool version 6.7",
+    "cat /proc/sys/net/ipv4/tcp_available_congestion_control": "reno cubic dctcp",
+    "grep -E '^(sch_tbf|sch_red|sch_netem|bridge|tcp_dctcp) ' /proc/modules | cut -d' ' -f1 | tr '\\n' ' '": "tcp_dctcp sch_netem sch_red sch_tbf bridge",
+    "zcat /proc/config.gz 2>/dev/null | grep -E '^CONFIG_(NET_SCH_TBF|NET_SCH_RED|NET_SCH_NETEM|BRIDGE|TCP_CONG_DCTCP)=' | tr '\\n' ' '": "CONFIG_TCP_CONG_DCTCP=m CONFIG_BRIDGE=m CONFIG_NET_SCH_RED=m CONFIG_NET_SCH_TBF=m CONFIG_NET_SCH_NETEM=m"
+  }
+}

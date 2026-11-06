@@ -54,7 +54,7 @@ sys.path.insert(0, here)
 os.sched_setaffinity(0, {sorted(os.sched_getaffinity(0))[0]})
 import numpy as np
 from trainer import decode
-raw = random.Random(1).randbytes(4096 * 1024)
+raw = random.Random(1).randbytes(65536)   # the data server's reply size
 def t(rounds):
     xs = []
     for _ in range(7):

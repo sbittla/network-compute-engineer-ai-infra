@@ -1,0 +1,10 @@
+{
+  "gpu_only_step_ms": 42.75729220000054,
+  "decode_base_ms": 1.8173639999758961,
+  "decode_ms_per_round": 9.376849375001939,
+  "decode_rounds": 9,
+  "decode_ms_expected": 86.20900837499335,
+  "netem_delay_ms": 257,
+  "workers": 4,
+  "rule": "decode ~ 2 x GPU step on one CPU (4 workers keep up with 2x headroom); netem delay ~ 6 x GPU step"
+}
