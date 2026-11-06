@@ -50,7 +50,6 @@ Role-readiness matrix, portfolio narrative, and technical presentation.
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting case, design challenge, outline-mandated exercises (M1–M3), reflection |
 | [exercises/](exercises/README.md) | One folder per exercise (20): verbatim prompt, what to submit, empty `outputs/` for your deliverables |
 | [lab/README.md](lab/README.md) | Lab guide: role-readiness scorer and job-posting register validator |

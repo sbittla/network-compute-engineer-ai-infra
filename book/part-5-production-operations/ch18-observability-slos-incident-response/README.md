@@ -52,7 +52,6 @@ SLO specification, dashboard mock-up, and blameless postmortem (Exercises M1–M
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting, design, reflection, outline-mandated M1–M3 |
 | [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide: telemetry-bundle forensics |

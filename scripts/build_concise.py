@@ -215,7 +215,7 @@ operating notes.
 
 **What is in this book, and what is in the companion repository.** This book is complete as a text: you
 can read it without anything else. The practice material is not printed here. It is in the free companion
-repository named on the copyright page, which holds the full-length text of every chapter, a lab for every
+repository named on the copyright page, which holds a lab for every
 chapter, 484 exercises with expected outputs, worked solutions and marking schemes, single-machine hands-on
 labs, and eight capstone projects. "Using the Practice Material" explains how to find and use them. You need
 a laptop for the labs; the optional extensions need one GPU host (L2) or a multi-node RDMA lab fabric (L3).
@@ -549,6 +549,111 @@ def reference_docx(path: Path, pandoc: str) -> Path:
     return path
 
 
+def finish_docx(docx: Path) -> dict:
+    """Make the DOCX match the PDF's structure. Pandoc leaves the table of contents as an empty field (Word
+    fills it only after a manual field update, and Kindle conversion never does), adds no page breaks and no
+    page numbers. This fills the TOC with hyperlinked entries for every level-1 and level-2 heading (the field
+    stays marked dirty, so Word offers to recompute it with page numbers), starts every top-level heading on
+    a new page, gives the title page, copyright page and contents their own pages, and adds a page-number
+    footer (none on the title page)."""
+    import html
+    import zipfile
+    W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
+    with zipfile.ZipFile(docx) as z:
+        files = {n: z.read(n) for n in z.namelist()}
+    doc = files["word/document.xml"].decode("utf-8")
+
+    # 1. TOC entries from the headings that follow the TOC (bookmarks are pandoc's own)
+    toc_end = doc.index("</w:sdt>")
+    entries = []
+    for m in re.finditer(r'<w:p><w:pPr><w:pStyle w:val="Heading([12])" />.*?</w:p>', doc[toc_end:], re.S):
+        p = m.group(0)
+        bm = re.search(r'<w:bookmarkStart w:id="\d+" w:name="([^"]+)"', p)
+        text = html.unescape("".join(re.findall(r"<w:t[^>]*>([^<]*)</w:t>", p))).strip()
+        if bm and text:
+            entries.append((int(m.group(1)), text, bm.group(1)))
+    tab = '<w:tabs><w:tab w:val="right" w:leader="dot" w:pos="7900" /></w:tabs>'
+
+    def entry(level: int, text: str, anchor: str, head: str = "", tail: str = "") -> str:
+        return (f'<w:p><w:pPr><w:pStyle w:val="TOC{level}" />{tab}</w:pPr>{head}'
+                f'<w:hyperlink w:anchor="{anchor}" w:history="1"><w:r><w:t xml:space="preserve">'
+                f'{html.escape(text, quote=False)}</w:t></w:r></w:hyperlink>{tail}</w:p>')
+    field = re.search(r'<w:p><w:r><w:fldChar w:fldCharType="begin" w:dirty="true" />'
+                      r'(<w:instrText[^>]*>TOC .*?</w:instrText>)<w:fldChar w:fldCharType="separate" />'
+                      r'<w:fldChar w:fldCharType="end" /></w:r></w:p>', doc, re.S)
+    if field and entries:
+        begin = (f'<w:r><w:fldChar w:fldCharType="begin" w:dirty="true" /></w:r><w:r>{field.group(1)}</w:r>'
+                 '<w:r><w:fldChar w:fldCharType="separate" /></w:r>')
+        end = '<w:r><w:fldChar w:fldCharType="end" /></w:r>'
+        body = [entry(lv, t, a, begin if i == 0 else "", end if i == len(entries) - 1 else "")
+                for i, (lv, t, a) in enumerate(entries)]
+        doc = doc[:field.start()] + "".join(body) + doc[field.end():]
+    doc = doc.replace('<w:t xml:space="preserve">Table of Contents</w:t>', '<w:t xml:space="preserve">Contents</w:t>', 1)
+
+    # 2. the copyright page starts on its own page, low on the page as in the PDF
+    doc = doc.replace('<w:p><w:pPr><w:pStyle w:val="Abstract" />',
+                      '<w:p><w:pPr><w:pStyle w:val="Abstract" /><w:pageBreakBefore /><w:spacing w:before="5400" />', 1)
+
+    # the title sits low on page 1, as in the PDF (paragraph-level: Subtitle, Author and Date inherit Title)
+    doc = re.sub(r'(<w:pPr>\s*<w:pStyle w:val="Title" />)', r'\1<w:spacing w:before="3600" />', doc, count=1)
+
+    # 3. page-number footer, none on the title page
+    rid = "rIdFooterPage"
+    doc = re.sub(r"</w:sectPr>\s*</w:body>",
+                 f'<w:footerReference w:type="default" r:id="{rid}" /><w:titlePg /></w:sectPr></w:body>', doc, count=1)
+    if 'xmlns:r=' not in doc[:2000]:
+        doc = doc.replace("<w:document ", '<w:document xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" ', 1)
+    files["word/document.xml"] = doc.encode("utf-8")
+    files["word/footer1.xml"] = (
+        f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:ftr {W}><w:p><w:pPr><w:jc w:val="center" />'
+        '</w:pPr><w:r><w:rPr><w:sz w:val="17" /></w:rPr><w:fldChar w:fldCharType="begin" /></w:r><w:r>'
+        '<w:rPr><w:sz w:val="17" /></w:rPr><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r>'
+        '<w:rPr><w:sz w:val="17" /></w:rPr><w:fldChar w:fldCharType="separate" /></w:r><w:r><w:rPr>'
+        '<w:sz w:val="17" /></w:rPr><w:t>1</w:t></w:r><w:r><w:rPr><w:sz w:val="17" /></w:rPr>'
+        '<w:fldChar w:fldCharType="end" /></w:r></w:p></w:ftr>').encode("utf-8")
+    rels = files["word/_rels/document.xml.rels"].decode("utf-8")
+    rels = rels.replace("</Relationships>", f'<Relationship Id="{rid}" Type="http://schemas.openxmlformats.org/'
+                        'officeDocument/2006/relationships/footer" Target="footer1.xml" /></Relationships>')
+    files["word/_rels/document.xml.rels"] = rels.encode("utf-8")
+    ct = files["[Content_Types].xml"].decode("utf-8")
+    ct = ct.replace("</Types>", '<Override PartName="/word/footer1.xml" ContentType="application/'
+                    'vnd.openxmlformats-officedocument.wordprocessingml.footer+xml" /></Types>')
+    files["[Content_Types].xml"] = ct.encode("utf-8")
+
+    # 4. styles: page breaks like the PDF (h1 and the contents start a page; title placed low), TOC levels
+    st = files["word/styles.xml"].decode("utf-8")
+
+    def ppr(style_id: str, add: str) -> None:
+        nonlocal st
+        m = re.search(rf'<w:style [^>]*w:styleId="{style_id}".*?</w:style>', st, re.S)
+        if not m:
+            return
+        block = m.group(0)
+        # OOXML requires schema order inside w:pPr: keepNext, keepLines, pageBreakBefore, ... spacing, ind
+        new = (re.sub(r"(<w:pPr>\s*(?:<w:keepNext\s*/>\s*)?(?:<w:keepLines\s*/>\s*)?)", lambda m: m.group(1) + add, block, count=1)
+               if "<w:pPr>" in block
+               else re.sub(r"(<w:name [^>]*/>(?:<w:basedOn [^>]*/>)?(?:<w:next [^>]*/>)?(?:<w:uiPriority [^>]*/>)?"
+                           r"(?:<w:qFormat ?/>)?)", rf"\1<w:pPr>{add}</w:pPr>", block, count=1))
+        st = st.replace(block, new)
+    ppr("Heading1", "<w:pageBreakBefore />")
+    ppr("TOCHeading", "<w:pageBreakBefore />")
+    for lv, extra in ((1, '<w:spacing w:before="120" w:after="0" /><w:ind w:left="0" />'),
+                      (2, '<w:spacing w:before="0" w:after="0" /><w:ind w:left="360" />')):
+        if f'w:styleId="TOC{lv}"' not in st:
+            bold = "<w:b />" if lv == 1 else ""
+            st = st.replace("</w:styles>", f'<w:style w:type="paragraph" w:styleId="TOC{lv}"><w:name w:val="toc {lv}" />'
+                            f'<w:basedOn w:val="Normal" /><w:next w:val="Normal" /><w:uiPriority w:val="39" />'
+                            f'<w:pPr>{extra}</w:pPr><w:rPr>{bold}<w:sz w:val="19" /></w:rPr></w:style></w:styles>')
+    files["word/styles.xml"] = st.encode("utf-8")
+
+    tmp = docx.with_suffix(".tmp.docx")
+    with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as z:
+        for name, data in files.items():
+            z.writestr(name, data)
+    tmp.replace(docx)
+    return {"toc_entries": len(entries), "level1": sum(1 for e in entries if e[0] == 1)}
+
+
 def build(md: str, meta: dict) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     browser = find_browser()
@@ -568,6 +673,9 @@ def build(md: str, meta: dict) -> None:
     docx = OUT / f"{base}.docx"
     ref = reference_docx(OUT / "reference.docx", pandoc)
     subprocess.run(common + ["--reference-doc", str(ref), "-o", str(docx)], check=True)
+    info = finish_docx(docx)
+    print(f"docx: table of contents filled with {info['toc_entries']} entries ({info['level1']} top-level); "
+          "page breaks and page-number footer added")
 
     css = OUT / "print.css"
     css.write_text(CSS, encoding="utf-8")

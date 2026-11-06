@@ -54,7 +54,6 @@ lab's `topology_report.md` (Exercises 5.10, 5.14).
 
 | Path | Content |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text (Sections 5.1–5.12, trade-offs, runbook, summary) |
 | [exercises.md](exercises.md) | Exercises 5.1–5.21 including outline-mandated 5.11–5.15 |
 | [exercises/](exercises/) | One learner folder per exercise (5.1–5.21): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 5 guide |

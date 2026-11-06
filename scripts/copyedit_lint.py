@@ -432,7 +432,15 @@ def check_links(path: Path, lines: list[Line]) -> list[dict]:
 # --------------------------------------------------------------------------------------------
 # Cross-references
 # --------------------------------------------------------------------------------------------
+INDEX_FILE = ROOT / "docs" / "book_index.json"
+
+
 class BookIndex:
+    """Section, table and figure numbers per chapter. Built from the chapter folders; for a chapter whose
+    manuscript.md is not present (the chapter text is not tracked in git, so CI and fresh clones lack it),
+    the numbers come from docs/book_index.json, which holds identifiers only (e.g. "9.4"), no text.
+    Refresh it with --write-index on a machine that has the manuscripts."""
+
     def __init__(self) -> None:
         self.chapters: dict[int, Path] = {}
         self.sections: dict[int, set[str]] = collections.defaultdict(set)
@@ -458,6 +466,20 @@ class BookIndex:
                         c = re.match(r"^\s*\*\s*" + kind + r"\s+(\d+)\.(\d+[a-z]?)\s*[—:.–-]", ln.raw)
                         if c:
                             store[int(c.group(1))].add(f"{c.group(1)}.{c.group(2)}")
+        self.have_text = {n for n, d in self.chapters.items() if (d / "manuscript.md").is_file()}
+        self.saved = json.loads(INDEX_FILE.read_text(encoding="utf-8")) if INDEX_FILE.is_file() else {}
+        for key, store in (("sections", self.sections), ("tables", self.tables), ("figures", self.figures)):
+            for n in self.chapters:
+                if n not in self.have_text:
+                    store[n] |= set(self.saved.get(str(n), {}).get(key, []))
+
+    def as_json(self) -> dict:
+        return {str(n): {"sections": sorted(self.sections[n]), "tables": sorted(self.tables[n]),
+                         "figures": sorted(self.figures[n])} for n in sorted(self.chapters)}
+
+    def stale(self) -> bool:
+        """True when every manuscript is present and docs/book_index.json no longer matches it."""
+        return len(self.have_text) == len(self.chapters) and self.as_json() != self.saved
 
 
 SEC_REF = re.compile(r"\b(?:Sections?|§§?)\s*(\d+\.\d+(?:\.\d+)*(?:\s*(?:[–-]|,|and|or|&)\s*(?:\d+\.\d+(?:\.\d+)*))*)")
@@ -534,7 +556,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--summary", action="store_true", help="print counts only")
     ap.add_argument("--format", choices=("text", "json"), default="text")
     ap.add_argument("--list-rules", action="store_true")
+    ap.add_argument("--write-index", action="store_true",
+                    help="write docs/book_index.json from the manuscripts (needs every chapter's manuscript.md)")
     args = ap.parse_args(argv)
+    if args.write_index:
+        idx = BookIndex()
+        if len(idx.have_text) != len(idx.chapters):
+            print("--write-index needs every chapter's manuscript.md", file=sys.stderr)
+            return 2
+        with INDEX_FILE.open("w", encoding="utf-8", newline="\n") as fh:
+            fh.write(json.dumps(idx.as_json(), indent=1, ensure_ascii=False) + "\n")
+        print(f"wrote {INDEX_FILE.relative_to(ROOT)} ({len(idx.chapters)} chapters)")
+        return 0
 
     if args.list_rules:
         for r in RULES:
@@ -551,6 +584,10 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     idx = BookIndex()
     findings: list[dict] = []
+    if idx.stale():
+        findings.append(dict(file="docs/book_index.json", line=1, col=1, cat="XREF", rule="stale-index", found="",
+                             replacement=None, note="section/table/figure index differs from the manuscripts: "
+                                                    "run python scripts/copyedit_lint.py --write-index"))
     for f in files:
         lines = mask_file(f.read_text(encoding="utf-8"))
         findings += apply_rules(f, lines, RULES)

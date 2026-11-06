@@ -58,7 +58,6 @@ integration map) a checkpoint benchmark, RPO/RTO analysis, and a restore test �
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text (Sections 14.1–14.14, trade-offs, runbook, realism boundaries) |
 | [exercises.md](exercises.md) | Exercises 14.1–14.20 (all outline-mandated exercises marked) |
 | [exercises/](exercises/README.md) | One folder per exercise (prompt, what to submit, `outputs/`) and the index |
 | [lab/README.md](lab/README.md) | Progressive Lab 6 guide, rubric, L2/L3 extensions |

@@ -59,7 +59,6 @@ design note (lab Task 6) and exercise 7.O2.
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text (Sections 7.1–7.12, trade-offs, runbook, further reading) |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting case, design challenge, reflection, outline-mandated exercises |
 | [lab/README.md](lab/README.md) | Lab guide: tasks, conventions, rubric, L2/L3 extensions |
 | `lab/manifest.yaml` | Environment manifest (tier, seed, extension recording fields) |

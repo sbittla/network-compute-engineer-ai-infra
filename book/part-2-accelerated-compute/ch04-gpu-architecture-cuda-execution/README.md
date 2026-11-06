@@ -54,7 +54,6 @@ your own job).
 
 | Path | Content |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text (Sections 4.1–4.14, trade-offs, runbook, summary) |
 | [exercises.md](exercises.md) | Exercises 4.1–4.19 including the outline-mandated 4.11–4.13 |
 | [exercises/](exercises/) | One learner folder per exercise (4.1–4.19): verbatim prompt, what to submit, empty `outputs/`; index in `exercises/README.md` |
 | [lab/README.md](lab/README.md) | Lab 4 guide: trace analysis of a training step |

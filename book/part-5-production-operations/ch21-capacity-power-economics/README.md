@@ -46,7 +46,6 @@ and operational guardrails (M4).
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercises including outline-mandated M1–M4 |
 | [exercises/](exercises/README.md) | One folder per exercise (20): verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide |

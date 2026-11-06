@@ -62,7 +62,6 @@ points.
 ```text
 ch03-linux-host-systems-diagnostics/
 ├── README.md                     this chapter card
-├── manuscript.md                 chapter text (§3.1–3.13, trade-offs, runbook, further reading)
 ├── exercises.md                  Exercises 3.1–3.17 + chapter deliverable
 ├── exercises/                    one learner folder per exercise (17): prompt, what to submit, outputs/
 ├── lab/

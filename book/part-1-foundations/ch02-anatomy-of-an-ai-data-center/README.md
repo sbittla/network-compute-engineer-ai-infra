@@ -58,7 +58,6 @@ interface diagram / MEP handoff checklist. See [exercises.md](exercises.md#chapt
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercises 2.1–2.11 with difficulty, tier, and evidence required |
 | [exercises/](exercises/README.md) | One learner folder per exercise (22; 2.1 and 2.11 split per question): verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: ORION capacity, BOM, power/cooling, and SPOF model |

@@ -62,7 +62,6 @@ model, phase-specific SLOs and a serving architecture. See exercise DEL in
 ```text
 ch15-llm-inference-serving/
 ├── README.md                     this chapter card
-├── manuscript.md                 chapter text
 ├── exercises.md                  knowledge checks, worked problems, lab, troubleshooting,
 │                                 design challenge, outline-mandated exercises, deliverable
 ├── exercises/                    one folder per exercise (prompt, what to submit, outputs/) + README.md index

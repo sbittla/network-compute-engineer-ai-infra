@@ -9,3 +9,11 @@ lab/out/
 ~$*.docx
 build/
 **/l2/results/*-quick/
+
+# Book text is kept locally, not in the repository (practice material only).
+book/part-*/ch*/manuscript.md
+concise/ch[0-9][0-9].md
+concise/front/
+concise/back/
+concise/further-reading.md
+concise/about-the-author.md

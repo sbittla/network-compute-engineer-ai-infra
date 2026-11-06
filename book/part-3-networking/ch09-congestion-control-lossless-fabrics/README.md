@@ -60,7 +60,6 @@ physical-layer checklist comes from Chapter 10.
 ```text
 ch09-congestion-control-lossless-fabrics/
 ├── README.md                    this chapter card
-├── manuscript.md                chapter text (Sections 9.1–9.12 + operations, summary, reading)
 ├── exercises.md                 K1–K8, W1–W2, H1, O1–O3 (outline), T1, D1, R1–R4
 ├── exercises/                   learner folders, one per exercise (20), with README.md index
 ├── lab/

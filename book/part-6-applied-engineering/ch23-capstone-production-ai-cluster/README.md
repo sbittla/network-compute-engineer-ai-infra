@@ -59,7 +59,6 @@ presentation, and a prioritized next-step backlog.
 
 | Path | Content |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text (≈ 10,000 words) |
 | [exercises.md](exercises.md) | Standard exercise set plus outline-mandated exercises |
 | [lab/README.md](lab/README.md) | Lab guide: design-review linter |
 | `lab/manifest.yaml` | Environment manifest |

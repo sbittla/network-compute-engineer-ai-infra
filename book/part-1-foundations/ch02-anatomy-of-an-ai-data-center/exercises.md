@@ -5,7 +5,7 @@
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/paper · L2 single GPU
 server · L3 multi-node or facility access. Every exercise states the **evidence required** for
 grading. Unless an exercise says otherwise, use the ORION values in `docs/REFERENCE_CLUSTER.md` and
-the assumptions of [manuscript.md](manuscript.md) Sections 2.2–2.10, and label every number you
+the assumptions of the chapter's Sections 2.2–2.10, and label every number you
 produce `[MODELED]`, `[MEASURED]`, or `[ILLUSTRATIVE]`.
 
 | # | Exercise | Type | Difficulty | Tier | Source |

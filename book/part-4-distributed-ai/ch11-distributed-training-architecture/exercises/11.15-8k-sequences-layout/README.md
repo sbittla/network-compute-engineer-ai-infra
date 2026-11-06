@@ -14,7 +14,7 @@ alternative on memory, communication, and risk.
 
 ## Before you start
 
-- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Chapter:** Chapter 11 of the book; every exercise prompt is also in [exercises.md](../../exercises.md).
 - **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) with W-TRAIN on ORION-256 and the assumptions in Table 11.4.
 - **The lab model:** `model_wtrain.yaml` is [lab/data/model_wtrain.yaml](../../lab/data/model_wtrain.yaml) (`seq_len`, `global_batch_seqs`). The step-time and memory output comes from `lab/starter/stepmodel.py`, so finish lab Tasks 1–4 first (Exercise 11.13). To keep the lab inputs intact, copy `lab/data/` to `outputs/data/`, edit the copy, add your candidate layout(s) to `outputs/data/candidates.csv`, and run `python ../../lab/starter/stepmodel.py --data outputs/data` from this folder.
 - **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare it with [outputs/expected/](outputs/expected/README.md): the reference script's output (`result.md`), the worked solution (`answer.md`) and the marking scheme (`marking.md`).

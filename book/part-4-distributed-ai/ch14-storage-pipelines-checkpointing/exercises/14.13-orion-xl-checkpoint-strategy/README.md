@@ -19,7 +19,7 @@ the planner table, a capacity calculation, and a one-page defended recommendatio
 
 ## Before you start
 
-- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Chapter:** Chapter 14 of the book; every exercise prompt is also in [exercises.md](../../exercises.md).
 - **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the W-TRAIN values.
 - **Planner inputs:** `orion_ckpt_inputs.yaml` is [lab/data/orion_ckpt_inputs.yaml](../../lab/data/orion_ckpt_inputs.yaml), the input file of lab Part A. Copy it to `outputs/` and edit the copy rather than the lab file; "your planner" is your `compare_strategies` from `lab/starter/storage_lab.py` (finish lab Part A first, Exercise 14.11), loaded with the edited YAML.
 - **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare it with [outputs/expected/](outputs/expected/README.md): the reference script's output (`result.md`), the worked solution (`answer.md`) and the marking scheme (`marking.md`).

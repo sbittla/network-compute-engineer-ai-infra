@@ -46,7 +46,6 @@ L1 (laptop, `[SIMULATED]` data). L2/L3 hardware extensions described in [lab/REA
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercise set including outline-mandated 10.M1–10.M4 |
 | [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: link-health analyzer, commissioning report, BOM/spares, cabling schedule |

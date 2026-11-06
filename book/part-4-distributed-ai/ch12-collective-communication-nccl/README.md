@@ -48,7 +48,6 @@ Collective benchmark report with scaling and bottleneck analysis (Exercises 12.1
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (12.10–12.12) |
 | [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide |

@@ -8,7 +8,7 @@ required** for grading. Answers and marking guidance: `solutions/exercises-key.m
 
 Unless an exercise says otherwise, use the ORION-256 backend from
 [docs/REFERENCE_CLUSTER.md](../../../docs/REFERENCE_CLUSTER.md) and the conventions in
-[manuscript.md](manuscript.md) Section 7.3 (Table 7.2). Exercises marked **[Outline]** are mandated by
+the chapter's Section 7.3 (Table 7.2). Exercises marked **[Outline]** are mandated by
 the course outline.
 
 Exercise IDs use a letter for the exercise type rather than a running number: K = knowledge check,

@@ -55,7 +55,6 @@ and 17-M3, with the lab placement report as appendix).
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting case, design challenge, mandated exercises, reflection, deliverable |
 | [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide (Progressive Lab 7, part 2) |

@@ -47,7 +47,6 @@ Parallelism design, timing model, and recovery plan — Exercises 11.10–11.12 
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (11.10–11.12) |
 | [exercises/](exercises/README.md) | One learner folder per exercise: verbatim prompt, what to submit, empty `outputs/` |
 | [lab/README.md](lab/README.md) | Lab guide: step-time/memory model and checkpoint calculator |

@@ -46,7 +46,6 @@ Annotated data-path diagram and cross-layer diagnosis (Exercises 13.9–13.10 + 
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises (13.9–13.11) |
 | [exercises/](exercises/README.md) | One folder per exercise (prompt, what to submit, `outputs/`) and the index |
 | [lab/README.md](lab/README.md) | Lab guide |

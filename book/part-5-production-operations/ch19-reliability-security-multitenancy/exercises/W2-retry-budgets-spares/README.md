@@ -18,7 +18,7 @@ Express each as a percentage of the 512-node partition.
 
 ## Before you start
 
-- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Chapter:** Chapter 19 of the book; every exercise prompt is also in [exercises.md](../../exercises.md).
 - **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); reliability uses node MTBF ≈ 1,536 node-hours, repair turnaround (MTTR) 5 days and restart overhead ≈ 15 min.
 - **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare it with [outputs/expected/](outputs/expected/README.md): the reference script's output (`result.md`), the worked solution (`answer.md`) and the marking scheme (`marking.md`).
 
@@ -32,5 +32,5 @@ Put every deliverable in [`outputs/`](outputs/). Expected files:
 the node MTBF of ≈ 1,536 node-hours from the same line for the failure rate. Both come from the reliability
 table in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md#reliability-assumptions-canonical-illustrative).
 The lab's four flaps for part (a), and the retry-budget formula, are in Section 19.4 ("NCCL timeout or hang")
-of the [manuscript](../../manuscript.md); the spare-pool worked example for part (c) is in Section 19.7
+of the chapter; the spare-pool worked example for part (c) is in Section 19.7
 ("Rank remapping and spares").

@@ -57,7 +57,6 @@ the runbook excerpt in the manuscript.
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises + deliverable |
 | [lab/README.md](lab/README.md) | Lab guide (Parts 1–3, rubric, L2/L3 extensions) |
 | `lab/manifest.yaml` | Environment manifest |

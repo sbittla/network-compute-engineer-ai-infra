@@ -47,7 +47,6 @@ hardware vendors. Prerequisites: Linux CLI, Python, IP networking, general syste
 │   └── part-6-applied-engineering/       Ch 23–24
 │       └── chNN-slug/
 │           ├── README.md       chapter card
-│           ├── manuscript.md   chapter text
 │           ├── exercises.md    standard exercise set
 │           ├── exercises/      one folder per exercise: prompt + outputs/ for your work
 │           ├── lab/            runnable lab (starter, data, generators, check.py)
@@ -114,3 +113,10 @@ validation.
 
 Code, scripts and lab data are released under the MIT License; the book text, figures and covers are
 all rights reserved. See [LICENSE](LICENSE).
+
+## Book text
+
+The chapter text itself (the full-length manuscripts and the published edition) is not in this
+repository. This repository holds the practice material the book points to: labs, exercises with expected
+outputs, solutions, capstones and the reference documents. Section and table numbers cited in the labs and
+exercises refer to the book.

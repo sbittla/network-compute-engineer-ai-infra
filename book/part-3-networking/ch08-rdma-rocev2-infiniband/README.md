@@ -63,7 +63,6 @@ Leads to [Chapter 9](../ch09-congestion-control-lossless-fabrics/) (PFC/ECN/DCQC
 ```text
 ch08-rdma-rocev2-infiniband/
 ├── README.md                     this chapter card
-├── manuscript.md                 chapter text (~10,000 words)
 ├── exercises.md                  20 exercises incl. 3 outline-mandated + deliverable
 ├── exercises/                    learner folders, one per exercise (20), with README.md index
 ├── lab/

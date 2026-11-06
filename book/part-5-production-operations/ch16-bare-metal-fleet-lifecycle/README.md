@@ -51,7 +51,6 @@ in [lab/README.md](lab/README.md).
 
 | Path | Content |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Knowledge checks, worked problems, lab, troubleshooting, design, outline-mandated exercises M1–M3, deliverable D1 |
 | [exercises/](exercises/) | One learner folder per exercise (prompt + empty `outputs/`); index in [exercises/README.md](exercises/README.md) |
 | [lab/README.md](lab/README.md) | Lab guide (tasks, rubric, L2/L3 extension) |

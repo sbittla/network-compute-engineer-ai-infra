@@ -51,7 +51,6 @@ from the 512-node incident (M4 / Lab 19).
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Exercises including outline-mandated M1–M4 |
 | [lab/README.md](lab/README.md) | Lab guide |
 | `lab/data/` | Incident dataset (`lab/tools/` generator: instructor copy only) |

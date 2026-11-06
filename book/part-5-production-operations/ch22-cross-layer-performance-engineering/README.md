@@ -57,7 +57,6 @@ each recommended fix (Exercise O3).
 
 | Path | Contents |
 |---|---|
-| [manuscript.md](manuscript.md) | Chapter text |
 | [exercises.md](exercises.md) | Standard exercise set + outline-mandated exercises O1–O3 |
 | [exercises/](exercises/) | One learner folder per exercise (20): verbatim prompt, what to submit, empty `outputs/`; index with kinds |
 | [lab/README.md](lab/README.md) | Lab guide: attribute a cross-layer W-TRAIN regression |
