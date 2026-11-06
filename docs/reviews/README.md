@@ -40,5 +40,5 @@ setting not stated in the capstones; TCO prices read as quotes).
 | F9 (Capstone H cites full-edition section numbers) | Fixed: the capstone now names the sections and gives both editions' numbers. |
 | F15, OS-12 (missing Appendix E rows) | Fixed by the sources review (Table E.13). |
 | OS-13 (ch17 "in order" vs Figure 17.1) | Fixed: the text points to the figure for the evaluation order. |
-| FEC-10 (ch24 job register stale after 2026-11-29) | **Author decision.** If the book is released after 2026-11-29, refresh the register (`book/.../ch24-*/lab/data/`) and the dated figures, or keep them and rely on their `[OBSERVED, 2026-10-30]` labels. |
+| FEC-10 (ch24 job register stale after 2026-11-29) | **Fixed 2026-11-06:** register refreshed (60 requisitions, 50 roles, 11 employers; `docs/verification/G7-ch24-2026-11.md`); both editions, lab, R4 solver and key updated. New stale-after date 2026-12-06. |
 | FEC-11 (KDP description wording) | Fixed: ORION stated as fictional; extension hardware stated correctly; checklist count corrected to 72. |

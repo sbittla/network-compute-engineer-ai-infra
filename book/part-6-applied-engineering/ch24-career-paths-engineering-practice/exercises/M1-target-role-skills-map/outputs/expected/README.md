@@ -11,4 +11,4 @@ These are the reference results for this exercise, so you can see what a finishe
 
 Numbers carry the evidence labels used in the book: `[MODELED]` and `[ILLUSTRATIVE]` values come from the stated assumptions and do not change from run to run; `[MEASURED]` values belong to the machine that produced them.
 
-Generated 2026-11-05 from commit `025bde5` with Python 3.13.14 by `scripts/make_expected_outputs.py`.
+Generated 2026-11-05 from commit `da47162` with Python 3.13.14 by `scripts/make_expected_outputs.py`.

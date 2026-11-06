@@ -1,60 +1,61 @@
 {
   "answer": {
-    "python_share_pct": 54.8,
+    "python_share_pct": 50.0,
     "skill_counts": {
       "kubernetes": {
-        "required": 12,
-        "required_or_preferred": 16
+        "required": 13,
+        "required_or_preferred": 22
       },
       "nccl": {
         "required": 3,
-        "required_or_preferred": 8
+        "required_or_preferred": 11
       },
       "python": {
-        "required": 23,
-        "required_or_preferred": 26
+        "required": 25,
+        "required_or_preferred": 31
       },
       "slurm": {
         "required": 5,
-        "required_or_preferred": 8
+        "required_or_preferred": 10
       }
     }
   },
-  "evidence_label": "OBSERVED, 2026-10-30",
+  "evidence_label": "OBSERVED, 2026-11-06",
   "id": "R4",
   "inputs": {
     "dates_checked": [
-      "2026-10-30"
+      "2026-11-06"
     ],
     "employer_groups": {
-      "frontier_lab": 11,
-      "neocloud": 25,
-      "vendor": 6
+      "frontier_lab": 12,
+      "neocloud": 31,
+      "vendor": 7
     },
     "employers": 11,
-    "register": "job_register_2026-10.csv",
-    "roles": 42
+    "register": "job_register_2026-11.csv",
+    "roles": 50
   },
   "steps": {
     "python_exact_tag": 9,
-    "python_inside_combined_tags": 14,
+    "python_inside_combined_tags": 16,
     "python_tags_in_required": {
       "ansible/salt/python": 1,
-      "bash or python": 1,
+      "bash or python": 2,
       "c++ or python": 1,
       "c/c++/python/go/rust": 1,
-      "go or python": 1,
+      "go or python": 2,
       "go/python/c": 1,
       "go/python/rust": 1,
       "python": 9,
       "python or ansible": 1,
       "python or bash": 1,
-      "python or go": 3,
+      "python or go": 2,
       "python/bash/ansible": 1,
-      "rust/go/python": 1
+      "rust/go/python": 1,
+      "scripting (bash, python, powershell)": 1
     }
   },
   "units": {
-    "counts": "roles (of 42)"
+    "counts": "roles (of 50)"
   }
 }

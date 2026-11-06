@@ -13,14 +13,18 @@ data_files:
   - data/learner_evidence.yaml
   - data/job_register.csv
   - data/register_meta.yaml
-reference_data:   # real, dated register (release gate G7); not read by check.py, not produced by the generator
-  as_of: "2026-10-30"
-  stale_after: "2026-11-29"
+reference_data:   # real, dated register (release gate G7); check.py only validates it; not produced by the generator
+  as_of: "2026-11-06"
+  stale_after: "2026-12-06"
   evidence_class: "OBSERVED public postings (dated snapshot, not a census)"
   files:
-    - data/job_register_2026-10_collected.csv   # 50 rows, one per requisition
-    - data/job_register_2026-10.csv             # 42 rows, one per role (dedupe rule ch24-role-v1)
-    - data/register_meta_2026-10.yaml           # sources, scope screen, dedupe/seniority/skills rules, counts
+    - data/job_register_2026-11_collected.csv   # 60 rows, one per requisition
+    - data/job_register_2026-11.csv             # 50 rows, one per role (dedupe rule ch24-role-v1)
+    - data/register_meta_2026-11.yaml           # sources, scope screen, dedupe/seniority/skills rules, counts
+  previous_snapshot:                            # 2026-10-30, kept for comparison (50 requisitions, 42 roles)
+    - data/job_register_2026-10_collected.csv
+    - data/job_register_2026-10.csv
+    - data/register_meta_2026-10.yaml
 evidence_class: MODELED   # scores are computed from stated rules; nothing is measured
 runtime_budget_seconds: 60
 extensions:

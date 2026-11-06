@@ -15,4 +15,4 @@ When your lab implementation is complete, `check.py` prints these lines (referen
 | `representative_selection` | PASS representative_selection      representative selection |
 | `validate_register` | PASS validate_register             51 unique / 40 complete / 31 active-fresh; 25 issues |
 | `skill_frequency` | PASS skill_frequency               top-5 required skills over active, fresh, complete postings |
-| `real_register_worked_example` | PASS real_register_worked_example  real 2026-10 register: collected file 50 50 50, role file 42 42 42, 0 issues |
+| `real_register_worked_example` | PASS real_register_worked_example  real 2026-11 register: collected file 60 60 60, role file 50 50 50, 0 issues |

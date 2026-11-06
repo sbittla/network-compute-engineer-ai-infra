@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R4 — what the real October 2026 register does and does not say about Python (Section 24.4, Table 24.9)."""
+"""R4 — what the real November 2026 register does and does not say about Python (Section 24.4, Table 24.9)."""
 from __future__ import annotations
 
 import argparse
@@ -10,7 +10,7 @@ from collections import Counter
 from pathlib import Path
 
 DATA = Path(__file__).resolve().parents[4] / "lab" / "data"
-REGISTER = DATA / "job_register_2026-10.csv"   # real, dated register [OBSERVED, 2026-10-30]
+REGISTER = DATA / "job_register_2026-11.csv"   # real, dated register [OBSERVED, 2026-11-06]
 PATTERNS = {"python": r"\bpython\b", "kubernetes": r"kubernetes|\bk8s\b", "slurm": r"\bslurm\b",
             "nccl": r"\bnccl\b"}
 
@@ -49,21 +49,21 @@ def main() -> None:
     employers = len({r["employer"] for r in rows})
     dates = sorted({r["date_checked"] for r in rows})
 
-    assert n == 42 and employers == 11
-    assert counts["python"]["required"] == 23                       # Table 24.9: 23 of 42
+    assert n == 50 and employers == 11
+    assert counts["python"]["required"] == 25                       # Table 24.9: 25 of 50
     assert exact_python == 9                                        # Table 24.9: exact-tag count 9
-    assert counts["kubernetes"]["required"] == 12 and counts["slurm"]["required"] == 5
-    assert counts["nccl"]["required"] == 3 and counts["nccl"]["required_or_preferred"] == 8
-    assert dates == ["2026-10-30"]
+    assert counts["kubernetes"]["required"] == 13 and counts["slurm"]["required"] == 5
+    assert counts["nccl"]["required"] == 3 and counts["nccl"]["required_or_preferred"] == 11
+    assert dates == ["2026-11-06"]
 
-    payload = {"id": "R4", "evidence_label": "OBSERVED, 2026-10-30",
+    payload = {"id": "R4", "evidence_label": "OBSERVED, 2026-11-06",
                "inputs": {"register": REGISTER.name, "roles": n, "employers": employers,
                           "employer_groups": dict(sorted(groups.items())), "dates_checked": dates},
                "steps": {"python_tags_in_required": dict(sorted(py_tags.items())),
                          "python_exact_tag": exact_python, "python_inside_combined_tags": combined},
                "answer": {"skill_counts": counts, "python_share_pct": round(100 * counts["python"]["required"] / n, 1)},
-               "units": {"counts": "roles (of 42)"}}
-    md = ["# R4 — Python in the real register `[OBSERVED, 2026-10-30]`", "",
+               "units": {"counts": "roles (of 50)"}}
+    md = ["# R4 — Python in the real register `[OBSERVED, 2026-11-06]`", "",
           f"- Roles: {n} at {employers} employers, all checked on {dates[0]}; groups {dict(sorted(groups.items()))}",
           f"- Python in required lists: {counts['python']['required']} of {n} "
           f"({100 * counts['python']['required'] / n:.1f} %); exact tag 'python' only {exact_python}; "

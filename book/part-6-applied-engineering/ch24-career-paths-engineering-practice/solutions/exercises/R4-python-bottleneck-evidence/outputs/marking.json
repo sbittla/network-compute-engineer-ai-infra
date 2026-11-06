@@ -6,7 +6,7 @@
   "lab_checks": [],
   "marking": [
     {
-      "criterion": "Reproduces what the register supports: 23 of 42 required lists, 9 as an exact tag, dated 2026-10-30",
+      "criterion": "Reproduces what the register supports: 25 of 50 required lists, 9 as an exact tag, dated 2026-11-06",
       "points": 1
     },
     {

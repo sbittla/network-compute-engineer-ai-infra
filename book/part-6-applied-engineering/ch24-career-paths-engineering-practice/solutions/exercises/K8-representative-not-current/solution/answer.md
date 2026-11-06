@@ -9,8 +9,8 @@ implied factual claim about current openings, the kind of claim Section 24.4 say
 deduplicated register. A reader could then target an employer believing a role exists, or cite the table
 as market evidence ("frontier labs are hiring AI network engineers") when it is not.
 
-**Why the distinction is checkable here.** The real register in `lab/data/job_register_2026-10.csv` is
-labelled `[OBSERVED, 2026-10-30]`, covers 11 employers with no hyperscaler, and is stale after 2026-11-29.
+**Why the distinction is checkable here.** The real register in `lab/data/job_register_2026-11.csv` is
+labelled `[OBSERVED, 2026-11-06]`, covers 11 employers with no hyperscaler, and is stale after 2026-12-06.
 Even that dated evidence supports only "these roles were open on that date", which is why the table keeps
 "representative" in its caption.
 

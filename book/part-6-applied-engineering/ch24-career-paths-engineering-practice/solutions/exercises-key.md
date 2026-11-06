@@ -303,9 +303,9 @@ first supports a measurement claim. *Marking anchor:* full credit classifies at 
 learner's own artifacts on each side of the line and names the manifest field that decides it; half
 credit for a correct definition with no example.
 **R4** A dated, deduplicated register over a defined window, and a longer window than one day (the
-October 2026 register is a one-day purposive sample with no hyperscaler); segmentation by role and level;
+November 2026 register is a one-day purposive sample with no hyperscaler); segmentation by role and level;
 the ratio of postings to qualified applicants (not observable from postings); interview-loop data. Frequency
-in postings is not scarcity. Python appears in 23 of 42 real required lists mainly as part of "Python or Go"
+in postings is not scarcity. Python appears in 25 of 50 real required lists mainly as part of "Python or Go"
 style tags, which signals a scripting floor, not a scarce skill. Full credit names at least one of these
 limits of the real register.
 

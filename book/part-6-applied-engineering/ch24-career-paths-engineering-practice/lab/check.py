@@ -269,9 +269,9 @@ def main() -> int:
     run("skill_frequency", c_skills)
 
     def c_real_register() -> str:
-        real_meta = m.load_yaml(DATA / "register_meta_2026-10.yaml")
+        real_meta = m.load_yaml(DATA / "register_meta_2026-11.yaml")
         got = []
-        for f, n in (("job_register_2026-10_collected.csv", 50), ("job_register_2026-10.csv", 42)):
+        for f, n in (("job_register_2026-11_collected.csv", 60), ("job_register_2026-11.csv", 50)):
             real = m.load_register(DATA / f)
             res = m.validate_register(real, real_meta)
             counts = (len(real), len(res["representatives"]), len(res["complete"]), len(res["active_fresh"]))
@@ -279,7 +279,7 @@ def main() -> int:
                    f"{f}: rows/unique/complete/active-fresh {counts}, issues {dict(res['issue_counts'])}; "
                    f"expected {n} each with no issues (lab README worked example)")
             got.append(f"{n} {n} {n}")
-        return f"real 2026-10 register: collected file {got[0]}, role file {got[1]}, 0 issues"
+        return f"real 2026-11 register: collected file {got[0]}, role file {got[1]}, 0 issues"
     run("real_register_worked_example", c_real_register)
 
     width = max(len(n) for _, n, _ in results)

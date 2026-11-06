@@ -49,3 +49,10 @@ needs a person or a decision outside this repository. Evidence paths are relativ
 
 The interior grew to 405 pages, so the covers were regenerated for 406 (even) pages: paperback spine
 0.914 in, hardcover spine 1.103 in (`build/cover/`). Stale 396- and 400-page cover files were removed.
+
+## Chapter 24 job register
+
+Refreshed on 2026-11-06 (67 postings read, 60 recorded, 50 roles at 11 employers; 47 of the 2026-10-30
+snapshot's 50 requisitions still open). Both editions, the lab check, exercise R4's solver and the answer key
+use the new files; the 2026-10 snapshot is kept for comparison. The register is stale after **2026-12-06**:
+if publication slips past that date, refresh it again with the method in `register_meta_2026-11.yaml`.

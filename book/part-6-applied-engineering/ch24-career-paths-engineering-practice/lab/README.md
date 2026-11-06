@@ -19,11 +19,13 @@ The register the checker uses (`data/job_register.csv`) is **synthetic**: every 
 is fictional, and URLs use the reserved `example.com` domain. Nothing in it is a statement about any real
 company's hiring.
 
-`data/` also holds a **real** register for comparison: `job_register_2026-10_collected.csv` (54 public
-postings read on 2026-10-30, 4 excluded by the scope screen, 50 recorded, one row per requisition), `job_register_2026-10.csv` (the same postings
-deduplicated to 42 roles) and `register_meta_2026-10.yaml` (sources, scope screen, dedupe rule, counts).
-`check.py` does not read these files. They are stale after 2026-11-29: re-check a posting before you
-cite it. Manuscript Section 24.4 (Table 24.9) summarizes what the real data changed.
+`data/` also holds a **real** register for comparison: `job_register_2026-11_collected.csv` (67 public
+postings read on 2026-11-06, 7 excluded by the scope screen, 60 recorded, one row per requisition), `job_register_2026-11.csv` (the same postings
+deduplicated to 50 roles) and `register_meta_2026-11.yaml` (sources, scope screen, dedupe rule, counts).
+The earlier `2026-10` snapshot (50 requisitions, 42 roles) is kept for comparison. `check.py` only checks
+that the 2026-11 files pass the validator (`real_register_worked_example`); no other check depends on
+them. They are stale after 2026-12-06: re-check a posting before you cite it. Manuscript Section 24.4
+(Table 24.9) summarizes what the real data changed.
 
 ## 2. Tier and realism boundary
 
@@ -122,7 +124,7 @@ One line per check (`PASS`/`FAIL`/`TODO`); exit code 0 only when every check pas
 ## 8. Extensions (L1+, L2, L3)
 
 **L1+ — your own dated register.** Collect 20–40 public postings for your target role over a fixed
-window. Use `data/register_meta_2026-10.yaml` and the two `job_register_2026-10*.csv` files as a worked
+window. Use `data/register_meta_2026-11.yaml` and the two `job_register_2026-11*.csv` files as a worked
 example of the metadata to keep. Record every field in `register_meta.yaml`'s `required_fields` *at the
 time you read the page*, and run the validator, e.g.:
 
@@ -130,14 +132,14 @@ time you read the page*, and run the validator, e.g.:
 from pathlib import Path
 import career_lab as m          # run from starter/ once Part B is implemented
 data = Path("../data")
-meta = m.load_yaml(data / "register_meta_2026-10.yaml")
-rows = m.load_register(data / "job_register_2026-10_collected.csv")
+meta = m.load_yaml(data / "register_meta_2026-11.yaml")
+rows = m.load_register(data / "job_register_2026-11_collected.csv")
 res = m.validate_register(rows, meta)
-print(len(rows), len(res["representatives"]), len(res["active_fresh"]))   # 50 50 50 on 2026-10-30
+print(len(rows), len(res["representatives"]), len(res["active_fresh"]))   # 60 60 60 on 2026-11-06
 ```
 
 The posting-level rule finds no duplicates in the real file. Compare its `role_key` column, which merges
-50 rows into 42 roles, and explain the difference.
+60 rows into 50 roles, and explain the difference.
 
 Record in your copy of `manifest.yaml`: collection window, sources, the dedupe rule version, rows
 collected, unique postings, active-and-fresh count. Respect each site's terms of

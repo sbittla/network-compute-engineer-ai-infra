@@ -56,7 +56,7 @@ Role-readiness matrix, portfolio narrative, and technical presentation.
 | [lab/README.md](lab/README.md) | Lab guide: role-readiness scorer and job-posting register validator |
 | `lab/manifest.yaml` | Environment manifest (L1, seed 24) |
 | `lab/data/` | Competency matrices, sample learner evidence, **synthetic** job register (fictional employers, `example.com` URLs) used by the checker |
-| `lab/data/job_register_2026-10*.csv`, `register_meta_2026-10.yaml` | **Real** dated register: 54 public postings read on 2026-10-30, 4 excluded by scope, 50 recorded, deduplicated to 42 roles (Section 24.4). Reference data, not used by `check.py`; stale after 2026-11-29 |
+| `lab/data/job_register_2026-11*.csv`, `register_meta_2026-11.yaml` | **Real** dated register: 67 public postings read on 2026-11-06, 7 excluded by scope, 60 recorded, deduplicated to 50 roles (Section 24.4); the earlier `2026-10` snapshot is kept for comparison. `check.py` only validates it; stale after 2026-12-06 |
 | `lab/tools/generate_data.py` | Deterministic data generator — instructor copy only, removed from the student release |
 | `lab/starter/career_lab.py` | Learner module with TODOs |
 | `lab/check.py` | Checker: `python check.py [--impl starter|solution]` |

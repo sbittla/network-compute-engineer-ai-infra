@@ -9,6 +9,6 @@ PASS duplicate_clusters            transitive merge; 61 rows -> 51 postings
 PASS representative_selection      representative selection
 PASS validate_register             51 unique / 40 complete / 31 active-fresh; 25 issues
 PASS skill_frequency               top-5 required skills over active, fresh, complete postings
-PASS real_register_worked_example  real 2026-10 register: collected file 50 50 50, role file 42 42 42, 0 issues
+PASS real_register_worked_example  real 2026-11 register: collected file 60 60 60, role file 50 50 50, 0 issues
 
 12/12 checks passed (solution); 0 skipped

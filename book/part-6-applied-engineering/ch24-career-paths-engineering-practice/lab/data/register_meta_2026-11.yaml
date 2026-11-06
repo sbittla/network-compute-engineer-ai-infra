@@ -1,0 +1,122 @@
+# Metadata for the REAL, dated job-posting register (release gate G7), November 2026 refresh. Not used by check.py.
+# The synthetic teaching register (job_register.csv + register_meta.yaml) and the 2026-10 files are unchanged.
+as_of: '2026-11-06'
+synthetic: false
+evidence_class: "OBSERVED public postings, accessed 2026-11-06 (a dated snapshot, not a census)"
+note: >
+  Real public job postings read on the employers' own applicant-tracking-system (ATS) listings on 2026-11-06.
+  Every row was listed as open on that date. Postings close and change: re-check every URL before citing
+  a row, and treat the whole file as stale after 2026-12-06 (as_of + stale_active_after_days).
+  Skill fields are short normalised tags paraphrasing the posting's own wording; read the posting itself
+  for exact text. Salaries were deliberately not recorded.
+  This refresh re-read every 2026-10 requisition that was still listed (47 of 50) and re-tagged it against the
+  posting's current text; 3 had closed. 13 new requisitions were added by the same title filter and purposive
+  selection. Field changes on carried-over rows are listed under refresh_changes.
+previous_snapshot: register_meta_2026-10.yaml
+files:
+  collected: job_register_2026-11_collected.csv   # one row per requisition that passed the scope screen (60)
+  register: job_register_2026-11.csv              # one row per unique role after the role-level dedupe (50)
+collection:
+  window_start: '2026-11-06'
+  window_end: '2026-11-06'
+  collected_by: "Chapter 24 author (G7 refresh, November 2026)"
+  sources_consulted:
+    - {source: greenhouse_api, endpoint: "https://boards-api.greenhouse.io/v1/boards/<board>/jobs?content=true", boards: [xai, nscaleoperationsukltd, graphcore, togetherai, coreweave, anthropic]}
+    - {source: ashby_api, endpoint: "https://api.ashbyhq.com/posting-api/job-board/<board>", boards: [lambda, crusoe, openai, baseten]}
+    - {source: workday_site, endpoint: "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite (wday/cxs search and job-detail JSON)", boards: [nvidia]}
+  boards_probed_without_usable_result: "Re-probed once each on 2026-11-06. Greenhouse slugs arista, cerebrassystems, groq, mistral, lambda, crusoe, vultr, fluidstack: HTTP 404 (no board at that slug). Ashby slugs nebius, fireworks-ai: HTTP 404 (no board). Microsoft careers search API (gcsservices.careers.microsoft.com): connection error (URLError), no response. No hyperscaler (AWS, Google, Meta, Microsoft, Oracle) is represented."
+  selection: >
+    Same method as 2026-10. Titles on each board were filtered for network, HPC, GPU, fabric, cluster, supercompute,
+    inference, reliability/SRE, performance and data-centre terms; recruiting, sales, management, research,
+    support-desk and construction-trade titles were dropped; the remaining titles were hand-picked to cover the
+    chapter's six role families plus data-centre facilities and inference platform. Every 2026-10 requisition still
+    listed was kept for re-reading. Selection is purposive, not random.
+  scope_screen: >
+    Keep a posting only if its own text places the role in AI/GPU/HPC data-centre infrastructure (cluster,
+    fabric, facility, serving platform). Excluded after reading: enterprise/corporate networking, and
+    WAN/metro/long-haul optical transport. 67 postings read in full (47 carried over, 3 previously excluded
+    and re-screened, 17 new), 7 excluded, 60 rows collected.
+  excluded:
+    - {employer: OpenAI, title: "Network Engineer", job_id: 9f78c41f-8d39-46c9-b9c3-c3b075905b24, reason: "enterprise/corporate networking", note: "also excluded 2026-10"}
+    - {employer: OpenAI, title: "Network Engineer", job_id: a80e213f-c592-4337-a410-e5bf94f4e40d, reason: "enterprise/corporate networking", note: "also excluded 2026-10"}
+    - {employer: Crusoe, title: "Senior Staff Optics Engineer, Network Qualification & Strategy", job_id: c0733130-91d2-4efc-be0a-0deb87530f16, reason: "WAN/long-haul optical transport", note: "also excluded 2026-10"}
+    - {employer: OpenAI, title: "Network Infrastructure Engineer, Global Network Infra (WAN)", job_id: 9f7371c4-e306-4a45-a400-aa2843fabd85, reason: "WAN/backbone transport"}
+    - {employer: Graphcore, title: "Senior Network Operations Engineer", job_id: "8930229002", reason: "enterprise/corporate networking (IT team: campus Wi-Fi, firewalls, SD-WAN)"}
+    - {employer: NVIDIA, title: "Network Site Reliability Engineer", job_id: JR2029104, reason: "enterprise/corporate networking (Enterprise Network Support and SRE team; campus and DC)"}
+    - {employer: NVIDIA, title: "Senior Network Engineer - DGX Cloud", job_id: JR2002387-2, reason: "enterprise/corporate networking (network for internal software-development workflows; Corp IT, peering, WAN)"}
+  closed_since_previous:
+    - {employer: OpenAI, title: "Data Center Infrastructure Architect", job_id: 65bc2ffe-a622-47cd-949c-2ca8b7ec6951}
+    - {employer: CoreWeave, title: "Senior Software Engineer, Network Development", job_id: "4721908006"}
+    - {employer: Anthropic, title: "Staff+ Infrastructure Engineer, Cluster Infrastructure", job_id: "5206978008"}
+  refresh_changes: >
+    Titles changed on 3 carried-over requisitions: SpaceXSI 5043570007 gained "Sr." (seniority unspecified -> senior);
+    Lambda a467c9e6 and ea88daf6 (both "Data Center Operations System Engineer (Plano, TX)" in 2026-10) became
+    "... Engineer II (Plano, TX)" and "... Engineer III (Plano, TX)", so they are now different roles (the title
+    names different levels). Skill tags were re-written to the current posting text on 12 carried-over rows:
+    SpaceXSI 5043570007 and 5266379007, Together AI 5026002007, 5266079007 and 5268939007, CoreWeave 4647603006
+    (Greenhouse updated_at after 2026-10-30: posting edited), and OpenAI bbad4315, Lambda efe606d6 and 614dc105,
+    Nscale 4904465101 and 4904489101, Graphcore 8562527002 (no edit date available or none after 2026-10-30:
+    the 2026-10 tags omitted items present in the text, corrected here). Locations and first_published were
+    unchanged on every carried-over row.
+dedupe_rules_version: "ch24-role-v1"
+dedupe_rules: >
+  Two rows are the same ROLE when they share role_key = casefold(employer) + "|" + normalised title, where the
+  title is casefolded, whitespace-collapsed, a trailing location qualifier is removed ("(Kansas City)",
+  "- Memphis", "(Amsterdam)", "(Columbus)"), and level punctuation is unified ("Staff+" = "Staff"). Location,
+  requisition ID and small wording differences in the body do not create a new role. Different seniority bands
+  in the title ("Staff / Senior Staff" vs "Senior/Junior", "II" vs "III") DO create a new role. The kept row is the
+  earliest collected row (all rows share date_checked, the chapter's tie rule); its location field is the union
+  of all merged locations and merged_job_ids lists the other requisitions. The lab's posting-level rule
+  (employer+job_id or canonical URL) is necessary but not sufficient here: it finds 0 duplicates among the 60
+  collected rows.
+seniority_rule: >
+  From the title only: Junior/Senior (also "Sr.")/Staff/Principal map to the level ("Senior Staff" -> staff,
+  "Senior Principal" -> principal). A title naming more than one level -> mixed. No level in the title ->
+  unspecified (years of experience in the body were not converted to a level; numeric grades such as "II" or
+  "III" are not mapped to a level).
+skills_rule: >
+  required_skills: the posting's required / minimum / basic qualifications or "what we need to see" list; where
+  the posting only has a "you might thrive if" list, that list. preferred_skills: nice-to-have / preferred /
+  bonus / "ways to stand out" / "differentiators" list. Empty preferred_skills means the posting had no separate
+  list.
+url_rule: >
+  url is the employer's ATS posting URL. CoreWeave publishes coreweave.com/careers/job?<id>&... whose identity
+  lives in the query string. A strip-all-queries rule would collapse those rows (50 -> 47 roles); the chapter's
+  normalize_url strips only tracking parameters and keeps the rest. For stability, url on CoreWeave rows is the
+  Greenhouse board URL (it redirects to the employer page) and employer_url keeps the employer's own link.
+employer_note: >
+  employer is recorded exactly as each board listed it on 2026-11-06. The xAI Greenhouse board (slug xai)
+  listed its employer as "SpaceXSI"; the manuscript's Table 24.7 uses the brand name xAI for the same employer.
+role_families: [ai_network, gpu_hpc, cluster_platform, performance, sre_ops, hw_vendor, dc_facilities, inference_platform]
+required_fields:
+- employer
+- title
+- job_id
+- location
+- seniority
+- url
+- date_checked
+- required_skills
+- status
+allowed_seniority:
+- junior
+- mid
+- senior
+- staff
+- principal
+- mixed
+- unspecified
+allowed_status:
+- active
+- archived
+stale_active_after_days: 30
+counts:
+  postings_read: 67
+  excluded_by_scope: 7
+  rows_collected: 60
+  unique_roles: 50
+  duplicate_rows_removed: 10
+  active_fresh_on_as_of: 50
+  carried_over_still_open: 47
+  closed_since_previous: 3
+  new_requisitions_collected: 13

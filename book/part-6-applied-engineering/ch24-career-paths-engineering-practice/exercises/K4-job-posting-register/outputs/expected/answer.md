@@ -17,7 +17,7 @@ checked; required skills; preferred skills; active/archived status (ten fields).
 
 **Evidence from the lab.** On the synthetic register these rules take 61 rows to 51 postings, 40 complete
 and 31 active and fresh, about half the starting rows `[ILLUSTRATIVE — synthetic data]`. On the real
-register a role-level key was also needed: 50 requisitions became 42 roles `[OBSERVED, 2026-10-30]`
+register a role-level key was also needed: 60 requisitions became 50 roles `[OBSERVED, 2026-11-06]`
 (Table 24.9).
 
 **Common mistakes.** Omitting `date checked` or `status`; merging required and preferred skills into one

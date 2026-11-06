@@ -8,7 +8,7 @@
     "gap_plan_priorities": "PASS gap_plan_priorities           ai_network/senior plan: observability(4), congestion(3), host_topology(2), physical_layer(2)",
     "normalize_url_and_key": "PASS normalize_url_and_key         URL canonicalisation and identity key",
     "readiness_scores": "PASS readiness_scores              7 role/seniority scores + gap-blocks-ready rule",
-    "real_register_worked_example": "PASS real_register_worked_example  real 2026-10 register: collected file 50 50 50, role file 42 42 42, 0 issues",
+    "real_register_worked_example": "PASS real_register_worked_example  real 2026-11 register: collected file 60 60 60, role file 50 50 50, 0 issues",
     "representative_selection": "PASS representative_selection      representative selection",
     "row_issues_rules": "PASS row_issues_rules              10 field-rule cases",
     "skill_frequency": "PASS skill_frequency               top-5 required skills over active, fresh, complete postings",
