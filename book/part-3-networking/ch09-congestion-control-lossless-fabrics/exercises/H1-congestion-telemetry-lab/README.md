@@ -13,6 +13,12 @@ discriminating evidence per episode), experiment plan, mitigation proposal.
 simulation table labelled `[SIMULATED]`; a "cannot conclude" list of at least four items.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the chapter's assumptions: light travels 5 ns/m in fiber, port MTU 9,216 B, t_resp = 1 µs.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Complete lab Tasks 1–8 in `lab/starter/congestion_lab.py` until the checker reports every check PASS (or SKIP), then hand-edit the generated report. Put every deliverable in `outputs/`:
@@ -28,4 +34,4 @@ cd ../../lab && python check.py | tee ../exercises/H1-congestion-telemetry-lab/o
 
 **Hardware run (course harness).** Hardware notes on the course harness: `python scripts/hw_labs.py run
 ch09` records that no RDMA NIC counters exist on that host. It runs your `counters_to_rates` on the
-host's real TCP/ECN counters around a loopback N:1 incast; see `lab/l2/results/`.
+host's real TCP/ECN counters around a loopback N:1 incast; see `lab/l2/results/`. Run it from the repository root. The harness builds and runs a Docker image, so Docker must be running.

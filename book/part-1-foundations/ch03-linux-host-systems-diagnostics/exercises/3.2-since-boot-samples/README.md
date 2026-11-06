@@ -10,10 +10,16 @@ Give one example where including them would hide a real problem.
 *Evidence required:* a definition of what the first sample measures, plus a numeric example.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/3.2-since-boot-samples/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
 
 - `outputs/answer.md`: your answer with the evidence the prompt requires
 
-Label every number (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`) and show formula, substitution and result with units. Quote raw snapshot lines where you rely on them.
+Answer in prose. Give any number you use with its unit and an evidence label (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`). Quote raw snapshot lines where you rely on them.

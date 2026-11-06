@@ -239,3 +239,24 @@ the invariants it passed. Rerun on your own hardware and compare like with like.
 
 The datasets contain planted traps and anomalies that teach diagnosis. They are documented for
 instructors in `../solutions/exercises-key.md` (Lab section). Do not look there before finishing.
+
+## Troubleshooting
+
+- **`FAIL import orion_sched.py: SyntaxError: ...` and nothing else** → the checker could not load your
+  file, so it stops (exit 2). Fix the error it names; `python starter/orion_sched.py` shows the full
+  traceback.
+- **`TODO` lines** → that function still raises `NotImplementedError`. Expected until you implement it;
+  the tasks build on each other, so work from T1 down.
+- **`SKIP  D0 dataset reproducible`** → expected in the learner release, which ships without the data
+  generator. It counts toward the 10/10.
+- **`T5 schedule exact match` fails while `T5 schedule invariants` passes** → your placements are legal but
+  differ from the specification in Section 5 above, usually in attempt order or GPU choice. The FAIL line names the jobs
+  that differ; print your whole schedule with `python starter/orion_sched.py` and compare it with the
+  spec. That command also runs `diagnose_pending`, so until Task 6 is done it ends with a
+  `NotImplementedError` after the `tenant_used` line; the schedule above it is still valid.
+- **Checks fail after you edited `data/`** → the expected answers are tied to the supplied files. Restore
+  them with `git checkout -- data/`, and for what-if replays copy the folder and pass it with
+  `python starter/orion_sched.py --data <copy>`.
+- **`python scripts/hw_labs.py` fails** → run it from the repository root with Docker running. If the GPU
+  run fails to start the container, the NVIDIA container runtime is missing; use `--device cpu`. A run
+  overwrites the committed bundles in `lab/l2/results/`; `git checkout -- lab/l2/results` restores them.

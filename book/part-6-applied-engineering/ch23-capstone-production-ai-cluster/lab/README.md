@@ -131,6 +131,29 @@ reports `SKIP` in the student release. The checker requires
 the *exact* set of planted findings on the Kestrel bundle and *zero* findings on the reference
 bundle: precision matters as much as recall, because a noisy linter is one teams switch off.
 
+## Troubleshooting
+
+- **`FAIL import  could not import starter implementation: ...`.** The error inside names the cause:
+  `ModuleNotFoundError: No module named 'yaml'` means `python -m pip install -r
+  ../../../../requirements.txt`; a `SyntaxError` means `python -m py_compile starter/design_lint.py`
+  will show the line. Use Python 3.10 or newer.
+- **`python starter/design_lint.py <bundle>` prints a `NotImplementedError` traceback.** The CLI calls
+  `run_lint` and `render_report`, so it works only once every TODO function is implemented. Use
+  `python check.py` until then.
+- **A `FAIL` line lists "unexpected" findings.** That is a false positive: the reference bundle must
+  give zero findings and Kestrel exactly the planted set. Read the `| hint:` text. The usual causes are
+  ignoring declared spares (GPU-001), comparing rail-leaf downlinks with 32 instead of the BOM node
+  count (PORT-004), flagging a no-redundancy domain that has a real mitigation (FD-001), not skipping
+  headings and labelled or ID-referenced lines (NUM-001), and rejecting `VENDOR-SPEC, YYYY-MM` (EVID-002).
+  "Missing" findings with a POWER-001 hint mean you sized racks with sustained instead of max power.
+- **Your own capstone bundle gets COMP-001 on every section.** The headings must be exactly
+  `## Problem statement` and so on. Numbered headings such as `## 1. Problem statement` do not match
+  (see "Mapping your capstone to a lint bundle" in §7).
+- **EVID-003 on a row that does cite a manifest.** The `manifest` cell must be the path inside the
+  bundle, `manifests/<file>.yaml`, and that file must exist in the bundle's own `manifests/` folder.
+- **`check_data_regenerates` FAILs** (instructor copy only). A file under `data/` was edited. Restore
+  it with `git checkout -- data/`.
+
 ## 7. Deliverable and grading rubric
 
 Submit `starter/design_lint.py`, `kestrel_lint.md`, and the triage memo (Task 8), plus the lint
@@ -147,6 +170,44 @@ report for **your own** capstone bundle.
 | 7 Gate and report | 10 |
 | 8 Triage memo (correct classification, minimal fixes, justified ordering) | 15 |
 | **Total** | **100** |
+
+### Mapping your capstone to a lint bundle
+
+No capstone starter kit writes the linter's YAML bundle for you: the capstones produce CSV and Markdown
+artifacts (registers, results tables, design documents), and only capstone A has a BOM and a topology.
+To lint your own capstone (here and in exercise M1), assemble a bundle directory, for example
+`exercises/M1-complete-capstone-track/outputs/bundle/`, and run your **completed**
+`starter/design_lint.py` on it (the unmodified starter raises `NotImplementedError`).
+
+**The linter has no waiver or "not applicable" mechanism.** Every rule runs on every bundle, and a
+missing file is a COMP-001 *blocker*, so the gate fails. All seven files must exist:
+
+| Bundle file | Rules that read it | Map from your capstone |
+|---|---|---|
+| `design.md` | COMP-001 (sections), NUM-001, XREF-001 | Your design document (A `design-pack.md`; B and D `design-doc.md`; E–H `design-document.md`; C `performance-report.md`). The headings must read exactly `## Problem statement`, `## Assumptions`, `## Architecture`, `## Failure domains`, `## Benchmark evidence`, `## Failure exercise`, `## Next-step backlog`. A numbered heading such as `## 1. Problem statement` does not match. Every line with a number and a unit needs an inline label (`[MODELED]`) or an ID reference (`A-03`, `B-02`, `FD-04`, `SLO-01`). |
+| `assumptions.yaml` | COMP-002, GPU-002, XREF-001 | The assumptions register (A–D `assumptions-register.csv`; E–H the assumptions section of `design-document.md`): `id`, assumption → `statement`, `value`, `unit`, `evidence_label` → `label`, `owner`, `how_to_validate` → `validation`. IDs must be `A-` plus two digits. The optional `workload` block (`total_gpus`, `parallelism` {tp, pp, dp}) is checked by GPU-002 only when `parallelism` is present. |
+| `benchmarks.md` | EVID-001..004, XREF-001 | Your results table, rewritten as one pipe table with columns `id \| metric \| value \| unit \| label \| tier \| manifest` and IDs `B-01`, `B-02`, … A `MEASURED` row must cite a file under the bundle's own `manifests/` folder (copy your filled `starter-kit/manifest.yaml` there); `SIMULATED` and `MODELED` rows need no manifest. |
+| `failure_domains.yaml` | COMP-002, FD-001, FD-002, XREF-001 | Your failure analysis (A `failure-analysis.md`, G `failure-classification.md`, H `failure-scenarios.md`, or the failure-analysis section of your design document). FD-002 requires a domain for each of the eight classes `gpu`, `node`, `nic`, `rail_leaf`, `spine`, `rack_power`, `storage` and `scheduler`, whatever your track. |
+| `slos.yaml` | COMP-002, SLO-001, XREF-001 | Your SLOs (D `slo-sli-spec.md`, H `phase-slos.md`; for other tracks, the acceptance targets in the brief written as SLOs). Each `target` must be a numeric threshold such as `'>= 0.99'`. |
+| `bom.yaml` | GPU-001, GPU-003, POWER-001, PORT-004, CABLE-001 | Capstone A: `templates/bom.csv` and the power budget. Other tracks: the cluster your track runs on (below). |
+| `topology.yaml` | PORT-001..004, CABLE-001 | Capstone A: `templates/topology-worksheet.md`. Other tracks: the cluster your track runs on (below). |
+
+**Tracks without a BOM or topology (B–H).** You do not design hardware in these tracks, but your
+results still run on a cluster. Describe that cluster in `bom.yaml` and `topology.yaml`. If it is
+ORION-256 unchanged, copy both files from `data/bundle_orion_reference/`, which lint clean, and say in
+`## Architecture` that they are inherited from the reference cluster. If your brief declares a different
+cluster (for example capstone E's 40-node variation or capstone G's ORION-XL), write its counts and keep
+the arithmetic consistent: rail-leaf downlinks equal `gpu_nodes.count`, and `cables.backend_400g` equals
+leaves × (downlinks + uplinks). Leave out `racks.gpu_racks` or `cables` only if your brief gives no
+values; GPU-003, POWER-001 and CABLE-001 then have nothing to check. Do not hand in empty `bom.yaml` or
+`topology.yaml` files. They also lint clean, because the arithmetic compares zeros with zeros, so a PASS
+on them proves nothing and a reviewer treats them as missing.
+
+**Waivers are written by you, not by the linter.** If a finding remains that you judge does not apply
+(for example FD-002 for a class your track's scope excludes), the generated report still says
+`Gate: FAIL`. Add a `## Waivers` table after the generated report in your lint report, with one row per
+remaining finding: rule, location, reason, and the artifact that covers the risk instead. M1 accepts
+either `Gate: PASS` or a FAIL whose every finding has a waiver row.
 
 ## 8. Extensions (L2/L3): replace modeled rows with measured ones
 

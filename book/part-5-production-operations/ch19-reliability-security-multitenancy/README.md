@@ -44,7 +44,7 @@ and **L3** (link-flap survival trials on a dedicated RDMA partition).
 
 ## Deliverable (course outline)
 
-Risk register, isolation model, and recovery test plan (M1–M3), plus the course-outline §20.1 evidence pack
+Risk register, isolation model, and recovery test plan (M1–M3), plus the evidence pack
 from the 512-node incident (M4 / Lab 19).
 
 ## File map

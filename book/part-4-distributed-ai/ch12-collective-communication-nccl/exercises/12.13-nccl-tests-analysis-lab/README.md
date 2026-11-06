@@ -12,6 +12,12 @@ PyTorch is installed and parse your own output.
 and (optional) your gloo log labelled `[MEASURED]` with the environment.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); the lab data is in [lab/data/](../../lab/data/).
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put your deliverables in `outputs/` in this folder:

@@ -35,6 +35,6 @@
   ],
   "points": 30,
   "tier": "L1",
-  "title": "Section 20.4 lab: topology, rank maps, all-reduce comparison",
+  "title": "Topology lab (Section 5.11): topology, rank maps, all-reduce comparison",
   "type": "outline-mandated"
 }

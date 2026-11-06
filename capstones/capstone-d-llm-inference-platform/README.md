@@ -10,6 +10,19 @@ engineer must defend: how much key-value (KV) cache a replica really has, why th
 throughput number can be the wrong choice, why mean time per output token (TPOT) can hide token stalls that ITL tails reveal,
 and why rejecting requests is not a way to meet a latency SLO.
 
+## Quick start
+
+From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-d-llm-inference-platform/starter-kit
+pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **0/11 checks pass (11 TODO, 0 FAIL)**. The TODO checks are the functions you
+implement in `starter/`; [starter-kit/README.md](starter-kit/README.md) lists the tasks and inputs.
+
 ## Audience and prerequisites
 
 **Audience (course outline, Section 16):** AI Platform Engineer, Inference Infrastructure Engineer.

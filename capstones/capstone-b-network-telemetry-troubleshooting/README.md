@@ -9,6 +9,19 @@ alert rules, runbook, injected-fault scenarios, a false-positive analysis and an
 On a real fabric, the difference between a monitoring system and a paging-noise generator is
 almost entirely in the parts this capstone grades.
 
+## Quick start
+
+From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-b-network-telemetry-troubleshooting/starter-kit
+pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **0/14 checks pass (14 TODO, 0 FAIL)**. The TODO checks are the functions you
+implement in `starter/`; [starter-kit/README.md](starter-kit/README.md) lists the tasks and the bundle.
+
 ## Audience and prerequisites
 
 **Audience (course outline, Section 16):** AI Network Engineer, Network Operations Engineer.

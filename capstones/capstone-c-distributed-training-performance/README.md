@@ -8,6 +8,19 @@ connect the numbers to profiler and NVIDIA Collective Communications Library (NC
 daily work of an AI performance engineer. The hard part is rarely the fix. It is proving which runs
 count, which differences are real, and why.
 
+## Quick start
+
+From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-c-distributed-training-performance/starter-kit
+pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **0/12 checks pass (12 TODO, 0 FAIL)**. The TODO checks are the functions you
+implement in `starter/`; [starter-kit/README.md](starter-kit/README.md) lists the tasks and the supplied data.
+
 ## Audience and prerequisites
 
 **Audience (course outline, Section 16):** GPU/HPC engineer, AI Performance Engineer.

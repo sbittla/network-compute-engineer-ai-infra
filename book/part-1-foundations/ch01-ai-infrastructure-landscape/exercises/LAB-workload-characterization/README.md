@@ -13,6 +13,12 @@ vs W02 and a short data-quality note listing every row you rejected or flagged a
 data-quality note (one line per rejected/flagged row with the root-cause hypothesis for the flaw).
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
@@ -25,7 +31,7 @@ Command to run (from this folder):
 
 ```bash
 cd ../../lab && python check.py | tee ../exercises/LAB-workload-characterization/outputs/check.txt
-cd ../../lab && python starter/workload_model.py --compare W01 W02 > ../exercises/LAB-workload-characterization/outputs/comparison.md
+python starter/workload_model.py --compare W01 W02 > ../exercises/LAB-workload-characterization/outputs/comparison.md
 ```
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.

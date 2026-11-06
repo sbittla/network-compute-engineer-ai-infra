@@ -12,8 +12,14 @@ routing. Defend which causes, if any, are allowed to page, and how you prevent 4
 inhibition strategy; estimated pages per shift with assumptions.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/D1-orion-xl-alerting/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
-Write your working in `outputs/answer.md`: formula → substitution → result with units for every
-part, with evidence labels. If you check it with a script, save it as `outputs/work.py` and run it
-from this folder with `python outputs/work.py`.
+Write your design in `outputs/answer.md`: the rule table with the columns the prompt names, then the
+grouping and inhibition strategy, then a short defence of which causes may page. For the pages-per-shift
+estimate, list each assumption and show the arithmetic; give every number you use an evidence label.

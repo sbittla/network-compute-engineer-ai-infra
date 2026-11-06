@@ -5,8 +5,8 @@
 ## Prompt
 
 <!-- prompt:start -->
-*(Outline-mandated: identify at least five single points of failure in a sample cluster design and
-propose mitigations.)*
+**Goal:** identify at least five single points of failure in a sample cluster design and propose
+mitigations.
 
 **VEGA** is a 64-GPU inference cluster (8 HX8 nodes) a contractor proposed for Halcyon. Design notes
 `[ILLUSTRATIVE]`:
@@ -30,6 +30,12 @@ because of *where* something is placed or plugged, not because of how many there
 diagram; answer to task 4.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/2.5-vega-spofs/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
@@ -37,4 +43,4 @@ Put every deliverable in [`outputs/`](outputs/):
 - `outputs/spofs.md`: SPOF table (component, impact, mitigation, fix/accept, reason) and the task 4 answer
 - `outputs/failure_domains.md`: failure-domain diagram (Mermaid or image)
 
-Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+Answer in prose. Give any number you use with its unit and an evidence label (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`).

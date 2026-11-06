@@ -14,6 +14,12 @@ controls; **and a tabletop run report** — walk the plan with the owning teams,
 the expected vs "discovered" behaviour, the gaps found, and the follow-up actions.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); reliability uses node MTBF ≈ 1,536 node-hours, repair turnaround (MTTR) 5 days and restart overhead ≈ 15 min.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/M3-recovery-containment-exercise/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/). Expected files:

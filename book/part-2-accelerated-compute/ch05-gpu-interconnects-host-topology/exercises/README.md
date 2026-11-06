@@ -20,7 +20,7 @@ the checker output is part of the evidence), `written` (reasoning, design or ref
 | [5.11](5.11-shortest-gpu-nic-pairings/) | Shortest GPU-NIC pairings | outline-mandated | ★ | L1 | computed |
 | [5.12](5.12-p2p-vs-host-staged/) | P2P versus host-staged transfer | outline-mandated | ★★ | L1 | computed |
 | [5.13](5.13-rank-placement-validation/) | Rank placement and its validation | outline-mandated | ★★ | L1 | written |
-| [5.14](5.14-section-20-4-lab/) | Section 20.4 lab: topology, rank maps, all-reduce comparison | outline-mandated | ★★★ | L1 | lab |
+| [5.14](5.14-section-20-4-lab/) | Topology lab (Section 5.11): topology, rank maps, all-reduce comparison | outline-mandated | ★★★ | L1 | lab |
 | [5.15](5.15-prove-gdr/) | Prove GPUDirect RDMA on a real host | outline-mandated | ★★ | L2 | written |
 | [5.16](5.16-rail-swap-after-rack-move/) | One node slow after a rack move | troubleshooting case | ★★★ | L1 | written |
 | [5.17](5.17-four-nic-node-variant/) | Four-NIC node variant | design challenge | ★★★ | L1 | computed |

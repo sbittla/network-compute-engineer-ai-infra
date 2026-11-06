@@ -12,6 +12,12 @@ discriminate it from the alternatives.
 *Evidence required:* per episode: label, root or source device, and the quoted discriminating values.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the chapter's assumptions: light travels 5 ns/m in fiber, port MTU 9,216 B, t_resp = 1 µs.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/O1-synthetic-time-series/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Quote rates computed by your own code (not raw cumulative counters), with units, for each episode. Put every deliverable in `outputs/`:

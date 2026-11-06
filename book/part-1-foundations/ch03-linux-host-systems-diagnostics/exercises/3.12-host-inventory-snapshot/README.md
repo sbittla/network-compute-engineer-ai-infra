@@ -18,6 +18,12 @@ Use `lscpu`, `numactl`, `free`, `vmstat`, `iostat`, `ip`, `ethtool`, `lspci` and
 and the gap comparison.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/3.12-host-inventory-snapshot/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
@@ -35,4 +41,4 @@ python ../../lab/starter/host_collector.py --out-dir outputs/l2_user --note "inv
 
 Label every number (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`) and show formula, substitution and result with units. Quote raw snapshot lines where you rely on them.
 
-**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch03 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on.
+**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch03 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on. The harness builds and runs a Docker image, so Docker must be running.

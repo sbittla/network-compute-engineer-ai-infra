@@ -32,6 +32,13 @@ tests with real commands or data sources, a mitigation that touches no shared fa
 configuration without change control, and a validation criterion with numbers.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) (W-INFER for serving questions).
+- **ORION's partition model (Chapter 17, not yet read):** by default the 32 nodes are split 24 training (`orion-n01`–`n24`, Slurm) + 8 inference (`orion-n25`–`n32`, Kubernetes); a full-size W-TRAIN run borrows the inference nodes only through a lifecycle transition, and there are no spare nodes. The Scheduling row of [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) states this; Chapter 17 develops it.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/T1-token-2-stall/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in `outputs/` in this folder:

@@ -1,11 +1,13 @@
 # Chapter 5 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: **L1** laptop/paper · **L2** single
 GPU host · **L3** multi-node GPU + RDMA. Use ORION values ([REFERENCE_CLUSTER.md](../../../docs/REFERENCE_CLUSTER.md))
 and Table 5.4 model parameters unless stated; label every number and show formula → substitution → result.
 
 **Chapter deliverable (course outline):** *topology map, locality recommendations, and validation
-checklist* — plus, from outline Section 20.4, *raw topology outputs, annotated topology diagram, mapping
+checklist* — plus, for the topology lab (Exercise 5.14), *raw topology outputs, annotated topology diagram, mapping
 CSV, benchmark methodology, measured results (if hardware is available), and explanation of
 limitations*. Exercises 5.10 (lab) and 5.13–5.14 produce them.
 
@@ -77,7 +79,7 @@ nodes with TP = 8 inside each node and DP = 2 across nodes, propose the rank→G
 placement on hardware. *Evidence required:* mapping table, launcher settings, a validation checklist with
 pass criteria and the commands/log lines used.
 
-**5.14** ★★★ L1 / L3 — *Section 20.4 lab.* Produce an annotated topology diagram of one HX8 host, the GPU-to-HCA
+**5.14** ★★★ L1 / L3 — *Topology lab (Section 5.11).* Produce an annotated topology diagram of one HX8 host, the GPU-to-HCA
 mapping CSV, aligned and intentionally misaligned rank/rail maps, and a comparison of NCCL all-reduce
 results — measured with nccl-tests if you have L3 hardware (lab README §8), otherwise from the labelled
 model — with benchmark methodology and limitations. *Evidence required:* raw outputs, diagram, CSV, two

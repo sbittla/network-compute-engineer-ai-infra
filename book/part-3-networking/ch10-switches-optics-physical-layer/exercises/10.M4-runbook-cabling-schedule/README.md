@@ -16,6 +16,12 @@ sparing policy with numbers.
 which thresholds are `[ILLUSTRATIVE]` policy and which come from a specification.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Values are `[ILLUSTRATIVE]` unless labelled otherwise.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put your deliverables in `outputs/` in this folder:
@@ -26,7 +32,16 @@ Put your deliverables in `outputs/` in this folder:
 
 Mark every threshold as `[ILLUSTRATIVE]` policy or as a specification value with its source.
 
-Run from the chapter folder:
+`linkhealth.py` has no command line, so export the schedule with this one-liner (run from the chapter's
+`lab/` folder, after Tasks 6 and 7 pass). It writes your function's rows plus an empty `length_m`
+column for you to fill from `rack_layout.md`:
+
+```bash
+cd lab
+python -c "import sys, pandas as pd; sys.path.insert(0, 'starter'); import linkhealth as lh; spec = lh.load_yaml('data/fabrics.yaml')['fabrics']['small']; pd.DataFrame(lh.generate_cabling_schedule(spec)).assign(length_m='').to_csv('../exercises/10.M4-runbook-cabling-schedule/outputs/cabling_schedule.csv', index=False)"
+```
+
+Then check your work, also from `lab/`:
 
 ```bash
 cd lab

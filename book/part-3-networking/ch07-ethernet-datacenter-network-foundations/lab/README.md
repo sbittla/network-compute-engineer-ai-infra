@@ -107,6 +107,22 @@ One line per check — `PASS`, `FAIL` (with a reason or hint), or `TODO` (functi
 generator is instructor copy only; do not edit `data/` by hand. Exit code 0 only when every non-skipped check passes. Runs from
 any directory.
 
+### Troubleshooting
+
+- **The checker stops with a Python traceback before printing any check.** `fabric_lab.py` does not
+  import (a syntax error, or a missing package): fix the line the traceback names; install
+  `../../../../requirements.txt` if an import is missing.
+- **Every check prints `TODO`.** Expected at the start: each Task function raises
+  `NotImplementedError` until you implement it.
+- **`SKIP T0 ... generator not shipped in student release`.** Normal in the student release; the
+  summary then reads `n/18 checks passed (starter, 1 skipped)` and exits 0 when the rest pass.
+- **A capacity check fails.** Test `fabric_capacity(link_matrix(8, 4, 8), 400)` first: the ORION baseline
+  must give 12,800 / 12,800 / 51,200 Gb/s; ECMP ingress uses the *narrowest* usable bundle, not the sum.
+- **`--impl solution` fails to load.** `../solutions/lab/` is instructor material and not in the student
+  release.
+- **`hw_labs.py` errors before the simulation starts.** The harness builds a Docker image: start Docker
+  and run it from the repository root.
+
 ## 7. Deliverable and grading rubric (100 points)
 
 | Component | Points | Full marks when |

@@ -9,6 +9,12 @@ your own capstone bundle.
 *Evidence required:* `check.py` output showing 14/14 PASS; the two reports; the triage memo.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in `outputs/` in this folder:

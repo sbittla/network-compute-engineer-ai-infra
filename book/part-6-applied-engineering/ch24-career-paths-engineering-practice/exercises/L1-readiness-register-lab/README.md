@@ -10,6 +10,12 @@ flag raised for the sample learner.
 explanation of the flags (rule, why it exists, what the learner should do).
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 The prompt's `lab/README.md` link is relative to `exercises.md`; from this folder the lab guide is [../../lab/README.md](../../lab/README.md).
 
 ## What to submit

@@ -12,9 +12,15 @@ S/O/D with justification, RPN and action priority, detection controls, mitigatio
 *Evidence required:* ≥ 12 rows covering all six domains; corrected scores; top-5 actions with owners.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); reliability uses node MTBF ≈ 1,536 node-hours, repair turnaround (MTTR) 5 days and restart overhead ≈ 15 min.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/). Expected files:
 
-- `outputs/risk_register.csv (or .md)`
+- `outputs/risk_register.csv` (or .md)
 - `outputs/top5_actions.md`

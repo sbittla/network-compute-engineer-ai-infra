@@ -16,6 +16,17 @@ imperfect game day; the advanced extension repeats the exercise in a dedicated n
 | **Tiers** | L1 required (laptop simulation); L2 optional (single-host fault drills); L3 advanced extension (dedicated multi-node lab) |
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus the capstone-specific criteria in [Section 10](#10-grading) |
 
+**Quick start.** From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-f-reliability-game-day/starter-kit
+python -m pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **2/11 checks passed (starter)**; the rest report TODO until you implement
+them in `starter/`. [starter-kit/README.md](starter-kit/README.md) explains the simulator and the tasks.
+
 Acronyms: MTTR (mean time to restore), MTTD (mean time to detect), RPO (recovery point objective —
 how much work can be lost), RTO (recovery time objective — how long recovery may take), NCCL (NVIDIA
 Collective Communications Library), SLO (service-level objective), SEV (incident severity), PFS

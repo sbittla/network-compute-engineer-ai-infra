@@ -1,5 +1,7 @@
 # Chapter 6 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: **L1** laptop/paper · **L2** single GPU
 host · **L3** multi-node. Use ORION ceilings (Table 6.1: 989 TFLOP/s dense BF16, 1,979 FP8, 67 FP32 SIMT,
 3.35 TB/s HBM) unless stated. Label every number and show formula → substitution → result.

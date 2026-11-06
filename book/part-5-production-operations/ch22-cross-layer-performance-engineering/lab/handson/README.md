@@ -223,6 +223,25 @@ waited for a CPU, the hog is visible in `ps`, the syncs were counted and flagged
 netem delay, each fetch waited at least that delay, and the healthy veth's RTT is under 5 ms. It does not
 compare your numbers with ours.
 
+## Troubleshooting
+
+- **`ERROR: this step needs root: run with sudo`.** `run.sh`, `netlab.sh` and `teardown.sh` create
+  network namespaces and qdiscs, so run them with `sudo bash ...`. Under `sudo`, `$HOME` can be
+  root's, and the shared venv would then be built a second time under `/root`. Point it at your copy
+  with `sudo HANDSON_VENV=$HOME/.venvs/ai-infra-handson bash run.sh my-run`.
+- **`tc netem is unavailable (CONFIG_NET_SCH_NETEM, module sch_netem)`.** Try `sudo modprobe sch_netem`.
+  A custom kernel without installed modules (such as the reference WSL2 kernel, see §8) cannot run the
+  network scenario until netem is built in or its modules are installed.
+- **Errors from `taskset`, or results that do not make sense on a small machine.** The default CPU
+  sets `8-11` and `12-15` need 16 logical CPUs. On a smaller machine set two disjoint sets of four, for
+  example `sudo CH22_CPUS_A=0-3 CH22_CPUS_B=4-7 bash run.sh my-run`.
+- **`data server did not come up (see /tmp/ch22-dataserver.log)`.** Read that log. Then run
+  `sudo bash teardown.sh` to remove a half-built namespace and retry `sudo bash netlab.sh up`.
+- **`waiting for the GPU lock` and no progress.** Another hands-on lab holds `/tmp/handson-gpu.lock`.
+  The run continues when that one finishes.
+- **A run was interrupted.** `run.sh` tears down on exit, but if you ran the steps by hand, run
+  `sudo bash teardown.sh` and confirm that `ip netns list | grep ch22` prints nothing.
+
 ## 8. Reference results
 
 Not yet recorded. The reference machine runs the custom WSL2 kernel of

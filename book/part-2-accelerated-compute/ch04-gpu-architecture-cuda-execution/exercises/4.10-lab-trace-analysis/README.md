@@ -9,6 +9,12 @@ short GPU performance analysis).
 *Evidence required:* checker output (all PASS), `report.md`, `analysis.md` per the lab rubric.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the Table 4.1 (H100-SXM-class) values.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in `outputs/`:
@@ -24,4 +30,4 @@ python check.py | tee ../exercises/4.10-lab-trace-analysis/outputs/check.txt
 python starter/trace_analysis.py --out ../exercises/4.10-lab-trace-analysis/outputs/report.md
 ```
 
-**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch04 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on.
+**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch04 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on. The harness builds and runs a Docker image, so Docker must be running.

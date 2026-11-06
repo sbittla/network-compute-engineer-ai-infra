@@ -1,5 +1,7 @@
 # Chapter 15 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Tags: difficulty ★ foundational, ★★ intermediate, ★★★ advanced. Tier: L1 laptop/simulation,
 L2 single GPU host, L3 multi-node with RDMA. Use the ORION/W-INFER values from
 `docs/REFERENCE_CLUSTER.md` unless an exercise changes one explicitly. Label every number you
@@ -150,7 +152,7 @@ under which each recommendation would flip.
 *Evidence required:* the comparison table, both recommendations with numbers, and the flip
 conditions.
 
-**O4. ★★★ L1 — Prompt workload split across prefill and decode pools (Section 20.2).** Change the
+**O4. ★★★ L1 — Prompt workload split across prefill and decode pools (Section 15.10).** Change the
 disaggregation workload to **10 req/s with 8,192-token prompts** (256-token outputs). Estimate the
 KV bytes per request, the aggregate transfer bandwidth at that rate, and the per-request transfer
 time over RDMA and TCP (lab assumptions). Compare a shared-pool design with disaggregated serving

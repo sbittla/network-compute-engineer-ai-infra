@@ -242,6 +242,14 @@ The trace contains planted anomalies. Their descriptions, ground-truth windows, 
 they were chosen are in the instructor folder (`solutions/lab/INSTRUCTOR_NOTES.md`) and are
 deliberately left out of this guide.
 
+## Troubleshooting
+
+- `FAIL import...: ModuleNotFoundError: No module named 'yaml'` (or `pandas`) → install the lab requirements into the Python you run the checker with: `python -m pip install -r ../../../../requirements.txt` from `lab/`.
+- `TODO <check>: implement ...` lines → expected: that function in `starter/serving_lab.py` still raises `NotImplementedError`. Implement it; the checker exits non-zero until every check passes.
+- `FAIL <check>: ...` → your function ran but returned a wrong value (or raised an error, named in the message); compare with the acceptance numbers in Section 5 and the docstring, and keep the function signatures unchanged.
+- `python check.py --impl solution` fails to load → the reference implementation (`../solutions/lab/`) is instructor material and is not in the student release; use the default (starter) checker.
+- `python scripts/hw_labs.py run ...` fails with a Docker or GPU-runtime error → it runs from the repository root and needs Docker; `--device gpu` also needs the NVIDIA container runtime. Use `--device cpu` (or `--device auto`) without one.
+
 ## Hands-on lab (single machine)
 
 `handson/` serves a real model on one GPU: vLLM 0.30.0 with Qwen2.5-1.5B-Instruct on an 8 GB laptop GPU,

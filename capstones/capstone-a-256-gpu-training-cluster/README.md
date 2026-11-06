@@ -9,6 +9,19 @@ also where most expensive mistakes are made. Racks that cannot be powered with 2
 that do not reach, and fabrics whose oversubscription only shows up under the scheduler's real rank
 order are all cheaper to find in a spreadsheet than on the data-center floor.
 
+## Quick start
+
+From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-a-256-gpu-training-cluster/starter-kit
+pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **1/16 checks pass (15 TODO, 0 FAIL)**. The TODO checks are the functions you
+implement in `starter/`; [starter-kit/README.md](starter-kit/README.md) lists the tasks and inputs.
+
 ## Audience and prerequisites
 
 **Audience (course outline, Section 16):** AI infrastructure architect, cluster engineer, network engineer.

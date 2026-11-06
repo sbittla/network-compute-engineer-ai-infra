@@ -210,3 +210,22 @@ the invariants it passed. Rerun on your own hardware and compare like with like.
 The dataset contains planted defects in Parts 1 and 2, and the plan in Part 3 contains deliberate
 gaps. They are documented for instructors in `../solutions/exercises-key.md` (Lab section). Do not
 look there until you have finished.
+
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`** → run
+  `python -m pip install -r ../../../../requirements.txt` from this `lab/` folder, with the same `python`
+  you run `check.py` with.
+- **`FAIL import  could not import starter module: ...`** → `starter/safe_change.py` has a syntax or import
+  error, so no check runs (exit 2). Fix the line it names.
+- **`TODO p3.review_* ... (findings.yaml still has TODO entries)`** → the Part 3 checks start only when no
+  finding in `starter/findings.yaml` still has `gap_id: TODO`. Replace the template entry; do not leave it
+  beside your own findings.
+- **`plan_lines must cite lines 1..N`** → line numbers are 1-based lines of `data/unsafe_change_plan.md`
+  (`cat -n` shows them); the template's `[0]` is not valid. **`fix does not name a concrete control`** →
+  name the specific control (number, threshold, wave size or command), not a general intention.
+- **`FAIL p3.review_* ScannerError: ...`** → `findings.yaml` is not valid YAML, usually because an `issue`
+  or `fix` text contains `: ` or `#`. Put each text in double quotes.
+- **`SKIP p0.dataset_reproducible`** → expected in the learner release, which ships without the data
+  generator. If checks fail after you edited `data/`, restore it with `git checkout -- data/`. For
+  `python scripts/hw_labs.py`, run from the repository root with Docker running, and `build ch20` first.

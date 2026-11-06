@@ -191,6 +191,19 @@ Three of the four hosts contain planted faults of different kinds, and one is cl
 the raw lines that reveal each, and the reasoning they exercise are in
 `../solutions/exercises-key.md` ("Lab 5 — planted anomalies"). Do not look before submitting.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'pandas'` or `'yaml'`** → `python -m pip install -r ../../../../requirements.txt` in the same venv you run `check.py` with.
+  Check `python --version` reports 3.10 or newer.
+- **Every check prints `TODO` and the exit code is non-zero** → expected at the start: a `TODO` means
+  that function still raises `NotImplementedError`. Implement functions one at a time and rerun.
+- **`FAIL import — could not import ...`** and the run stops → your starter module has a syntax or
+  import error at load time; the message names the exception. Fix it and rerun.
+- **`Implementation not found: .../solutions/lab/...` (exit 2)** → `--impl solution` needs the instructor
+  solution, absent from the student edition. Run plain `python check.py`.
+- **`No such file or directory: starter/...`** when running a lab command → run it from this `lab/`
+  folder. `check.py` itself finds `data/` and `starter/` relative to its own location.
+
 ## Hands-on lab (single machine)
 
 `handson/` reads a real host's topology with `nvidia-smi topo -m` and `-q`, `lspci`, `lstopo`, `numactl` and

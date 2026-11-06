@@ -190,6 +190,19 @@ bash teardown.sh       # stops a leftover sampler or benchmark; the lab changes 
 rm -rf results/my-run  # if you do not want to keep your bundle
 ```
 
+## Troubleshooting
+
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`** → install the NVIDIA driver (on WSL2, the Windows
+  driver). On WSL2 `nvidia-smi` lives in `/usr/lib/wsl/lib`; the scripts add it to `PATH`, so start them
+  with `bash setup.sh` / `bash run.sh` rather than calling the Python files directly.
+- **First `setup.sh` is slow or fails in `pip`** → it builds the shared venv `~/.venvs/ai-infra-handson` and
+  downloads PyTorch 2.5.1+cu124, so it needs network access. If `python3 -m venv` fails, install
+  `python3-venv` (`sudo apt-get install python3-venv`). After a broken install, delete the venv and re-run.
+- **The run stops with no output before a GPU step** → it is waiting for the shared GPU lock
+  `/tmp/handson-gpu.lock`, held by another hands-on run. Let that run finish; `pgrep -fa flock` shows it.
+- **`check.py` prints its usage text and exits 2** → pass the run folder: `python3 check.py results/<run-id>`.
+- **Numbers from a `CH01_QUICK=1` run look noisy** → its measurement windows are shortened for a smoke test; submit a full `bash run.sh <run-id>` as evidence.
+
 ## 10. Connect to the chapter
 
 - **Section 1.6** (ceiling model, ceiling fraction bands, machine balance, decode intensity): Steps 2–4.

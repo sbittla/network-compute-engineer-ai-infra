@@ -201,6 +201,24 @@ The dataset contains planted acceptance defects, distractors that must *not* fai
 events that must be refused. They are documented for instructors only in
 `../solutions/lab/PLANTED_FAULTS.md`.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`** before any check line → the starter imports PyYAML.
+  Run `pip install -r ../../../../requirements.txt` from this `lab/` folder, with the same `python` you run
+  `check.py` with.
+- **A Python traceback instead of `PASS`/`FAIL`/`TODO` lines** → `check.py` loads
+  `starter/fleet_lifecycle.py` before it runs any check, so a syntax or import error in your file stops it.
+  Fix the line the traceback names.
+- **Every line says `TODO`** → expected for a fresh starter: each function still raises
+  `NotImplementedError`. Implement the tasks in order; later tasks build on earlier ones.
+- **A digest check (`T2.fleet_digest`, `T3.replay_rejections`, `T3.replay_final_states`) fails while the
+  fixture checks pass** → the digest only says *that* your results differ. The first two name the nodes or
+  event `seq` numbers that differ; run `python report.py` to see your verdicts and transitions for them.
+- **Checks fail after you edited `data/`** → the expected answers are tied to the supplied files. Restore them
+  with `git checkout -- data/` and put experiments in a copy.
+- **`python check.py --impl solution` fails with a missing file** → the reference implementation is
+  instructor material and is not in learner releases.
+
 ## Hands-on lab (single machine)
 
 `handson/` runs a node acceptance suite against the machine you are on (WSL2 works): inventory, PCIe

@@ -8,6 +8,12 @@ roofline, and `benchmark_report.md`. *Evidence required:* checker output (all PA
 5 runs, and the report per the lab rubric.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the Table 6.1 ceilings (989 TFLOP/s dense BF16, 1,979 TFLOP/s FP8, 67 TFLOP/s FP32 SIMT, 3.35 TB/s HBM).
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in `outputs/`:
@@ -24,4 +30,4 @@ python starter/harness.py --runs 5 --out ../exercises/6.10-lab-benchmark-harness
 python starter/analysis.py
 ```
 
-**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch06 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on.
+**Hardware run (L2 extension, optional):** from the repository root, `python scripts/hw_labs.py run ch06 --device gpu` (or `--device cpu`; the CPU fallback is automatic without a GPU) writes `lab/l2/results/<label>/report.md`. You may cite its `[MEASURED]` tables in your deliverables; say which host it ran on. The harness builds and runs a Docker image, so Docker must be running.

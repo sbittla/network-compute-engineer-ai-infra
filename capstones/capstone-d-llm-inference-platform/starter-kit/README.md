@@ -100,6 +100,25 @@ python check.py
 python check.py --impl solution    # instructor edition only
 ```
 
+## Troubleshooting
+
+- **A `ModuleNotFoundError` traceback for `numpy`, `pandas` or `yaml`.** From `starter-kit/`, run
+  `python -m pip install -r ../../../requirements.txt` with the interpreter you run `check.py` with. Use
+  Python 3.10 or newer.
+- **`FAIL import  SyntaxError: ...` and no other lines.** The checker could not import
+  `starter/serving.py`. `python -m py_compile starter/serving.py` shows the line.
+- **Checks 04–11 stay `TODO` after you implemented their functions.** The text after the check name is
+  the function each one is still waiting for, usually `simulate: ...`. The replication, SLO and cost
+  checks all run the simulator, so implement `simulate` first.
+- **`simulate` never finishes or drops requests silently.** A request that can never fit in the KV
+  cache must be rejected, not left in the queue, and each request's per-token ITL must be recorded.
+  Both are part of Task 2.
+- **`--impl solution` prints `Implementation not found`.** The reference implementation is not shipped
+  in the student edition. Run `python check.py`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. Extensions: L2/L3
 
 > **Safety:** Load-test only on capacity reserved for you. Never point a load generator at a

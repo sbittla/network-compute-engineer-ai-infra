@@ -136,6 +136,27 @@ The ORION ladder must give $4.72, and cost per useful GPU-hour must rise as good
 only appear where caps are allowed, and must leave the limit restored. From the repository root:
 `python scripts/handson.py check ch21 my-run`.
 
+## Troubleshooting
+
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`.** Run `nvidia-smi -L` in the same shell. On
+  WSL2 the tool lives in `/usr/lib/wsl/lib`, which the scripts add to `PATH`. If it still fails, the
+  Windows NVIDIA driver is missing or too old for WSL GPU support.
+- **`setup.sh` fails with `PyTorch cannot see the GPU` or `this lab needs BF16`.** The shared venv
+  pins PyTorch 2.5.1 built for CUDA 12.4, which needs NVIDIA driver 550 or newer, and the lab needs an
+  Ampere or newer GPU. The first `setup.sh` also downloads about 3 GB into `~/.venvs/ai-infra-handson`;
+  set `HANDSON_VENV` to reuse an existing copy.
+- **`run.sh` prints `results: ...` and then nothing for a long time.** Another hands-on lab holds the
+  shared GPU lock (`/tmp/handson-gpu.lock`). The run starts when that one finishes. Do not delete the
+  lock file.
+- **On Windows, `python scripts/handson.py ...` cannot find the distribution.** It runs the lab in the
+  WSL distribution named by `HANDSON_WSL_DISTRO` (default `Ubuntu-24.04`). Set it to the name that
+  `wsl -l` shows.
+- **You want a quick smoke test first.** `CH21_QUICK=1 bash run.sh smoke` runs a smaller fixed job. Do
+  not use it as evidence.
+- **A cap sweep was interrupted and the power limit looks wrong.** Run `bash teardown.sh` (with
+  `sudo` on bare metal). It restores the limit recorded in `results/.ch21_power_limit_changed` and
+  stops any leftover lab processes.
+
 ## 8. Reference results
 
 Measured on the reference machine (RTX 4060 Laptop, 80 W limit, WSL2), with the default `cost_inputs.json`.

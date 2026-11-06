@@ -253,6 +253,22 @@ Your numbers will differ. `check.py` tests physical sense, not equality.
 bash teardown.sh
 ```
 
+## Troubleshooting
+
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`** → install the NVIDIA driver (on WSL2, the Windows
+  driver). On WSL2 `nvidia-smi` lives in `/usr/lib/wsl/lib`; the scripts add it to `PATH`, so start them
+  with `bash setup.sh` / `bash run.sh` rather than calling the Python files directly.
+- **First `setup.sh` is slow or fails in `pip`** → it builds the shared venv `~/.venvs/ai-infra-handson` and
+  downloads PyTorch 2.5.1+cu124, so it needs network access. If `python3 -m venv` fails, install
+  `python3-venv` (`sudo apt-get install python3-venv`). After a broken install, delete the venv and re-run.
+- **`setup.sh` fails with `CUDA not visible to PyTorch`** → the driver works but PyTorch cannot use it; check
+  `nvidia-smi` and that the driver is version 550 or newer (the venv uses the CUDA 12.4 build).
+- **`setup.sh` asks for root or `curl` fails** → installing Nsight Systems needs `sudo` and network access.
+  Without it, run `CH04_NSYS=0 bash setup.sh`; `run.sh` then skips the timeline steps.
+- **The run stops with no output before a GPU step** → it is waiting for the shared GPU lock
+  `/tmp/handson-gpu.lock`, held by another hands-on run. Let that run finish; `pgrep -fa flock` shows it.
+- **`check.py` prints its usage text and exits 2** → pass the run folder: `python3 check.py results/<run-id>`.
+
 ## 10. Connect to the chapter
 
 | Step | Chapter section |

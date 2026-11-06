@@ -177,3 +177,20 @@ models; OpenConfig covers interface counters and queues generically.
 The bundle contains planted traps (a red-herring thermal event, a noisy rule, a deploy blip, a
 monitoring change, checkpoint stalls). They are documented for instructors in
 `../solutions/exercises-key.md` (section "Lab 18 — planted anomalies"). Learners: find them.
+
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'pandas'`** (or `numpy`, `yaml`) → run
+  `python -m pip install -r ../../../../requirements.txt` from this `lab/` folder, with the same `python`
+  you run `check.py` with.
+- **`FAIL import/load: ...` and no check lines** → `starter/telemetry_analysis.py` has a syntax or import
+  error. Fix the line it names.
+- **`TODO <check>: implement <function>()`** → that function still raises `NotImplementedError`. Expected
+  until you implement it; later tasks reuse earlier results, so work from T1 down.
+- **A `FAIL` line whose cause is not obvious** → rerun with `python check.py -v` to print the traceback.
+- **`SKIP dataset reproducible`** → expected in the learner release, which ships without the data
+  generator. If checks fail after you edited `data/`, restore it with `git checkout -- data/`.
+- **`python scripts/hw_labs.py run ch18` fails** → run it from the repository root with Docker running, and
+  run `build ch18` first. If the GPU run cannot start the container, the NVIDIA container runtime is
+  missing; use `--device cpu`. A run overwrites the committed bundles in `lab/l2/results/`;
+  `git checkout -- lab/l2/results` restores them.

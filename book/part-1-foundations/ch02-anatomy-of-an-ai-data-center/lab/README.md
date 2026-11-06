@@ -138,8 +138,9 @@ python check.py --impl solution    # instructors: reference must print 14/14 and
 ```
 
 Each line is `PASS`, `FAIL` (with a reason), or `TODO` (function still raises `NotImplementedError`).
-The first check confirms that `data/` regenerates byte-identically. It needs the instructor-only
-generator, so in the student edition it prints `SKIP`, which does not count against you.
+The first check confirms that `data/` regenerates byte-identically. It needs the generator
+`tools/generate_inputs.py` (instructor material), so it prints `PASS`, or `SKIP` when the generator is not shipped; a `SKIP`
+does not count against you.
 
 ## 7. Deliverable and grading rubric
 
@@ -252,6 +253,20 @@ power. Rerun on your own hardware and compare like with like.
 
 The planted flaws, why each was chosen, the complete expected findings, and model answers to the
 written parts are documented in `../solutions/exercises-key.md` (section "Lab 2 answer key").
+
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`** → `python -m pip install -r ../../../../requirements.txt` in the same venv you run `check.py` with.
+  Check `python --version` reports 3.10 or newer.
+- **Every check prints `TODO` and the exit code is non-zero** → expected at the start: a `TODO` means
+  that function still raises `NotImplementedError`. Implement functions one at a time and rerun.
+- **The data-regeneration check prints `SKIP`** → `tools/generate_inputs.py` (instructor material) is not shipped in your edition;
+  a `SKIP` does not count against you. If it prints `FAIL` ("regenerated data differs"), you edited `data/`:
+  restore it with `git checkout -- data/`.
+- **`--impl solution` fails with "implementation not found"** → the reference solution is instructor
+  material, absent from the student edition. Run plain `python check.py` against your `starter/`.
+- **`No such file or directory: starter/...`** when running a lab command → run it from this `lab/`
+  folder. `check.py` itself finds `data/` and `starter/` relative to its own location.
 
 ## Hands-on lab (single machine)
 

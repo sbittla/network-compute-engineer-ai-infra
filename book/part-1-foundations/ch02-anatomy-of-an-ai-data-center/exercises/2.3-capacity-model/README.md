@@ -5,8 +5,8 @@
 ## Prompt
 
 <!-- prompt:start -->
-*(Outline-mandated: build a simplified capacity model that includes accelerator count, usable GPU
-memory, storage throughput, network bisection bandwidth, power, and utilization.)*
+**Goal:** build a simplified capacity model that includes accelerator count, usable GPU memory, storage
+throughput, network bisection bandwidth, power, and utilization.
 
 Extend ORION-128 from Exercise 2.2 with these assumptions `[ILLUSTRATIVE]`: 10 % of each GPU's 80 GB
 reserved for runtime and fragmentation; workload is a 13 × 10⁹-parameter dense model trained with
@@ -26,6 +26,12 @@ Build the model as a spreadsheet or a short Python script and report:
 **Evidence required:** the model file or table with formulas visible; every output labelled
 `[MODELED]`; a three-sentence interpretation.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/2.3-capacity-model/` (instructor material in the full repository; removed from student releases).
 
 ## What to submit
 

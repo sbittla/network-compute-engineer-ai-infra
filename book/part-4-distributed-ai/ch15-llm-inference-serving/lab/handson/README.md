@@ -282,6 +282,15 @@ footprint and looks for out-of-memory deaths instead.
 Other GPUs will give other numbers. A GPU with more memory bandwidth lowers TPOT in proportion; one
 with more memory moves every row of the capacity table.
 
+## Troubleshooting
+
+- Engine start-up fails with `Could not find nvcc` → `VLLM_USE_FLASHINFER_SAMPLER=0` was not set (see Section 5). `experiments.sh` sets it; export it yourself when you start a server by hand.
+- Model load fails offline (`LocalEntryNotFoundError`, an offline-mode error) → `run.sh` runs with `HF_HUB_OFFLINE=1` and only uses the cached pinned snapshot; run `bash setup.sh` once with network access to download it.
+- `vLLM venv missing: run setup.sh first` → run `bash setup.sh` (first install is several GB into `~/.venvs/ch15-vllm`).
+- `server <name> exited during start-up (see server-<name>.log)` → read `results/<run-id>/raw/server-<name>.log`. A refusal at a low `--gpu-memory-utilization` is a Step 4 data point, not a failure; an out-of-memory at the baseline setting means another process holds GPU memory (`nvidia-smi`), or WSL2 is short of RAM (about 7 GB is needed; raise `memory=` in `.wslconfig`).
+- `port 18015 still in use`, or a server left behind after Ctrl-C → `bash teardown.sh`.
+- The run sits silent before Step 1 → it is waiting for the shared GPU lock `/tmp/handson-gpu.lock` held by another lab; wait for it.
+
 ## 9. Clean up
 
 ```bash

@@ -74,7 +74,7 @@ ORION assumption). Uplinks Ethernet33–64 go to spines 1–4 (8 each); host lin
 | 7 | `generate_cabling_schedule` | Correct row count, unique cable IDs and endpoints, even leaf–spine spread, labels name both ends | 10 |
 | 8 | Written diagnosis (`diagnosis.md`) | For every non-healthy port: evidence, layer, root-cause hypothesis, first safe action, and the evidence you would still collect on hardware. Explain why any decoy you found is *not* a fault. | 10 |
 
-Expected checker output when complete: `13/13 checks passed`. You may also write the report:
+Expected checker output when complete: all checks pass (`13/13 checks passed`, or `12/12 checks passed (starter), 1 skipped` in the student release, where the data-regeneration check reports SKIP). You may also write the report:
 
 ```bash
 python check.py --report commissioning-report.md
@@ -90,6 +90,19 @@ python check.py --impl solution    # instructors: reference implementation
 Each line is `PASS`, `FAIL` (with the reason), or `TODO` (function still raises
 `NotImplementedError`). The per-port answers are stored as a digest so the checker does not give
 away the diagnosis; use the count hints and your own reasoning.
+
+### Troubleshooting
+
+- **`FAIL import starter: ...` and exit code 2.** `linkhealth.py` does not import: a syntax error, or
+  pandas / pyyaml missing (`python -m pip install -r ../../../../requirements.txt`).
+- **`SKIP dataset_reproducible: generator not shipped in student release`.** Normal: `lab/tools/` is
+  instructor-only. The summary then reads `12/12 checks passed (starter), 1 skipped` and exits 0.
+- **`--report` wrote nothing.** The report is written only when every required check passes; fix the
+  remaining `FAIL`/`TODO` lines first.
+- **A `FAIL` names `linkhealth.py:<line>`.** That is where your code raised; the checker prints the
+  exception and line instead of a full traceback.
+- **`compute_deltas` reports negative deltas.** A counter was reset between snapshots: use
+  `counter_delta` (Task 1), which must handle the reset, for every cumulative counter.
 
 ## 8. Deliverable and grading rubric (100 points)
 

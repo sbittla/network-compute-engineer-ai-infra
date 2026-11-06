@@ -1,6 +1,6 @@
 {
   "difficulty": 2,
-  "evidence_required": "checker output (19/19), your findings report, the design note, and (stretch) the rule specification.",
+  "evidence_required": "checker output (all checks pass; the data-regeneration check may report SKIP), your findings report, the design note, and (stretch) the rule specification.",
   "id": "7.L",
   "kind": "lab",
   "lab_checks": [

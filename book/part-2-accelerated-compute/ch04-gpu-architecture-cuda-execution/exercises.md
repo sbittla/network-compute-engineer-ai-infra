@@ -1,5 +1,7 @@
 # Chapter 4 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: **L1** laptop/paper ·
 **L2** single GPU host · **L3** multi-node GPU + RDMA. Use Table 4.1 (H100-SXM-class) values unless an
 exercise says otherwise, label every number you produce (`[MODELED]`, `[MEASURED]`, …), and show
@@ -78,7 +80,8 @@ PCIe and 70 % of 989 TFLOP/s `[MODELED]`; (c) propose how a real training job av
 costs.
 *Evidence required:* annotated diagram, three stage times with arithmetic, one-paragraph restructuring.
 
-**4.12** ★★ L1 (L2 to verify) — *Identify the bottleneck class from a trace.* Using the lab capture (or a
+**4.12** ★★ L1 (L2 to verify) — *Identify the bottleneck class from a trace.* Using the lab capture (`lab/data/`: `gpu_trace.csv`, `cuda_api_trace.csv`, `nvtx_ranges.csv`,
+`device.json`) (or a
 CUDA sample such as `bandwidthTest`/a vector-add run on an L2 host), identify one instance each of launch
 overhead, memory-transfer cost, an occupancy constraint and a memory-bandwidth bottleneck, quoting the
 rows or metrics that prove each.
@@ -119,7 +122,7 @@ percentiles.
 node (one rank per GPU): each rank consumes 100 MiB of input per step, target step time is 60 ms, the
 optimizer touches 1,400 parameter tensors (1,200 of them under 64 K elements), and shapes are static.
 Decide: pinned-memory strategy and total pinned budget; where loader worker processes run (NUMA, see
-Chapter 3 and Figure R.1); how copies overlap compute; how to remove optimizer launch overhead (foreach,
+Chapter 3 and Figure R.1, the HX8 host topology in `docs/REFERENCE_CLUSTER.md` Section 1); how copies overlap compute; how to remove optimizer launch overhead (foreach,
 fused, CUDA Graphs or `torch.compile`) — and defend each choice against one alternative. State how you
 would prove the design works.
 *Evidence required:* a one-page design with PCIe budget arithmetic, pinned-memory budget, NUMA placement,

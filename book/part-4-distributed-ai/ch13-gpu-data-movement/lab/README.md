@@ -114,7 +114,9 @@ That fallback measures host-memory copy bandwidth, which is the staging copy a p
 two-thread overlap. The GPU-only invariants are skipped. **Observed on the reference run:** the committed
 bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/`, a PCIe Gen4 x8 laptop GPU, and `cpu-fallback/`)
 show pinned H2D near 80 % of the link ceiling, pageable clearly slower, and small copies latency-bound
-`[MEASURED]`. Your H100-class host on Gen5 x16 should land near 50–55 GB/s (VERIFIED_FACTS, PCIe Gen5).
+`[MEASURED]`. Your H100-class host on Gen5 x16 should land near 50–55 GB/s, against ≈ 63 GB/s per direction theoretical (the ORION recap under
+"Prerequisites and connections" in the manuscript, and the PCIe Gen5 row of the project's fact sheet,
+[docs/VERIFIED_FACTS.md](../../../../docs/VERIFIED_FACTS.md)).
 
 **L3 — validate the data path (two drained nodes).** Execute the measurement plan of manuscript
 Table 13.5: `nvidia-smi topo -m`; `lsmod | grep nvidia_peermem` (or confirm the dma-buf path);
@@ -131,6 +133,14 @@ the manifest's L3 extension.
 
 The bundle contains several planted causes with different onsets, two of which mask each other, and
 one decoy. Instructor notes are in `../solutions/lab/README.md`.
+
+## Troubleshooting
+
+- `FAIL import...: ModuleNotFoundError: No module named 'yaml'` (or `pandas`) → install the lab requirements into the Python you run the checker with: `python -m pip install -r ../../../../requirements.txt` from `lab/`.
+- `TODO <check>: implement ...` lines → expected: that function in `starter/telemetry_diag.py` still raises `NotImplementedError`. Implement it; the checker exits non-zero until every check passes.
+- `FAIL <check>: ...` → your function ran but returned a wrong value (or raised an error, named in the message); compare with the acceptance numbers in Section 5 and the docstring, and keep the function signatures unchanged.
+- `python check.py --impl solution` fails to load → the reference implementation (`../solutions/lab/`) is instructor material and is not in the student release; use the default (starter) checker.
+- `python scripts/hw_labs.py run ...` fails with a Docker or GPU-runtime error → it runs from the repository root and needs Docker; `--device gpu` also needs the NVIDIA container runtime. Use `--device cpu` (or `--device auto`) without one.
 
 ## Hands-on lab (single machine)
 

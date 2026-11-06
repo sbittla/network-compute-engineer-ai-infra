@@ -98,8 +98,7 @@ index (Step 2 tells you which).
 
 ## 6. Steps
 
-Write your answers in `results/<run-id>/answers.md`. Model answers for instructors are in
-[ANSWERS.md](ANSWERS.md).
+Write your answers in `results/<run-id>/answers.md`.
 
 ### Step 1: build a Soft-RoCE device and read it
 
@@ -197,9 +196,13 @@ change, which one does this lab not have at all, and what would a 1,500-byte swi
 ```bash
 ib_write_bw -d mlx5_0 -x 1 -F 10.208.0.1                 # a device name copied from another host
 ib_write_bw -d ch08rxe0 -x 1 -F -p 18591 10.208.0.1      # nobody listening on that port
-ib_write_bw -d ch08rxe0 -x 1 ... &  ib_write_bw -d ch08rxe0 -x 7 ... 10.208.0.1   # empty GID, client only
-ib_write_bw -d ch08rxe0 -x 7 ... &  ib_write_bw -d ch08rxe0 -x 7 ... 10.208.0.1   # empty GID, both ends
-ib_write_bw -d ch08rxe0 -x 0 ... &  ib_write_bw -d ch08rxe0 -x 0 ... 10.208.0.1   # link-local GID
+# empty GID (index 7), client only:
+ib_write_bw -d ch08rxe0 -x 1 -F -s 65536 -n 1000 &  sleep 1;  ib_write_bw -d ch08rxe0 -x 7 -F -s 65536 -n 1000 10.208.0.1
+# empty GID, both ends:
+ib_write_bw -d ch08rxe0 -x 7 -F -s 65536 -n 1000 &  sleep 1;  ib_write_bw -d ch08rxe0 -x 7 -F -s 65536 -n 1000 10.208.0.1
+# link-local GID (index 0), both ends:
+ib_write_bw -d ch08rxe0 -x 0 -F -s 65536 -n 1000 &  sleep 1;  ib_write_bw -d ch08rxe0 -x 0 -F -s 65536 -n 1000 10.208.0.1
+# (a failed client can leave its server waiting: kill %1, or wait for it, before the next pair)
 # 8 MiB buffer, server as uid 65534 under ulimit -l 4096 / 8192 / 16384 / 65536 KiB, then as root at 4096:
 sudo setpriv --reuid=65534 --regid=65534 --clear-groups bash -c \
   'ulimit -l 4096; ib_write_bw -d ch08rxe0 -x 1 -F -s 8388608 -n 20' &
@@ -277,6 +280,21 @@ signatures and the timeout arithmetic are the same.
 
 Your numbers will differ with the CPU, the kernel and whatever else the machine is doing; the check tests
 physical sense, not equality.
+
+## Troubleshooting
+
+- **`setup.sh`: "this kernel has no Soft-RoCE (CONFIG_RDMA_RXE)".** Stock WSL2 kernels lack it: build the
+  kernel in [docs/HANDS_ON_LABS.md](../../../../../docs/HANDS_ON_LABS.md) section 6. On Ubuntu install
+  `linux-modules-extra-$(uname -r)`.
+- **"this step needs root: run with sudo".** `setup.sh`, `run.sh` and `teardown.sh` all call `need_root`.
+- **"missing command: ib_write_bw (run setup.sh)".** perftest or rdma-core is not installed; run
+  `sudo bash setup.sh`, which falls back to the distribution's versions if the pinned ones are absent.
+- **`rdma link add` or `ip link add ch08-v0` fails with "File exists".** A previous run left the device:
+  `sudo bash teardown.sh` (it kills every perftest on `ch08rxe0`, then removes the rxe link and the veth).
+- **A manual client fails with "Couldn't connect" or hangs.** Start the server first and give it a
+  second to listen; a server left behind by a failed run holds the port, so kill it or use `-p <port>`.
+- **On WSL2, a raw file under `/mnt/d` cannot be created.** `run.sh` stages raw output in `/tmp` and
+  copies it at the end for this reason; when running by hand, write to `/tmp` and copy afterwards.
 
 ## 9. Clean up
 

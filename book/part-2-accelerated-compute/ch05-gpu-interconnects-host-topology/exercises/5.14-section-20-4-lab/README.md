@@ -1,14 +1,20 @@
-# Exercise 5.14 — Section 20.4 lab: topology, rank maps, all-reduce comparison
+# Exercise 5.14 — Topology lab (Section 5.11): topology, rank maps, all-reduce comparison
 
 ★★★ · Tier L1 · outline-mandated · kind: `lab`
 
 <!-- prompt:start -->
-**5.14** ★★★ L1 / L3 — *Section 20.4 lab.* Produce an annotated topology diagram of one HX8 host, the GPU-to-HCA
+**5.14** ★★★ L1 / L3 — *Topology lab (Section 5.11).* Produce an annotated topology diagram of one HX8 host, the GPU-to-HCA
 mapping CSV, aligned and intentionally misaligned rank/rail maps, and a comparison of NCCL all-reduce
 results — measured with nccl-tests if you have L3 hardware (lab README §8), otherwise from the labelled
 model — with benchmark methodology and limitations. *Evidence required:* raw outputs, diagram, CSV, two
 rank maps, results table with labels, methodology, limitations.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the Table 5.4 model parameters.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
 
 ## What to submit
 

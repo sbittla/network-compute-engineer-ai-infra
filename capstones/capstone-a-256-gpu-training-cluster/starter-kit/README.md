@@ -93,6 +93,23 @@ One line per check: `PASS`, `FAIL` (with the expected value and the formula hint
 is complete when all 16 checks pass. Passing the checker earns the implementation points; the design
 pack earns the rest (see [../README.md](../README.md) and [../../RUBRIC.md](../../RUBRIC.md)).
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL import  SyntaxError: ...` and no other lines.** The checker could not import
+  `starter/cluster_model.py`. `python -m py_compile starter/cluster_model.py` shows the line.
+- **A later check stays `TODO` after you implemented its function.** The text after the check name is
+  the function it is still waiting for (for example `comm_step_model: ...`). Implement that one first.
+- **A check `FAIL`s.** The line gives the expected value and the formula hint. Compare your
+  intermediate values and units with it (GB against GiB, Gb/s against GB/s) before you change the formula.
+- **`--impl solution` prints `Implementation not found`.** The reference implementation is not shipped
+  in the student edition. Run `python check.py`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. Extensions: hardware-backed validation (L2/L3)
 
 > **Safety:** Run these only on hardware assigned to you in a dedicated lab. Never change power limits,

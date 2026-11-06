@@ -62,6 +62,23 @@ shards before trusting a checkpoint.
 python check.py      # ≈ 2 s; PASS/FAIL/TODO per check; exit 0 only at 11/11
 ```
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL  import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL  import -- SyntaxError: ...` and no check lines.** The checker could not import
+  `starter/ftops.py`. `python -m py_compile starter/ftops.py` shows the line.
+- **`TODO ... -- not implemented: TODO: implement <name>()`.** That function still raises
+  `NotImplementedError`. The line names it, for example `validate_resume()`.
+- **`FAIL ... orionxl-n042 still reports the earliest timeout`.** You ordered events by their raw
+  timestamps. Apply `data/clock_offsets.csv` first (that node's clock is 180 s behind), then correlate.
+- **The dataset check FAILs** (instructor copy only), or loading fails. A file in `data/` was edited.
+  Restore it with `git checkout -- data/`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 7. Deliverable
 
 `starter/ftops.py` passing 11/11 plus the templates in [../templates/](../templates/), with the

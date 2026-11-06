@@ -90,6 +90,24 @@ python check.py --impl solution    # instructor reference (requires ../solutions
 
 One line per check (`PASS`/`FAIL`/`TODO`); exit code 0 only when every check passes.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`.** This lab needs only PyYAML:
+  `python -m pip install -r ../../../../requirements.txt` (or `python -m pip install pyyaml`). Use
+  Python 3.10 or newer.
+- **`FAIL load: .../career_lab.py not found` with `--impl solution`.** The reference implementation is
+  instructor material, removed from student releases. Run `python check.py` without the flag.
+- **`career_lab.py --role ...` stops with a `KeyError`.** Role IDs are the keys under `roles:` in
+  `data/competency_matrices.yaml`, for example `ai_network` (the default), not the job title.
+  `--seniority` must be one of `evidence_rules.seniority_levels` in the same file.
+- **The CLI prints a `NotImplementedError` traceback.** The report needs `demonstrated_levels`,
+  `readiness` and `gap_plan`; implement them (the checker shows which are still `TODO`) before you
+  generate a report.
+- **Your own evidence file decays or caps more than you expect.** Scoring uses the date in
+  `learner.as_of` in your `learner_evidence.yaml`, not today's date. Update it when you add evidence,
+  and check each item's `type`, `verifier` and `measured_on_hardware` fields against the caps in
+  `evidence_rules`.
+
 ## 7. Deliverable and grading rubric (100 points)
 
 | Item | Points |

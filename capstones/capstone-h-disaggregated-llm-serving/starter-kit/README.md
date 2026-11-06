@@ -81,6 +81,24 @@ python check.py        # ≈ 4 s; PASS/FAIL/TODO/SKIP per check; exit 0 only whe
 The first check verifies dataset integrity and runs only in the instructor copy (`SKIP` in the
 student release, counted as passed).
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL  import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL  import -- SyntaxError: ...` and no check lines.** The checker could not import
+  `starter/serve.py`. `python -m py_compile starter/serve.py` shows the line.
+- **`TODO ... -- not implemented: TODO: implement <name>()`.** That function still raises
+  `NotImplementedError`. The line names it, for example `cost_per_million_tokens()`.
+- **Simulated numbers drift from the expected values.** Do not edit `sim/serving_sim.py`: the expected
+  values come from the unmodified, seeded simulator. Restore it with `git checkout -- sim/` and change
+  only `starter/serve.py`.
+- **The dataset check FAILs** (instructor copy only), or loading fails. A file in `data/` was edited.
+  Restore it with `git checkout -- data/`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. L2/L3 extension
 
 > **Safety:** Dedicated lab only. Bandwidth floods and QoS changes on a shared fabric can pause or

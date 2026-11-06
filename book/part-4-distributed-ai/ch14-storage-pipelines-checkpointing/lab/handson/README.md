@@ -218,6 +218,15 @@ inflation, ext4 against 9P) were stable across both runs.
 
 Results on other hardware will differ; the checker tests physical sense, not equality.
 
+## Troubleshooting
+
+- `ERROR: this step needs root: run with sudo` → use `sudo bash setup.sh` and `sudo bash run.sh <run-id>` (`drop_caches` and the fio install need root).
+- `ERROR: missing command: fio` → `setup.sh` installs it with apt (network needed); on a distribution without that package, install any fio ≥ 3.28 yourself.
+- `ERROR: no NVIDIA GPU visible` under sudo on WSL2 → check `nvidia-smi` works without sudo first; the scripts add `/usr/lib/wsl/lib` back to sudo's PATH, so a failure here means WSL itself sees no GPU.
+- `Step 2 ... skipped: ... is not a 9P mount` → expected outside WSL2 (no `/mnt/c`); set `CH14_9P_DIR` to a path on a 9P mount (it must contain `ch14-handson`) or accept the skip.
+- `note: only N GiB available; test file shrunk`, or Step 4 refuses to start for lack of memory → free disk under `/var/tmp` (or point `CH14_EXT4_DIR` elsewhere) and close other programs; Step 4 needs about 2.5 GiB available.
+- Read bandwidth far above the disk's rating → the page cache served it (Step 3's lesson); do not run another storage benchmark at the same time, and do not skip the `drop_caches` steps.
+
 ## 9. Clean up
 
 ```bash

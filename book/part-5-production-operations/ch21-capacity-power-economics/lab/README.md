@@ -80,6 +80,26 @@ python check.py                    # starter
 python check.py --impl solution    # instructors
 ```
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` naming `numpy`, `pandas` or `yaml`** (as a traceback, or on a
+  `FAIL import/load` line). Install the
+  requirements into the interpreter you run `check.py` with: `python -m pip install -r
+  ../../../../requirements.txt`. Use Python 3.10 or newer (`python --version`).
+- **`FAIL import/load: SyntaxError(...)` and no other lines.** The checker could not import
+  `starter/capacity_model.py`, so it ran nothing. `python -m py_compile starter/capacity_model.py`
+  prints the file and line.
+- **Every line says `TODO ...: implement <name>()`.** That is the expected start: each function still
+  raises `NotImplementedError`. A line turns into `PASS` or `FAIL` once that function returns.
+- **A `FAIL` line names an exception but not where it happened.** Rerun with `python check.py -v`,
+  which prints the full traceback for each failing check.
+- **`check_reproducible` FAILs with `<file> differs from regenerated copy`** (instructor copy only; it
+  is a `SKIP` in the student release). A file in `data/` has been edited. Restore it with
+  `git checkout -- data/` and put your own scenarios in a copy instead.
+- **`--impl solution` gives `FAIL import/load: FileNotFoundError(...)`.** The reference
+  implementation is instructor material and is removed from student releases. Run `python check.py`
+  without the flag.
+
 ## 8. Deliverable and grading rubric (100 points)
 
 Submit `capacity_model.py` and a two-page **decision memo** (`decision_memo.md`) with an **assumptions

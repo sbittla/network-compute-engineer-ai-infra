@@ -90,6 +90,25 @@ python check.py
 python check.py --impl solution    # instructor edition only
 ```
 
+## Troubleshooting
+
+- **A `ModuleNotFoundError` traceback for `numpy`, `pandas` or `yaml`.** From `starter-kit/`, run
+  `python -m pip install -r ../../../requirements.txt` with the interpreter you run `check.py` with. Use
+  Python 3.10 or newer.
+- **`FAIL import ...` and no other lines.** One of the two starter modules has a syntax or import
+  error. Checks H1–H4 cover `starter/harness.py` and A1–A8 cover `starter/analysis.py`. Run
+  `python -m py_compile starter/harness.py starter/analysis.py` to see the line.
+- **A later check stays `TODO` after you implemented its function.** The text after the check name is
+  the function it is still waiting for (for example `nccl_transport: ...`). Implement that one first.
+- **A comparison check `FAIL`s although the medians look right.** Check `validate_runs` first: runs
+  that are not admissible must be excluded before `scaling_table` and `compare_variants` see them, and
+  the family of eight tests needs the Holm correction.
+- **`--impl solution` prints `Implementation not found`.** The reference implementation is not shipped
+  in the student edition. Run `python check.py`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. Extensions: L2/L3 procedure
 
 > **Safety:** Use nodes allocated to you. Do not change NCCL, NIC or switch settings on shared

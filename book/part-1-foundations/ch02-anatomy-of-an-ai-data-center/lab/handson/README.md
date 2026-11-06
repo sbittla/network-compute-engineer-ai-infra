@@ -198,6 +198,19 @@ Other GPUs will give different numbers. The check tests physical sense, not equa
 bash teardown.sh       # stops a leftover sampler or phase driver; nothing else was changed
 ```
 
+## Troubleshooting
+
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`** → install the NVIDIA driver (on WSL2, the Windows
+  driver). On WSL2 `nvidia-smi` lives in `/usr/lib/wsl/lib`; the scripts add it to `PATH`, so start them
+  with `bash setup.sh` / `bash run.sh` rather than calling the Python files directly.
+- **First `setup.sh` is slow or fails in `pip`** → it builds the shared venv `~/.venvs/ai-infra-handson` and
+  downloads PyTorch 2.5.1+cu124, so it needs network access. If `python3 -m venv` fails, install
+  `python3-venv` (`sudo apt-get install python3-venv`). After a broken install, delete the venv and re-run.
+- **The run stops with no output before a GPU step** → it is waiting for the shared GPU lock
+  `/tmp/handson-gpu.lock`, held by another hands-on run. Let that run finish; `pgrep -fa flock` shows it.
+- **`check.py` prints its usage text and exits 2** → pass the run folder: `python3 check.py results/<run-id>`.
+- **Numbers from a `CH02_QUICK=1` run look noisy** → its measurement windows are shortened for a smoke test; submit a full `bash run.sh <run-id>` as evidence.
+
 ## 10. Connect to the chapter
 
 - **Section 2.2** (where the watts go): the GPU board is the part you measured; Table 2.2 adds the rest of

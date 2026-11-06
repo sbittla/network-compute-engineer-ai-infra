@@ -17,6 +17,12 @@ loss rate you design for.
 quantified trade-off; one risk you are accepting and how you would detect it in production.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/8.16-orion-xl-fabric-policy/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Make the decision against stated criteria and give every parameter with its number and label. Put every deliverable in `outputs/`:

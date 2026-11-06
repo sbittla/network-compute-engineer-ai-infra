@@ -233,3 +233,17 @@ synchronized 8:1 TCP incast with iperf3 into five queue configurations: drop-tai
 the template thresholds scaled by the BDP, the same queue with senders that do not negotiate ECN, the
 as-found thresholds of Section 9.10, and DCTCP. For each it measures marks, CE packets at the receiver,
 drops, queue depth and delay, and goodput. See [handson/README.md](handson/README.md).
+
+## Troubleshooting
+
+- **`ModuleNotFoundError: pandas` (or `yaml`) before any check runs.** `check.py` imports pandas at the
+  top: install `../../../../requirements.txt` into the Python you run it with.
+- **Every check prints `TODO`.** Expected at the start: each function in `starter/congestion_lab.py`
+  raises `NotImplementedError` until you implement it.
+- **`SKIP data_determinism`.** The dataset generator (`lab/tools/`) is instructor-only; a SKIP is not a
+  failure, and the run exits 0 when every other check passes.
+- **All checks pass but the exit code is 1.** The checker also requires the whole run to finish in under
+  60 s (the time is on the last line): vectorise the per-sample loops with pandas instead of iterating
+  rows in Python.
+- **A check fails with a bare exception name.** The checker hides tracebacks; import your function in a
+  Python shell and call it on the file in `data/` to see where it breaks.

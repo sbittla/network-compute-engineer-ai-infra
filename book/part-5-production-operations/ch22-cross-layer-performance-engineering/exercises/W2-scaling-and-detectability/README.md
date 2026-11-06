@@ -5,7 +5,8 @@ Worked problem · difficulty ★★ · tier L1 · kind `computed` · [exercise i
 <!-- prompt:start -->
 **W2 ★★ (L1) — Scaling efficiency and detectability.** W-TRAIN ablations measure median step times of
 17.38 s (64 GPUs, DP = 2), 17.62 s (128 GPUs, DP = 4), and 17.90 s (256 GPUs, DP = 8); per-GPU work is
-constant.
+constant: each DP replica processes 128 sequences × 4,096 tokens per step, so a 64-GPU step is
+1,048,576 tokens (Section 22.10) and tokens per step scale with DP.
 
 a. Compute tokens/s and weak-scaling efficiency at 128 and 256 GPUs relative to 64 GPUs.
 b. Using the straggler model of Section 22.5.2 with per-node jitter σ = 0.5 s and expected maxima of
@@ -17,6 +18,12 @@ c. A vendor proposes an NCCL setting that "saves 0.15 s per step" at 256 GPUs. R
 
 *Evidence required:* formulas, substituted values, results with units; a clear yes/no with n.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Numbers in prompts are `[ILLUSTRATIVE]` unless labelled otherwise.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/W2-scaling-and-detectability/` (instructor material in the full repository; removed from student releases).
 
 ## What to submit
 

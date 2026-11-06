@@ -1,4 +1,4 @@
-# 5.14 — Section 20.4 lab: topology, rank maps and all-reduce comparison (marking guide)
+# 5.14 — Topology lab (Section 5.11): topology, rank maps and all-reduce comparison (marking guide)
 
 Graded with the Lab 5 report rubric (30 points, see `meta.yaml`); the listed lab checks must PASS. Relies on
 manuscript Sections 5.6, 5.8–5.10 and the lab README L3 section (nccl-tests procedure).

@@ -225,6 +225,19 @@ procps versions, CPU model, BIOS version (`cat /sys/class/dmi/id/bios_version`),
 NIC driver/firmware (`ethtool -i`), run as root or not, idle vs loaded, number of snapshots per host,
 and any regex you had to change for your tool versions.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`** → `python -m pip install -r ../../../../requirements.txt` in the same venv you run `check.py` with.
+  Check `python --version` reports 3.10 or newer.
+- **Every check prints `TODO` and the exit code is non-zero** → expected at the start: a `TODO` means
+  that function still raises `NotImplementedError`. Implement functions one at a time and rerun.
+- **A check shows `FAIL ... (at host_collector.py:NN)`** → an exception in your code; the file and line
+  are printed instead of a traceback. Fix that line and rerun.
+- **`--impl solution` fails with "not found"** → the reference solution is instructor material, absent
+  from the student edition. Run plain `python check.py` against your `starter/`.
+- **`No such file or directory: starter/...`** when running a lab command → run it from this `lab/`
+  folder. `check.py` itself finds `data/` and `starter/` relative to its own location.
+
 ## Hands-on lab (single machine)
 
 `handson/` runs this lab's collector and analyzer on a real Linux host (WSL2 works), as root and as

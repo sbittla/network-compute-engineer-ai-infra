@@ -15,6 +15,12 @@ c. Add a "Recommended changes and validation" section: for each fix, the predict
 *Evidence required:* the report; every number labelled; no causal language in "Measured facts".
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Numbers in prompts are `[ILLUSTRATIVE]` unless labelled otherwise.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in `outputs/` in this folder:
@@ -28,4 +34,4 @@ python ../../lab/starter/regression_lab.py --report outputs/report.md   # then e
 ```
 
 On a single GPU host, `python scripts/hw_labs.py run ch22 --device gpu` produces a before/after report on injected
-regressions with known ground truth (CPU fallback with `--device cpu`).
+regressions with known ground truth (CPU fallback with `--device cpu`). Run it from the repository root. The harness builds and runs a Docker image, so Docker must be running.

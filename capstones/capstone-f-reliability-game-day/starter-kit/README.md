@@ -98,6 +98,24 @@ The checker runs a dataset-integrity check (instructor copy only; `SKIP` in the 
 confirms the simulator is deterministic, runs your plan and rules through the simulator, and compares your
 analysis of the recorded game day with the expected values.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL  import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL  import -- SyntaxError: ...` and no check lines.** The checker could not import
+  `starter/gameday.py`. `python -m py_compile starter/gameday.py` shows the line.
+- **`TODO ... -- not implemented: TODO: implement <name>()`.** That function still raises
+  `NotImplementedError`. The line names it, for example `prioritize_backlog()`.
+- **`FAIL  simulator deterministic`.** The simulator in `sim/cluster_sim.py` gave different events for
+  the same faults. You have edited it. Restore it with `git checkout -- sim/` and keep your changes in
+  `starter/`.
+- **The dataset check FAILs** (instructor copy only), or `FAIL  load_inputs` appears. A file in `data/` was
+  edited. Restore it with `git checkout -- data/`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. L2/L3 extension: safe fault injection in a dedicated lab
 
 Outline Section 16: *conduct safe fault injection in a dedicated non-production lab with explicit

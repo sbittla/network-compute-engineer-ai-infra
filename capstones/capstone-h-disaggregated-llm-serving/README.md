@@ -17,6 +17,17 @@ brief says which.
 | **Tiers** | L1 required (model + simulator); L2 optional (one GPU host with a real serving stack); L3 advanced (two GPU nodes, real KV transfer over RDMA and TCP) |
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus [Section 10](#10-grading) |
 
+**Quick start.** From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-h-disaggregated-llm-serving/starter-kit
+python -m pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **1/11 checks passed (starter)**; the rest report TODO until you implement
+them in `starter/`. [starter-kit/README.md](starter-kit/README.md) explains the simulator and the tasks.
+
 Acronyms: TTFT (time to first token), TPOT/ITL (time per output token / inter-token latency), KV
 (key/value attention cache), GQA (grouped-query attention), MFU (model FLOPs utilization), QoS
 (quality of service), DSCP (Differentiated Services Code Point), TC (traffic class), PFC

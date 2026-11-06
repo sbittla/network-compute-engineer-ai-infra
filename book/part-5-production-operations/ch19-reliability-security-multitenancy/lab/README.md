@@ -140,8 +140,11 @@ pressure-stall information. GPU-only invariants are skipped. **Observed on the r
 bundles in `lab/l2/results/` (`gpu-rtx-4060-laptop-gpu/` and `cpu-fallback/`) show `GPU_IDLE` at idle,
 `SW_POWER_CAP` at the enforced limit under GEMM (normal; see Section 19.3, "Thermal and power events", and Chapter 18), no limiting reason in the memory-bound copy,
 and whether the driver's reason counters kept up with the sampled bitmask on that platform `[MEASURED]`.
-The committed GPU `report.md` was generated before a cross-reference fix and still says "exercise K4";
-read that as Section 19.3 (the measured values are unaffected).
+*One stale cross-reference.* In the committed `lab/l2/results/gpu-rtx-4060-laptop-gpu/report.md`, the first
+bullet under "What to conclude" (the GEMM soak at the 80 W limit) ends with "(exercise K4)". That pointer is
+wrong: this chapter's K4 is about PCIe evidence. Read it as Section 19.3, "Thermal and power events", which is
+what `experiment.py` now prints. Only that pointer is stale; every measured value in the report, and its other
+pointers (K2, T1), are correct. Your own run writes a fresh report without the error.
 
 **L3 — two RDMA nodes, dedicated partition.** Run `all_reduce_perf` (or a small PyTorch DDP loop) and,
 with authorization, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
@@ -156,3 +159,22 @@ The dataset contains planted traps (a misleading first reporter, a real-but-unre
 background AER stream, a downstream PFC spike, an unsafe "complete" checkpoint, an unhealthy spare,
 FMEA scoring errors, and several isolation violations, one of them a GPU device-injection bypass). They are documented for instructors in
 `../solutions/exercises-key.md`.
+
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'pandas'`** (or `yaml`) → run
+  `python -m pip install -r ../../../../requirements.txt` from this `lab/` folder, with the same `python`
+  you run `check.py` with.
+- **`FAIL import/load: ...` and no check lines** → `starter/incident_toolkit.py` has a syntax or import
+  error. Fix the line it names.
+- **`TODO <check>: implement <function>()`** → that function still raises `NotImplementedError`. Expected
+  until you implement it. Each check names the task (T1–T6) it tests; work through them in order.
+- **A `FAIL` line whose cause is not obvious** → rerun with `python check.py -v` to print the traceback.
+  To try `check_isolation()` on your own tenant files, use the snippet in exercise
+  [M2](../exercises/M2-tenant-isolation-boundaries/README.md).
+- **`SKIP dataset reproducible`** → expected in the learner release, which ships without the data
+  generator. If checks fail after you edited `data/`, restore it with `git checkout -- data/`.
+- **`python scripts/hw_labs.py run ch19` fails** → run it from the repository root with Docker running, and
+  run `build ch19` first. If the GPU run cannot start the container, the NVIDIA container runtime is
+  missing; use `--device cpu`. A run overwrites the committed bundles in `lab/l2/results/`;
+  `git checkout -- lab/l2/results` restores them.

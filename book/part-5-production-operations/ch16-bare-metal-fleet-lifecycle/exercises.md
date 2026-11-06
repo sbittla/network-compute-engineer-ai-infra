@@ -1,5 +1,7 @@
 # Chapter 16 — Exercises: Bare-Metal GPU Fleet Lifecycle
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Tags: difficulty ★ foundational, ★★ intermediate, ★★★ advanced; tier L1 (laptop), L2 (one GPU host),
 L3 (multi-node GPU + RDMA). Every exercise states the **evidence required** for grading. All values
 are from the ORION reference cluster unless an exercise varies them explicitly. Exercises marked

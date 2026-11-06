@@ -1,5 +1,7 @@
 # Chapter 2 — Exercises: Anatomy of an AI Data Center
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/paper · L2 single GPU
 server · L3 multi-node or facility access. Every exercise states the **evidence required** for
 grading. Unless an exercise says otherwise, use the ORION values in `docs/REFERENCE_CLUSTER.md` and
@@ -46,8 +48,8 @@ Answer each in two to four sentences.
 
 ## Exercise 2.2 — Small-cluster servers, rack units, ports, and links ★★ · L1
 
-*(Outline-mandated: estimate the number of GPU servers, rack units, network ports, and fabric links
-for a small cluster using stated assumptions.)*
+**Goal:** estimate the number of GPU servers, rack units, network ports, and fabric links for a small
+cluster from stated assumptions.
 
 Halcyon wants a 128-GPU cluster, **ORION-128**, from HX8 nodes, in an older hall. Assumptions
 `[ILLUSTRATIVE]`:
@@ -78,8 +80,8 @@ one-line justification for the spine count.
 
 ## Exercise 2.3 — Simplified capacity model ★★ · L1
 
-*(Outline-mandated: build a simplified capacity model that includes accelerator count, usable GPU
-memory, storage throughput, network bisection bandwidth, power, and utilization.)*
+**Goal:** build a simplified capacity model that includes accelerator count, usable GPU memory, storage
+throughput, network bisection bandwidth, power, and utilization.
 
 Extend ORION-128 from Exercise 2.2 with these assumptions `[ILLUSTRATIVE]`: 10 % of each GPU's 80 GB
 reserved for runtime and fragmentation; workload is a 13 × 10⁹-parameter dense model trained with
@@ -116,8 +118,8 @@ diagram with mitigations and accept/fix decisions). For an L2/L3 extension, add 
 
 ## Exercise 2.5 — Five single points of failure ★★ · L1
 
-*(Outline-mandated: identify at least five single points of failure in a sample cluster design and
-propose mitigations.)*
+**Goal:** identify at least five single points of failure in a sample cluster design and propose
+mitigations.
 
 **VEGA** is a 64-GPU inference cluster (8 HX8 nodes) a contractor proposed for Halcyon. Design notes
 `[ILLUSTRATIVE]`:
@@ -197,7 +199,8 @@ Tasks:
 4. Assume the evidence shows that every node in rack-02 and rack-03 has two PSUs corded to feed A and
    four to feed B. Explain the braking with arithmetic, propose the safe fix, and say how you would
    validate it *without* waiting for the next maintenance window.
-5. What change to the node acceptance checklist (Chapter 16) prevents a recurrence?
+5. Propose one line for the node acceptance checklist (the tests a node must pass before it joins
+   the cluster; Chapter 16 covers it in full) that would prevent a recurrence.
 
 **Evidence required:** slowdown arithmetic; ranked hypothesis table; evidence plan with commands;
 root-cause arithmetic; fix and validation plan; one acceptance-checklist line.
@@ -228,7 +231,7 @@ definition, warm-up, repetitions); raw CSV; plot; median and spread per step; ex
 
 ## Exercise 2.9 — High-density rack power and heat-removal budget with MEP handoff ★★★ · L1
 
-*(Outline §20.3 exercise.)* Halcyon is evaluating a hypothetical rack-scale accelerator system,
+Halcyon is evaluating a hypothetical rack-scale accelerator system,
 **Rack-X**, for a future cluster. Treat all figures as assumptions, not as a description of any
 product. If you substitute a real vendor's rack-scale design, cite the vendor reference design by
 title and the month you checked it; never present its figures as a universal rack standard.

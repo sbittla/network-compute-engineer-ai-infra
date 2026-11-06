@@ -5,7 +5,7 @@
 ## Prompt
 
 <!-- prompt:start -->
-*(Outline §20.3 exercise.)* Halcyon is evaluating a hypothetical rack-scale accelerator system,
+Halcyon is evaluating a hypothetical rack-scale accelerator system,
 **Rack-X**, for a future cluster. Treat all figures as assumptions, not as a description of any
 product. If you substitute a real vendor's rack-scale design, cite the vendor reference design by
 title and the month you checked it; never present its figures as a universal rack standard.
@@ -38,16 +38,22 @@ Produce:
 **Evidence required:** the nine artifacts above; arithmetic for 2, 3, 5, and 6; each number labelled.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/2.9-rack-x-power-thermal/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
 
 - `outputs/rack_x_budget.md`: the nine artifacts, with arithmetic for items 2, 3, 5 and 6
 
-Command to run (from this folder):
+Optional: if you script the arithmetic, save the script as `outputs/solve.py` and run it from this folder:
 
 ```bash
-python outputs/solve.py --out outputs/   # optional: if you script the arithmetic
+python outputs/solve.py --out outputs/   # optional: your own script; --out is the folder it writes to
 ```
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.

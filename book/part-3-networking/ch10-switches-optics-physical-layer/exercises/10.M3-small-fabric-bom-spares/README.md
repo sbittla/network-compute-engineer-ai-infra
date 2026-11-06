@@ -15,6 +15,12 @@ cables. What happens to the spine layer if the pod grows to 32 nodes?
 check your numbers with the lab's `estimate_fabric_bom()`.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Values are `[ILLUSTRATIVE]` unless labelled otherwise.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/10.M3-small-fabric-bom-spares/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put your deliverables in `outputs/` in this folder:

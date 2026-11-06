@@ -1,5 +1,7 @@
 # Chapter 3 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: **L1** laptop/simulation ·
 **L2** one real Linux (GPU) host · **L3** multi-node GPU + RDMA. Every exercise states the evidence
 required for grading. Use ORION values from `docs/REFERENCE_CLUSTER.md` unless an exercise varies
@@ -93,7 +95,7 @@ running, shrink to DP = 7, or plan a stop for this fault, and compare with the G
 *Evidence required:* formulas, substituted values and results with units, each labelled `[MODELED]`.
 
 ### Exercise 3.10 — Queues, stripes and packets ★★ · L1
-Use the live `iostat` report in the `orion-n12` snapshot.
+Use the live `iostat` report in the `orion-n12` snapshot (`lab/data/snapshots/orion-n12.json`).
 (a) Verify the `aqu-sz` of `nvme3n1` and of `md0` with Little's law.
 (b) Compute `md0`'s delivered read throughput in MB/s (SI), from `r/s` and `rareq-sz`.
 (c) The loader keeps about 41 requests of 512 KiB outstanding against `md0`. If `nvme3n1` behaved like
@@ -162,7 +164,7 @@ describe the L3 measurement that would replace it with a measured value.
 *Evidence required:* at least three assumptions and a measurement plan (tools, repetitions, statistic).
 
 ### Exercise 3.17 ★★ · L1
-Choose one threshold in `orion_hx8_baseline.yaml`. Argue for a tighter and for a looser value, and say
+Choose one threshold in `lab/data/orion_hx8_baseline.yaml`. Argue for a tighter and for a looser value, and say
 what fleet data you would need to set it from evidence rather than judgment.
 *Evidence required:* both arguments and a data requirement.
 

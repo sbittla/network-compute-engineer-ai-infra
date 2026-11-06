@@ -8,6 +8,12 @@ false on ORION and how it changes the rule.
 *Evidence required:* a correlated failure mode and a modified rule.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the lab snapshot in [lab/data/](../../lab/data/) (seed 17).
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/17-R3-correlated-rack-events/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Write your answer in `outputs/answer.md`. Cover every item in the "Evidence required" line, cite the

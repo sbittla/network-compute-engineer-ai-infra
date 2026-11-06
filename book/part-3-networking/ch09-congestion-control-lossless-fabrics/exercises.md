@@ -1,5 +1,7 @@
 # Chapter 9 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational, ★★ intermediate, ★★★ advanced. Tier: L1 laptop/paper, L2 single host,
 L3 multi-node RDMA lab fabric. Unless stated, use ORION values from
 [REFERENCE_CLUSTER.md](../../../docs/REFERENCE_CLUSTER.md) and the chapter's assumptions
@@ -53,7 +55,7 @@ from an incast destination on the switch port facing the device.
 
 ## Worked problems
 
-**W1 ★★ L1 — Headroom budget.** A 64-port, 400 Gb/s spine has all ports on 150 m fiber runs. Two
+**W1 ★★ L1 — Headroom budget.** A 64-port, 400 Gb/s spine has all ports on 150 m fiber runs (port MTU 9,216 B, t_resp = 1 µs). Two
 priorities are lossless.
 (a) Compute the headroom per port per lossless priority.
 (b) Compute the total headroom reservation for the switch.

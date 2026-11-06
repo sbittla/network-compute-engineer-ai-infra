@@ -7,16 +7,22 @@
 <!-- prompt:start -->
 **10.H1 — Link-health analyzer and commissioning report.** Complete [lab/README.md](../../lab/README.md)
 tasks 1–8 for `orion-be-leaf-r3`.
-*Evidence required:* `python check.py` output showing `13/13 checks passed`; the generated
+*Evidence required:* `python check.py` output showing that all checks pass (the data-regeneration check may report SKIP); the generated
 `commissioning-report.md`; `diagnosis.md` explaining every non-healthy port (evidence, layer, root
 cause hypothesis, first safe action, missing hardware evidence) and every decoy you identified.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Values are `[ILLUSTRATIVE]` unless labelled otherwise.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
 
 ## What to submit
 
 Put your deliverables in `outputs/` in this folder:
 
-- `outputs/check.txt`: the output of `python check.py` showing `13/13 checks passed`
+- `outputs/check.txt`: the output of `python check.py`: every check PASS (`dataset_reproducible` may report SKIP in the student release)
 - `outputs/commissioning-report.md`: written by `python check.py --report`
 - `outputs/diagnosis.md`: every non-healthy port and every decoy explained
 - `outputs/linkhealth.py`: a copy of your completed `lab/starter/linkhealth.py`

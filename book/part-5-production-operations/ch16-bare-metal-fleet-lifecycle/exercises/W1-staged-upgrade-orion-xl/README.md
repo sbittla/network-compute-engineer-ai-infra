@@ -15,6 +15,12 @@ rare faults?
 conclusion for (e).
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/W1-staged-upgrade-orion-xl/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Write your working in `outputs/answer.md`: formula → substitution → result with units for every

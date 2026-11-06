@@ -14,8 +14,20 @@ expected useful throughput per *fleet* node for A, for B with rank re-packing, a
 *Evidence required:* model with assumptions; numeric comparison; recommendation with risks.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); reliability uses node MTBF ≈ 1,536 node-hours, repair turnaround (MTTR) 5 days and restart overhead ≈ 15 min.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/D1-hot-spares-vs-elastic/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/). Expected files:
 
-- `outputs/answer.md (model, comparison table, recommendation)`
+- `outputs/answer.md` (model, comparison table, recommendation)
+
+"Canonical MTBF and 5-day MTTR" are the values in the Before-you-start defaults above (node MTBF ≈ 1,536
+node-hours, repair turnaround 5 days). They come from the reliability table in
+[docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md#reliability-assumptions-canonical-illustrative).
+The Poisson spare-sizing method is from Chapter 16; Section 19.7 ("Rank remapping and spares") of the
+[manuscript](../../manuscript.md) applies it to ORION-XL.

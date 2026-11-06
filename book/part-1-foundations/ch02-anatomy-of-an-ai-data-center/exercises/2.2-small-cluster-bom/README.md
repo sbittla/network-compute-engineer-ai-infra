@@ -5,8 +5,8 @@
 ## Prompt
 
 <!-- prompt:start -->
-*(Outline-mandated: estimate the number of GPU servers, rack units, network ports, and fabric links
-for a small cluster using stated assumptions.)*
+**Goal:** estimate the number of GPU servers, rack units, network ports, and fabric links for a small
+cluster from stated assumptions.
 
 Halcyon wants a 128-GPU cluster, **ORION-128**, from HX8 nodes, in an older hall. Assumptions
 `[ILLUSTRATIVE]`:
@@ -33,6 +33,12 @@ Tasks:
 **Evidence required:** a BOM table (item, quantity, formula); the per-side power calculation; a
 one-line justification for the spine count.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/2.2-small-cluster-bom/` (instructor material in the full repository; removed from student releases).
 
 ## What to submit
 

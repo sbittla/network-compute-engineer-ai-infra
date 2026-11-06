@@ -19,14 +19,32 @@ counters on rail-leaf ports for those two runs rose by ≈ 10⁶ frames versus <
 labels.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/T1-contaminated-benchmark/` (instructor material in the full repository; removed from student releases).
+
+## Where A-06 and B-02 are
+
+The IDs refer to Kestrel's design bundle in the lab data:
+
+- **A-06** (achievable all-reduce busbw per 400G rail at 32 nodes, 40 GB/s): the assumptions register,
+  [`lab/data/bundle_kestrel_capA/assumptions.yaml`](../../lab/data/bundle_kestrel_capA/assumptions.yaml).
+- **B-02** (`all_reduce_perf`, 8 GiB, 2 nodes × 8 GPUs, median of 5, 356.1 GB/s): the benchmark table,
+  [`lab/data/bundle_kestrel_capA/benchmarks.md`](../../lab/data/bundle_kestrel_capA/benchmarks.md).
+
+The ORION reference bundle (`lab/data/bundle_orion_reference/`) uses the same IDs. Your corrected rows
+for part 3 should follow the column layout of `benchmarks.md` and the field layout of `assumptions.yaml`.
+
 ## What to submit
 
 Put every deliverable in `outputs/` in this folder:
 
 - `outputs/answer.md`
 
-Run:
+Optional: if you script the arithmetic, save the script as `outputs/solve.py` and run it from this folder:
 
 ```bash
-python solve.py --out outputs   # optional: script your arithmetic
+python outputs/solve.py --out outputs/   # optional: your own script; --out is the folder it writes to
 ```

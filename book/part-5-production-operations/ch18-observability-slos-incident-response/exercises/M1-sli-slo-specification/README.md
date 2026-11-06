@@ -11,9 +11,15 @@ and the owner. *(Deliverable: `slo_spec.md`.)*
 budget arithmetic; exclusions (e.g. client 4xx, user-code failures) stated.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/M1-sli-slo-specification/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
-Write your working in `outputs/answer.md`: formula → substitution → result with units for every
-part, with evidence labels. If you check it with a script, save it as `outputs/work.py` and run it
-from this folder with `python outputs/work.py`.
-The deliverable file is `outputs/slo_spec.md`.
+Submit one file, `outputs/slo_spec.md`: the four-service table, the PromQL recording rules, and the
+error-budget arithmetic (formula → substitution → result with units, with an evidence label on each number).
+If you check the arithmetic with a script, save it as `outputs/work.py` and run it from this folder with
+`python outputs/work.py`.

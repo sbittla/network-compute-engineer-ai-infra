@@ -1,6 +1,6 @@
 {
   "difficulty": 3,
-  "evidence_required": "`python check.py` output showing `13/13 checks passed`; the generated `commissioning-report.md`; `diagnosis.md` explaining every non-healthy port (evidence, layer, root cause hypothesis, first safe action, missing hardware evidence) and every decoy you identified.",
+  "evidence_required": "`python check.py` output showing that all checks pass (the data-regeneration check may report SKIP); the generated `commissioning-report.md`; `diagnosis.md` explaining every non-healthy port (evidence, layer, root cause hypothesis, first safe action, missing hardware evidence) and every decoy you identified.",
   "id": "10.H1",
   "kind": "lab",
   "lab_checks": [

@@ -8,6 +8,12 @@ then run a test that shows GDR in use (or not). *Evidence required:* raw command
 NCCL `/GDRDMA` lines or `ib_write_bw --use_cuda` results, and a verdict.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the Table 5.4 model parameters.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/5.15-prove-gdr/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in `outputs/`:
@@ -21,4 +27,4 @@ gpu` (from the repository root) collects every Table 5.3 item the host exposes w
 raw `nvidia-smi topo -m`, PCIe link state, the peer-memory modules, `/proc/cmdline` and the PCI/RDMA
 scan. It writes an evidence table and a verdict to `lab/l2/results/<gpu-model>/report.md`, with the raw
 outputs in `results.json`. On a host without an RDMA NIC the verdict is "GDR impossible" and item 6 is
-recorded as not runnable. Use its raw outputs for `outputs/evidence/` and say so in your verdict.
+recorded as not runnable. Use its raw outputs for `outputs/evidence/` and say so in your verdict. The harness builds and runs a Docker image, so Docker must be running.

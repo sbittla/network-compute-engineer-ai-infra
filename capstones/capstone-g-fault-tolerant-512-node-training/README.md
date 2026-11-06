@@ -18,6 +18,17 @@ prove the job resumed correctly.
 | **Tiers** | L1 required (synthetic incident dataset); L2 optional (single-host evidence collection); L3 advanced (controlled fault drill on ≥ 2 RDMA-connected GPU nodes) |
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus [Section 10](#10-grading) |
 
+**Quick start.** From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-g-fault-tolerant-512-node-training/starter-kit
+python -m pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **1/11 checks passed (starter)**; the rest report TODO until you implement
+them in `starter/`. [starter-kit/README.md](starter-kit/README.md) has the data dictionary and the tasks.
+
 > **Realism boundary — read first:** The L1 environment is **simulated**. Every log line, counter
 > and timestamp in `starter-kit/data/` was produced by a seeded generator; log formats imitate the
 > shape of real kernel, DCGM, NIC, switch and PyTorch messages but are not captures. Results from it

@@ -24,6 +24,12 @@ definition, warm-up, repetitions); raw CSV; plot; median and spread per step; ex
 `[MEASURED]` versus `[MODELED]` labels for the answer to question 3.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/2.8-power-cap-sweep/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
@@ -33,7 +39,7 @@ Put every deliverable in [`outputs/`](outputs/):
 - `outputs/sweep.png`: throughput, power and throughput per watt against the limit
 - `outputs/report.md`: median and spread per step and answers to questions 1 to 3 with `[MEASURED]`/`[MODELED]` labels
 
-Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+Answer in prose. Give any number you use with its unit and an evidence label (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`).
 
 **Hardware run (course harness).** From the repository root, `python scripts/hw_labs.py run ch02 --device
 gpu` measures the GPU at its *default* power limit: idle, a compute-bound GEMM and a memory-bound copy,
@@ -41,4 +47,4 @@ with power, clocks and clock-event reasons sampled every 100 ms. It writes `lab/
 It never changes the limit, so it gives you the first point of the sweep and the compute- versus
 memory-bound contrast of question 2, not the sweep itself. If you use it, copy its `report.md` to
 `outputs/l2_baseline_report.md`. Without a GPU, `--device cpu` runs the CPU fallback automatically
-(throughput only, no power).
+(throughput only, no power). The harness builds and runs a Docker image, so Docker must be running.

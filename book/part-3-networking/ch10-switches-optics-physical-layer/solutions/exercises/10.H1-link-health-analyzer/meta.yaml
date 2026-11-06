@@ -6,7 +6,8 @@ difficulty: 3
 tier: L1
 kind: lab
 points: 100
-evidence_required: '`python check.py` output showing `13/13 checks passed`; the generated `commissioning-report.md`;
+evidence_required: '`python check.py` output showing that all checks pass (the data-regeneration check may report
+  SKIP); the generated `commissioning-report.md`;
   `diagnosis.md` explaining every non-healthy port (evidence, layer, root cause hypothesis, first safe
   action, missing hardware evidence) and every decoy you identified.'
 marking:

@@ -30,6 +30,6 @@ reflection, marked against a rubric). Canonical inputs: node MTBF ≈ 1,536 node
 | M1 | Failure-mode analysis (risk register) | Outline-mandated | ★★ | L1 | lab | [M1](M1-failure-mode-analysis/) |
 | M2 | Tenant isolation boundaries (isolation model) | Outline-mandated | ★★ | L1 | lab | [M2](M2-tenant-isolation-boundaries/) |
 | M3 | Recovery and containment exercise | Outline-mandated | ★★★ | L1 | written | [M3](M3-recovery-containment-exercise/) |
-| M4 | 512-node incident (course-outline §20.1) | Outline-mandated | ★★★ | L1 | lab | [M4](M4-512-node-incident/) |
+| M4 | 512-node incident | Outline-mandated | ★★★ | L1 | lab | [M4](M4-512-node-incident/) |
 
 Exercise count: 23

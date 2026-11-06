@@ -254,12 +254,46 @@ interleaved; and the fan-in results are consistent. It does not compare your num
 
 ## 8. Reference results
 
-Not yet recorded. The reference machine runs the custom WSL2 kernel of
-[docs/HANDS_ON_LABS.md](../../../../../docs/HANDS_ON_LABS.md) section 6, and that kernel has no modules
-installed: `tbf`, `red`, `netem`, `bridge` and `tcp_dctcp` are all `=m` in its configuration, so
-`setup.sh` stops with "missing qdisc". The reference run will be committed in
-`results/wsl2-rtx4060-laptop/` once the reference kernel provides them. Your numbers will differ with
-the CPU and the kernel; the check tests physical sense, not equality.
+Recorded in [results/wsl2-rtx4060-laptop/](results/wsl2-rtx4060-laptop/) (`report.md`, `summary.json`,
+raw files); `check.py` passes 18 of 18 on it. Medians of three interleaved 8:1 incasts, all `[MEASURED]`:
+
+| Config | Queue p50 (B) | Drops | Marks | Goodput (Mbit/s) |
+|---|---|---|---|---|
+| drop-tail | 466,410 | 154 | 0 | 94.3 |
+| red-ecn | 30,378 | 0 | 3,574 | 94.5 |
+| red-nonect | 30,280 | 3,511 (early) | 18 (probe only) | 94.8 |
+| asfound | 190,862 | 0 | 322 | 94.5 |
+| dctcp | 19,682 | 23 | 60,716 | 94.7 |
+
+Idle RTT p50 2.37 ms (BDP 29,625 B); one flow 94.4 Mbit/s. Fan-in at N = 16: drop-tail 325 drops at a
+471,050 B queue, RED+ECN 17 drops and 5,697 marks at a 46,934 B queue.
+
+How the reference machine got its kernel modules: it runs the custom WSL2 kernel of
+[docs/HANDS_ON_LABS.md](../../../../../docs/HANDS_ON_LABS.md) section 6 (`6.18.54.1-rxe+`), which has no
+`/lib/modules` and builds `sch_tbf`, `sch_red`, `sch_netem`, `bridge` and `tcp_dctcp` as `=m`. Those
+modules (plus `bridge`'s dependencies `llc` and `stp`) were built from the same tree for the running
+kernel and loaded with `insmod` before `setup.sh`. Modules loaded this way do not persist across
+`wsl --shutdown`: load them again after every restart.
+
+Your numbers will differ with the CPU and the kernel; the check tests physical sense, not equality.
+
+## Troubleshooting
+
+- **`setup.sh` prints "missing qdisc: tbf/red/netem" or "missing: bridge".** The kernel has no such
+  module. Build them for the running kernel (Section 3, "Kernel") and load them in dependency order:
+  `insmod llc.ko; insmod stp.ko; insmod bridge.ko`, then the `sch_*.ko` files; or install them and run
+  `depmod` so `modprobe` finds them. After `wsl --shutdown`, `insmod` them again.
+- **The DCTCP step is skipped.** `tcp_available_congestion_control` lacks `dctcp`: load `tcp_dctcp`
+  (`modprobe tcp_dctcp` or `insmod tcp_dctcp.ko`). The check reports SKIP, not FAIL, without it.
+- **Drop-tail never drops and the queue stalls near 150 KB.** TCP Small Queues is capping each flow
+  (Section 5): run `net.sh up` again, which raises `tcp_pacing_ca_ratio`/`tcp_pacing_ss_ratio` in every
+  sender namespace, rather than creating namespaces by hand.
+- **The queue jumps in 64 KB steps or RED marks far too little.** GSO/TSO/GRO are still on (`net.sh`
+  ignores an `ethtool -K` failure): `sudo bash net.sh show` prints the offloads on the bottleneck port;
+  they must read `off`.
+- **`net.sh up` says "the fabric is already up".** A previous run was interrupted and left `ch09-*`
+  namespaces: `sudo bash teardown.sh`, then start again.
+- **"this step needs root".** Run the scripts with `sudo`.
 
 ## 9. Clean up
 

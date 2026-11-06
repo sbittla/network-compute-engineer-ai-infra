@@ -88,6 +88,24 @@ code is 0 only when all 17 checks pass. The checker runs in about 2 s and touche
 network. The first check is a dataset-integrity check that only runs in the instructor copy; in
 the student release it prints `SKIP` and counts as passed.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL  import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL  import -- SyntaxError: ...` and no check lines.** The checker could not import
+  `starter/fleet.py`. `python -m py_compile starter/fleet.py` shows the line.
+- **`TODO ... -- not implemented: TODO: implement <name>()`.** That function still raises
+  `NotImplementedError`. The line names it, for example `audit_append()`.
+- **`FAIL  load_dataset -- ...`.** The dataset loader failed before any check ran. If you changed a
+  file in `data/`, restore it with `git checkout -- data/`. The integrity check (instructor copy) also
+  FAILs on edited data.
+- **`--impl solution` prints `Implementation not found`.** The `instructor/` folder is removed from
+  student releases. Use `--impl starter`, the default.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 7. Deliverable
 
 Your repository with `starter/fleet.py` passing 17/17, plus the design artifacts in

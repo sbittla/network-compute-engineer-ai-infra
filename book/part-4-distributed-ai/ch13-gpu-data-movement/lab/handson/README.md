@@ -137,6 +137,14 @@ workers do not overlap perfectly. More than eight adds nothing.
 
 Your numbers will differ. `check.py` tests physical sense, not equality.
 
+## Troubleshooting
+
+- `ERROR: no NVIDIA GPU visible (nvidia-smi failed)` → this lab needs a GPU (there is no CPU path here; the L2 extension in `../README.md` has a CPU fallback). On WSL2, check `nvidia-smi` inside WSL.
+- `ERROR: missing command: flock` → `sudo apt-get install util-linux`, then rerun `bash setup.sh`.
+- `setup.sh` fails while creating the shared venv → it downloads PyTorch 2.5.1 + CUDA 12.4 (network needed); if `python3 -m venv` fails, `sudo apt-get install python3-venv`; after an interrupted install delete `~/.venvs/ai-infra-handson` and rerun.
+- DataLoader workers die (`Bus error`, `DataLoader worker ... killed`) or pinning fails → free RAM (about 3 GiB is needed) and check the `/dev/shm` size that `setup.sh` prints; on WSL2, raise `memory=` in `.wslconfig`.
+- The run sits silent → it is waiting for the shared GPU lock `/tmp/handson-gpu.lock` held by another lab; wait for it.
+
 ## 9. Clean up
 
 ```bash

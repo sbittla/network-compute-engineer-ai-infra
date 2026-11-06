@@ -18,6 +18,12 @@ c. Justify `rollback_scope: all_changed` for this rollout, or argue for failing-
 the extension fields.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md). Values are ORION `[ILLUSTRATIVE]` unless stated.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/). Expected files:
@@ -36,4 +42,4 @@ cd ../../lab && python check.py
 **Hardware run (course harness).** L2 on the course harness: `python scripts/hw_labs.py run ch20` feeds
 measured GPU (or CPU) samples through your `evaluate_wave` / `run_rollout`, covering a no-op change, an
 injected regression and a short bake. Its `lab/l2/results/<gpu-model|cpu-fallback>/environment.json` can
-back the manifest fields.
+back the manifest fields. Run it from the repository root. The harness builds and runs a Docker image, so Docker must be running.

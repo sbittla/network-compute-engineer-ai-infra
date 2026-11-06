@@ -8,6 +8,12 @@ of Table 18.4. Describe a week in which throughput SLI is 100 % but goodput is 8
 *Evidence required:* both definitions as good/valid ratios; a numeric example that produces 80 %.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/K3-throughput-vs-goodput/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Write your working in `outputs/answer.md`: formula → substitution → result with units for every

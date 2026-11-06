@@ -38,11 +38,18 @@ Tasks:
 4. Assume the evidence shows that every node in rack-02 and rack-03 has two PSUs corded to feed A and
    four to feed B. Explain the braking with arithmetic, propose the safe fix, and say how you would
    validate it *without* waiting for the next maintenance window.
-5. What change to the node acceptance checklist (Chapter 16) prevents a recurrence?
+5. Propose one line for the node acceptance checklist (the tests a node must pass before it joins
+   the cluster; Chapter 16 covers it in full) that would prevent a recurrence.
 
 **Evidence required:** slowdown arithmetic; ranked hypothesis table; evidence plan with commands;
 root-cause arithmetic; fix and validation plan; one acceptance-checklist line.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/2.7-maintenance-window-slowdown/` (instructor material in the full repository; removed from student releases).
 
 ## What to submit
 
@@ -50,10 +57,10 @@ Put every deliverable in [`outputs/`](outputs/):
 
 - `outputs/report.md`: slowdown arithmetic, ranked hypotheses, evidence plan with commands, root-cause arithmetic, fix, validation and the checklist line
 
-Command to run (from this folder):
+Optional: if you script the arithmetic, save the script as `outputs/solve.py` and run it from this folder:
 
 ```bash
-python outputs/solve.py --out outputs/   # optional: if you script the arithmetic
+python outputs/solve.py --out outputs/   # optional: your own script; --out is the folder it writes to
 ```
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.

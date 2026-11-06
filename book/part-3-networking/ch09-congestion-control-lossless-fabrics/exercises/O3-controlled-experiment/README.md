@@ -14,6 +14,12 @@ repetitions (≥ 5) and warm-up; metrics; analysis method; environment manifest 
 a "cannot conclude" list of at least four items specific to the model.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the chapter's assumptions: light travels 5 ns/m in fiber, port MTU 9,216 B, t_resp = 1 µs.
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/O3-controlled-experiment/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Write the experiment plan; it is executed only on a dedicated L3 lab fabric. Put every deliverable in `outputs/`:

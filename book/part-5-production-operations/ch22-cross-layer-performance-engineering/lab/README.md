@@ -98,6 +98,25 @@ The checker prints one `PASS`/`FAIL`/`TODO`/`SKIP` line per check with the value
 The first check confirms that `data/` matches the seeded generator byte for byte; it reports `SKIP` in the
 learner copy, where the generator is not shipped.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`, shown as `FAIL import ...` with no other
+  lines.** Install the requirements into the interpreter you run `check.py` with:
+  `python -m pip install -r ../../../../requirements.txt`. Use Python 3.10 or newer.
+- **`FAIL import <path>/starter/regression_lab.py: SyntaxError(...)`.** Nothing else ran (exit code 2). Run
+  `python -m py_compile starter/regression_lab.py` to see the line.
+- **A `FAIL` line ends in `(at regression_lab.py:NN)`.** Your code raised an exception at that line;
+  the message before it names the exception. The later functions (`attribute`, `bootstrap_shares`,
+  `render_report`) consume `job_factor_table` and `estimate_effects`, so fix the earliest failing check
+  first.
+- **The report runs but the attribution shares look wrong.** Check the join question in
+  `job_factor_table`: `driver_new` and `alert_node` must be time-aware (exposed only if the job ran
+  after the change or the alert), not read from the current inventory.
+- **You need a different model (exercises K5, O1).** Do not edit `TERMS` in the starter, which the
+  checker grades. Override `regression_lab.TERMS` from your own script; the exercise READMEs show how.
+- **The data-regeneration check FAILs** (instructor copy only). A file in `data/` was edited. Restore
+  it with `git checkout -- data/`.
+
 ## 7. Deliverable and grading rubric
 
 Submit `starter/regression_lab.py`, the generated `report.md`

@@ -1,5 +1,7 @@
 # Chapter 22 — Exercises: Cross-Layer Performance Engineering
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/simulation ·
 L2 single GPU host · L3 multi-node GPU + RDMA. Every exercise states the evidence required for grading.
 Numbers given in prompts are `[ILLUSTRATIVE]` unless labelled otherwise.
@@ -73,7 +75,8 @@ e. The interaction is positive. Propose a mechanism that would make S hurt more 
 
 **W2 ★★ (L1) — Scaling efficiency and detectability.** W-TRAIN ablations measure median step times of
 17.38 s (64 GPUs, DP = 2), 17.62 s (128 GPUs, DP = 4), and 17.90 s (256 GPUs, DP = 8); per-GPU work is
-constant.
+constant: each DP replica processes 128 sequences × 4,096 tokens per step, so a 64-GPU step is
+1,048,576 tokens (Section 22.10) and tokens per step scale with DP.
 
 a. Compute tokens/s and weak-scaling efficiency at 128 and 256 GPUs relative to 64 GPUs.
 b. Using the straggler model of Section 22.5.2 with per-node jitter σ = 0.5 s and expected maxima of

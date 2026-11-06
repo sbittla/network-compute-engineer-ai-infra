@@ -62,7 +62,7 @@ and the `Finding` dataclass are provided.
 | 5 | Implement `parse_bw`, `parse_lat`, `bw_plateau_gbps`, `half_bw_bytes` | 23 BW rows, 16 latency rows (the latency captures are abridged to 2 B–64 KiB; a real `ib_write_lat -a` prints 23 rows up to 8 MiB, so the parser must not assume a row count); n½ of a healthy pair = 8,192 B |
 | 6 | Implement `summarize` (one row per pair/rail; flags vs fleet medians) | 32 rows; fleet median plateau 380–395 Gb/s; exactly the underperforming pair and the tail-latency pair flagged |
 | 7 | Implement `pcie_downgrades` | Exactly one NIC with `LnkSta` below `LnkCap` |
-| 8 | Write `readiness_report.md` and a short diagnosis (≤ 1 page) for each flagged perftest pair: most likely cause, the evidence, and the next discriminating test | Graded by rubric (§7) |
+| 8 | Generate `readiness_report.md` (`python starter/readiness.py --out readiness_report.md`; `--inventory` and `--baseline` default to `data/`) and write a short diagnosis (≤ 1 page) for each flagged perftest pair: most likely cause, the evidence, and the next discriminating test | Graded by rubric (§7) |
 
 Rules of the checks (also in the docstrings): MTU fails if the netdev MTU ≠ 9000 **or** `active_mtu`
 ≠ 4096; GID_INDEX fails unless the index named by `NCCL_IB_GID_INDEX` resolves, on that device, to a
@@ -95,7 +95,8 @@ hashes: it tells you how many you matched and how many were unexpected, never wh
 
 ## 7. Deliverable and grading rubric (100 points)
 
-Deliverable: your completed `starter/` modules, `readiness_report.md` (generated), and
+Deliverable: your completed `starter/` modules, `readiness_report.md` (generated from the lab directory
+with `python starter/readiness.py --out readiness_report.md`), and
 `diagnosis.md` (Task 8). Together with the checklist in Manuscript Table 8.10 and a one-page RDMA design
 note (Exercise 8.11), this is the chapter deliverable: *RDMA design note and deployment-readiness
 checklist*.
@@ -210,6 +211,20 @@ GID index, a locked-memory limit too small for the buffer) and kills a peer mid-
 ACK timeout and the `IBV_WC_RETRY_EXC_ERR` (12) failure. Numbers are software-RDMA numbers on one CPU,
 labelled `[MEASURED]`; the mechanisms carry over, the magnitudes do not. See
 [handson/README.md](handson/README.md); `python handson/check.py handson/results/<run-id>` checks a run.
+
+## Troubleshooting
+
+- **`FAIL import: could not import starter modules`.** A syntax error or a missing package in your
+  module: run `python starter/readiness.py --help` to see the traceback, and install
+  `../../../../requirements.txt` (pyyaml, pandas, numpy) if an import is missing.
+- **Every check prints `TODO`.** Expected at the start: each function raises `NotImplementedError`
+  until you implement it.
+- **`SKIP data_regenerates_identically`.** The data generator (`lab/tools/`) is instructor-only and not in
+  the student release; the line reads `n/14 checks passed, 1 skipped` and the run still exits 0.
+- **`python starter/readiness.py` raises `NotImplementedError`.** The report needs Tasks 1–4 done;
+  finish `run_readiness` and `render_report` before generating `readiness_report.md`.
+- **`no_false_positive_clean_node` fails.** Read the rules under §5 again (MTU needs both 9000 *and*
+  `active_mtu` 4096; GID_INDEX resolves on that device); the message names the first spurious finding.
 
 ## 9. Intentionally flawed inputs
 

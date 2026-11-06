@@ -17,6 +17,17 @@ a real lab provisioning system and real hardware health checks.
 | **Tiers** | L1 required (laptop, Python 3.10+); L2 optional (one GPU host); L3 advanced extension (lab provisioning system plus at least two multi-GPU RDMA nodes) |
 | **Grading** | [../RUBRIC.md](../RUBRIC.md) plus the capstone-specific criteria in [Section 10](#10-grading) |
 
+**Quick start.** From the repository root, with Python 3.10+:
+
+```bash
+cd capstones/capstone-e-fleet-lifecycle-automation/starter-kit
+python -m pip install -r ../../../requirements.txt
+python check.py
+```
+
+Expected first result: **1/17 checks passed (starter)**; the rest report TODO until you implement
+them in `starter/fleet.py`. [starter-kit/README.md](starter-kit/README.md) lists the tasks and dataset.
+
 Acronyms used throughout: BMC (baseboard management controller), BDF (PCIe bus:device.function),
 DCGM (NVIDIA Data Center GPU Manager), ECC (error-correcting code), PXE (preboot execution
 environment), RDMA (remote direct memory access), VBIOS (GPU video BIOS/firmware image), Xid (NVIDIA

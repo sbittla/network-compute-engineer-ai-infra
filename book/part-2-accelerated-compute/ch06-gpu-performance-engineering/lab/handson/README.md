@@ -58,14 +58,27 @@ bash setup.sh          # the shared PyTorch venv (scripts/handson/venv.sh), then
 ## 6. Steps
 
 Run everything unattended with `bash run.sh my-run` (results in `results/my-run/`), or step by step as
-below (`PY=~/.venvs/ai-infra-handson/bin/python`). Write your answers in `results/<run-id>/answers.md`.
+below. By hand, set up the shell once, and take the shared GPU lock the way `run.sh` does, so another
+lab's GPU job cannot run inside your measurement:
+
+```bash
+PY=~/.venvs/ai-infra-handson/bin/python
+R=results/my-run && mkdir -p $R
+LOCK="flock /tmp/handson-gpu.lock"
+bash -c ". ../../../../../scripts/handson/common.sh && env_manifest $R/environment.json"   # check.py needs it
+```
+
+The manual order is Step 1, Step 3, Step 2, Step 4, Step 5, Step 6: Step 2 reads the `runs.jsonl` that
+Step 3 writes, and `analyze.py` (Step 4) needs the outputs of Steps 1, 3 and 6, so Step 4 also runs the
+roofline measurement. Write your answers in `results/<run-id>/answers.md`.
 Before step 3, write down the decision rule you will use. The lab's rule is fixed in the docstring of
 `analyze.py`: 1 % practical threshold, per-arm clock rule, 95 % bootstrap band, exact permutation test.
 
 ### Step 1: four ways to time one GEMM
 
 ```bash
-$PY naive.py | python3 -m json.tool
+$LOCK $PY naive.py > $R/step1_naive.json      # analyze.py and check.py read this file
+tail -1 $R/step1_naive.json | python3 -m json.tool
 ```
 
 `naive.py` times a 4096³ BF16 GEMM four ways. A: a host timer with no synchronize. B: one cold
@@ -75,10 +88,14 @@ of 50. It prints the TFLOP/s each method implies next to the BF16 dense peak at 
 **Question 1.** Which methods give a physically impossible number, and how can you tell without a profiler?
 What did method A actually time?
 
-### Step 2: warm-up
+### Step 2: warm-up (read it after Step 3)
 
-The protocol (below) keeps every iteration, including the five warm-up iterations it discards. Look at
-`runs.jsonl`: compare `ms[0]` with the median of `ms[5:]`.
+The protocol (Step 3) keeps every iteration, including the five warm-up iterations it discards. Once
+Step 3 has written `$R/runs.jsonl` (one JSON line per run), compare `ms[0]` with the median of `ms[5:]`:
+
+```bash
+python3 -c "import json, statistics as s; [print(r['arm'], round(r['ms'][0] / s.median(r['ms'][5:]), 2)) for r in map(json.loads, open('$R/runs.jsonl'))]"
+```
 
 **Question 2.** How much slower is the first iteration of a fresh process than its steady state? Do five
 discarded iterations cover the transient? Check `ms[1]` to `ms[4]` too.
@@ -86,7 +103,7 @@ discarded iterations cover the transient? Check `ms[1]` to `ms[4]` too.
 ### Step 3: the protocol session
 
 ```bash
-$PY protocol.py results/my-run --runs 8 --iters 50 --python $PY
+$LOCK $PY protocol.py $R --runs 8 --iters 50 --python $PY    # -> runs.jsonl, telemetry.csv, schedule.txt
 ```
 
 32 runs (4 arms × 8), each a fresh `bench.py` process. The arms run round-robin with the start rotated each
@@ -99,8 +116,8 @@ against that running all baseline runs first would not?
 ### Step 4: clocks and the A/A floor
 
 ```bash
-$PY roofline.py > results/my-run/step6_roofline.json     # (run.sh does this as step 6)
-python3 analyze.py results/my-run
+$LOCK $PY roofline.py > $R/step6_roofline.json   # Step 6's measurement (about 1 min); analyze.py needs it
+python3 analyze.py $R                            # -> summary.json, report.md
 ```
 
 `analyze.py` matches each run to its telemetry samples, applies the clock rule, and computes the A/A
@@ -121,7 +138,8 @@ arm have let you conclude (the `three_runs` line), and why?
 
 ### Step 6: an empirical roofline
 
-`roofline.py` measures the memory roof (a 256 MiB device-to-device copy, 8 times L2) and the compute
+You ran this measurement in Step 4; read `$R/step6_roofline.json` and the roofline section of
+`report.md`. `roofline.py` measures the memory roof (a 256 MiB device-to-device copy, 8 times L2) and the compute
 roof (square BF16 GEMMs). It then sustains the 8192³ GEMM for 4 s while sampling the SM clock, and
 sweeps M = N = 4096 with K from 16 to 4096.
 
@@ -192,6 +210,23 @@ accumulation (the GeForce Ada rate). Where the measurements differ, and why:
   within an arm (Section 6.5, Pitfall).
 
 Your numbers will differ. `check.py` tests physical sense, not equality.
+
+## Troubleshooting
+
+- **"no NVIDIA GPU visible (nvidia-smi failed)".** `need_gpu` could not run `nvidia-smi -L`. On WSL2 it
+  lives in `/usr/lib/wsl/lib` (the scripts add it to `PATH`); update the Windows NVIDIA driver if it is
+  missing there.
+- **`setup.sh` fails with "CUDA not visible to PyTorch".** The venv's PyTorch is the CUDA 12.4 build and
+  needs driver 550 or newer. To rebuild the venv, delete `~/.venvs/ai-infra-handson` and run `setup.sh`
+  again.
+- **`run.sh` sits silently at a step.** It is waiting for the shared GPU lock (`/tmp/handson-gpu.lock`)
+  held by another lab's GPU job. `ps -ef | grep flock` shows the holder; let it finish.
+- **`check.py` reports a missing file.** The bundle needs every file in its `REQUIRED` list. A manual run
+  skipped one of the steps, or the `env_manifest` line at the top of Section 6; `run.sh` writes them all.
+- **The A/A noise floor is large, or many runs are excluded.** Other work shared the GPU or CPU, or the
+  laptop changed power mode mid-session: plug it in, close GPU applications, and rerun the whole session.
+- **A run is left over after Ctrl-C.** `bash teardown.sh` stops `protocol.py`, `bench.py` and the
+  `nvidia-smi` sampler.
 
 ## 9. Clean up
 

@@ -1,5 +1,7 @@
 # Chapter 11 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/simulation, L2 single GPU
 host, L3 multi-node GPU + RDMA. Unless stated, use W-TRAIN on ORION-256 and the assumptions in
 Table 11.4 of the manuscript. Label every number you produce `[MODELED]`, `[MEASURED]`, or
@@ -72,8 +74,8 @@ overhead); (d) DP time triples because of fabric congestion; (e) both (b) and (c
 *Evidence required:* five step times and MFUs with arithmetic, and the ranking with one sentence each.
 
 **11.12 (O3) ★★★ L1 — Failure-aware training workflow.** Design the checkpoint-and-restart workflow
-for W-TRAIN on (a) ORION-256 and (b) ORION-XL (4,096 GPUs), using the canonical job MTBF of 48 h and 3 h
-(1,536 node-hours / nodes), C = 45 s (synchronous) or 5 s (asynchronous), and R = 900 s. Give τ_opt, expected waste, expected lost work
+for W-TRAIN on (a) ORION-256 and (b) ORION-XL (4,096 GPUs), using the canonical job MTBF of 48 h (ORION-256, 32 nodes) and
+3 h (ORION-XL, 512 nodes), i.e. 1,536 node-hours ÷ node count, C = 45 s (synchronous) or 5 s (asynchronous), and R = 900 s. Give τ_opt, expected waste, expected lost work
 per failure in GPU-hours, and lost GPU-hours per day. Then state the restart procedure (detection,
 isolation, replacement, restore, validation) and the retry/quarantine policy, and say which term
 (C, R, or MTBF) you would invest in at each scale.

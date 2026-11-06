@@ -17,6 +17,12 @@ labelled components and ≥ 4 labelled data paths with volumes; a dependency tab
 component, dependency, first signal); one paragraph contrasting their failure domains.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/1.1-reference-architectures/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
@@ -25,4 +31,4 @@ Put every deliverable in [`outputs/`](outputs/):
 - `outputs/inference.md`: W-INFER diagram with volumes on the data paths
 - `outputs/dependencies.md`: one dependency table per workload and the failure-domain paragraph
 
-Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.
+Answer in prose. Give any number you use with its unit and an evidence label (`[MEASURED]`, `[MODELED]`, `[SIMULATED]` or `[ILLUSTRATIVE]`).

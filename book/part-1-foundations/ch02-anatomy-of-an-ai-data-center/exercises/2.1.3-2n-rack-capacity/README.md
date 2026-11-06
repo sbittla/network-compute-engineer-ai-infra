@@ -11,16 +11,22 @@ Shared instruction for every Exercise 2.1 question: answer in two to four senten
    capacity, and why is it not the sum of both sides?
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the assumptions of the chapter's Sections 2.2–2.10.
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/2.1.3-2n-rack-capacity/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Put every deliverable in [`outputs/`](outputs/):
 
 - `outputs/answer.md`: your answer; numbers as formula, substitution and result with units and an evidence label
 
-Command to run (from this folder):
+Optional: if you script the arithmetic, save the script as `outputs/solve.py` and run it from this folder:
 
 ```bash
-python outputs/solve.py --out outputs/   # optional: if you script the arithmetic
+python outputs/solve.py --out outputs/   # optional: your own script; --out is the folder it writes to
 ```
 
 Label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]` and so on) and show formula, substitution and result with units.

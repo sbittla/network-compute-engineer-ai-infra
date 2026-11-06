@@ -11,6 +11,12 @@ equivalent prefix length. How many IPv4 addresses do ORION's 512 point-to-point 
 *Evidence required:* RFC numbers, both address counts with arithmetic, one operational reason.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) for the ORION-256 backend, and the Section 7.3 conventions (Table 7.2).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/7.K1-p2p-addressing/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Show formula → substitution → result with units, and label every number (`[MODELED]` unless stated). Put every deliverable in `outputs/`:

@@ -34,16 +34,19 @@ Choose by Week 8. Changing after Milestone M1 (Week 10) needs instructor approva
 
 ## 2. The eight capstones
 
-| ID | Capstone | Audience (course outline Section 16; G and H suggested, as Section 22 names none) | Starter kit centrepiece |
-|---|---|---|---|
-| A | [Design a 256-GPU AI training cluster](capstone-a-256-gpu-training-cluster/) | AI infrastructure architect, cluster engineer, network engineer | Design model: BOM, cable plan, power/cooling, rank-layout oversubscription, cost per token |
-| B | [Build an AI network troubleshooting and telemetry system](capstone-b-network-telemetry-troubleshooting/) | AI Network Engineer, Network Operations Engineer | Multi-format counter parser, wrap/reset-aware rates, root-cause alert rules scored for precision/recall |
-| C | [Distributed training performance optimization](capstone-c-distributed-training-performance/) | GPU/HPC engineer, AI Performance Engineer | CPU-proxy benchmark harness; admissibility, weak scaling and significance on supplied runs |
-| D | [Production LLM inference platform](capstone-d-llm-inference-platform/) | AI Platform Engineer, Inference Infrastructure Engineer | Capacity model + discrete-event continuous-batching simulator, SLO gates, cost |
-| E | [Bare-metal GPU fleet lifecycle automation](capstone-e-fleet-lifecycle-automation/) | Cluster Platform Engineer, Infrastructure SRE | Lifecycle state machine and automation prototype |
-| F | [AI infrastructure reliability game day](capstone-f-reliability-game-day/) | AI Infrastructure SRE, Production Engineer | Fault-injection plan, telemetry, incident timeline, postmortem |
-| G | [Fault-tolerant 512-node distributed training operations](capstone-g-fault-tolerant-512-node-training/) | Training operations, SRE, platform engineers | Telemetry correlation, quarantine, checkpoint/restore on ORION-XL |
-| H | [Disaggregated LLM serving across prefill and decode pools](capstone-h-disaggregated-llm-serving/) | Inference and performance engineers | KV-transfer model, RDMA/TCP comparison, phase SLOs |
+| ID | Capstone | Audience (course outline Section 16; G and H suggested, as Section 22 names none) | Starter kit centrepiece | Read first (core chapters) |
+|---|---|---|---|---|
+| A | [Design a 256-GPU AI training cluster](capstone-a-256-gpu-training-cluster/) | AI infrastructure architect, cluster engineer, network engineer | Design model: BOM, cable plan, power/cooling, rank-layout oversubscription, cost per token | 2, 5, 7, 8, 10, 11, 12, 21 |
+| B | [Build an AI network troubleshooting and telemetry system](capstone-b-network-telemetry-troubleshooting/) | AI Network Engineer, Network Operations Engineer | Multi-format counter parser, wrap/reset-aware rates, root-cause alert rules scored for precision/recall | 7, 8, 9, 10, 18 |
+| C | [Distributed training performance optimization](capstone-c-distributed-training-performance/) | GPU/HPC engineer, AI Performance Engineer | CPU-proxy benchmark harness; admissibility, weak scaling and significance on supplied runs | 6, 11, 12, 13, 22 |
+| D | [Production LLM inference platform](capstone-d-llm-inference-platform/) | AI Platform Engineer, Inference Infrastructure Engineer | Capacity model + discrete-event continuous-batching simulator, SLO gates, cost | 6, 15, 17, 18, 20, 21 |
+| E | [Bare-metal GPU fleet lifecycle automation](capstone-e-fleet-lifecycle-automation/) | Cluster Platform Engineer, Infrastructure SRE | Lifecycle state machine and automation prototype | 3, 16, 17, 20 |
+| F | [AI infrastructure reliability game day](capstone-f-reliability-game-day/) | AI Infrastructure SRE, Production Engineer | Fault-injection plan, telemetry, incident timeline, postmortem | 11, 14, 17, 18, 19 |
+| G | [Fault-tolerant 512-node distributed training operations](capstone-g-fault-tolerant-512-node-training/) | Training operations, SRE, platform engineers | Telemetry correlation, quarantine, checkpoint/restore on ORION-XL | 11, 12, 14, 16, 18, 19 |
+| H | [Disaggregated LLM serving across prefill and decode pools](capstone-h-disaggregated-llm-serving/) | Inference and performance engineers | KV-transfer model, RDMA/TCP comparison, phase SLOs | 8, 9, 13, 15 |
+
+"Read first" lists the core chapters from each brief's prerequisites. Each brief also names chapters
+to skim, and each starts with a Quick start that runs its starter-kit checker.
 
 ## 3. Required sections in every project
 
@@ -62,7 +65,14 @@ capstone-specific artifacts listed in its README.
 | Security considerations | Concrete controls for the system you designed |
 | Final engineering review | Self-score against the rubric, peer-review findings, prioritized backlog, reproducibility statement |
 
-Templates for all of them are in each capstone's `templates/` folder.
+Each capstone's `templates/` folder covers all nine, in one of two layouts:
+
+- **Capstones A–D** ship separate files for some sections, including `assumptions-register.csv` and
+  `final-engineering-review.md`, next to a main design document (`design-pack.md` in A, `design-doc.md`
+  in B and D, `performance-report.md` in C).
+- **Capstones E–H** put all nine into the numbered sections of `templates/design-document.md`. The
+  assumptions register is §3 and the final engineering review is §9; there are no separate
+  `assumptions-register.csv` or `final-engineering-review.md` files.
 
 ## 4. Tiers
 
@@ -79,12 +89,16 @@ Templates for all of them are in each capstone's `templates/` folder.
 
 The capstone is presented in **Week 14**, but the work starts earlier.
 
+> **Reading the book on your own?** The week numbers below are the course schedule. A self-study
+> reader can start a capstone as soon as they have read its core chapters (the "Read first" column in
+> Section 2), and can use the milestones as a sequence rather than as dates.
+
 | Milestone | Week | Deliverable | Feedback |
 |---|---|---|---|
 | M0: choose | 8 | Capstone choice; read the brief and the starter-kit data | Instructor confirms fit with role goal |
 | M1: proposal | 10 | Problem statement, assumptions register v1, architecture sketch, first starter-kit checks passing | 15-minute design review |
 | M2: core build | 12 | Starter kit (most or all checks) and core analysis | Written feedback on method |
-| M3: draft | 13 | All artifacts in draft; peer review scheduled | Peer review (use `templates/final-engineering-review.md`) |
+| M3: draft | 13 | All artifacts in draft; peer review scheduled | Peer review (use `templates/final-engineering-review.md` in A–D, or §9 of `templates/design-document.md` in E–H) |
 | M4: final | 14 | Complete submission + 15-minute presentation + 10-minute questions | Graded with the [rubric](RUBRIC.md) |
 
 Week 14 itself: day 1–2 final edits and reproducibility check; day 3–4 presentations; day 5 viva

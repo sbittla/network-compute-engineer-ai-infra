@@ -1,5 +1,7 @@
 # Chapter 7 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/model · L2 single host
 or container lab · L3 dedicated multi-node hardware lab. Every exercise states the **evidence
 required** for grading. Answers and marking guidance: `solutions/exercises-key.md` (instructors).
@@ -86,11 +88,11 @@ Compute P(no collision) and the expected number of links used.
 
 **7.L** ★★ L1 (L2/L3 extensions) — **Progressive Lab 2: fabric design and validation.** Complete
 [lab/README.md](lab/README.md) Tasks 1–6: implement the five functions in
-`lab/starter/fabric_lab.py` until `python lab/check.py` reports 19/19 PASS, then write the design
+`lab/starter/fabric_lab.py` until `python lab/check.py` reports every check PASS (the data-regeneration check may report SKIP), then write the design
 note. **Stretch:** specify (as a written rule plus a five-row test table) a `QOS_MISMATCH` validator
 rule covering DSCP trust on host ports, the DSCP→traffic-class map, and the lossless priority, and
 state which intent fields it needs that the supplied dataset lacks.
-*Evidence required:* checker output (19/19), your findings report, the design note, and (stretch)
+*Evidence required:* checker output (all checks pass; the data-regeneration check may report SKIP), your findings report, the design note, and (stretch)
 the rule specification.
 
 ---

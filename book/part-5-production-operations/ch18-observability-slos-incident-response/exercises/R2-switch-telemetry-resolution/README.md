@@ -7,6 +7,12 @@ Type: reflection · Kind: written · Points: 5
 cause could you not establish with that resolution, and what telemetry would you add?
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md).
+- **Checking your work:** Check your answer against the evidence the prompt asks for. After you have written it, compare it with the worked answer and marking scheme in the chapter's `solutions/exercises/R2-switch-telemetry-resolution/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Write a concise answer in `outputs/answer.md`.

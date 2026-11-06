@@ -225,3 +225,27 @@ lab started and confirms none is left.
 | 3 | 16.5 Storage; Chapter 14 Section 14.2 (one slow drive paces a stripe) |
 | 4 | 16.5 Thermals and burn-in (clock event reasons, Listing 16.8) |
 | 5 | 16.5 Table 16.4 and the policy verdict; 16.1 the lifecycle state machine (`validated` needs PASS or WARN + waiver) |
+
+## Troubleshooting
+
+- **`ERROR: this step needs root: run with sudo`** → run `sudo bash setup.sh` and `sudo bash run.sh <run-id>`.
+  Root is needed for `dmesg`, read-only `fio` on the raw disks and the package install.
+- **`ERROR: missing command: fio (run setup.sh)`** (or `ethtool`, `lsblk`) → run `sudo bash setup.sh`.
+  It uses `apt-get`; on a distribution without it, install fio 3.28 or later, ethtool, iproute2 and
+  util-linux with your own package manager.
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`** → this suite needs an NVIDIA GPU and has no CPU
+  mode (use the L1 lab in [../README.md](../README.md) instead). Run `nvidia-smi -L` as your own user
+  first. On WSL2, `nvidia-smi` lives in `/usr/lib/wsl/lib` and the scripts add that to `PATH` under sudo.
+  If it also fails without sudo, update the Windows NVIDIA driver and run `wsl --update`.
+- **The run stops at "Stage 4 ... (waits for the shared GPU lock)"** → another hands-on lab holds
+  `/tmp/handson-gpu.lock`. `lslocks | grep handson-gpu` shows which process. Let it finish; the stage
+  starts by itself when the lock is released.
+- **Setup is slow the first time, or later fails inside the venv** → `scripts/handson/venv.sh` builds the
+  shared environment at `~/.venvs/ai-infra-handson` on first use and downloads PyTorch 2.5.1 (CUDA 12.4),
+  so it needs network access. Under `sudo`, `~` can be root's home, so the manual Step 4 command run as
+  your user may build a second venv. If a download was interrupted, delete the venv folder and run
+  `sudo bash setup.sh` again.
+- **`check.py` reports `missing from the bundle: [...] (did run.sh finish?)`** → `run.sh` stopped before
+  the verdict. Read the logs in `results/<run-id>/raw/` (`collect_host.log`, `gpu_stress.log`), fix the
+  cause, and rerun with a new run-id. A line such as `fio /dev/sdX rep 1: rc=1` means fio failed on that
+  disk; its JSON output is in the same `raw/` folder.

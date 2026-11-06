@@ -146,6 +146,15 @@ and explain the gap.
 The candidate list contains deliberate traps. Their identities and explanations are in
 `../solutions/` (instructors only). Part of your grade is finding them yourself.
 
+## Troubleshooting
+
+- `python starter/stepmodel.py` raises `NotImplementedError` → it needs Tasks 1–5 finished; use `check.py` to see which functions are still TODO.
+- `FAIL import...: ModuleNotFoundError: No module named 'yaml'` (or `pandas`) → install the lab requirements into the Python you run the checker with: `python -m pip install -r ../../../../requirements.txt` from `lab/`.
+- `TODO <check>: implement ...` lines → expected: that function in `starter/stepmodel.py` still raises `NotImplementedError`. Implement it; the checker exits non-zero until every check passes.
+- `FAIL <check>: ...` → your function ran but returned a wrong value (or raised an error, named in the message); compare with the acceptance numbers in Section 5 and the docstring, and keep the function signatures unchanged.
+- `python check.py --impl solution` fails to load → the reference implementation (`../solutions/lab/`) is instructor material and is not in the student release; use the default (starter) checker.
+- `python scripts/hw_labs.py run ...` fails with a Docker or GPU-runtime error → it runs from the repository root and needs Docker; `--device gpu` also needs the NVIDIA container runtime. Use `--device cpu` (or `--device auto`) without one.
+
 ## Hands-on lab (single machine)
 
 `handson/` runs the chapter's mechanisms for real on one Linux machine (WSL2 works): `torchrun` DDP

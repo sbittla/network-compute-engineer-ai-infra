@@ -170,6 +170,20 @@ p95, and which values are `MEASURED` versus `MODELED`.
 The dataset contains planted flaws that mirror real capacity-review mistakes. They are documented for
 instructors in `../solutions/lab/README.md`. Learners: find them yourselves; that is the point.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'yaml'`** → `python -m pip install -r ../../../../requirements.txt` in the same venv you run `check.py` with.
+  Check `python --version` reports 3.10 or newer.
+- **Every check prints `TODO` and the exit code is non-zero** → expected at the start: a `TODO` means
+  that function still raises `NotImplementedError`. Implement functions one at a time and rerun.
+- **The data-regeneration check prints `SKIP`** → `tools/generate_profiles.py` (instructor material) is not shipped in your edition;
+  a `SKIP` does not count against you. If it prints `FAIL` ("differs from regenerated copy"), you edited `data/`:
+  restore it with `git checkout -- data/`.
+- **`--impl solution` fails with "implementation not found"** → the reference solution is instructor
+  material, absent from the student edition. Run plain `python check.py` against your `starter/`.
+- **`No such file or directory: starter/...`** when running a lab command → run it from this `lab/`
+  folder. `check.py` itself finds `data/` and `starter/` relative to its own location.
+
 ## Hands-on lab (single machine)
 
 `handson/` applies this lab's ceiling model to a real GPU (WSL2 works). It measures the GEMM and copy

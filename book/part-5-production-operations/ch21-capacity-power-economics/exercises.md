@@ -1,11 +1,13 @@
 # Chapter 21 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/paper · L2 one GPU host
 · L3 lab rack with PDU telemetry. All inputs are `[ILLUSTRATIVE]` unless stated; all results `[MODELED]`.
 Answers: `solutions/exercises-key.md`.
 
 **Chapter deliverable (course outline):** a **capacity model** and a **cost/performance decision memo**
-(M1–M3 / Lab 21), plus the course outline §20.3, table-8 evidence: a **capacity/power/cooling model and
+(M1–M3 / Lab 21), plus a **capacity/power/cooling model and
 operational guardrails** (M4).
 
 ---
@@ -42,7 +44,8 @@ margin, and why? (b) Repeat for a legacy rack with one circuit per side.
 ## Worked problems
 
 **W1 ★★ L1 — TCO under different assumptions.** Recompute ORION-256's TCO (Section 21.4) with 5-year
-amortization, PUE 1.25, electricity $0.12/kWh, allocation 0.80, and goodput 0.90 (other inputs
+amortization, PUE 1.25, electricity $0.12/kWh, allocation 0.80 (replacing the ladder's 0.85 allocation factor; the 0.850
+usable fraction is unchanged), and goodput 0.90 (other inputs
 unchanged). Report the annual total and the cost per nominal and per useful GPU-hour.
 *Evidence required:* every component with formula; the two unit costs.
 
@@ -123,7 +126,7 @@ fragmentation, network oversubscription, storage, and onboarding — with a quan
 example of each (lab Task 6 covers three).
 *Evidence required:* table: bottleneck, mechanism, example number, telemetry that reveals it.
 
-**M4 ★★★ L1 — Capacity/power/cooling model and guardrails (course outline §20.3, table 8).** For a hall of Design-B
+**M4 ★★★ L1 — Capacity/power/cooling model and guardrails.** For a hall of Design-B
 racks (8 nodes, 14.3 kW provisioned per node, 80 % heat to liquid), state the facility capacity, rack power
 limit and redundancy mode, liquid-cooling capacity and required coolant flow at ΔT = 10 K, transient
 headroom, and the power-capping policy. Produce the guardrail table (signal, threshold, automated action,

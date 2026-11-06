@@ -87,6 +87,19 @@ python starter/analysis.py         # once implemented: prints decisions and the 
 
 The harness check runs a tiny live benchmark but asserts only structure, never timings.
 
+### Troubleshooting
+
+- **`FAIL import — could not import analysis.py: ...` and nothing else.** Your module does not import
+  (a syntax error, or numpy / pandas / pyyaml missing): fix it, or install
+  `../../../../requirements.txt`, then rerun.
+- **"Implementation not found ... solutions folder is removed".** `--impl solution` is for instructors;
+  learners run `python check.py` (the starter).
+- **Every check prints `TODO`.** Expected at the start: each function raises `NotImplementedError`.
+- **The version rule excludes every run.** Read the CSVs with `dtype={"cuda": str}` (as `check.py`
+  does); otherwise `12.8` is parsed as a float and never equals the reference string `"12.8"`.
+- **The harness check is slow or noisy on a busy laptop.** It asserts structure only; timings never
+  fail it, so close other heavy jobs only if it times out.
+
 ## 7. Deliverable and grading rubric (100 points)
 
 | Item | Points | Full marks when |

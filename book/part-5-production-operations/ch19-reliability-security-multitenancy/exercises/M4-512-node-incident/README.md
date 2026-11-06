@@ -1,17 +1,23 @@
-# M4 — 512-node incident (course-outline §20.1) (★★★, L1)
+# M4 — 512-node incident (★★★, L1)
 
 Type: Outline-mandated · Kind: `lab` · Points: 30
 
 ## Prompt
 
 <!-- prompt:start -->
-**M4 ★★★ L1 — 512-node incident (course-outline §20.1).** Given the synthetic 512-node training incident with
+**M4 ★★★ L1 — 512-node incident.** Given the synthetic 512-node training incident with
 one flaky HCA, one GPU ECC fault, and an NCCL timeout (Lab 19), correlate logs and telemetry, identify
 the smallest failure domain, quarantine the suspect component, and produce a safe restart plan.
 Distinguish proven cause from correlation. Submit the failure timeline, rank-to-hardware mapping, health
 decision, checkpoint/restore validation, recovery metrics, and a postmortem (Chapter 18 template).
 *Evidence required:* checker PASS; the six artifacts.
 <!-- prompt:end -->
+
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md); reliability uses node MTBF ≈ 1,536 node-hours, repair turnaround (MTTR) 5 days and restart overhead ≈ 15 min.
+- **Checking your work:** Run the lab checker as shown below; this exercise is done when the named checks pass.
 
 ## What to submit
 
@@ -29,5 +35,5 @@ Run:
 
 ```bash
 cd ../../lab
-python check.py            # your starter/incident_toolkit.py > ../exercises/M4-512-node-incident/outputs/check_output.txt
+python check.py > ../exercises/M4-512-node-incident/outputs/check_output.txt   # checks your starter/incident_toolkit.py
 ```

@@ -275,6 +275,15 @@ then the interval.
 
 Your numbers will differ. `check.py` tests physical sense, not equality.
 
+## Troubleshooting
+
+- `ERROR: missing command: flock` (or `timeout`) → install util-linux and coreutils (`sudo apt-get install util-linux coreutils`), then rerun `bash setup.sh`.
+- `setup.sh` fails while creating the venv or installing PyTorch → it needs network access to PyPI and download.pytorch.org (PyTorch 2.5.1 + CUDA 12.4, a few GB); if `python3 -m venv` fails, `sudo apt-get install python3-venv`. After an interrupted install, delete `~/.venvs/ai-infra-handson` and rerun.
+- The run sits silent before the GPU step → it is waiting for the shared GPU lock `/tmp/handson-gpu.lock`, held by another hands-on lab (`ps aux | grep -e run.sh -e vllm`). Wait for that run to finish; do not delete the lock.
+- `no GPU: step 4 will be skipped` → expected without a GPU; on WSL2, check that `nvidia-smi` works inside WSL (the driver is installed on Windows, not in Linux).
+- One case failed or looks wrong → read `results/<run-id>/raw/<case>.log`; each launch is killed after 900 s. The `fault_kill_norestart` case fails on purpose. With fewer than 8 cores the 8-rank cases are slow and noisy: close other workloads and rerun.
+- Leftover `ch11_ddp.py` processes or a scratch directory after Ctrl-C → `bash teardown.sh`.
+
 ## 9. Clean up
 
 ```bash

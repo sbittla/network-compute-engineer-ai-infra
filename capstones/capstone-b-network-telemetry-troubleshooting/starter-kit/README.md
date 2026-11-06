@@ -117,6 +117,26 @@ The checker scores pages by **when they fire** (`fired_ts`). A page counts only 
 you missed. Use your own evidence to
 find them. That is the job.
 
+## Troubleshooting
+
+- **`ModuleNotFoundError` for `numpy`, `pandas` or `yaml`** (a traceback, or a `FAIL import` line).
+  From `starter-kit/`, run `python -m pip install -r ../../../requirements.txt` with the interpreter you
+  run `check.py` with. Use Python 3.10 or newer.
+- **`FAIL import  SyntaxError: ...` and no other lines.** The checker could not import
+  `starter/telemetry.py`. `python -m py_compile starter/telemetry.py` shows the line.
+- **`zcat` is not available (Windows).** Read a file with Python instead:
+  `python -c "import gzip,sys; print(gzip.open(sys.argv[1], 'rt').read()[:3000])" data/leaf_cli/orion-be-leaf-r0.txt.gz`.
+  Your parser should open the files with `gzip.open` too, not unpack them in place.
+- **Recall is fine but precision is low.** A page that fires before the fault's onset, or for planned
+  maintenance, a counter wrap or a counter reset, is a false positive. Check your rates around wraps and
+  resets and your suppression windows from `data/maintenance.yaml`. The checker will not say which page
+  was wrong.
+- **`--impl solution` prints `Implementation not found`.** The reference implementation is not shipped
+  in the student edition. Run `python check.py`.
+- **The L2 `scripts/hw_labs.py` commands print `FAIL build` or `FAIL run`.** Run them from the
+  repository root with Docker running (`docker info` must succeed). `--device gpu` also needs the NVIDIA
+  Container Toolkit; without it, use `--device cpu`.
+
 ## 8. Extensions: hardware-backed validation (L2/L3)
 
 > **Safety:** Generate congestion only on a dedicated lab fabric with no other tenants. Never change

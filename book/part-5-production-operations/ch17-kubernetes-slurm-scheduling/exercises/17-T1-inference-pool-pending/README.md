@@ -45,8 +45,15 @@ GPU usage: n25 8, n26 4, n27 3, n29 4, n32 8 allocated; n28, n30, n31 have no GP
 validation, and one prohibited action with the reason.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) and the lab snapshot in [lab/data/](../../lab/data/) (seed 17).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/17-T1-inference-pool-pending/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
-Write your working in `outputs/answer.md`: formula → substitution → result with units for every
-part, with evidence labels. If you check it with a script, save it as `outputs/work.py` and run it
-from this folder with `python outputs/work.py`.
+Write your diagnosis in `outputs/answer.md`, one section per numbered part. For part 1, show the GPU
+reconciliation as a per-node count that adds up to 21 and marks each ineligible GPU with its reason. For
+part 2, use a table (hypothesis, rank, discriminating command, what each result would mean). Quote the
+evidence lines above that support your root cause, and label any number you use.

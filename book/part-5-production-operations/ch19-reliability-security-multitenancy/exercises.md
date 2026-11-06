@@ -1,11 +1,13 @@
 # Chapter 19 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/paper · L2 one GPU
 host · L3 multi-node RDMA lab partition. Reliability numbers use the Reference Cluster canon: node MTBF
 ≈ 1,536 node-hours, restart overhead ≈ 15 min `[ILLUSTRATIVE]`. Answers: `solutions/exercises-key.md`.
 
 **Chapter deliverable (course outline):** **risk register** (M1), **isolation model** (M2), and
-**recovery test plan** (M3); plus the course-outline §20.1 evidence pack from the 512-node incident (M4 / Lab 19):
+**recovery test plan** (M3); plus the evidence pack from the 512-node incident (M4 / Lab 19):
 failure timeline, rank-to-hardware mapping, health decision, checkpoint/restore validation, recovery
 metrics, and postmortem.
 
@@ -154,7 +156,7 @@ SLIs, injection (dedicated lab partition only), abort criteria, observations, pa
 controls; **and a tabletop run report** — walk the plan with the owning teams, record for each injection
 the expected vs "discovered" behaviour, the gaps found, and the follow-up actions.
 
-**M4 ★★★ L1 — 512-node incident (course-outline §20.1).** Given the synthetic 512-node training incident with
+**M4 ★★★ L1 — 512-node incident.** Given the synthetic 512-node training incident with
 one flaky HCA, one GPU ECC fault, and an NCCL timeout (Lab 19), correlate logs and telemetry, identify
 the smallest failure domain, quarantine the suspect component, and produce a safe restart plan.
 Distinguish proven cause from correlation. Submit the failure timeline, rank-to-hardware mapping, health

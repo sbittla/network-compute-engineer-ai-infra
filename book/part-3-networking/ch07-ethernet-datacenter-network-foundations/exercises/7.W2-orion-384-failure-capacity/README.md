@@ -15,6 +15,12 @@ Compute P(no collision) and the expected number of links used.
 *Evidence required:* a results table, formulas with substituted values, and a 3–5 sentence comparison.
 <!-- prompt:end -->
 
+## Before you start
+
+- **Chapter:** [manuscript.md](../../manuscript.md); every exercise prompt is also in [exercises.md](../../exercises.md).
+- **Defaults:** Unless the prompt says otherwise, use the ORION values in [docs/REFERENCE_CLUSTER.md](../../../../../docs/REFERENCE_CLUSTER.md) for the ORION-256 backend, and the Section 7.3 conventions (Table 7.2).
+- **Checking your work:** Check units and orders of magnitude against the chapter's worked examples. After you have your own answer, compare your method with the worked solution and marking scheme in the chapter's `solutions/exercises/7.W2-orion-384-failure-capacity/` (instructor material in the full repository; removed from student releases).
+
 ## What to submit
 
 Build the results table from your lab's `fabric_capacity`, and show the hand arithmetic for the ingress values. Put every deliverable in `outputs/`:
@@ -22,8 +28,22 @@ Build the results table from your lab's `fabric_capacity`, and show the hand ari
 - `outputs/answer.md`
 - `outputs/capacity.txt` (your `fabric_capacity` output for the three scenarios)
 
-Run:
+Run it for all three scenarios, substituting your 7.W1(a) design for `L`, `S` and `K` (leaves,
+spines, parallel links per leaf-spine pair). `link_matrix` (provided in `fabric_lab.py`) builds the
+`c[leaf][spine]` matrix with 0-based indices: `failed_links=((leaf, spine),)` removes one link from that
+pair, and `failed_spines=(spine,)` zeroes that spine's column. If your design is not uniform, write
+the matrix by hand and set the failed entries yourself.
 
 ```bash
-cd ../../lab/starter && python -c "import fabric_lab as f; print(f.fabric_capacity([[4]*8 for _ in range(16)], 400))"
+cd ../../lab/starter && python -c "
+import fabric_lab as f
+L, S, K = 0, 0, 0   # <- your 7.W1(a) leaves, spines, links per pair
+for name, c in [('baseline', f.link_matrix(L, S, K)),
+                ('one leaf-spine link down (leaf 0, spine 0)', f.link_matrix(L, S, K, failed_links=((0, 0),))),
+                ('one spine down (spine 0)', f.link_matrix(L, S, K, failed_spines=(0,)))]:
+    print(name, f.fabric_capacity(c, 400))
+" > ../../exercises/7.W2-orion-384-failure-capacity/outputs/capacity.txt
 ```
+
+Read the affected leaf's entry (index 0) in `uplink_gbps` and `ecmp_ingress_gbps`; `bisection_gbps` is
+fabric-wide.

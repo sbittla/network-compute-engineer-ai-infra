@@ -171,6 +171,19 @@ Your numbers will differ. `check.py` tests physical sense, not equality.
 sudo bash teardown.sh
 ```
 
+## Troubleshooting
+
+- **`ERROR: this step needs root: run with sudo`** → run `setup.sh`, `run.sh` and `teardown.sh` with `sudo bash`.
+- **`ERROR: no NVIDIA GPU visible (nvidia-smi failed)`** → install the NVIDIA driver (on WSL2, the Windows
+  driver). On WSL2 `nvidia-smi` lives in `/usr/lib/wsl/lib`; the scripts add it to `PATH`, so start them
+  with `bash setup.sh` / `bash run.sh` rather than calling the Python files directly.
+- **`ERROR: missing command: <tool> (run setup.sh)`** → run `setup.sh` first; it installs or checks every tool the run needs.
+- **The first `sudo` run downloads PyTorch again** → the venv path is `$HOME/.venvs/ai-infra-handson`,
+  and `sudo` on Ubuntu sets `HOME` to `/root`, so root gets its own venv. This is a one-time cost.
+- **The run stops with no output before a GPU step** → it is waiting for the shared GPU lock
+  `/tmp/handson-gpu.lock`, held by another hands-on run. Let that run finish; `pgrep -fa flock` shows it.
+- **`check.py` prints its usage text and exits 2** → pass the run folder: `python3 check.py results/<run-id>`.
+
 ## 10. Connect to the chapter
 
 | Step | Chapter section |

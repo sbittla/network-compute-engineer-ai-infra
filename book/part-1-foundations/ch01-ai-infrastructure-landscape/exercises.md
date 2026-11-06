@@ -1,5 +1,7 @@
 # Chapter 1 — Exercises
 
+**Where to work:** every exercise below has its own folder under [exercises/](exercises/README.md) with the prompt, what to submit and an `outputs/` folder for your answer. The index there gives each exercise's type, difficulty, tier and kind (written, computed or lab).
+
 Difficulty: ★ foundational · ★★ intermediate · ★★★ advanced. Tier: L1 laptop/paper · L2 single GPU
 host · L3 multi-node GPU + RDMA. Use ORION values from `docs/REFERENCE_CLUSTER.md` unless an exercise
 changes them, and label every number you produce (`[MODELED]`, `[ILLUSTRATIVE]`, `[MEASURED]`, …).

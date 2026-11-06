@@ -70,10 +70,15 @@ as below. Write your answers in `results/<run-id>/answers.md`.
 
 ### Step 1: run the collector as root and as `nobody`
 
+Use your completed collector and analyzer from `../starter/` (the instructor edition has them in
+`../../solutions/lab/`, which `run.sh` prefers when present). `nobody` cannot read your checkout, so copy
+the collector to a world-readable temporary folder first:
+
 ```bash
-python3 ../../solutions/lab/host_collector.py --out-dir out/root --note "idle, root"
-sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 /tmp/host_collector.py --out-dir /tmp/out --note "idle, nobody"
-python3 ../../solutions/lab/host_analyzer.py out/root/*.json --baseline ../data/orion_hx8_baseline.yaml
+python3 ../starter/host_collector.py --out-dir out/root --note "idle, root"
+NR=$(mktemp -d /tmp/ch03-nonroot.XXXXXX); cp ../starter/host_collector.py "$NR/"; sudo chown -R 65534:65534 "$NR"; chmod 755 "$NR"
+sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 "$NR/host_collector.py" --out-dir "$NR/out" --note "idle, nobody"
+python3 ../starter/host_analyzer.py out/root/*.json --baseline ../data/orion_hx8_baseline.yaml
 ```
 
 Look at the evidence-gap table at the top of each Markdown report, the `<access denied>` lines in the
@@ -129,8 +134,9 @@ clean disk number?
 ```bash
 ulimit -l; sudo setpriv --reuid=65534 --regid=65534 --clear-groups bash -c 'ulimit -l'
 python3 mlock_probe.py 128                                                   # root
-sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 /tmp/mlock_probe.py 16
-sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 /tmp/mlock_probe.py 128
+NR=$(mktemp -d /tmp/ch03-nonroot.XXXXXX); cp mlock_probe.py "$NR/"; chmod 755 "$NR"; chmod 644 "$NR/mlock_probe.py"
+sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 "$NR/mlock_probe.py" 16
+sudo setpriv --reuid=65534 --regid=65534 --clear-groups python3 "$NR/mlock_probe.py" 128
 python pinned_copy.py --mib 256 --reps 10                                    # 5b: needs the GPU
 ```
 
@@ -194,6 +200,20 @@ sudo bash teardown.sh       # kills any ch03- load generator, removes /var/tmp/c
 ```
 
 `run.sh` calls it on exit, even after a failure.
+
+## Troubleshooting
+
+- **`ERROR: this step needs root: run with sudo`** → run `setup.sh`, `run.sh` and `teardown.sh` with `sudo bash`.
+- **`ERROR: missing command: <tool> (run setup.sh)`** → run `setup.sh` first; it installs or checks every tool the run needs.
+- **First `setup.sh` is slow or fails in `pip`** → it builds the shared venv `~/.venvs/ai-infra-handson` and
+  downloads PyTorch 2.5.1+cu124, so it needs network access. If `python3 -m venv` fails, install
+  `python3-venv` (`sudo apt-get install python3-venv`). After a broken install, delete the venv and re-run.
+- **The first `sudo` run downloads PyTorch again** → the venv path is `$HOME/.venvs/ai-infra-handson`,
+  and `sudo` on Ubuntu sets `HOME` to `/root`, so root gets its own venv. This is a one-time cost.
+- **The run stops with no output before a GPU step** → it is waiting for the shared GPU lock
+  `/tmp/handson-gpu.lock`, held by another hands-on run. Let that run finish; `pgrep -fa flock` shows it.
+- **Step 5b reports `skipped: no NVIDIA GPU visible`** → expected without a GPU; every other step still runs.
+- **`teardown: processes still running`** → a `ch03-` load generator outlived its `timeout`; run `sudo bash teardown.sh` again.
 
 ## 10. Connect to the chapter
 

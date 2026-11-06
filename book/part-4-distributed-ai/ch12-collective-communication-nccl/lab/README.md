@@ -143,6 +143,15 @@ configuration, and state whether the fabric was idle.
 Two configurations contain planted problems with different signatures, and the "Avg bus bandwidth"
 trailer is a trap in every file. Instructor notes are in `../solutions/lab/README.md`.
 
+## Troubleshooting
+
+- `optional/gloo_allreduce.py` fails with `No module named 'torch'` → it needs PyTorch; use the hands-on venv (`. ../../../../scripts/handson/venv.sh`, then `$HANDSON_PY optional/gloo_allreduce.py ...`).
+- `FAIL import...: ModuleNotFoundError: No module named 'yaml'` (or `pandas`) → install the lab requirements into the Python you run the checker with: `python -m pip install -r ../../../../requirements.txt` from `lab/`.
+- `TODO <check>: implement ...` lines → expected: that function in `starter/nccl_analysis.py` still raises `NotImplementedError`. Implement it; the checker exits non-zero until every check passes.
+- `FAIL <check>: ...` → your function ran but returned a wrong value (or raised an error, named in the message); compare with the acceptance numbers in Section 5 and the docstring, and keep the function signatures unchanged.
+- `python check.py --impl solution` fails to load → the reference implementation (`../solutions/lab/`) is instructor material and is not in the student release; use the default (starter) checker.
+- `python scripts/hw_labs.py run ...` fails with a Docker or GPU-runtime error → it runs from the repository root and needs Docker; `--device gpu` also needs the NVIDIA container runtime. Use `--device cpu` (or `--device auto`) without one.
+
 ## Hands-on lab (single machine)
 
 `handson/` measures real collectives on one Linux machine (WSL2 works): `torch.distributed`
