@@ -35,6 +35,10 @@ implement in `starter/`; [starter-kit/README.md](starter-kit/README.md) lists th
 
 ## Scenario
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 Training Infra runs W-TRAIN on ORION ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3) as a
 weak-scaling family. One replica is TP = 8 inside a node × PP = 4 across nodes (tensor and pipeline parallelism), which is 32 GPUs.
 Data parallelism adds replicas up to 256 GPUs. Platform moved training into containers last month. Since

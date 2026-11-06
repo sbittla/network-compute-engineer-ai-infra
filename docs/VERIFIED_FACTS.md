@@ -9,7 +9,7 @@ they actually run.
 
 | Topic | Correct statement |
 |---|---|
-| GPUDirect RDMA log lines | No NCCL release prints `NET/IB : GPU Direct RDMA Enabled/Disabled for HCA …`. Do not use that line. The topology code (`ncclTopoCheckGdr`) prints `GPU Direct RDMA Disabled for GPU <id> / HCA <id> (distance X > Y)` or `… Enabled for GPU <id> / HCA <id> (distance X <= Y), read N[ mode M]` at INFO level (2.18–2.28; newer builds may demote these lines to TRACE). These lines reflect the PCIe distance compared with `NCCL_NET_GDR_LEVEL`. They do **not** show whether a peer-memory module is present. |
+| GPUDirect RDMA log lines | No NCCL release prints `NET/IB : GPU Direct RDMA Enabled/Disabled for HCA …`. Do not use that line. The topology code (`ncclTopoCheckGdr`) prints `GPU Direct RDMA Disabled for GPU <id> / HCA <id> (distance X > Y)` or `… Enabled for GPU <id> / HCA <id> (distance X <= Y), read N[ mode M]` at INFO level through 2.29 (2.29 changes the format to `GPU/<id> (rank N) - NET/<id> (…)`), and at TRACE level from 2.30 (checked in `src/graph/paths.cc` at v2.18.6-1, v2.28.9-1, v2.29.7-1, v2.30.3-1 and v2.32.3-1; matches Appendix E, Table E.4). These lines reflect the PCIe distance compared with `NCCL_NET_GDR_LEVEL`. They do **not** show whether a peer-memory module is present. |
 | Reliable GDR evidence | Channel lines such as `Channel 00/0 : 0[0] -> 8[0] [send] via NET/IB/0/GDRDMA` show GDR in use. If `/GDRDMA` is absent, the path is host-staged. Check `lsmod \| grep nvidia_peermem` as well, and remember that DMA-BUF can provide GPUDirect RDMA without `nvidia_peermem`. |
 | GDR distance gate | By default NCCL uses GPUDirect RDMA only when the GPU↔NIC distance is within the `NCCL_NET_GDR_LEVEL` threshold. Recent releases default to about PXB, so SYS/NODE-distance pairs are host-staged (verify per release, `[VENDOR-SPEC]`). A model that keeps GDR on at SYS distance must state that it assumes `NCCL_NET_GDR_LEVEL=SYS`. |
 | PXN | PXN lets a GPU send through a NIC owned by a peer GPU on the same node over NVLink. Relevant controls include `NCCL_PXN_DISABLE`, `NCCL_P2P_PXN_LEVEL` and `NCCL_CROSS_NIC` (`[VENDOR-SPEC]`). "Nearest NIC vs forced remote NIC" is not the only choice: PXN is a third policy. PXN is used only through a peer GPU that is NVLink-connected to the source and reaches the NIC at ≤ PXB distance. That eligibility rule is separate from `NCCL_NET_GDR_LEVEL`. If the NIC is PHB/SYS from every GPU, PXN is never engaged. `NCCL_P2P_PXN_LEVEL` governs point-to-point/all-to-all traffic, not ring collectives (verify per release). |
@@ -93,7 +93,7 @@ Merged from the per-group reports in [verification/](verification/). Each row wa
 | H100 SXM peaks | Dense BF16 ≈ 989 TFLOP/s and dense FP8 ≈ 1,979 TFLOP/s; the datasheet's 1,979 / 3,958 figures are *with sparsity*. 80 GB HBM3 at 3.35 TB/s; NVLink4 900 GB/s total = 450 GB/s per direction; up to 700 W. DGX H100-class node maximum is 10.2 kW. |
 | DCGM 4.6 field renames | `PROF_SM_ACTIVE`→`PROF_SM_UTIL_RATIO`, `PIPE_TENSOR_ACTIVE`→`TENSOR_UTIL_RATIO`, `DRAM_ACTIVE`→`DRAM_UTIL_RATIO`, `GR_ENGINE_ACTIVE`→`GR_ENGINE_UTIL_RATIO`, and similar. The old names remain aliases with the same IDs (1001–1008), so the tables and labs in this book keep the old names. |
 | DCGM 4.7 deprecations | `DCGM_FI_DEV_GPU_UTIL` (203, %) → `DCGM_FI_DEV_GPU_UTIL_RATIO` (1613, 0–1). `POWER_VIOLATION`/`THERMAL_VIOLATION` (240/241) → `DCGM_FI_DEV_GPU_POWER_THROTTLE_SECONDS_TOTAL` (1617) / `DCGM_FI_DEV_GPU_THERMAL_THROTTLE_SECONDS_TOTAL` (1618), in seconds (verified in `dcgm_fields.h` at tag v4.7.0; absent in v4.6.1; siblings 1619–1624). The units of 240/241 are µs in 3.x and ns in 4.x headers. |
-| DCGM ECC/row remap | `ECC_SBE_VOL_TOTAL` 310, `ECC_DBE_VOL_TOTAL` 311, `ROW_REMAP_FAILURE` 395, `ROW_REMAP_PENDING` 396. A pending remap takes effect only after a GPU reset. |
+| DCGM ECC/row remap | `ECC_SBE_VOL_TOTAL` 310, `ECC_DBE_VOL_TOTAL` 311, `ROW_REMAP_FAILED` 395 (canonical from 4.6; `ROW_REMAP_FAILURE` remains an alias), `ROW_REMAP_PENDING` 396. A pending remap takes effect only after a GPU reset. |
 | SM activity during collectives | SM_ACTIVE/TENSOR_ACTIVE drop during collective waits because NCCL kernels occupy only a few SMs (one block per channel) and issue no tensor work. They do not drop because SMs "idle in spin loops". |
 | nvidia-smi v590 | "Driver Version"/"CUDA Version" in `-q` output are deprecated in favour of "KMD Version"/"CUDA UMD Version". |
 | lspci annotations | pciutils 3.6–3.7 print `(ok)`/`(downgraded)`; 3.8+ print nothing for a healthy link and only `(downgraded)`/`(overdriven)` otherwise. Compare numbers, never annotations. |
@@ -126,3 +126,16 @@ Merged from the per-group reports in [verification/](verification/). Each row wa
 | GFD labels | `nvidia.com/cuda.driver.major` etc. are deprecated; use `nvidia.com/cuda.driver-version.major`. |
 | Slurm | `topology/block` from 23.11 (reworked 24.05); multiple topologies via `topology.yaml` from 25.05. |
 | Xid | 63 row-remap event, 64 row-remap failure, 92 excessive SBE rate, 119/120 GSP RPC timeout/GSP error, 154 recovery action changed. |
+
+## Pre-publication sources review additions (2026-11-05)
+
+AI-assisted review with web verification against primary sources; see [reviews/sources-versions.md](reviews/sources-versions.md) and Appendix E, Table E.13.
+
+| Topic | Correct statement |
+|---|---|
+| Nsight Compute clock control | `ncu` locks clocks by default: to `base` through 2025.4 and to `boost` from 2026.1 (release notes: "The default value of --clock-control is now boost"). Pass `--clock-control none` to compare with production clocks. |
+| MPS fault containment | Verified in the MPS documentation ("Memory Protection and Error Containment"): a fatal fault from one Volta+ client is reported to all clients on the GPUs it shares. The "no memory-bandwidth isolation" half remains unverified (Appendix E, Table E.14). |
+| Megatron `CUDA_DEVICE_MAX_CONNECTIONS` | With TP or CP > 1 Megatron asserts `=1` on Hopper and earlier; not required from Blackwell; FSDP wants it unset or > 1. |
+| Container Toolkit | `accept-nvidia-visible-devices-envvar-when-unprivileged` defaults to `true` (toolkit v1.20.1). CVE-2024-0132 affects Toolkit < 1.16.2 and GPU Operator < 24.6.2 in the default (non-CDI) configuration. |
+| BFD and graceful restart | RFC 5882 §4.3.1: with control-plane-independent BFD (C bit set), a BFD failure SHOULD abort an in-progress graceful restart. |
+| H100 SM count | 132 SMs comes from the H100 architecture whitepaper, not the CUDA Programming Guide (which gives per-SM limits only). |

@@ -28,12 +28,12 @@
       "temperature.gpu": "52"
     }
   ],
-  "kernel": "6.18.54.1-microsoft-standard-WSL2",
+  "kernel": "6.18.54.1-rxe+",
   "mem_total_gib": 7.8,
-  "os": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
-  "python": "3.11.10",
+  "os": "Linux-6.18.54.1-rxe+-x86_64-with-glibc2.39",
+  "python": "3.12.3",
   "quick": false,
-  "run_utc": "2026-11-01T01:13:24Z",
+  "run_utc": "2026-11-06T04:44:21Z",
   "torch": "2.5.1+cu124",
-  "wsl": true
+  "wsl": false
 }

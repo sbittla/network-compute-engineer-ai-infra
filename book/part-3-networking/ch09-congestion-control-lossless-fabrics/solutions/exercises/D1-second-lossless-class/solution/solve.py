@@ -2,7 +2,7 @@
 
 Usage: python solve.py --out DIR
 
-Prompt: rail leaf = 32 host ports at 30 m + 32 spine ports at 100 m; spine = 64 ports at 100 m (ORION
+Prompt: rail leaf = 32 host ports at 50 m + 32 spine ports at 100 m; spine = 64 ports at 100 m (ORION
 leaf-spine runs). H per (port, priority) from manuscript Section 9.4 / Table 9.3. [MODELED]
 """
 from __future__ import annotations
@@ -12,9 +12,9 @@ import json
 from pathlib import Path
 
 MTU_B, NS_PER_M, T_RESP_NS, PFC_B, R_B_PER_NS = 9216, 5, 1000, 64, 50
-LEAF_PORTS = {30: 32, 100: 32}
+LEAF_PORTS = {50: 32, 100: 32}
 SPINE_PORTS = {100: 64}
-KEY = {"h30": 83_496, "h100": 118_496, "leaf": 6_463_744, "spine": 7_583_744}
+KEY = {"h50": 93_496, "h100": 118_496, "leaf": 6_783_744, "spine": 7_583_744}
 
 
 def headroom(length_m: float) -> int:
@@ -27,10 +27,10 @@ def main() -> None:
     out = Path(ap.parse_args().out)
     out.mkdir(parents=True, exist_ok=True)
 
-    h = {L: headroom(L) for L in (30, 100)}
+    h = {L: headroom(L) for L in (50, 100)}
     leaf = sum(n * h[L] for L, n in LEAF_PORTS.items())
     spine = sum(n * h[L] for L, n in SPINE_PORTS.items())
-    assert h[30] == KEY["h30"] and h[100] == KEY["h100"] and leaf == KEY["leaf"] and spine == KEY["spine"]
+    assert h[50] == KEY["h50"] and h[100] == KEY["h100"] and leaf == KEY["leaf"] and spine == KEY["spine"]
 
     result = {"exercise": "D1", "evidence_label": "[MODELED]",
               "inputs": {"leaf_ports_by_length_m": LEAF_PORTS, "spine_ports_by_length_m": SPINE_PORTS,
@@ -41,8 +41,8 @@ def main() -> None:
               "units": "bytes", "tolerance": "exact"}
     md = f"""# D1 — result `[MODELED]`
 
-- H(30 m) = {h[30]:,} B; H(100 m) = {h[100]:,} B per port per lossless priority
-- Rail leaf, one more lossless priority: 32 × {h[30]:,} + 32 × {h[100]:,} = **{leaf:,} B ≈ {leaf / 1e6:.1f} MB**
+- H(50 m) = {h[50]:,} B; H(100 m) = {h[100]:,} B per port per lossless priority
+- Rail leaf, one more lossless priority: 32 × {h[50]:,} + 32 × {h[100]:,} = **{leaf:,} B ≈ {leaf / 1e6:.1f} MB**
 - Spine, one more lossless priority: 64 × {h[100]:,} = **{spine:,} B ≈ {spine / 1e6:.1f} MB**
 - Rail leaf with two lossless priorities in total: {2 * leaf:,} B ≈ {2 * leaf / 1e6:.1f} MB
 """

@@ -52,6 +52,10 @@ instead of following a trend.
 
 ## 2. Scenario on ORION
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 W-INFER ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3): 70B decoder, 80 layers,
 8 KV heads × 128 dim (GQA), BF16 weights ≈ 140 GB, TP = 8 per HX8 instance. SLOs `[ILLUSTRATIVE]`:
 TTFT p95 ≤ 800 ms for prompts ≤ 4,096 tokens (≤ 3 s above that), TPOT p95 ≤ 50 ms (per-request
@@ -218,7 +222,7 @@ Procedures: [starter-kit/README.md §8](starter-kit/README.md#8-l2l3-extension).
   even 5P2D needs 95 % of the link: infeasible. The simulator gives every transfer the full link,
   so link saturation shows up only in this model, never in the simulated latencies.
 
-> **Relation to Chapter 15 (Sections 15.10–15.12).** The chapter sizes W-INFER for 40 req/s with *fixed*
+> **Relation to Chapter 15 (KV cache transfer, speculative decoding and the W-INFER worked example: Sections 15.10–15.12 of the full edition, 15.7–15.8 and the worked example in the print edition).** The chapter sizes W-INFER for 40 req/s with *fixed*
 > 2,048-token prompts on **TP = 4 FP8** replicas (two per HX8; 6P + 2D = 8 replicas = 32 GPUs) and a
 > TCP path of one 200 Gb/s port at 50 % (100 Gb/s), which makes TCP infeasible at 107 % of a decode
 > replica's link. This capstone uses 30 req/s on **TP = 8 BF16** whole-node instances, a long-tailed

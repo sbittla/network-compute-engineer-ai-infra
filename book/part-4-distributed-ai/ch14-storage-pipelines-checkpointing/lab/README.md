@@ -210,13 +210,16 @@ memory and swap counters are written to `results.json`.
 **Reference runs.** The CPU-fallback bundle, `lab/l2/results/cpu-fallback/`, is the valid reference run
 (0.20 GB state; target a WSL2 virtual disk, not NVMe or a PFS). Read the shape there: blocking much
 shorter than completion, interference above zero (+42 % on the CPU, where the persist competes for the
-same cores), and the consistency and restore-test lines. The GPU
-bundle, `lab/l2/results/gpu-rtx-4060-laptop-gpu/`, is **not** a valid reference run. It failed its
-invariants: a 0.01 GB/s D2H snapshot and a 2,247 s `dcp.load` are physically implausible, most likely
-because of memory pressure on the 7.8 GiB WSL2 host, which had to page while holding about 1.1 GB of pinned
-buffers and several host copies of the 1.13 GB state. It is kept as a record and is pending a rerun on a
-host with enough RAM; its restore-test and async-consistency findings (Adam `step` scalars staged by
-reference; Section 14.10) do not depend on the timings.
+same cores), and the consistency and restore-test lines. The GPU bundle,
+`lab/l2/results/gpu-rtx-4060-laptop-gpu/` (RTX 4060 Laptop GPU, 1.13 GB state, 2026-11-06), is also a valid
+reference run: all invariants passed. Medians: `dcp.save` 1.05 s (blocking = completion); `async_save` blocks
+0.57 s and completes in 1.82 s; with cached pinned staging it blocks 0.099 s; pinned D2H snapshot 13.1 GB/s
+(PCIe ceiling 15.8 GB/s `[MODELED]`); `dcp.load` 1.02 GB/s; no measurable step-time interference. It was run
+with swap disabled inside the 7.8 GiB WSL2 VM (`swapoff -a`, restored afterwards). An earlier GPU run on
+2026-11-01 failed its invariants (0.01 GB/s D2H, 2,247 s `dcp.load`) because the host paged; that is what
+the experiment's memory guard and swap-out invariant now catch. If your run reports swap-out, free memory,
+raise the WSL2 memory limit or disable swap for the run, and rerun. These timings are for a laptop GPU
+writing to a local virtual disk; they validate the method, not ORION's numbers.
 
 **L3 — shared storage (2+ GPU nodes, maintenance window).** On a Lustre-class PFS, record the
 striping of your checkpoint directory (`lfs getstripe <dir>`; set a stripe count and size for a new

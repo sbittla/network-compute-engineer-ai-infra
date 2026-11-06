@@ -56,6 +56,10 @@ evidence, and an audit trail, is what this capstone builds.
 
 ## 2. Scenario: bring-up week on ORION
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 Halcyon AI's **Fleet** team owns bare-metal lifecycle for ORION-256 (32 × HX8 nodes, 256 GPUs; see
 [REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md)). This capstone *varies* the reference
 cluster in one stated way: two expansion racks (`rack-09`, `rack-10`, four HX8 nodes each) have just been

@@ -158,7 +158,8 @@ stays high; the busy-idle phase reproduces that case, not the degraded one. DCGM
 **L3 — multi-node with RDMA and switch access (read-only).**
 
 ```bash
-gnmic -a orion-be-leaf-r0:<port> -u <user> -p <pass> --skip-verify subscribe \
+# read-only subscription; keep the password out of shell history; --skip-verify only on a lab switch
+gnmic -a orion-be-leaf-r0:<port> -u <user> -p "$GNMI_PASSWORD" --skip-verify subscribe \
       --path /interfaces/interface/state/counters --mode stream --stream-mode sample --sample-interval 10s
 rdma statistic show link mlx5_0/1                    # RDMA hw counters (CNPs, retransmits, out-of-buffer)
 ethtool -S <backend-if> | grep -E 'prio3_pause|discard'

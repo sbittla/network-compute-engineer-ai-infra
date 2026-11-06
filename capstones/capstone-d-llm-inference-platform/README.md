@@ -38,6 +38,10 @@ This capstone covers single-pool (colocated prefill and decode) serving.
 
 ## Scenario
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 Inference serves W-INFER ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3) from ORION's
 Kubernetes partition. The model has 70B parameters (BF16 ≈ 140 GB, FP8 ≈ 70 GB), with KV cache of
 320 KiB per token in BF16. The SLOs are TTFT p95 ≤ 800 ms for prompts up to 2k tokens (end to end; 30 ms

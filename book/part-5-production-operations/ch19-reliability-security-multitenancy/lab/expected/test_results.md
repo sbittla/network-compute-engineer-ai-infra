@@ -6,12 +6,12 @@
 
 | Test | Result | Time (s) |
 |---|---|---|
-| `test_lab_solution_passes` | PASS | 1.682 |
-| `test_lab_starter_fails_gracefully` | PASS | 1.609 |
-| `test_lab_runs_without_generator` | PASS | 2.104 |
+| `test_lab_solution_passes` | PASS | 1.584 |
+| `test_lab_starter_fails_gracefully` | PASS | 1.454 |
+| `test_lab_runs_without_generator` | PASS | 2.113 |
 | `test_lab_golden_solution_report` | PASS | 0.002 |
-| `test_lab_golden_starter_report` | PASS | 1.583 |
-| `test_exercise_index` | PASS | 0.084 |
+| `test_lab_golden_starter_report` | PASS | 1.458 |
+| `test_exercise_index` | PASS | 0.054 |
 
 ## Exercise tests
 
@@ -43,4 +43,4 @@
 
 Run locally with `python -m pytest docker/harness/test_package.py --pkg <package>`; the lab containers (`python scripts/docker_labs.py test <id>`) run the same suite.
 
-Generated 2026-11-05 from commit `2a97c55` with Python 3.13.14 by `scripts/make_expected_outputs.py`.
+Generated 2026-11-05 from commit `025bde5` with Python 3.13.14 by `scripts/make_expected_outputs.py`.

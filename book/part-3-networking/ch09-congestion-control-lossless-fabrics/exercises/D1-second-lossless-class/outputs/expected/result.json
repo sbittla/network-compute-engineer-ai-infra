@@ -1,14 +1,14 @@
 {
   "answer": {
-    "extra_headroom_per_rail_leaf_b": 6463744,
+    "extra_headroom_per_rail_leaf_b": 6783744,
     "extra_headroom_per_spine_b": 7583744,
-    "two_lossless_priorities_per_rail_leaf_b": 12927488
+    "two_lossless_priorities_per_rail_leaf_b": 13567488
   },
   "evidence_label": "[MODELED]",
   "exercise": "D1",
   "inputs": {
     "leaf_ports_by_length_m": {
-      "30": 32,
+      "50": 32,
       "100": 32
     },
     "mtu_b": 9216,
@@ -19,7 +19,7 @@
   },
   "steps": {
     "headroom_per_port_priority_b": {
-      "30": 83496,
+      "50": 93496,
       "100": 118496
     }
   },

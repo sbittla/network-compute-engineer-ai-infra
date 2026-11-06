@@ -254,8 +254,9 @@ bottleneck, find the root cause, change safely, and validate with repeatable mea
   <div><b>{LABS}</b><span>labs</span></div>
   <div><b>{EXERCISES}</b><span>exercises</span></div>
 </div>
-<p class="kit">One reference cluster, ORION ({ORION_GPUS} H100-class GPUs), carries the numbers from chapter to
-chapter. Most labs run on a laptop; the extensions run on one real GPU. Code, labs and exercises:
+<p class="kit">One fictional, illustrative reference cluster, ORION ({ORION_GPUS} H100-class GPUs), carries the
+numbers from chapter to chapter. Core labs run on a laptop; optional extensions need a GPU host or an RDMA lab
+fabric. Code, labs and exercises:
 <span class="url">github.com/sbittla/network-compute-engineer-ai-infra</span></p>
 <div class="bio"><b>SRINIVASA RAO BITTLA</b> has spent over twenty years in AI/ML, performance engineering and
 quality assurance, at Adobe, Veeva Systems, LogMeIn and Citrix. He holds patents in AI-enabled predictive

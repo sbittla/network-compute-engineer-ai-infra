@@ -180,7 +180,8 @@ Copyright © 2026 {AUTHOR}. All rights reserved.
 
 {isbn_lines}
 
-Companion code, labs and exercises: <{REPO_URL}>
+Companion code, labs and exercises: <{REPO_URL}>. The companion code, scripts and lab data are
+released under the MIT License; the book's text and figures are not.
 
 This printing was built on {meta['build_date']} from {src}.
 
@@ -210,8 +211,14 @@ FRONT_BODY = f"""# About This Edition {{.unnumbered}}
 
 This concise edition of *{TITLE}: {SUBTITLE}* condenses the full edition's 24 chapters to about a
 third of their length. It keeps each chapter's core mechanisms, key numbers, worked example, troubleshooting scenario and
-operating notes. The full edition, with its labs, exercises, capstones and answer keys, remains the
-reference.
+operating notes.
+
+**What is in this book, and what is in the companion repository.** This book is complete as a text: you
+can read it without anything else. The practice material is not printed here. It is in the free companion
+repository named on the copyright page, which holds the full-length text of every chapter, a lab for every
+chapter, 484 exercises with expected outputs, worked solutions and marking schemes, single-machine hands-on
+labs, and eight capstone projects. "Using the Practice Material" explains how to find and use them. You need
+a laptop for the labs; the optional extensions need one GPU host (L2) or a multi-node RDMA lab fabric (L3).
 
 **How to read the numbers.** Every quantitative claim carries an evidence label:
 
@@ -237,9 +244,13 @@ identify the root cause → make a safe change → validate with repeatable meas
 Labs come in three tiers. Most run on a laptop (tier L1); the L2 extensions run on one real GPU host, with
 a CPU fallback, and the L3 extensions need multi-node remote direct memory access (RDMA) hardware.
 
-**Review status.** The chapters have passed the book's internal editorial review. External technical
-review and hardware validation of every lab are tracked separately in the companion repository; treat
-vendor-specific details as version-sensitive.
+**Review status.** The chapters have passed the book's internal editorial review and an AI-assisted
+specialist technical review in seven areas: GPU systems, networking and RDMA, distributed training and
+storage, inference, operations and security, facilities and economics, and sources. Their findings and
+resolutions are published in the companion repository (`docs/reviews/`). Independent review by external
+human specialists is recorded there separately. The lab validation matrix (`docs/LAB_VALIDATION_MATRIX.md`)
+lists, for every lab, the hardware and software it was tested on, the date and the result; the multi-node
+(L3) extensions have not been run by the author. Treat vendor-specific details as version-sensitive.
 
 """
 
@@ -424,6 +435,14 @@ def number_pages(pdf: Path) -> None:
         print("PyMuPDF not installed: PDF left without page numbers")
         return
     doc = fitz.open(pdf)
+    # Folios use an embedded TrueType font: KDP's print checks reject non-embedded fonts such as PyMuPDF's
+    # built-in Helvetica. Georgia is the body font, so it is already licensed for embedding in this PDF.
+    font_file = next((f for f in (Path("C:/Windows/Fonts/georgia.ttf"), Path("/usr/share/fonts/truetype/msttcorefonts/Georgia.ttf"),
+                                  Path("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf")) if f.is_file()), None)
+    if font_file is None:
+        raise SystemExit("no embeddable folio font found (Georgia or DejaVu Serif)")
+    folio_font = fitz.Font(fontfile=str(font_file))
+    FOLIO = dict(fontname="folio", fontfile=str(font_file))
     # Contents: Chrome prints the TOC as links without page numbers; add each target's folio at the right margin.
     for i in range(1, min(doc.page_count, 25)):
         page = doc[i]
@@ -438,15 +457,21 @@ def number_pages(pdf: Path) -> None:
                 continue
             seen.add(round(r.y0))
             text = str(ln["page"] + 1)
-            w = fitz.get_text_length(text, fontname="helv", fontsize=8.5)
-            page.insert_text(fitz.Point(right - w, r.y1 - 2.5), text, fontsize=8.5, fontname="helv",
+            w = folio_font.text_length(text, fontsize=8.5)
+            page.insert_text(fitz.Point(right - w, r.y1 - 2.5), text, fontsize=8.5, **FOLIO,
                              color=(0.2, 0.2, 0.2))
     for i, page in enumerate(doc):
         if i == 0:
             continue
         r = page.rect
         page.insert_textbox(fitz.Rect(0, r.height - 40, r.width, r.height - 22), str(i + 1),
-                            fontsize=8.5, fontname="helv", color=(0.35, 0.35, 0.35), align=1)
+                            fontsize=8.5, **FOLIO, color=(0.35, 0.35, 0.35), align=1)
+    meta = doc.metadata or {}
+    meta.update({"title": f"{TITLE}: {SUBTITLE}", "author": AUTHOR, "subject": f"{TITLE}, {EDITION}",
+                 "keywords": "ISBN " + ", ".join(f"{n} ({k})" for n, k in ISBNS) + "; AI infrastructure; GPU clusters; "
+                             "RDMA; distributed training; LLM inference",
+                 "creator": "scripts/build_concise.py (pandoc, Chrome)"})
+    doc.set_metadata(meta)
     tmp = pdf.with_suffix(".tmp.pdf")
     doc.save(tmp, garbage=3, deflate=True)
     doc.close()

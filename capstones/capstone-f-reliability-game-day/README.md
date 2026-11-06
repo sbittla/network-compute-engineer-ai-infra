@@ -58,6 +58,10 @@ interactions: you write down what you expect, inject the fault, and compare. The
 
 ## 2. Scenario on ORION
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 Halcyon AI's **SRE** team runs a quarterly game day. ORION-256 ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md))
 is modeled as follows `[SIMULATED]`:
 

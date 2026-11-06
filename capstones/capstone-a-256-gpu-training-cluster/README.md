@@ -40,6 +40,10 @@ plan and the failure analysis.
 
 ## Scenario
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 Halcyon AI has been allocated 13 racks in a hall (positions in rows A, B and D) and wants to train a 70-billion-parameter
 dense model (W-TRAIN, [REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §3) on 32 HX8 nodes, which
 is 256 H100-class GPUs. Each node has eight 400 Gb/s remote direct memory access (RDMA) network interface cards (NICs), one per GPU and one per rail. Three

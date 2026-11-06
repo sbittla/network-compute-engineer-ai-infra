@@ -6,11 +6,11 @@
 
 | Test | Result | Time (s) |
 |---|---|---|
-| `test_lab_solution_passes` | PASS | 0.786 |
-| `test_lab_starter_fails_gracefully` | PASS | 0.615 |
-| `test_lab_runs_without_generator` | PASS | 0.923 |
+| `test_lab_solution_passes` | PASS | 0.815 |
+| `test_lab_starter_fails_gracefully` | PASS | 0.571 |
+| `test_lab_runs_without_generator` | PASS | 0.891 |
 | `test_lab_golden_solution_report` | PASS | 0.001 |
-| `test_lab_golden_starter_report` | PASS | 0.579 |
+| `test_lab_golden_starter_report` | PASS | 0.572 |
 | `test_exercise_index` | SKIP | 0.001 | capstones use deliverable templates, not exercise folders
 
 ## Exercise tests
@@ -23,4 +23,4 @@ Skipped tests are the exercise-folder tests, which capstones do not have.
 
 Run locally with `python -m pytest docker/harness/test_package.py --pkg <package>`; the lab containers (`python scripts/docker_labs.py test <id>`) run the same suite.
 
-Generated 2026-11-05 from commit `2a97c55` with Python 3.13.14 by `scripts/make_expected_outputs.py`.
+Generated 2026-11-05 from commit `025bde5` with Python 3.13.14 by `scripts/make_expected_outputs.py`.

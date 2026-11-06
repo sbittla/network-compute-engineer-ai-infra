@@ -109,3 +109,8 @@ behaviour, real InfiniBand/RoCE congestion, GPU-to-NIC locality, NVLink/NVSwitch
 ASIC queue behaviour, or multi-node GPU scaling. Every simulated or modeled result in this book is
 labelled as such; Level-2 and Level-3 extensions give the exact procedure for hardware-backed
 validation.
+
+## License
+
+Code, scripts and lab data are released under the MIT License; the book text, figures and covers are
+all rights reserved. See [LICENSE](LICENSE).

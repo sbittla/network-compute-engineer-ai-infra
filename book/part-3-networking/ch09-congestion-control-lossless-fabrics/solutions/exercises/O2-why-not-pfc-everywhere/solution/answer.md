@@ -15,7 +15,7 @@ Table 9.6, Figure 9.10).
    leaf freezes. Without a **PFC watchdog** nothing breaks the loop (the lab's storm lasted ≈ 70 s).
 4. **Deadlock.** Cyclic buffer dependencies (routing that is not up-down, transient loops, flooding of
    lossless traffic) leave buffers waiting on each other forever, even after the traffic stops.
-5. **Buffer cost.** Every lossless priority reserves headroom per port: ≈ 6.5 MB per ORION rail leaf
+5. **Buffer cost.** Every lossless priority reserves headroom per port: ≈ 6.8 MB per ORION rail leaf
    per priority `[MODELED]`. That buffer is taken out of the shared pool that absorbs bursts for every
    other class.
 6. **Masking.** PFC hides missing or misconfigured ECN/DCQCN: the fabric "works" while running on

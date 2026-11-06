@@ -1,21 +1,463 @@
 {
-  "error": "Traceback (most recent call last):\n  File \"/opt/hwlab/run.py\", line 61, in main\n    result = exp.run(ctx)\n             ^^^^^^^^^^^^\n  File \"/work/pkg/starter-kit/l2/experiment.py\", line 239, in run\n    m = Decoder(torch, device=ctx.device, max_batch=max(batches), max_len=max_len, **cfg)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/work/pkg/starter-kit/l2/experiment.py\", line 93, in __init__\n    self.v = torch.zeros_like(self.k)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.01 GiB. GPU 0 has a total capacity of 8.00 GiB of which 4.08 GiB is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 2.80 GiB is allocated by PyTorch, and 27.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
+  "ceilings": {
+    "copy_bytes_per_s": 225706509513.91885,
+    "copy_mib": 256,
+    "gemm_flops": 26725951117036.457,
+    "gemm_n": 4096
+  },
   "experiment": {
     "cpu_fallback": "the same random-weight transformer, smaller and fp32, on the CPU; peak FLOP/s and bytes/s are a measured GEMM and memory copy, so the fitted mfu/hbm_eff are relative to measured CPU ceilings; the RDMA KV path is recorded as not runnable",
     "evidence": "MEASURED",
     "id": "capstone-h-l2",
     "title": "Capstone H L2: roofline calibration of prefill and decode on one GPU"
   },
-  "invariants": {
-    "failures": [
-      "experiment raised an exception"
+  "fit_measured_ceiling": {
+    "basis": "measured GEMM / copy on this device",
+    "hbm_eff": 0.8585339983293979,
+    "mfu_prefill": 0.9591484536578744,
+    "peak_bw": 225706509513.91885,
+    "peak_flops": 26725951117036.457,
+    "pred_decode": [
+      {
+        "batch": 1,
+        "measured_s": 0.004936704158782959,
+        "modeled_s": 0.004793791027380882,
+        "rel_err": -0.028949097779703604
+      },
+      {
+        "batch": 2,
+        "measured_s": 0.004973567962646485,
+        "modeled_s": 0.004967289522851538,
+        "rel_err": -0.001262361315277243
+      },
+      {
+        "batch": 4,
+        "measured_s": 0.005218816041946411,
+        "modeled_s": 0.005314286513792849,
+        "rel_err": 0.018293511608589174
+      },
+      {
+        "batch": 8,
+        "measured_s": 0.00595243215560913,
+        "modeled_s": 0.0060082804956754715,
+        "rel_err": 0.00938244042205738
+      },
+      {
+        "batch": 16,
+        "measured_s": 0.007358448028564453,
+        "modeled_s": 0.007396268459440717,
+        "rel_err": 0.005139729292026096
+      },
+      {
+        "batch": 32,
+        "measured_s": 0.010212192058563233,
+        "modeled_s": 0.010172244386971209,
+        "rel_err": -0.00391176266201596
+      }
     ],
-    "passed": false
+    "pred_prefill": [
+      {
+        "measured_s": 0.004632575988769531,
+        "modeled_s": 0.0020158193594474786,
+        "prompt_tokens": 64,
+        "rel_err": -0.5648599473955084
+      },
+      {
+        "measured_s": 0.004974447965621949,
+        "modeled_s": 0.004042110507775204,
+        "prompt_tokens": 128,
+        "rel_err": -0.1874253111682064
+      },
+      {
+        "measured_s": 0.00855295991897583,
+        "modeled_s": 0.008126108171071395,
+        "prompt_tokens": 256,
+        "rel_err": -0.049906903802671904
+      },
+      {
+        "measured_s": 0.016275151252746582,
+        "modeled_s": 0.016419764964226737,
+        "prompt_tokens": 512,
+        "rel_err": 0.008885552535540919
+      },
+      {
+        "measured_s": 0.0341780948638916,
+        "modeled_s": 0.033509724416789254,
+        "prompt_tokens": 1024,
+        "rel_err": -0.01955552086106672
+      },
+      {
+        "measured_s": 0.06936319732666016,
+        "modeled_s": 0.06970022678692166,
+        "prompt_tokens": 2048,
+        "rel_err": 0.004858908949572872
+      }
+    ],
+    "prefill_fit_points": [
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "step_overhead_s": 0.00029128523751569945
   },
-  "log": [],
-  "metrics": {},
-  "notes": [],
-  "runtime_s": 4.17,
-  "status": "error",
-  "tables": {}
+  "fit_vendor_peak": {
+    "basis": "vendor peak",
+    "hbm_eff": 0.7568456757825469,
+    "mfu_prefill": 0.6718559899618354,
+    "peak_bw": 256032000000.0,
+    "peak_flops": 38154240000000.0,
+    "pred_decode": [
+      {
+        "batch": 1,
+        "measured_s": 0.004936704158782959,
+        "modeled_s": 0.004793791027380882,
+        "rel_err": -0.028949097779703604
+      },
+      {
+        "batch": 2,
+        "measured_s": 0.004973567962646485,
+        "modeled_s": 0.004967289522851538,
+        "rel_err": -0.001262361315277243
+      },
+      {
+        "batch": 4,
+        "measured_s": 0.005218816041946411,
+        "modeled_s": 0.005314286513792849,
+        "rel_err": 0.018293511608589174
+      },
+      {
+        "batch": 8,
+        "measured_s": 0.00595243215560913,
+        "modeled_s": 0.0060082804956754715,
+        "rel_err": 0.00938244042205738
+      },
+      {
+        "batch": 16,
+        "measured_s": 0.007358448028564453,
+        "modeled_s": 0.007396268459440717,
+        "rel_err": 0.005139729292026096
+      },
+      {
+        "batch": 32,
+        "measured_s": 0.010212192058563233,
+        "modeled_s": 0.010172244386971209,
+        "rel_err": -0.00391176266201596
+      }
+    ],
+    "pred_prefill": [
+      {
+        "measured_s": 0.004632575988769531,
+        "modeled_s": 0.0020158193594474786,
+        "prompt_tokens": 64,
+        "rel_err": -0.5648599473955084
+      },
+      {
+        "measured_s": 0.004974447965621949,
+        "modeled_s": 0.004042110507775204,
+        "prompt_tokens": 128,
+        "rel_err": -0.1874253111682064
+      },
+      {
+        "measured_s": 0.00855295991897583,
+        "modeled_s": 0.008126108171071395,
+        "prompt_tokens": 256,
+        "rel_err": -0.049906903802671904
+      },
+      {
+        "measured_s": 0.016275151252746582,
+        "modeled_s": 0.016419764964226737,
+        "prompt_tokens": 512,
+        "rel_err": 0.008885552535540919
+      },
+      {
+        "measured_s": 0.0341780948638916,
+        "modeled_s": 0.033509724416789254,
+        "prompt_tokens": 1024,
+        "rel_err": -0.01955552086106672
+      },
+      {
+        "measured_s": 0.06936319732666016,
+        "modeled_s": 0.06970022678692166,
+        "prompt_tokens": 2048,
+        "rel_err": 0.004858908949572872
+      }
+    ],
+    "prefill_fit_points": [
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "step_overhead_s": 0.00029128523751569945
+  },
+  "invariants": {
+    "failures": [],
+    "passed": true
+  },
+  "l1_formula_crosscheck": {
+    "available": true,
+    "decode_s": [
+      0.004793791027380883,
+      0.004967289522851538,
+      0.00531428651379285,
+      0.006008280495675472,
+      0.007396268459440717,
+      0.010172244386971209
+    ],
+    "max_rel_diff": 1.8093440724350726e-16,
+    "prefill_s": [
+      0.0020158193594474786,
+      0.004042110507775204,
+      0.008126108171071395,
+      0.016419764964226737,
+      0.033509724416789254,
+      0.06970022678692166
+    ],
+    "source": "instructor/reference/serve.py"
+  },
+  "l1_sizing_whatif": {
+    "assumed": {
+      "hbm_eff": 0.7,
+      "mfu_prefill": 0.5
+    },
+    "available": true,
+    "l1_defaults": {
+      "D": 1,
+      "P": 4,
+      "decode_batch": 491,
+      "decode_step_s": 0.03345821057427834,
+      "gpus": 40,
+      "mean_prefill_s": 0.09101440829586088
+    },
+    "source": "instructor/reference/serve.py",
+    "used": {
+      "hbm_eff": 0.7568456757825469,
+      "mfu_prefill": 0.6718559899618354
+    },
+    "with_measured_efficiencies": {
+      "D": 1,
+      "P": 3,
+      "decode_batch": 491,
+      "decode_step_s": 0.031245643414258586,
+      "gpus": 32,
+      "mean_prefill_s": 0.06773356913959414
+    }
+  },
+  "log": [
+    "model d=2048 L=8 non-embedding params=403 M, weights 839 MB; measured GEMM 26.73 TFLOP/s, copy 225.7 GB/s",
+    "prefill T=   64:     4.63 ms   11.15 TFLOP/s",
+    "prefill T=  128:     4.97 ms   20.83 TFLOP/s",
+    "prefill T=  256:     8.55 ms   24.35 TFLOP/s",
+    "prefill T=  512:    16.28 ms   25.86 TFLOP/s",
+    "prefill T= 1024:    34.18 ms   25.13 TFLOP/s",
+    "prefill T= 2048:    69.36 ms   25.76 TFLOP/s",
+    "decode B=  1 ctx=512:   4.937 ms/step   176.7 GB/s",
+    "decode B=  2 ctx=512:   4.974 ms/step   182.2 GB/s",
+    "decode B=  4 ctx=512:   5.219 ms/step   186.5 GB/s",
+    "decode B=  8 ctx=512:   5.952 ms/step   186.1 GB/s",
+    "decode B= 16 ctx=512:   7.358 ms/step   187.1 GB/s",
+    "decode B= 32 ctx=512:  10.212 ms/step   187.5 GB/s"
+  ],
+  "metrics": {
+    "decode_ms_b1": 4.937,
+    "hbm_eff_vs_measured_copy": 0.859,
+    "hbm_eff_vs_vendor_peak": 0.757,
+    "mfu_prefill_vs_measured_gemm": 0.959,
+    "mfu_prefill_vs_vendor_peak": 0.672,
+    "step_overhead_ms": 0.291
+  },
+  "model": {
+    "d": 2048,
+    "dtype": "torch.float16",
+    "heads": 16,
+    "kv_bytes_per_token": 65536,
+    "layers": 8,
+    "params_nonembed": 402653184,
+    "vocab": 8192,
+    "weight_bytes": 838860800
+  },
+  "not_runnable_parts": [
+    {
+      "fallback": "GPU -> pinned host memory KV offload over PCIe measured instead (table kv_offload)",
+      "needs": [
+        "two GPU nodes",
+        "RDMA NIC per rail (GPUDirect RDMA capable)",
+        "lab switch",
+        "perftest built with CUDA"
+      ],
+      "part": "L3 KV-cache transfer between two RDMA nodes (ib_write_bw --use_cuda, GPUDirect RDMA, TCP baseline)",
+      "probe": "/sys/class/infiniband devices=none, /dev/infiniband=True, ib_write_bw=present, torch.cuda.device_count()=1"
+    }
+  ],
+  "notes": [
+    "Model: random weights, greedy argmax; output quality is irrelevant, only the cost of the work.",
+    "Prefill FLOPs = 2*N*T + 2*L*d*T^2 and decode bytes = weights + B*ctx*KV bytes/token, the L1 formulas; l1_formula_crosscheck evaluates serve.prefill_time_s / decode_step_time_s themselves with MODEL re-pointed at this model.",
+    "Repetitions: 3 warm-ups, >= 5 timed, interleaved round-robin across sizes; CUDA events on the GPU, perf_counter on the CPU; medians reported."
+  ],
+  "probe": {
+    "dev_infiniband": true,
+    "ib_write_bw": true,
+    "iperf3": true,
+    "nvidia_peermem": false,
+    "rdma_devices": []
+  },
+  "runtime_s": 9.1,
+  "status": "ran",
+  "tables": {
+    "decode": [
+      {
+        "batch": 1,
+        "bytes": 872480768,
+        "ctx_tokens": 512,
+        "gbs": 176.7334521044283,
+        "iqr_s": 0.00035988795757293645,
+        "median_s": 0.004936704158782959,
+        "n": 20,
+        "p95_s": 0.008938495635986327,
+        "tok_per_s": 202.56429549680146
+      },
+      {
+        "batch": 2,
+        "bytes": 906100736,
+        "ctx_tokens": 512,
+        "gbs": 182.18324205181963,
+        "iqr_s": 0.00031058406829833924,
+        "median_s": 0.004973567962646485,
+        "n": 20,
+        "p95_s": 0.005601280212402344,
+        "tok_per_s": 402.1258008377109
+      },
+      {
+        "batch": 4,
+        "bytes": 973340672,
+        "ctx_tokens": 512,
+        "gbs": 186.50603205338936,
+        "iqr_s": 0.0001233357191085813,
+        "median_s": 0.005218816041946411,
+        "n": 20,
+        "p95_s": 0.005732351779937744,
+        "tok_per_s": 766.4573665463324
+      },
+      {
+        "batch": 8,
+        "bytes": 1107820544,
+        "ctx_tokens": 512,
+        "gbs": 186.11225042793174,
+        "iqr_s": 0.00011540794372558519,
+        "median_s": 0.00595243215560913,
+        "n": 20,
+        "p95_s": 0.006189055919647217,
+        "tok_per_s": 1343.9884388201542
+      },
+      {
+        "batch": 16,
+        "bytes": 1376780288,
+        "ctx_tokens": 512,
+        "gbs": 187.10199252009852,
+        "iqr_s": 0.00016756784915924073,
+        "median_s": 0.007358448028564453,
+        "n": 20,
+        "p95_s": 0.0076061439514160155,
+        "tok_per_s": 2174.371543821505
+      },
+      {
+        "batch": 32,
+        "bytes": 1914699776,
+        "ctx_tokens": 512,
+        "gbs": 187.49155568362684,
+        "iqr_s": 0.00018127179145813188,
+        "median_s": 0.010212192058563233,
+        "n": 20,
+        "p95_s": 0.010543104171752929,
+        "tok_per_s": 3133.5094185941234
+      }
+    ],
+    "kv_offload": [
+      {
+        "gbs": 13.112076374067737,
+        "kv_bytes": 67108864,
+        "median_s": 0.005118095874786377,
+        "p95_s": 0.005220352172851562,
+        "path": "GPU->pinned host (PCIe)",
+        "prompt_tokens": 1024
+      },
+      {
+        "gbs": 13.049394830267497,
+        "kv_bytes": 134217728,
+        "median_s": 0.010285360336303711,
+        "p95_s": 0.010340127944946289,
+        "path": "GPU->pinned host (PCIe)",
+        "prompt_tokens": 2048
+      }
+    ],
+    "prefill": [
+      {
+        "flops": 51673825280,
+        "iqr_s": 0.0003001997470855715,
+        "median_s": 0.004632575988769531,
+        "n": 10,
+        "p95_s": 0.005272575855255127,
+        "prompt_tokens": 64,
+        "tflops_s": 11.154447418729811,
+        "tokens_per_s": 13815.20781421638
+      },
+      {
+        "flops": 103616086016,
+        "iqr_s": 0.00011490404605865503,
+        "median_s": 0.004974447965621949,
+        "n": 10,
+        "p95_s": 0.005212992191314697,
+        "prompt_tokens": 128,
+        "tflops_s": 20.829665267801232,
+        "tokens_per_s": 25731.49842647843
+      },
+      {
+        "flops": 208305913856,
+        "iqr_s": 0.00020406413078307914,
+        "median_s": 0.00855295991897583,
+        "n": 10,
+        "p95_s": 0.008789952278137208,
+        "prompt_tokens": 256,
+        "tflops_s": 24.35483339444241,
+        "tokens_per_s": 29931.158619372392
+      },
+      {
+        "flops": 420906795008,
+        "iqr_s": 0.00022778511047363142,
+        "median_s": 0.016275151252746582,
+        "n": 10,
+        "p95_s": 0.016943872451782225,
+        "prompt_tokens": 512,
+        "tflops_s": 25.861928314612012,
+        "tokens_per_s": 31459.001028552364
+      },
+      {
+        "flops": 858993459200,
+        "iqr_s": 0.0003166713714599645,
+        "median_s": 0.0341780948638916,
+        "n": 10,
+        "p95_s": 0.03489791870117188,
+        "prompt_tokens": 1024,
+        "tflops_s": 25.13286543971494,
+        "tokens_per_s": 29960.710334438016
+      },
+      {
+        "flops": 1786706395136,
+        "iqr_s": 0.000524543762207022,
+        "median_s": 0.06936319732666016,
+        "n": 10,
+        "p95_s": 0.07027609252929687,
+        "prompt_tokens": 2048,
+        "tflops_s": 25.75870871006214,
+        "tokens_per_s": 29525.74389492335
+      }
+    ]
+  },
+  "vendor_peaks": {
+    "fp16_tc_flops": 38154240000000.0,
+    "fp32_flops": 19077120000000.0,
+    "mem_bw": 256032000000.0,
+    "source": "SMs x per-SM rate x clocks.max.sm (NVIDIA Ada architecture whitepaper) [VENDOR-SPEC]"
+  }
 }

@@ -155,7 +155,7 @@ Risks (any four, each with mechanism):
    leaf; without a watchdog, nothing stops it.
 4. **Deadlock** — cyclic buffer dependencies (routing out of up-down order, flooding of lossless
    traffic) leave buffers waiting on each other forever.
-5. **Buffer cost** — headroom per port per lossless priority (≈ 6.5 MB per ORION leaf per priority)
+5. **Buffer cost** — headroom per port per lossless priority (≈ 6.8 MB per ORION leaf per priority)
    removed from the shared pool, reducing burst absorption for everything else.
 6. **Masking** — PFC hides misconfigured or absent ECN/DCQCN: the fabric "works" while running on pause,
    with poor tail latency, until a storm or deadlock exposes it.
@@ -239,7 +239,7 @@ database. *Marking:* 4 / 4 / 3 / 4.
 
 Recommendation: **reject a second lossless priority on the backend; accept checkpoint RDMA in a lossy,
 ECN-enabled class (or on the frontend/storage fabric) with conditions.**
-- Headroom: 32 × 83,496 + 32 × 118,496 = **6,463,744 B ≈ 6.5 MB** more per rail leaf, and 64 × 118,496 =
+- Headroom (host ports sized at 50 m): 32 × 93,496 + 32 × 118,496 = **6,783,744 B ≈ 6.8 MB** more per rail leaf, and 64 × 118,496 =
   7,583,744 B ≈ 7.6 MB per spine — buffer taken from burst absorption for W-TRAIN's TC 3.
 - Risks: a second set of congestion trees and storms; checkpoint bursts (≈ 980 GB per W-TRAIN
   checkpoint) pausing ports that also carry TC 3 collectives (HOL across classes shares ports and NICs);

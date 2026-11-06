@@ -87,9 +87,10 @@ Terms: PIX = one PCIe switch; PXB = several switches, no host bridge; PHB = thro
 
 ### Software baseline `[ILLUSTRATIVE — verify against current vendor compatibility matrices]`
 
-Ubuntu 22.04/24.04 LTS; NVIDIA data-center driver 550/570-series; CUDA 12.x; NCCL 2.2x;
-PyTorch 2.x; vendor RDMA stack (MLNX_OFED/DOCA-host class) with matching NIC firmware; Slurm 23.x/24.x;
-Kubernetes 1.30+ with the NVIDIA GPU Operator/device plugin; Prometheus + Grafana; DCGM exporter.
+Ubuntu 22.04/24.04 LTS; NVIDIA data-center driver 570/580-series or newer; CUDA 12.x–13.x; NCCL 2.2x–2.3x
+(Appendix E checks 2.32.3); PyTorch 2.x (Appendix E checks 2.15); vendor RDMA stack (MLNX_OFED/DOCA-host
+class) with matching NIC firmware; Slurm 24.x–26.x (Appendix E checks 25.05/26.05); Kubernetes 1.34+ (DRA GA)
+with the NVIDIA GPU Operator/device plugin; Prometheus + Grafana; DCGM 4.x with dcgm-exporter 4.x.
 
 ## 3. Reference workloads
 

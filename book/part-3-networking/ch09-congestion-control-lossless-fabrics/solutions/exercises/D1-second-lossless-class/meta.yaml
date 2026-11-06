@@ -9,7 +9,7 @@ points: 15
 evidence_required: headroom arithmetic; at least three risks; at least two alternatives in a trade-off
   table; a decision with the conditions or evidence that would change it.
 marking:
-- criterion: 'Headroom arithmetic: 32 × 83,496 + 32 × 118,496 = 6,463,744 B ≈ 6.5 MB per rail leaf'
+- criterion: 'Headroom arithmetic: 32 × 93,496 + 32 × 118,496 = 6,783,744 B ≈ 6.8 MB per rail leaf'
   points: 4
 - criterion: At least three risks, including the interaction with W-TRAIN's TC 3
   points: 4

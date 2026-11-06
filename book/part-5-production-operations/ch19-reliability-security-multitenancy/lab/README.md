@@ -148,7 +148,9 @@ pointers (K2, T1), are correct. Your own run writes a fresh report without the e
 
 **L3 — two RDMA nodes, dedicated partition.** Run `all_reduce_perf` (or a small PyTorch DDP loop) and,
 with authorization, administratively disable one backend port for 3 s, 8 s, and 15 s on separate
-trials. Record whether the job survives, the NCCL warnings, and time to watchdog. Record in the
+trials. Before each trial, record the port's state and counters; after it, re-enable the port and
+confirm link up at full speed with no new FEC-uncorrectable or flap counts before the next trial. When
+done, leave both nodes drained until a pair test passes. Record whether the job survives, the NCCL warnings, and time to watchdog. Record in the
 manifest: NIC firmware, RDMA stack, NCCL and PyTorch versions, `NCCL_IB_TIMEOUT`, `NCCL_IB_RETRY_CNT`,
 watchdog timeout, link-down duration, outcome per trial, number of trials. Compare with the retry
 budget computed in Section 19.4 (`[MODELED]` vs `[MEASURED]`).

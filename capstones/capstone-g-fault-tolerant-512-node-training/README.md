@@ -60,6 +60,10 @@ tolerance at scale*.
 
 ## 2. Scenario: ORION-XL, 03:14 UTC
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 **ORION-XL** ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §4): 512 HX8 nodes
 (`orionxl-n001` … `orionxl-n512`), rail-optimized RoCEv2 backend.
 

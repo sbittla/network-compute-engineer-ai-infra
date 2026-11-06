@@ -5,7 +5,8 @@ evidence, trace the bottleneck across compute, network, storage and orchestratio
 cause, make a safe change, and validate it with repeatable measurements. Each project is set on
 **ORION** ([docs/REFERENCE_CLUSTER.md](../docs/REFERENCE_CLUSTER.md)), the 256-GPU cluster run by
 Halcyon AI (or its 4,096-GPU scale-out variant, ORION-XL), so your numbers can be checked against the
-rest of the book. Every capstone ships a runnable Level-1 starter kit, so a laptop is enough to earn a
+rest of the book. ORION and Halcyon AI are fictional: their values are `[ILLUSTRATIVE]` H100-class
+teaching approximations, not a real cluster, a vendor specification or a purchasing quote. Every capstone ships a runnable Level-1 starter kit, so a laptop is enough to earn a
 distinction. Hardware-backed (L2/L3) extensions turn modeled or simulated claims into measured ones.
 
 The capstone is worth **35 %** of the course assessment ([COURSE_GUIDE.md](../COURSE_GUIDE.md)) and is

@@ -178,6 +178,10 @@ sinfo -N -o '%N %T %G %E'
 scontrol update NodeName=<node> State=DRAIN Reason="lab drain test"     # then State=RESUME
 squeue -o '%.10i %.9P %.20j %.2t %.6D %R'
 ```
+**Clean up before you leave the node:** `kubectl taint nodes <node> halcyon.ai/dedicated=search:NoSchedule-`,
+`kubectl delete quota gpu-quota -n lab`, and `scontrol update NodeName=<node> State=RESUME`; then confirm
+`allocatable nvidia.com/gpu` and `sinfo` show the node as it was before you started.
+
 Record in a copy of `manifest.yaml`: Kubernetes, GPU Operator, device-plugin and driver versions,
 MIG strategy, Slurm version and `gres.conf`, the allocatable snapshot, and the exact event text for
 each reproduced cause. Compare the real event strings with those in `pending_cases.json`.
@@ -189,6 +193,9 @@ a node with one rail administratively down) and measure NCCL `all_reduce_perf` b
 ```bash
 srun -N2 --ntasks-per-node=8 --gpus-per-node=8 ./build/all_reduce_perf -b 1G -e 8G -f 2 -g 1
 ```
+Take a rail down only on a lab node with no other jobs and a lab switch port you own; afterwards bring
+the port back up and confirm link speed, RDMA `state: PORT_ACTIVE` and a clean pair test before the node
+rejoins any pool.
 Record ≥ 5 repetitions per placement (median, p95, min/max, interquartile range), warm-up policy
 (pass `-w` explicitly; nccl-tests defaults to one warm-up iteration), `scontrol show topology`
 (or the topology labels you used), NIC firmware and driver versions, and time-to-start (p50/p95) for

@@ -6,50 +6,40 @@
     "title": "Lab 14 L2: checkpoint blocking vs completion time, save/restore throughput and restore test"
   },
   "invariants": {
-    "failures": [
-      "implausible D2H snapshot rate 0.01 GB/s < 1 GB/s: the host is paging (pinned allocation under memory pressure?); this run is not valid evidence - rerun on a host with more RAM",
-      "implausible restore: dcp.load 2246.8 s > 20 x save 6.5 s; the host is paging; this run is not valid evidence"
-    ],
-    "passed": false,
-    "reevaluated": "2026-11-01: the same measurements re-checked with the plausibility guards added after this run; the original list is kept in invariants_original"
-  },
-  "invariants_original": {
-    "failures": [
-      "async_save returned faster than a single copy of the state: it did not stage the state; a later in-place update could corrupt the checkpoint"
-    ],
-    "passed": false
+    "failures": [],
+    "passed": true
   },
   "l1_model": {
-    "meas_async_blocking_s": 0.6573836499592289,
-    "meas_async_completion_s": 8.000059184036218,
-    "meas_sync_blocking_s": 6.456308569991961,
-    "pred_async_blocking_s": 193.50937499999998,
-    "pred_async_completion_s": 199.96568356999194,
-    "pred_sync_blocking_s": 6.456308569991961,
+    "meas_async_blocking_s": 0.5694391609999911,
+    "meas_async_completion_s": 1.8171978070000137,
+    "meas_sync_blocking_s": 1.047864923999981,
+    "pred_async_blocking_s": 0.08658067321777344,
+    "pred_async_completion_s": 1.1344455972177545,
+    "pred_sync_blocking_s": 1.047864923999981,
     "source": "solutions/lab/storage_lab.py"
   },
   "log": [
     "model 94.4 M params, checkpointed state 1.133 GB on cuda",
     "consistency: 20 of 80 tensors in the async checkpoint differ from the call-time state (0 data tensors, 20 scalars, e.g. ['optim.state.0.weight.step', 'optim.state.0.bias.step'])",
-    "snapshot copy p50 193.509 s -> 0.01 GB/s",
-    "save                      rep 0 blocking 6.158 s completion 6.158 s",
-    "save                      rep 1 blocking 7.266 s completion 7.266 s",
-    "save                      rep 2 blocking 6.456 s completion 6.456 s",
-    "save                      rep 3 blocking 6.971 s completion 6.971 s",
-    "save                      rep 4 blocking 5.915 s completion 5.915 s",
-    "save                      rep 5 blocking 6.104 s completion 6.104 s",
-    "async_save                rep 0 blocking 0.702 s completion 6.028 s steps during 27",
-    "async_save                rep 1 blocking 0.817 s completion 8.664 s steps during 41",
-    "async_save                rep 2 blocking 0.657 s completion 8.146 s steps during 41",
-    "async_save                rep 3 blocking 0.715 s completion 8.000 s steps during 40",
-    "async_save                rep 4 blocking 0.657 s completion 7.316 s steps during 35",
-    "async_save                rep 5 blocking 0.631 s completion 5.575 s steps during 27",
-    "async_save+cached_pinned  rep 0 blocking 2.313 s completion 10.849 s steps during 25",
-    "async_save+cached_pinned  rep 1 blocking 0.281 s completion 9.911 s steps during 47",
-    "async_save+cached_pinned  rep 2 blocking 0.192 s completion 9.323 s steps during 50",
-    "async_save+cached_pinned  rep 3 blocking 0.214 s completion 10.642 s steps during 52",
-    "async_save+cached_pinned  rep 4 blocking 0.345 s completion 12.660 s steps during 63",
-    "async_save+cached_pinned  rep 5 blocking 0.389 s completion 9.516 s steps during 49",
+    "snapshot copy p50 0.087 s -> 13.08 GB/s",
+    "save                      rep 0 blocking 1.625 s completion 1.625 s",
+    "save                      rep 1 blocking 1.462 s completion 1.462 s",
+    "save                      rep 2 blocking 0.821 s completion 0.821 s",
+    "save                      rep 3 blocking 1.118 s completion 1.118 s",
+    "save                      rep 4 blocking 0.829 s completion 0.829 s",
+    "save                      rep 5 blocking 1.048 s completion 1.048 s",
+    "async_save                rep 0 blocking 0.881 s completion 2.191 s steps during 6",
+    "async_save                rep 1 blocking 0.569 s completion 1.750 s steps during 6",
+    "async_save                rep 2 blocking 0.561 s completion 1.882 s steps during 7",
+    "async_save                rep 3 blocking 0.516 s completion 1.416 s steps during 5",
+    "async_save                rep 4 blocking 0.741 s completion 1.817 s steps during 6",
+    "async_save                rep 5 blocking 0.572 s completion 1.854 s steps during 7",
+    "async_save+cached_pinned  rep 0 blocking 1.156 s completion 2.227 s steps during 6",
+    "async_save+cached_pinned  rep 1 blocking 0.096 s completion 0.996 s steps during 5",
+    "async_save+cached_pinned  rep 2 blocking 0.104 s completion 1.019 s steps during 5",
+    "async_save+cached_pinned  rep 3 blocking 0.099 s completion 0.993 s steps during 5",
+    "async_save+cached_pinned  rep 4 blocking 0.100 s completion 1.003 s steps during 5",
+    "async_save+cached_pinned  rep 5 blocking 0.098 s completion 1.011 s steps during 5",
     "restore-test: recorded at save (sync_0): eval loss 0.9990174174308777; first-step loss 0.9990169405937195; tolerance rel 1e-06 (FP32, same kernels and batch), stated before running",
     "restore-test: wrote manifest.json (2 files) + COMMIT",
     "restore-test: validator on intact checkpoint: valid",
@@ -61,12 +51,12 @@
   ],
   "metrics": {
     "async_aliasing_live_gb": 8e-08,
-    "async_blocking_p50_s": 0.6573836499592289,
-    "async_completion_p50_s": 8.000059184036218,
+    "async_blocking_p50_s": 0.5694391609999911,
+    "async_completion_p50_s": 1.8171978070000137,
     "async_staged_gb": 1.1328308,
     "async_staged_pinned_gb": 0.0,
-    "cached_blocking_p50_s": 0.2812453599763103,
-    "cached_completion_p50_s": 9.911066341970582,
+    "cached_blocking_p50_s": 0.09913026000000968,
+    "cached_completion_p50_s": 1.0029290820000085,
     "cached_staged_pinned_gb": 1.13283072,
     "checkpoint_api": "torch.distributed.checkpoint.save / async_save / load",
     "consistency": {
@@ -77,22 +67,36 @@
         "optim.state.2.weight.step",
         "optim.state.2.bias.step"
       ],
+      "persist_s": 1.5397969779999983,
       "scalar_tensors_differing": 20,
-      "steps_during": 382,
+      "steps_during": 5,
       "tensors_compared": 80,
       "tensors_differing_from_call_time_state": 20
     },
-    "interference_frac": 0.0007279439631215912,
-    "interference_frac_cached": 0.0001951268355984137,
+    "host_memory_end": {
+      "mem_available_bytes": 3054800896,
+      "pswpout_bytes": 1290592256,
+      "swap_total_bytes": 0,
+      "swap_used_bytes": 0
+    },
+    "host_memory_start": {
+      "mem_available_bytes": 7050227712,
+      "pswpout_bytes": 1290592256,
+      "swap_total_bytes": 0,
+      "swap_used_bytes": 0
+    },
+    "interference_frac": -0.021759239061660107,
+    "interference_frac_cached": -0.0002816335678688109,
     "n_params": 94402560,
     "repetitions": 5,
-    "restore_read_GBps": 0.0005041873301751506,
-    "save_blocking_p50_s": 6.456308569991961,
-    "save_write_GBps": 0.17546106846027196,
-    "snapshot_GBps": 0.0058541391082473394,
+    "restore_read_GBps": 1.0232771795439581,
+    "save_blocking_p50_s": 1.047864923999981,
+    "save_write_GBps": 1.0810847601193494,
+    "snapshot_GBps": 13.084107086469853,
     "state_bytes": 1132830800,
     "state_gb": 1.1328308,
-    "target_filesystem": "/tmp on / (overlay; rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotte)",
+    "swapped_out_bytes_during_run": 0,
+    "target_filesystem": "/tmp on / (ext4; rw,relatime,discard,errors=remount-ro,data=ordered)",
     "torch_251_cache_staged_flag_dropped": true,
     "torch_version": "2.5.1+cu124"
   },
@@ -104,7 +108,7 @@
         "root for raw-device reads"
       ],
       "part": "L2 fio NVMe acceptance (randread 4k QD32, seqwrite 1M QD8, >= 5 runs)",
-      "reason": "fio on PATH: False; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)"
+      "reason": "fio on PATH: True; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)"
     },
     {
       "needs": [
@@ -123,12 +127,12 @@
     "Peak host staging memory = the bytes of the state dict DCP's stager returned (FileSystemWriter.stage is wrapped to inspect it), split into pinned (page-locked) and pageable, plus the bytes that still alias the live tensors (staged by reference). Process RSS is not used: under WSL2 pinned pages need not appear in it.",
     "async_save+cached_pinned = FileSystemWriter(cache_staged_state_dict=True), one writer reused for the whole series: DCP stages into pinned host buffers it keeps between saves (memory for speed); the default stages into fresh pageable copies. Finding: in torch 2.5.1 the constructor argument is silently dropped (FileSystemWriter.__init__ does not call BlockingAsyncStager.__init__); the experiment sets the stager attributes directly when it detects this.",
     "Consistency test: the state is cloned at the async_save call, training continues during the persist, then the checkpoint is loaded and compared tensor by tensor with the clone.",
-    "Restore read: files fsync'd, then evicted with posix_fadvise(DONTNEED); WSL2's virtual disk may still be cached by the Windows host, so read GB/s is an upper bound for the physical drive. Target: /tmp on / (overlay; rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotte).",
+    "Restore read: files fsync'd, then evicted with posix_fadvise(DONTNEED); WSL2's virtual disk may still be cached by the Windows host, so read GB/s is an upper bound for the physical drive. Target: /tmp on / (ext4; rw,relatime,discard,errors=remount-ro,data=ordered).",
     "Lab model source: solutions/lab/storage_lab.py.",
-    "Not runnable here: L2 fio NVMe acceptance (randread 4k QD32, seqwrite 1M QD8, >= 5 runs) (fio on PATH: False; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)); L3 shared-PFS checkpoint (aggregate write, commit latency, restore read, time to resume) (single host, no parallel file system)."
+    "Not runnable here: L2 fio NVMe acceptance (randread 4k QD32, seqwrite 1M QD8, >= 5 runs) (fio on PATH: True; NVMe block devices visible: none (Docker Desktop/WSL2 exposes only a virtual disk)); L3 shared-PFS checkpoint (aggregate write, commit latency, restore read, time to resume) (single host, no parallel file system)."
   ],
   "probes": {
-    "fio_on_path": false,
+    "fio_on_path": true,
     "nvme_devices": []
   },
   "restore_test": {
@@ -161,7 +165,7 @@
     "tolerance": 1e-06,
     "validator_source": "solutions/lab/storage_lab.py"
   },
-  "runtime_s": 24885.9,
+  "runtime_s": 96.06,
   "status": "ran",
   "summary": {
     "async_aliasing_live_bytes": {
@@ -173,20 +177,20 @@
       "p95": 80
     },
     "async_blocking_s": {
-      "iqr": 0.12253291998058558,
-      "max": 0.8173844909761101,
-      "median": 0.6573836499592289,
-      "min": 0.6306273420341313,
+      "iqr": 0.11764437699999064,
+      "max": 0.7405200480000076,
+      "median": 0.5694391609999911,
+      "min": 0.5158533000000034,
       "n": 5,
-      "p95": 0.8173844909761101
+      "p95": 0.7405200480000076
     },
     "async_completion_s": {
-      "iqr": 1.959207936481107,
-      "max": 8.663866261020303,
-      "median": 8.000059184036218,
-      "min": 5.575399819994345,
+      "iqr": 0.28490949499999374,
+      "max": 1.8823610329999951,
+      "median": 1.8171978070000137,
+      "min": 1.4157723049999902,
       "n": 5,
-      "p95": 8.663866261020303
+      "p95": 1.8823610329999951
     },
     "async_staged_bytes": {
       "iqr": 0.0,
@@ -205,28 +209,28 @@
       "p95": 0
     },
     "async_step_after_s": {
-      "iqr": 0.004859735461650416,
-      "max": 0.1854778319830075,
-      "median": 0.18186971102841198,
-      "min": 0.17779065150534734,
+      "iqr": 0.00878967299998834,
+      "max": 0.19339449199999592,
+      "median": 0.18662748749999025,
+      "min": 0.18218643550000024,
       "n": 5,
-      "p95": 0.1854778319830075
+      "p95": 0.19339449199999592
     },
     "async_step_before_s": {
-      "iqr": 0.006749726002453826,
-      "max": 0.19270886198501103,
-      "median": 0.18211216753115878,
-      "min": 0.1813268355326727,
+      "iqr": 0.012038835749976329,
+      "max": 0.19763078799998368,
+      "median": 0.186972530999995,
+      "min": 0.1838891705000094,
       "n": 5,
-      "p95": 0.19270886198501103
+      "p95": 0.19763078799998368
     },
     "async_step_during_s": {
-      "iqr": 0.004814061016077176,
-      "max": 0.19021465501282364,
-      "median": 0.18224473498412408,
-      "min": 0.1812836760072969,
+      "iqr": 0.012860134250004762,
+      "max": 0.19805372000001853,
+      "median": 0.18290415100000246,
+      "min": 0.18013047650001113,
       "n": 5,
-      "p95": 0.19021465501282364
+      "p95": 0.19805372000001853
     },
     "cached_aliasing_live_bytes": {
       "iqr": 0.0,
@@ -237,20 +241,20 @@
       "p95": 0
     },
     "cached_blocking_s": {
-      "iqr": 0.16416124897659756,
-      "max": 0.3894573840079829,
-      "median": 0.2812453599763103,
-      "min": 0.19222365302266553,
+      "iqr": 0.005524538499997789,
+      "max": 0.10446878400000514,
+      "median": 0.09913026000000968,
+      "min": 0.09553955399999836,
       "n": 5,
-      "p95": 0.3894573840079829
+      "p95": 0.10446878400000514
     },
     "cached_completion_s": {
-      "iqr": 2.231686583487317,
-      "max": 12.659890481969342,
-      "median": 9.911066341970582,
-      "min": 9.323075585009065,
+      "iqr": 0.02078531000000794,
+      "max": 1.0187334459999988,
+      "median": 1.0029290820000085,
+      "min": 0.9928212910000127,
       "n": 5,
-      "p95": 12.659890481969342
+      "p95": 1.0187334459999988
     },
     "cached_staged_bytes": {
       "iqr": 0.0,
@@ -269,112 +273,112 @@
       "p95": 1132830720
     },
     "cached_step_after_s": {
-      "iqr": 0.0013741139991907403,
-      "max": 0.1834993825177662,
-      "median": 0.1824788470112253,
-      "min": 0.18137848051264882,
+      "iqr": 0.0033436769999894977,
+      "max": 0.1841702659999811,
+      "median": 0.1836180264999996,
+      "min": 0.17955602050000152,
       "n": 5,
-      "p95": 0.1834993825177662
+      "p95": 0.1841702659999811
     },
     "cached_step_before_s": {
-      "iqr": 0.001634855245356448,
-      "max": 0.1844989254605025,
-      "median": 0.18291188246803358,
-      "min": 0.18197831400902942,
+      "iqr": 0.0008223152499979847,
+      "max": 0.18295317950000367,
+      "median": 0.1825386099999946,
+      "min": 0.18205963550001059,
       "n": 5,
-      "p95": 0.1844989254605025
+      "p95": 0.18295317950000367
     },
     "cached_step_during_s": {
-      "iqr": 0.0007244322478072718,
-      "max": 0.18344797799363732,
-      "median": 0.1829475734848529,
-      "min": 0.1822815254854504,
+      "iqr": 0.00385459599998228,
+      "max": 0.1840739819999726,
+      "median": 0.1824872009999865,
+      "min": 0.17757251800000518,
       "n": 5,
-      "p95": 0.18344797799363732
+      "p95": 0.1840739819999726
     },
     "load_s": {
-      "iqr": 71.14345325398608,
-      "max": 2301.3370239349897,
-      "median": 2246.845035964041,
-      "min": 2192.7817009179853,
+      "iqr": 0.3224653734999805,
+      "max": 1.181130717000002,
+      "median": 1.1070615299999815,
+      "min": 0.8353857910000215,
       "n": 5,
-      "p95": 2301.3370239349897
+      "p95": 1.181130717000002
     },
     "save_blocking_s": {
-      "iqr": 1.1086713109980337,
-      "max": 7.265507707954384,
-      "median": 6.456308569991961,
-      "min": 5.914826712978538,
+      "iqr": 0.4649853680000007,
+      "max": 1.4622857500000066,
+      "median": 1.047864923999981,
+      "min": 0.821452867000005,
       "n": 5,
-      "p95": 7.265507707954384
+      "p95": 1.4622857500000066
     },
     "snapshot_s": {
-      "iqr": 63.74060156249999,
-      "max": 228.181421875,
-      "median": 193.509375,
-      "min": 125.629390625,
+      "iqr": 0.0002213439941406159,
+      "max": 0.08671126556396484,
+      "median": 0.08658067321777344,
+      "min": 0.08635228729248047,
       "n": 5,
-      "p95": 228.181421875
+      "p95": 0.08671126556396484
     },
     "step_after_s": {
-      "iqr": 0.004859735461650416,
-      "max": 0.1854778319830075,
-      "median": 0.18186971102841198,
-      "min": 0.17779065150534734,
+      "iqr": 0.00878967299998834,
+      "max": 0.19339449199999592,
+      "median": 0.18662748749999025,
+      "min": 0.18218643550000024,
       "n": 5,
-      "p95": 0.1854778319830075
+      "p95": 0.19339449199999592
     },
     "step_before_s": {
-      "iqr": 0.006749726002453826,
-      "max": 0.19270886198501103,
-      "median": 0.18211216753115878,
-      "min": 0.1813268355326727,
+      "iqr": 0.012038835749976329,
+      "max": 0.19763078799998368,
+      "median": 0.186972530999995,
+      "min": 0.1838891705000094,
       "n": 5,
-      "p95": 0.19270886198501103
+      "p95": 0.19763078799998368
     },
     "step_during_s": {
-      "iqr": 0.004814061016077176,
-      "max": 0.19021465501282364,
-      "median": 0.18224473498412408,
-      "min": 0.1812836760072969,
+      "iqr": 0.012860134250004762,
+      "max": 0.19805372000001853,
+      "median": 0.18290415100000246,
+      "min": 0.18013047650001113,
       "n": 5,
-      "p95": 0.19021465501282364
+      "p95": 0.19805372000001853
     }
   },
   "tables": {
     "loads": [
       {
-        "load_s": 2347.6279643569724,
+        "load_s": 0.8406526750000012,
         "page_cache_evicted": true,
         "rep": 0,
         "warmup": true
       },
       {
-        "load_s": 2246.845035964041,
+        "load_s": 0.8353857910000215,
         "page_cache_evicted": true,
         "rep": 1,
         "warmup": false
       },
       {
-        "load_s": 2192.7817009179853,
+        "load_s": 0.8486179989999982,
         "page_cache_evicted": true,
         "rep": 2,
         "warmup": false
       },
       {
-        "load_s": 2241.0798810209963,
+        "load_s": 1.181130717000002,
         "page_cache_evicted": true,
         "rep": 3,
         "warmup": false
       },
       {
-        "load_s": 2301.3370239349897,
+        "load_s": 1.1070615299999815,
         "page_cache_evicted": true,
         "rep": 4,
         "warmup": false
       },
       {
-        "load_s": 2274.811464511964,
+        "load_s": 1.1478038199999787,
         "page_cache_evicted": true,
         "rep": 5,
         "warmup": false
@@ -383,230 +387,230 @@
     "saves": [
       {
         "api": "save",
-        "blocking_s": 6.1577038270188496,
+        "blocking_s": 1.624889206000006,
         "bytes_on_disk": 1132956978,
-        "completion_s": 6.1577038270188496,
+        "completion_s": 1.624889206000006,
         "rep": 0,
         "warmup": true
       },
       {
         "api": "save",
-        "blocking_s": 7.265507707954384,
+        "blocking_s": 1.4622857500000066,
         "bytes_on_disk": 1132956978,
-        "completion_s": 7.265507707954384,
+        "completion_s": 1.4622857500000066,
         "rep": 1,
         "warmup": false
       },
       {
         "api": "save",
-        "blocking_s": 6.456308569991961,
+        "blocking_s": 0.821452867000005,
         "bytes_on_disk": 1132956978,
-        "completion_s": 6.456308569991961,
+        "completion_s": 0.821452867000005,
         "rep": 2,
         "warmup": false
       },
       {
         "api": "save",
-        "blocking_s": 6.970965031010564,
+        "blocking_s": 1.118189467999997,
         "bytes_on_disk": 1132956978,
-        "completion_s": 6.970965031010564,
+        "completion_s": 1.118189467999997,
         "rep": 3,
         "warmup": false
       },
       {
         "api": "save",
-        "blocking_s": 5.914826712978538,
+        "blocking_s": 0.8290516149999974,
         "bytes_on_disk": 1132956978,
-        "completion_s": 5.914826712978538,
+        "completion_s": 0.8290516149999974,
         "rep": 4,
         "warmup": false
       },
       {
         "api": "save",
-        "blocking_s": 6.104303403990343,
+        "blocking_s": 1.047864923999981,
         "bytes_on_disk": 1132956978,
-        "completion_s": 6.104303403990343,
+        "completion_s": 1.047864923999981,
         "rep": 5,
         "warmup": false
       },
       {
         "api": "async_save",
-        "blocking_s": 0.7023325689951889,
+        "blocking_s": 0.8805645179999999,
         "bytes_on_disk": 1132957028,
-        "completion_s": 6.027621084998827,
+        "completion_s": 2.1905792489999953,
         "rep": 0,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.1933234329917468,
-        "step_before_p50_s": 0.19128652304061688,
-        "step_during_p50_s": 0.19524720398476347,
-        "steps_during": 27,
+        "step_after_p50_s": 0.19775851200000716,
+        "step_before_p50_s": 0.1962909230000065,
+        "step_during_p50_s": 0.1951122440000148,
+        "steps_during": 6,
         "warmup": true
       },
       {
         "api": "async_save",
-        "blocking_s": 0.8173844909761101,
+        "blocking_s": 0.5694391609999911,
         "bytes_on_disk": 1132957028,
-        "completion_s": 8.663866261020303,
+        "completion_s": 1.7504897900000174,
         "rep": 1,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.1854778319830075,
-        "step_before_p50_s": 0.19270886198501103,
-        "step_during_p50_s": 0.19021465501282364,
-        "steps_during": 41,
+        "step_after_p50_s": 0.19339449199999592,
+        "step_before_p50_s": 0.19763078799998368,
+        "step_during_p50_s": 0.19805372000001853,
+        "steps_during": 6,
         "warmup": false
       },
       {
         "api": "async_save",
-        "blocking_s": 0.6573836499592289,
+        "blocking_s": 0.5614178630000026,
         "bytes_on_disk": 1132957028,
-        "completion_s": 8.146265672985464,
+        "completion_s": 1.8823610329999951,
         "rep": 2,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.17779065150534734,
-        "step_before_p50_s": 0.1839185330318287,
-        "step_during_p50_s": 0.1822196029825136,
-        "steps_during": 41,
+        "step_after_p50_s": 0.18944260949999148,
+        "step_before_p50_s": 0.19470493949998513,
+        "step_during_p50_s": 0.18957628600000476,
+        "steps_during": 7,
         "warmup": false
       },
       {
         "api": "async_save",
-        "blocking_s": 0.7152682570158504,
+        "blocking_s": 0.5158533000000034,
         "bytes_on_disk": 1132957028,
-        "completion_s": 8.000059184036218,
+        "completion_s": 1.4157723049999902,
         "rep": 3,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.18186971102841198,
-        "step_before_p50_s": 0.1813268355326727,
-        "step_during_p50_s": 0.18224473498412408,
-        "steps_during": 40,
+        "step_after_p50_s": 0.18662748749999025,
+        "step_before_p50_s": 0.186972530999995,
+        "step_during_p50_s": 0.18177926100000263,
+        "steps_during": 5,
         "warmup": false
       },
       {
         "api": "async_save",
-        "blocking_s": 0.6569595659966581,
+        "blocking_s": 0.7405200480000076,
         "bytes_on_disk": 1132957028,
-        "completion_s": 7.316316241049208,
+        "completion_s": 1.8171978070000137,
         "rep": 4,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.18232412647921592,
-        "step_before_p50_s": 0.18180110747925937,
-        "step_during_p50_s": 0.1812836760072969,
-        "steps_during": 35,
+        "step_after_p50_s": 0.18307132000001047,
+        "step_before_p50_s": 0.18436888550000674,
+        "step_during_p50_s": 0.18013047650001113,
+        "steps_during": 6,
         "warmup": false
       },
       {
         "api": "async_save",
-        "blocking_s": 0.6306273420341313,
+        "blocking_s": 0.5720398689999797,
         "bytes_on_disk": 1132957028,
-        "completion_s": 5.575399819994345,
+        "completion_s": 1.853720052,
         "rep": 5,
         "staged_aliasing_live_bytes": 80,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 0,
-        "step_after_p50_s": 0.18029183603357524,
-        "step_before_p50_s": 0.18211216753115878,
-        "step_during_p50_s": 0.1829167460091412,
-        "steps_during": 27,
+        "step_after_p50_s": 0.18218643550000024,
+        "step_before_p50_s": 0.1838891705000094,
+        "step_during_p50_s": 0.18290415100000246,
+        "steps_during": 7,
         "warmup": false
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 2.3125980320037343,
+        "blocking_s": 1.1555924559999937,
         "bytes_on_disk": 1132957042,
-        "completion_s": 10.848753910977393,
+        "completion_s": 2.2268339229999867,
         "rep": 0,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.1815855884924531,
-        "step_before_p50_s": 0.1821774965210352,
-        "step_during_p50_s": 0.18354910402558744,
-        "steps_during": 25,
+        "step_after_p50_s": 0.184670152999999,
+        "step_before_p50_s": 0.18307457500000623,
+        "step_during_p50_s": 0.18149133599999345,
+        "steps_during": 6,
         "warmup": true
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 0.2812453599763103,
+        "blocking_s": 0.09553955399999836,
         "bytes_on_disk": 1132957042,
-        "completion_s": 9.911066341970582,
+        "completion_s": 0.9956393629999809,
         "rep": 1,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.18137848051264882,
-        "step_before_p50_s": 0.18230924048111774,
-        "step_during_p50_s": 0.18344797799363732,
-        "steps_during": 47,
+        "step_after_p50_s": 0.18403778549999572,
+        "step_before_p50_s": 0.18206233299999042,
+        "step_during_p50_s": 0.18180694099999073,
+        "steps_during": 5,
         "warmup": false
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 0.19222365302266553,
+        "blocking_s": 0.10446878400000514,
         "bytes_on_disk": 1132957042,
-        "completion_s": 9.323075585009065,
+        "completion_s": 1.0187334459999988,
         "rep": 2,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.18187635749927722,
-        "step_before_p50_s": 0.18305833952035755,
-        "step_during_p50_s": 0.1822815254854504,
-        "steps_during": 50,
+        "step_after_p50_s": 0.1841702659999811,
+        "step_before_p50_s": 0.18205963550001059,
+        "step_during_p50_s": 0.1840739819999726,
+        "steps_during": 5,
         "warmup": false
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 0.21427274902816862,
+        "blocking_s": 0.09913026000000968,
         "bytes_on_disk": 1132957042,
-        "completion_s": 10.64232125604758,
+        "completion_s": 0.9928212910000127,
         "rep": 3,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.1825036834925413,
-        "step_before_p50_s": 0.18291188246803358,
-        "step_during_p50_s": 0.1829475734848529,
-        "steps_during": 52,
+        "step_after_p50_s": 0.1819646769999963,
+        "step_before_p50_s": 0.1828134194999933,
+        "step_during_p50_s": 0.17757251800000518,
+        "steps_during": 5,
         "warmup": false
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 0.34536151599604636,
+        "blocking_s": 0.09973241700001267,
         "bytes_on_disk": 1132957042,
-        "completion_s": 12.659890481969342,
+        "completion_s": 1.0029290820000085,
         "rep": 4,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.1834993825177662,
-        "step_before_p50_s": 0.1844989254605025,
-        "step_during_p50_s": 0.18275736598297954,
-        "steps_during": 63,
+        "step_after_p50_s": 0.17955602050000152,
+        "step_before_p50_s": 0.18295317950000367,
+        "step_during_p50_s": 0.18301466899998786,
+        "steps_during": 5,
         "warmup": false
       },
       {
         "api": "async_save+cached_pinned",
-        "blocking_s": 0.3894573840079829,
+        "blocking_s": 0.09761257000002388,
         "bytes_on_disk": 1132957042,
-        "completion_s": 9.515762986033224,
+        "completion_s": 1.0112978280000107,
         "rep": 5,
         "staged_aliasing_live_bytes": 0,
         "staged_bytes": 1132830800,
         "staged_pinned_bytes": 1132830720,
-        "step_after_p50_s": 0.1824788470112253,
-        "step_before_p50_s": 0.18197831400902942,
-        "step_during_p50_s": 0.18303977797040716,
-        "steps_during": 49,
+        "step_after_p50_s": 0.1836180264999996,
+        "step_before_p50_s": 0.1825386099999946,
+        "step_during_p50_s": 0.1824872009999865,
+        "steps_during": 5,
         "warmup": false
       }
     ]

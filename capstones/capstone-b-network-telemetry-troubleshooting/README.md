@@ -37,6 +37,10 @@ help with the runbook and the suppression logic.
 
 ## Scenario
 
+> **Fictional setting:** ORION, ORION-XL and Halcyon AI are fictional teaching constructs. Cluster,
+> facility, price and telemetry values are `[ILLUSTRATIVE]` H100-class approximations or synthetic
+> data, not a real system, a vendor specification to rely on, or a purchasing quote.
+
 ORION-256's backend is a rail-optimized, 2-tier RoCEv2 fabric: 8 rail leaves, 4 spines, and 32 HX8
 hosts with eight 400 Gb/s network interface cards (NICs) each ([REFERENCE_CLUSTER.md](../../docs/REFERENCE_CLUSTER.md) §2). RoCE
 traffic rides differentiated services code point (DSCP) 26 → traffic class 3, lossless with priority flow

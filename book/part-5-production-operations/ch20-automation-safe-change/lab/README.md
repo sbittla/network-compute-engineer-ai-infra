@@ -138,6 +138,10 @@ rdma link show                              # RDMA link state and netdev mapping
 ibv_devinfo -d rxe0 | grep -E "active_mtu|max_mtu|state"   # RDMA MTU actually negotiated
 ```
 
+Use a non-management interface (changing the MTU of the link you are logged in over can lock you out)
+and record its original MTU first. Cleanup: `sudo ip link set dev eth1 mtu <original>` and
+`sudo rdma link delete rxe0`.
+
 Run your reconciler twice and keep both audit logs. The second run must plan zero actions. Record
 the `L2` fields in `manifest.yaml`: OS, kernel, NIC, firmware, driver, rdma-core version, MTU
 before and after, and the size of the second-run plan.
