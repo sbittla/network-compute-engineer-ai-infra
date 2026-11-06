@@ -81,7 +81,7 @@ def run(pid: str, path: Path, device: str, quick: bool) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     out_dir.chmod(0o777)
     dev = {"gpu": "cuda", "cpu": "cpu", "auto": "auto"}[device]
-    cmd = ["docker", "run", "--rm", "--network", "none", "--shm-size", "2g", *gpu_flags(device),
+    cmd = ["docker", "run", "--rm", "--network", "none", "--shm-size", "2g", "--ulimit", "memlock=-1:-1", *gpu_flags(device),
            "-v", f"{out_dir}:/results", f"ai-infra-gpu:{pid}",
            "python", "/opt/hwlab/run.py", "--pkg", "/work/pkg", "--out", "/results", "--device", dev]
     if quick:
@@ -94,7 +94,7 @@ def run(pid: str, path: Path, device: str, quick: bool) -> int:
 
 
 def test(pid: str, path: Path, device: str) -> int:
-    cmd = ["docker", "run", "--rm", "--network", "none", "--shm-size", "2g", *gpu_flags(device), f"ai-infra-gpu:{pid}",
+    cmd = ["docker", "run", "--rm", "--network", "none", "--shm-size", "2g", "--ulimit", "memlock=-1:-1", *gpu_flags(device), f"ai-infra-gpu:{pid}",
            "python", "-m", "pytest", "-q", "-p", "no:cacheprovider", "--rootdir", "/opt/hwlab",
            "/opt/hwlab/test_l2.py", "--pkg", "/work/pkg"]
     rc, out = sh(cmd)

@@ -646,7 +646,11 @@ def check(result: dict, env: dict) -> list[str]:
     if gpu and cons["data_tensors_differing"]:
         fails.append("GPU-resident data tensors in the async checkpoint differ from the state at the call (torn "
                      "checkpoint): staging did not snapshot the GPU state")
-    if (not cons["tensors_differing_from_call_time_state"] and cons["steps_during"] > 0
+    # Whether a by-reference staged tensor is torn is a race: the background write must still be copying a
+    # tensor when a training step updates it. A full-size run makes that near-certain (the committed CPU run
+    # tore 43 tensors); a --quick smoke run on a fast disk can finish each write first, so only a full run
+    # treats "no tear observed" as a broken consistency test.
+    if (not env.get("quick") and not cons["tensors_differing_from_call_time_state"] and cons["steps_during"] > 0
             and m["async_aliasing_live_gb"] * 1e9 > 0.5 * m["state_bytes"]):
         fails.append("state was staged by reference and training ran during the persist, yet the checkpoint matches "
                      "the call-time state: the consistency test is not detecting anything; check it")

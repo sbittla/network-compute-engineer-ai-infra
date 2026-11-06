@@ -479,7 +479,7 @@ def report(result: dict, env: dict) -> str:
         L += ["", "## What to conclude", "",
               f"- Under the GEMM soak the GPU sits at its **{lim:.0f} W enforced limit** with `SW_POWER_CAP` in "
               f"{100 * m['gemm_sw_power_cap_share']:.0f} % of samples and the SM clock at {m['gemm_sm_mhz']} MHz, below the "
-              f"{m['clocks_max_sm_mhz']:.0f} MHz maximum. That is normal operation, not a fault (Section 19.3, "Thermal and power events"): the clock that matters is "
+              f"{m['clocks_max_sm_mhz']:.0f} MHz maximum. That is normal operation, not a fault (Section 19.3, 'Thermal and power events'): the clock that matters is "
               "the *sustained* clock compared with the GPU's peers.",
               f"- The memory-bound copy soak draws {m['copy_power_w']} W with `SW_POWER_CAP` in {100 * m['copy_sw_power_cap_share']:.0f} % "
               "of samples: the reason depends on the workload, so compare like with like.",

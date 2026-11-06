@@ -219,9 +219,15 @@ def lint_new_rows(rows: list[dict], manifest: str) -> dict:
         before = {f["location"] for f in mod.check_evidence(bundle)}
         table = "".join(f"| {r['id']} | {r['metric']} | {r['value']} | {r['unit']} | MEASURED | L2 | {manifest} |\n" for r in rows)
         good = copy.deepcopy(bundle)
+        # The linter checks that a cited manifest exists in the bundle (EVID-003). This run writes its own
+        # manifest, so register that path with the in-memory copy before linting the new rows.
+        if "manifests" in good:
+            good["manifests"] = sorted(set(good["manifests"]) | {manifest})
         good["benchmarks.md"] = bundle["benchmarks.md"].rstrip("\n") + "\n" + table
         found = [f for f in mod.check_evidence(good) if f["location"] not in before]
         bad = copy.deepcopy(bundle)
+        if "manifests" in bad:
+            bad["manifests"] = sorted(set(bad["manifests"]) | {manifest})
         r0 = rows[0]
         bad["benchmarks.md"] = bundle["benchmarks.md"].rstrip("\n") + "\n" + (
             f"| B-90 | {r0['metric']} | {r0['value']} | {r0['unit']} | MEASURED | L1 | {manifest} |\n"

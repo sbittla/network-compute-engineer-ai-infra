@@ -37,6 +37,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - name: L2 code parses with the images' Python 3.11 grammar
+        run: |
+          python - <<'EOF'
+          import ast, glob, sys
+          files = glob.glob("book/*/*/lab/l2/*.py") + glob.glob("capstones/*/starter-kit/l2/*.py") + glob.glob("docker/hwlab/*.py")
+          bad = []
+          for f in files:
+              try:
+                  ast.parse(open(f, encoding="utf-8").read(), filename=f, feature_version=(3, 11))
+              except SyntaxError as e:
+                  bad.append(f"{f}:{e.lineno}: {e.msg}")
+          print(f"{len(files)} files parsed, {len(bad)} syntax errors")
+          print("\n".join(bad))
+          sys.exit(1 if bad else 0)
+          EOF
       - name: Build CPU-only L2 images
         run: python scripts/hw_labs.py build --cpu-image
       - name: Run L2 tests (CPU fallback now + committed evidence)

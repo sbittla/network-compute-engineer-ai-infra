@@ -79,7 +79,11 @@ def pct(xs, p):
 def probes() -> dict:
     ib = Path("/sys/class/infiniband")
     devs = sorted(os.listdir(ib)) if ib.is_dir() else []
-    return {"rdma_devices": devs, "hw_counters": sorted(os.listdir(ib / devs[0] / "ports" / "1" / "hw_counters")) if devs else [],
+    # A device can be listed without readable port counters (cloud VMs expose a VF with no hw_counters, and
+    # containers may not mount them), so look for the first device that has them instead of assuming.
+    hw = next((ib / d / "ports" / "1" / "hw_counters" for d in devs
+               if (ib / d / "ports" / "1" / "hw_counters").is_dir()), None)
+    return {"rdma_devices": devs, "hw_counters": sorted(os.listdir(hw)) if hw else [],
             "net_interfaces": sorted(os.listdir(NET)) if NET.is_dir() else [], "ethtool": bool(shutil.which("ethtool")),
             "rdma_tool": bool(shutil.which("rdma")), "mlnx_qos": bool(shutil.which("mlnx_qos")),
             "gnmic": bool(shutil.which("gnmic")), "nvidia_smi": bool(shutil.which("nvidia-smi"))}

@@ -18,7 +18,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONIOENCODING=utf-8 \
 COPY docker/requirements-gpu.lock /tmp/requirements-gpu.lock
 # Read-only host-inspection tools the Ch 3 collector and other L2 probes call (lspci, iostat, numactl, ip, ethtool, lstopo)
 RUN apt-get update \
- && apt-get install -y --no-install-recommends pciutils sysstat numactl iproute2 ethtool hwloc-nox \
+ && apt-get install -y --no-install-recommends pciutils sysstat numactl iproute2 ethtool hwloc-nox procps \
  && rm -rf /var/lib/apt/lists/*
 RUN if [ "$TORCH_CPU" = "1" ]; then pip install --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu; fi \
  && pip install --no-cache-dir -r /tmp/requirements-gpu.lock \
